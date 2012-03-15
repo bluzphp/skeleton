@@ -1,0 +1,157 @@
+<?php
+
+/**
+ * Builds button HTML presentation.
+ *
+ * @param Bluz\View            $view
+ * @param Bluz\Navigation\Page $page
+ * @param string|array         $class
+ * @param bool|\type           $toggle
+ * @return type
+ */
+function build_button_html(
+    \Bluz\View $view,
+    \Bluz\Navigation\Page $page,
+    $class = 'button',
+    $toggle = false
+) {
+
+    // support arrays for class parameter
+    if (is_array($class)) {
+        $class = implode(' ', $class);
+    }
+
+    // build URL using standard view helper
+    $url = $view->url($page->module, $page->controller, $page->params);
+
+    // google+ icons
+    $icon = $page->icon ? '<span class="icon icon' . $page->icon .'"></span>' : '';
+
+    // toggle control (used inside dropdowns)
+    $toggle = $toggle ? '<span class="toggle"></span>' : '';
+
+    // ajax buttons marked with CSS-class
+    if ($page->type == 'ajax') {
+        $class .= ' ajax';
+    }
+
+    // simple check if button links to current page
+    if ($url == $view->getApplication()->getRequest()->getRequestUri()) {
+        $class .= ' on';
+    }
+
+    // HTML5 data atributes support
+    $data = '';
+
+    if ($page->data) {
+
+        foreach ($page->data as $key => $value) {
+            $data .= " data-$key=\"$value\"";
+        }
+    }
+
+    return "<a class=\"$class\" href=\"$url\"$data>$icon"
+        . $page->label . $toggle
+        . '</a>';
+}
+
+/**
+ * Prints button.
+ *
+ * @param \Bluz\View $view
+ * @param \Bluz\Navigation\Page $page
+ */
+function print_button(\Bluz\View $view, \Bluz\Navigation\Page $page)
+{
+    echo build_button_html($view, $page);
+}
+
+/**
+ * Prints dropdown control.
+ *
+ * @param \Bluz\View $view
+ * @param \Bluz\Navigation\Page $page
+ */
+function print_dropdown(\Bluz\View $view, \Bluz\Navigation\Page $page)
+{
+    echo '<div class="dropdown">'
+        . build_button_html($view, $page, 'button', true)
+        . '<div class="dropdown-slider">';
+
+    foreach($page->children as $subpage) {
+
+        echo build_button_html($view, $subpage, 'ddm');
+    }
+        
+    echo '</div></div>';
+}
+
+/**
+ * Prints group of buttons.
+ *
+ * @param \Bluz\View $view
+ * @param \Bluz\Navigation\Page $page
+ */
+function print_group(\Bluz\View $view, \Bluz\Navigation\Page $page)
+{
+    $count = count($page->children);
+
+    if ($count > 1) {
+
+        $i = 0;
+
+        foreach($page->children as $subpage) {
+
+            // assign additional classes to first and second buttons in group
+            $class = 'button' . ($i == 0 ? ' left' : ($i == $count - 1 ? ' right' : ''));
+
+            echo build_button_html($view, $subpage, $class);
+
+            $i++;
+        }
+        
+    } elseif ($count == 1) {
+        echo build_button_html($view, $page->current());
+    }
+
+}
+
+/**
+ * Prints a menu.
+ *
+ * Builds simple two level menu (deeper elements are ignored).
+ *
+ * @param \Bluz\View|\type                 $view
+ * @param \Bluz\Navigation\Container|\type $menu
+ */
+function print_menu(\Bluz\View $view, \Bluz\Navigation\Container $menu)
+{
+    foreach ($menu as $page) {
+
+        if ($page->hasChildren()) {
+
+            if ($page->type == 'group') {
+                print_group($view, $page);
+            } else {
+                print_dropdown($view, $page);
+            }
+
+        } else {
+
+            print_button($view, $page);
+
+        }
+    }
+}
+
+?>
+<nav class="buttons">
+
+    <?php print_menu($this, $this->nav('main')) ?>
+
+    <div class="right">
+        <?php print_menu($this, $this->nav('account')) ?>
+    </div>
+
+</nav>
+

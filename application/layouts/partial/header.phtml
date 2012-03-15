@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8"/>
+    <title><?=$title?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="profile" href="http://gmpg.org/xfn/11"/>
+    <link rel="stylesheet" href="<?=$this->baseUrl('/css/styles.css')?>" />
+    <link rel="stylesheet" href="<?=$this->baseUrl('/css/bootstrap.css')?>" />
+    <link rel="stylesheet" href="<?=$this->baseUrl('/css/jquery-ui-1.8.16.custom.css')?>" />
+    <link rel="icon" type="image/png" href="<?=$this->baseUrl('img/favicon.png')?>" />
+
+    <script src="<?=$this->baseUrl('/js/jquery/jquery.js')?>" ></script>
+    <script src="<?=$this->baseUrl('/js/bootstrap.js')?>" ></script>
+    <script src="<?=$this->baseUrl('/js/jquery/jquery-ui.js')?>" ></script>
+    <script src="<?=$this->baseUrl('/js/ready.js')?>" ></script>
+    <script src="<?=$this->baseUrl('/js/messages.js')?>" ></script>
+
+    <!--[if lt IE 9]>
+    <script src="<?=$this->baseUrl('/js/html5.js')?>"></script>
+    <![endif]-->
+    <?php echo $this->script();?>
+    <?php echo $this->style();?>
+    <?php echo $this->link();?>
+
+    <?//$this->head()?>
+</head>
+<body class="module-<?=$this->getApplication()->getRequest()->module()?> controller-<?=$this->getApplication()
+    ->getRequest()->controller()?>" data-spy="scroll" data-target=".subnav" data-offset="50">
+<?php
+    if (isset($this->_messages) &&
+        (sizeof($this->_messages['error']) || sizeof($this->_messages['notice']) || sizeof($this->_messages['warning']))
+        ) :
+        echo '<div id="messages" class="hide">';
+        foreach ($this->_messages as $type => $messages) :
+            foreach ($messages as $msg) :
+               echo "<p class='$type'>$msg</p>";
+            endforeach;
+        endforeach;
+        echo '</div>';
+    endif;
+    ?>

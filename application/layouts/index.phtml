@@ -1,0 +1,30 @@
+<? require_once 'partial/header.phtml'; ?>
+<?php require_once 'partial/nav-bar.phtml'; ?>
+
+    <div class="container-fluid">
+
+        <div class="row-fluid">
+            <div class="">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <?php if ($this->breadcrumps) foreach ($this->breadcrumps as $crump):?>
+                        <li>
+                            <span class="divider">/</span> <?php echo $crump?>
+                        </li>
+                    <?php endforeach;?>
+                </ul>
+                <?php
+                /* @var closure $content */
+                echo $content;
+                ?>
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p align="center">&copy; <?=gmdate('Y')?> NIX Solutions Ltd</p>
+            <pre><?php print_r(Bluz\Profiler::data()) ?></pre>
+        </footer>
+    </div>
+<?php require_once 'partial/footer.phtml'; ?>

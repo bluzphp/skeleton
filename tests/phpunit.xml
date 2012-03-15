@@ -1,0 +1,27 @@
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         verbose="false"
+         bootstrap="./bootstrap.php">
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory>./application/</directory>
+        </testsuite>
+        <testsuite name="Library Test Suite">
+            <directory>./library/</directory>
+        </testsuite>
+    </testsuites>
+    <listeners>
+        <listener class="\Application\TestListener" file="./application/TestListener.php"/>
+    </listeners>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../application</directory>
+            <directory suffix=".php">../library/</directory>
+            <exclude>
+                <directory suffix=".phtml">../application</directory>
+                <directory suffix=".php">../application/configs</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
