@@ -19,15 +19,15 @@
     <!--[if lt IE 9]>
     <script src="<?=$this->baseUrl('/js/html5.js')?>"></script>
     <![endif]-->
-    <?php echo $this->script();?>
-    <?php echo $this->style();?>
-    <?php echo $this->link();?>
+    <? echo $this->script();?>
+    <? echo $this->style();?>
+    <? echo $this->link();?>
 
     <?//$this->head()?>
 </head>
 <body class="module-<?=$this->getApplication()->getRequest()->module()?> controller-<?=$this->getApplication()
     ->getRequest()->controller()?>" data-spy="scroll" data-target=".subnav" data-offset="50">
-<?php
+<?
     if (isset($this->_messages) &&
         (sizeof($this->_messages['error']) || sizeof($this->_messages['notice']) || sizeof($this->_messages['warning']))
         ) :

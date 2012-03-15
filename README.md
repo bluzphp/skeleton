@@ -5,3 +5,8 @@ Bluz, a lightweight PHP Framework
 
 ## License
 
+## Vendors
+
+jQuery
+jQuery UI
+Boostrap

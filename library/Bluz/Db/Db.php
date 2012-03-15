@@ -171,7 +171,7 @@ class Db extends Package
                 );
                 $this->log("Connect to ".$this->_connect['host']);
             } catch (\Exception $e) {
-                throw new Exception('Attempt connection to database is failed');
+                throw new DbException('Attempt connection to database is failed');
             }
         }
         return $this;

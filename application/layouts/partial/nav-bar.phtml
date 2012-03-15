@@ -10,33 +10,26 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li class="active"><a href="/">Home</a></li>
-                    <?php if ($identity = $this->getIdentity()):?>
-                        <?php if ($projects = \Staffload\Client::getInstance()->projects->getList()):?>
-                            <li class="dropdown" id="menu-tests">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#menu-tests" href="<?=$this->url('projects')?>">
-                                    Projects
-                                    <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><?php echo $this->ahref('View All Projects', 'projects', 'index', array())?></li>
-
-                                    <?php foreach ($projects as $project):?>
-                                        <li><?php echo $this->ahref($project->getTitle(), 'projects', 'info', array('id' => $project->getId()), array('class'=>"button"))?></li>
-                                    <?php endforeach;?>
-                                </ul>
-                            </li>
-                        <?php endif;?>
-                    <?php endif?>
+                    <li class="dropdown" id="menu-tests">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#menu-tests">
+                            Tests
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><? echo $this->ahref('Controls', 'test', 'controls', array())?></li>
+                            <li><? echo $this->ahref('Markup', 'test', 'markup', array())?></li>
+                        </ul>
+                    </li>
                 </ul>
-                <? if ($identity) : ?>
+                <? if (isset($identity) && $identity) : ?>
                     <p class="navbar-text pull-right">
-                        Logged in as <?php echo $this->ahref($identity->login, 'users', 'profile', array('id' => $identity->id))?>
+                        Logged in as <? echo $this->ahref($identity->login, 'users', 'profile', array('id' => $identity->id))?>
                         (<a href="<?=$this->url('users', 'logout')?>">logout</a>)
                     </p>
                 <? else: ?>
-                <ul class="nav pull-right">
-                    <li><a href="<?=$this->url('users', 'login')?>">Login</a></li>
-                </ul>
+                    <ul class="nav pull-right">
+                        <li><a href="<?=$this->url('users', 'login')?>">Login</a></li>
+                    </ul>
                 <? endif; ?>
                 <div id="loading"></div>
             </div>

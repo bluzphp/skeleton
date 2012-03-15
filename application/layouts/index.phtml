@@ -1,5 +1,5 @@
 <? require_once 'partial/header.phtml'; ?>
-<?php require_once 'partial/nav-bar.phtml'; ?>
+<? require_once 'partial/nav-bar.phtml'; ?>
 
     <div class="container-fluid">
 
@@ -9,13 +9,13 @@
                     <li>
                         <a href="/">Home</a>
                     </li>
-                    <?php if ($this->breadcrumps) foreach ($this->breadcrumps as $crump):?>
+                    <? if ($this->breadcrumps) foreach ($this->breadcrumps as $crump):?>
                         <li>
-                            <span class="divider">/</span> <?php echo $crump?>
+                            <span class="divider">/</span> <? echo $crump?>
                         </li>
-                    <?php endforeach;?>
+                    <? endforeach;?>
                 </ul>
-                <?php
+                <?
                 /* @var closure $content */
                 echo $content;
                 ?>
@@ -23,8 +23,8 @@
         </div>
         <hr />
         <footer>
-            <p align="center">&copy; <?=gmdate('Y')?> NIX Solutions Ltd</p>
-            <pre><?php print_r(Bluz\Profiler::data()) ?></pre>
+            <p align="center">&copy; <?=gmdate('Y')?> Bluz Team</p>
+            <pre><? print_r(Bluz\Profiler::data()) ?></pre>
         </footer>
     </div>
-<?php require_once 'partial/footer.phtml'; ?>
+<? require_once 'partial/footer.phtml'; ?>
