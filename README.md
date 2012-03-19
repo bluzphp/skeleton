@@ -64,9 +64,9 @@ Read LICENSE file
 
 ## Contributors
 
-* [Anton Shevchuk][1]
-* [Eugene Zabolotniy][2]
-* [Maks Slesarenko][3]
+* [Anton Shevchuk][1] 
+* [Eugene Zabolotniy][2] 
+* [Maks Slesarenko][3] 
 
 ## Vendors
 
