@@ -32,6 +32,7 @@ View:
 Model:
 
 ```php
+<?php
 namespace Application\Users;
 class Row extends \Bluz\Db\Row {
 
