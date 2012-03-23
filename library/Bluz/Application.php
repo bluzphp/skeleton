@@ -764,6 +764,7 @@ class Application
      */
     public function isAllowedController($module, $controller, array $params = array())
     {
+        return true;
         $controllerFile = $this->getControllerFile($module, $controller);
 
         $app = $bootstrap = $request = $view = null;

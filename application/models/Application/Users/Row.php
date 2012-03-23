@@ -16,7 +16,7 @@ namespace Application\Users;
  * @property string $created
  * @property string $updated
  */
-class Row extends \Bluz\Auth\AbstractEntity
+class Row extends \Bluz\Db\Row
 {
     /**
      * __insert
