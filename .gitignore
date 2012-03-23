@@ -1,0 +1,4 @@
+.idea
+/application/configs/app.*.php
+/data/
+/public/.htaccess
