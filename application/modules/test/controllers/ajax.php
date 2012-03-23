@@ -18,13 +18,14 @@ function() use ($app, $bootstrap, $request, $view) {
      * @var Request $request
      * @var View $view
      */
+    $app->useJson(true);
     $app->addNotice('Notice Text');
     $app->addSuccess('Success Text');
     $app->addError('Error Text');
 
     $view->test = 12312414;
 
-    sleep(3);
+    sleep(2);
 //    $view->reload = true;
 //    $view->callback = 'callback name';
 };
