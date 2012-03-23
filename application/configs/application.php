@@ -46,7 +46,7 @@ return array(
         ),
         'defaultAdapter' => true
     ),
-    "view" => array(
+    "layout" => array(
         "path" => PATH_APPLICATION .'/layouts',
         "template" => 'index.phtml',
         "cache" => true,
@@ -58,7 +58,7 @@ return array(
         "viewHelpers" => array(
         ),
     ),
-    "subview" => array(
+    "view" => array(
         "cache" => true,
         "cachePath" => PATH_DATA .'/cache'
     ),

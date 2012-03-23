@@ -113,7 +113,7 @@
         };
 
         // Ajax links
-        $('a.ajax').click(function(){
+        $(document).on('click', 'a.ajax', function(){
             var $this = $(this);
             if ($this.hasClass('noactive')) {
                 // request in progress
@@ -138,8 +138,53 @@
             return false;
         });
 
+		// Ajax modal
+		$(document).on('click', 'a.dialog', function(){
+			var $this = $(this);
+			if ($this.hasClass('noactive')) {
+				// request in progress
+				return false;
+			}
+
+			$.ajax({
+				url:$this.attr('href'),
+				data: processData($this),
+				dataType:'html',
+				beforeSend:function() {
+				   $this.addClass('noactive');
+				},
+				success:function(data) {
+					var $div = $('<div>', {'class': 'modal hide fade'});
+					$div.html(data);
+					$div.modal({
+						keyboard:true,
+						backdrop:true
+					}).on('shown', function() {
+						var onShown = window[$this.attr('shown')];
+						if (typeof onShown === 'function') {
+							onShown.call($div);
+						}
+					}).on('hidden', function() {
+						var onHidden = window[$this.attr('hidden')];
+						if (typeof onHidden === 'function') {
+							onHidden.call($div);
+						}
+						$(this).remove();
+					});
+					$div.modal('show');
+				},
+				error:function() {
+				   Messages.addWarning('Connection is fail');
+				},
+				complete:function() {
+				   $this.removeClass('noactive');
+				}
+			});
+			return false;
+		});
+
         // Ajax form
-        $('form.ajax').submit(function(){
+		$(document).on('submit', 'form.ajax', function(){
             var $this = $(this);
             if ($this.hasClass('noactive')) {
                 // request in progress

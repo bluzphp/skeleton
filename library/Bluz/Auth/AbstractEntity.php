@@ -5,11 +5,11 @@ namespace Bluz\Auth;
 abstract class AbstractEntity extends \Bluz\Db\Row
 {
     /**
-     * Get role ID
+     * Get role
      *
-     * @return mixed
+     * @return \Bluz\Acl\AbstractRole
      */
-    abstract function getRoleId();
+    abstract function getRole();
 
     /**
      * Can entity login
@@ -18,6 +18,22 @@ abstract class AbstractEntity extends \Bluz\Db\Row
      */
     abstract function canLogin();
 
+    /**
+     * Has user a resource
+     *
+     * @param string  $type
+     * @param integer $id
+     * @return boolean
+     */
+    abstract function hasResource($type, $id);
+
+    /**
+     * Is field equal to value
+     *
+     * @param string $field
+     * @param mixed $value
+     * @return boolean
+     */
     public function isEqual($field, $value)
     {
         return $value == $this->{$field};

@@ -54,16 +54,16 @@ class TableTest extends \Application\TestCase
     public function testSetAdapterException()
     {
         // save default aDb adapter
-        $adapter = \Bluz\Db::$adapter;
+        $adapter = \Bluz\Db\Db::$adapter;
         
         // set it to null
-        \Bluz\Db::$adapter = null;
+        \Bluz\Db\Db::$adapter = null;
         
         // test exception rasing
         $this->table->setAdapter();
         
         // restore the adapter
-        \Bluz\Db::$adapter = $adapter;
+        \Bluz\Db\Db::$adapter = $adapter;
     }
 
     /**

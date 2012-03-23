@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2011 by Bluz PHP Team
+ * Copyright (c) 2012 by Bluz PHP Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -272,13 +272,23 @@ abstract class Table
     }
 
     /**
+     * Find row
+     *
+     * @return Row
+     */
+    public function findRow()
+    {
+        return call_user_func_array(array($this, 'find'), func_get_args())->current();
+    }
+
+    /**
      * Support method for fetching rows.
      *
      * @param  string $sql  query options.
      * @param  array  $params
      * @return array An array containing the row results in FETCH_ASSOC mode.
      */
-    protected function _fetch($sql, $params)
+    protected function _fetch($sql, $params = array())
     {
         $data = $this->getAdapter()->fetchObjects($sql, $params, $this->getRowClass());
         return new Rowset(array('table' => $this, 'data' => $data));

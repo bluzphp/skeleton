@@ -11,7 +11,7 @@ return
 /**
  * @param int $id
  *
- * @resource /users/profile
+ * @privilege ViewUserProfile
  *
  * @return closure
  */
@@ -20,7 +20,7 @@ function($id) use ($app, $view) {
      * @var \Bluz\Application $app
      * @var \Bluz\View $view
      */
-    $app->getView()->title = 'User Profile';
+    $app->getLayout()->title = 'User Profile';
 
     $cache = $app->getCache();
 

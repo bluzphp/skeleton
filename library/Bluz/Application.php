@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2011 by Bluz PHP Team
+ * Copyright (c) 2012 by Bluz PHP Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,16 +27,18 @@
  */
 namespace Bluz;
 
-use Bluz\Acl\Acl as Acl;
-use Bluz\Auth\Auth as Auth;
-use Bluz\Cache\Cache as Cache;
-use Bluz\Config\Config as Config;
-use Bluz\Db\Db as Db;
-use Bluz\Registry\Registry as Registry;
-use Bluz\Request as Request;
-use Bluz\Router\Router as Router;
-use Bluz\Session\Session as Session;
-use Bluz\View\View as View;
+use Bluz\Acl\Acl;
+use Bluz\Auth\Auth;
+use Bluz\Cache\Cache;
+use Bluz\Config\Config;
+use Bluz\Db\Db;
+use Bluz\EventManager\EventManager;
+use Bluz\Registry\Registry;
+use Bluz\Request;
+use Bluz\Router\Router;
+use Bluz\Session\Session;
+use Bluz\View\Layout;
+use Bluz\View\View;
 
 /**
  * Application
@@ -55,9 +57,19 @@ use Bluz\View\View as View;
 class Application
 {
     /**
-     * @var string
+     * @var Acl
      */
-    protected $_environment;
+    protected $_acl;
+
+    /**
+     * @var Auth
+     */
+    protected $_auth;
+
+    /**
+     * @var Cache
+     */
+    protected $_cache;
 
     /**
      * @var Config
@@ -65,9 +77,29 @@ class Application
     protected $_config;
 
     /**
+     * @var Db
+     */
+    protected $_db;
+
+    /**
+     * @var EventManager
+     */
+    protected $_eventManager;
+
+    /**
      * @var Loader
      */
     protected $_loader;
+
+    /**
+     * @var Layout
+     */
+    protected $_layout;
+
+    /**
+     * @var Registry
+     */
+    protected $_registry;
 
     /**
      * @var Request\AbstractRequest
@@ -80,51 +112,26 @@ class Application
     protected $_router;
 
     /**
-     * @var Registry
-     */
-    protected $_registry;
-
-    /**
-     * @var Cache
-     */
-    protected $_cache;
-
-    /**
      * @var Session
      */
     protected $_session;
 
     /**
-     * @var Auth
+     * @var string
      */
-    protected $_auth;
-
-    /**
-     * @var Acl
-     */
-    protected $_acl;
-
-    /**
-     * @var Db
-     */
-    protected $_db;
-
-    /**
-     * @var View
-     */
-    protected $_view;
+    protected $_environment;
 
     /**
      * Use layout flag
      * @var boolean
      */
-    protected $_layout = true;
+    protected $_layoutFlag = true;
 
     /**
      * JSON response flag
      * @var boolean
      */
-    protected $_json = false;
+    protected $_jsonFlag = false;
 
     /**
      * Messages
@@ -143,22 +150,14 @@ class Application
     protected $_widgets = array();
 
     /**
-     * Constructor
-     *
-     * @access  public
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * init
      *
      * @param string $environment Array format only!
      * @return Application
      */
-    public function init($environment = '')
+    public function init($environment = ENVIRONMENT_PRODUCTION)
     {
+
         $this->_environment = $environment;
 
         try {
@@ -171,7 +170,7 @@ class Application
             $this->getRegistry();
             $this->getSession();
             $this->getAuth();
-            //$this->getAcl();
+            $this->getAcl();
             $this->getDb();
         } catch (Exception $e) {
             throw new Exception("Application can't be loaded: ". $e->getMessage());
@@ -187,9 +186,7 @@ class Application
      */
     public function log($message)
     {
-        if ($this->getConfigData('profiler')) {
-            \Bluz\Profiler::log($message);
-        }
+        $this->getEventManager()->trigger('log', $message);
     }
 
     /**
@@ -249,33 +246,12 @@ class Application
     /**
      * getAcl
      *
-     * @todo Cache ACL object to memcache
-     * @todo Move initialize process inside Acl
      * @return Acl
      */
     public function getAcl()
     {
-        if (!$this->_acl && $conf = $this->getConfigData('acl')) {
-            if ($acl = $this->getCache()->get('Acl')) {
-                $this->_acl = $acl;
-            } else {
-                $this->_acl = new Acl($conf);
-
-                $roles = $this->getDb()->fetchGroup('SELECT * FROM acl_roles');
-                $this->_acl->setRoles($roles);
-
-                $actions = $this->getDb()->fetchGroup('SELECT sid, `action`, access FROM acl_actions');
-                $this->_acl->setActions($actions);
-
-                $links = $this->getDb()->fetchColumnGroup('SELECT sid, psid FROM acl_links');
-                $this->_acl->setLinks($links);
-
-                $this->_acl->process();
-
-//                $rules = new \Application\Rules\Table();
-                $this->getCache()->set('Acl', $this->_acl);
-            }
-
+        if (!$this->_acl) {
+            $this->_acl = new Acl();
             $this->_acl->setApplication($this);
         }
         return $this->_acl;
@@ -309,7 +285,6 @@ class Application
         return $this->_cache;
     }
 
-
     /**
      * getDb
      *
@@ -322,6 +297,19 @@ class Application
             $this->_db->setApplication($this);
         }
         return $this->_db;
+    }
+
+    /**
+     * getEventManager
+     *
+     * @return EventManager
+     */
+    public function getEventManager()
+    {
+        if (!$this->_eventManager) {
+            $this->_eventManager = new EventManager();
+        }
+        return $this->_eventManager;
     }
 
     /**
@@ -341,7 +329,7 @@ class Application
     /**
      * getRequest
      *
-     * @return Request\AbstractRequest
+     * @return Request\HttpRequest|Request\CliRequest
      */
     public function getRequest()
     {
@@ -396,17 +384,17 @@ class Application
     }
 
     /**
-     * getView
+     * getLayout
      *
-     * @return View
+     * @return Layout
      */
-    public function getView()
+    public function getLayout()
     {
-        if (!$this->_view && $conf = $this->getConfigData('view')) {
-            $this->_view = new View($conf);
-            $this->_view->setApplication($this);
+        if (!$this->_layout && $conf = $this->getConfigData('layout')) {
+            $this->_layout = new Layout($conf);
+            $this->_layout->setApplication($this);
         }
-        return $this->_view;
+        return $this->_layout;
     }
 
     /**
@@ -462,36 +450,37 @@ class Application
         if ($this->_request->getParam('json')) {
             $this->useJson(true);
         }
-        $view = $this->getView();
+        $layout = $this->getLayout();
+
 
         /* @var View $ControllerView */
         try {
-            $controllerView = $this->dispatch($this->_request->module(), $this->_request->controller());
-            if (!$this->_layout) {
-                // move vars from layout to view instance
-                // TODO: or remove this is code?
-                if ($controllerView instanceof View) {
-                    $controllerView -> setData($this->_view->toArray());
-                    $controllerView -> setParent(null);
-                }
+            $controllerView = $this->dispatch(
+                $this->_request->module(),
+                $this->_request->controller(),
+                $this->_request->getParams()
+            );
 
-                $this->_view = $view = $controllerView;
+            // move vars from layout to view instance
+            if ($controllerView instanceof View) {
+                $controllerView -> setData($this->getLayout()->toArray());
+            }
+
+            if (!$this->_layoutFlag) {
+                $this->_layout = $layout = $controllerView;
             } else {
-                if ($controllerView instanceof View) {
-                    $controllerView = $controllerView->render();
-                }
-                $view->content = $controllerView;
+                $layout->setContent($controllerView);
             }
         } catch (Exception $e) {
             $controllerView = $this->dispatch('error', 'error', array(
                 'code' => $e->getCode(),
                 'message' => $e->getMessage()
             ));
-            $view->content = $controllerView;
+            $layout->setContent($controllerView);
         }
 
-        if (!$view instanceof \Closure) {
-            $view->_messages = $this->_messages;
+        if (!$layout instanceof \Closure) {
+            $layout->_messages = $this->_messages;
         }
         return $this;
     }
@@ -505,10 +494,10 @@ class Application
     public function useLayout($flag = true)
     {
         if (is_string($flag)) {
-            $this->getView()->setTemplate($flag);
-            $this->_layout = true;
+            $this->getLayout()->setTemplate($flag);
+            $this->_layoutFlag = true;
         } else {
-            $this->_layout = $flag;
+            $this->_layoutFlag = $flag;
         }
         return $this;
     }
@@ -524,7 +513,7 @@ class Application
         if ($flag) {
             $this->useLayout(false);
         }
-        $this->_json = $flag;
+        $this->_jsonFlag = $flag;
         return $this;
     }
 
@@ -537,10 +526,10 @@ class Application
     {
         $this->log(__METHOD__);
 
-        $view = $this->getView();
+        $layout = $this->getLayout();
 
         if ('cli' == PHP_SAPI) {
-            $data = $view->toArray();
+            $data = $layout->toArray();
             foreach ($data as $key => $value) {
                 if (strpos($key, '_') === 0) {
                     echo "\033[1;31m$key\033[m:\n";
@@ -551,11 +540,11 @@ class Application
                 echo "\n";
             }
         } else {
-            if ($this->_json) {
+            if ($this->_jsonFlag) {
                 header('Content-type: application/json');
-                echo json_encode($view->toArray());
+                echo json_encode($layout->toArray());
             } else {
-                echo ($view instanceof \Closure) ? $view(): $view;
+                echo ($layout instanceof \Closure) ? $layout(): $layout;
             }
         }
         return $this;
@@ -572,6 +561,7 @@ class Application
     {
         // cache for reflection data
         if (!$data = $this->getCache()->get('Reflection: '.$uid)) {
+
             $reflection = new \ReflectionFunction($closure);
 
             // check and normalize params by doc comment
@@ -579,7 +569,11 @@ class Application
             preg_match_all('/\s*\*\s*\@param\s+(bool|boolean|int|integer|float|string|array)\s+\$([a-z0-9_]+)/i', $docComment, $matches);
 
             // init data
-            $data = array();
+            $data = array(
+                'resourceType'  => null,
+                'resourceParam' => null,
+                'privilege'     => null
+            );
 
             // rebuild array
             $data['types'] = array();
@@ -591,17 +585,15 @@ class Application
 
             if (preg_match('/\s*\*\s*\@cache\s+([0-9\.]+).*/i', $docComment, $matches)) {
                 $data['cache'] = $matches[1];
-            };
-            if (preg_match('/\s*\*\s*\@privilege\s+(.*)/i', $docComment, $matches)) {
+            }
+            if (preg_match('/\s*\*\s*\@privilege\s+(\w+).*/i', $docComment, $matches)) {
+                $data['privilege'] = $matches[1];
+            }
+            if (preg_match('/\s*\*\s*\@resource\s+(\w+)(\s\w+|).*/i', $docComment, $matches)) {
+                $data['resourceType'] = $matches[1];
+                $data['resourceParam'] = trim($matches[2]);
+            }
 
-                $privilege = explode('$', $matches[1]);
-
-                $data['privilege'] = array_shift($privilege);
-                $data['resources'] = $privilege;
-            };
-            if (preg_match_all('/\s*\*\s*\@atom\s+([0-9a-zA-Z.-_ ]+)/i', $docComment, $matches)) {
-                $data['atom'] = $matches[1];
-            };
             $this->getCache()->set('Reflection: '.$uid, $data);
         }
         return $data;
@@ -663,10 +655,9 @@ class Application
         $request = $this->getRequest();
         $request -> setParams($params);
 
-        $view = new View($this->getConfigData('subview'));
+        $view = new View($this->getConfigData('view'));
         $view -> setPath(PATH_APPLICATION .'/modules/'. $module .'/views');
         $view -> setTemplate($controller .'.phtml');
-        $view -> setParent($this->getView());
         $view -> setApplication($this);
 
         $bootstrapPath = PATH_APPLICATION .'/modules/' . $module .'/bootstrap.php';
@@ -677,21 +668,20 @@ class Application
         if (file_exists($bootstrapPath)) {
             $bootstrap = require $bootstrapPath;
         } else {
-            $bootstrap = function () use ($app) {
-                return $app;
-            };
+            $bootstrap = null;
         }
 
+        $controllerFile = $this->getControllerFile($module, $controller);
         /**
          * @var closure $controllerClosure
          */
-        $controllerClosure = require $this->getControllerFile($module, $controller);
+        $controllerClosure = include $controllerFile;
 
         if (!is_callable($controllerClosure)) {
             throw new Exception("Controller is not callable '$module/$controller'");
         }
 
-        $data = $this->reflection($module.'/controllers/'.$controller, $controllerClosure);
+        $data = $this->reflection($controllerFile, $controllerClosure);
 
         // check acl
         if (!$this->isAllowedController($module, $controller, $params)) {
@@ -774,13 +764,19 @@ class Application
      */
     public function isAllowedController($module, $controller, array $params = array())
     {
-        return true;
+        $controllerFile = $this->getControllerFile($module, $controller);
 
-//        $controllerClosure = $this->getControllerFile($module, $controller);
-//
-//        $data = $this->reflection($module, $controller, $controllerClosure);
-//
-//        return $this->getAcl()->isAllowed($data['privilege'], $this->getAuth()->getIdentity(), $data['resources']);
+        $app = $bootstrap = $request = $view = null;
+        $data = $this->reflection($controllerFile, include $controllerFile);
+
+        if (!empty($data['resourceType']) || !empty($data['privilege'])) {
+            $resourceId = null;
+            if (!empty($data['resourceParam'])) {
+                $resourceId = $params[$data['resourceParam']];
+            }
+            return $this->getAcl()->isAllowed($data['resourceType'], $resourceId, $data['privilege']);
+        }
+        return true;
     }
 
     /**

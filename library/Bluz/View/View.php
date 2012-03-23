@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2011 by Bluz PHP Team
+ * Copyright (c) 2012 by Bluz PHP Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,7 @@
  */
 namespace Bluz\View;
 
+use Bluz\Application;
 use Bluz\Package;
 use Bluz\Options;
 
@@ -44,11 +45,6 @@ use Bluz\Options;
  */
 class View extends Package
 {
-    /**
-     * @var View
-     */
-    protected $_parent;
-
     /**
      * @var Application
      */
@@ -78,6 +74,11 @@ class View extends Package
      * @var array
      */
     protected $_head = array();
+
+    /**
+     * @var mixed
+     */
+    protected $_content;
 
     /**
      * @var string path to template
@@ -121,36 +122,11 @@ class View extends Package
     {
         if (isset($this->_data[$key])) {
             return $this->_data[$key];
-        } elseif ($this->_parent) {
-            return $this->_parent->{$key};
         } else {
             return null;
         }
     }
 
-    /**
-     * Call
-     *
-     * @param string $method
-     * @param array  $args
-     * @return mixed
-     */
-    public function __call($method, $args)
-    {
-        if (isset(self::$_viewHelpers[$method])
-            && self::$_viewHelpers[$method] instanceof \Closure) {
-            array_unshift($args, $this->getApplication()->getView());
-            return call_user_func_array(self::$_viewHelpers[$method], $args);
-        }
-        if (self::$_viewHelpersPath) {
-            $helperPath = realpath(self::$_viewHelpersPath . '/' . $method . '.php');
-            if ($helperPath) {
-                self::$_viewHelpers[$method] = include $helperPath;
-
-                return $this->__call($method, $args);
-            }
-        }
-    }
 
     /**
      * Is set a variable
@@ -183,6 +159,30 @@ class View extends Package
         }
 
         return $this;
+    }
+
+    /**
+     * Call
+     *
+     * @param string $method
+     * @param array  $args
+     * @return mixed
+     */
+    public function __call($method, $args)
+    {
+        if (isset(self::$_viewHelpers[$method])
+            && self::$_viewHelpers[$method] instanceof \Closure) {
+            array_unshift($args, $this->getApplication()->getLayout());
+            return call_user_func_array(self::$_viewHelpers[$method], $args);
+        }
+        if (self::$_viewHelpersPath) {
+            $helperPath = realpath(self::$_viewHelpersPath . '/' . $method . '.php');
+            if ($helperPath) {
+                self::$_viewHelpers[$method] = include $helperPath;
+
+                return $this->__call($method, $args);
+            }
+        }
     }
 
     /**
@@ -231,7 +231,12 @@ class View extends Package
      */
     public function __toString()
     {
-        return $this->render();
+        try {
+            $output = $this->render();
+        } catch (\Exception $e) {
+            $output = $e->getTraceAsString();
+        }
+        return $output;
     }
 
     /**
@@ -329,33 +334,6 @@ class View extends Package
     }
 
     /**
-     * setParent
-     *
-     * @param View $View
-     * @return View
-     */
-    public function setParent($View = null)
-    {
-        $this->_parent = $View;
-        return $this;
-    }
-
-    /**
-     * return a parent view (if it exists)
-     *
-     * @throw ViewException
-     * @return View
-     */
-    public function getParent()
-    {
-        if ($this->_parent) {
-            return $this->_parent;
-        } else {
-            throw new ViewException('Parent of current View is not defined');
-        }
-    }
-
-    /**
      * Get identity
      *
      * @return \Bluz\Auth\AbstractEntity
@@ -377,11 +355,11 @@ class View extends Package
      */
     public function ahref($name, $module = 'index', $controller = 'index', $params = array(), $attributes = array())
     {
-        if (!$this->getApplication()->isAllowedController($module, $controller)) {
+        if (!$this->getApplication()->isAllowedController($module, $controller, $params)) {
             return '';
         }
 
-        $href = $this->getApplication()->getRouter()->url($module, $controller, $params);
+        $href = $this->url($module, $controller, $params);
 
         if ($href == $this->getApplication()->getRequest()->getRequestUri()) {
             if (isset($attributes['class'])) {
@@ -398,7 +376,6 @@ class View extends Package
 
         return '<a href="'.$href.'" '.join(' ', $attrs).'>'.$name.'</a>';
     }
-
 
     /**
      * build url
@@ -595,9 +572,6 @@ class View extends Package
             throw new ViewException('Template "'.$this->_template.'" not found');
         }
 
-        if ($this->_parent) {
-            extract($this->getParent()->toArray());
-        }
         extract($this->_data);
 
         require $this->_path .'/'. $this->_template;

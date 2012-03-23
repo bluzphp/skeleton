@@ -1,12 +1,12 @@
-<? require_once 'partial/header.phtml'; ?>
+<?php require_once 'partial/header.phtml'; ?>
     <div class="container">
         <div class="row">
             <div class="span4 offset4">
-                    <?
+                    <?php
                     /* @var closure $content */
-                    echo $content;
+                    echo $this->getContent();
                     ?>
             </div>
         </div>
     </div>
-<? require_once 'partial/footer.phtml'; ?>
+<?php require_once 'partial/footer.phtml'; ?>

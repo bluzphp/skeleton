@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2011 by Bluz PHP Team
+ * Copyright (c) 2012 by Bluz PHP Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,5 +36,33 @@ use Bluz\Exception;
  */
 class Bootstrap extends Application
 {
+    /**
+     * initial environment
+     *
+     * @param $environment
+     * @return Bootstrap
+     */
+    public function init($environment = ENVIRONMENT_PRODUCTION)
+    {
+        // Profiler hooks
+        if (defined('DEBUG') && DEBUG) {
+            $this->getEventManager()->attach('log', function($event){
+                \Bluz\Profiler::log($event->getTarget());
+            });
+            $this->getEventManager()->attach('layout:header', function($event){
+                \Bluz\Profiler::log('layout:header');
+            });
+            $this->getEventManager()->attach('layout:content', function($event){
+                \Bluz\Profiler::log('layout:content');
+            });
+            $this->getEventManager()->attach('layout:footer', function($event){
+                \Bluz\Profiler::log('layout:footer');
+                echo '<pre>';
+                print_r(Bluz\Profiler::data());
+                echo '</pre>';
+            });
+        }
 
+        return parent::init($environment);
+    }
 }

@@ -16,7 +16,7 @@ return
  */
 function($id) use ($app, $bootstrap, $view) {
 
-    $view->getParent()->title = 'Custom Title';
+    $app->getLayout()->title = 'Custom Title';
 
     $view->title = "Index/Test";
     /* @var \Bluz\Application $app */

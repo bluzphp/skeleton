@@ -1,4 +1,4 @@
-<?
+<?php
 
 return function (\Bluz\View\View $view, $script = null) {
     if (null === $script) {
@@ -7,10 +7,10 @@ return function (\Bluz\View\View $view, $script = null) {
             ?>
             <script type="text/javascript">
             <!--
-                <? echo $view->headScriptContent;?>
+                <?php echo $view->headScriptContent;?>
             //-->
             </script>
-            <?
+            <?php
         }
     } elseif ('.js' == substr($script, -3, 3)) {
         $view->headScriptFiles .= '<script type="text/javascript" src="' . $view->baseUrl($script) .'"></script>'."\n";

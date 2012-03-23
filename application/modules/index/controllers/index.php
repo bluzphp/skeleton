@@ -10,8 +10,6 @@ namespace Bluz;
 return
 /**
  *
- * @resource /users/profile
- *
  * @return closure
  */
 function() use ($app, $bootstrap, $request, $view) {
@@ -19,9 +17,9 @@ function() use ($app, $bootstrap, $request, $view) {
      * @var closure $bootstrap
      * @var Application $app
      * @var Request $request
-     * @var View $view
+     * @var View\View $view
      */
-    $view->title = "Index/Index";
+    $app->getLayout()->title = "Index/Index";
 
     $app->getSession()->test = 'Test: '.date("H:i:s");
 

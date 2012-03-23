@@ -1,4 +1,4 @@
-<?
+<?php
 
 return function (\Bluz\View\View $view, $src = null, $rel = 'stylesheet') {
     if (null === $src) {

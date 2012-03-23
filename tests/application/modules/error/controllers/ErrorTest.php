@@ -16,8 +16,8 @@ class ErrorTest extends TestCase
      */
     public function testError403()
     {
-        $view = $this->_app->dispatch('error', 'error', array('code'=>403));
-        $this->assertEquals($view->title, 'Error 403');
+        $this->_app->dispatch('error', 'error', array('code'=>403));
+        $this->assertEquals($this->_app->getLayout()->title, 'Error 403');
     }
 
     /**
@@ -27,7 +27,7 @@ class ErrorTest extends TestCase
      */
     public function testError404()
     {
-        $view = $this->_app->dispatch('error', 'error', array('code'=>404));
-        $this->assertEquals($view->title, 'Error 404');
+        $this->_app->dispatch('error', 'error', array('code'=>404));
+        $this->assertEquals($this->_app->getLayout()->title, 'Error 404');
     }
 }

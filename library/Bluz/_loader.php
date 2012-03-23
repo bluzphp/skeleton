@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2011 by Bluz PHP Team
+ * Copyright (c) 2012 by Bluz PHP Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,8 @@ require_once 'Auth/AbstractAdapter.php';
 require_once 'Cache/Cache.php';
 require_once 'Config/Config.php';
 require_once 'Db/Db.php';
+require_once 'EventManager/Event.php';
+require_once 'EventManager/EventManager.php';
 require_once 'Request/AbstractRequest.php';
 require_once 'Request/HttpRequest.php';
 require_once 'Router/Router.php';

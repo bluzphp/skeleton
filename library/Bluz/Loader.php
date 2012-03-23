@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2011 by Bluz PHP Team
+ * Copyright (c) 2012 by Bluz PHP Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@ class Loader
      * @var array
      */
     private $_namespaces = array();
+
     /**
      * Array of prefixes
      * for old libraries
@@ -106,8 +107,16 @@ class Loader
      */
     public function load($class)
     {
+        if (class_exists($class, false) || interface_exists($class, false)) {
+            return;
+        }
+
         if ($file = $this->_find($class)) {
-            require $file;
+            require_once $file;
+        }
+
+        if (!class_exists($class, false) && !interface_exists($class, false)) {
+            throw new Exception("File '$file' does not exist or class '$class' was not found in the file");
         }
     }
 

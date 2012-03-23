@@ -10,8 +10,6 @@ namespace Bluz;
 use Bluz\Debug;
 return
 /**
- * @resource /users/logout
- *
  * @param $login
  * @param $password
  * @return closure
