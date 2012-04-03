@@ -67,12 +67,20 @@ class Profiler
         $curTimer = microtime(true);
         $curMemory = ceil((memory_get_usage()/1024));
 
-        self::$_logs[] = sprintf(
-            '%f :: %f :: %s kb // %s',
+        $args = func_get_args();
+        array_shift($args);
+
+        array_unshift(
+            $args,
             ($curTimer - self::$_start),
             ($curTimer - self::$_timer),
-            $curMemory,
-            $message);
+            $curMemory
+        );
+
+        self::$_logs[] = vsprintf(
+            "%f :: %f :: %s kb // {$message}",
+            $args
+        );
 
         self::$_timer = $curTimer;
     }

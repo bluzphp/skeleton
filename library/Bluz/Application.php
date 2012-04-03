@@ -33,6 +33,7 @@ use Bluz\Cache\Cache;
 use Bluz\Config\Config;
 use Bluz\Db\Db;
 use Bluz\EventManager\EventManager;
+use Bluz\Messages\Messages;
 use Bluz\Registry\Registry;
 use Bluz\Request;
 use Bluz\Router\Router;
@@ -97,6 +98,11 @@ class Application
     protected $_layout;
 
     /**
+     * @var Messages
+     */
+    protected $_messages;
+
+    /**
      * @var Registry
      */
     protected $_registry;
@@ -132,16 +138,6 @@ class Application
      * @var boolean
      */
     protected $_jsonFlag = false;
-
-    /**
-     * Messages
-     * @var array
-     */
-    protected $_messages = array(
-        'notice' => array(),
-        'warning' => array(),
-        'error' => array(),
-    );
 
     /**
      * Widgets closures
@@ -313,6 +309,31 @@ class Application
     }
 
     /**
+     * hasMessages
+     *
+     * @return boolean
+     */
+    public function hasMessages()
+    {
+        return ($this->_messages != null);
+    }
+
+    /**
+     * getMessages
+     *
+     * @return Messages
+     */
+    public function getMessages()
+    {
+        if (!$this->_messages) {
+            $this->_messages = new Messages();
+            $this->_messages->setApplication($this);
+            $this->_messages->restore();
+        }
+        return $this->_messages;
+    }
+
+    /**
      * getRegistry
      *
      * @return Registry
@@ -395,42 +416,6 @@ class Application
             $this->_layout->setApplication($this);
         }
         return $this->_layout;
-    }
-
-    /**
-     * add notice
-     *
-     * @param string $text
-     * @return Application
-     */
-    public function addNotice($text)
-    {
-        $this->_messages['info'][] = $text;
-        return $this;
-    }
-
-    /**
-     * add success
-     *
-     * @param string $text
-     * @return Application
-     */
-    public function addSuccess($text)
-    {
-        $this->_messages['success'][] = $text;
-        return $this;
-    }
-
-    /**
-     * add error
-     *
-     * @param string $text
-     * @return Application
-     */
-    public function addError($text)
-    {
-        $this->_messages['error'][] = $text;
-        return $this;
     }
 
     /**
@@ -542,7 +527,11 @@ class Application
         } else {
             if ($this->_jsonFlag) {
                 header('Content-type: application/json');
-                echo json_encode($layout->toArray());
+                $data = $layout->toArray();
+                if ($this->hasMessages()) {
+                    $data['_messages'] = $this->getMessages()->getStore();
+                }
+                echo json_encode($data);
             } else {
                 echo ($layout instanceof \Closure) ? $layout(): $layout;
             }
@@ -553,14 +542,17 @@ class Application
     /**
      * reflection for anonymous function
      *
-     * @param string  $uid
-     * @param closure $closure
+     * @param string  $file
      * @return array
      */
-    public function reflection($uid, $closure)
+    public function reflection($file)
     {
         // cache for reflection data
-        if (!$data = $this->getCache()->get('Reflection: '.$uid)) {
+        if (!$data = $this->getCache()->get('Reflection: '.$file)) {
+
+            // TODO: workaround for get reflection of closure function
+            $app = $bootstrap = $request = $view = null;
+            $closure = include $file;
 
             $reflection = new \ReflectionFunction($closure);
 
@@ -594,7 +586,7 @@ class Application
                 $data['resourceParam'] = trim($matches[2]);
             }
 
-            $this->getCache()->set('Reflection: '.$uid, $data);
+            $this->getCache()->set('Reflection: '.$file, $data);
         }
         return $data;
     }
@@ -602,16 +594,17 @@ class Application
     /**
      * process params
      *
-     * @param $data
+     * @param array $reflectionData
      * @return array
      */
-    private function params($data)
+    private function params($reflectionData)
     {
         $request = $this->getRequest();
         $params = array();
-        foreach ($data['params'] as $param) {
+        foreach ($reflectionData['params'] as $param) {
             /* @var \ReflectionParameter $param */
-            if (isset($data['types'][$param->name]) && $type = $data['types'][$param->name]) {
+            if (isset($reflectionData['types'][$param->name])
+                && $type = $reflectionData['types'][$param->name]) {
                 switch ($type) {
                     case 'bool':
                     case 'boolean':
@@ -641,6 +634,20 @@ class Application
     /**
      * dispatch
      *
+     * Call dispatch from any \Bluz\Package
+     * <code>
+     * $this->getApplication()->dispatch($module, $controller, array $params);
+     * </code>
+     *
+     * Attach callback function to event "dispatch"
+     * <code>
+     * $this->getApplication()->getEventManager()->attach('dispatch', function($event) {
+     *     $eventParams = $event->getParams();
+     *     $app = $event->getTarget();
+     *     \Bluz\Profiler::log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['controller']);
+     * });
+     * </code>
+     *
      * @param string $module
      * @param string $controller
      * @param array $params
@@ -649,12 +656,31 @@ class Application
     public function dispatch($module, $controller, $params = array())
     {
         $this->log(__METHOD__.": ".$module.'/'.$controller);
+        $controllerFile = $this->getControllerFile($module, $controller);
+        $reflectionData = $this->reflection($controllerFile);
 
+        // system trigger "dispatch"
+        $this->getEventManager()->trigger('dispatch', $this, array(
+            'module' => $module,
+            'controller' => $controller,
+            'params' => $params,
+            'reflection' => $reflectionData
+        ));
+
+        // check acl
+        if (!$this->isAllowedController($module, $controller, $params)) {
+           throw new Exception('You don\'t have permissions', 403);
+        }
+
+        // $app for use in closure
         $app = $this;
+        $identity = $app->getAuth()->getIdentity();
 
+        // $request for use in closure
         $request = $this->getRequest();
         $request -> setParams($params);
 
+        // $view for use in closure
         $view = new View($this->getConfigData('view'));
         $view -> setPath(PATH_APPLICATION .'/modules/'. $module .'/views');
         $view -> setTemplate($controller .'.phtml');
@@ -663,6 +689,7 @@ class Application
         $bootstrapPath = PATH_APPLICATION .'/modules/' . $module .'/bootstrap.php';
 
         /**
+         * optional $bootstrap for use in closure
          * @var closure $bootstrap
          */
         if (file_exists($bootstrapPath)) {
@@ -671,7 +698,6 @@ class Application
             $bootstrap = null;
         }
 
-        $controllerFile = $this->getControllerFile($module, $controller);
         /**
          * @var closure $controllerClosure
          */
@@ -681,19 +707,11 @@ class Application
             throw new Exception("Controller is not callable '$module/$controller'");
         }
 
-        $data = $this->reflection($controllerFile, $controllerClosure);
-
-        // check acl
-        if (!$this->isAllowedController($module, $controller, $params)) {
-            throw new Exception('You don\'t have permissions', 403);
-        }
-
-
-        $params = $this->params($data);
+        $params = $this->params($reflectionData);
 
         // load html from cache file
-        if (isset($data['cache'])) {
-            if ($view->cache($data['cache'], $params)) {
+        if (isset($reflectionData['cache'])) {
+            if ($view->cache($reflectionData['cache'], $params)) {
                 return $view;
             }
         };
@@ -718,6 +736,20 @@ class Application
     /**
      * widget
      *
+     * Call widget from any \Bluz\Package
+     * <code>
+     * $this->getApplication()->widget($module, $widget, array $params);
+     * </code>
+     *
+     * Attach callback function to event "widget"
+     * <code>
+     * $this->getApplication()->getEventManager()->attach('widget', function($event) {
+     *     $eventParams = $event->getParams();
+     *     $app = $event->getTarget();
+     *     \Bluz\Profiler::log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['widget']);
+     * });
+     * </code>
+     *
      * @param string $module
      * @param string $widget
      * @param array $params
@@ -726,6 +758,15 @@ class Application
     public function widget($module, $widget, $params = array())
     {
         $this->log(__METHOD__.": ".$module.'/'.$widget);
+        $controllerFile = $this->getWidgetFile($module, $widget);
+        $reflectionData = $this->reflection($controllerFile);
+
+        $this->getEventManager()->trigger('widget', $this, array(
+            'module' => $module,
+            'widget' => $widget,
+            'params' => $params,
+            'reflection' => $reflectionData
+        ));
 
         $app = $this;
 
@@ -749,8 +790,6 @@ class Application
             throw new Exception("Widget is not callable '$module/$widget'");
         }
 
-        // TODO: check acl and other docs information
-//        $data = $this->reflection($module."/widgets/".$widget, $widgetClosure);
         return $widgetClosure;
     }
 
@@ -764,16 +803,38 @@ class Application
      */
     public function isAllowedController($module, $controller, array $params = array())
     {
-        return true;
         $controllerFile = $this->getControllerFile($module, $controller);
 
-        $app = $bootstrap = $request = $view = null;
-        $data = $this->reflection($controllerFile, include $controllerFile);
+        $data = $this->reflection($controllerFile);
 
         if (!empty($data['resourceType']) || !empty($data['privilege'])) {
             $resourceId = null;
             if (!empty($data['resourceParam'])) {
-                $resourceId = $params[$data['resourceParam']];
+                $resourceId = isset($params[$data['resourceParam']]) ? $params[$data['resourceParam']] : null;
+            }
+            return $this->getAcl()->isAllowed($data['resourceType'], $resourceId, $data['privilege']);
+        }
+        return true;
+    }
+
+    /**
+     * Is allowed widget
+     *
+     * @param string $module
+     * @param string $widget
+     * @param array  $params
+     * @return boolean
+     */
+    public function isAllowedWidget($module, $widget, array $params = array())
+    {
+        $widgetFile = $this->getWidgetFile($module, $widget);
+
+        $data = $this->reflection($widgetFile);
+
+        if (!empty($data['resourceType']) || !empty($data['privilege'])) {
+            $resourceId = null;
+            if (!empty($data['resourceParam'])) {
+                $resourceId = isset($params[$data['resourceParam']]) ? $params[$data['resourceParam']] : null;
             }
             return $this->getAcl()->isAllowed($data['resourceType'], $resourceId, $data['privilege']);
         }
@@ -830,7 +891,10 @@ class Application
     {
         if (!headers_sent($file, $line)) {
             // save notification to session
-            $this->getSession()->_messages = $this->_messages;
+            // if they exists
+            if ($this->hasMessages()) {
+                $this->getMessages()->save();
+            }
 
             header('Location: '.$url);
             exit();

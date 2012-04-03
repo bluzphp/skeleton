@@ -43,7 +43,7 @@ interface Assertion
      * @param integer $resourceId
      * @param integer $privilegeId
      * @param \Bluz\Auth\AbstractEntity $user
-     * @return boolen|null
+     * @return boolean|null
      */
-    public function isAllowed($resourceType, $resourceId, $privilegeId = null, \Bluz\Auth\AbstractEntity $user = null);
+    public function isAllowed($resourceType, $resourceId, $privilegeId, \Bluz\Auth\AbstractEntity $user = null);
 }

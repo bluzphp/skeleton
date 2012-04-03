@@ -5,9 +5,9 @@
  */
 ?>
 <form action="<?=$this->url('users', 'login')?>" method="post" class="well">
-    <label for="login">Login:</label>
+    <label for="login"><?php echo $this->__('Login')?>:</label>
     <input type="text" id="login" name="login" value="" />
-    <label for="password">Password:</label>
+    <label for="password"><?php echo $this->__('Password')?>:</label>
     <input type="password" id="password" name="password" />
     <input type="submit" value="Login" class="btn btn-primary"/>
 </form>

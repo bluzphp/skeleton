@@ -209,7 +209,7 @@ class Db extends Package
      * @param string $sql
      * @return \PDOStatement
      */
-    public function prepare($sql)
+    protected function prepare($sql)
     {
         $this->log($sql);
         return $this->handler()->prepare($sql);
@@ -239,7 +239,7 @@ class Db extends Package
     {
         $stmt = $this->prepare($sql);
         $result = $stmt->execute($params);
-        $this->log($sql);
+        $this->log($sql, $params);
         return $result;
     }
 
@@ -258,8 +258,7 @@ class Db extends Package
 
         $result = $stmt->execute(array_values($params));
 
-        $this->log($sql);
-
+        $this->log($sql, $params);
         if ($result) {
             return $this->handler()->lastInsertId();
         } else {
@@ -285,7 +284,7 @@ class Db extends Package
 
         $result = $stmt->execute(array_values($params));
 
-        $this->log($sql);
+        $this->log($sql, $params);
 
         return $result;
     }
@@ -310,7 +309,7 @@ class Db extends Package
 
         $result = $stmt->execute($params);
 
-        $this->log($sql);
+        $this->log($sql, $params);
 
         return $result;
     }
@@ -330,7 +329,7 @@ class Db extends Package
         $stmt->execute($params);
         $result = $stmt->fetch(\PDO::FETCH_COLUMN);
 
-         $this->log($sql);
+         $this->log($sql, $params);
         return $result;
     }
 
@@ -349,7 +348,7 @@ class Db extends Package
         $stmt->execute($params);
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-        $this->log($sql);
+        $this->log($sql, $params);
         return $result;
     }
 
@@ -368,7 +367,7 @@ class Db extends Package
         $stmt->execute($params);
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-        $this->log($sql);
+        $this->log($sql, $params);
         return $result;
     }
 
@@ -387,7 +386,7 @@ class Db extends Package
         $stmt->execute($params);
         $result = $stmt->fetchAll(\PDO::FETCH_COLUMN);
 
-        $this->log($sql);
+        $this->log($sql, $params);
         return $result;
     }
 
@@ -404,7 +403,7 @@ class Db extends Package
         $stmt->execute($params);
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC|\PDO::FETCH_GROUP);
 
-        $this->log($sql);
+        $this->log($sql, $params);
         return $result;
     }
 
@@ -421,7 +420,7 @@ class Db extends Package
         $stmt->execute($params);
         $result = $stmt->fetchAll(\PDO::FETCH_COLUMN|\PDO::FETCH_GROUP);
 
-        $this->log($sql);
+        $this->log($sql, $params);
         return $result;
     }
 
@@ -440,7 +439,7 @@ class Db extends Package
         $stmt->execute($params);
         $result = $stmt->fetchAll(\PDO::FETCH_KEY_PAIR);
 
-        $this->log($sql);
+        $this->log($sql, $params);
         return $result;
     }
 
@@ -480,7 +479,7 @@ class Db extends Package
             $stmt->closeCursor();
         }
 
-        $this->log($sql);
+        $this->log($sql, $params);
         return $result;
     }
 
@@ -515,7 +514,7 @@ class Db extends Package
             $stmt->closeCursor();
         }
 
-        $this->log($sql);
+        $this->log($sql, $params);
         return $result;
     }
 
@@ -525,7 +524,7 @@ class Db extends Package
      * @param string $sql
      * @return void
      */
-    protected function log($sql)
+    protected function log($sql, $params = array())
     {
         if (defined('DEBUG') && DEBUG) {
             if (isset($this->_queries[$sql])) {
@@ -534,7 +533,16 @@ class Db extends Package
                 if ($timers%2==0) {
                     // set query time
                     $timeSpent = $this->_queries[$sql]['timer'][$timers-1] - $this->_queries[$sql]['timer'][$timers-2];
-                    Profiler::log(sprintf(' >> %f >> Query: ', $timeSpent) . substr($sql, 0, 200));
+
+                    $sql = str_replace('?', '%s', $sql);
+
+                    array_unshift(
+                        $params,
+                        " >> %f >> Query: {$sql}",
+                        $timeSpent
+                    );
+
+                    call_user_func_array('\Bluz\Profiler::log', $params);
                 }
             } else {
                 $this->_queries[$sql] = array(

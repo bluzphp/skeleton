@@ -186,6 +186,24 @@ class View extends Package
     }
 
     /**
+     * Translate
+     *
+     * @param string $message
+     * @return string
+     */
+    public function __($message)
+    {
+        $message = (string) $message;
+
+        if (func_num_args() > 1) {
+            $args = func_get_args();
+            $args['0'] = $message; //substitute message
+            $message = call_user_func_array('sprintf', $args);
+        }
+        return $message;
+    }
+
+    /**
      * set data from array
      *
      * @param array $data
@@ -374,7 +392,7 @@ class View extends Package
             $attrs[] = $attr .'="'.$value.'"';
         }
 
-        return '<a href="'.$href.'" '.join(' ', $attrs).'>'.$name.'</a>';
+        return '<a href="'.$href.'" '.join(' ', $attrs).'>'.$this->__($name).'</a>';
     }
 
     /**
@@ -388,25 +406,6 @@ class View extends Package
     public function url($module = null, $controller = null, $params = null)
     {
         return $this->getApplication()->getRouter()->url($module, $controller, $params);
-    }
-
-    /**
-     * Returns navigation container instance.
-     *
-     * @param string $section Navigation section
-     * @return \Bluz\Navigation\Container
-     */
-    public function nav($section)
-    {
-        $config = $this->getApplication()->getConfig('nav');
-
-        if (!$config || !isset($config[$section])) {
-            return null;
-        }
-
-        $container = new \Bluz\Navigation\Container($config[$section]);
-
-        return $container;
     }
 
     /**
@@ -442,6 +441,10 @@ class View extends Package
     /**
      * dispatch
      *
+     * <code>
+     * $this->dispatch($module, $controller, array $params);
+     * </code>
+     *
      * @param string $module
      * @param string $controller
      * @param array $params
@@ -452,7 +455,11 @@ class View extends Package
         $application = $this->getApplication();
         try {
             $view = $application->dispatch($module, $controller, $params);
-            $view();
+
+            if ($view instanceof \Closure) {
+                return $view();
+            }
+            return $view;
         } catch (\Bluz\Acl\AclException $e) {
             // nothing for Acl exception
         }
@@ -460,6 +467,10 @@ class View extends Package
 
     /**
      * widget
+     *
+     * <code>
+     * $this->widget($module, $controller, array $params);
+     * </code>
      *
      * @param string $module
      * @param string $widget

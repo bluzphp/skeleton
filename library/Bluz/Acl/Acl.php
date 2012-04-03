@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2011 by Bluz PHP Team
+ * Copyright (c) 2012 by Bluz PHP Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,52 +38,20 @@ use Bluz\Package;
  * @author   Anton Shevchuk
  * @created  11.07.11 15:09
  */
-class Acl extends Package
+class Acl extends AbstractAcl
 {
-    const ALLOW = 'allow';
-    const DENY = 'deny';
-
-    /**
-     * @var array
-     */
-    protected $_assertions = array();
-
-    /**
-     * Get flags
-     *
-     * @return array
-     */
-    public static function getFlags()
-    {
-        return array(
-            self::ALLOW,
-            self::DENY
-        );
-    }
-
-    /**
-     * Add
-     *
-     * @param Assertion $assertion
-     * @return self
-     */
-    public function addAssertion(Assertion $assertion)
-    {
-        array_unshift($this->_assertions, $assertion);
-        return $this;
-    }
-
     /**
      * Is allowed
      *
-     * @param string  $resourceType
-     * @param integer $resourceId
-     * @param integer $privilegeId
+     * @param string                    $resourceType
+     * @param integer                   $resourceId
+     * @param                           $privilege
      * @param \Bluz\Auth\AbstractEntity $user
+     * @internal param int $privilegeId
      * @throws AclException
      * @return boolean
      */
-    public function isAllowed($resourceType, $resourceId, $privilege = null, \Bluz\Auth\AbstractEntity $user = null)
+    public function isAllowed($resourceType, $resourceId, $privilege, \Bluz\Auth\AbstractEntity $user = null)
     {
         if (!$user) {
             $user = $this->getApplication()->getAuth()->getIdentity();
@@ -100,12 +68,16 @@ class Acl extends Package
             }
         }
 
-        if ($resourceType && !$user->hasResource($resourceType, $resourceId)) {
-            return false;
+        if ($resourceType) {
+            if (!$user || !$user->getRole() || !$user->hasResource($resourceType, $resourceId)) {
+                return false;
+            }
         }
 
-        if ($privilege && !$user->getRole()->hasPrivilege($privilege)) {
-            return false;
+        if ($privilege) {
+            if (!$user || !$user->getRole() || !$user->getRole()->hasPrivilege($privilege)) {
+                return false;
+            }
         }
         return true;
     }

@@ -82,7 +82,7 @@ class Package
     public function getApplication()
     {
         if (!$this->_application) {
-            throw new Exception('Application link not found for "'.get_called_class().'" class');
+            throw new Exception('Application link not found for "'.get_called_class().'" class. Please use method "setApplication()" for initial it');
         }
         return $this->_application;
     }

@@ -36,6 +36,6 @@ function ($code, $message = '') use ($app, $view) {
             break;
     }
     $view->message = $message;
-    $app->addError($message);
+    $app->getMessages()->addError($message);
     $app->useLayout('small.phtml');
 };

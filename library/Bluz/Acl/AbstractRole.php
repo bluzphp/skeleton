@@ -47,11 +47,23 @@ abstract class AbstractRole extends \Bluz\Db\Row
      */
     abstract protected function _getRules();
 
+    /**
+     * @see Bluz\Db.Row::__sleep()
+     * @return array
+     */
+    public function __sleep()
+    {
+        $return = parent::__sleep();
+        $return[] = '_parents';
+        $return[] = '_rules';
+
+        return $return;
+    }
 
     /**
      * Is role basic
      *
-     * @return boolen
+     * @return boolean
      */
     public function isBasic()
     {
@@ -74,6 +86,7 @@ abstract class AbstractRole extends \Bluz\Db\Row
     /**
      * Get parent roles
      *
+     * @param bool $inherited
      * @return array of roles
      */
     public function getParents($inherited = false)
@@ -82,7 +95,7 @@ abstract class AbstractRole extends \Bluz\Db\Row
             $this->_parents = array();
 
             foreach ($this->_getParentRoles() as $role) {
-                $this->_parents[$role->getId()] = $role;
+                $this->_parents[$role->getId()] = &$role;
             }
         }
 
@@ -102,7 +115,7 @@ abstract class AbstractRole extends \Bluz\Db\Row
     /**
      * Get privileges
      *
-     * @param boolen $inherited
+     * @param boolean $inherited
      * @return array
      */
     public function getPrivileges($inherited = true)
@@ -123,7 +136,7 @@ abstract class AbstractRole extends \Bluz\Db\Row
     /**
      * Get rules
      *
-     * @param boolen $inherited
+     * @param boolean $inherited
      * @return array
      */
     public function getRules($inherited = true)
@@ -157,7 +170,7 @@ abstract class AbstractRole extends \Bluz\Db\Row
      * Has role a privilege
      *
      * @param string $privilege
-     * @return boolen
+     * @return boolean
      */
     public function hasPrivilege($privilege)
     {
@@ -177,7 +190,7 @@ abstract class AbstractRole extends \Bluz\Db\Row
     /**
      * Get privileges as string
      *
-     * @param boolen $inherited
+     * @param boolean $inherited
      * @return string
      */
     public function getPrivilegesAsString($inherited = true)

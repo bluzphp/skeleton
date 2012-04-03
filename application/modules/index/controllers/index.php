@@ -16,7 +16,7 @@ function() use ($app, $bootstrap, $request, $view) {
     /**
      * @var closure $bootstrap
      * @var Application $app
-     * @var Request $request
+     * @var Request\HttpRequest $request
      * @var View\View $view
      */
     $app->getLayout()->title = "Index/Index";
@@ -35,7 +35,7 @@ function() use ($app, $bootstrap, $request, $view) {
 //    } else {
 //        $app->getAuth()->authenticate('admin', '123456');
 //    }
-//    $app->addError('Error Text');
-//    $app->addNotice('Warning Text');
-//    $app->addSuccess('Notice Text');
+//    $app->getMessages()->addError('Error Text');
+//    $app->getMessages()->addNotice('Warning Text');
+//    $app->getMessages()->addSuccess('Notice Text');
 };

@@ -133,51 +133,7 @@ input.noactive, button.noactive, .button.noactive {
     
 }
 /*/Loader*/
-/*CheckAll*/
-.checkall div.checkbox {
-    float:left;
-    position: relative;
-    display: inline-block;
 
-    background-color: rgba(255, 255, 255, .05);
-
-    -webkit-border-radius: 1px;
-    -moz-border-radius: 1px;
-    border-radius: 1px;
-
-    border: 1px solid #C6C6C6;
-    border: 1px solid rgba(155, 155, 155, .57);
-
-    font-size: 1px;
-    height: 11px;
-    margin: 3px 4px 0 1px;
-    outline: 0;
-    vertical-align: text-bottom;
-    width: 11px;
-	padding:0;
-}
-.checkall div.checkbox div {
-    height: 20px;
-    outline: 0;
-    width: 20px;
-    position: relative;
-    left: -5px;
-    top: -5px;
-}
-.checkall div.checkbox.active div,
-.checkall div.checkbox.someactive div {
-    background: url('images/checkmark.png');
-}
-.checkall div.checkbox.active  {
-    background: #fff;
-}
-.checkall div.checkbox.someactive  {
-    background: #eee;
-}
-.checkall:hover div.checkbox {
-	border-color: #C0C0C0;
-}
-/*/CheckAll*/
 /*Messages*/
 #messages {
     padding:0;
@@ -201,13 +157,13 @@ input.noactive, button.noactive, .button.noactive {
         line-height: 16px;
     }
     #messages p.error {
-        color: #bb1111;
+        color: #b94a48;
     }
-    #messages p.notice {
-        color: #333;
+    #messages p.info {
+        color: #3a87ad;
     }
-    #messages p.warning {
-        color: #003366;
+    #messages p.success {
+        color: #468847;
     }
 /*/Messages*/
 /* Loading */

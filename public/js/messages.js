@@ -72,10 +72,10 @@ var Messages = (function($, undefined) {
             M.showMessage('error', message);
         },
         addNotice:function(message) {
-            M.showMessage('notice', message);
+            M.showMessage('info', message);
         },
-        addWarning:function(message) {
-            M.showMessage('warning', message);
+        addSuccess:function(message) {
+            M.showMessage('success', message);
         },
         setCallback:function(callback) {
             M._callback = callback;

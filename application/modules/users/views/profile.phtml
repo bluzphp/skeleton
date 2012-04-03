@@ -5,6 +5,6 @@
 ?>
 <h2><?=$title?></h2>
 <p>
-    Login: <?=$user->getLogin()?><br/>
-    Status: <?=$user->getStatus()?><br/>
+    <?php echo $this->__('Login')?>: <?=$user->getLogin()?><br/>
+    <?php echo $this->__('Status')?>: <?=$user->getStatus()?><br/>
 </p>

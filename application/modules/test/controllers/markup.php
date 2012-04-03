@@ -15,7 +15,7 @@ function() use ($app, $bootstrap, $request, $view) {
     /**
      * @var closure $bootstrap
      * @var Application $app
-     * @var Request $request
-     * @var View $view
+     * @var Request\HttpRequest $request
+     * @var View\View $view
      */
 };

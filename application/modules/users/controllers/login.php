@@ -22,17 +22,17 @@ function($login, $password) use ($bootstrap, $app, $view) {
      * @var View $view
      */
     if ($identity = $app->getAuth()->getIdentity()) {
-        $app->addNotice('Already signed');
+        $app->getMessages()->addNotice('Already signed');
         $app->redirectTo('index', 'index');
     } elseif ($app->getRequest()->isPost()) {
         try {
             \Application\Users\Table::getInstance()->login($login, $password);
 
             //$app->getAuth()->authenticate($login, $password);
-            $app->addNotice('You are signed');
+            $app->getMessages()->addNotice('You are signed');
             $app->redirectTo('index', 'index');
         } catch (Exception $e) {
-            $app->addError($e->getMessage());
+            $app->getMessages()->addError($e->getMessage());
         }
     }
     // change layout

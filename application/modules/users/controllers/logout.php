@@ -21,7 +21,7 @@ function() use ($bootstrap, $app, $view) {
      * @var Auth $auth
      */
     $app->getAuth()->setIdentity(null);
-    $app->addNotice('You are signout');
+    $app->getMessages()->addNotice('You are signout');
     $app->redirectTo('index', 'index');
 
     return false;

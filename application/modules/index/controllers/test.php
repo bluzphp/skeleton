@@ -16,18 +16,18 @@ return
  */
 function($id) use ($app, $bootstrap, $view) {
 
+    /* @var \Bluz\Application $app */
     $app->getLayout()->title = 'Custom Title';
 
     $view->title = "Index/Test";
-    /* @var \Bluz\Application $app */
-//    $app->addNotice('Notice');
-    $app->addError('Warning<br/>Second Line');
-//    $app->addError('Error');
+//    $app->getMessages()->addNotice('Notice');
+    $app->getMessages()->addError('Warning<br/>Second Line');
+//    $app->getMessages()->addError('Error');
     //$view->reload = true;
 
     $cache = $app->getCache();
     /**
-     * @var Rowset $userRows
+     * @var \Bluz\Db\Rowset $userRows
      */
     if (! $userRow = $cache->get('UserID:'.$id)) {
         $usersTable = Users\Table::getInstance();
