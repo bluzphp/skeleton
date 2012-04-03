@@ -6,10 +6,41 @@
                 <span class="i-bar"></span>
                 <span class="i-bar"></span>
             </a>
-            <a class="brand" href="/">Bluz</a>
+            <a class="brand" href="/"><?php echo $this->__('Bluz')?></a>
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li class="active"><a href="/">Home</a></li>
+                    <li class="active"><?php echo $this->ahref('Home', 'index', 'index')?></li>
+                    <?php if ($identity = $this->getIdentity()):?>
+                        <li class="dropdown" id="menu-projects">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#menu-projects">
+                                <?php echo $this->__('Projects')?>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><?php echo $this->ahref('View All Projects', 'projects', 'index', array())?></li>
+
+                                <?php foreach ($identity->getProjects() as $project):?>
+                                    <li><?php echo $this->ahref($project, 'projects', 'info', array('id' => $project->getId()), array('class'=>"button"))?></li>
+                                <?php endforeach;?>
+                            </ul>
+                        </li>
+                        <?php if ($identity->getRole()->hasPrivilege('Inconsistencies')):?>
+                            <li class="dropdown" id="menu-inconsistencies">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#menu-inconsistencies">
+                                    <?php echo $this->__('Inconsistencies')?>
+                                    <b class="caret"></b>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><?php echo $this->ahref('View All Inconsistencies', 'inconsistencies', 'index')?></li>
+
+                                    <?php foreach ($identity->getProjects() as $project):?>
+                                        <li><?php echo $this->ahref($project, 'inconsistencies', 'index', array('id' => $project->getId()), array('class'=>"button"))?></li>
+                                    <?php endforeach;?>
+                                </ul>
+                            </li>
+                        <?php endif?>
+                    <?php endif?>
                     <li class="dropdown" id="menu-tests">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#menu-tests">
                             Tests
@@ -22,15 +53,18 @@
                             <li><?php echo $this->ahref('Ajax', 'test', 'ajax', array(), array('class'=>'ajax'))?></li>
                         </ul>
                     </li>
+                    <li>
+                        <?php echo $this->ahref('Changelog', 'index', 'changelog')?>
+                    </li>
                 </ul>
-                <? if ($identity = $this->getIdentity()) : ?>
+                <? if ($identity) : ?>
                     <p class="navbar-text pull-right">
-                        Logged in as <?php echo $this->ahref($identity->login, 'users', 'profile', array('id' => $identity->id))?>
-                        (<a href="<?=$this->url('users', 'logout')?>">logout</a>)
+                        <?php echo $this->__('Logged in as %s', ($this->ahref($identity->login, 'users', 'profile', array('id' => $identity->id)) ?: $identity->login))?>
+                        (<?=$this->ahref('logout', 'users', 'logout')?>)
                     </p>
                 <? else: ?>
                 <ul class="nav pull-right">
-                    <li><a href="<?=$this->url('users', 'login')?>">Login</a></li>
+                    <li><?=$this->ahref('Login', 'users', 'login')?></li>
                 </ul>
                 <? endif; ?>
                 <div id="loading"></div>

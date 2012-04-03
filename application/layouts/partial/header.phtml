@@ -2,7 +2,7 @@
 <html dir="ltr" lang="en-US">
 <head>
     <meta charset="UTF-8"/>
-    <title><?=$title?></title>
+    <title><?php echo $this->__($this->title)?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="profile" href="http://gmpg.org/xfn/11"/>
     <link rel="stylesheet" href="<?=$this->baseUrl('/css/styles.css')?>" />
@@ -27,16 +27,12 @@
 </head>
 <body class="module-<?=$this->getApplication()->getRequest()->module()?> controller-<?=$this->getApplication()
     ->getRequest()->controller()?>" data-spy="scroll" data-target=".subnav" data-offset="50">
-<?php
-    if (isset($this->_messages) &&
-        (sizeof($this->_messages['error']) || sizeof($this->_messages['notice']) || sizeof($this->_messages['warning']))
-        ) :
-        echo '<div id="messages" class="hide">';
-        foreach ($this->_messages as $type => $messages) :
-            foreach ($messages as $msg) :
-               echo "<p class='$type'>$msg</p>";
-            endforeach;
-        endforeach;
-        echo '</div>';
-    endif;
-    ?>
+<?php if ($this->getApplication()->hasMessages() && $this->getApplication()->getMessages()->total()):?>
+        <div id="messages" class="hide">
+            <?php foreach ($this->getApplication()->getMessages()->getStore() as $type => $messages):
+                  foreach ($messages as $msg):?>
+                    <p class="<?php echo $type?>"><?php echo $this->__($msg)?></p>
+            <?php endforeach;
+                  endforeach;?>
+        </div>
+<?php endif;?>
