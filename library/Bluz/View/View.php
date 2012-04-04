@@ -66,9 +66,9 @@ class View extends Package
     protected static $_viewHelpers = array();
 
     /**
-     * @var string
+     * @var array
      */
-    protected static $_viewHelpersPath;
+    protected static $_viewHelpersPath = array();
 
     /**
      * @var array
@@ -127,6 +127,50 @@ class View extends Package
         }
     }
 
+    /**
+     * Call
+     *
+     * @param string $method
+     * @param array  $args
+     * @return mixed
+     */
+    public function __call($method, $args)
+    {
+        $lmethod = strtolower($method);
+        if (isset(self::$_viewHelpers[$lmethod])) {
+            if (self::$_viewHelpers[$lmethod] instanceof \Closure) {
+                array_unshift($args, $this->getApplication()->getView());
+                return call_user_func_array(self::$_viewHelpers[$lmethod], $args);
+            }
+
+            if (self::$_viewHelpers[$lmethod] instanceof \Bluz\View\Helper\HelperAbstract) {
+                return call_user_method_array('toString', self::$_viewHelpers[$lmethod], $args);
+            }
+        }
+        if (self::$_viewHelpersPath) {
+            foreach(self::$_viewHelpersPath as $helperPath) {
+                $helperPath = realpath($helperPath . '/' . ucfirst($method) . '.php');
+                if ($helperPath) {
+                    $helperInclude = include $helperPath;
+                    if ($helperInclude instanceof \Closure) {
+                        self::$_viewHelpers[strtolower($method)] = $helperInclude;
+                    } elseif (class_exists(ucfirst($method))) {
+                        $className = ucfirst($method);
+                        $helper = new $className();
+                        $helper->setView($this->getApplication()->getView());
+
+                        self::$_viewHelpers[strtolower($method)] = $helper;
+                    } else {
+                        throw new \Exception("View helper '$method' not found");
+                    }
+
+                    return $this->__call($method, $args);
+                }
+            }
+        }
+
+        throw new \Exception("View helper '$method' not found");
+    }
 
     /**
      * Is set a variable
@@ -159,48 +203,6 @@ class View extends Package
         }
 
         return $this;
-    }
-
-    /**
-     * Call
-     *
-     * @param string $method
-     * @param array  $args
-     * @return mixed
-     */
-    public function __call($method, $args)
-    {
-        if (isset(self::$_viewHelpers[$method])
-            && self::$_viewHelpers[$method] instanceof \Closure) {
-            array_unshift($args, $this->getApplication()->getLayout());
-            return call_user_func_array(self::$_viewHelpers[$method], $args);
-        }
-        if (self::$_viewHelpersPath) {
-            $helperPath = realpath(self::$_viewHelpersPath . '/' . $method . '.php');
-            if ($helperPath) {
-                self::$_viewHelpers[$method] = include $helperPath;
-
-                return $this->__call($method, $args);
-            }
-        }
-    }
-
-    /**
-     * Translate
-     *
-     * @param string $message
-     * @return string
-     */
-    public function __($message)
-    {
-        $message = (string) $message;
-
-        if (func_num_args() > 1) {
-            $args = func_get_args();
-            $args['0'] = $message; //substitute message
-            $message = call_user_func_array('sprintf', $args);
-        }
-        return $message;
     }
 
     /**
@@ -322,7 +324,7 @@ class View extends Package
     public function setViewHelpers($viewHelpers)
     {
         foreach ($viewHelpers as $name => $function) {
-            self::$_viewHelpers[$name] = $function;
+            self::$_viewHelpers[strtolower($name)] = $function;
         }
         return $this;
     }
@@ -330,12 +332,48 @@ class View extends Package
     /**
      * Set view helpers path
      *
-     * @param string $viewHelpersPath
+     * @param string|array $viewHelpersPath
      * @return View
      */
     public function setViewHelpersPath($viewHelpersPath)
     {
-        self::$_viewHelpersPath = rtrim(realpath($viewHelpersPath), '/');
+        $this->setViewHelperPathDefault();
+
+        if (is_array($viewHelpersPath)) {
+            foreach ($viewHelpersPath as $path) {
+                $this->addViewHelperPath((string) $path);
+            }
+        } else {
+            $this->addViewHelperPath((string) $viewHelpersPath);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add view helper path
+     *
+     * @param string $path
+     * @return View
+     */
+    public function addViewHelperPath($path)
+    {
+        $path = rtrim(realpath($path), '/');
+        if (false !== $path && !in_array($path, self::$_viewHelpersPath)) {
+            self::$_viewHelpersPath [] = $path;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set default view helper path
+     *
+     * @return View
+     */
+    public function setViewHelperPathDefault()
+    {
+        self::$_viewHelpersPath = array(rtrim(realpath(__DIR__ . '/Helper/'), '/'));
         return $this;
     }
 
@@ -359,53 +397,6 @@ class View extends Package
     public function getIdentity()
     {
         return $this->getApplication()->getAuth()->getIdentity();
-    }
-
-    /**
-     * A href url
-     *
-     * @param string $name
-     * @param string $module
-     * @param string $controller
-     * @param array $params
-     * @param array $attributes
-     * @return string
-     */
-    public function ahref($name, $module = 'index', $controller = 'index', $params = array(), $attributes = array())
-    {
-        if (!$this->getApplication()->isAllowedController($module, $controller, $params)) {
-            return '';
-        }
-
-        $href = $this->url($module, $controller, $params);
-
-        if ($href == $this->getApplication()->getRequest()->getRequestUri()) {
-            if (isset($attributes['class'])) {
-                $attributes['class'] .= ' on';
-            } else {
-                $attributes['class'] = 'on';
-            }
-        }
-        $attrs = array();
-
-        foreach ($attributes as $attr => $value) {
-            $attrs[] = $attr .'="'.$value.'"';
-        }
-
-        return '<a href="'.$href.'" '.join(' ', $attrs).'>'.$this->__($name).'</a>';
-    }
-
-    /**
-     * build url
-     *
-     * @param string $module
-     * @param string $controller
-     * @param array $params
-     * @return string
-     */
-    public function url($module = null, $controller = null, $params = null)
-    {
-        return $this->getApplication()->getRouter()->url($module, $controller, $params);
     }
 
     /**

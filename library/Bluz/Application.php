@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2012 by Bluz PHP Team
+ * Copyright (c) 2011 by Bluz PHP Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -166,7 +166,7 @@ class Application
             $this->getRegistry();
             $this->getSession();
             $this->getAuth();
-            $this->getAcl();
+            //$this->getAcl();
             $this->getDb();
         } catch (Exception $e) {
             throw new Exception("Application can't be loaded: ". $e->getMessage());
@@ -220,7 +220,7 @@ class Application
     public function getLoader()
     {
         if (!$this->_loader) {
-            $this->_loader = new Loader();
+            $this->_loader = Loader::getLoader();
 
             $conf = $this->getConfigData('loader');
             if (isset($conf['namespaces'])) {
@@ -233,8 +233,6 @@ class Application
                     $this->_loader -> registerPrefix($prefix, $path);
                 }
             }
-
-            $this->_loader -> register();
         }
         return $this->_loader;
     }
@@ -373,12 +371,14 @@ class Application
     /**
      * getRouter
      *
-     * @return Router
+     * @return \Bluz\Router\Container
      */
     public function getRouter()
     {
         if (!$this->_router) {
-            $this->_router = new Router($this->getConfigData('router'));
+            //$this->_router = new Router($this->getConfigData('router'));
+            $this->_router = new RouterContainer();
+            $this->_router->addRoutes($this->getConfigData('routers'));
             $this->_router->setApplication($this);
         }
         return $this->_router;
@@ -736,20 +736,6 @@ class Application
     /**
      * widget
      *
-     * Call widget from any \Bluz\Package
-     * <code>
-     * $this->getApplication()->widget($module, $widget, array $params);
-     * </code>
-     *
-     * Attach callback function to event "widget"
-     * <code>
-     * $this->getApplication()->getEventManager()->attach('widget', function($event) {
-     *     $eventParams = $event->getParams();
-     *     $app = $event->getTarget();
-     *     \Bluz\Profiler::log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['widget']);
-     * });
-     * </code>
-     *
      * @param string $module
      * @param string $widget
      * @param array $params
@@ -758,15 +744,6 @@ class Application
     public function widget($module, $widget, $params = array())
     {
         $this->log(__METHOD__.": ".$module.'/'.$widget);
-        $controllerFile = $this->getWidgetFile($module, $widget);
-        $reflectionData = $this->reflection($controllerFile);
-
-        $this->getEventManager()->trigger('widget', $this, array(
-            'module' => $module,
-            'widget' => $widget,
-            'params' => $params,
-            'reflection' => $reflectionData
-        ));
 
         $app = $this;
 
@@ -790,6 +767,8 @@ class Application
             throw new Exception("Widget is not callable '$module/$widget'");
         }
 
+        // TODO: check acl and other docs information
+//        $data = $this->reflection($module."/widgets/".$widget, $widgetClosure);
         return $widgetClosure;
     }
 
@@ -803,42 +782,13 @@ class Application
      */
     public function isAllowedController($module, $controller, array $params = array())
     {
-        $controllerFile = $this->getControllerFile($module, $controller);
-
-        $data = $this->reflection($controllerFile);
-
-        if (!empty($data['resourceType']) || !empty($data['privilege'])) {
-            $resourceId = null;
-            if (!empty($data['resourceParam'])) {
-                $resourceId = isset($params[$data['resourceParam']]) ? $params[$data['resourceParam']] : null;
-            }
-            return $this->getAcl()->isAllowed($data['resourceType'], $resourceId, $data['privilege']);
-        }
         return true;
-    }
 
-    /**
-     * Is allowed widget
-     *
-     * @param string $module
-     * @param string $widget
-     * @param array  $params
-     * @return boolean
-     */
-    public function isAllowedWidget($module, $widget, array $params = array())
-    {
-        $widgetFile = $this->getWidgetFile($module, $widget);
-
-        $data = $this->reflection($widgetFile);
-
-        if (!empty($data['resourceType']) || !empty($data['privilege'])) {
-            $resourceId = null;
-            if (!empty($data['resourceParam'])) {
-                $resourceId = isset($params[$data['resourceParam']]) ? $params[$data['resourceParam']] : null;
-            }
-            return $this->getAcl()->isAllowed($data['resourceType'], $resourceId, $data['privilege']);
-        }
-        return true;
+//        $controllerClosure = $this->getControllerFile($module, $controller);
+//
+//        $data = $this->reflection($module, $controller, $controllerClosure);
+//
+//        return $this->getAcl()->isAllowed($data['privilege'], $this->getAuth()->getIdentity(), $data['resources']);
     }
 
     /**
@@ -891,10 +841,7 @@ class Application
     {
         if (!headers_sent($file, $line)) {
             // save notification to session
-            // if they exists
-            if ($this->hasMessages()) {
-                $this->getMessages()->save();
-            }
+            $this->getSession()->_messages = $this->_messages;
 
             header('Location: '.$url);
             exit();

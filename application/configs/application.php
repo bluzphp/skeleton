@@ -54,7 +54,7 @@ return array(
         "data" => array(
             "title" => "PHP 5.3 Examples",
         ),
-        "viewHelpersPath" => PATH_APPLICATION .'/layouts/helpers',
+        "viewHelpersPath" => array(PATH_APPLICATION .'/layouts/helpers'),
         "viewHelpers" => array(
         ),
     ),
@@ -70,5 +70,33 @@ return array(
     ),
     "request" => array(
         "baseUrl" => '/',
+    ),
+    "routers" => array(
+        '/' => array(
+            'module' => 'index',
+            'controller' => 'index'
+        ),
+
+        '/test/controls' => array(
+            'module' => 'test',
+            'controller' => 'controls'
+        ),
+        '/test/markup' => array(
+            'module' => 'test',
+            'controller' => 'markup'
+        ),
+
+        '/users/login' => array(
+            'module' => 'users',
+            'controller' => 'login'
+        ),
+        '/users/logout' => array(
+            'module' => 'users',
+            'controller' => 'logout'
+        ),
+        '/users/profile' => array(
+            'module' => 'users',
+            'controller' => 'profile'
+        )
     )
 );

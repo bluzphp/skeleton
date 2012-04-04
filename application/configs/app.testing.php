@@ -14,5 +14,5 @@ return array(
     ),
     "session" => array(
         "store" => "array"
-    ),
+    )
 );
