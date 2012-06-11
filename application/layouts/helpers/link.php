@@ -1,9 +1,9 @@
 <?php
 
-return function (\Bluz\View\View $view, $src = null, $rel = 'stylesheet') {
+return function ($src = null, $rel = 'stylesheet') {
     if (null === $src) {
-        echo $view->headLinkFiles;
+        echo $this->headLinkFiles;
     } else {
-        $view->headLinkFiles .= '<link type="text/css" href="' . $view->baseUrl($src) . '" rel="' . $rel .'"/>'."\n";
+        $this->headLinkFiles .= '<link type="text/css" href="' . $this->baseUrl($src) . '" rel="' . $rel .'"/>'."\n";
     }
 };
