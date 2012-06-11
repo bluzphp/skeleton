@@ -1,20 +1,20 @@
 <?php
 
-return function ($script = null) {
+return function (\Bluz\View\View $view, $script = null) {
     if (null === $script) {
-        echo $this->headScriptFiles;
-        if ($this->headScriptContent) {
+        echo $view->headScriptFiles;
+        if ($view->headScriptContent) {
             ?>
             <script type="text/javascript">
             <!--
-                <?php echo $this->headScriptContent;?>
+                <?php echo $view->headScriptContent;?>
             //-->
             </script>
             <?php
         }
     } elseif ('.js' == substr($script, -3, 3)) {
-        $this->headScriptFiles .= '<script type="text/javascript" src="' . $this->baseUrl($script) .'"></script>'."\n";
+        $view->headScriptFiles .= '<script type="text/javascript" src="' . $view->baseUrl($script) .'"></script>'."\n";
     } else {
-        $this->headScriptContent .= $script . ';';
+        $view->headScriptContent .= $script . ';';
     }
 };
