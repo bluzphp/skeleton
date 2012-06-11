@@ -14,7 +14,7 @@ class Table extends \Bluz\Auth\Table
     /**
      * @var Table
      */
-    static $_instance;
+    static $instance;
 
     /**
      * Table

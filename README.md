@@ -13,15 +13,14 @@ return
  * @param integer $id
  * @return closure
  */
-function($id) use ($app, $view) {
+function($id) use ($view) {
     /**
      * @var Application $app
      * @var View $view
      */
-     $view->user = $app->getDb()->fetchObject("SELECT * FROM users WHERE id = ?", array($id), 'Users\Row');
+     $view->user = $this->getDb()->fetchObject("SELECT * FROM users WHERE id = ?", array($id), 'Users\Row');
 };
 ```
-
 
 View:
 
@@ -34,14 +33,25 @@ Model:
 ```php
 <?php
 namespace Application\Users;
+class Table extends \Bluz\Db\Table
+{
+    static $instance;
+    protected $table = 'users';
+    protected $rowClass = '\Application\Users\Row';
+    protected $primary = array('id');
+}
+```
+
+```php
+<?php
+namespace Application\Users;
 class Row extends \Bluz\Db\Row {
 
 }
 ```
 
-
 ## Installation
-Bluz works with PHP 5.3 or later.
+Bluz works with PHP 5.4 or later.
 
 Requried FollowSymlinks option. Create symlink to public directory:
 
@@ -67,6 +77,7 @@ Read LICENSE file
 * [Anton Shevchuk][1] 
 * [Eugene Zabolotniy][2] 
 * [Maks Slesarenko][3] 
+* [EagleMoor][4]
 
 ## Vendors
 
@@ -78,3 +89,4 @@ Read LICENSE file
 [1]: https://github.com/AntonShevchuk
 [2]: https://github.com/Baziak
 [3]: https://github.com/MaksSlesarenko
+[3]: https://github.com/EagleMoor
