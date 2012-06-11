@@ -12,6 +12,6 @@ return
  *
  * @return closure
  */
-function() use ($app, $bootstrap, $request, $view) {
+function() use ($bootstrap, $request, $view) {
 
 };

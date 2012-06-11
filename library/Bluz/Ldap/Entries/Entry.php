@@ -45,14 +45,14 @@ class Entry
     /**
      * Search field value
      *
-     * @param string $searchname
+     * @param string $name
      * @param bool $strict
      * @return array
      */
-    public function search($searchname, $strict = false)
+    public function search($name, $strict = false)
     {
         $results = array();
-        $this->_recursiveSearch($this->fields, $searchname, $results, $strict);
+        $this->recursiveSearch($this->fields, $name, $results, $strict);
         return $results;
     }
 
@@ -60,24 +60,24 @@ class Entry
      * Recursively search items
      *
      * @param $fields
-     * @param $searchname
+     * @param $name
      * @param $results
      * @param $strict
      *
      * @internal param \Bluz\Ldap\Entries\unknown_type $fieldname
      */
-    private function _recursiveSearch($fields, $searchname, &$results, $strict)
+    private function recursiveSearch($fields, $name, &$results, $strict)
     {
         foreach ($fields as $key => $field) {
             if (!$strict) {
-                if (false !== strpos($key, $searchname)) {
+                if (false !== strpos($key, $name)) {
                     $results[] = $field;
                 }
-            } elseif ($key === $searchname) {
+            } elseif ($key === $name) {
                 $results[] = $field;
             }
             if (is_array($field)) {
-                $this->_recursiveSearch($field, $searchname, $results, $strict);
+                $this->recursiveSearch($field, $name, $results, $strict);
             }
         }
     }

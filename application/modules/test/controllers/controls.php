@@ -11,11 +11,11 @@ return
 /**
  * @return closure
  */
-function() use ($app, $bootstrap, $request, $view) {
+function() use ($bootstrap, $request, $view) {
     /**
      * @var closure $bootstrap
-     * @var Application $app
-     * @var Request\HttpRequest $request
+     * @var Application $this
+     * @var Request\AbstractRequest $request
      * @var View\View $view
      */
 };

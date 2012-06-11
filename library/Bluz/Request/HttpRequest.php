@@ -47,7 +47,7 @@ class HttpRequest extends AbstractRequest
     public function __construct()
     {
         parent::__construct();
-        $this->_method = $this->getServer('REQUEST_METHOD');
+        $this->method = $this->getServer('REQUEST_METHOD');
     }
 
     /**
@@ -252,10 +252,10 @@ class HttpRequest extends AbstractRequest
      */
     public function getRequestUri()
     {
-        if ($this->_requestUri === null) {
-            $this->_requestUri = $this->detectRequestUri();
+        if ($this->requestUri === null) {
+            $this->requestUri = $this->detectRequestUri();
         }
-        return $this->_requestUri;
+        return $this->requestUri;
     }
 
     /**
@@ -265,11 +265,11 @@ class HttpRequest extends AbstractRequest
      */
     public function getBaseUrl()
     {
-        if (null === $this->_baseUrl) {
+        if (null === $this->baseUrl) {
             $this->setBaseUrl($this->detectBaseUrl());
         }
 
-        return $this->_baseUrl;
+        return $this->baseUrl;
     }
 
     /**

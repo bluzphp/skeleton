@@ -27,8 +27,6 @@
  */
 namespace Bluz\Db;
 
-use Bluz\Options;
-use Bluz\Package;
 use Bluz\Profiler;
 
 /**
@@ -63,9 +61,6 @@ use Bluz\Profiler;
  *
  * // get array
  * $db->fetchAll("SELECT * FROM users WHERE ip = ?", array($ip));
- * // cache for 5 minutes
- * $db->fetchAll("SELECT * FROM users WHERE ip = ?", array($ip), 5);
- *
  *
  * // get pairs
  * $pairs = $db->fetchPairs("SELECT ip, COUNT(id) FROM users GROUP BY ip", array());
@@ -82,12 +77,14 @@ use Bluz\Profiler;
  * @author   Anton Shevchuk
  * @created  07.07.11 15:36
  */
-class Db extends Package
+class Db
 {
+    use \Bluz\Package;
+
     /**
      * @var array
      */
-    protected $_connect = array(
+    protected $connect = array(
         "type" => "mysql",
         "host" => "localhost",
         "name" => "",
@@ -96,53 +93,66 @@ class Db extends Package
     );
 
     /**
-     * @var PDO
+     * @var \PDO
      */
-    protected $_dbh;
+    protected $dbh;
 
     /**
      * @var array
      */
-    protected $_queries;
+    protected $queries;
 
     /**
      * Himself instance
      * @var Db
      */
-    static $adapter;
+    protected static $adapter;
 
     /**
-     * Constructor of View
+     * setDefaultAdapter
      *
-     * @param array $options
-     * @access  public
+     * @param bool $flag
+     * @return Db
      */
-    public function __construct($options = null)
+    public function setDefaultAdapter($flag = true)
     {
-        Options::setConstructorOptions($this, $options);
-
-        if (isset($options['defaultAdapter'])) {
+        if ($flag) {
             self::$adapter = $this;
         }
     }
 
+    /**
+     * getDefaultAdapter
+     *
+     * @throws DbException
+     * @return Db
+     */
+    public static function getDefaultAdapter()
+    {
+        if (self::$adapter) {
+            return self::$adapter;
+        } else {
+            throw new DbException("Default database adapter is not configured");
+        }
+    }
 
     /**
      * setConnect
      *
      * @param array $connect options
+     * @throws DbException
      * @return Db
      */
     public function setConnect($connect)
     {
-        $this->_connect = array_merge($this->_connect, $connect);
+        $this->connect = array_merge($this->connect, $connect);
 
-        if (empty($this->_connect['type']) or
-            empty($this->_connect['host']) or
-            empty($this->_connect['name']) or
-            empty($this->_connect['user'])
+        if (empty($this->connect['type']) or
+            empty($this->connect['host']) or
+            empty($this->connect['name']) or
+            empty($this->connect['user'])
             ) {
-            throw new Exception('Db connection can\'t be initialized: required type, host, db name and user');
+            throw new DbException('Db connection can\'t be initialized: required type, host, db name and user');
         }
         return $this;
     }
@@ -150,28 +160,29 @@ class Db extends Package
     /**
      * connect to Db
      *
+     * @throws DbException
      * @return Db
      */
     public function connect()
     {
-        if (empty($this->_dbh)) {
-            if (empty($this->_connect['type']) or
-                empty($this->_connect['host']) or
-                empty($this->_connect['name']) or
-                empty($this->_connect['user'])
+        if (empty($this->dbh)) {
+            if (empty($this->connect['type']) or
+                empty($this->connect['host']) or
+                empty($this->connect['name']) or
+                empty($this->connect['user'])
                 ) {
-                throw new Exception('Db connection can\'t be initialized: required type, host, db name and user');
+                throw new DbException('Db connection can\'t be initialized: required type, host, db name and user');
             }
             try {
-                $this->log("Connect to ".$this->_connect['host']);
-                $this->_dbh = new \PDO(
-                    $this->_connect['type'] .":host=". $this->_connect['host'] .";dbname=". $this->_connect['name'],
-                    $this->_connect['user'],
-                    $this->_connect['pass']
+                $this->log("Connect to ".$this->connect['host']);
+                $this->dbh = new \PDO(
+                    $this->connect['type'] .":host=". $this->connect['host'] .";dbname=". $this->connect['name'],
+                    $this->connect['user'],
+                    $this->connect['pass']
                 );
-                $this->log("Connect to ".$this->_connect['host']);
+                $this->log("Connect to ".$this->connect['host']);
             } catch (\Exception $e) {
-                throw new Exception('Attempt connection to database is failed');
+                throw new DbException('Attempt connection to database is failed');
             }
         }
         return $this;
@@ -180,12 +191,13 @@ class Db extends Package
     /**
      * getAdapter
      *
+     * @throws DbException
      * @return Db
      */
     public function getAdapter()
     {
         if (!self::$adapter) {
-            throw new Exception('Default Db adapter not found');
+            throw new DbException('Default Db adapter not found');
         }
         return self::$adapter;
     }
@@ -197,10 +209,10 @@ class Db extends Package
      */
     public function handler()
     {
-        if (empty($this->_dbh)) {
+        if (empty($this->dbh)) {
             $this->connect();
         }
-        return $this->_dbh;
+        return $this->dbh;
     }
 
     /**
@@ -213,6 +225,29 @@ class Db extends Package
     {
         $this->log($sql);
         return $this->handler()->prepare($sql);
+    }
+
+    /**
+     * prepare array of params for SQL query
+     *
+     * @param array $params
+     * @return string
+     */
+    protected function prepareWhere($params)
+    {
+        if (is_string($params) && !empty($params)) {
+            return ' WHERE '. $params;
+        }
+
+        if (!sizeof($params)) {
+            return '';
+        }
+
+        $whereSql = array();
+        foreach ($params as $key => $value) {
+            $whereSql[] = "{$key} = ?";
+        }
+        return ' WHERE ' . join(' AND ', $whereSql);
     }
 
     /**
@@ -267,22 +302,34 @@ class Db extends Package
     }
 
     /**
-     * @param string $table
-     * @param array $params <p>
-     *  array (':name' => 'John', ':id' => '123')
+     * @param string       $table
+     * @param array        $params <p>
+     *                             array (':name' => 'John', ':id' => '123')
      * </p>
-     * @param string $where <p>
-     *  "WHERE id = 123"
+     * @param array|string $where  <p>
+     *  "id = 123"
+     *  // or
+     *  ["id" => 123]
      * </p>
      * @return string
      */
-    public function update($table, $params = array(), $where)
+    public function update($table, $params = array(), $where = array())
     {
-        $sql = "UPDATE `$table` SET `". join('` = ?,`', array_keys($params)) ."` = ? " . $where ;
+        $sqlWhere = $this->prepareWhere($where);
+
+        $sql = "UPDATE `$table` SET `". join('` = ?,`', array_keys($params)) ."` = ? " . $sqlWhere ;
 
         $stmt = $this->prepare($sql);
 
-        $result = $stmt->execute(array_values($params));
+        if (is_array($where)) {
+            // added data from $where to end of execute params
+            $execParams = array_merge(array_values($params), array_values($where));
+        } else {
+            // only data from $params
+            $execParams = array_values($params);
+        }
+
+        $result = $stmt->execute($execParams);
 
         $this->log($sql, $params);
 
@@ -290,22 +337,27 @@ class Db extends Package
     }
 
     /**
-     * @param string $table
-     * @param string $where <p>
-     *  "WHERE id = 123"
+     * @param string       $table
+     * @param array|string $where <p>
+     *  "id = 123"
+     *  // or
+     *  ["id" => 123]
      * </p>
      * @return string
      */
-    public function delete($table, $where)
+    public function delete($table, $where = array())
     {
-        $params = array();
-        if (is_array($where)) {
-            $params = array_values($where);
-            $where = 'WHERE `' . join('` = ? AND `', array_keys($where)) ."` = ? ";
-        }
-        $sql = "DELETE FROM `$table` " . $where ;
+        $sqlWhere = $this->prepareWhere($where);
+
+        $sql = "DELETE FROM `{$table}` {$sqlWhere}";
 
         $stmt = $this->prepare($sql);
+
+        if (is_array($where)) {
+            $params = array_values($where);
+        } else {
+            $params = array();
+        }
 
         $result = $stmt->execute($params);
 
@@ -329,7 +381,7 @@ class Db extends Package
         $stmt->execute($params);
         $result = $stmt->fetch(\PDO::FETCH_COLUMN);
 
-         $this->log($sql, $params);
+        $this->log($sql, $params);
         return $result;
     }
 
@@ -472,7 +524,7 @@ class Db extends Package
             $result = $stmt->fetch(\PDO::FETCH_INTO);
             $stmt->closeCursor();
         } elseif (is_string($object)) {
-            // some classname
+            // some class name
             $stmt->setFetchMode(\PDO::FETCH_CLASS, $object);
             $stmt->execute($params);
             $result = $stmt->fetch(\PDO::FETCH_CLASS);
@@ -508,7 +560,7 @@ class Db extends Package
             $result = $stmt->fetchAll(\PDO::FETCH_INTO, $object);
             $stmt->closeCursor();
         } elseif (is_string($object)) {
-            // some classname
+            // some class name
             $stmt->execute($params);
             $result = $stmt->fetchAll(\PDO::FETCH_CLASS, $object);
             $stmt->closeCursor();
@@ -522,17 +574,18 @@ class Db extends Package
      * log
      *
      * @param string $sql
+     * @param array  $params
      * @return void
      */
     protected function log($sql, $params = array())
     {
         if (defined('DEBUG') && DEBUG) {
-            if (isset($this->_queries[$sql])) {
-                $this->_queries[$sql]['timer'][] = microtime(true);
-                $timers = sizeof($this->_queries[$sql]['timer']);
+            if (isset($this->queries[$sql])) {
+                $this->queries[$sql]['timer'][] = microtime(true);
+                $timers = sizeof($this->queries[$sql]['timer']);
                 if ($timers%2==0) {
                     // set query time
-                    $timeSpent = $this->_queries[$sql]['timer'][$timers-1] - $this->_queries[$sql]['timer'][$timers-2];
+                    $timeSpent = $this->queries[$sql]['timer'][$timers-1] - $this->queries[$sql]['timer'][$timers-2];
 
                     $sql = str_replace('?', '%s', $sql);
 
@@ -545,7 +598,7 @@ class Db extends Package
                     call_user_func_array('\Bluz\Profiler::log', $params);
                 }
             } else {
-                $this->_queries[$sql] = array(
+                $this->queries[$sql] = array(
                     'timer' => array(microtime(true)),
                     'point' => array()
                 );

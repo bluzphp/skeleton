@@ -15,9 +15,16 @@ use Bluz\Auth\AbstractAdapter;
 
 class Equals extends AbstractAdapter
 {
-    protected $_credentialColumn;
 
-    protected $_encryptFunction;
+    /**
+     * @var string
+     */
+    protected $credentialColumn;
+
+    /**
+     * @var closure
+     */
+    protected $encryptFunction;
 
     /**
      * authenticate
@@ -29,10 +36,22 @@ class Equals extends AbstractAdapter
      */
     public function authenticate($login, $password, \Bluz\Auth\AbstractEntity $entity = null)
     {
-        $password = call_user_func($this->_encryptFunction, $password);
+        $password = call_user_func($this->encryptFunction, $password);
         $credential = $entity->getTable()->getCredentialColumn();
 
         return $entity->isEqual($credential, $password);
+    }
+
+    /**
+     * set column name
+     *
+     * @param string $name
+     * @return AbstractAdapter
+     */
+    public function setCredentialColumn($name)
+    {
+        $this->credentialColumn = $name;
+        return $this;
     }
 
     /**
@@ -43,19 +62,8 @@ class Equals extends AbstractAdapter
      */
     public function setEncryptFunction($function)
     {
-        $this->_encryptFunction = $function;
+        $this->encryptFunction = $function;
         return $this;
     }
 
-    /**
-     * setHost
-     *
-     * @param string $name
-     * @return Equals
-     */
-    public function setCredentialColumn($name)
-    {
-        $this->_credentialColumn = $name;
-        return $this;
-    }
 }

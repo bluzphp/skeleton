@@ -112,6 +112,8 @@
             return plain;
         };
 
+
+
         // Ajax links
         $(document).on('click', 'a.ajax', function(){
             var $this = $(this);
@@ -119,10 +121,12 @@
                 // request in progress
                 return false;
             }
+            var data = processData($this);
+            data.json = 1;
 
             $.ajax({
                 url:$this.attr('href'),
-                data: processData($this),
+                data: data,
                 dataType:'json',
                 beforeSend:function() {
                     $this.addClass('noactive');
@@ -136,10 +140,10 @@
                 }
             });
             return false;
-        });
+        })
 
 		// Ajax modal
-		$(document).on('click', 'a.dialog', function(){
+		.on('click', 'a.dialog', function(){
 			var $this = $(this);
 			if ($this.hasClass('noactive')) {
 				// request in progress
@@ -181,20 +185,27 @@
 				}
 			});
 			return false;
-		});
+		})
 
         // Ajax form
-		$(document).on('submit', 'form.ajax', function(){
+		.on('submit', 'form.ajax', function(){
             var $this = $(this);
             if ($this.hasClass('noactive')) {
                 // request in progress
                 return false;
             }
 
+            var data = {json: 1}; //responses as json
+            var formData = $this.serializeArray();
+
+            for (var i in formData) {
+                data[formData[i].name] = formData[i].value;
+            }
+
             $.ajax({
-                url:$this.attr('action'),
+                url: $this.attr('action'),
                 type: 'post',
-                data: $this.serializeArray(),
+                data: data,
                 dataType:'json',
                 beforeSend:function() {
                     $this.addClass('noactive');
@@ -208,6 +219,16 @@
                 }
             });
             return false;
+        })
+
+        // Delete confirmation
+        .on('click', '.btn-danger', function(e){
+            var $this = $(this);
+
+            var message = $this.attr('title') ? $this.attr('title') : 'Are you sure?';
+            if (!confirm(message)) {
+                e.preventDefault();
+            }
         });
     });
 })(jQuery);

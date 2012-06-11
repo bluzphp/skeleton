@@ -14,18 +14,18 @@ return
  *
  * @return closure
  */
-function($id) use ($app, $bootstrap, $view) {
+function($id) use ($this, $bootstrap, $view) {
 
-    /* @var \Bluz\Application $app */
-    $app->getLayout()->title = 'Custom Title';
+    /* @var \Bluz\Application $this */
+    $this->getLayout()->title = 'Custom Title';
 
     $view->title = "Index/Test";
-//    $app->getMessages()->addNotice('Notice');
-    $app->getMessages()->addError('Warning<br/>Second Line');
-//    $app->getMessages()->addError('Error');
+//    $this->getMessages()->addNotice('Notice');
+    $this->getMessages()->addError('Warning<br/>Second Line');
+//    $this->getMessages()->addError('Error');
     //$view->reload = true;
 
-    $cache = $app->getCache();
+    $cache = $this->getCache();
     /**
      * @var \Bluz\Db\Rowset $userRows
      */

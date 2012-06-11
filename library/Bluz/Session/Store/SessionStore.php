@@ -45,13 +45,14 @@ class SessionStore extends AbstractStore
      *
      * @var bool
      */
-    protected $_started = false;
+    protected $started = false;
 
     /**
      * set session save path
      *
      * @param string $savePath
-     * @return Session
+     * @throws \Bluz\Session\SessionException
+     * @return SessionStore
      */
     public function setSavepath($savePath)
     {
@@ -60,25 +61,27 @@ class SessionStore extends AbstractStore
             throw new SessionException('Session path is not writable');
         }
         session_save_path($savePath);
+        return $this;
     }
 
     /**
      * start
      *
+     * @throws \Bluz\Session\SessionException
      * @return bool
      */
     public function start()
     {
-        if (!$this->_started) {
+        if (!$this->started) {
             if (headers_sent($filename, $linenum)) {
                 throw new SessionException("Session must be started before any output has been sent to the browser;"
                     . " output started in {$filename}/{$linenum}");
             } else {
-                $this->_started = session_start();
-                if (!isset($_SESSION[$this->_namespace])) {
-                    $_SESSION[$this->_namespace] = array();
+                $this->started = session_start();
+                if (!isset($_SESSION[$this->namespace])) {
+                    $_SESSION[$this->namespace] = array();
                 }
-                return $this->_started;
+                return $this->started;
             }
         } else {
             return true;
@@ -89,13 +92,13 @@ class SessionStore extends AbstractStore
      * set
      *
      * @param string $key
-     * @param mixed $value
-     * @return void
+     * @param mixed  $value
+     * @return bool|void
      */
     public function set($key, $value)
     {
         $this->start();
-        $_SESSION[$this->_namespace][$key] = $value;
+        $_SESSION[$this->namespace][$key] = $value;
     }
 
     /**
@@ -107,10 +110,10 @@ class SessionStore extends AbstractStore
     public function get($key)
     {
         $this->start();
-        if (!isset($_SESSION[$this->_namespace][$key])) {
+        if (!isset($_SESSION[$this->namespace][$key])) {
             return null;
         }
-        return $_SESSION[$this->_namespace][$key];
+        return $_SESSION[$this->namespace][$key];
     }
 
 

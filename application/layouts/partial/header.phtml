@@ -20,19 +20,16 @@
     <script src="<?=$this->baseUrl('/js/html5.js')?>"></script>
     <![endif]-->
     <?php echo $this->script();?>
-    <?php echo $this->style();?>
     <?php echo $this->link();?>
 
     <?php $this->trigger('header'); ?>
 </head>
 <body class="module-<?=$this->getApplication()->getRequest()->module()?> controller-<?=$this->getApplication()
     ->getRequest()->controller()?>" data-spy="scroll" data-target=".subnav" data-offset="50">
-<?php if ($this->getApplication()->hasMessages() && $this->getApplication()->getMessages()->total()):?>
+<?php /*var_dump($this->getApplication()->getMessages());*/ if ($this->getApplication()->getMessages()->count()):?>
         <div id="messages" class="hide">
-            <?php foreach ($this->getApplication()->getMessages()->getStore() as $type => $messages):
-                  foreach ($messages as $msg):?>
-                    <p class="<?php echo $type?>"><?php echo $this->__($msg)?></p>
-            <?php endforeach;
-                  endforeach;?>
+            <?php while ($message = $this->getApplication()->getMessages()->pop()):?>
+                <p class="<?php echo $message->type?>"><?php echo $this->__($message->text)?></p>
+            <?php endwhile;?>
         </div>
 <?php endif;?>

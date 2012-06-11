@@ -27,8 +27,6 @@
  */
 namespace Bluz\Messages;
 
-use Bluz\Package;
-
 /**
  * Realization of Flash Messages
  *
@@ -37,81 +35,51 @@ use Bluz\Package;
  *
  * @author   Anton Shevchuk
  */
-class Messages extends Package
+class Messages
 {
+    use \Bluz\Package;
+
+    const TYPE_ERROR   = 'error';
+    const TYPE_SUCCESS = 'success';
+    const TYPE_INFO    = 'info';
+
     /**
-     * Messages
      * @var array
      */
-    protected $_messages = array(
-        'info' => array(),
-        'success' => array(),
-        'error' => array(),
+    protected $types = array(
+        self::TYPE_ERROR,
+        self::TYPE_SUCCESS,
+        self::TYPE_INFO
     );
-
-    /**
-     * Save messages to session store
-     *
-     * @return Messages
-     */
-    public function save()
-    {
-        if ($this->total()) {
-            $this->getApplication()->getSession()->MessagesStore = $this->getStore();
-        }
-
-        return $this;
-    }
-
-    /**
-     * Restore messages from session store
-     *
-     * @return Messages
-     */
-    public function restore()
-    {
-        if ($this->getApplication()->getSession()->MessagesStore) {
-            $this->setStore($this->getApplication()->getSession()->MessagesStore);
-        }
-
-        return $this;
-    }
 
     /**
      * get size of messages container
      *
      * @return integer
      */
-    public function total()
+    public function count()
     {
+        $this->init();
+
         $size = 0;
-        foreach ($this->_messages as $messages) {
+        foreach ($this->getApplication()->getSession()->MessagesStore as $messages) {
             $size += sizeof($messages);
         }
         return $size;
     }
 
     /**
-     * getMessages
+     * init
      *
-     * @return array
+     * @return Messages
      */
-    public function getStore()
+    public function init()
     {
-        return $this->_messages;
+        if (!$this->getApplication()->getSession()->MessagesStore) {
+            $this->reset();
+        }
+        return $this;
     }
-
-    /**
-     * setMessages
-     *
-     * @param $messagesStore
-     * @return array
-     */
-    public function setStore($messagesStore)
-    {
-        return $this->_messages = $messagesStore;
-    }
-
 
     /**
      * add notice
@@ -121,7 +89,9 @@ class Messages extends Package
      */
     public function addNotice($text)
     {
-        $this->_messages['info'][] = $text;
+        $this->init();
+
+        $this->getApplication()->getSession()->MessagesStore[self::TYPE_INFO][] = $text;
         return $this;
     }
 
@@ -133,7 +103,9 @@ class Messages extends Package
      */
     public function addSuccess($text)
     {
-        $this->_messages['success'][] = $text;
+        $this->init();
+
+        $this->getApplication()->getSession()->MessagesStore[self::TYPE_SUCCESS][] = $text;
         return $this;
     }
 
@@ -145,7 +117,65 @@ class Messages extends Package
      */
     public function addError($text)
     {
-        $this->_messages['error'][] = $text;
+        $this->init();
+
+        $this->getApplication()->getSession()->MessagesStore[self::TYPE_ERROR][] = $text;
         return $this;
+    }
+
+    /**
+     * Pop a message
+     *
+     * @param string $type
+     * @return \stdClass
+     */
+    public function pop($type = null)
+    {
+        $this->init();
+
+        if ($type) {
+            $text = array_shift($this->getApplication()->getSession()->MessagesStore[$type]);
+            if ($text) {
+                $message = new \stdClass();
+                $message->text = $text;
+                $message->type = $type;
+                return $message;
+            }
+        } else {
+            foreach ($this->types as $type) {
+                if ($message = $this->pop($type)) {
+                    return $message;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Pop all messages
+     *
+     * @return \ArrayObject
+     */
+    public function popAll()
+    {
+        $this->init();
+
+        $messages = $this->getApplication()->getSession()->MessagesStore->getArrayCopy();
+        $this->reset();
+        return $messages;
+    }
+
+    /**
+     * Reset messages
+     *
+     * @return Messages
+     */
+    public function reset()
+    {
+        $this->getApplication()->getSession()->MessagesStore = new \ArrayObject(array(
+            self::TYPE_ERROR   => array(),
+            self::TYPE_SUCCESS => array(),
+            self::TYPE_INFO    => array()
+        ));
     }
 }

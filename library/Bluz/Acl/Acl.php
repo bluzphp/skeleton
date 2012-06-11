@@ -27,8 +27,6 @@
  */
 namespace Bluz\Acl;
 
-use Bluz\Package;
-
 /**
  * Acl
  *
@@ -38,43 +36,38 @@ use Bluz\Package;
  * @author   Anton Shevchuk
  * @created  11.07.11 15:09
  */
-class Acl extends AbstractAcl
+class Acl
 {
+    use \Bluz\Package;
+
+    const ALLOW = 'allow';
+    const DENY = 'deny';
+
+    /**
+     * Get flags
+     *
+     * @return array
+     */
+    public static function getFlags()
+    {
+        return array(
+            self::ALLOW,
+            self::DENY
+        );
+    }
+
     /**
      * Is allowed
      *
-     * @param string                    $resourceType
-     * @param integer                   $resourceId
-     * @param                           $privilege
-     * @param \Bluz\Auth\AbstractEntity $user
+     * @param string                    $privilege
      * @internal param int $privilegeId
      * @throws AclException
      * @return boolean
      */
-    public function isAllowed($resourceType, $resourceId, $privilege, \Bluz\Auth\AbstractEntity $user = null)
+    public function isAllowed($privilege)
     {
-        if (!$user) {
-            $user = $this->getApplication()->getAuth()->getIdentity();
-        }
-        if (!$user instanceof \Bluz\Auth\AbstractEntity) {
-            throw new AclException('User not specified');
-        }
-
-        foreach ($this->_assertions as $assertion) {
-            //Check overloaded acl
-            $result = $assertion->isAllowed($resourceType, $resourceId, $privilege, $user);
-            if (null !== $result) {
-                return $result;
-            }
-        }
-
-        if ($resourceType) {
-            if (!$user || !$user->getRole() || !$user->hasResource($resourceType, $resourceId)) {
-                return false;
-            }
-        }
-
         if ($privilege) {
+            $user = $this->getApplication()->getAuth()->getIdentity();
             if (!$user || !$user->getRole() || !$user->getRole()->hasPrivilege($privilege)) {
                 return false;
             }

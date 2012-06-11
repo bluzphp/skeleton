@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2011 by Bluz PHP Team
+ * Copyright (c) 2012 by Bluz PHP Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,7 @@ use Bluz\Config\Config;
 use Bluz\Db\Db;
 use Bluz\EventManager\EventManager;
 use Bluz\Messages\Messages;
+use Bluz\Rcl\Rcl;
 use Bluz\Registry\Registry;
 use Bluz\Request;
 use Bluz\Router\Router;
@@ -45,116 +46,118 @@ use Bluz\View\View;
  * Application
  *
  * @category Bluz
- * @package  Loader
- *
- * <code>
- *
- *
- * </code>
+ * @package  Application
  *
  * @author   Anton Shevchuk
  * @created  06.07.11 16:25
  */
 class Application
 {
+    use Singleton;
+
     /**
      * @var Acl
      */
-    protected $_acl;
+    protected $acl;
 
     /**
      * @var Auth
      */
-    protected $_auth;
+    protected $auth;
 
     /**
      * @var Cache
      */
-    protected $_cache;
+    protected $cache;
 
     /**
      * @var Config
      */
-    protected $_config;
+    protected $config;
 
     /**
      * @var Db
      */
-    protected $_db;
+    protected $db;
 
     /**
      * @var EventManager
      */
-    protected $_eventManager;
+    protected $eventManager;
 
     /**
      * @var Loader
      */
-    protected $_loader;
+    protected $loader;
 
     /**
      * @var Layout
      */
-    protected $_layout;
+    protected $layout;
 
     /**
      * @var Messages
      */
-    protected $_messages;
+    protected $messages;
+
+    /**
+     * @var Rcl
+     */
+    protected $rcl;
 
     /**
      * @var Registry
      */
-    protected $_registry;
+    protected $registry;
 
     /**
      * @var Request\AbstractRequest
      */
-    protected $_request;
+    protected $request;
 
     /**
      * @var Router
      */
-    protected $_router;
+    protected $router;
 
     /**
      * @var Session
      */
-    protected $_session;
+    protected $session;
 
     /**
      * @var string
      */
-    protected $_environment;
+    protected $environment;
 
     /**
      * Use layout flag
      * @var boolean
      */
-    protected $_layoutFlag = true;
+    protected $layoutFlag = true;
 
     /**
      * JSON response flag
      * @var boolean
      */
-    protected $_jsonFlag = false;
+    protected $jsonFlag = false;
 
     /**
      * Widgets closures
      * @var array
      */
-    protected $_widgets = array();
+    protected $widgets = array();
 
     /**
      * init
      *
      * @param string $environment Array format only!
+     * @throws Exception
      * @return Application
      */
     public function init($environment = ENVIRONMENT_PRODUCTION)
     {
-
-        $this->_environment = $environment;
+        $this->environment = $environment;
 
         try {
             $this->getConfig($environment);
@@ -165,8 +168,9 @@ class Application
             $this->getCache();
             $this->getRegistry();
             $this->getSession();
+            $this->getMessages();
             $this->getAuth();
-            //$this->getAcl();
+            $this->getAcl();
             $this->getDb();
         } catch (Exception $e) {
             throw new Exception("Application can't be loaded: ". $e->getMessage());
@@ -193,11 +197,11 @@ class Application
      */
     public function getConfig($environment = null)
     {
-        if (!$this->_config) {
-            $this->_config = new Config();
-            $this->_config->load($environment);
+        if (!$this->config) {
+            $this->config = new Config();
+            $this->config->load($environment);
         }
-        return $this->_config;
+        return $this->config;
     }
 
     /**
@@ -219,22 +223,24 @@ class Application
      */
     public function getLoader()
     {
-        if (!$this->_loader) {
-            $this->_loader = Loader::getLoader();
+        if (!$this->loader) {
+            $this->loader = new Loader();
 
             $conf = $this->getConfigData('loader');
             if (isset($conf['namespaces'])) {
                 foreach ($conf['namespaces'] as $ns => $path) {
-                    $this->_loader -> registerNamespace($ns, $path);
+                    $this->loader -> registerNamespace($ns, $path);
                 }
             }
             if (isset($conf['prefixes'])) {
                 foreach ($conf['prefixes'] as $prefix => $path) {
-                    $this->_loader -> registerPrefix($prefix, $path);
+                    $this->loader -> registerPrefix($prefix, $path);
                 }
             }
+
+            $this->loader -> register();
         }
-        return $this->_loader;
+        return $this->loader;
     }
 
     /**
@@ -244,11 +250,10 @@ class Application
      */
     public function getAcl()
     {
-        if (!$this->_acl) {
-            $this->_acl = new Acl();
-            $this->_acl->setApplication($this);
+        if (!$this->acl) {
+            $this->acl = new Acl();
         }
-        return $this->_acl;
+        return $this->acl;
     }
 
     /**
@@ -258,11 +263,10 @@ class Application
      */
     public function getAuth()
     {
-        if (!$this->_auth && $conf = $this->getConfigData('auth')) {
-            $this->_auth = new Auth($conf);
-            $this->_auth->setApplication($this);
+        if (!$this->auth && $conf = $this->getConfigData('auth')) {
+            $this->auth = new Auth($conf);
         }
-        return $this->_auth;
+        return $this->auth;
     }
 
     /**
@@ -272,11 +276,10 @@ class Application
      */
     public function getCache()
     {
-        if (!$this->_cache) {
-            $this->_cache = new Cache($this->getConfigData('cache'));
-            $this->_cache->setApplication($this);
+        if (!$this->cache) {
+            $this->cache = new Cache($this->getConfigData('cache'));
         }
-        return $this->_cache;
+        return $this->cache;
     }
 
     /**
@@ -286,11 +289,10 @@ class Application
      */
     public function getDb()
     {
-        if (!$this->_db && $conf = $this->getConfigData('db')) {
-            $this->_db = new Db($conf);
-            $this->_db->setApplication($this);
+        if (!$this->db && $conf = $this->getConfigData('db')) {
+            $this->db = new Db($conf);
         }
-        return $this->_db;
+        return $this->db;
     }
 
     /**
@@ -300,10 +302,10 @@ class Application
      */
     public function getEventManager()
     {
-        if (!$this->_eventManager) {
-            $this->_eventManager = new EventManager();
+        if (!$this->eventManager) {
+            $this->eventManager = new EventManager();
         }
-        return $this->_eventManager;
+        return $this->eventManager;
     }
 
     /**
@@ -313,7 +315,7 @@ class Application
      */
     public function hasMessages()
     {
-        return ($this->_messages != null);
+        return ($this->messages != null);
     }
 
     /**
@@ -323,12 +325,23 @@ class Application
      */
     public function getMessages()
     {
-        if (!$this->_messages) {
-            $this->_messages = new Messages();
-            $this->_messages->setApplication($this);
-            $this->_messages->restore();
+        if (!$this->messages) {
+            $this->messages = new Messages();
         }
-        return $this->_messages;
+        return $this->messages;
+    }
+
+    /**
+     * getRcl
+     *
+     * @return Rcl
+     */
+    public function getRcl()
+    {
+        if (!$this->rcl) {
+            $this->rcl = new Rcl();
+        }
+        return $this->rcl;
     }
 
     /**
@@ -338,11 +351,10 @@ class Application
      */
     public function getRegistry()
     {
-        if (!$this->_registry && $conf = $this->getConfigData('registry')) {
-            $this->_registry = new Registry($conf);
-            $this->_registry->setApplication($this);
+        if (!$this->registry && $conf = $this->getConfigData('registry')) {
+            $this->registry = new Registry($conf);
         }
-        return $this->_registry;
+        return $this->registry;
     }
 
     /**
@@ -352,36 +364,31 @@ class Application
      */
     public function getRequest()
     {
-        if (!$this->_request) {
+        if (!$this->request) {
             if ('cli' == PHP_SAPI) {
-                $this->_request = new Request\CliRequest($this->getConfigData('request'));
+                $this->request = new Request\CliRequest($this->getConfigData('request'));
             } else {
-                $this->_request = new Request\HttpRequest($this->getConfigData('request'));
+                $this->request = new Request\HttpRequest($this->getConfigData('request'));
             }
 
-            $this->_request->setApplication($this);
-
-            if ($this->_request->isXmlHttpRequest()) {
+            if ($this->request->isXmlHttpRequest()) {
                 $this->useLayout(false);
             }
         }
-        return $this->_request;
+        return $this->request;
     }
 
     /**
      * getRouter
      *
-     * @return \Bluz\Router\Container
+     * @return Router
      */
     public function getRouter()
     {
-        if (!$this->_router) {
-            //$this->_router = new Router($this->getConfigData('router'));
-            $this->_router = new RouterContainer();
-            $this->_router->addRoutes($this->getConfigData('routers'));
-            $this->_router->setApplication($this);
+        if (!$this->router) {
+            $this->router = new Router($this->getConfigData('router'));
         }
-        return $this->_router;
+        return $this->router;
     }
 
     /**
@@ -391,17 +398,13 @@ class Application
      */
     public function getSession()
     {
-        if (!$this->_session) {
-            $this->_session = new Session($this->getConfigData('session'));
-            $this->_session->setApplication($this);
-            $this->_session->start();
+        if (!$this->session) {
+            $this->session = new Session($this->getConfigData('session'));
+            $this->session->start();
 
-            if ($this->_session->_messages) {
-                $this->_messages = $this->_session->_messages;
-                $this->_session->_messages = null;
-            }
+            $this->getMessages();
         }
-        return $this->_session;
+        return $this->session;
     }
 
     /**
@@ -411,11 +414,10 @@ class Application
      */
     public function getLayout()
     {
-        if (!$this->_layout && $conf = $this->getConfigData('layout')) {
-            $this->_layout = new Layout($conf);
-            $this->_layout->setApplication($this);
+        if (!$this->layout && $conf = $this->getConfigData('layout')) {
+            $this->layout = new Layout($conf);
         }
-        return $this->_layout;
+        return $this->layout;
     }
 
     /**
@@ -432,18 +434,25 @@ class Application
         $this->getRouter()
              ->process();
 
-        if ($this->_request->getParam('json')) {
+        if ($this->request->getParam('json')) {
             $this->useJson(true);
         }
+
+        //TODO remove later
+        if ($this->request->getParam('flushCache')) {
+            $this->getCache()->handler()->flush();
+        }
+
         $layout = $this->getLayout();
+        $layout->_code = 200;
 
 
         /* @var View $ControllerView */
         try {
             $controllerView = $this->dispatch(
-                $this->_request->module(),
-                $this->_request->controller(),
-                $this->_request->getParams()
+                $this->request->module(),
+                $this->request->controller(),
+                $this->request->getParams()
             );
 
             // move vars from layout to view instance
@@ -451,21 +460,17 @@ class Application
                 $controllerView -> setData($this->getLayout()->toArray());
             }
 
-            if (!$this->_layoutFlag) {
-                $this->_layout = $layout = $controllerView;
+            if (!$this->layoutFlag) {
+                $this->layout = $layout = $controllerView;
             } else {
                 $layout->setContent($controllerView);
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $controllerView = $this->dispatch('error', 'error', array(
                 'code' => $e->getCode(),
                 'message' => $e->getMessage()
             ));
             $layout->setContent($controllerView);
-        }
-
-        if (!$layout instanceof \Closure) {
-            $layout->_messages = $this->_messages;
         }
         return $this;
     }
@@ -480,9 +485,9 @@ class Application
     {
         if (is_string($flag)) {
             $this->getLayout()->setTemplate($flag);
-            $this->_layoutFlag = true;
+            $this->layoutFlag = true;
         } else {
-            $this->_layoutFlag = $flag;
+            $this->layoutFlag = $flag;
         }
         return $this;
     }
@@ -498,7 +503,7 @@ class Application
         if ($flag) {
             $this->useLayout(false);
         }
-        $this->_jsonFlag = $flag;
+        $this->jsonFlag = $flag;
         return $this;
     }
 
@@ -515,6 +520,7 @@ class Application
 
         if ('cli' == PHP_SAPI) {
             $data = $layout->toArray();
+            $data['_messages'] = $this->getMessages()->popAll();
             foreach ($data as $key => $value) {
                 if (strpos($key, '_') === 0) {
                     echo "\033[1;31m$key\033[m:\n";
@@ -525,11 +531,11 @@ class Application
                 echo "\n";
             }
         } else {
-            if ($this->_jsonFlag) {
-                header('Content-type: application/json');
+            if ($this->jsonFlag) {
+                header('Content-type: application/json', true, 200); //override response code so javascript can process it
                 $data = $layout->toArray();
                 if ($this->hasMessages()) {
-                    $data['_messages'] = $this->getMessages()->getStore();
+                    $data['_messages'] = $this->getMessages()->popAll();
                 }
                 echo json_encode($data);
             } else {
@@ -551,7 +557,7 @@ class Application
         if (!$data = $this->getCache()->get('Reflection: '.$file)) {
 
             // TODO: workaround for get reflection of closure function
-            $app = $bootstrap = $request = $view = null;
+            $bootstrap = $request = $identity = $view = null;
             $closure = include $file;
 
             $reflection = new \ReflectionFunction($closure);
@@ -561,11 +567,7 @@ class Application
             preg_match_all('/\s*\*\s*\@param\s+(bool|boolean|int|integer|float|string|array)\s+\$([a-z0-9_]+)/i', $docComment, $matches);
 
             // init data
-            $data = array(
-                'resourceType'  => null,
-                'resourceParam' => null,
-                'privilege'     => null
-            );
+            $data = array();
 
             // rebuild array
             $data['types'] = array();
@@ -575,12 +577,19 @@ class Application
 
             $data['params'] = $reflection->getParameters();
 
+            // check cache settings
             if (preg_match('/\s*\*\s*\@cache\s+([0-9\.]+).*/i', $docComment, $matches)) {
-                $data['cache'] = $matches[1];
+                $data['cache'] = (int) $matches[1];
             }
+            // check routers
+            if (preg_match('/\s*\*\s*\@route\s+(.*)\s*/i', $docComment, $matches)) {
+                $data['route'] = $matches[1];
+            }
+            // check acl settings
             if (preg_match('/\s*\*\s*\@privilege\s+(\w+).*/i', $docComment, $matches)) {
                 $data['privilege'] = $matches[1];
             }
+            // check rcl settings
             if (preg_match('/\s*\*\s*\@resource\s+(\w+)(\s\w+|).*/i', $docComment, $matches)) {
                 $data['resourceType'] = $matches[1];
                 $data['resourceParam'] = trim($matches[2]);
@@ -650,7 +659,8 @@ class Application
      *
      * @param string $module
      * @param string $controller
-     * @param array $params
+     * @param array  $params
+     * @throws Exception
      * @return View
      */
     public function dispatch($module, $controller, $params = array())
@@ -667,14 +677,15 @@ class Application
             'reflection' => $reflectionData
         ));
 
+        $identity = $this->getAuth()->getIdentity();
+
         // check acl
         if (!$this->isAllowedController($module, $controller, $params)) {
-           throw new Exception('You don\'t have permissions', 403);
+            if (!$identity) {
+                $this->redirectTo('users', 'login');
+            }
+            throw new Exception('You don\'t have permissions', 403);
         }
-
-        // $app for use in closure
-        $app = $this;
-        $identity = $app->getAuth()->getIdentity();
 
         // $request for use in closure
         $request = $this->getRequest();
@@ -684,7 +695,6 @@ class Application
         $view = new View($this->getConfigData('view'));
         $view -> setPath(PATH_APPLICATION .'/modules/'. $module .'/views');
         $view -> setTemplate($controller .'.phtml');
-        $view -> setApplication($this);
 
         $bootstrapPath = PATH_APPLICATION .'/modules/' . $module .'/bootstrap.php';
 
@@ -718,7 +728,7 @@ class Application
 
         $result = call_user_func_array($controllerClosure, $params);
 
-        // return false is equal to disable layout
+        // return false is equal to disable view
         if ($result === false) {
             $result = function(){};
         }
@@ -736,39 +746,59 @@ class Application
     /**
      * widget
      *
+     * Call widget from any \Bluz\Package
+     * <code>
+     * $this->getApplication()->widget($module, $widget, array $params);
+     * </code>
+     *
+     * Attach callback function to event "widget"
+     * <code>
+     * $this->getApplication()->getEventManager()->attach('widget', function($event) {
+     *     $eventParams = $event->getParams();
+     *     $app = $event->getTarget();
+     *     \Bluz\Profiler::log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['widget']);
+     * });
+     * </code>
+     *
      * @param string $module
      * @param string $widget
-     * @param array $params
+     * @param array  $params
+     * @throws Exception
      * @return \Closure
      */
     public function widget($module, $widget, $params = array())
     {
         $this->log(__METHOD__.": ".$module.'/'.$widget);
+        $controllerFile = $this->getWidgetFile($module, $widget);
+        $reflectionData = $this->reflection($controllerFile);
 
-        $app = $this;
+        $this->getEventManager()->trigger('widget', $this, array(
+            'module' => $module,
+            'widget' => $widget,
+            'params' => $params,
+            'reflection' => $reflectionData
+        ));
 
         /**
          * Cachable widgets
          * @var \Closure $widgetClosure
          */
-        if (isset($this->_widgets[$module])
-            && isset($this->_widgets[$module][$widget])) {
-            $widgetClosure = $this->_widgets[$module][$widget];
+        if (isset($this->widgets[$module])
+            && isset($this->widgets[$module][$widget])) {
+            $widgetClosure = $this->widgets[$module][$widget];
         } else {
             $widgetClosure = require $this->getWidgetFile($module, $widget);
 
-            if (!isset($this->_widgets[$module])) {
-                $this->_widgets[$module] = array();
+            if (!isset($this->widgets[$module])) {
+                $this->widgets[$module] = array();
             }
-            $this->_widgets[$module][$widget] = $widgetClosure;
+            $this->widgets[$module][$widget] = $widgetClosure;
         }
 
         if (!is_callable($widgetClosure)) {
             throw new Exception("Widget is not callable '$module/$widget'");
         }
 
-        // TODO: check acl and other docs information
-//        $data = $this->reflection($module."/widgets/".$widget, $widgetClosure);
         return $widgetClosure;
     }
 
@@ -782,13 +812,56 @@ class Application
      */
     public function isAllowedController($module, $controller, array $params = array())
     {
-        return true;
+        $controllerFile = $this->getControllerFile($module, $controller);
 
-//        $controllerClosure = $this->getControllerFile($module, $controller);
-//
-//        $data = $this->reflection($module, $controller, $controllerClosure);
-//
-//        return $this->getAcl()->isAllowed($data['privilege'], $this->getAuth()->getIdentity(), $data['resources']);
+        $data = $this->reflection($controllerFile);
+
+        if (isset($data['privilege']) &&
+            !$this->getAcl()->isAllowed($data['privilege'])) {
+            // privilege is described and deny
+            return false;
+        }
+
+        if (isset($data['privilege']) && isset($data['resourceType'])) {
+            $resourceId = null;
+            if (!empty($data['resourceParam'])) {
+                $resourceId = isset($params[$data['resourceParam']]) ? $params[$data['resourceParam']] : null;
+            }
+            return $this->getRcl()->isAllowed($data['privilege'], $data['resourceType'], $resourceId);
+        }
+
+        return true;
+    }
+
+    /**
+     * Is allowed widget
+     *
+     * @param string $module
+     * @param string $widget
+     * @param array  $params
+     * @return boolean
+     */
+    public function isAllowedWidget($module, $widget, array $params = array())
+    {
+        $widgetFile = $this->getWidgetFile($module, $widget);
+
+        $data = $this->reflection($widgetFile);
+
+        if (isset($data['privilege']) &&
+            !$this->getAcl()->isAllowed($data['privilege'])) {
+            // privilege is described and deny
+            return false;
+        }
+
+        if (isset($data['privilege']) && isset($data['resourceType'])) {
+            $resourceId = null;
+            if (!empty($data['resourceParam'])) {
+                $resourceId = isset($params[$data['resourceParam']]) ? $params[$data['resourceParam']] : null;
+            }
+            return $this->getRcl()->isAllowed($data['privilege'], $data['resourceType'], $resourceId);
+        }
+
+        return true;
     }
 
     /**
@@ -835,16 +908,16 @@ class Application
      * redirect
      *
      * @param string $url
+     * @throws Exception
      * @return void
      */
     public function redirect($url)
     {
         if (!headers_sent($file, $line)) {
             // save notification to session
-            $this->getSession()->_messages = $this->_messages;
-
+            // if they exists
             header('Location: '.$url);
-            exit();
+            exit;
         } else {
             throw new Exception("Headers already sent by $file:$line");
         }

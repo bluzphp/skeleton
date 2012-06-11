@@ -41,7 +41,7 @@ class ArrayStore extends AbstractStore
     /**
      * @var array
      */
-    protected $_store = array();
+    protected $store = array();
 
     /**
      * start
@@ -50,7 +50,7 @@ class ArrayStore extends AbstractStore
      */
     public function start()
     {
-        $this->_store[$this->_namespace] = array();
+        $this->store[$this->namespace] = array();
         return true;
     }
 
@@ -63,7 +63,7 @@ class ArrayStore extends AbstractStore
      */
     public function set($key, $value)
     {
-        return $this->_store[$this->_namespace][$key] = $value;
+        return $this->store[$this->namespace][$key] = $value;
     }
 
     /**
@@ -74,7 +74,7 @@ class ArrayStore extends AbstractStore
      */
     public function get($key)
     {
-        return isset($this->_store[$this->_namespace][$key])?$this->_store[$this->_namespace][$key]:null;
+        return isset($this->store[$this->namespace][$key])?$this->store[$this->namespace][$key]:null;
     }
 
     /**
@@ -84,7 +84,7 @@ class ArrayStore extends AbstractStore
      */
     public function destroy()
     {
-        $this->_store[$this->_namespace] = array();
+        $this->store[$this->namespace] = array();
         return true;
     }
 }

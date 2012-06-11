@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (c) 2012 by Bluz PHP Team
  *

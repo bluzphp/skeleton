@@ -1,23 +1,49 @@
 <?php
+
+/**
+ * Copyright (c) 2012 by Bluz PHP Team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/**
+ * @namespace
+ */
+namespace Bluz\Acl;
+
 /**
  * Role
  *
  * @category Bluz
  * @package  Acl
  */
-namespace Bluz\Acl;
-
 abstract class AbstractRole extends \Bluz\Db\Row
 {
     /**
      * @var array of Role's
      */
-    protected $_parents;
+    protected $parents;
 
     /**
      * @var array of rules
      */
-    protected $_rules;
+    protected $rules;
 
     /**
      * Get name
@@ -38,14 +64,14 @@ abstract class AbstractRole extends \Bluz\Db\Row
      *
      * @return array|Rowset of Roles
      */
-    abstract protected function _getParentRoles();
+    abstract protected function getParentRoles();
 
     /**
      * Get rules
      *
      * @return array
      */
-    abstract protected function _getRules();
+    abstract protected function getRoleRules();
 
     /**
      * @see Bluz\Db.Row::__sleep()
@@ -54,8 +80,8 @@ abstract class AbstractRole extends \Bluz\Db\Row
     public function __sleep()
     {
         $return = parent::__sleep();
-        $return[] = '_parents';
-        $return[] = '_rules';
+        $return[] = 'parents';
+        $return[] = 'rules';
 
         return $return;
     }
@@ -77,8 +103,8 @@ abstract class AbstractRole extends \Bluz\Db\Row
      */
     public function clearCache()
     {
-        $this->_rules = null;
-        $this->_parents = null;
+        $this->rules = null;
+        $this->parents = null;
 
         return $this;
     }
@@ -91,17 +117,20 @@ abstract class AbstractRole extends \Bluz\Db\Row
      */
     public function getParents($inherited = false)
     {
-        if (null === $this->_parents) {
-            $this->_parents = array();
+        if (null === $this->parents) {
+            $this->parents = array();
 
-            foreach ($this->_getParentRoles() as $role) {
-                $this->_parents[$role->getId()] = &$role;
+            foreach ($this->getParentRoles() as $role) {
+                /* @var \Bluz\Acl\AbstractRole $role */
+                $this->parents[$role->getId()] = $role;
             }
         }
 
-        $parents = $this->_parents;
+
+        $parents = $this->parents;
         if ($inherited) {
             foreach ($parents as $parent) {
+                /* @var AbstractRole $parent */
                 foreach ($parent->getParents(true) as $pid => $pParent) {
                     if (!isset($parents[$pid])) {
                         $parents[$pid] = $pParent;
@@ -142,19 +171,20 @@ abstract class AbstractRole extends \Bluz\Db\Row
     public function getRules($inherited = true)
     {
         //get role specific privileges
-        if (null === $this->_rules) {
-            $this->_rules = array();
+        if (null === $this->rules) {
+            $this->rules = array();
 
-            foreach ($this->_getRules() as $row) {
-                $this->_rules[ $row->privilege ] = $row->flag;
+            foreach ($this->getRoleRules() as $row) {
+                $this->rules[ $row->privilege ] = $row->flag;
             }
         }
 
-        $rules = $this->_rules;
+        $rules = $this->rules;
 
         //get inherited privileges
         if ($inherited) {
             foreach ($this->getParents() as $parent) {
+                /* @var AbstractRole $parent */
                 foreach ($parent->getRules() as $parentPrivilege => $flag) {
                     if (!isset($rules[$parentPrivilege])) {
                         $rules[ $parentPrivilege ] = $flag;
@@ -195,10 +225,7 @@ abstract class AbstractRole extends \Bluz\Db\Row
      */
     public function getPrivilegesAsString($inherited = true)
     {
-        $privileges = "";
-        foreach ($this->getPrivileges($inherited) as $privilege) {
-            $privileges .= $privilege . ",";
-        }
-        return trim($privileges, ',');
+        $privileges = $this->getPrivileges($inherited);
+        return join(', ', (array) $privileges);
     }
 }

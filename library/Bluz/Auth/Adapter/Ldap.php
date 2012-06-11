@@ -18,17 +18,17 @@ class Ldap extends AbstractAdapter
     /**
      * @var string
      */
-    protected $_host = '';
+    protected $host = '';
 
     /**
      * @var string
      */
-    protected $_domain = '';
+    protected $domain = '';
 
     /**
      * @var string
      */
-    protected $_baseDn = '';
+    protected $baseDn = '';
 
     /**
      * authenticate
@@ -40,13 +40,13 @@ class Ldap extends AbstractAdapter
      */
     public function authenticate($login, $password, \Bluz\Auth\AbstractEntity $entity = null)
     {
-        $result = null;
-        /*$ldap = $this->getAuth()
+        /*$result = null;
+        $ldap = $this->getAuth()
             ->getApplication()
             ->getLdap();*/
         $ldap = new \Bluz\Ldap\Ldap();
 
-        $ldap->initConnector($this->_host, $this->_domain, $this->_baseDn);
+        $ldap->initConnector($this->host, $this->domain, $this->baseDn);
 
         return $ldap->checkAuth($login, $password);
     }
@@ -55,11 +55,11 @@ class Ldap extends AbstractAdapter
      * setHost
      *
      * @param string $name
-     * @return Table
+     * @return Ldap
      */
     public function setHost($name)
     {
-        $this->_host = $name;
+        $this->host = $name;
         return $this;
     }
 
@@ -67,11 +67,11 @@ class Ldap extends AbstractAdapter
      * setDomain
      *
      * @param string $name
-     * @return Table
+     * @return Ldap
      */
     public function setDomain($name)
     {
-        $this->_domain = $name;
+        $this->domain = $name;
         return $this;
     }
 
@@ -83,20 +83,7 @@ class Ldap extends AbstractAdapter
      */
     public function setBaseDn($name)
     {
-        $this->_baseDn = $name;
-        return $this;
-    }
-
-
-    /**
-     * setIdentityColumn
-     *
-     * @param string $name
-     * @return Ldap
-     */
-    public function setIdentityColumn($name)
-    {
-        $this->_identityColumn = $name;
+        $this->baseDn = $name;
         return $this;
     }
 }

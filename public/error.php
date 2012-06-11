@@ -1,6 +1,8 @@
 <?php
-header("HTTP/1.1 503 Service Temporarily Unavailable");
-header('Retry-After: 600');
+if (!headers_sent()) {
+    header("HTTP/1.1 503 Service Temporarily Unavailable");
+    header('Retry-After: 600');
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,6 +51,7 @@ header('Retry-After: 600');
     <h2>Server Temporarily Unavailable</h2>
     <?php if (defined('DEBUG') && DEBUG && isset($e)) : ?>
     <p><?php echo $e->getMessage() ?></p>
+    <pre><?=$e->getTraceAsString() ?></pre>
     <?php endif;?>
 </section>
 </body>

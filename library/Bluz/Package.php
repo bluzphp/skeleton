@@ -33,16 +33,33 @@ namespace Bluz;
  * @category Bluz
  * @package  Package
  *
+ * <code>
+ * class Foo
+ * {
+ *   use \Bluz\Package;
+ *
+ *   protected $bar = '';
+ *   protected $baz = '';
+ *
+ *   public function setBar($value)
+ *   {
+ *       $this->bar = $value;
+ *   }
+ *
+ *   public function setBaz($value)
+ *   {
+ *       $this->baz = $value;
+ *   }
+ * }
+ *
+ * $Foo = new Foo(array('bar'=>123, 'baz'=>456));
+ * </code>
+ *
  * @author   Anton Shevchuk
  * @created  12.07.11 16:15
  */
-class Package
+trait Package
 {
-    /**
-     * @var Application
-     */
-    protected $_application;
-
     /**
      * Constructor
      *
@@ -51,39 +68,56 @@ class Package
      */
     public function __construct($options = null)
     {
-        Options::setConstructorOptions($this, $options);
+        if ($options) {
+            $this->setOptions($options);
+        }
+        $this->init($options);
     }
 
     /**
-     * Setup options
+     * init
+     *
      * @param array $options
+     * @return void
+     */
+    public function init($options = null)
+    {
+        // do nothing by default
+    }
+
+    /**
+     * @param array $options
+     * @return void
      */
     public function setOptions(array $options)
     {
-        Options::setOptions($this, $options);
+        foreach ($options as $key => $value) {
+            $method = 'set' . $this->normalizeKey($key);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
     }
 
     /**
-     * setApplication
-     *
-     * @param Application $application
-     * @return Package
+     * @param  $key
+     * @return mixed
      */
-    public function setApplication(Application $application)
+    private function normalizeKey($key)
     {
-        $this->_application = $application;
+        $option = str_replace('_', ' ', strtolower($key));
+        $option = str_replace(' ', '', ucwords($option));
+        return $option;
     }
 
     /**
      * getApplication
      *
+     * @throws Exception
      * @return Application
      */
     public function getApplication()
     {
-        if (!$this->_application) {
-            throw new Exception('Application link not found for "'.get_called_class().'" class. Please use method "setApplication()" for initial it');
-        }
-        return $this->_application;
+        return Application::getInstance();
     }
 }

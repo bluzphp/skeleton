@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (c) 2012 by Bluz PHP Team
  *
@@ -26,336 +27,210 @@
  */
 namespace Bluz\Router;
 
-class Router implements RouterInterface
+/**
+ * Router
+ *
+ * @category Bluz
+ * @package  Router
+ *
+ * @author   Anton Shevchuk
+ * @created  06.07.11 18:16
+ */
+class Router
 {
-    protected $_name = '';
-    protected $_route = '';
-    protected $_defaults = array();
-    protected $_reqs = array();
-    protected $_static = null;
-    protected $_isStatic = false;
+    use \Bluz\Package;
 
+    const DEFAULT_MODULE = 'index';
+    const DEFAULT_CONTROLLER = 'index';
 
     /**
-     * @param $route
-     * @param array $options
+     * @var array
      */
-    public function __construct($route, array $options)
-    {
-        if (!is_array($options)) throw new \Exception('Options can be array, giving "' . gettype($options) . '"');
-
-        $module = $this->getConfigParam($options['module']);
-        $controller = $this->getConfigParam($options['controller']);
-
-        $name = (!empty($options['name'])) ? $options['name'] : $module['default'] . '-' . $controller['default'];
-        unset($options['name']);
-
-        $this->setName($name)
-             ->setRoute((string) $route);
-
-        $defaults = $reqs = array();
-
-        foreach ($options as $key => $value) {
-            $value = $this->getConfigParam($value);
-
-            $defaults[$key] = $value['default'];
-            if (!empty($value['reqs'])) $reqs[$key] = $value['reqs'];
-        }
-
-        $this->setDefaults($defaults)
-             ->setReqs($reqs);
-    }
+    protected $routes = array();
 
     /**
-     * Get param default value & request
-     *
-     * @param mixed $param
-     * @return array
+     * @var array
      */
-    private function getConfigParam($param)
-    {
-        if (is_array($param) && sizeof($param) >= 2) {
-            return array(
-                'default'   => array_shift($param),
-                'reqs'      => array_shift($param)
-            );
-        } else {
-            return array('default' => $param);
-        }
-    }
+    protected $reverse = array();
 
     /**
-     * Проверка на соответствие
-     *
-     * @param string $path
-     * @return false|array
+     * @var string
      */
-    public function match($path)
-    {
-        // Удаление по 1 слешу с концов строки
-        $trim = function($url) {
-            $url = trim($url);
-            if ('/' == substr($url, 0, 1)) $url = substr($url, 1);
-            if ('/' == substr($url, -1)) $url = substr($url, 0, -1);
-            return $url;
-        };
-
-        $route = $this->_route;
-        $path = $trim($path);
-
-        // Если роутер полностью статичен
-        if ($this->_isStatic) {
-            if ($this->_static != $path) {
-                return false;
-            }
-
-            return $this->_defaults;
-        }
-
-        // Проверка статичной части
-        if (null !== $this->_static) {
-            if (0 !== strpos($path . '/', $this->_static . '/')) {
-                return false;
-            }
-            $route = $trim(substr($route, strlen($this->_static)));
-            $path = $trim(substr($path, strlen($this->_static)));
-        }
-
-        $routeArray = explode('/', $route);
-        $pathArray = explode('/', $path);
-        $params = (is_array($this->_defaults)) ? $this->_defaults : array();
-
-        $match = $matchPath = '';
-
-        // Есть ли '*' в конце
-        $last = false;
-
-        while ($var = array_shift($routeArray)) {
-            $part = null;
-
-            // Не извлекает часть из пути, есть последний символ роутера *
-            if (!('*' == $var && !sizeof($routeArray)))
-                $part = array_shift($pathArray);
-
-            if (':' == substr($var, 0, 1)) {
-                // $var is variable
-
-                $varName = substr($var, 1);
-
-                // Если для переменной нету значиня по умолчанию и кусок пути пустой
-                if (!isset($this->_defaults[$varName]) && empty($part)) {
-                    return false;
-                }
-
-                if (isset($this->_reqs[$varName])) {
-                    $var = $this->_reqs[$varName];
-                }
-                else {
-                    $var = '.*';
-                }
-
-                // Если для переменной есть значение по умолчанию и кусок пути пустой
-                if (isset($this->_defaults[$varName]) && empty($part)) {
-                    $part = $this->_defaults[$varName];
-                }
-
-                $params[$varName] = $part;
-            } else if ('*' == substr($var, 0, 1)) {
-                $var = '.*';
-                if (!sizeof($routeArray)) {
-                    $last = true;
-                    if (null !== $part) {
-                        $match .= (empty($match)) ? "(?:($var))" : "(?:\/($var))?";
-                    }
-                    continue;
-                }
-            } else {
-                if ($var != $part) {
-                    return false;
-                }
-            }
-
-            $match .= (empty($match)) ? "($var)" : "\/($var)";
-            $matchPath .= (empty($matchPath)) ? "$part" : "/$part";
-        }
-
-        // Если есть дополнительные переменные, а их вводить нельзя
-        if (sizeof($pathArray) && !$last) {
-            return false;
-        }
-
-        $match = "#^$match$#i";
-
-        if (preg_match($match, $matchPath)) {
-
-            // Если остались переменные в пути, определяем их
-            if (sizeof($pathArray)) {
-                while (sizeof($pathArray)) {
-                    $key = array_shift($pathArray);
-                    $value = array_shift($pathArray);
-
-                    // Дополнительными переменными нельзя сбить основные
-                    if (!isset($params[$key])) {
-                        $params[$key] = $value;
-                    }
-                }
-            }
-
-            // Возвращаем параметры
-            return $params;
-
-        } else {
-            return false;
-        }
-    }
+    protected $baseUrl;
 
     /**
-     * Set route name
-     *
-     * @param string $name
-     * @return Route
-     */
-    public function setName($name)
-    {
-        $this->_name = $name;
-        return $this;
-    }
-
-    /**
-     * Get route name
-     *
+     * getBaseUrl
+     * always return string with slash at end
      * @return string
      */
-    public function getName()
+    public function getBaseUrl()
     {
-        return $this->_name;
+        if (!$this->baseUrl) {
+            $this->baseUrl = $this->getApplication()
+                ->getRequest()
+                ->getBaseUrl()
+            ;
+        }
+        return $this->baseUrl;
     }
 
     /**
-     * Set default variable
+     * build URL
      *
-     * @param array $defaults
-     * @return Route
+     * @param string $module
+     * @param string $controller
+     * @param array $params
+     * @return string
      */
-    public function setDefaults(array $defaults)
+    public function url($module = null, $controller = null, $params = null)
     {
-        $this->_defaults = $defaults;
-        return $this;
-    }
-
-    /**
-     * Get default variable
-     *
-     * @return array
-     */
-    public function getDefaults()
-    {
-        return $this->_defaults;
-    }
-
-    /**
-     * Is static route
-     * @return bool
-     */
-    public function isStatic()
-    {
-        return $this->_isStatic;
-    }
-
-    /**
-     * Set route string
-     *
-     * @param string $route
-     * @return Route
-     */
-    public function setRoute($route)
-    {
-        $this->_route = $route = trim($route, '/');
-
-        if (false !== ($pos = strpos($route, ':'))) {
-            $this->_static = trim(substr($route, 0, $pos), '/');
-            $route = substr($route, strlen($this->_static));
+        if (empty($this->routes)) {
+            return $this->defaultUrl($module, $controller, $params);
         } else {
-            if (false === strpos($route, '*')) {
-                $this->_static = trim($route, '/');
-                $this->_isStatic = true;
+            /**
+             * $reverse = array(
+             *     'module1' => array(
+             *          'controller1' => array('params'=>array(), 'rule'=>index1),
+             *          'controller2' => array('params'=>array(), 'rule'=>index2),
+             *      )
+             * )
+             *
+             * $routers = array(
+             *     '/users/{controller}/{id}' => array('users', 'controller', 'params' => array('id')),
+             *     '/{alias}.html' => array('pages', 'view', 'params' => array('alias')),
+             *
+             * )
+             */
+            return $this->defaultUrl($module, $controller, $params);
+        }
+    }
+
+
+    /**
+     * build URL by default route
+     *
+     * @param string $module
+     * @param string $controller
+     * @param array $params
+     * @return string
+     */
+    public function defaultUrl($module = null, $controller = null, $params = null)
+    {
+        if (null === $module) {
+            $module = self::DEFAULT_MODULE;
+        }
+
+        if (null === $controller) {
+            $controller = self::DEFAULT_CONTROLLER;
+        }
+
+        if (null === $params) {
+            $params = array();
+        }
+
+        $url = $this->getBaseUrl();
+
+        if (empty($params)) {
+            if ($controller == 'index') {
+                if ($module == 'index') {
+                    return $url;
+                } else {
+                    return $url . $module;
+                }
             }
         }
 
-        return $this;
+        $url .= $module.'/'.$controller;
+        $postfix = '';
+        foreach ($params as $key => $value) {
+            if (empty($key)) {
+                $postfix .= $value;
+            } else if (!empty($value) || $value === "0") {
+                $url .= '/'.urlencode($key).'/'.urlencode($value);
+            }
+        }
+        return $url . $postfix;
     }
 
     /**
-     * Get route string
+     * process
      *
-     * @return string
+     * @return \Bluz\Request\AbstractRequest
      */
-    public function getRoute()
+    public function process()
     {
-        return $this->_route;
+        $request = $this->getApplication()->getRequest();
+
+        if (sizeof($this->routes)) {
+            $request = $this->processRoute($request);
+        } else {
+            $request = $this->processDefault($request);
+        }
+
+        return $request;
     }
 
     /**
-     * Get static path of route
+     * process default router
      *
-     * @return string|null
+     * @param  \Bluz\Request\AbstractRequest $request
+     * @return \Bluz\Request\AbstractRequest
      */
-    public function getStatic()
+    protected function processDefault($request)
     {
-        return $this->_static;
+        $uri = parse_url($request->getRequestUri());
+        $uri = $uri['path'];
+
+        if ($this->getBaseUrl() && strpos($uri, $this->getBaseUrl()) === 0) {
+            $uri = substr($uri, strlen($this->getBaseUrl()));
+        }
+
+        $uri = trim($uri, '/');
+        if (empty($uri)) return $request;
+
+        $params = preg_split('/\//', $uri);
+
+        if (sizeof($params)) {
+            $request->module(array_shift($params));
+        }
+        if (sizeof($params)) {
+            $request->controller(array_shift($params));
+        }
+
+        if ($size = sizeof($params)) {
+            if ($size%2==1) {
+                array_pop($params);
+                $size = sizeof($params);
+            }
+            // or use array_chunk and run another loop?
+            for ($i = 0; $i < $size; $i=$i+2) {
+                $request->{$params[$i]} = $params[$i+1];
+            }
+        }
+
+        return $request;
     }
 
     /**
-     * Set params request
+     * process custom router
      *
-     * @param array $reqs
-     * @return Route
+     * @param  \Bluz\Request\AbstractRequest $request
+     * @return \Bluz\Request\AbstractRequest
      */
-    public function setReqs(array $reqs)
+    protected function processRoute($request)
     {
-        $this->_reqs = $reqs;
-        return $this;
-    }
-
-    /**
-     * Get params request
-     *
-     * @return array
-     */
-    public function getReqs()
-    {
-        return $this->_reqs;
-    }
-
-    /**
-     * Using object as function
-     *
-     * @param $path
-     * @return array|false
-     */
-    public function __invoke($path)
-    {
-        return $this->match($path);
-    }
-
-    public function url(array $params)
-    {
-        $url = $this->getRoute();
-        $last = (0 === strrpos($url, '*')) ? true : false;
-        $defaults = $this->getDefaults();
+        // TODO Check this
+        $params = array();
 
         foreach ($params as $param => $value) {
-            if (isset($defaults[$param])) {
-                $url = str_replace(':' . $param, $value, $url);
+            if ($param === 'module') {
+                $request->module($value);
+            } elseif ($param === 'controller') {
+                $request->controller($value);
             } else {
-                if ('module' == $param || 'controller' == $param) continue;
-
-                if (!$last) throw new \Exception("Param '{$param}' not set on router", 404);
-
-                $url .= "/{$param}/{$value}";
+                $request->{$param} = $value;
             }
         }
-
-        return '/' . $url;
+        return $request;
     }
 }

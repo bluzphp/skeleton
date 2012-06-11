@@ -14,15 +14,15 @@ return
  * @param $password
  * @return closure
  */
-function() use ($bootstrap, $app, $view) {
+function() use ($view) {
     /**
      * @var closure $bootstrap
-     * @var Application $app
+     * @var Application $this
      * @var Auth $auth
      */
-    $app->getAuth()->setIdentity(null);
-    $app->getMessages()->addNotice('You are signout');
-    $app->redirectTo('index', 'index');
+    $this->getAuth()->setIdentity(null);
+    $this->getMessages()->addNotice('You are signout');
+    $this->redirectTo('index', 'index');
 
     return false;
 };

@@ -33,7 +33,7 @@ interface LdapIterator
      *
      * @param string $filter
      * @param string $attributes
-     * @return LdapEntries
+     * @return \Bluz\Ldap\Entries\Entries
      */
     public function doSearch($filter, $attributes = null);
 

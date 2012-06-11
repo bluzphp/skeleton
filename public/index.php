@@ -5,15 +5,11 @@
  * @author   C.O.
  * @created  06.07.11 16:20
  */
-
-// Start timer
-define('TIMER', microtime(true));
-
 // Environment
 define('ENVIRONMENT_PRODUCTION', 'production');
 define('ENVIRONMENT_DEVELOPMENT', 'development');
 define('ENVIRONMENT_TESTING', 'testing');
-define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : ENVIRONMENT_TESTING));
+define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : ENVIRONMENT_PRODUCTION));
 
 // Debug mode for development environment only
 if (APPLICATION_ENV != ENVIRONMENT_PRODUCTION) {
@@ -35,10 +31,11 @@ define('PATH_LIBRARY', PATH_ROOT . '/library');
 define('PATH_PUBLIC', PATH_ROOT . '/public');
 define('PATH_THEME', PATH_ROOT . '/themes');
 
-set_include_path(PATH_LIBRARY . PATH_SEPARATOR . get_include_path());
-
 // Shutdown function for handle critical and other errors
 register_shutdown_function('errorHandler');
+
+// iframe header - prevent security issues
+header('X-Frame-Options: SAMEORIGIN');
 
 function errorHandler() {
     $error = error_get_last();
@@ -52,21 +49,13 @@ function errorHandler() {
 // Try to run application
 try {
     // init loader
-    require_once PATH_LIBRARY . '/Bluz/Loader.php';
-
-    Bluz\Loader::getLoader()->registerNamespace('Bluz', PATH_LIBRARY)
-                            ->registerNamespace('Application', PATH_APPLICATION . '/models')
-                            ->register();
-
+    require_once PATH_LIBRARY . '/Bluz/_loader.php';
     require_once PATH_APPLICATION . '/Bootstrap.php';
 
-    $app = new Bootstrap();
+    $app = \Application\Bootstrap::getInstance();
     $app->init(APPLICATION_ENV)
         ->process()
         ->render();
-
-
-
 } catch (Exception $e) {
     require_once 'error.php';
 }

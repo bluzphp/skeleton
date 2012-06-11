@@ -27,7 +27,6 @@
  */
 namespace Bluz\Config;
 
-use Bluz\Package;
 
 /**
  * Config
@@ -38,17 +37,20 @@ use Bluz\Package;
  * @author   Anton Shevchuk
  * @created  03.03.12 14:03
  */
-class Config extends Package
+class Config
 {
+    use \Bluz\Package;
+
     /**
      * @var array
      */
-    protected $_config;
+    protected $config;
 
     /**
      * load
      *
      * @param string $environment
+     * @throws ConfigException
      * @return bool
      */
     public function load($environment = null)
@@ -56,17 +58,17 @@ class Config extends Package
        $configFile = PATH_APPLICATION .'/configs/application.php';
 
        if (!is_file($configFile) or !is_readable($configFile)) {
-           throw new Exception('Configuration file is not readable');
+           throw new ConfigException('Configuration file is not readable');
        }
 
        // TODO: or need without "once" for multi application
-       $this->_config = require $configFile;
+       $this->config = require $configFile;
 
        if (null !== $environment) {
            $customConfig = PATH_APPLICATION .'/configs/app.'.$environment.'.php';
            if (is_file($customConfig)) {
                $customConfig = require $customConfig;
-               $this->_config = $this->_mergeArrays($this->_config, $customConfig);
+               $this->config = $this->mergeArrays($this->config, $customConfig);
            }
        }
     }
@@ -76,26 +78,27 @@ class Config extends Package
      *
      * @param string|null $section of config
      * @param string|null $subsection of config
+     * @throws ConfigException
      * @return array
      */
     public function get($section = null, $subsection = null)
     {
-        if (!$this->_config) {
-            throw new Exception("System configuration is missing");
+        if (!$this->config) {
+            throw new ConfigException("System configuration is missing");
         }
 
-        if (null !== $section && isset($this->_config[$section])) {
+        if (null !== $section && isset($this->config[$section])) {
             if ($subsection
-                && isset($this->_config[$section][$subsection])) {
-                return $this->_config[$section][$subsection];
+                && isset($this->config[$section][$subsection])) {
+                return $this->config[$section][$subsection];
             } else {
-                return $this->_config[$section];
+                return $this->config[$section];
             }
 
         } elseif (null !== $section) {
             return null;
         } else {
-            return $this->_config;
+            return $this->config;
         }
     }
 
@@ -104,11 +107,11 @@ class Config extends Package
      * @param $array2
      * @return array
      */
-    protected function _mergeArrays($array1, $array2)
+    protected function mergeArrays($array1, $array2)
     {
         foreach ($array2 as $key => $value) {
             if (array_key_exists($key, $array1) && is_array($value)) {
-                $array1[$key] = $this->_mergeArrays($array1[$key], $array2[$key]);
+                $array1[$key] = $this->mergeArrays($array1[$key], $array2[$key]);
             } else {
                 $array1[$key] = $value;
             }

@@ -15,12 +15,17 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+/**
+ * @namespace
+ */
+namespace Application;
 
 use Bluz\Application;
 use Bluz\Exception;
@@ -39,30 +44,87 @@ class Bootstrap extends Application
     /**
      * initial environment
      *
-     * @param $environment
-     * @return Bootstrap
+     * @param string $environment
+     * @return \Application\Bootstrap|\Bluz\Application
      */
     public function init($environment = ENVIRONMENT_PRODUCTION)
     {
         // Profiler hooks
-        if (defined('DEBUG') && DEBUG) {
+        if (constant('DEBUG')) {
             $this->getEventManager()->attach('log', function($event){
+                /* @var \Bluz\EventManager\Event $event */
                 \Bluz\Profiler::log($event->getTarget());
             });
             $this->getEventManager()->attach('layout:header', function($event){
+                /* @var \Bluz\EventManager\Event $event */
                 \Bluz\Profiler::log('layout:header');
             });
             $this->getEventManager()->attach('layout:content', function($event){
+                /* @var \Bluz\EventManager\Event $event */
                 \Bluz\Profiler::log('layout:content');
             });
             $this->getEventManager()->attach('layout:footer', function($event){
+                /* @var \Bluz\EventManager\Event $event */
                 \Bluz\Profiler::log('layout:footer');
-                echo '<pre>';
-                print_r(Bluz\Profiler::data());
-                echo '</pre>';
+
+                $version = shell_exec('hg tip --style compact');
+                if ($version) {
+                    list($version, $comment) = explode("\n", $version, 2);
+                    $comment = trim($comment);
+                } else {
+                    $comment = '';
+                }
+
+                ?>
+                    <section class="debug-panel">
+                        <section class="debug-panel-header">
+                            <h3 class="debug-panel-title">
+                                Debug Panel
+                                <span class="badge pull-right"><?php printf("%f :: %s kb", microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], ceil((memory_get_usage()/1024)))?></span>
+                            </h3>
+                            <?php if ($version) :?>
+                            <code class="debug-panel-version">
+                                <?php echo $this->getLayout()->ahref(
+                                    $version, 'index', 'changelog', array(),
+                                    array('title' => $comment)
+                                ) ?>
+                            </code>
+                            <?php endif ?>
+                        </section>
+                        <section class="debug-panel-content">
+                            <pre><?php print_r(\Bluz\Profiler::data());?></pre>
+                        </section>
+                    </section>
+                <?php
             });
         }
 
+        // dispatch hook for acl realization
+        $this->getEventManager()->attach('dispatch', function($event) {
+            $eventParams = $event->getParams();
+            \Bluz\Profiler::log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['controller']);
+        });
+
+        // widget hook for acl realization
+        $this->getEventManager()->attach('widget', function($event) {
+            $eventParams = $event->getParams();
+            \Bluz\Profiler::log('bootstrap:widget: '.$eventParams['module'].'/'.$eventParams['widget']);
+        });
+
         return parent::init($environment);
+    }
+
+    /**
+     * getRcl
+     *
+     * @return \Bluz\Rcl\Rcl
+     */
+    public function getRcl()
+    {
+        if (!$this->rcl) {
+            $this->rcl = parent::getRcl();
+            $this->rcl->addAssertion(\Application\UserToResourceToPrivilege\Table::getInstance());
+        }
+        return $this->rcl;
     }
 }

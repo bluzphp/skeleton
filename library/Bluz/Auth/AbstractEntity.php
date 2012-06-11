@@ -44,9 +44,7 @@ abstract class AbstractEntity extends \Bluz\Db\Row
      */
     public function login()
     {
-        global $app;
-
-        $app->getAuth()->setIdentity($this);
+        \Bluz\Application::getInstance()->getAuth()->setIdentity($this);
     }
 
     /**
@@ -54,9 +52,7 @@ abstract class AbstractEntity extends \Bluz\Db\Row
      */
     public function logout()
     {
-        global $app;
-
-        $auth = $app->getAuth();
+        $auth = \Bluz\Application::getInstance()->getAuth();
 
         if ($auth->getIdentity() === $this) {
             $auth->clearIdentity();

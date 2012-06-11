@@ -35,12 +35,12 @@ use Bluz\Db\DbException;
  * namespace Application\Users;
  * class Row extends \Bluz\Db\Row
  * {
- *    public function _insert()
+ *    public function preInsert()
  *    {
  *        $this->created = gmdate('Y-m-d H:i:s');
  *    }
  *
- *    public function _update()
+ *    public function preUpdate()
  *    {
  *        $this->updated = gmdate('Y-m-d H:i:s');
  *    }
@@ -61,14 +61,14 @@ class Row
      *
      * @var Table
      */
-    protected $_table = null;
+    protected $table = null;
 
     /**
      * Primary row key(s).
      *
      * @var array
      */
-    protected $_primary;
+    protected $primary;
 
     /**
      * The data for each column in the row (column_name => value).
@@ -77,7 +77,7 @@ class Row
      *
      * @var array
      */
-    protected $_data = array();
+    protected $data = array();
 
     /**
      * Tracks columns where data has been updated. Allows more specific insert and
@@ -85,50 +85,64 @@ class Row
      *
      * @var array
      */
-    protected $_modified = array();
+    protected $modified = array();
 
     /**
-     * This is set to a copy of $_data when the data is fetched from
+     * This is set to a copy of $data when the data is fetched from
      * a database, specified as a new tuple in the constructor, or
      * when dirty data is posted to the database with save().
      *
      * @var array
      */
-    protected $_clean = array();
-
+    protected $clean = array();
 
     /**
      * Relations rows
      *
      * @var array
      */
-    protected $_relations = array();
+    protected $relations = array();
 
     /**
      * Relations data
      *
      * @var array
      */
-    protected $_relationsData = array();
+    protected $relationsData = array();
+
+    /**
+     * @var array
+     */
+    protected static $columns = array();
 
     /**
      * __construct
      *
+     * @todo added cache for reflexion
      * @param array $data
      * @return \Bluz\Db\Row
      */
     public function __construct($data = array())
     {
         // clean modified flags data if setup from PDO
-        $this->_modified = array();
+        $this->modified = array();
 
         // original cleaner data
-        $this->_clean = $this->_data;
+        $this->clean = $this->data;
 
-        // not clean data, but not modified
-        if (!empty($data)) {
-            $this->_data = $data;
+        $className = get_class($this);
+        if (empty(self::$columns[$className])) {
+            self::$columns[$className] = array();
+            $reflection = new \ReflectionClass($this);
+
+            if (preg_match_all('/\@property\s+(\w+)\s+\$([\w\d]+)$/im', $reflection->getDocComment(), $matches)) {
+                for ($i = 0; $i < count($matches[1]); $i++) {
+                    self::$columns[$className][$matches[2][$i]] = $matches[1][$i];
+                }
+            }
         }
+        // not clean data, but not modified
+        $this->setFromArray($data);
     }
 
     /**
@@ -136,19 +150,40 @@ class Row
      *
      * @param  string $columnName The user-specified column name.
      * @return string             The corresponding column value.
-     * @throws Exception if the $columnName is not a column in the row.
+     * @throws DbException if the $columnName is not a column in the row.
      */
     public function __get($columnName)
     {
-        /*if (!isset($this->_data[$columnName])) {
-            throw new DbException('Column "'.$columnName." is not a column in the row.");
-        }*/
-        return $this->_data[$columnName];
+        if (!$this->__isset($columnName)) {
+            throw new DbException("Column '{$columnName}' is not a column in the " . get_class($this));
+        }
+        $value = null;
+        if (isset($this->data[$columnName])) {
+            $value = $this->data[$columnName];
+        }
+
+        $className = get_class($this);
+        if (!empty(self::$columns[$className])) {
+            $type = self::$columns[$className][$columnName];
+
+            if ('object' == $type || 'array' == $type) {
+                if (!empty($value)) {
+                    $value = unserialize($value);
+                }
+            } else {
+                setType($value, self::$columns[$className][$columnName]);
+            }
+        }
+        return $value;
     }
 
+    /**
+     * Sleep
+     * @return array
+     */
     public function __sleep()
     {
-        return array('_primary', '_data', '_clean' ,'_modified');
+        return array('primary', 'data', 'clean' ,'modified');
     }
 
     /**
@@ -157,7 +192,7 @@ class Row
      * @param  string $columnName The column key.
      * @param  mixed  $value      The value for the property.
      * @return void
-     * @throws Zend_Db_Table_Row_Exception
+     * @throws DbException
      */
     public function __set($columnName, $value)
     {
@@ -167,14 +202,23 @@ class Row
 
             if (!empty($tableName) && !empty($columnName)) {
 
-                if (!isset($this->_relationsData[$tableName])) {
-                    $this->_relationsData[$tableName] = array();
+                if (!isset($this->relationsData[$tableName])) {
+                    $this->relationsData[$tableName] = array();
                 }
-                $this->_relationsData[$tableName][$columnName] = $value;
+                $this->relationsData[$tableName][$columnName] = $value;
             }
         } else {
-            $this->_data[$columnName] = $value;
-            $this->_modified[$columnName] = true;
+            if (!$this->__isset($columnName)) {
+                throw new DbException("Column '{$columnName}' is not a column in the " . get_class($this));
+            }
+            if (is_array($value) || is_object($value)) {
+                $value = serialize($value);
+            }
+            if (!isset($this->data[$columnName])
+                || $this->data[$columnName] != $value) {
+                $this->data[$columnName] = $value;
+                $this->modified[$columnName] = true;
+            }
         }
     }
 
@@ -186,7 +230,11 @@ class Row
      */
     public function __isset($columnName)
     {
-        return array_key_exists($columnName, $this->_data);
+        $className = get_class($this);
+        if (!empty(self::$columns[$className])) {
+            return isset(self::$columns[$className][$columnName]);
+        }
+        return true;
     }
 
     /**
@@ -205,10 +253,10 @@ class Row
          * this is an INSERT of a new row.
          * Otherwise it is an UPDATE.
          */
-        if (empty($this->_clean)) {
-            return $this->_doInsert();
+        if (empty($this->clean)) {
+            return $this->doInsert();
         } else {
-            return $this->_doUpdate();
+            return $this->doUpdate();
         }
     }
 
@@ -216,17 +264,17 @@ class Row
      * @return mixed The primary key value(s), as an associative array if the
      *     key is compound, or a scalar if the key is single-column.
      */
-    protected function _doInsert()
+    protected function doInsert()
     {
         /**
          * Run pre-INSERT logic
          */
-        $this->_insert();
+        $this->preInsert();
 
         /**
          * Execute the INSERT (this may throw an exception)
          */
-        $data = array_intersect_key($this->_data, $this->_modified);
+        $data = array_intersect_key($this->data, $this->modified);
         $primaryKey = $this->getTable()->insert($data);
 
         /**
@@ -248,17 +296,17 @@ class Row
          * merge should be done before the _postInsert() method is run, so the
          * new values are available for logging, etc.
          */
-        $this->_data = array_merge($this->_data, $newPrimaryKey);
+        $this->data = array_merge($this->data, $newPrimaryKey);
 
         /**
          * Run post-INSERT logic
          */
-        $this->_postInsert();
+        $this->postInsert();
 
         /**
          * Update the _clean to reflect that the data has been inserted.
          */
-        $this->_refresh();
+        $this->refresh();
 
         return $primaryKey;
     }
@@ -267,24 +315,18 @@ class Row
      * @return mixed The primary key value(s), as an associative array if the
      *     key is compound, or a scalar if the key is single-column.
      */
-    protected function _doUpdate()
+    protected function doUpdate()
     {
-        /**
-         * Get expressions for a WHERE clause
-         * based on the primary key value(s).
-         */
-        $where = $this->_getWhereQuery();
-
         /**
          * Run pre-UPDATE logic
          */
-        $this->_update();
+        $this->preUpdate();
 
         /**
          * Compare the data to the modified fields array to discover
          * which columns have been changed.
          */
-        $diffData = array_intersect_key($this->_data, $this->_modified);
+        $diffData = array_intersect_key($this->data, $this->modified);
 
         /**
          * Execute the UPDATE (this may throw an exception)
@@ -293,7 +335,7 @@ class Row
          * includes SET terms only for data values that changed.
          */
         if (count($diffData) > 0) {
-            $this->getTable()->update($diffData, $where);
+            $this->getTable()->update($diffData, $this->getPrimaryKey());
         }
 
         /**
@@ -301,20 +343,20 @@ class Row
          * so the _postUpdate() function can tell the difference
          * between changed data and clean (pre-changed) data.
          */
-        $this->_postUpdate();
+        $this->postUpdate();
 
         /**
          * Refresh the data just in case triggers in the RDBMS changed
          * any columns.  Also this resets the _clean.
          */
-        $this->_refresh();
+        $this->refresh();
 
         /**
          * Return the primary key value(s) as an array
          * if the key is compound or a scalar if the key
          * is a scalar.
          */
-        $primaryKey = $this->_getPrimaryKey();
+        $primaryKey = $this->getPrimaryKey();
         if (count($primaryKey) == 1) {
             return current($primaryKey);
         }
@@ -329,29 +371,27 @@ class Row
      */
     public function delete()
     {
-        $where = $this->_getWhereQuery();
-
         /**
          * Execute pre-DELETE logic
          */
-        $this->_delete();
+        $this->preDelete();
 
         /**
          * Execute the DELETE (this may throw an exception)
          */
-        $result = $this->getTable()->delete($where);
+        $result = $this->getTable()->delete($this->getPrimaryKey());
 
         /**
          * Execute post-DELETE logic
          */
-        $this->_postDelete();
+        $this->postDelete();
 
         /**
          * Reset all fields to null to indicate that the row is not there
          */
-        $this->_data = array_combine(
-            array_keys($this->_data),
-            array_fill(0, count($this->_data), null)
+        $this->data = array_combine(
+            array_keys($this->data),
+            array_fill(0, count($this->data), null)
         );
 
         return $result;
@@ -361,41 +401,24 @@ class Row
     /**
      * Retrieves an associative array of primary keys.
      *
+     * @throws InvalidPrimaryKeyException
      * @return array
      */
-    protected function _getPrimaryKey()
+    protected function getPrimaryKey()
     {
         $primary = array_flip($this->getTable()->getPrimaryKey());
 
-        $array = array_intersect_key($this->_data, $primary);
+        $array = array_intersect_key($this->data, $primary);
 
         if (count($primary) != count($array)) {
             throw new InvalidPrimaryKeyException(
-                "The specified Table '" . get_class($this->_table)
+                "The specified Table '" . get_class($this->table)
                 . "' does not have the same primary key as the Row"
             );
         }
         return $array;
     }
 
-    /**
-     * Constructs where statement for retrieving row(s).
-     *
-     * @return array
-     */
-    protected function _getWhereQuery()
-    {
-        $db = $this->getTable()->getAdapter();
-        $primaryKey = $this->_getPrimaryKey();
-
-        // retrieve recently updated row using primary keys
-        $where = array();
-        foreach ($primaryKey as $column => $value) {
-            $where[] = $column ." = ". $db->quote($value);
-        }
-        $where = ' WHERE '. join(' AND ', $where);
-        return $where;
-    }
 
     /**
      * Refreshes properties from the database.
@@ -404,25 +427,15 @@ class Row
      */
     public function refresh()
     {
-        $this->_refresh();
-    }
-
-    /**
-     * Refreshes properties from the database.
-     *
-     * @return void
-     */
-    protected function _refresh()
-    {
-        $this->_clean = $this->_data;
-        $this->_modified = array();
+        $this->clean = $this->data;
+        $this->modified = array();
     }
 
     /**
      * Pre insert hook
      * @return void
      */
-    protected function _insert()
+    protected function preInsert()
     {
     }
 
@@ -432,7 +445,7 @@ class Row
      *
      * @return void
      */
-    protected function _postInsert()
+    protected function postInsert()
     {
     }
 
@@ -440,7 +453,7 @@ class Row
      * Pre update hook
      * @return void
      */
-    protected function _update()
+    protected function preUpdate()
     {
     }
 
@@ -450,7 +463,7 @@ class Row
      *
      * @return void
      */
-    protected function _postUpdate()
+    protected function postUpdate()
     {
     }
 
@@ -458,7 +471,7 @@ class Row
      * Pre delete hook
      * @return void
      */
-    protected function _delete()
+    protected function preDelete()
     {
     }
 
@@ -468,23 +481,24 @@ class Row
      *
      * @return void
      */
-    protected function _postDelete()
+    protected function postDelete()
     {
     }
 
     /**
      * Returns the table object, or null if this is disconnected row
      *
+     * @throws TableNotFoundException
      * @return Table|null
      */
     public function getTable()
     {
-        if ($this->_table instanceof Table) {
-            return $this->_table;
+        if ($this->table instanceof Table) {
+            return $this->table;
         } else {
 
-            if (is_string($this->_table)) {
-                $classTable = $this->_table;
+            if (is_string($this->table)) {
+                $classTable = $this->table;
             } else {
                 // try to guess table class
 
@@ -499,8 +513,8 @@ class Row
                 $table = call_user_func(array($classTable, 'getInstance'));
 
                 if ($table) {
-                    $this->_table = $table;
-                    return $this->_table;
+                    $this->table = $table;
+                    return $this->table;
                 }
             }
         }
@@ -512,14 +526,15 @@ class Row
      * getRelation
      *
      * @param string $tableName
+     * @throws RelationNotFoundException
      * @return \Bluz\Db\Row
      */
     public function getRelation($tableName)
     {
         $tableName = ucfirst(strtolower($tableName));
-        if (isset($this->_relations[$tableName])) {
-            return $this->_relations[$tableName];
-        } elseif (!isset($this->_relationsData[$tableName])) {
+        if (isset($this->relations[$tableName])) {
+            return $this->relations[$tableName];
+        } elseif (!isset($this->relationsData[$tableName])) {
             throw new RelationNotFoundException(
                 'Can\'t found relation for "'.$tableName.'"'
             );
@@ -529,9 +544,9 @@ class Row
         $classRow = substr($currentClass, 0, strrpos($classRow, '\\'));
         $classRow = $classRow .'\\'.$tableName.'\\Row';
 
-        $this->_relations[$tableName] = new $classRow($this->_relationsData[$tableName]);
+        $this->relations[$tableName] = new $classRow($this->relationsData[$tableName]);
 
-        return $this->_relations[$tableName];
+        return $this->relations[$tableName];
     }
 
     /**
@@ -543,7 +558,7 @@ class Row
     public function setRelation(Row $row)
     {
         $class = get_class($row);
-        $this->_relations[$class] = $row;
+        $this->relations[$class] = $row;
         return $this;
     }
 
@@ -554,7 +569,7 @@ class Row
      */
     public function toArray()
     {
-        return (array)$this->_data;
+        return (array) $this->data;
     }
 
     /**
@@ -565,7 +580,10 @@ class Row
      */
     public function setFromArray(array $data)
     {
-        $data = array_intersect_key($data, $this->_data);
+        $className = get_class($this);
+        if (!empty(self::$columns[$className])) {
+            $data = array_intersect_key($data, self::$columns[$className]);
+        }
 
         foreach ($data as $columnName => $value) {
             $this->__set($columnName, $value);

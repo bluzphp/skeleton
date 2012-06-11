@@ -10,8 +10,8 @@ return
 /**
  * @return closure
  */
-function() use ($app) {
-    /* @var Application $app */
-    return $app;
+function() {
+    /* @var Application $this */
+    return $this;
 };
  

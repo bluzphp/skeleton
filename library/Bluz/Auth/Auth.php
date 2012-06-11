@@ -27,8 +27,6 @@
  */
 namespace Bluz\Auth;
 
-use Bluz\Package;
-
 /**
  * Auth
  *  - support DB only
@@ -39,17 +37,20 @@ use Bluz\Package;
  * @author   Anton Shevchuk
  * @created  11.07.11 19:10
  */
-class Auth extends Package
+class Auth
 {
+    use \Bluz\Package;
+
     /**
      * @var AbstractAdapter
      */
-    protected $_adapter;
+    protected $adapter;
 
     /**
      * setAdapter
      *
      * @param array $options
+     * @throws AuthException
      * @return Auth
      */
     public function setAdapter($options)
@@ -63,8 +64,8 @@ class Auth extends Package
         }
 
         $className = '\\Bluz\\Auth\\Adapter\\'.ucfirst(strtolower($options['name']));
-        $this->_adapter = new $className($options['options']);
-        $this->_adapter->setAuth($this);
+        $this->adapter = new $className($options['options']);
+        $this->adapter->setAuth($this);
         return $this;
     }
 
@@ -78,7 +79,7 @@ class Auth extends Package
      */
     public function authenticate($login, $password, \Bluz\Auth\AbstractEntity $entity = null)
     {
-        $result = $this->_adapter->authenticate($login, $password, $entity);
+        $result = $this->adapter->authenticate($login, $password, $entity);
         if ($result) {
             $this->setIdentity($entity);
         }
@@ -88,18 +89,19 @@ class Auth extends Package
     /**
      * setIdentity
      *
-     * @param array|object $identity
-     * @return array|object
+     * @param \Bluz\Auth\AbstractEntity $identity
+     * @return Auth
      */
     public function setIdentity($identity)
     {
         $this->getApplication()->getSession()->identity = $identity;
+        return $this;
     }
 
     /**
      * getIdentity
      *
-     * @return array|null
+     * @return \Bluz\Auth\AbstractEntity|null
      */
     public function getIdentity()
     {

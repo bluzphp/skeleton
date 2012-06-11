@@ -39,7 +39,7 @@ class EventManager
      *
      * @var array
      */
-    protected $_listeners = array();
+    protected $listeners = array();
 
     /**
      * attach
@@ -51,13 +51,13 @@ class EventManager
      */
     public function attach($eventName, $callback, $priority = 1)
     {
-        if (!isset($this->_listeners[$eventName])) {
-            $this->_listeners[$eventName] = array();
+        if (!isset($this->listeners[$eventName])) {
+            $this->listeners[$eventName] = array();
         }
-        if (!isset($this->_listeners[$eventName][$priority])) {
-            $this->_listeners[$eventName][$priority] = array();
+        if (!isset($this->listeners[$eventName][$priority])) {
+            $this->listeners[$eventName][$priority] = array();
         }
-        $this->_listeners[$eventName][$priority][] = $callback;
+        $this->listeners[$eventName][$priority][] = $callback;
         return $this;
     }
 
@@ -78,13 +78,13 @@ class EventManager
         if (strstr($event->getName(), ':')) {
             $namespace = substr($event->getName(), 0, strpos($event->getName(), ':'));
 
-            if (isset($this->_listeners[$namespace])) {
-                $this->fire($this->_listeners[$namespace], $event);
+            if (isset($this->listeners[$namespace])) {
+                $this->fire($this->listeners[$namespace], $event);
             }
         }
 
-        if (isset($this->_listeners[$event->getName()])) {
-            $this->fire($this->_listeners[$event->getName()], $event);
+        if (isset($this->listeners[$event->getName()])) {
+            $this->fire($this->listeners[$event->getName()], $event);
         }
 
         return $event->getTarget();

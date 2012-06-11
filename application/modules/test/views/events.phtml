@@ -1,0 +1,46 @@
+<pre>
+$this->getEventManager()
+    <em>// attach callback function to `testevent`
+    // callback 1</em>
+    ->attach('testevent', function(Event $event){
+        return $event->getTarget()*2;
+    })
+    <em>// and again
+    // callback 2</em>
+    ->attach('testevent', function(Event $event){
+        return $event->getTarget()*2;
+    });
+
+<em>// attach callbacks to other events in `testspace` namespace of events
+// callback 3</em>
+$this->getEventManager()->attach('testspace:event', function(Event $event){
+    return $event->getTarget()+4;
+});
+
+<em>// callback 4</em>
+$this->getEventManager()->attach('testspace:event', function(Event $event){
+    return $event->getTarget()+2;
+});
+
+<em>// callback 5</em>
+$this->getEventManager()->attach('testspace:event2', function(Event $event){
+    $event->setTarget($event->getTarget()+5);
+    return false;
+});
+
+<em>// callback 6</em>
+$this->getEventManager()->attach('testspace:event2', function(Event $event){
+    echo "Never run";
+});
+
+<em>// callback 7</em>
+$this->getEventManager()->attach('testspace', function(Event $event){
+    return $event->getTarget()+1;
+});
+
+// Trigger events
+echo $this->getEventManager()->trigger('testevent', 1);        <em>// 1 => callback1 => callback2 => 4</em>
+echo $this->getEventManager()->trigger('testspace:event', 1);  <em>// 1 => callback7 => callback3 => callback7 => callback4 => 8</em>
+echo $this->getEventManager()->trigger('testspace:event2', 1); <em>// 1 => callback7 => callback5 => 7</em>
+</pre>
+

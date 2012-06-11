@@ -36,7 +36,7 @@ class Entries implements ArrayAccess, IteratorAggregate
      *
      * @var array
      */
-    private $_entries;
+    private $entries;
     /**
      * Count
      *
@@ -64,7 +64,7 @@ class Entries implements ArrayAccess, IteratorAggregate
      */
     public function offsetExists($offset)
     {
-        if (isset($this->_entries[$offset])) {
+        if (isset($this->entries[$offset])) {
             return TRUE;
         }
         return false;
@@ -74,12 +74,12 @@ class Entries implements ArrayAccess, IteratorAggregate
      * Get
      *
      * @param int $offset
-     * @return Entry
+     * @return \Bluz\Ldap\Entries\Entry|mixed
      */
     public function offsetGet($offset)
     {
         if ($this->offsetExists($offset)) {
-            return $this->_entries[$offset];
+            return $this->entries[$offset];
         }
         return false;
     }
@@ -93,9 +93,9 @@ class Entries implements ArrayAccess, IteratorAggregate
     public function offsetSet($offset, $value)
     {
         if ($offset) {
-            $this->_entries[$offset] = $value;
+            $this->entries[$offset] = $value;
         } else {
-            $this->_entries[] = $value;
+            $this->entries[] = $value;
         }
     }
 
@@ -106,17 +106,17 @@ class Entries implements ArrayAccess, IteratorAggregate
      */
     public function offsetUnset($offset)
     {
-        unset($this->_entries[$offset]);
+        unset($this->entries[$offset]);
     }
 
     /**
      * Iterator
      *
-     * @return ArrayIterator
+     * @return \ArrayIterator|\Traversable
      */
     public function &getIterator()
     {
-        return new \ArrayIterator($this->_entries);
+        return new \ArrayIterator($this->entries);
     }
 
     /**
@@ -134,7 +134,7 @@ class Entries implements ArrayAccess, IteratorAggregate
         }
 
         for ($i = 0; $i < $ldapData["count"]; $i++) {
-            $this->_entries[] = new Entry($ldapData[$i]);
+            $this->entries[] = new Entry($ldapData[$i]);
         }
     }
 

@@ -27,8 +27,6 @@
  */
 namespace Bluz\Acl;
 
-use Bluz\Package;
-
 /**
  * Assertion
  *

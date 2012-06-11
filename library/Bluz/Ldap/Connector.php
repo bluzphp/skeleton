@@ -23,7 +23,6 @@
 
 namespace Bluz\Ldap;
 use Bluz\Exception;
-use Bluz\Options;
 
 /**
  * LDAP Connection class. Use to connect to LDAP and make search.
@@ -33,66 +32,55 @@ use Bluz\Options;
  */
 class Connector implements LdapIterator
 {
+    use \Bluz\Package;
+
     /**
      * Connection resource
      *
      * @var resource
      */
-    protected $_connection = null;
+    protected $connection = null;
+
     /**
      * Hostname of LDAP server
      *
      * @var string
      */
-    protected $_host = null;
+    protected $host = null;
+
     /**
      * Domain for LDAP server
      *
      * @var string
      */
-    protected $_domain = null;
+    protected $domain = null;
+
     /**
      * search baseDn for LDAP server
      *
      * @var string
      */
-    protected $_baseDn = null;
+    protected $baseDn = null;
+
     /**
-     * Is connection binded
+     * Is connected
      *
-     * @var unknown_type
+     * @var boolean
      */
-    protected $_binded = false;
+    protected $binded = false;
+
     /**
      * Search result resource
      *
      * @var resource
      */
-    protected $_resource = null;
-
-    /**
-     * Create instance
-     *
-     * @param null $options
-     * @return \Bluz\Ldap\Connector
-     *
-     * @internal param string $host
-     */
-    public function __construct($options = null)
-    {
-        if (!is_null($options)) {
-            if (!isset($options['host'])) {
-                throw new LdapException('LDAP connection can\'t be initialized: required host');
-            }
-            Options::setConstructorOptions($this, $options);
-            $this->connect();
-        }
-    }
+    protected $resource = null;
 
     /**
      * set Host param
      *
      * @param string $host
+     * @throws LdapException
      * @return \Bluz\Ldap\Connector
      */
     public function setHost($host)
@@ -100,7 +88,7 @@ class Connector implements LdapIterator
         if (empty($host)) {
             throw new LdapException('LDAP connection can\'t be initialized: required host value');
         }
-        $this->_host = $host;
+        $this->host = $host;
         return $this;
     }
 
@@ -115,7 +103,7 @@ class Connector implements LdapIterator
     public function setDomain($domain)
     {
         if (!empty($domain)) {
-            $this->_domain = $domain;
+            $this->domain = $domain;
         }
         return $this;
     }
@@ -124,6 +112,7 @@ class Connector implements LdapIterator
      * set baseDn param for search attr
      *
      * @param string $baseDn
+     * @throws LdapException
      * @return \Bluz\Ldap\Connector
      */
     public function setBaseDn($baseDn)
@@ -131,29 +120,33 @@ class Connector implements LdapIterator
         if (empty($baseDn)) {
             throw new LdapException('LDAP Search can\'t be initialized without "baseDn" search params');
         }
-        $this->_baseDn = $baseDn;
+        $this->baseDn = $baseDn;
         return $this;
     }
 
     /**
-     * Unlink in desctuctor
+     * Unlink in destructor
      *
      */
     public function __destruct()
     {
-        if ($this->_binded) {
-            ldap_unbind($this->_connection);
+        if ($this->binded) {
+            ldap_unbind($this->connection);
         }
     }
 
     /**
      * Connect to LDAP server
      *
+     * @throws LdapException
      */
     public function connect()
     {
-        if (!($this->_connection = ldap_connect($this->_host))) {
-            throw new LdapException("Can't connect to " . $this->_host);
+        if (!$this->host) {
+            throw new LdapException('LDAP connection can\'t be initialized: required host');
+        }
+        if (!($this->connection = ldap_connect($this->host))) {
+            throw new LdapException("Can't connect to " . $this->host);
         }
     }
 
@@ -162,25 +155,26 @@ class Connector implements LdapIterator
      *
      * @param string $username
      * @param string $password
+     * @throws LdapException
      * @return bool
      */
-    public function bind($username = null, $password = null)
+    public function bind($username, $password)
     {
-        $this->_binded = false;
+        $this->binded = false;
         if ($username && $password) {
-            $username = $username . ( ($this->_domain) ? ("@" . $this->_domain) : ("") );
-            $this->_binded = @ldap_bind($this->_connection, $username, $password);
+            $username = $username . ( ($this->domain) ? ("@" . $this->domain) : ("") );
+            $this->binded = @ldap_bind($this->connection, $username, $password);
             $errorMsg = "Can't connect with " . $username . "/"
-                    . str_repeat("*", strlen($password)) . " on " . $this->_host;
+                    . str_repeat("*", strlen($password)) . " on " . $this->host;
         } else {
-            $this->_binded = @ldap_bind($this->_connection);
-            $errorMsg = "Can't connect anonymously on " . $this->_host;
+            $this->binded = @ldap_bind($this->connection);
+            $errorMsg = "Can't connect anonymously on " . $this->host;
         }
-        $errors = ldap_errno($this->_connection);
+        $errors = ldap_errno($this->connection);
         if ($errors != 0x00) {
             throw new LdapException($errorMsg);
         }
-        return $this->_binded;
+        return $this->binded;
     }
 
     /**
@@ -189,26 +183,27 @@ class Connector implements LdapIterator
      *
      * @param string $filter
      * @param string $attributes
-     * @return void
-     *
-     * @internal param string $this ->_baseDn
+     * @throws LdapException
+     * @return \Bluz\Ldap\Entries\Entries|void
      */
     public function doSearch($filter, $attributes = null)
     {
-        if (!$this->_binded) {
-            throw new LdapException("Can't do search. Not binded.");
+        if (!$this->binded) {
+            throw new LdapException("Can't do search. LDAP not initialized.");
         }
+        // TODO: WTF? check condition
         if (!is_null($attributes)) {
-            $this->_resource = @ldap_search(
-                $this->_connection, $this->_baseDn, $filter, $attributes
+            $this->resource = @ldap_search(
+                $this->connection, $this->baseDn, $filter, $attributes
             );
         } else {
-            @$this->_resource =
-                ldap_search($this->_connection, $this->_baseDn, $filter);
+            $this->resource = @ldap_search(
+                $this->connection, $this->baseDn, $filter
+            );
         }
 
-        if (!$this->_resource) {
-            throw new LdapException("Search error: '" . ldap_error($this->_connection) . "'");
+        if (!$this->resource) {
+            throw new LdapException("Search error: '" . ldap_error($this->connection) . "'");
         }
     }
 
@@ -219,9 +214,9 @@ class Connector implements LdapIterator
      */
     public function getSearchEntries()
     {
-        if (!$this->_resource) {
+        if (!$this->resource) {
             return false;
         }
-        return new Entries\Entries(ldap_get_entries($this->_connection, $this->_resource));
+        return new Entries\Entries(ldap_get_entries($this->connection, $this->resource));
     }
 }

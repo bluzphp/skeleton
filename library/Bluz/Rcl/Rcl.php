@@ -25,28 +25,25 @@
 /**
  * @namespace
  */
-namespace Bluz\Acl;
-
-use Bluz\Package;
+namespace Bluz\Rcl;
 
 /**
- * Acl
+ * Rcl
  *
  * @category Bluz
- * @package  Acl
- *
- * @author   Anton Shevchuk
- * @created  11.07.11 15:09
+ * @package  Rcl
  */
-abstract class AbstractAcl extends Package
+class Rcl
 {
+    use \Bluz\Package;
+
     const ALLOW = 'allow';
     const DENY = 'deny';
 
     /**
      * @var array
      */
-    protected $_assertions = array();
+    protected $assertions = array();
 
     /**
      * Get flags
@@ -69,20 +66,39 @@ abstract class AbstractAcl extends Package
      */
     public function addAssertion(Assertion $assertion)
     {
-        array_unshift($this->_assertions, $assertion);
+        array_unshift($this->assertions, $assertion);
         return $this;
     }
 
     /**
      * Is allowed
      *
+     * @param string                    $privilege
      * @param string                    $resourceType
      * @param integer                   $resourceId
-     * @param                           $privilege
-     * @param \Bluz\Auth\AbstractEntity $user
      * @internal param int $privilegeId
-     * @throws AclException
+     * @throws RclException
      * @return boolean
      */
-    abstract public function isAllowed($resourceType, $resourceId, $privilege, \Bluz\Auth\AbstractEntity $user = null);
+    public function isAllowed($privilege, $resourceType, $resourceId)
+    {
+        // check overloaded rcl
+        foreach ($this->assertions as $assertion) {
+            /* @var Assertion $assertion */
+            $result = $assertion->isAllowed($privilege, $resourceType, $resourceId);
+            if (null !== $result) {
+                return $result;
+            }
+        }
+
+        // check rcl by type + uid
+        if ($resourceType) {
+            $user = $this->getApplication()->getAuth()->getIdentity();
+            if (!$user || !$user->getRole() || !$user->hasResource($resourceType, $resourceId)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

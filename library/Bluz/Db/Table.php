@@ -33,9 +33,9 @@ namespace Bluz\Db;
  * namespace Application\Users;
  * class Table extends \Bluz\Db\Table
  * {
- *    static $_instance;
- *    protected $_table = 'users';
- *    protected $_primary = array('id');
+ *    static $instance;
+ *    protected $table = 'users';
+ *    protected $primary = array('id');
  * }
  *
  * $usersTable = new \Application\Users\Table();
@@ -57,21 +57,21 @@ abstract class Table
      *
      * @var array
      */
-    protected $_schema = null;
+    protected $schema = null;
 
     /**
      * The table name.
      *
      * @var string
      */
-    protected $_table = null;
+    protected $table = null;
 
     /**
      * Default SQL query for select
      *
      * @var string
      */
-    protected $_select = "";
+    protected $select = "";
 
     /**
      * The primary key column or columns.
@@ -81,27 +81,32 @@ abstract class Table
      *
      * @var mixed
      */
-    protected $_primary = null;
+    protected $primary = null;
 
     /**
      * @var Db
      */
-    protected $_adapter = null;
+    protected $adapter = null;
 
     /**
      * @var string
      */
-    protected $_rowClass = null;
+    protected $rowClass = null;
 
     /**
      * __construct
      *
+     * @throws DbException
      * @return \Bluz\Db\Table
      */
     private function __construct()
     {
-        if (empty($this->_select)) {
-            $this->_select = "SELECT * FROM ". $this->_table;
+        if (!$this->table) {
+            throw new DbException("Table information for {".__CLASS__."} is not initialized");
+        }
+
+        if (empty($this->select)) {
+            $this->select = "SELECT * FROM {$this->table}";
         }
 
         $this->init();
@@ -143,10 +148,7 @@ abstract class Table
     public function setAdapter($adapter = null)
     {
         if (null == $adapter) {
-            if (!(Db::$adapter)) {
-                throw new DbException('Default DB adapter is not initiated');
-            }
-            $this->_adapter = Db::$adapter;
+            $this->adapter = Db::getDefaultAdapter();
         }
         return $this;
     }
@@ -158,10 +160,10 @@ abstract class Table
      */
     public function getAdapter()
     {
-        if (!$this->_adapter) {
+        if (!$this->adapter) {
             $this->setAdapter();
         }
-        return $this->_adapter;
+        return $this->adapter;
     }
 
     /**
@@ -174,10 +176,10 @@ abstract class Table
      */
     public function getPrimaryKey()
     {
-        if (!is_array($this->_primary)) {
+        if (!is_array($this->primary)) {
             throw new InvalidPrimaryKeyException("The primary key must be set as an array");
         }
-        return $this->_primary;
+        return $this->primary;
     }
 
     /**
@@ -187,11 +189,11 @@ abstract class Table
      */
     public function getRowClass()
     {
-        if (!$this->_rowClass) {
+        if (!$this->rowClass) {
             $tableClass = get_called_class();
-            $this->_rowClass = substr($tableClass, 0, strrpos($tableClass, '\\', 1)+1) . 'Row';
+            $this->rowClass = substr($tableClass, 0, strrpos($tableClass, '\\', 1)+1) . 'Row';
         }
-        return $this->_rowClass;
+        return $this->rowClass;
     }
 
     /**
@@ -216,7 +218,7 @@ abstract class Table
     public function find()
     {
         $args = func_get_args();
-        $keyNames = array_values((array) $this->_primary);
+        $keyNames = array_values((array) $this->primary);
 
         if (count($args) < count($keyNames)) {
             throw new InvalidPrimaryKeyException("Too few columns for the primary key");
@@ -257,7 +259,7 @@ abstract class Table
             foreach ($whereList as $keyValueSets) {
                 $whereAndTerms = array();
                 foreach ($keyValueSets as $keyPosition => $keyValue) {
-                    $whereAndTerms[] = $this->_table . '.' . $keyNames[$keyPosition] . ' = ?';
+                    $whereAndTerms[] = $this->table . '.' . $keyNames[$keyPosition] . ' = ?';
                     $whereParams[] = $keyValue;
                 }
                 $whereOrTerms[] = '(' . implode(' AND ', $whereAndTerms) . ')';
@@ -265,10 +267,7 @@ abstract class Table
             $whereClause = '(' . implode(' OR ', $whereOrTerms) . ')';
         }
 
-
-        $this->_select . $whereClause;
-
-        return $this->_fetch($this->_select .' WHERE '. $whereClause, $whereParams);
+        return $this->fetch($this->select .' WHERE '. $whereClause, $whereParams);
     }
 
     /**
@@ -288,7 +287,7 @@ abstract class Table
      * @param  array  $params
      * @return array An array containing the row results in FETCH_ASSOC mode.
      */
-    protected function _fetch($sql, $params = array())
+    protected function fetch($sql, $params = array())
     {
         $data = $this->getAdapter()->fetchObjects($sql, $params, $this->getRowClass());
         return new Rowset(array('table' => $this, 'data' => $data));
@@ -302,7 +301,7 @@ abstract class Table
      */
     public function insert(array $data)
     {
-        $table = ($this->_schema ? $this->_schema . '.' : '') . $this->_table;
+        $table = ($this->schema ? $this->schema . '.' : '') . $this->table;
         return $this->getAdapter()->insert($table, $data);
     }
 
@@ -315,7 +314,7 @@ abstract class Table
      */
     public function update(array $data, $where)
     {
-        $table = ($this->_schema ? $this->_schema . '.' : '') . $this->_table;
+        $table = ($this->schema ? $this->schema . '.' : '') . $this->table;
         return $this->getAdapter()->update($table, $data, $where);
     }
 
@@ -328,7 +327,7 @@ abstract class Table
      */
     public function delete($where)
     {
-        $tableSpec = ($this->_schema ? $this->_schema . '.' : '') . $this->_table;
+        $tableSpec = ($this->schema ? $this->schema . '.' : '') . $this->table;
         return $this->getAdapter()->delete($tableSpec, $where);
     }
 }

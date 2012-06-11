@@ -9,13 +9,15 @@
  * @created  12.07.11 15:33
  */
 namespace Bluz\Auth;
-use Bluz\Options;
+
 abstract class AbstractAdapter
 {
+    use \Bluz\Package;
+
     /**
      * @var Auth
      */
-    protected $_auth;
+    protected $auth;
 
     /**
      * authenticate
@@ -28,26 +30,6 @@ abstract class AbstractAdapter
     abstract function authenticate($login, $password, \Bluz\Auth\AbstractEntity $entity = null);
 
     /**
-     * Constructor
-     *
-     * @param array $options
-     * @access  public
-     */
-    public function __construct($options = null)
-    {
-        Options::setConstructorOptions($this, $options);
-    }
-
-    /**
-     * Setup options
-     * @param array $options
-     */
-    public function setOptions(array $options)
-    {
-        Options::setOptions($this, $options);
-    }
-
-    /**
      * setAuth
      *
      * @param $auth
@@ -55,20 +37,23 @@ abstract class AbstractAdapter
      */
     public function setAuth($auth)
     {
-        $this->_auth = $auth;
+        $this->auth = $auth;
         return $this;
     }
 
     /**
      * getAuth
      *
+     * @throws AuthException
      * @return Auth
      */
     public function getAuth()
     {
-        if (!$this->_auth) {
+        if (!$this->auth) {
             throw new AuthException('Auth instance not found in Auth Adapter');
         }
-        return $this->_auth;
+        return $this->auth;
     }
+
+
 }

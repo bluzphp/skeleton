@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (c) 2011 by Bluz PHP Team
+ * Copyright (c) 2012 by Bluz PHP Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,18 @@ namespace Bluz;
  * @package  Loader
  *
  * <code>
+ * // configuration example
+ * return array(
+ *    "loader" => array(
+ *       "namespaces" => array(
+ *            'Bluz'        => PATH_LIBRARY,
+ *            'Application' => PATH_APPLICATION .'/models',
+ *            'Staffload'   => PATH_APPLICATION .'/models'
+ *        ),
+ *        "prefixes" => array(
  *
+ *        ),
+ *    ),
  *
  * </code>
  *
@@ -49,7 +60,7 @@ class Loader
      *
      * @var array
      */
-    private $_namespaces = array();
+    private $namespaces = array();
 
     /**
      * Array of prefixes
@@ -57,21 +68,7 @@ class Loader
      *
      * @var array
      */
-    private $_prefixes = array();
-
-    protected static $_implement = null;
-
-    /**
-     * @static
-     * @return Loader
-     */
-    public static function getLoader()
-    {
-        if (null === self::$_implement) {
-            self::$_implement = new self();
-        }
-        return self::$_implement;
-    }
+    private $prefixes = array();
 
     /**
      * <code>
@@ -84,7 +81,7 @@ class Loader
      */
     public function registerNamespace($namespace, $paths)
     {
-        $this->_namespaces[$namespace] = (array) $paths;
+        $this->namespaces[$namespace] = (array) $paths;
         return $this;
     }
 
@@ -99,7 +96,7 @@ class Loader
      */
     public function registerPrefix($prefix, $paths)
     {
-        $this->_prefixes[$prefix] = (array) $paths;
+        $this->prefixes[$prefix] = (array) $paths;
         return $this;
     }
 
@@ -117,20 +114,25 @@ class Loader
      * Autoloader
      *
      * @param  string $class
+     * @throws Exception
      * @return void
      */
     public function load($class)
     {
-        if (class_exists($class, false) || interface_exists($class, false)) {
-            return true;
+        if (class_exists($class, false)
+            || interface_exists($class, false)
+            || trait_exists($class, false)) {
+            return;
         }
 
-        if ($file = $this->_find($class)) {
+        if ($file = $this->find($class)) {
             require_once $file;
         }
 
-        if (!class_exists($class, false) && !interface_exists($class, false)) {
-            throw new \Exception("File '$file' does not exist or class '$class' was not found in the file");
+        if (!class_exists($class, false)
+            && !interface_exists($class, false)
+            && !trait_exists($class, false)) {
+            throw new Exception("Class '$class' was not found");
         }
     }
 
@@ -140,16 +142,15 @@ class Loader
      * @param  string $class
      * @return bool|string
      */
-    protected function _find($class)
+    protected function find($class)
     {
         if ('\\' == $class[0]) {
             $class = substr($class, 1);
         }
-
         if (false !== $pos = strrpos($class, '\\')) {
             // it's namespace
             $namespace = substr($class, 0, $pos);
-            foreach ($this->_namespaces as $ns => $dirs) {
+            foreach ($this->namespaces as $ns => $dirs) {
                 foreach ($dirs as $dir) {
                     if (0 === strpos($namespace, $ns)) {
                         $className = substr($class, $pos + 1);
@@ -162,7 +163,7 @@ class Loader
             }
         } else {
             // it's plain class
-            foreach ($this->_prefixes as $prefix => $dirs) {
+            foreach ($this->prefixes as $prefix => $dirs) {
                 foreach ($dirs as $dir) {
                     if (0 === strpos($class, $prefix)) {
                         $file = $dir.DIRECTORY_SEPARATOR.str_replace('_', DIRECTORY_SEPARATOR, $class).'.php';

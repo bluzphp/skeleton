@@ -15,20 +15,20 @@ return
  *
  * @return closure
  */
-function($id) use ($app, $view) {
+function($id) use ($view) {
     /**
-     * @var \Bluz\Application $app
+     * @var \Bluz\Application $this
      * @var \Bluz\View $view
      */
-    $app->getLayout()->title = 'User Profile';
+    $this->getLayout()->title = 'User Profile';
 
-    $cache = $app->getCache();
+    $cache = $this->getCache();
 
     /**
      * @var \Bluz\Db\Rowset $userRows
      */
     if (!$userRow = $cache->get('UserID:' . $id)) {
-        $user = ModelManager::get('Application\\Users\\Model', $id);
+        $user = Users\Table::getInstance()->find($id);
         $cache->set('UserID:'.$id, $user, 30);
     }
     $view->user = $user;

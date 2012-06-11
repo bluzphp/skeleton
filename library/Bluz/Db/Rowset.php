@@ -42,35 +42,35 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      *
      * @var integer
      */
-    protected $_pointer = 0;
+    protected $pointer = 0;
 
     /**
      * How many data rows there are.
      *
      * @var integer
      */
-    protected $_count = 0;
+    protected $count = 0;
 
     /**
      * Link to model table.
      *
      * @var Table
      */
-    protected $_table;
+    protected $table;
 
     /**
      * How many data rows in Db w/out LIMIT.
      *
      * @var integer
      */
-    protected $_total;
+    protected $total;
 
     /**
      * Collection of instantiated Bluz\Db\Row objects.
      *
      * @var array
      */
-    protected $_data = array();
+    protected $data = array();
 
     /**
      * Constructor
@@ -79,15 +79,15 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
     public function __construct($data = array())
     {
         if (isset($data['table'])) {
-            $this->_table = $data['table'];
+            $this->table = $data['table'];
         }
         if (isset($data['total'])) {
-            $this->_total = $data['total'];
+            $this->total = $data['total'];
         }
         if (isset($data['data'])) {
-            $this->_data = $data['data'];
+            $this->data = $data['data'];
         }
-        $this->_count = sizeof($this->_data);
+        $this->count = sizeof($this->data);
     }
 
 
@@ -96,11 +96,11 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      * Similar to the reset() function for arrays in PHP.
      * Required by interface Iterator.
      *
-     * @return Rowset Fluent interface.
+     * @return \Bluz\Db\Rowset|void Fluent interface.
      */
     public function rewind()
     {
-        $this->_pointer = 0;
+        $this->pointer = 0;
         return $this;
     }
 
@@ -109,7 +109,7 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      * Similar to the current() function for arrays in PHP
      * Required by interface Iterator.
      *
-     * @return Row current element from the collection
+     * @return \Bluz\Db\Row|mixed current element from the collection
      */
     public function current()
     {
@@ -117,7 +117,7 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
             return null;
         }
         // return the row object
-        return $this->_data[$this->_pointer];
+        return $this->data[$this->pointer];
     }
 
     /**
@@ -125,11 +125,11 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      * Similar to the key() function for arrays in PHP.
      * Required by interface Iterator.
      *
-     * @return int
+     * @return int|\scalar
      */
     public function key()
     {
-        return $this->_pointer;
+        return $this->pointer;
     }
 
     /**
@@ -141,7 +141,7 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      */
     public function next()
     {
-        ++$this->_pointer;
+        ++$this->pointer;
     }
 
     /**
@@ -153,7 +153,7 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      */
     public function valid()
     {
-        return $this->_pointer >= 0 && $this->_pointer < $this->_count;
+        return $this->pointer >= 0 && $this->pointer < $this->count;
     }
 
     /**
@@ -165,7 +165,7 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      */
     public function count()
     {
-        return $this->_count;
+        return $this->count;
     }
 
     /**
@@ -174,15 +174,15 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      *
      * @param int $position the position to seek to
      * @return Rowset
-     * @throws Bluz\Db\Exception
+     * @throws \OutOfBoundsException
      */
     public function seek($position)
     {
         $position = (int) $position;
-        if ($position < 0 || $position >= $this->_count) {
+        if ($position < 0 || $position >= $this->count) {
             throw new \OutOfBoundsException("Illegal index $position");
         }
-        $this->_pointer = $position;
+        $this->pointer = $position;
         return $this;
     }
 
@@ -196,7 +196,7 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      */
     public function offsetExists($offset)
     {
-        return isset($this->_data[(int) $offset]);
+        return isset($this->data[(int) $offset]);
     }
 
     /**
@@ -204,15 +204,16 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      * Required by the ArrayAccess implementation
      *
      * @param string $offset
-     * @return Zend_Db_Table_Row_Abstract
+     * @throws \OutOfBoundsException
+     * @return \Bluz\Db\Row|mixed
      */
     public function offsetGet($offset)
     {
         $offset = (int) $offset;
-        if ($offset < 0 || $offset >= $this->_count) {
+        if ($offset < 0 || $offset >= $this->count) {
             throw new \OutOfBoundsException("Illegal index $offset");
         }
-        $this->_pointer = $offset;
+        $this->pointer = $offset;
 
         return $this->current();
     }

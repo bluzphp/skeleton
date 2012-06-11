@@ -15,7 +15,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -28,8 +28,6 @@
 namespace Bluz\View;
 
 use Bluz\Application;
-use Bluz\Package;
-use Bluz\Options;
 
 /**
  * View
@@ -37,80 +35,81 @@ use Bluz\Options;
  * @category Bluz
  * @package  View
  *
- * @author   Anton Shevchuk
+ * @author   Anton Shevchuk, ErgallM
  * @created  08.07.11 11:49
- *
- * @property mixed _messages
- * @property mixed content
  */
-class View extends Package
+class View
 {
-    /**
-     * @var Application
-     */
-    protected $_application;
+    use \Bluz\Package;
 
     /**
      * @var string
      */
-    protected $_baseUrl;
+    protected $baseUrl;
 
     /**
      * @var array
      */
-    protected $_data = array();
+    protected $data = array();
 
     /**
      * @var array
      */
-    protected static $_viewHelpers = array();
+    protected static $viewHelpers = array();
 
     /**
-     * @var array
+     * @var string
      */
-    protected static $_viewHelpersPath = array();
-
-    /**
-     * @var array
-     */
-    protected $_head = array();
+    protected static $viewHelpersPath = array();
 
     /**
      * @var mixed
      */
-    protected $_content;
+    protected $content;
 
     /**
      * @var string path to template
      */
-    protected $_path;
+    protected $path;
 
     /**
      * Global cache flag
      *
      * @var boolean
      */
-    protected $_cache = false;
+    protected $cache = false;
 
     /**
      * @var string
      */
-    protected $_cachePath;
+    protected $cachePath;
 
     /**
      * @var string
      */
-    protected $_cacheFile;
+    protected $cacheFile;
 
     /**
      * @var boolean
      */
-    protected $_cacheFlag = false;
+    protected $cacheFlag = false;
 
     /**
      * @var string
      */
-    protected $_template;
+    protected $template;
+
+    /**
+     * init
+     *
+     * @param null|array    $options
+     * @return void
+     */
+    public function init($options = null)
+    {
+        // initial default helper path
+        $this->addViewHelperPath(dirname(__FILE__) . '/Helper/');
+    }
 
     /**
      * Get a variable
@@ -120,57 +119,13 @@ class View extends Package
      */
     public function __get($key)
     {
-        if (isset($this->_data[$key])) {
-            return $this->_data[$key];
+        if (isset($this->data[$key])) {
+            return $this->data[$key];
         } else {
             return null;
         }
     }
 
-    /**
-     * Call
-     *
-     * @param string $method
-     * @param array  $args
-     * @return mixed
-     */
-    public function __call($method, $args)
-    {
-        $lmethod = strtolower($method);
-        if (isset(self::$_viewHelpers[$lmethod])) {
-            if (self::$_viewHelpers[$lmethod] instanceof \Closure) {
-                array_unshift($args, $this->getApplication()->getView());
-                return call_user_func_array(self::$_viewHelpers[$lmethod], $args);
-            }
-
-            if (self::$_viewHelpers[$lmethod] instanceof \Bluz\View\Helper\HelperAbstract) {
-                return call_user_method_array('toString', self::$_viewHelpers[$lmethod], $args);
-            }
-        }
-        if (self::$_viewHelpersPath) {
-            foreach(self::$_viewHelpersPath as $helperPath) {
-                $helperPath = realpath($helperPath . '/' . ucfirst($method) . '.php');
-                if ($helperPath) {
-                    $helperInclude = include $helperPath;
-                    if ($helperInclude instanceof \Closure) {
-                        self::$_viewHelpers[strtolower($method)] = $helperInclude;
-                    } elseif (class_exists(ucfirst($method))) {
-                        $className = ucfirst($method);
-                        $helper = new $className();
-                        $helper->setView($this->getApplication()->getView());
-
-                        self::$_viewHelpers[strtolower($method)] = $helper;
-                    } else {
-                        throw new \Exception("View helper '$method' not found");
-                    }
-
-                    return $this->__call($method, $args);
-                }
-            }
-        }
-
-        throw new \Exception("View helper '$method' not found");
-    }
 
     /**
      * Is set a variable
@@ -180,7 +135,7 @@ class View extends Package
      */
     public function __isset($key)
     {
-        return isset($this->_data[$key]);
+        return isset($this->data[$key]);
     }
 
     /**
@@ -196,13 +151,62 @@ class View extends Package
     {
         $key = (string) $key;
 
-        if ((null === $value) && isset($this->_data[$key])) {
-            unset($this->_data[$key]);
+        if ((null === $value) && isset($this->data[$key])) {
+            unset($this->data[$key]);
         } elseif (null !== $value) {
-            $this->_data[$key] = $value;
+            $this->data[$key] = $value;
         }
 
         return $this;
+    }
+
+    /**
+     * Call
+     *
+     * @param string $method
+     * @param array  $args
+     * @throws ViewException
+     * @return mixed
+     */
+    public function __call($method, $args)
+    {
+        if (isset(self::$viewHelpers[$method])
+            && self::$viewHelpers[$method] instanceof \Closure) {
+            return call_user_func_array(self::$viewHelpers[$method], $args);
+        }
+        if (self::$viewHelpersPath) {
+            foreach(self::$viewHelpersPath as $helperPath) {
+                $helperPath = realpath($helperPath . '/' . ucfirst($method) . '.php');
+                if ($helperPath) {
+                    $helperInclude = include $helperPath;
+                    if ($helperInclude instanceof \Closure) {
+                        self::$viewHelpers[strtolower($method)] = $helperInclude;
+                    } else {
+                        throw new ViewException("View helper '$method' not found");
+                    }
+
+                    return $this->__call($method, $args);
+                }
+            }
+        }
+    }
+
+    /**
+     * Translate
+     *
+     * @param string $message
+     * @return string
+     */
+    public function __($message)
+    {
+        $message = (string) $message;
+
+        if (func_num_args() > 1) {
+            $args = func_get_args();
+            $args['0'] = $message; // substitute message
+            $message = call_user_func_array('sprintf', $args);
+        }
+        return $message;
     }
 
     /**
@@ -213,7 +217,7 @@ class View extends Package
      */
     public function setData($data = array())
     {
-        $this->_data = $this->_mergeArrays($this->_data, $data);
+        $this->data = $this->mergeArrays($this->data, $data);
         return $this;
     }
 
@@ -222,11 +226,11 @@ class View extends Package
      * @param $array2
      * @return array
      */
-    protected function _mergeArrays($array1, $array2)
+    protected function mergeArrays($array1, $array2)
     {
         foreach ($array2 as $key => $value) {
             if (array_key_exists($key, $array1) && is_array($value)) {
-                $array1[$key] = $this->_mergeArrays($array1[$key], $array2[$key]);
+                $array1[$key] = $this->mergeArrays($array1[$key], $array2[$key]);
             } else {
                 $array1[$key] = $value;
             }
@@ -237,11 +241,11 @@ class View extends Package
     /**
      * is callable
      *
-     * @return void
+     * @return string
      */
     public function __invoke()
     {
-        $this->render();
+        return $this->render();
     }
 
     /**
@@ -251,12 +255,7 @@ class View extends Package
      */
     public function __toString()
     {
-        try {
-            $output = $this->render();
-        } catch (\Exception $e) {
-            $output = $e->getTraceAsString();
-        }
-        return $output;
+        return $this->render();
     }
 
     /**
@@ -267,7 +266,7 @@ class View extends Package
      */
     public function setCache($flag)
     {
-        $this->_cache = (boolean) $flag;
+        $this->cache = (boolean) $flag;
         return $this;
     }
 
@@ -275,6 +274,7 @@ class View extends Package
      * setCachePath
      *
      * @param string $path
+     * @throws ViewException
      * @return View
      */
     public function setCachePath($path)
@@ -282,7 +282,7 @@ class View extends Package
         if (!is_dir($path) or !is_writable($path)) {
             throw new ViewException('View: Cache path is not writable');
         }
-        $this->_cachePath = $path;
+        $this->cachePath = $path;
         return $this;
     }
 
@@ -294,7 +294,7 @@ class View extends Package
     public function toArray()
     {
         $data = array();
-        foreach ($this->_data as $key => $value) {
+        foreach ($this->data as $key => $value) {
             if ($value instanceof self) {
                 $value = $value->toArray();
             }
@@ -311,7 +311,7 @@ class View extends Package
      */
     public function setPath($path)
     {
-        $this->_path = $path;
+        $this->path = $path;
         return $this;
     }
 
@@ -324,7 +324,7 @@ class View extends Package
     public function setViewHelpers($viewHelpers)
     {
         foreach ($viewHelpers as $name => $function) {
-            self::$_viewHelpers[strtolower($name)] = $function;
+            self::$viewHelpers[$name] = $function;
         }
         return $this;
     }
@@ -337,8 +337,6 @@ class View extends Package
      */
     public function setViewHelpersPath($viewHelpersPath)
     {
-        $this->setViewHelperPathDefault();
-
         if (is_array($viewHelpersPath)) {
             foreach ($viewHelpersPath as $path) {
                 $this->addViewHelperPath((string) $path);
@@ -346,7 +344,6 @@ class View extends Package
         } else {
             $this->addViewHelperPath((string) $viewHelpersPath);
         }
-
         return $this;
     }
 
@@ -359,21 +356,10 @@ class View extends Package
     public function addViewHelperPath($path)
     {
         $path = rtrim(realpath($path), '/');
-        if (false !== $path && !in_array($path, self::$_viewHelpersPath)) {
-            self::$_viewHelpersPath [] = $path;
+        if (false !== $path && !in_array($path, self::$viewHelpersPath)) {
+            self::$viewHelpersPath[] = $path;
         }
 
-        return $this;
-    }
-
-    /**
-     * Set default view helper path
-     *
-     * @return View
-     */
-    public function setViewHelperPathDefault()
-    {
-        self::$_viewHelpersPath = array(rtrim(realpath(__DIR__ . '/Helper/'), '/'));
         return $this;
     }
 
@@ -385,7 +371,7 @@ class View extends Package
      */
     public function setTemplate($file)
     {
-        $this->_template = $file;
+        $this->template = $file;
         return $this;
     }
 
@@ -400,6 +386,41 @@ class View extends Package
     }
 
     /**
+     * A href url
+     *
+     * @param string                 $name
+     * @param string                 $module
+     * @param string                 $controller
+     * @param array                  $params
+     * @param array                  $attributes
+     * @param \Bluz\View\boolean|bool $hideDenied
+     * @return string
+     */
+    public function ahref($name, $module = 'index', $controller = 'index', $params = array(), $attributes = array(), $hideDenied = true)
+    {
+        if (!$this->getApplication()->isAllowedController($module, $controller, $params)) {
+            return $hideDenied ? '' : $name;
+        }
+
+        $href = $this->url($module, $controller, $params);
+
+        if ($href == $this->getApplication()->getRequest()->getRequestUri()) {
+            if (isset($attributes['class'])) {
+                $attributes['class'] .= ' on';
+            } else {
+                $attributes['class'] = 'on';
+            }
+        }
+        $attrs = array();
+
+        foreach ($attributes as $attr => $value) {
+            $attrs[] = $attr .'="'.$value.'"';
+        }
+
+        return '<a href="'.$href.'" '.join(' ', $attrs).'>'.$this->__($name).'</a>';
+    }
+
+    /**
      * baseUrl
      *
      * TODO: realization
@@ -409,15 +430,15 @@ class View extends Package
     public function baseUrl($file)
     {
         // setup baseUrl
-        if (!$this->_baseUrl) {
-            $this->_baseUrl = $this->getApplication()
+        if (!$this->baseUrl) {
+            $this->baseUrl = $this->getApplication()
                 ->getRequest()
                 ->getBaseUrl()
             ;
             // clean script name
             if (isset($_SERVER['SCRIPT_NAME'])
-                && ($pos = strripos($this->_baseUrl, basename($_SERVER['SCRIPT_NAME']))) !== false) {
-                $this->_baseUrl = substr($this->_baseUrl, 0, $pos);
+                && ($pos = strripos($this->baseUrl, basename($_SERVER['SCRIPT_NAME']))) !== false) {
+                $this->baseUrl = substr($this->baseUrl, 0, $pos);
             }
         }
 
@@ -426,7 +447,7 @@ class View extends Package
             $file = ltrim($file, '/\\');
         }
 
-        return rtrim($this->_baseUrl, '/') .'/'. $file;
+        return rtrim($this->baseUrl, '/') .'/'. $file;
     }
 
     /**
@@ -488,24 +509,26 @@ class View extends Package
      */
     public function cache($ttl, $keys = array())
     {
-        if (!$this->_cache) {
+        if (!$this->cache) {
             return false;
         }
 
-        $path = rtrim($this->_cachePath, '/') .'/'.
-                $this->_template;
+        $cachePath = substr($this->path, strrpos($this->path, '/', -7) + 1);
+        $cachePath = substr($cachePath, 0, -5);
+        $cachePath = $this->cachePath .'/'. $cachePath . substr($this->template, 0, -6);
+
         $key = md5(serialize($keys)) .'.html';
 
-        $this->_cacheFile = $path.'/'.$key;
+        $this->cacheFile = $cachePath.'/'.$key;
 
-        if (is_file($this->_cacheFile) && (filemtime($this->_cacheFile) > (time() - $ttl*60))) {
-            $this->_cacheFlag = true;
+        if (is_file($this->cacheFile) && (filemtime($this->cacheFile) > (time() - $ttl*60))) {
+            $this->cacheFlag = true;
             return true;
         } else {
             // create new cache
             // clean old cache
-            if (is_file($this->_cacheFile)) {
-                @unlink($this->_cacheFile);
+            if (is_file($this->cacheFile)) {
+                @unlink($this->cacheFile);
             }
             return false;
         }
@@ -514,75 +537,136 @@ class View extends Package
     /**
      * @return void
      */
-    private function _createCacheDir()
+    private function createCacheDir()
     {
-        $path = substr($this->_cacheFile, 0, strrpos($this->_cacheFile, '/'));
+        $path = substr($this->cacheFile, 0, strrpos($this->cacheFile, '/')) .'/';
 
-        // create subpath from file name
-        $subdirs = preg_split('/\//', $path);
-
-        if (sizeof($subdirs) > 1) {
-            $spath = rtrim($this->_cachePath, '/') . '/';
-            foreach ($subdirs as $subdir) {
-                $spath = $spath .'/'. $subdir;
-                is_dir($spath) || mkdir($spath);
-                @chmod($spath, 0777);
-            }
-        }
-
-        // create path
-        is_dir($path) || mkdir($path);
-        @chmod($path, 0777);
+        // use or create path recursive
+        is_dir($path) || mkdir($path, 0755, true);
+        @chmod($path, 0755);
     }
 
     /**
      * @param $content
      * @return void
      */
-    private function _writeCacheFile($content)
+    private function writeCacheFile($content)
     {
-        file_put_contents($this->_cacheFile, $content);
-        @chmod($this->_cacheFile, 0777);
+        $this->createCacheDir();
+        file_put_contents($this->cacheFile, $content);
+        @chmod($this->cacheFile, 0755);
     }
 
     /**
-     * render
+     * Render
      *
-     * @return void
+     * @throws ViewException
+     * @return string
      */
     public function render()
     {
-        // no need render
-        if ($this->_template === null) {
-            return;
-        }
-
         // cache exists and valid
-        if ($this->_cacheFlag) {
-            require $this->_cacheFile;
-            return;
+        if ($this->cacheFlag) {
+            return file_get_contents($this->cacheFile);
         }
 
         ob_start();
+        try {
+            if (!file_exists($this->path .'/'. $this->template)) {
+                throw new ViewException("Template '{$this->template}' not found");
+            }
 
-        // check need cache or not
-        if ($this->_cache && $this->_cacheFile) {
-            $this->_createCacheDir();
+            extract($this->data);
+            require $this->path .'/'.  $this->template;
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            var_dump($e->getTraceAsString());
         }
-
-        if (!file_exists($this->_path .'/'. $this->_template)) {
-            throw new ViewException('Template "'.$this->_template.'" not found');
-        }
-
-        extract($this->_data);
-
-        require $this->_path .'/'. $this->_template;
 
         $content = ob_get_clean();
         // save cache
-        if ($this->_cache && $this->_cacheFile) {
-            $this->_writeCacheFile($content);
+        if ($this->cache && $this->cacheFile) {
+            $this->writeCacheFile($content);
         }
         return (string) $content;
+    }
+
+    /**
+     * partial
+     *
+     * be careful, method rewrites the View variables with params
+     *
+     * @param       $__template
+     * @param array $__params
+     * @throws ViewException
+     * @return string
+     */
+    public function partial($__template, $__params = array())
+    {
+        if (!file_exists($this->path .'/'. $__template)) {
+            throw new ViewException("Template '{$__template}' not found");
+        }
+
+        extract($this->data);
+
+        if (sizeof($__params)) {
+            extract($__params);
+        }
+        unset($__params);
+
+        require $this->path .'/'. $__template;
+    }
+
+    /**
+     * partial loop
+     *
+     * <code>
+     * <?php
+     *  $data = array(2,4,6,8);
+     *  $this->partialLoop('tr.phtml', $data, array('colspan'=>2));
+     * ?>
+     * <?php
+     *  <tr>
+     *    <th>
+     *      <?=$key?>
+     *    </th>
+     *    <td colspan="<?=$colspan?>">
+     *      <?=$value?>
+     *    </td>
+     *  </tr>
+     * ?>
+     * </code>
+     *
+     * @param       $template
+     * @param array $data
+     * @param array $params
+     * @throws ViewException|\InvalidArgumentException
+     * @return string
+     */
+    public function partialLoop($template, $data = array(), $params = array())
+    {
+        if (!file_exists($this->path .'/'. $template)) {
+            throw new ViewException("Template '{$template}' not found");
+        }
+
+        if (!is_array($data)
+            && (!$data instanceof \Traversable)
+            && (is_object($data) && !method_exists($data, 'toArray'))
+        ) {
+            throw new \InvalidArgumentException('PartialLoop helper requires iterable data');
+        }
+
+        if (is_object($data)
+            && (!$data instanceof \Traversable)
+            && method_exists($data, 'toArray')
+        ) {
+            $data = $data->toArray();
+        }
+
+        foreach ($data as $key => $value) {
+            $params['key'] = $key;
+            $params['value'] = $value;
+            $this->partial($template, $params);
+        }
     }
 }

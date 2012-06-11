@@ -14,27 +14,27 @@ return
  * @param $password
  * @return closure
  */
-function($login, $password) use ($bootstrap, $app, $view) {
+function($login, $password) use ($view) {
     /**
      * @var closure $bootstrap
-     * @var Application $app
+     * @var Application $this
      * @var Auth $auth
      * @var View $view
      */
-    if ($identity = $app->getAuth()->getIdentity()) {
-        $app->getMessages()->addNotice('Already signed');
-        $app->redirectTo('index', 'index');
-    } elseif ($app->getRequest()->isPost()) {
+    if ($identity = $this->getAuth()->getIdentity()) {
+        $this->getMessages()->addNotice('Already signed');
+        $this->redirectTo('index', 'index');
+    } elseif ($this->getRequest()->isPost()) {
         try {
             \Application\Users\Table::getInstance()->login($login, $password);
 
-            //$app->getAuth()->authenticate($login, $password);
-            $app->getMessages()->addNotice('You are signed');
-            $app->redirectTo('index', 'index');
+            //$this->getAuth()->authenticate($login, $password);
+            $this->getMessages()->addNotice('You are signed');
+            $this->redirectTo('index', 'index');
         } catch (Exception $e) {
-            $app->getMessages()->addError($e->getMessage());
+            $this->getMessages()->addError($e->getMessage());
         }
     }
     // change layout
-    $app->useLayout('small.phtml');
+    $this->useLayout('small.phtml');
 };

@@ -27,8 +27,6 @@
  */
 namespace Bluz\Session\Store;
 
-use Bluz\Options;
-
 /**
  * Session
  *
@@ -40,32 +38,14 @@ use Bluz\Options;
  */
 abstract class AbstractStore
 {
+    use \Bluz\Package;
+
     /**
      * Session namespace
      *
      * @var string
      */
-    protected $_namespace = 'Bluz';
-
-    /**
-     * Constructor
-     *
-     * @param array $options
-     * @access  public
-     */
-    public function __construct($options = null)
-    {
-        Options::setConstructorOptions($this, $options);
-    }
-
-    /**
-     * Setup options
-     * @param array $options
-     */
-    public function setOptions(array $options)
-    {
-        Options::setOptions($this, $options);
-    }
+    protected $namespace = 'Bluz';
 
     /**
      * setNamespace
@@ -75,7 +55,7 @@ abstract class AbstractStore
      */
     public function setNamespace($namespace)
     {
-        $this->_namespace = $namespace;
+        $this->namespace = $namespace;
         return $this;
     }
 

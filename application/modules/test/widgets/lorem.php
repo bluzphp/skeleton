@@ -8,9 +8,9 @@ return
 /**
  * @return closure
  */
-function() use ($app) {
+function() {
     /**
-     * @var Application $app
+     * @var \Bluz\Application $this
      */
     echo <<<LOREM
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus rutrum,

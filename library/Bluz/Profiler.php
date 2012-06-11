@@ -39,12 +39,11 @@ namespace Bluz;
 class Profiler
 {
     /**
-     * @todo Use $_SERVER['REQUEST_TIME_FLOAT'] for PHP 5.4
      * @var null
      */
-    static protected $_start = null;
-    static protected $_timer = null;
-    static protected $_logs = array();
+    protected static $start = null;
+    protected static $timer = null;
+    protected static $logs = array();
 
     /**
      * log
@@ -54,14 +53,10 @@ class Profiler
      */
     public static function log($message)
     {
-        if (!self::$_start) {
-            if (defined('TIMER')) {
-                self::$_start = TIMER;
-                self::$_timer = TIMER;
-            } else {
-                self::$_start = microtime(true);
-                self::$_timer = microtime(true);
-            }
+        if (!self::$start) {
+            self::$start = self::$timer = isset($_SERVER['REQUEST_TIME_FLOAT'])
+                ? $_SERVER['REQUEST_TIME_FLOAT']
+                : microtime(true);
         }
 
         $curTimer = microtime(true);
@@ -72,17 +67,17 @@ class Profiler
 
         array_unshift(
             $args,
-            ($curTimer - self::$_start),
-            ($curTimer - self::$_timer),
+            ($curTimer - self::$start),
+            ($curTimer - self::$timer),
             $curMemory
         );
 
-        self::$_logs[] = vsprintf(
+        self::$logs[] = vsprintf(
             "%f :: %f :: %s kb // {$message}",
             $args
         );
 
-        self::$_timer = $curTimer;
+        self::$timer = $curTimer;
     }
 
     /**
@@ -92,6 +87,6 @@ class Profiler
      */
     public static function data()
     {
-        return self::$_logs;
+        return self::$logs;
     }
 }

@@ -48,7 +48,7 @@ class CliRequest extends AbstractRequest
     public function __construct()
     {
         parent::__construct();
-        $this->_method = 'CLI';
+        $this->method = 'CLI';
 
         $args = $_SERVER["argv"];
         unset($args['0']);
@@ -59,19 +59,19 @@ class CliRequest extends AbstractRequest
         foreach ($args as $arg) {
             if (strpos($arg, '-') === 0) {
                 $searchActions = false;
-                $this->_params[trim($arg, '-')] = null;
+                $this->params[trim($arg, '-')] = null;
             } elseif ($searchActions) {
                 $actions[] = $arg;
             } else {
-                if (count($this->_params)) {
-                    end($this->_params);
+                if (count($this->params)) {
+                    end($this->params);
 
-                    $optionName = key($this->_params);
-                    if (!empty($this->_params[ $optionName ])) {
-                        $this->_params[ $optionName ] = (array) $this->_params[ $optionName ];
-                        $this->_params[ $optionName ][] = $arg;
+                    $optionName = key($this->params);
+                    if (!empty($this->params[ $optionName ])) {
+                        $this->params[ $optionName ] = (array) $this->params[ $optionName ];
+                        $this->params[ $optionName ][] = $arg;
                     } else {
-                        $this->_params[ $optionName ] = $arg;
+                        $this->params[ $optionName ] = $arg;
                     }
                 }
             }
@@ -87,10 +87,10 @@ class CliRequest extends AbstractRequest
      */
     public function getRequestUri()
     {
-        if ($this->_requestUri === null) {
+        if ($this->requestUri === null) {
             $this->setRequestUri('');
         }
-        return $this->_requestUri;
+        return $this->requestUri;
     }
 
 
@@ -101,10 +101,10 @@ class CliRequest extends AbstractRequest
      */
     public function getBaseUrl()
     {
-        if (null === $this->_baseUrl) {
+        if (null === $this->baseUrl) {
             $this->setBaseUrl('');
         }
-        return $this->_baseUrl;
+        return $this->baseUrl;
     }
 
     /**

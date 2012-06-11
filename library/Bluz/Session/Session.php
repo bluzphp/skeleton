@@ -27,8 +27,6 @@
  */
 namespace Bluz\Session;
 
-use Bluz\Package;
-
 /**
  * Session
  *
@@ -41,25 +39,27 @@ use Bluz\Package;
  * @property mixed _messages
  * @property mixed identity
  */
-class Session extends Package
+class Session
 {
+    use \Bluz\Package;
+
     /**
      * Session store instance
      * @var Store\AbstractStore
      */
-    protected $_store = null;
+    protected $store = null;
 
     /**
      * Session store name
      * @var string
      */
-    protected $_storeName = 'session';
+    protected $storeName = 'session';
 
     /**
      * Session store options
      * @var string
      */
-    protected $_storeOptions = array();
+    protected $storeOptions = array();
 
     /**
      * setStore
@@ -69,7 +69,7 @@ class Session extends Package
      */
     public function setStore($store)
     {
-        $this->_storeName = $store;
+        $this->storeName = $store;
         return $this;
     }
 
@@ -80,7 +80,7 @@ class Session extends Package
      */
     public function setOptions(array $options)
     {
-        $this->_storeOptions = $options;
+        $this->storeOptions = $options;
     }
 
     /**
@@ -90,33 +90,34 @@ class Session extends Package
      */
     public function start()
     {
-        if (!$this->_store) {
+        if (!$this->store) {
             // switch statement for $store
-            switch ($this->_storeName) {
+            switch ($this->storeName) {
                 case 'array':
-                    $this->_store = new Store\ArrayStore($this->_storeOptions);
+                    $this->store = new Store\ArrayStore($this->storeOptions);
                     break;
                 case 'session':
                 default:
-                    $this->_store = new Store\SessionStore($this->_storeOptions);
+                    $this->store = new Store\SessionStore($this->storeOptions);
                     break;
             }
         }
-        return $this->_store->start();
+        return $this->store->start();
     }
 
     /**
      * getStore
      *
+     * @throws SessionException
      * @return Store\AbstractStore
      */
     public function getStore()
     {
-        if (!$this->_store) {
+        if (!$this->store) {
             throw new SessionException("Session store is not configured");
         }
 
-        return $this->_store;
+        return $this->store;
     }
 
     /**

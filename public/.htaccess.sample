@@ -24,7 +24,7 @@ RewriteRule .* - [L]
 RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d [OR]
-RewriteCond %{REQUEST_URI} ^/(css|scripts|images|uploads) [OR]
+RewriteCond %{REQUEST_URI} ^/(css|img|js|uploads) [OR]
 RewriteCond %{REQUEST_URI} \.(jpe?g|png|gif|ico)$
 RewriteRule ^.*$ - [NC,L]
 RewriteRule ^.*$ index.php [NC,L]

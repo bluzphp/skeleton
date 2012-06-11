@@ -27,8 +27,6 @@
  */
 namespace Bluz\Cache;
 
-use Bluz\Package;
-
 /**
  * Cache
  *
@@ -43,24 +41,26 @@ use Bluz\Package;
  * @author   Anton Shevchuk
  * @created  12.07.11 12:47
  */
-class Cache extends Package
+class Cache
 {
+    use \Bluz\Package;
+
     /**
      * @var \Memcached
      */
-    protected $_memcached;
+    protected $memcached;
 
 	/**
 	 * Cache flag
 	 * @var boolean
 	 */
-	protected $_cache = true;
+	protected $cache = true;
 
 	/**
 	 * Servers settings
 	 * @var array
 	 */
-	protected $_servers = array();
+	protected $servers = array();
 
     /**
      * init handler
@@ -69,15 +69,15 @@ class Cache extends Package
      */
     public function handler()
     {
-        if (!$this->_cache or !sizeof($this->_servers) or !class_exists('Memcached')) {
+        if (!$this->cache or !sizeof($this->servers) or !class_exists('Memcached', false)) {
             return false;
         }
 
-        if (!$this->_memcached) {
-            $this->_memcached = new \Memcached();
-            $this->_memcached->addServers($this->_servers);
+        if (!$this->memcached) {
+            $this->memcached = new \Memcached();
+            $this->memcached->addServers($this->servers);
         }
-        return $this->_memcached;
+        return $this->memcached;
     }
 
     /**
@@ -88,7 +88,7 @@ class Cache extends Package
      */
     public function setServers(array $settings)
     {
-        $this->_servers = $settings;
+        $this->servers = $settings;
         return $this;
     }
 
@@ -100,7 +100,7 @@ class Cache extends Package
      */
     public function setCache($flag)
     {
-        $this->_cache = $flag;
+        $this->cache = $flag;
         return $this;
     }
 
@@ -108,7 +108,8 @@ class Cache extends Package
      * __call
      *
      * @param string $method
-     * @param array $params
+     * @param array  $params
+     * @throws CacheException
      * @return mixed
      */
     public function __call($method, $params)

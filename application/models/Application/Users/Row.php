@@ -23,7 +23,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    public function _insert()
+    public function preInsert()
     {
         $this->created = gmdate('Y-m-d H:i:s');
     }
@@ -33,7 +33,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    public function _update()
+    public function preUpdate()
     {
         $this->updated = gmdate('Y-m-d H:i:s');
     }

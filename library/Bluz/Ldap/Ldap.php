@@ -27,8 +27,6 @@
  */
 namespace Bluz\Ldap;
 
-use Bluz\Package;
-
 /**
  * Ldap
  *
@@ -74,7 +72,7 @@ class Ldap
     /**
      * @var array
      */
-    private $_connectors = array();
+    private $connectors = array();
 
     /**
      * init connector with options
@@ -86,7 +84,7 @@ class Ldap
     {
         $connector = new \Bluz\Ldap\Connector();
         $connector->setHost($host)->setDomain($domain)->setBaseDn($baseDn)->connect();
-        $this->_connectors[] = $connector;
+        $this->connectors[] = $connector;
     }
 
     /**
@@ -100,7 +98,7 @@ class Ldap
     public function checkAuth($loginName, $pass)
     {
         // bind
-        foreach($this->_connectors as $connector) {
+        foreach($this->connectors as $connector) {
             /* @var \Bluz\Ldap\Connector $connector */
             if ($connector->bind($loginName, $pass)) {
                 return true;
@@ -121,7 +119,7 @@ class Ldap
      */
     public function processSearch($login, $pass, $filter, $attribs = array())
     {
-        foreach ($this->_connectors as $connector) {
+        foreach ($this->connectors as $connector) {
             /* @var \Bluz\Ldap\Connector $connector */
             if ($connector->bind($login, $pass)) {
                 $connector->doSearch($filter, array_values($attribs));
@@ -131,7 +129,7 @@ class Ldap
                     for ($i = 0; $i < $entries->count; $i++) {
                         $entry = $entries[$i];
                         foreach ($attribs as $key => $value) {
-                            $struct[$i][$key] = $this->_getStringValue($entry->search($value, true));
+                            $struct[$i][$key] = $this->getStringValue($entry->search($value, true));
                         }
                     }
                     return $struct;
@@ -147,7 +145,7 @@ class Ldap
      * @param array $arrayValue
      * @return string
      */
-    private function _getStringValue($arrayValue)
+    private function getStringValue($arrayValue)
     {
         if (sizeof($arrayValue) > 0) {
             $arrayValue = array_pop($arrayValue);

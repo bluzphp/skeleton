@@ -27,8 +27,6 @@
  */
 namespace Bluz\Registry;
 
-use Bluz\Package;
-
 /**
  * Registry
  *
@@ -37,14 +35,16 @@ use Bluz\Package;
  *
  * @author   Anton Shevchuk
  */
-class Registry extends Package
+class Registry
 {
+    use \Bluz\Package;
+
     /**
      * Stored data
      * 
      * @var array
      */
-    protected $_data = array();
+    protected $data = array();
 
     /**
      * reset data
@@ -54,8 +54,17 @@ class Registry extends Package
      */
     public function setData(array $data)
     {
-        $this->_data = $data;
+        $this->data = $data;
     }
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+     public function __isset($key)
+     {
+         return array_key_exists($key, $this->data);
+     }
 
     /**
      * setter for key
@@ -66,7 +75,7 @@ class Registry extends Package
      */
      public function __set($key, $value)
      {
-         $this->_data[$key] = $value;
+         $this->data[$key] = $value;
      }
 
     /**
@@ -77,8 +86,8 @@ class Registry extends Package
      */
     public function __get($key)
     {
-        if (isset($this->_data[$key])) {
-            return $this->_data[$key];
+        if (isset($this->data[$key])) {
+            return $this->data[$key];
         } else {
             return null;
         }

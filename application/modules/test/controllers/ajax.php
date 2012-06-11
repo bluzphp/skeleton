@@ -11,21 +11,20 @@ return
 /**
  * @return closure
  */
-function() use ($app, $bootstrap, $request, $view) {
+function() use ($view) {
     /**
      * @var closure $bootstrap
-     * @var Application $app
-     * @var Request\HttpRequest $request
+     * @var Application $this
      * @var View\View $view
      */
-    $app->useJson(true);
-    $app->getMessages()->addNotice('Notice Text');
-    $app->getMessages()->addSuccess('Success Text');
-    $app->getMessages()->addError('Error Text');
+    $this->useJson(true);
+    $this->getMessages()->addNotice('Notice Text');
+    $this->getMessages()->addSuccess('Success Text');
+    $this->getMessages()->addError('Error Text');
 
     $view->test = 12312414;
 
-    sleep(1);
+    sleep(2);
 //    $view->reload = true;
 //    $view->callback = 'callback name';
 };

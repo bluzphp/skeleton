@@ -15,12 +15,12 @@ class Table extends \Bluz\Db\Table
     /**
      * @var string
      */
-    protected $_identityColumn;
+    protected $identityColumn;
 
     /**
      * @var string
      */
-    protected $_credentialColumn;
+    protected $credentialColumn;
 
     /**
      * Login
@@ -40,9 +40,10 @@ class Table extends \Bluz\Db\Table
             throw new AuthException("Password is empty");
         }
 
-        $query = $this->_select . " WHERE {$this->_identityColumn} = ?";
-        $user = $this->_fetch($query, array($username))->current();
+        $query = $this->select . " WHERE {$this->identityColumn} = ?";
+        $user = $this->fetch($query, array($username))->current();
 
+        var_dump($this);
         if (!$user) {
             throw new AuthException("User not found");
         }
@@ -65,7 +66,7 @@ class Table extends \Bluz\Db\Table
      */
     public function getIdentityColumn()
     {
-        return $this->_identityColumn;
+        return $this->identityColumn;
     }
 
     /**
@@ -75,7 +76,7 @@ class Table extends \Bluz\Db\Table
      */
     public function getCredentialColumn()
     {
-        return $this->_credentialColumn;
+        return $this->credentialColumn;
     }
 
     /**
@@ -85,7 +86,6 @@ class Table extends \Bluz\Db\Table
      */
     public function getAuth()
     {
-        global $app;
-        return $app->getAuth();
+        return \Bluz\Application::getInstance()->getAuth();
     }
 }

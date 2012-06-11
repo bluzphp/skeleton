@@ -27,9 +27,6 @@
  */
 namespace Bluz\View;
 
-use Bluz\Package;
-use Bluz\Options;
-
 /**
  * View
  *
@@ -39,7 +36,6 @@ use Bluz\Options;
  * @author   Anton Shevchuk
  * @created  08.07.11 11:49
  *
- * @property mixed _messages
  * @property mixed content
  */
 class Layout extends View
@@ -47,7 +43,7 @@ class Layout extends View
     /**
      * @var mixed
      */
-    protected $_content;
+    protected $content;
 
     /**
      * @param      $name
@@ -70,15 +66,17 @@ class Layout extends View
         try {
             switch (true) {
                 case ($content instanceof \Closure):
+                    /* @var \Closure $content */
                     $content = $content();
                     break;
                 case ($content instanceof View):
+                    /* @var View $content */
                     $content = $content->render();
                     break;
             }
-            $this->_content = $content;
+            $this->content = $content;
         } catch (\Exception $e) {
-            $this->_content = $e->getMessage();
+            $this->content = $e->getMessage();
         }
         return $this;
     }
@@ -90,9 +88,8 @@ class Layout extends View
      */
     public function getContent()
     {
-        $this->_content = $this->trigger('content', $this->_content);
+        $this->content = $this->trigger('content', $this->content);
 
-
-        return $this->_content;
+        return $this->content;
     }
 }

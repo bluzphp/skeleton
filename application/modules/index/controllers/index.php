@@ -7,35 +7,36 @@
  * @return closure
  */
 namespace Bluz;
+
 return
 /**
  *
  * @return closure
  */
-function() use ($app, $bootstrap, $request, $view) {
+function() use ($request, $view) {
     /**
      * @var closure $bootstrap
-     * @var Application $app
+     * @var Application $this
      * @var Request\HttpRequest $request
      * @var View\View $view
      */
-    $app->getLayout()->title = "Index/Index";
+    $this->getLayout()->title = "Index/Index";
 
-    $app->getSession()->test = 'Test: '.date("H:i:s");
+    $this->getSession()->test = 'Test: '.date("H:i:s");
 
-    $view->session = $app->getSession()->test;
+    $view->session = $this->getSession()->test;
 
     //throw new Exception('Hi!', 404);
 
-//    if ($identity = $app->getAuth()->getIdentity()) {
+//    if ($identity = $this->getAuth()->getIdentity()) {
 //        var_dump($acl->isAllowed('index/index', $identity['sid']));
 //        var_dump($acl->isAllowed('index/test', $identity['sid']));
 //        var_dump($acl->isAllowed('index/error', $identity['sid']));
         //Bluz\Debug::dump($identity);
 //    } else {
-//        $app->getAuth()->authenticate('admin', '123456');
+//        $this->getAuth()->authenticate('admin', '123456');
 //    }
-//    $app->getMessages()->addError('Error Text');
-//    $app->getMessages()->addNotice('Warning Text');
-//    $app->getMessages()->addSuccess('Notice Text');
+//    $this->getMessages()->addError('Error Text');
+//    $this->getMessages()->addNotice('Warning Text');
+//    $this->getMessages()->addSuccess('Notice Text');
 };

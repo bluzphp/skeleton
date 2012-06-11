@@ -36,16 +36,17 @@ namespace Bluz\Request;
  * @author   Anton Shevchuk
  * @created  06.07.11 16:59
  */
-class AbstractRequest extends \Bluz\Package
+class AbstractRequest
 {
-    /**#@+
+    use \Bluz\Package;
+
+    /**
      * @const string SCHEME constant names
      */
     const SCHEME_HTTP  = 'http';
     const SCHEME_HTTPS = 'https';
-    /**#@-*/
 
-    /**#@+
+    /**
      * @const string METHOD constant names
      */
     const METHOD_OPTIONS = 'OPTIONS';
@@ -56,53 +57,50 @@ class AbstractRequest extends \Bluz\Package
     const METHOD_DELETE  = 'DELETE';
     const METHOD_TRACE   = 'TRACE';
     const METHOD_CONNECT = 'CONNECT';
-    /**#@-*/
-
-    /**#@-*/
 
     /**
      * REQUEST_URI
      *
      * @var string;
      */
-    protected $_requestUri;
+    protected $requestUri;
 
     /**
      * Base URL
      *
      * @var string;
      */
-    protected $_baseUrl;
+    protected $baseUrl;
 
     /**
      * Base Path
      *
      * @var string;
      */
-    protected $_basePath;
+    protected $basePath;
 
     /**
      * @var string
      */
-    protected $_method;
+    protected $method;
 
     /**
      * Module
      * @var string
      */
-    protected $_module = 'index';
+    protected $module = 'index';
 
     /**
      * Controller
      * @var string
      */
-    protected $_controller = 'index';
+    protected $controller = 'index';
 
     /**
      * Instance parameters
      * @var array
      */
-    protected $_params = array();
+    protected $params = array();
 
     /**
      * Retrieve the module name
@@ -113,9 +111,9 @@ class AbstractRequest extends \Bluz\Package
     public function module($name = null)
     {
         if (null !== $name) {
-            $this->_module = $name;
+            $this->module = $name;
         }
-        return $this->_module;
+        return $this->module;
     }
 
     /**
@@ -127,9 +125,9 @@ class AbstractRequest extends \Bluz\Package
     public function controller($name = null)
     {
         if (null !== $name) {
-            $this->_controller = $name;
+            $this->controller = $name;
         }
-        return $this->_controller;
+        return $this->controller;
     }
 
     /**
@@ -141,7 +139,7 @@ class AbstractRequest extends \Bluz\Package
     public function __get($key)
     {
         if ($this->__isset($key)) {
-            return $this->_params[$key];
+            return $this->params[$key];
         }
         return null;
     }
@@ -153,16 +151,16 @@ class AbstractRequest extends \Bluz\Package
      *
      * @param string $key
      * @param mixed $value
-     * @return Request
+     * @return AbstractRequest
      */
     public function __set($key, $value)
     {
         $key = (string) $key;
 
-        if ((null === $value) && isset($this->_params[$key])) {
-            unset($this->_params[$key]);
+        if ((null === $value) && isset($this->params[$key])) {
+            unset($this->params[$key]);
         } elseif (null !== $value) {
-            $this->_params[$key] = $value;
+            $this->params[$key] = $value;
         }
 
         return $this;
@@ -176,7 +174,7 @@ class AbstractRequest extends \Bluz\Package
      */
     public function __isset($key)
     {
-        return array_key_exists($key, $this->_params);
+        return array_key_exists($key, $this->params);
     }
 
     /**
@@ -187,7 +185,7 @@ class AbstractRequest extends \Bluz\Package
     public function __unset($key)
     {
         if ($this->__isset($key)) {
-            unset($this->_params[$key]);
+            unset($this->params[$key]);
         }
     }
 
@@ -198,7 +196,7 @@ class AbstractRequest extends \Bluz\Package
      *
      * @param string $key
      * @param mixed $value
-     * @return Request
+     * @return AbstractRequest
      */
     public function setParam($key, $value)
     {
@@ -227,11 +225,11 @@ class AbstractRequest extends \Bluz\Package
      * using the keys specified in the array.
      *
      * @param array $params
-     * @return Request
+     * @return AbstractRequest
      */
     public function setParams(array $params)
     {
-        //TODO SHOULD IT BE CLEANED FIRST??
+        // TODO SHOULD IT BE CLEANED FIRST??
         foreach ($params as $key => $value) {
             $this->setParam($key, $value);
         }
@@ -245,7 +243,7 @@ class AbstractRequest extends \Bluz\Package
      */
     public function getParams()
     {
-        return $this->_params;
+        return $this->params;
     }
 
     /**
@@ -273,10 +271,10 @@ class AbstractRequest extends \Bluz\Package
      */
     public function getMethod()
     {
-        return $this->_method;
+        return $this->method;
     }
 
-/**
+    /**
      * Is this a POST method request?
      *
      * @return bool
@@ -350,7 +348,7 @@ class AbstractRequest extends \Bluz\Package
      */
     public function setBaseUrl($baseUrl)
     {
-        $this->_baseUrl = rtrim($baseUrl, '/') . '/';
+        $this->baseUrl = rtrim($baseUrl, '/') . '/';
         return $this;
     }
 
@@ -362,7 +360,7 @@ class AbstractRequest extends \Bluz\Package
      */
     public function setRequestUri($requestUri)
     {
-        $this->_requestUri = $requestUri;
+        $this->requestUri = $requestUri;
         return $this;
     }
 }

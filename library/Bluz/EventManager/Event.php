@@ -38,17 +38,17 @@ class Event
     /**
      * @var string Event name
      */
-    protected $_name;
+    protected $name;
 
     /**
      * @var string|object The event target
      */
-    protected $_target;
+    protected $target;
 
     /**
      * @var array|object The event parameters
      */
-    protected $_params = array();
+    protected $params = array();
 
     /**
      * Constructor
@@ -80,7 +80,7 @@ class Event
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -92,13 +92,14 @@ class Event
      */
     public function getTarget()
     {
-        return $this->_target;
+        return $this->target;
     }
 
     /**
      * Overwrites parameters
      *
      * @param  array|object $params
+     * @throws EventException
      * @return Event
      */
     public function setParams($params)
@@ -110,7 +111,7 @@ class Event
             ));
         }
 
-        $this->_params = $params;
+        $this->params = $params;
         return $this;
     }
 
@@ -121,7 +122,7 @@ class Event
      */
     public function getParams()
     {
-        return $this->_params;
+        return $this->params;
     }
 
     /**
@@ -136,18 +137,18 @@ class Event
     public function getParam($name, $default = null)
     {
         // Check in params that are arrays or implement array access
-        if (is_array($this->_params)) {
-            if (!isset($this->_params[$name])) {
+        if (is_array($this->params)) {
+            if (!isset($this->params[$name])) {
                 return $default;
             }
-            return $this->_params[$name];
+            return $this->params[$name];
         }
 
         // Check in normal objects
-        if (!isset($this->_params->{$name})) {
+        if (!isset($this->params->{$name})) {
             return $default;
         }
-        return $this->_params->{$name};
+        return $this->params->{$name};
     }
 
     /**
@@ -158,7 +159,7 @@ class Event
      */
     public function setName($name)
     {
-        $this->_name = (string) $name;
+        $this->name = (string) $name;
         return $this;
     }
 
@@ -170,7 +171,7 @@ class Event
      */
     public function setTarget($target)
     {
-        $this->_target = $target;
+        $this->target = $target;
         return $this;
     }
 
@@ -183,12 +184,12 @@ class Event
      */
     public function setParam($name, $value)
     {
-        if (is_array($this->_params)) {
+        if (is_array($this->params)) {
             // Arrays or objects implementing array access
-            $this->_params[$name] = $value;
+            $this->params[$name] = $value;
         } else {
             // Objects
-            $this->_params->{$name} = $value;
+            $this->params->{$name} = $value;
         }
         return $this;
     }
