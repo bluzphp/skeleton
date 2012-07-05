@@ -18,7 +18,7 @@ return
 function($id) use ($view) {
     /**
      * @var \Bluz\Application $this
-     * @var \Bluz\View $view
+     * @var \Bluz\View\View $view
      */
     $this->getLayout()->title = 'User Profile';
 
@@ -27,10 +27,8 @@ function($id) use ($view) {
     /**
      * @var \Bluz\Db\Rowset $userRows
      */
-    if (!$userRow = $cache->get('UserID:' . $id)) {
-        $user = Users\Table::getInstance()->find($id);
-        $cache->set('UserID:'.$id, $user, 30);
-    }
-    $view->user = $user;
+    $user = ModelManager::get('Users', $id);
+    $user->getData();
 
+    $view->user = $user;
 };

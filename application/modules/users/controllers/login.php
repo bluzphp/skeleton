@@ -14,14 +14,12 @@ return
  * @param $password
  * @return closure
  */
-function($login, $password) use ($view) {
+function($login, $password) use ($identity, $view) {
     /**
-     * @var closure $bootstrap
      * @var Application $this
-     * @var Auth $auth
-     * @var View $view
+     * @var View\View $view
      */
-    if ($identity = $this->getAuth()->getIdentity()) {
+    if ($identity) {
         $this->getMessages()->addNotice('Already signed');
         $this->redirectTo('index', 'index');
     } elseif ($this->getRequest()->isPost()) {

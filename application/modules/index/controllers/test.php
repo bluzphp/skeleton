@@ -14,25 +14,23 @@ return
  *
  * @return closure
  */
-function($id) use ($this, $bootstrap, $view) {
+function($id) use ($bootstrap, $view) {
 
-    /* @var \Bluz\Application $this */
     $this->getLayout()->title = 'Custom Title';
 
     $view->title = "Index/Test";
+    /* @var \Bluz\Application $this */
 //    $this->getMessages()->addNotice('Notice');
-    $this->getMessages()->addError('Warning<br/>Second Line');
+//    $this->getMessages()->addError('Warning<br/>Second Line');
 //    $this->getMessages()->addError('Error');
     //$view->reload = true;
 
     $cache = $this->getCache();
     /**
-     * @var \Bluz\Db\Rowset $userRows
+     * @var Rowset $userRows
      */
     if (! $userRow = $cache->get('UserID:'.$id)) {
-        $usersTable = Users\Table::getInstance();
-        $userRows = $usersTable -> find(array($id));
-        $userRow = $userRows->current();
+        $userRow = Users\Table::getInstance()->findRow($id);
         $cache->set('UserID:'.$id, $userRow, 30);
 
     }

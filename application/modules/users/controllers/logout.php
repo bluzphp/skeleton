@@ -18,7 +18,7 @@ function() use ($view) {
     /**
      * @var closure $bootstrap
      * @var Application $this
-     * @var Auth $auth
+     * @var Auth\AbstractAdapter $auth
      */
     $this->getAuth()->setIdentity(null);
     $this->getMessages()->addNotice('You are signout');

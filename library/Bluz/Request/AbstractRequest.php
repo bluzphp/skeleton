@@ -66,6 +66,13 @@ class AbstractRequest
     protected $requestUri;
 
     /**
+     * REQUEST_URI minus Base URL
+     *
+     * @var string;
+     */
+    protected $cleanUri;
+
+    /**
      * Base URL
      *
      * @var string;

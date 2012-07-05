@@ -20,21 +20,23 @@ function ($code, $message = '') use ($view) {
      */
     switch ($code) {
         case 403:
-            if (!headers_sent()) header("HTTP/1.0 403 Forbidden");
-            $this->getLayout()->title = "Error 403";
-            $view->description = "Access denied";
+            $description = "Access denied";
             break;
         case 404:
-            if (!headers_sent()) header("HTTP/1.0 404 Not Found");
-            $this->getLayout()->title = "Error 404";
-            $view->description = "The page you requested was not found.";
+            $description = "The page you requested was not found.";
             break;
         default:
-            if (!headers_sent()) header("HTTP/1.0 400 Bad Request");
-            $this->getLayout()->title = "Error 400";
-            $view->description = "An unexpected error occurred with your request. Please try again later.";
+            $code = 400;
+            $description = "An unexpected error occurred with your request. Please try again later.";
             break;
     }
+    if (!headers_sent()) header("HTTP/1.0 {$code} {$message}");
+    $this->getLayout()->title = "{$message} {$code}";
+
+    $this->getLayout()->_code = $code;
+
+    $view->title = $this->getLayout()->title;
+    $view->description = $description;
     $view->message = $message;
     $this->getMessages()->addError($message);
     $this->useLayout('small.phtml');

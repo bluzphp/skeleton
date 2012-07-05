@@ -878,7 +878,7 @@ class Application
                         .'/controllers/' . $controller .'.php';
 
         if (!file_exists($controllerPath)) {
-            throw new Exception("Controller not found '$module/$controller'");
+            throw new Exception("Controller not found '$module/$controller'", 404);
         }
 
         return $controllerPath;

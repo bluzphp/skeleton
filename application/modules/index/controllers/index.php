@@ -7,7 +7,6 @@
  * @return closure
  */
 namespace Bluz;
-
 return
 /**
  *
@@ -15,8 +14,6 @@ return
  */
 function() use ($request, $view) {
     /**
-     * @var closure $bootstrap
-     * @var Application $this
      * @var Request\HttpRequest $request
      * @var View\View $view
      */
@@ -26,17 +23,19 @@ function() use ($request, $view) {
 
     $view->session = $this->getSession()->test;
 
+    //var_dump(\Staffload\Client::getInstance()->get('projects/search'));
+
     //throw new Exception('Hi!', 404);
 
-//    if ($identity = $this->getAuth()->getIdentity()) {
+//    if ($identity = $app->getAuth()->getIdentity()) {
 //        var_dump($acl->isAllowed('index/index', $identity['sid']));
 //        var_dump($acl->isAllowed('index/test', $identity['sid']));
 //        var_dump($acl->isAllowed('index/error', $identity['sid']));
         //Bluz\Debug::dump($identity);
 //    } else {
-//        $this->getAuth()->authenticate('admin', '123456');
+//        $app->getAuth()->authenticate('admin', '123456');
 //    }
-//    $this->getMessages()->addError('Error Text');
-//    $this->getMessages()->addNotice('Warning Text');
-//    $this->getMessages()->addSuccess('Notice Text');
+//    $app->getMessages()->addError('Error Text');
+//    $app->getMessages()->addNotice('Warning Text');
+//    $app->getMessages()->addSuccess('Notice Text');
 };

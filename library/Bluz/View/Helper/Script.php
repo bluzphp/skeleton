@@ -15,7 +15,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -26,6 +26,8 @@
  * @namespace
  */
 namespace Bluz\View\Helper;
+
+use Bluz\View\View;
 
 return function ($script = null) {
     if (null === $script) {
@@ -40,7 +42,7 @@ return function ($script = null) {
             <?php
         }
     } elseif ('.js' == substr($script, -3, 3)) {
-        $this->headScriptFiles .= '<script type="text/javascript" src="' . $this->baseUrl($script) .'"></script>'."\n";
+        $this->headScriptFiles .= '<script src="' . $this->baseUrl($script) .'"></script>'."\n";
     } else {
         $this->headScriptContent .= $script . ';';
     }

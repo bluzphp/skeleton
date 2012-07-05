@@ -1,10 +1,9 @@
-<?
+<?php
 /**
- * @var Application\Users\Row $user
+ * @var Application\Users\Model $user
  */
 ?>
 <h2><?=$title?></h2>
 <p>
-    <?php echo $this->__('Login')?>: <?=$user->getLogin()?><br/>
-    <?php echo $this->__('Status')?>: <?=$user->getStatus()?><br/>
+    <?=$this->__('Name')?>: <?=$user->getName()?><br/>
 </p>

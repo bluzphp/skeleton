@@ -40,13 +40,18 @@ class Router
 {
     use \Bluz\Package;
 
+    /**
+     * Or should be as properties?
+     */
     const DEFAULT_MODULE = 'index';
     const DEFAULT_CONTROLLER = 'index';
+    const ERROR_MODULE = 'error';
+    const ERROR_CONTROLLER = 'error';
 
     /**
      * @var array
      */
-    protected $routes = array();
+    protected $routers = array();
 
     /**
      * @var array
@@ -57,6 +62,63 @@ class Router
      * @var string
      */
     protected $baseUrl;
+
+    /**
+     * init
+     *
+     * @param array $options
+     * @return void
+     */
+    public function init($options = null)
+    {
+        $routers = $this->getApplication()->getCache()->get('router:routers');
+        $reverse = $this->getApplication()->getCache()->get('router:reverse');
+        // FIXME: disable cache for test
+        $routers = $reverse = null;
+
+        if (!$routers or !$reverse) {
+            $routers = array();
+            $reverse = array();
+            foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {
+                $module = pathinfo(dirname(dirname($file->getPathname())), PATHINFO_FILENAME);
+                $controller = pathinfo($file->getPathname(), PATHINFO_FILENAME);
+                $data = $this->getApplication()->reflection($file->getPathname());
+                if (isset($data['route'])) {
+                    if (!isset($reverse[$module])) {
+                        $reverse[$module] = array();
+                    }
+
+                    $reverse[$module][$controller] = ['route' => $data['route'], 'params' => $data['types']];
+
+                    $pattern = trim($data['route']);
+                    $pattern = str_replace('/', '\/', $pattern);
+
+                    foreach ($data['types'] as $param => $type) {
+                        switch ($type) {
+                            case 'int':
+                            case 'integer':
+                                $pattern = str_replace("{\$".$param."}", "(?P<$param>[0-9]+)", $pattern);
+                                break;
+                            case 'float':
+                                $pattern = str_replace("{\$".$param."}", "(?P<$param>[0-9.,]+)", $pattern);
+                                break;
+                            case 'string':
+                            case 'module':
+                            case 'controller':
+                                $pattern = str_replace("{\$".$param."}", "(?P<$param>\w+)", $pattern);
+                                break;
+                        }
+                    }
+                    $pattern = '/^'.$pattern.'/i';
+                    $routers[trim($data['route'])] = ['pattern' => $pattern, 'module' => $module, 'controller' => $controller, 'params' => $data['types']];
+                }
+            }
+            $this->getApplication()->getCache()->set('router:routers', $routers);
+            $this->getApplication()->getCache()->set('router:reverse', $reverse);
+        }
+        $this->routers = $routers;
+        $this->reverse = $reverse;
+    }
 
     /**
      * getBaseUrl
@@ -82,26 +144,15 @@ class Router
      * @param array $params
      * @return string
      */
-    public function url($module = null, $controller = null, $params = null)
+    public function url($module = self::DEFAULT_MODULE, $controller = self::DEFAULT_CONTROLLER, $params = array())
     {
-        if (empty($this->routes)) {
-            return $this->defaultUrl($module, $controller, $params);
+        if (empty($this->routers)) {
+            return $this->urlRoute($module, $controller, $params);
         } else {
-            /**
-             * $reverse = array(
-             *     'module1' => array(
-             *          'controller1' => array('params'=>array(), 'rule'=>index1),
-             *          'controller2' => array('params'=>array(), 'rule'=>index2),
-             *      )
-             * )
-             *
-             * $routers = array(
-             *     '/users/{controller}/{id}' => array('users', 'controller', 'params' => array('id')),
-             *     '/{alias}.html' => array('pages', 'view', 'params' => array('alias')),
-             *
-             * )
-             */
-            return $this->defaultUrl($module, $controller, $params);
+            if (isset($this->reverse[$module]) && isset($this->reverse[$module][$controller])) {
+                return $this->urlCustom($module, $controller, $params);
+            }
+            return $this->urlRoute($module, $controller, $params);
         }
     }
 
@@ -114,25 +165,31 @@ class Router
      * @param array $params
      * @return string
      */
-    public function defaultUrl($module = null, $controller = null, $params = null)
+    public function urlCustom($module, $controller, $params)
     {
-        if (null === $module) {
-            $module = self::DEFAULT_MODULE;
-        }
+        $uri = $this->reverse[$module][$controller]['route'];
 
-        if (null === $controller) {
-            $controller = self::DEFAULT_CONTROLLER;
+        foreach ($params as $key => $value) {
+            $uri = str_replace('{$'.$key.'}', $value, $uri);
         }
+        return $uri;
+    }
 
-        if (null === $params) {
-            $params = array();
-        }
-
+    /**
+     * build URL by default route
+     *
+     * @param string $module
+     * @param string $controller
+     * @param array $params
+     * @return string
+     */
+    public function urlRoute($module, $controller, $params)
+    {
         $url = $this->getBaseUrl();
 
         if (empty($params)) {
-            if ($controller == 'index') {
-                if ($module == 'index') {
+            if ($controller == self::DEFAULT_CONTROLLER) {
+                if ($module == self::DEFAULT_MODULE) {
                     return $url;
                 } else {
                     return $url . $module;
@@ -155,39 +212,73 @@ class Router
     /**
      * process
      *
-     * @return \Bluz\Request\AbstractRequest
+     * @return \Bluz\Router\Router
      */
     public function process()
     {
-        $request = $this->getApplication()->getRequest();
-
-        if (sizeof($this->routes)) {
-            $request = $this->processRoute($request);
-        } else {
-            $request = $this->processDefault($request);
+        switch (true) {
+            // try process default router
+            case $this->processDefault():
+                break;
+            // try process custom routers
+            case $this->processCustom():
+                break;
+            // try process router
+            case $this->processRoute():
+                break;
         }
 
-        return $request;
+        return $this;
     }
 
     /**
      * process default router
      *
-     * @param  \Bluz\Request\AbstractRequest $request
-     * @return \Bluz\Request\AbstractRequest
+     * @return boolean
      */
-    protected function processDefault($request)
+    protected function processDefault()
     {
-        $uri = parse_url($request->getRequestUri());
-        $uri = $uri['path'];
+        $uri = $this->getApplication()->getRequest()->getCleanUri();
+        return empty($uri);
+    }
 
-        if ($this->getBaseUrl() && strpos($uri, $this->getBaseUrl()) === 0) {
-            $uri = substr($uri, strlen($this->getBaseUrl()));
+
+    /**
+     * process custom router
+     *
+     * @return boolean
+     */
+    protected function processCustom()
+    {
+        $request = $this->getApplication()->getRequest();
+        $uri = '/'. $request->getCleanUri();
+
+        foreach ($this->routers as $key => $router) {
+            if (preg_match($router['pattern'], $uri, $matches)) {
+                $request->module($router['module']);
+                $request->controller($router['controller']);
+
+                foreach($router['params'] as $param => $type) {
+                    if (isset($matches[$param])) {
+                        $request->{$param} = $matches[$param];
+                    }
+                }
+                return true;
+            }
         }
+        return false;
+    }
 
+    /**
+     * process default router
+     *
+     * @return boolean
+     */
+    protected function processRoute()
+    {
+        $request = $this->getApplication()->getRequest();
+        $uri = $request->getCleanUri();
         $uri = trim($uri, '/');
-        if (empty($uri)) return $request;
-
         $params = preg_split('/\//', $uri);
 
         if (sizeof($params)) {
@@ -208,29 +299,7 @@ class Router
             }
         }
 
-        return $request;
+        return true;
     }
 
-    /**
-     * process custom router
-     *
-     * @param  \Bluz\Request\AbstractRequest $request
-     * @return \Bluz\Request\AbstractRequest
-     */
-    protected function processRoute($request)
-    {
-        // TODO Check this
-        $params = array();
-
-        foreach ($params as $param => $value) {
-            if ($param === 'module') {
-                $request->module($value);
-            } elseif ($param === 'controller') {
-                $request->controller($value);
-            } else {
-                $request->{$param} = $value;
-            }
-        }
-        return $request;
-    }
 }
