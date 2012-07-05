@@ -10,7 +10,6 @@ namespace Bluz;
 use \Bluz\EventManager\Event;
 return
 /**
- * @route /events.phtml
  * @return closure
  */
 function() use ($view) {

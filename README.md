@@ -15,7 +15,7 @@ return
  */
 function($id) use ($view) {
     /**
-     * @var Application $app
+     * @var Application $this
      * @var View $view
      */
      $view->user = $this->getDb()->fetchObject("SELECT * FROM users WHERE id = ?", array($id), 'Users\Row');
@@ -89,4 +89,4 @@ Read LICENSE file
 [1]: https://github.com/AntonShevchuk
 [2]: https://github.com/Baziak
 [3]: https://github.com/MaksSlesarenko
-[3]: https://github.com/EagleMoor
+[4]: https://github.com/EagleMoor
