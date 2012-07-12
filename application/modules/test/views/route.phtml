@@ -1,5 +1,5 @@
 <ul>
-<li><?= $this->ahref('Static', 'test', 'route-static');?></li>
-<li><?= $this->ahref('With one param', 'test', 'route-with-param', array('a'=>'foo'));?></li>
-<li><?= $this->ahref('With many params', 'test', 'route-with-params', array('a'=>123, 'b'=>3.14, 'c'=>'bar'));?></li>
+<li><?= $this->ahref('Static', ['test', 'route-static']);?></li>
+<li><?= $this->ahref('With one param', ['test', 'route-with-param', array('a'=>'foo')]);?></li>
+<li><?= $this->ahref('With many params', ['test', 'route-with-params', array('a'=>123, 'b'=>3.14, 'c'=>'bar')]);?></li>
 </ul>

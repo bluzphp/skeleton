@@ -5,11 +5,13 @@
  * @author   Anton Shevchuk
  * @created  12.06.12 13:08
  */
+namespace Application;
+use Bluz;
 return
 /**
  * @route /test/{$a}/
  * @param string $a
- * @return closure
+ * @return \closure
  */
 function($a) {
     return function() use ($a) {

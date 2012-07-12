@@ -27,38 +27,35 @@
  */
 namespace Bluz\View\Helper;
 
-use Bluz\Application;
 use Bluz\View\View;
 
 return
 
 /**
- * @param string $module
- * @param string $controller
- * @param array  $params
- * @param bool   $checkAccess
- * @return mixed
+ * baseUrl
+ *
+ * TODO: realization
+ * @param string $file
+ * @return string
  */
-function ($module, $controller, array $params = [], $checkAccess = true) {
-    /**
-     * @var Application $app
-     */
-    $app = $this->getApplication();
-
-    if ($checkAccess && !$app->isAllowedController($module, $controller, $params)) {
-        return null;
+function ($file) {
+    // setup baseUrl
+    if (!$this->baseUrl) {
+        $this->baseUrl = $this->getApplication()
+            ->getRequest()
+            ->getBaseUrl()
+        ;
+        // clean script name
+        if (isset($_SERVER['SCRIPT_NAME'])
+            && ($pos = strripos($this->baseUrl, basename($_SERVER['SCRIPT_NAME']))) !== false) {
+            $this->baseUrl = substr($this->baseUrl, 0, $pos);
+        }
     }
 
-    if (null === $module) {
-        $module = $app->getRequest()->module();
-    }
-    if (null === $controller) {
-        $controller = $app->getRequest()->controller();
-    }
-    if (null === $params) {
-        $params = $app->getRequest()->getParams();
+    // Remove trailing slashes
+    if (null !== $file) {
+        $file = ltrim($file, '/\\');
     }
 
-    return $app ->getRouter()
-                ->url($module, $controller, $params);
+    return rtrim($this->baseUrl, '/') .'/'. $file;
 };

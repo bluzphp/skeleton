@@ -27,38 +27,24 @@
  */
 namespace Bluz\View\Helper;
 
-use Bluz\Application;
 use Bluz\View\View;
 
-return
-
-/**
- * @param string $module
- * @param string $controller
- * @param array  $params
- * @param bool   $checkAccess
- * @return mixed
- */
-function ($module, $controller, array $params = [], $checkAccess = true) {
-    /**
-     * @var Application $app
-     */
-    $app = $this->getApplication();
-
-    if ($checkAccess && !$app->isAllowedController($module, $controller, $params)) {
-        return null;
+return function ($title = null, $position = View::POS_REPLACE, $separator = ' :: ') {
+    if ($title === null) {
+        return $this->title;
+    } else {
+        // switch statement for $position
+        switch ($position) {
+            case View::POS_PREPEND:
+                $this->title = $title . (empty($this->title)?:$separator.$this->title);
+                break;
+            case View::POS_APPEND:
+                $this->title = (empty($this->title)?:$this->title.$separator).$title;
+                break;
+            case View::POS_REPLACE:
+            default:
+                $this->title = $title;
+                break;
+        }
     }
-
-    if (null === $module) {
-        $module = $app->getRequest()->module();
-    }
-    if (null === $controller) {
-        $controller = $app->getRequest()->controller();
-    }
-    if (null === $params) {
-        $params = $app->getRequest()->getParams();
-    }
-
-    return $app ->getRouter()
-                ->url($module, $controller, $params);
 };

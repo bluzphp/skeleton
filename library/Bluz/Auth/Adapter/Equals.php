@@ -57,7 +57,7 @@ class Equals extends AbstractAdapter
     /**
      * setEncryptFunction
      *
-     * @param closure $function
+     * @param \closure $function
      * @return Equals
      */
     public function setEncryptFunction($function)

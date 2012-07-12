@@ -1,9 +1,10 @@
 <?php
 /**
- * @var Application\Users\Model $user
+ * @var \Application\Users\Row $user
  */
 ?>
 <h2><?=$title?></h2>
 <p>
-    <?=$this->__('Name')?>: <?=$user->getName()?><br/>
+    <?=$this->_('Name')?>: <?=$user->login?><br/>
+    <?=$this->_('Status')?>: <?=$user->status?><br/>
 </p>

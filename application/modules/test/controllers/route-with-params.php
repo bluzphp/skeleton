@@ -5,13 +5,16 @@
  * @author   Anton Shevchuk
  * @created  12.06.12 13:08
  */
+namespace Application;
+use Bluz;
+
 return
 /**
  * @route /{$a}-{$b}-{$c}.html
  * @param int $a
  * @param float $b
  * @param string $c
- * @return closure
+ * @return \closure
  */
 function($a, $b, $c) {
     return function() use ($a, $b, $c) {

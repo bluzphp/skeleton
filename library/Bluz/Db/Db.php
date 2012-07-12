@@ -293,7 +293,7 @@ class Db
 
         $result = $stmt->execute(array_values($params));
 
-        $this->log($sql, $params);
+        $this->log($sql, array_values($params));
         if ($result) {
             return $this->handler()->lastInsertId();
         } else {
@@ -315,6 +315,7 @@ class Db
      */
     public function update($table, $params = array(), $where = array())
     {
+
         $sqlWhere = $this->prepareWhere($where);
 
         $sql = "UPDATE `$table` SET `". join('` = ?,`', array_keys($params)) ."` = ? " . $sqlWhere ;
@@ -331,7 +332,7 @@ class Db
 
         $result = $stmt->execute($execParams);
 
-        $this->log($sql, $params);
+        $this->log($sql, $execParams);
 
         return $result;
     }
@@ -587,7 +588,7 @@ class Db
                     // set query time
                     $timeSpent = $this->queries[$sql]['timer'][$timers-1] - $this->queries[$sql]['timer'][$timers-2];
 
-                    $sql = str_replace('?', '%s', $sql);
+                    $sql = str_replace('?', '"%s"', $sql);
 
                     array_unshift(
                         $params,

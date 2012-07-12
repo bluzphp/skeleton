@@ -16,8 +16,28 @@ namespace Application\Users;
  * @property string $created
  * @property string $updated
  */
-class Row extends \Bluz\Db\Row
+class Row extends \Bluz\Auth\AbstractEntity
 {
+    /**
+     * @var integer
+     */
+    public $id;
+
+    /**
+     * @var string
+     */
+    public $login;
+
+    /**
+     * @var string
+     */
+    public $created;
+
+    /**
+     * @var string
+     */
+    public $updated;
+
     /**
      * __insert
      *
@@ -36,16 +56,6 @@ class Row extends \Bluz\Db\Row
     public function preUpdate()
     {
         $this->updated = gmdate('Y-m-d H:i:s');
-    }
-
-    /**
-     * Get role ID
-     *
-     * @return string
-     */
-    public function getRoleId()
-    {
-        return $this->id;
     }
 
     /**

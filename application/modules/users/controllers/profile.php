@@ -6,29 +6,37 @@
  * @created  01.09.11 13:15
  */
 namespace Application;
+use Bluz;
 
 return
 /**
  * @param int $id
  *
- * @privilege ViewUserProfile
+ * @\privilege ViewUserProfile
  *
- * @return closure
+ * @return \closure
  */
-function($id) use ($view) {
+function($id = null) use ($view) {
+
     /**
-     * @var \Bluz\Application $this
-     * @var \Bluz\View\View $view
+     * @var Bluz\Application $this
+     * @var Bluz\View\View $view
      */
     $this->getLayout()->title = 'User Profile';
 
-    $cache = $this->getCache();
+    // try to load profile of current user
+    if (!$id && $this->getAuth()->getIdentity()) {
+        $id = $this->getAuth()->getIdentity()->id;
+    }
 
     /**
-     * @var \Bluz\Db\Rowset $userRows
+     * @var \Application\Users\Row $user
      */
-    $user = ModelManager::get('Users', $id);
-    $user->getData();
+    $user = $this->getDb()->fetchObject('SELECT * FROM users WHERE id = ?', array($id), 'Application\Users\Row');
 
-    $view->user = $user;
+    if (!$user) {
+        throw new \Exception('User not found', 404);
+    } else {
+        $view->user = $user;
+    }
 };

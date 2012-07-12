@@ -6,30 +6,30 @@
  * @created  20.07.11 18:39
  * @return closure
  */
-namespace Bluz;
-use Bluz\Debug;
+namespace Application;
+use Bluz;
+use Application\Users;
 return
 /**
  * @param $login
  * @param $password
- * @return closure
+ * @return \closure
  */
 function($login, $password) use ($identity, $view) {
     /**
-     * @var Application $this
-     * @var View\View $view
+     * @var Bluz\Application $this
+     * @var Bluz\View\View $view
      */
     if ($identity) {
         $this->getMessages()->addNotice('Already signed');
         $this->redirectTo('index', 'index');
     } elseif ($this->getRequest()->isPost()) {
         try {
-            \Application\Users\Table::getInstance()->login($login, $password);
-
+            Users\Table::getInstance()->login($login, $password);
             //$this->getAuth()->authenticate($login, $password);
             $this->getMessages()->addNotice('You are signed');
             $this->redirectTo('index', 'index');
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->getMessages()->addError($e->getMessage());
         }
     }

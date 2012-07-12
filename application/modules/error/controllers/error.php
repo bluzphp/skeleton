@@ -11,7 +11,7 @@ return
 /**
  * @param  integer $code
  * @param  string $message
- * @return closure
+ * @return \closure
  */
 function ($code, $message = '') use ($view) {
     /**
@@ -31,13 +31,11 @@ function ($code, $message = '') use ($view) {
             break;
     }
     if (!headers_sent()) header("HTTP/1.0 {$code} {$message}");
-    $this->getLayout()->title = "{$message} {$code}";
+    $this->getLayout()->title("{$message} {$code}");
 
-    $this->getLayout()->_code = $code;
-
-    $view->title = $this->getLayout()->title;
+    $view->title = $this->getLayout()->title();
     $view->description = $description;
     $view->message = $message;
-    $this->getMessages()->addError($message);
+//    $this->getMessages()->addError($message);
     $this->useLayout('small.phtml');
 };

@@ -22,7 +22,7 @@ if (!headers_sent()) {
         section {
             margin: 40px auto;
             padding: 10px 20px;
-            width: 400px;
+            width: 640px;
             border: 1px solid #ccc;
             border-radius: 4px;
             -moz-border-radius: 4px;
@@ -50,8 +50,13 @@ if (!headers_sent()) {
 
     <h2>Server Temporarily Unavailable</h2>
     <?php if (defined('DEBUG') && DEBUG && isset($e)) : ?>
-    <p><?php echo $e->getMessage() ?></p>
-    <pre><?=$e->getTraceAsString() ?></pre>
+        <?php if (is_array($e)) : ?>
+            <p><?=$e['message']?></p>
+            <pre><?=$e['file'].'#'.$e['line']?></pre>
+        <?php else : ?>
+            <p><?=$e->getMessage()?></p>
+            <pre><?=$e->getTraceAsString()?></pre>
+        <?php endif;?>
     <?php endif;?>
 </section>
 </body>

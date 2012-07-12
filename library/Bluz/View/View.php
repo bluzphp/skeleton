@@ -42,6 +42,10 @@ class View
 {
     use \Bluz\Package;
 
+    const POS_PREPEND = 1;
+    const POS_REPLACE = 2;
+    const POS_APPEND  = 3;
+
     /**
      * @var string
      */
@@ -180,11 +184,10 @@ class View
                 if ($helperPath) {
                     $helperInclude = include $helperPath;
                     if ($helperInclude instanceof \Closure) {
-                        self::$viewHelpers[strtolower($method)] = $helperInclude;
+                        self::$viewHelpers[$method] = $helperInclude;
                     } else {
                         throw new ViewException("View helper '$method' not found");
                     }
-
                     return $this->__call($method, $args);
                 }
             }
@@ -385,69 +388,40 @@ class View
         return $this->getApplication()->getAuth()->getIdentity();
     }
 
-    /**
-     * A href url
-     *
-     * @param string                 $name
-     * @param string                 $module
-     * @param string                 $controller
-     * @param array                  $params
-     * @param array                  $attributes
-     * @param \Bluz\View\boolean|bool $hideDenied
-     * @return string
-     */
-    public function ahref($name, $module = 'index', $controller = 'index', $params = array(), $attributes = array(), $hideDenied = true)
-    {
-        if (!$this->getApplication()->isAllowedController($module, $controller, $params)) {
-            return $hideDenied ? '' : $name;
-        }
-
-        $href = $this->url($module, $controller, $params);
-
-        if ($href == $this->getApplication()->getRequest()->getRequestUri()) {
-            if (isset($attributes['class'])) {
-                $attributes['class'] .= ' on';
-            } else {
-                $attributes['class'] = 'on';
-            }
-        }
-        $attrs = array();
-
-        foreach ($attributes as $attr => $value) {
-            $attrs[] = $attr .'="'.$value.'"';
-        }
-
-        return '<a href="'.$href.'" '.join(' ', $attrs).'>'.$this->__($name).'</a>';
-    }
 
     /**
-     * baseUrl
+     * Simple gettext wrapper
      *
-     * TODO: realization
-     * @param string $file
-     * @return string
+     * <code>
+     * // simple
+     * __('Message');
+     *
+     * // plural form + sprintf
+     * // equal to sprintf(ngettext('%d comment', '%d comments', 4), 4)
+     * __('%d comment', '%d comments', 4)
+     *
+     * // plural form + sprintf
+     * // equal to sprintf(ngettext('%d comment', '%d comments', 4), 4, 'Topic')
+     * __('%d comment to %s', '%d comments to %s', 4, 'Topic')
+     * </code>
+     *
+     * @param string $message
+     * @return mixed|string
      */
-    public function baseUrl($file)
-    {
-        // setup baseUrl
-        if (!$this->baseUrl) {
-            $this->baseUrl = $this->getApplication()
-                ->getRequest()
-                ->getBaseUrl()
-            ;
-            // clean script name
-            if (isset($_SERVER['SCRIPT_NAME'])
-                && ($pos = strripos($this->baseUrl, basename($_SERVER['SCRIPT_NAME']))) !== false) {
-                $this->baseUrl = substr($this->baseUrl, 0, $pos);
-            }
-        }
+    public function _($message) {
 
-        // Remove trailing slashes
-        if (null !== $file) {
-            $file = ltrim($file, '/\\');
+        if (func_num_args() == 1) {
+            return gettext($message);
+        } elseif (func_num_args() == 3) {
+            // plural form
+            $args = func_get_args();
+            return sprintf(ngettext($message, $args[1], $args[2]), $args[2]);
+        } elseif (func_num_args() > 3) {
+            // plural form with additional params
+            $message = call_user_func_array('ngettext', func_get_args());
+            $args = array_slice(func_get_args(), 2);
+            return vsprintf($message, $args);
         }
-
-        return rtrim($this->baseUrl, '/') .'/'. $file;
     }
 
     /**
@@ -569,7 +543,6 @@ class View
         if ($this->cacheFlag) {
             return file_get_contents($this->cacheFile);
         }
-
         ob_start();
         try {
             if (!file_exists($this->path .'/'. $this->template)) {

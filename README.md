@@ -8,7 +8,7 @@ Controller:
 <?php
 return
 /**
- * @acl View User Profile
+ * @privilege View-User-Profile
  * @cache 5 minutes
  * @param integer $id
  * @return closure
@@ -46,7 +46,8 @@ class Table extends \Bluz\Db\Table
 <?php
 namespace Application\Users;
 class Row extends \Bluz\Db\Row {
-
+    public $id;
+    public $login;
 }
 ```
 

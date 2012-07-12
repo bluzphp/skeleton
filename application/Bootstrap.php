@@ -45,7 +45,7 @@ class Bootstrap extends Application
      * initial environment
      *
      * @param string $environment
-     * @return \Application\Bootstrap|\Bluz\Application
+     * @return \Bluz\Application
      */
     public function init($environment = ENVIRONMENT_PRODUCTION)
     {
@@ -67,13 +67,14 @@ class Bootstrap extends Application
                 /* @var \Bluz\EventManager\Event $event */
                 \Bluz\Profiler::log('layout:footer');
 
-                $version = shell_exec('hg tip --style compact');
+                $version = null;
+                $comment = null;
+
+                /*$version = shell_exec('hg tip --style compact');
                 if ($version) {
                     list($version, $comment) = explode("\n", $version, 2);
                     $comment = trim($comment);
-                } else {
-                    $comment = '';
-                }
+                }*/
 
                 ?>
                     <section class="debug-panel">
@@ -84,10 +85,11 @@ class Bootstrap extends Application
                             </h3>
                             <?php if ($version) :?>
                             <code class="debug-panel-version">
-                                <?php echo $this->getLayout()->ahref(
-                                    $version, 'index', 'changelog', array(),
-                                    array('title' => $comment)
-                                ) ?>
+                                <?= $this->getLayout()->ahref(
+                                        $version, ['index', 'changelog', array()],
+                                        array('title' => $comment)
+                                    )
+                                ?>
                             </code>
                             <?php endif ?>
                         </section>
@@ -123,7 +125,7 @@ class Bootstrap extends Application
     {
         if (!$this->rcl) {
             $this->rcl = parent::getRcl();
-            $this->rcl->addAssertion(\Application\UserToResourceToPrivilege\Table::getInstance());
+            //$this->rcl->addAssertion(\Application\UserToResourceToPrivilege\Table::getInstance());
         }
         return $this->rcl;
     }

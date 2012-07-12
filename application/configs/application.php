@@ -18,7 +18,7 @@ return array(
         ),
     ),
     "cache" => array(
-        "cache" => false,
+        "cache" => true,
         "servers" => array(
             array("memcached", 11211, 1),
         ),
@@ -52,7 +52,7 @@ return array(
         "cache" => true,
         "cachePath" => PATH_DATA .'/cache',
         "data" => array(
-            "title" => "PHP 5.3 Examples",
+            "title" => "Bluz Framework",
         ),
         "viewHelpersPath" => PATH_APPLICATION .'/layouts/helpers',
         "viewHelpers" => array(

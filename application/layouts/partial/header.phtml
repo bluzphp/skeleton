@@ -2,7 +2,7 @@
 <html dir="ltr" lang="en-US">
 <head>
     <meta charset="UTF-8"/>
-    <title><?php echo $this->__($this->title)?></title>
+    <title><?=$this->title()?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="profile" href="http://gmpg.org/xfn/11"/>
     <link rel="stylesheet" href="<?=$this->baseUrl('/css/styles.css')?>" />
@@ -19,17 +19,17 @@
     <!--[if lt IE 9]>
     <script src="<?=$this->baseUrl('/js/html5.js')?>"></script>
     <![endif]-->
-    <?php echo $this->script();?>
-    <?php echo $this->link();?>
+    <?=$this->script();?>
+    <?=$this->link();?>
 
     <?php $this->trigger('header'); ?>
 </head>
 <body class="module-<?=$this->getApplication()->getRequest()->module()?> controller-<?=$this->getApplication()
     ->getRequest()->controller()?>" data-spy="scroll" data-target=".subnav" data-offset="50">
-<?php /*var_dump($this->getApplication()->getMessages());*/ if ($this->getApplication()->getMessages()->count()):?>
+<?php if ($this->getApplication()->getMessages()->count()):?>
         <div id="messages" class="hide">
             <?php while ($message = $this->getApplication()->getMessages()->pop()):?>
-                <p class="<?php echo $message->type?>"><?php echo $this->__($message->text)?></p>
+                <p class="<?php echo $message->type?>"><?php echo $this->_($message->text)?></p>
             <?php endwhile;?>
         </div>
 <?php endif;?>

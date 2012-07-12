@@ -43,7 +43,6 @@ class Table extends \Bluz\Db\Table
         $query = $this->select . " WHERE {$this->identityColumn} = ?";
         $user = $this->fetch($query, array($username))->current();
 
-        var_dump($this);
         if (!$user) {
             throw new AuthException("User not found");
         }

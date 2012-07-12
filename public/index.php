@@ -38,9 +38,9 @@ register_shutdown_function('errorHandler');
 header('X-Frame-Options: SAMEORIGIN');
 
 function errorHandler() {
-    $error = error_get_last();
-    if (!is_array($error)
-        || !in_array($error['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR))) {
+    $e = error_get_last();
+    if (!is_array($e)
+        || !in_array($e['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR))) {
         return;
     }
     require_once 'error.php';

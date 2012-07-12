@@ -6,15 +6,18 @@
  * @created  16.03.12 15:21
  * @return closure
  */
-namespace Bluz;
-use \Bluz\EventManager\Event;
+namespace Application;
+use Bluz;
+use Bluz\EventManager\Event;
 return
 /**
- * @return closure
+ * @return \closure
  */
 function() use ($view) {
+
     /**
-     * @var Application $this
+     * @var Bluz\Application $this
+     * @var Bluz\View\View $view
      */
     $this->getEventManager()
         ->attach('testevent', function(Event $event){

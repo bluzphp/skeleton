@@ -56,6 +56,8 @@ use Bluz\Db\DbException;
  */
 class Row
 {
+    use \Bluz\Package;
+
     /**
      * Table class or instance.
      *
@@ -111,14 +113,8 @@ class Row
     protected $relationsData = array();
 
     /**
-     * @var array
-     */
-    protected static $columns = array();
-
-    /**
      * __construct
      *
-     * @todo added cache for reflexion
      * @param array $data
      * @return \Bluz\Db\Row
      */
@@ -128,21 +124,12 @@ class Row
         $this->modified = array();
 
         // original cleaner data
-        $this->clean = $this->data;
+        $this->clean = $this->toArray();
 
-        $className = get_class($this);
-        if (empty(self::$columns[$className])) {
-            self::$columns[$className] = array();
-            $reflection = new \ReflectionClass($this);
-
-            if (preg_match_all('/\@property\s+(\w+)\s+\$([\w\d]+)$/im', $reflection->getDocComment(), $matches)) {
-                for ($i = 0; $i < count($matches[1]); $i++) {
-                    self::$columns[$className][$matches[2][$i]] = $matches[1][$i];
-                }
-            }
-        }
         // not clean data, but not modified
-        $this->setFromArray($data);
+        if (sizeof($data)) {
+            $this->setFromArray($data);
+        }
     }
 
     /**
@@ -154,25 +141,9 @@ class Row
      */
     public function __get($columnName)
     {
-        if (!$this->__isset($columnName)) {
-            throw new DbException("Column '{$columnName}' is not a column in the " . get_class($this));
-        }
         $value = null;
         if (isset($this->data[$columnName])) {
             $value = $this->data[$columnName];
-        }
-
-        $className = get_class($this);
-        if (!empty(self::$columns[$className])) {
-            $type = self::$columns[$className][$columnName];
-
-            if ('object' == $type || 'array' == $type) {
-                if (!empty($value)) {
-                    $value = unserialize($value);
-                }
-            } else {
-                setType($value, self::$columns[$className][$columnName]);
-            }
         }
         return $value;
     }
@@ -183,7 +154,10 @@ class Row
      */
     public function __sleep()
     {
-        return array('primary', 'data', 'clean' ,'modified');
+        return array_merge(
+            array_keys($this->toArray()), // public data
+            array('primary', 'data', 'clean' ,'modified')
+        );
     }
 
     /**
@@ -201,40 +175,20 @@ class Row
             $tableName = ucfirst(strtolower($tableName));
 
             if (!empty($tableName) && !empty($columnName)) {
-
                 if (!isset($this->relationsData[$tableName])) {
                     $this->relationsData[$tableName] = array();
                 }
                 $this->relationsData[$tableName][$columnName] = $value;
             }
         } else {
-            if (!$this->__isset($columnName)) {
-                throw new DbException("Column '{$columnName}' is not a column in the " . get_class($this));
-            }
             if (is_array($value) || is_object($value)) {
                 $value = serialize($value);
             }
             if (!isset($this->data[$columnName])
                 || $this->data[$columnName] != $value) {
                 $this->data[$columnName] = $value;
-                $this->modified[$columnName] = true;
             }
         }
-    }
-
-    /**
-     * Test existence of row field
-     *
-     * @param  string  $columnName   The column key.
-     * @return boolean
-     */
-    public function __isset($columnName)
-    {
-        $className = get_class($this);
-        if (!empty(self::$columns[$className])) {
-            return isset(self::$columns[$className][$columnName]);
-        }
-        return true;
     }
 
     /**
@@ -249,11 +203,16 @@ class Row
     public function save()
     {
         /**
-         * If the _clean array is empty,
-         * this is an INSERT of a new row.
-         * Otherwise it is an UPDATE.
+         * If the primary key is empty, this is an INSERT of a new row.
+         * Otherwise check primary key updated or not, if it changed - INSERT
+         * otherwise UPDATE
          */
-        if (empty($this->clean)) {
+        if (!sizeof(array_filter($this->getPrimaryKey()))) {
+            return $this->doInsert();
+        } elseif (sizeof(array_intersect_key(
+                    array_diff_assoc($this->clean, $this->toArray()),
+                    $this->getPrimaryKey()
+                ))) {
             return $this->doInsert();
         } else {
             return $this->doUpdate();
@@ -274,7 +233,8 @@ class Row
         /**
          * Execute the INSERT (this may throw an exception)
          */
-        $data = array_intersect_key($this->data, $this->modified);
+        $data = $this->toArray();
+
         $primaryKey = $this->getTable()->insert($data);
 
         /**
@@ -291,12 +251,12 @@ class Row
         }
 
         /**
-         * Save the new primary key value in _data.  The primary key may have
+         * Save the new primary key value in object. The primary key may have
          * been generated by a sequence or auto-increment mechanism, and this
-         * merge should be done before the _postInsert() method is run, so the
+         * merge should be done before the postInsert() method is run, so the
          * new values are available for logging, etc.
          */
-        $this->data = array_merge($this->data, $newPrimaryKey);
+        $this->setFromArray($newPrimaryKey);
 
         /**
          * Run post-INSERT logic
@@ -326,7 +286,7 @@ class Row
          * Compare the data to the modified fields array to discover
          * which columns have been changed.
          */
-        $diffData = array_intersect_key($this->data, $this->modified);
+        $diffData = array_diff($this->toArray(), $this->clean);
 
         /**
          * Execute the UPDATE (this may throw an exception)
@@ -337,6 +297,7 @@ class Row
         if (count($diffData) > 0) {
             $this->getTable()->update($diffData, $this->getPrimaryKey());
         }
+
 
         /**
          * Run post-UPDATE logic.  Do this before the _refresh()
@@ -408,7 +369,7 @@ class Row
     {
         $primary = array_flip($this->getTable()->getPrimaryKey());
 
-        $array = array_intersect_key($this->data, $primary);
+        $array = array_intersect_key($this->toArray(), $primary);
 
         if (count($primary) != count($array)) {
             throw new InvalidPrimaryKeyException(
@@ -427,7 +388,7 @@ class Row
      */
     public function refresh()
     {
-        $this->clean = $this->data;
+        $this->setFromArray($this->clean);
         $this->modified = array();
     }
 
@@ -569,7 +530,7 @@ class Row
      */
     public function toArray()
     {
-        return (array) $this->data;
+        return getProperties($this);
     }
 
     /**
@@ -580,16 +541,22 @@ class Row
      */
     public function setFromArray(array $data)
     {
-        $className = get_class($this);
-        if (!empty(self::$columns[$className])) {
-            $data = array_intersect_key($data, self::$columns[$className]);
-        }
+        $data = array_intersect_key($data, array_keys($this->toArray()));
 
         foreach ($data as $columnName => $value) {
-            $this->__set($columnName, $value);
+            $this->$columnName = $value;
         }
 
         return $this;
     }
+}
 
+/**
+ * Workaround for PHP 5.4
+ *
+ * @param $obj
+ * @return array
+ */
+function getProperties($obj) {
+    return get_object_vars($obj);
 }

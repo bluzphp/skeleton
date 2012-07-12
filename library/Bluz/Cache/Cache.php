@@ -105,6 +105,29 @@ class Cache
     }
 
     /**
+     * Get data from cache
+     * otherwise call callback function
+     *
+     * @param string   $key
+     * @param \closure $callback
+     * @param int      $ttl
+     * @throws \Bluz\Exception
+     * @return mixed
+     */
+    public function getData($key, $callback, $ttl = 0)
+    {
+        if (!is_callable($callback)) {
+            throw new \Bluz\Exception('Callback parameter should be callable, like closure');
+        }
+
+        if (!$data = $this->handler()->get($key)) {
+            $data = $callback();
+            $this->handler()->set($key, $data, $ttl);
+        }
+        return $data;
+    }
+
+    /**
      * __call
      *
      * @param string $method

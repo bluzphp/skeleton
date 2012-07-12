@@ -34,15 +34,18 @@ return
 /**
  * @author ErgallM
  *
- * TODO: use it or method 'ahref' from View class?
- *
  * @param string $text
- * @param string $href
+ * @param string|array $href
  * @param array $attributes HTML attributes
  * @return \Closure
  */
-function ($text, $href, array $attributes = [])
-{
+function ($text, $href, array $attributes = []) {
+    // if href is settings for url helper
+    if (is_array($href)) {
+        $href = call_user_func_array(array($this, 'url'), $href);
+    }
+
+    // href can be null, if access is denied
     if (null === $href) return '';
 
     if ($href == $this->getApplication()->getRequest()->getRequestUri()) {

@@ -28,8 +28,9 @@
 namespace Bluz\Auth;
 
 /**
- * Auth
- *  - support DB only
+ * Auth support
+ *  - DB adapter
+ *  - LDAP adapter
  *
  * @category Bluz
  * @package  Auth

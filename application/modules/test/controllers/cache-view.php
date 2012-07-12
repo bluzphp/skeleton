@@ -6,11 +6,12 @@
  * @created  08.06.12 12:21
  * @return closure
  */
-namespace Bluz;
+namespace Application;
+use Bluz;
 return
 /**
  * @cache 1 minute
- * @return closure
+ * @return \closure
  */
 function() use ($view) {
     $view->current = date('y-m-d H:i:s');
