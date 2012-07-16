@@ -572,6 +572,29 @@ class Db
     }
 
     /**
+     * transaction wrapper
+     *
+     * @param \closure $process
+     * @throws DbException
+     * @return boolean
+     */
+    public function transaction($process)
+    {
+        if (!is_callable($process)) {
+            throw new DbException('First argument of transaction method should be callable');
+        }
+        try {
+            $this->handler()->beginTransaction();
+            $process();
+            $this->handler()->commit();
+            return true;
+        } catch (\PDOException $e) {
+            $this->handler()->rollBack();
+            return false;
+        }
+    }
+
+    /**
      * log
      *
      * @param string $sql

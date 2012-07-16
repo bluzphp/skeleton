@@ -29,6 +29,9 @@ namespace Bluz\View\Helper;
 
 use Bluz\View\View;
 
+/**
+ * TODO: move variable to system section
+ */
 return function ($src = null, $rel = 'stylesheet') {
     if (null === $src) {
         echo $this->headLinkFiles;

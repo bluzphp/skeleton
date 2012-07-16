@@ -29,6 +29,9 @@ namespace Bluz\View\Helper;
 
 use Bluz\View\View;
 
+/**
+ * TODO: move variable to system section
+ */
 return function ($script = null) {
     if (null === $script) {
         echo $this->headScriptFiles;

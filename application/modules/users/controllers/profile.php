@@ -12,7 +12,7 @@ return
 /**
  * @param int $id
  *
- * @\privilege ViewUserProfile
+ * @privilege ViewProfile
  *
  * @return \closure
  */

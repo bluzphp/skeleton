@@ -59,6 +59,11 @@ class View
     /**
      * @var array
      */
+    protected $system = array();
+
+    /**
+     * @var array
+     */
     protected static $viewHelpers = array();
 
     /**

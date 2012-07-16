@@ -25,23 +25,21 @@
 /**
  * @namespace
  */
-namespace Bluz\Acl;
+namespace Bluz\View\Helper;
+
+use Bluz\View\View;
 
 /**
- * Assertion
- *
- * @category Bluz
- * @package  Acl
+ * @return array
  */
-interface Assertion
-{
-    /**
-     *
-     * @param string  $resourceType
-     * @param integer $resourceId
-     * @param integer $privilegeId
-     * @param \Bluz\Auth\AbstractEntity $user
-     * @return boolean|null
-     */
-    public function isAllowed($resourceType, $resourceId, $privilegeId, \Bluz\Auth\AbstractEntity $user = null);
-}
+return function ($data = array()) {
+    if (sizeof($data)) {
+        $this->system['breadcrumbs'] = $data;
+    } else {
+        if (isset($this->system['breadcrumbs'])) {
+            return $this->system['breadcrumbs'];
+        } else {
+            return null;
+        }
+    }
+};

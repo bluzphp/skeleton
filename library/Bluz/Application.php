@@ -700,7 +700,7 @@ class Application
 
         /**
          * optional $bootstrap for use in closure
-         * @var closure $bootstrap
+         * @var \closure $bootstrap
          */
         if (file_exists($bootstrapPath)) {
             $bootstrap = require $bootstrapPath;
@@ -709,7 +709,7 @@ class Application
         }
 
         /**
-         * @var closure $controllerClosure
+         * @var \closure $controllerClosure
          */
         $controllerClosure = include $controllerFile;
 
@@ -817,7 +817,7 @@ class Application
         $data = $this->reflection($controllerFile);
 
         if (isset($data['privilege']) &&
-            !$this->getAcl()->isAllowed($data['privilege'])) {
+            !$this->getAcl()->isAllowed($module, $data['privilege'])) {
             // privilege is described and deny
             return false;
         }
@@ -827,7 +827,7 @@ class Application
             if (!empty($data['resourceParam'])) {
                 $resourceId = isset($params[$data['resourceParam']]) ? $params[$data['resourceParam']] : null;
             }
-            return $this->getRcl()->isAllowed($data['privilege'], $data['resourceType'], $resourceId);
+            return $this->getRcl()->isAllowed($module, $data['privilege'], $data['resourceType'], $resourceId);
         }
 
         return true;
@@ -848,7 +848,7 @@ class Application
         $data = $this->reflection($widgetFile);
 
         if (isset($data['privilege']) &&
-            !$this->getAcl()->isAllowed($data['privilege'])) {
+            !$this->getAcl()->isAllowed($module, $data['privilege'])) {
             // privilege is described and deny
             return false;
         }

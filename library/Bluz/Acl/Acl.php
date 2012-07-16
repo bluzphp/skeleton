@@ -40,35 +40,18 @@ class Acl
 {
     use \Bluz\Package;
 
-    const ALLOW = 'allow';
-    const DENY = 'deny';
-
-    /**
-     * Get flags
-     *
-     * @return array
-     */
-    public static function getFlags()
-    {
-        return array(
-            self::ALLOW,
-            self::DENY
-        );
-    }
-
     /**
      * Is allowed
      *
-     * @param string                    $privilege
-     * @internal param int $privilegeId
-     * @throws AclException
+     * @param string $module
+     * @param string $privilege
      * @return boolean
      */
-    public function isAllowed($privilege)
+    public function isAllowed($module, $privilege)
     {
         if ($privilege) {
             $user = $this->getApplication()->getAuth()->getIdentity();
-            if (!$user || !$user->getRole() || !$user->getRole()->hasPrivilege($privilege)) {
+            if (!$user || !$user->hasPrivilege($module, $privilege)) {
                 return false;
             }
         }

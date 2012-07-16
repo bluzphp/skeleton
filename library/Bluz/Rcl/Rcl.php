@@ -37,26 +37,10 @@ class Rcl
 {
     use \Bluz\Package;
 
-    const ALLOW = 'allow';
-    const DENY = 'deny';
-
     /**
      * @var array
      */
     protected $assertions = array();
-
-    /**
-     * Get flags
-     *
-     * @return array
-     */
-    public static function getFlags()
-    {
-        return array(
-            self::ALLOW,
-            self::DENY
-        );
-    }
 
     /**
      * Add

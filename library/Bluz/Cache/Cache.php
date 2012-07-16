@@ -119,10 +119,13 @@ class Cache
         if (!is_callable($callback)) {
             throw new \Bluz\Exception('Callback parameter should be callable, like closure');
         }
+        if (!$handler = $this->handler()) {
+             return $callback();
+         }
 
-        if (!$data = $this->handler()->get($key)) {
+        if (!$data = $handler->get($key)) {
             $data = $callback();
-            $this->handler()->set($key, $data, $ttl);
+            $handler->set($key, $data, $ttl);
         }
         return $data;
     }
@@ -137,7 +140,7 @@ class Cache
      */
     public function __call($method, $params)
     {
-        if (! $handler = $this->handler()) {
+        if (!$handler = $this->handler()) {
             return false;
         }
 

@@ -9,7 +9,7 @@
                     <li>
                         <a href="/"><?php echo $this->__('Home')?></a>
                     </li>
-                    <?php if ($this->breadcrumps) foreach ($this->breadcrumps as $crump):?>
+                    <?php if ($this->breadCrumbs()) foreach ($this->breadCrumbs() as $crump):?>
                         <li>
                             <span class="divider">/</span> <?php echo $crump?>
                         </li>

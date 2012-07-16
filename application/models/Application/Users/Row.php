@@ -39,6 +39,11 @@ class Row extends \Bluz\Auth\AbstractEntity
     public $updated;
 
     /**
+     * @var string
+     */
+    public $status;
+
+    /**
      * __insert
      *
      * @return void
@@ -66,5 +71,21 @@ class Row extends \Bluz\Auth\AbstractEntity
     public function canLogin()
     {
         return 'active' == $this->status;
+    }
+
+    /**
+     * Get privileges
+     */
+    public function getPrivileges()
+    {
+        return $this->getApplication()->getCache()->getData('privileges:'.$this->id, function() {
+            return $this->getTable()->getAdapter()->fetchColumnGroup("
+                        SELECT DISTINCT p.module, p.privilege
+                        FROM acl_privileges AS p, acl_roles AS r, acl_usersToRoles AS u2r
+                        WHERE p.roleId = r.id AND r.id = u2r.roleId AND u2r.userId = ?
+                        ORDER BY module, privilege",
+                        array($this->id)
+                    );
+        }, 0);
     }
 }

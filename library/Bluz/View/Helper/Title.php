@@ -29,6 +29,9 @@ namespace Bluz\View\Helper;
 
 use Bluz\View\View;
 
+/**
+ * TODO: move variable to system section
+ */
 return function ($title = null, $position = View::POS_REPLACE, $separator = ' :: ') {
     if ($title === null) {
         return $this->title;

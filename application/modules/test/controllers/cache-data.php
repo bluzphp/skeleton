@@ -36,7 +36,7 @@ function($id = null) use ($bootstrap, $view) {
     /**
      * @var Bluz\Db\Rowset $userRows
      */
-    $userRow = $cache->getData('UserID:'.$id, function() use ($id) {
+    $userRow = $cache->getData('user:'.$id, function() use ($id) {
         return Users\Table::getInstance()->findRow($id);
     }, 30);
 

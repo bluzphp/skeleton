@@ -39,7 +39,7 @@ return
  * @param bool   $checkAccess
  * @return mixed
  */
-function ($module, $controller, array $params = [], $checkAccess = true) {
+function ($module, $controller, array $params = [], $checkAccess = false) {
     /**
      * @var Application $app
      */

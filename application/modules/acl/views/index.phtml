@@ -1,0 +1,37 @@
+<div class="navbar">
+    <?//=$this->ahref('Add New Role', ['acl', 'edit-role'], ['class' => 'btn btn-primary dialog']);?>
+
+    <?//=$this->ahref('Users Management', ['acl', 'users'], ['class' => 'btn']);?>
+
+    <?//=$this->ahref('Direct Rules Management', ['acl', 'direct'], ['class' => 'btn']);?>
+</div>
+<form action="<?=$this->url('acl', 'save')?>" method="POST">
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th width="180px">Privilege/Role</th>
+            <?php foreach ($roles as $role) : ?>
+            <th><?=$role->name?></th>
+            <?php endforeach; ?>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($set as $module => $modulePrivileges) : ?>
+        <tr>
+            <th colspan="<?=sizeof($roles) + 1?>"><?=ucfirst($module)?></th>
+        </tr>
+    <?php foreach ($modulePrivileges as $privilege) : ?>
+        <tr>
+            <td><?=$privilege?></td>
+            <?php foreach ($roles as $role) : ?>
+            <td>
+                <input type="checkbox" name="acl[<?=$role->id?>][<?=$module?>][<?=$privilege?>]" value="1"
+                <?=((isset($privileges[$role->id]) && isset($privileges[$role->id][$module]) && in_array($privilege, $privileges[$role->id][$module]))?"checked":"")?> /></td>
+            <?php endforeach; ?>
+        </tr>
+    <?php endforeach; ?>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+    <input type="submit" value="Save" class="btn btn-primary"/>
+</form>
