@@ -28,7 +28,7 @@
 namespace Application;
 
 use Bluz\Application;
-use Bluz\Exception;
+use Application\Exception;
 
 /**
  * Bootstrap

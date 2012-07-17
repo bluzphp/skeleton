@@ -67,33 +67,38 @@
 		});
 
         // Ajax callback
-        var ajaxCallback = function(data) {
-            // redirect and reload page
-            var callback = null;
-            if (data.reload != undefined) {
-                callback = function() {
-                    // reload current page
-                    window.location.reload();
-                }
-            } else if (data.redirect != undefined) {
-                callback = function() {
-                    // redirect to another page
-                    window.location = data.redirect;
-                }
-            }
+        var ajax = {
+			success:function(data) {
+				// redirect and reload page
+				var callback = null;
+				if (data._reload != undefined) {
+					callback = function() {
+						// reload current page
+						window.location.reload();
+					}
+				} else if (data._redirect != undefined) {
+					callback = function() {
+						// redirect to another page
+						window.location = data.redirect;
+					}
+				}
 
-            // show messages and run callback after
-            if (data._messages != undefined) {
-                Messages.setCallback(callback);
-                Messages.addMessages(data._messages);
-            } else {
-                callback();
-            }
+				// show messages and run callback after
+				if (data._messages != undefined) {
+					Messages.setCallback(callback);
+					Messages.addMessages(data._messages);
+				} else {
+					callback();
+				}
 
-            if (data.callback != undefined && $.isFunction(window[data.callback])) {
-                window[data.callback](data);
-            }
-        };
+				if (data.callback != undefined && $.isFunction(window[data.callback])) {
+					window[data.callback](data);
+				}
+			},
+			error:function() {
+				Messages.addError('Connection is fail');
+			}
+		};
 
         // get only plain data
         var processData = function(el) {
@@ -124,21 +129,17 @@
             var data = processData($this);
             data.json = 1;
 
-            $.ajax({
+            $.ajax($.extend({
                 url:$this.attr('href'),
                 data: data,
                 dataType:'json',
                 beforeSend:function() {
                     $this.addClass('noactive');
                 },
-                success:ajaxCallback,
-                error:function() {
-                    Messages.addWarning('Connection is fail');
-                },
                 complete:function() {
                     $this.removeClass('noactive');
                 }
-            });
+            }, ajax));
             return false;
         })
 
@@ -178,7 +179,7 @@
 					$div.modal('show');
 				},
 				error:function() {
-				   Messages.addWarning('Connection is fail');
+				   Messages.addError('Connection is fail');
 				},
 				complete:function() {
 				   $this.removeClass('noactive');
@@ -202,7 +203,7 @@
                 data[formData[i].name] = formData[i].value;
             }
 
-            $.ajax({
+            $.ajax($.extend({
                 url: $this.attr('action'),
                 type: 'post',
                 data: data,
@@ -210,14 +211,10 @@
                 beforeSend:function() {
                     $this.addClass('noactive');
                 },
-                success:ajaxCallback,
-                error:function() {
-                    Messages.addWarning('Connection is fail');
-                },
                 complete:function() {
                     $this.removeClass('noactive');
                 }
-            });
+            }, ajax));
             return false;
         })
 

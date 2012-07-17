@@ -45,7 +45,7 @@ class EventManager
      * attach
      *
      * @param string $eventName
-     * @param closure $callback
+     * @param \closure $callback
      * @param int $priority
      * @return EventManager
      */

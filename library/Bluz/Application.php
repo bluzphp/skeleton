@@ -137,6 +137,12 @@ class Application
     protected $layoutFlag = true;
 
     /**
+     * Use view flag
+     * @var boolean
+     */
+    protected $viewFlag = true;
+
+    /**
      * JSON response flag
      * @var boolean
      */
@@ -438,39 +444,34 @@ class Application
             $this->useJson(true);
         }
 
-        //TODO remove later
+        // TODO remove later
         if ($this->request->getParam('flushCache')) {
             $this->getCache()->handler()->flush();
         }
 
         $layout = $this->getLayout();
-        $layout->_code = 200;
-
+//        $layout->_code = 200;
 
         /* @var View $ControllerView */
         try {
-            $controllerView = $this->dispatch(
+            $dispatchResult = $this->dispatch(
                 $this->request->module(),
                 $this->request->controller(),
                 $this->request->getParams()
             );
 
             // move vars from layout to view instance
-            if ($controllerView instanceof View) {
-                $controllerView -> setData($this->getLayout()->toArray());
+            if ($dispatchResult instanceof View) {
+                $dispatchResult -> setData($this->getLayout()->toArray());
             }
 
-            if (!$this->layoutFlag) {
-                $this->layout = $layout = $controllerView;
-            } else {
-                $layout->setContent($controllerView);
-            }
+            $layout->setContent($dispatchResult);
         } catch (\Exception $e) {
-            $controllerView = $this->dispatch('error', 'error', array(
+            $dispatchResult = $this->dispatch('error', 'error', array(
                 'code' => $e->getCode(),
                 'message' => $e->getMessage()
             ));
-            $layout->setContent($controllerView);
+            $layout->setContent($dispatchResult);
         }
         return $this;
     }
@@ -493,6 +494,22 @@ class Application
     }
 
     /**
+     * useView
+     *
+     * @param boolean|string $flag
+     * @return Application
+     */
+    public function useView($flag = true)
+    {
+        if (!$flag) {
+            // disable layout when disable view
+            $this->useLayout(false);
+        }
+        $this->viewFlag = $flag;
+        return $this;
+    }
+
+    /**
      * useJson
      *
      * @param boolean $flag
@@ -501,7 +518,9 @@ class Application
     public function useJson($flag = true)
     {
         if ($flag) {
+            // disable view and layout for JSON output
             $this->useLayout(false);
+            $this->useView(false);
         }
         $this->jsonFlag = $flag;
         return $this;
@@ -517,10 +536,19 @@ class Application
         $this->log(__METHOD__);
 
         $layout = $this->getLayout();
+        $content = $layout->getContent();
+
+        $data = $layout->toArray();
+
+        if ($this->hasMessages()) {
+            $data['_messages'] = $this->getMessages()->popAll();
+        }
+
+        if (is_array($content)) {
+            $data = array_merge($data, $content);
+        }
 
         if ('cli' == PHP_SAPI) {
-            $data = $layout->toArray();
-            $data['_messages'] = $this->getMessages()->popAll();
             foreach ($data as $key => $value) {
                 if (strpos($key, '_') === 0) {
                     echo "\033[1;31m$key\033[m:\n";
@@ -533,13 +561,11 @@ class Application
         } else {
             if ($this->jsonFlag) {
                 header('Content-type: application/json', true, 200); //override response code so javascript can process it
-                $data = $layout->toArray();
-                if ($this->hasMessages()) {
-                    $data['_messages'] = $this->getMessages()->popAll();
-                }
                 echo json_encode($data);
+            } elseif (!$this->layoutFlag) {
+                echo ($content instanceof \Closure) ? $content(): $content;
             } else {
-                echo ($layout instanceof \Closure) ? $layout(): $layout;
+                echo $layout;
             }
         }
         return $this;
@@ -728,19 +754,25 @@ class Application
 
         $result = call_user_func_array($controllerClosure, $params);
 
-        // return false is equal to disable view
+        // return false is equal to disable view and layout
         if ($result === false) {
-            $result = function(){};
+            $this->useLayout(false);
+            $this->useView(false);
+            return false;
         }
 
-        if ($result) {
-            if (!is_callable($result)) {
-                throw new Exception("Controller result is not callable '$module/$controller'");
-            }
+        // return array is equal to use json
+        if (is_array($result)) {
+            $this->useJson(true);
             return $result;
-        } else {
-            return $view;
         }
+
+        // return closure is replace logic of controller
+        if (is_callable($result)) {
+            return $result;
+        }
+
+        return $view;
     }
 
     /**
@@ -905,6 +937,32 @@ class Application
     }
 
     /**
+     * reload
+     * please, be careful to avoid loop of reload
+     *
+     * @throws Exception
+     * @return void
+     */
+    public function reload()
+    {
+        // for AJAX controllers
+        if ($this->jsonFlag) {
+            $this->getLayout()->_reload = true;
+            return;
+        }
+
+        // for other controllers
+        if (!headers_sent($file, $line)) {
+            // save notification to session
+            // if they exists
+            header('Refresh: 15; url=' . $_SERVER['PHP_SELF']);
+            exit;
+        } else {
+            throw new Exception("Headers already sent by $file:$line", 503);
+        }
+    }
+
+    /**
      * redirect
      *
      * @param string $url
@@ -913,13 +971,20 @@ class Application
      */
     public function redirect($url)
     {
+        // for AJAX controllers
+        if ($this->jsonFlag) {
+            $this->getLayout()->_redirect = $url;
+            return;
+        }
+
+        // for other controllers
         if (!headers_sent($file, $line)) {
             // save notification to session
             // if they exists
             header('Location: '.$url);
             exit;
         } else {
-            throw new Exception("Headers already sent by $file:$line");
+            throw new Exception("Headers already sent by $file:$line", 503);
         }
     }
 

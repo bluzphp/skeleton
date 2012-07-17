@@ -51,6 +51,7 @@ try {
     // init loader
     require_once PATH_LIBRARY . '/Bluz/_loader.php';
     require_once PATH_APPLICATION . '/Bootstrap.php';
+    require_once PATH_APPLICATION . '/Exception.php';
 
     $app = \Application\Bootstrap::getInstance();
     $app->init(APPLICATION_ENV)
