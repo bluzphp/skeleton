@@ -29,10 +29,12 @@ namespace Bluz\View\Helper;
 
 use Bluz\View\View;
 
+return
 /**
- * @return array
+ * @param array $data
+ * @return array|null
  */
-return function ($data = array()) {
+function ($data = array()) {
     if (sizeof($data)) {
         $this->system['breadcrumbs'] = $data;
     } else {

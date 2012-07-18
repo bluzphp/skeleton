@@ -29,21 +29,25 @@ namespace Bluz\View\Helper;
 
 use Bluz\View\View;
 
+return
 /**
  * TODO: move variable to system section
+ * @param string $src
+ * @return string|View
  */
-return function ($script = null) {
+function ($script = null) {
     if (null === $script) {
-        echo $this->headScriptFiles;
+        $return = $this->headScriptFiles;
         if ($this->headScriptContent) {
-            ?>
+            $return .= '
             <script type="text/javascript">
             <!--
-                <?php echo $this->headScriptContent;?>
+                '. $this->headScriptContent .'
             //-->
             </script>
-            <?php
+            ';
         }
+        return $return;
     } elseif ('.js' == substr($script, -3, 3)) {
         $this->headScriptFiles .= '<script src="' . $this->baseUrl($script) .'"></script>'."\n";
     } else {

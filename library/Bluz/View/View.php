@@ -35,6 +35,14 @@ use Bluz\Application;
  * @category Bluz
  * @package  View
  *
+ * @method string ahref(\string $text, \string $href, array $attributes = [])
+ * @method string baseUrl(\string $file)
+ * @method array baseUrl(array $data = [])
+ * @method string|View link(string $src = null, string $rel = 'stylesheet')
+ * @method string|View script(string $src = null)
+ * @method string|View title(string $title = null, $position = 'replace', $separator = ' :: ')
+ * @method string|View url(string $module, string $controller, array $params = [], boolean $checkAccess = false)
+ *
  * @author   Anton Shevchuk, ErgallM
  * @created  08.07.11 11:49
  */

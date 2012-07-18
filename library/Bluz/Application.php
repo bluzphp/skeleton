@@ -48,9 +48,9 @@ use Bluz\View\View;
  * @category Bluz
  * @package  Application
  *
- * @method reload
- * @method redirect
- * @method redirectTo
+ * @method void reload()
+ * @method void redirect(\string $url)
+ * @method void redirectTo(\string $module, \string $controller, array $params=array())
  *
  * @author   Anton Shevchuk
  * @created  06.07.11 16:25

@@ -29,10 +29,16 @@ namespace Bluz\View\Helper;
 
 use Bluz\View\View;
 
+return
 /**
  * TODO: move variable to system section
+ *
+ * @param string $title
+ * @param string $position
+ * @param string $separator
+ * return string|View
  */
-return function ($title = null, $position = View::POS_REPLACE, $separator = ' :: ') {
+function ($title = null, $position = View::POS_REPLACE, $separator = ' :: ') {
     if ($title === null) {
         return $this->title;
     } else {
@@ -49,5 +55,6 @@ return function ($title = null, $position = View::POS_REPLACE, $separator = ' ::
                 $this->title = $title;
                 break;
         }
+        return $this;
     }
 };

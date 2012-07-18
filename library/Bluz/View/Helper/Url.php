@@ -37,7 +37,7 @@ return
  * @param string $controller
  * @param array  $params
  * @param bool   $checkAccess
- * @return mixed
+ * @return string|null
  */
 function ($module, $controller, array $params = [], $checkAccess = false) {
     /**

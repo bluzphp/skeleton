@@ -31,11 +31,15 @@ use Bluz\View\View;
 
 /**
  * TODO: move variable to system section
+ * @param string $src
+ * @param string $rel
+ * @return string|View
  */
 return function ($src = null, $rel = 'stylesheet') {
     if (null === $src) {
-        echo $this->headLinkFiles;
+        return $this->headLinkFiles;
     } else {
         $this->headLinkFiles .= '<link href="' . $this->baseUrl($src) . '" rel="' . $rel .'"/>'."\n";
+        return $this;
     }
 };
