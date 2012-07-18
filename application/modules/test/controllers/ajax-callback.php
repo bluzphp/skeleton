@@ -17,11 +17,7 @@ function() use ($view) {
      * @var Bluz\Application $this
      * @var Bluz\View\View $view
      */
-    $this->getMessages()->addNotice('Notice Text');
-    $this->getMessages()->addSuccess('Success Text');
-    $this->getMessages()->addError('Error Text');
-
-    $this->reload();
-
-    sleep(2);
+    return [
+        'callback'=>'alert'
+    ];
 };

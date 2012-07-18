@@ -29,7 +29,7 @@
 <?php if ($this->getApplication()->getMessages()->count()):?>
         <div id="messages" class="hide">
             <?php while ($message = $this->getApplication()->getMessages()->pop()):?>
-                <p class="<?php echo $message->type?>"><?php echo $this->_($message->text)?></p>
+                <p class="<?php echo $message->type?>"><?php echo $this->__($message->text)?></p>
             <?php endwhile;?>
         </div>
 <?php endif;?>

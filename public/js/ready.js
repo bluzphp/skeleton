@@ -87,7 +87,7 @@
 				if (data._messages != undefined) {
 					Messages.setCallback(callback);
 					Messages.addMessages(data._messages);
-				} else {
+				} else if (callback) {
 					callback();
 				}
 

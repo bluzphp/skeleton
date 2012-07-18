@@ -1,19 +1,24 @@
 <form class="form-horizontal ajax" method="post" action="/acl/add-role/" enctype="application/x-www-form-urlencoded">
-    <div class="modal-body">
-        <a class="close" data-dismiss="modal" >&times;</a>
-        <div class="control-group">
-            <label class="control-label" for="name"><?=$this->_('Role name')?></label>
-            <div class="controls">
-                <input type="text"
-                       class="input-xlarge"
-                       id="name"
-                       name="name"
-                       value="<?=($this->role)?>" />
+    <div class="modal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h3>Create role</h3>
+        </div>
+        <div class="modal-body">
+            <div class="control-group">
+                <label class="control-label" for="name"><?=$this->__('Role name')?></label>
+                <div class="controls">
+                    <input type="text"
+                           class="input-xlarge"
+                           id="name"
+                           name="name"
+                           value="<?=($this->role)?>" />
+                </div>
             </div>
         </div>
-    </div>
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-primary"><?=$this->_('Create')?></button>
-        <a href="#" class="btn" data-dismiss="modal"><?=$this->_('Close')?></a>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"><?=$this->__('Create')?></button>
+            <a href="#" class="btn" data-dismiss="modal"><?=$this->__('Close')?></a>
+        </div>
     </div>
 </form>

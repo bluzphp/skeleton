@@ -41,6 +41,7 @@ use Bluz\Application;
 class View
 {
     use \Bluz\Package;
+    use \Bluz\Helper;
 
     const POS_PREPEND = 1;
     const POS_REPLACE = 2;
@@ -60,16 +61,6 @@ class View
      * @var array
      */
     protected $system = array();
-
-    /**
-     * @var array
-     */
-    protected static $viewHelpers = array();
-
-    /**
-     * @var string
-     */
-    protected static $viewHelpersPath = array();
 
     /**
      * @var mixed
@@ -117,7 +108,7 @@ class View
     public function init($options = null)
     {
         // initial default helper path
-        $this->addViewHelperPath(dirname(__FILE__) . '/Helper/');
+        $this->addHelperPath(dirname(__FILE__) . '/Helper/');
     }
 
     /**
@@ -170,60 +161,24 @@ class View
     }
 
     /**
-     * Call
-     *
-     * @param string $method
-     * @param array  $args
-     * @throws ViewException
-     * @return mixed
-     */
-    public function __call($method, $args)
-    {
-        if (isset(self::$viewHelpers[$method])
-            && self::$viewHelpers[$method] instanceof \Closure) {
-            return call_user_func_array(self::$viewHelpers[$method], $args);
-        }
-        if (self::$viewHelpersPath) {
-            foreach(self::$viewHelpersPath as $helperPath) {
-                $helperPath = realpath($helperPath . '/' . ucfirst($method) . '.php');
-                if ($helperPath) {
-                    $helperInclude = include $helperPath;
-                    if ($helperInclude instanceof \Closure) {
-                        self::$viewHelpers[$method] = $helperInclude;
-                    } else {
-                        throw new ViewException("View helper '$method' not found");
-                    }
-                    return $this->__call($method, $args);
-                }
-            }
-        }
-    }
-
-    /**
-     * Translate
-     *
-     * @param string $message
-     * @return string
-     */
-    public function __($message)
-    {
-        $message = (string) $message;
-
-        if (func_num_args() > 1) {
-            $args = func_get_args();
-            $args['0'] = $message; // substitute message
-            $message = call_user_func_array('sprintf', $args);
-        }
-        return $message;
-    }
-
-    /**
      * set data from array
      *
      * @param array $data
      * @return View
      */
     public function setData($data = array())
+    {
+        $this->data = array_merge($this->data, $data);
+        return $this;
+    }
+
+    /**
+     * merge data from array
+     *
+     * @param array $data
+     * @return View
+     */
+    public function mergeData($data = array())
     {
         $this->data = $this->mergeArrays($this->data, $data);
         return $this;
@@ -324,54 +279,6 @@ class View
     }
 
     /**
-     * Set view helpers
-     *
-     * @param array $viewHelpers
-     * @return View
-     */
-    public function setViewHelpers($viewHelpers)
-    {
-        foreach ($viewHelpers as $name => $function) {
-            self::$viewHelpers[$name] = $function;
-        }
-        return $this;
-    }
-
-    /**
-     * Set view helpers path
-     *
-     * @param string|array $viewHelpersPath
-     * @return View
-     */
-    public function setViewHelpersPath($viewHelpersPath)
-    {
-        if (is_array($viewHelpersPath)) {
-            foreach ($viewHelpersPath as $path) {
-                $this->addViewHelperPath((string) $path);
-            }
-        } else {
-            $this->addViewHelperPath((string) $viewHelpersPath);
-        }
-        return $this;
-    }
-
-    /**
-     * Add view helper path
-     *
-     * @param string $path
-     * @return View
-     */
-    public function addViewHelperPath($path)
-    {
-        $path = rtrim(realpath($path), '/');
-        if (false !== $path && !in_array($path, self::$viewHelpersPath)) {
-            self::$viewHelpersPath[] = $path;
-        }
-
-        return $this;
-    }
-
-    /**
      * setup template
      *
      * @param string $file
@@ -411,9 +318,9 @@ class View
      * </code>
      *
      * @param string $message
-     * @return mixed|string
+     * @return string
      */
-    public function _($message) {
+    public function __($message) {
 
         if (func_num_args() == 1) {
             return gettext($message);
@@ -439,7 +346,7 @@ class View
      * @param string $module
      * @param string $controller
      * @param array $params
-     * @return View
+     * @return View|null
      */
     public function dispatch($module, $controller, $params = array())
     {
@@ -453,6 +360,7 @@ class View
             return $view;
         } catch (\Bluz\Acl\AclException $e) {
             // nothing for Acl exception
+            return null;
         }
     }
 

@@ -23,39 +23,34 @@
  */
 
 /**
- * pre cache for Loader
- *
- * @author   Anton Shevchuk
- * @created  15.07.11 13:21
+ * @namespace
  */
+namespace Bluz\Application\Helper;
 
-// add current directory to include path
-set_include_path(dirname(__FILE__) . PATH_SEPARATOR . get_include_path());
+use Bluz\Application;
+use Bluz\Exception;
 
-// exceptions
-require_once 'Exception.php';
+return
+/**
+ * reload current page
+ * please, be careful to avoid loop of reload
+ * @throws Exception
+ * @return void
+ */
+function () {
+    // for AJAX controllers
+    if ($this->jsonFlag) {
+        $this->getLayout()->_reload = true;
+        return;
+    }
 
-// traits
-require_once 'Helper.php';
-require_once 'Singleton.php';
-require_once 'Package.php';
-
-// loader and application
-require_once 'Loader.php';
-require_once 'Application.php';
-
-// packages and support
-require_once 'Acl/Acl.php';
-require_once 'Auth/Auth.php';
-require_once 'Auth/AbstractAdapter.php';
-require_once 'Cache/Cache.php';
-require_once 'Config/Config.php';
-require_once 'Db/Db.php';
-require_once 'EventManager/Event.php';
-require_once 'EventManager/EventManager.php';
-require_once 'Rcl/Rcl.php';
-require_once 'Request/AbstractRequest.php';
-require_once 'Request/HttpRequest.php';
-require_once 'Router/Router.php';
-require_once 'Session/Session.php';
-require_once 'View/View.php';
+    // for other controllers
+    if (!headers_sent($file, $line)) {
+        // save notification to session
+        // if they exists
+        header('Refresh: 15; url=' . $_SERVER['PHP_SELF']);
+        exit;
+    } else {
+        throw new Exception("Headers already sent by $file:$line", 503);
+    }
+};

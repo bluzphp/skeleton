@@ -48,12 +48,17 @@ use Bluz\View\View;
  * @category Bluz
  * @package  Application
  *
+ * @method reload
+ * @method redirect
+ * @method redirectTo
+ *
  * @author   Anton Shevchuk
  * @created  06.07.11 16:25
  */
 class Application
 {
     use Singleton;
+    use Helper;
 
     /**
      * @var Acl
@@ -155,6 +160,12 @@ class Application
     protected $widgets = array();
 
     /**
+     * Temporary variable for save dispatch result
+     * @var null
+     */
+    protected $dispatchResult = null;
+
+    /**
      * init
      *
      * @param string $environment Array format only!
@@ -170,6 +181,10 @@ class Application
             $this->getLoader();
 
             $this->log(__METHOD__);
+
+
+            // initial default helper path
+            $this->addHelperPath(dirname(__FILE__) . '/Application/Helper/');
 
             $this->getCache();
             $this->getRegistry();
@@ -427,6 +442,41 @@ class Application
     }
 
     /**
+     * useLayout
+     *
+     * @param boolean|string $flag
+     * @return Application
+     */
+    public function useLayout($flag = true)
+    {
+        if (is_string($flag)) {
+            $this->getLayout()->setTemplate($flag);
+            $this->layoutFlag = true;
+        } else {
+            $this->layoutFlag = $flag;
+        }
+        return $this;
+    }
+
+    /**
+     * useJson
+     *
+     * @param boolean $flag
+     * @return Application
+     */
+    public function useJson($flag = true)
+    {
+        if ($flag) {
+            // disable view and layout for JSON output
+            $this->useLayout(false);
+        }
+        $this->jsonFlag = $flag;
+        return $this;
+    }
+
+
+
+    /**
      * process
      *
      * @return Application
@@ -464,66 +514,122 @@ class Application
             if ($dispatchResult instanceof View) {
                 $dispatchResult -> setData($this->getLayout()->toArray());
             }
-
-            $layout->setContent($dispatchResult);
         } catch (\Exception $e) {
             $dispatchResult = $this->dispatch('error', 'error', array(
                 'code' => $e->getCode(),
                 'message' => $e->getMessage()
             ));
-            $layout->setContent($dispatchResult);
         }
+        $this->dispatchResult = $dispatchResult;
+        $layout->setContent($dispatchResult);
         return $this;
     }
 
     /**
-     * useLayout
+     * dispatch
      *
-     * @param boolean|string $flag
-     * @return Application
+     * Call dispatch from any \Bluz\Package
+     * <code>
+     * $this->getApplication()->dispatch($module, $controller, array $params);
+     * </code>
+     *
+     * Attach callback function to event "dispatch"
+     * <code>
+     * $this->getApplication()->getEventManager()->attach('dispatch', function($event) {
+     *     $eventParams = $event->getParams();
+     *     $app = $event->getTarget();
+     *     \Bluz\Profiler::log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['controller']);
+     * });
+     * </code>
+     *
+     * @param string $module
+     * @param string $controller
+     * @param array  $params
+     * @throws Exception
+     * @return View
      */
-    public function useLayout($flag = true)
+    public function dispatch($module, $controller, $params = array())
     {
-        if (is_string($flag)) {
-            $this->getLayout()->setTemplate($flag);
-            $this->layoutFlag = true;
+        $this->log(__METHOD__.": ".$module.'/'.$controller);
+        $controllerFile = $this->getControllerFile($module, $controller);
+        $reflectionData = $this->reflection($controllerFile);
+
+        // system trigger "dispatch"
+        $this->getEventManager()->trigger('dispatch', $this, array(
+            'module' => $module,
+            'controller' => $controller,
+            'params' => $params,
+            'reflection' => $reflectionData
+        ));
+
+        $identity = $this->getAuth()->getIdentity();
+
+        // check acl
+        if (!$this->isAllowedController($module, $controller, $params)) {
+            if (!$identity) {
+                $this->redirectTo('users', 'login');
+            }
+            throw new Exception('You don\'t have permissions', 403);
+        }
+
+        // $request for use in closure
+        $request = $this->getRequest();
+        $request -> setParams($params);
+
+        // $view for use in closure
+        $view = new View($this->getConfigData('view'));
+        $view -> setPath(PATH_APPLICATION .'/modules/'. $module .'/views');
+        $view -> setTemplate($controller .'.phtml');
+
+        $bootstrapPath = PATH_APPLICATION .'/modules/' . $module .'/bootstrap.php';
+
+        /**
+         * optional $bootstrap for use in closure
+         * @var \closure $bootstrap
+         */
+        if (file_exists($bootstrapPath)) {
+            $bootstrap = require $bootstrapPath;
         } else {
-            $this->layoutFlag = $flag;
+            $bootstrap = null;
         }
-        return $this;
-    }
 
-    /**
-     * useView
-     *
-     * @param boolean|string $flag
-     * @return Application
-     */
-    public function useView($flag = true)
-    {
-        if (!$flag) {
-            // disable layout when disable view
-            $this->useLayout(false);
-        }
-        $this->viewFlag = $flag;
-        return $this;
-    }
+        /**
+         * @var \closure $controllerClosure
+         */
+        $controllerClosure = include $controllerFile;
 
-    /**
-     * useJson
-     *
-     * @param boolean $flag
-     * @return Application
-     */
-    public function useJson($flag = true)
-    {
-        if ($flag) {
-            // disable view and layout for JSON output
-            $this->useLayout(false);
-            $this->useView(false);
+        if (!is_callable($controllerClosure)) {
+            throw new Exception("Controller is not callable '$module/$controller'");
         }
-        $this->jsonFlag = $flag;
-        return $this;
+
+        $params = $this->params($reflectionData);
+
+        // load html from cache file
+        if (isset($reflectionData['cache'])) {
+            if ($view->cache($reflectionData['cache'], $params)) {
+                return $view;
+            }
+        };
+
+        $result = call_user_func_array($controllerClosure, $params);
+
+        // return false is equal to disable view and layout
+        if ($result === false) {
+            $this->useLayout(false);
+            return false;
+        }
+
+        // return closure is replace logic of controller
+        if (is_callable($result)) {
+            return $result;
+        }
+
+        // return array is equal to setup view
+        if (is_array($result)) {
+            $view->setData($result);
+        }
+
+        return $view;
     }
 
     /**
@@ -538,17 +644,15 @@ class Application
         $layout = $this->getLayout();
         $content = $layout->getContent();
 
-        $data = $layout->toArray();
-
-        if ($this->hasMessages()) {
-            $data['_messages'] = $this->getMessages()->popAll();
-        }
-
-        if (is_array($content)) {
-            $data = array_merge($data, $content);
-        }
-
         if ('cli' == PHP_SAPI) {
+            $data = $layout->toArray();
+            if ($this->dispatchResult instanceof View) {
+                $data = array_merge($data, $this->dispatchResult->toArray());
+            }
+
+            if ($this->hasMessages()) {
+                $data['_messages'] = $this->getMessages()->popAll();
+            }
             foreach ($data as $key => $value) {
                 if (strpos($key, '_') === 0) {
                     echo "\033[1;31m$key\033[m:\n";
@@ -561,6 +665,14 @@ class Application
         } else {
             if ($this->jsonFlag) {
                 header('Content-type: application/json', true, 200); //override response code so javascript can process it
+                $data = $layout->toArray();
+                if ($this->dispatchResult instanceof View) {
+                    $data = array_merge($data, $this->dispatchResult->toArray());
+                }
+
+                if ($this->hasMessages()) {
+                    $data['_messages'] = $this->getMessages()->popAll();
+                }
                 echo json_encode($data);
             } elseif (!$this->layoutFlag) {
                 echo ($content instanceof \Closure) ? $content(): $content;
@@ -569,6 +681,65 @@ class Application
             }
         }
         return $this;
+    }
+
+    /**
+     * widget
+     *
+     * Call widget from any \Bluz\Package
+     * <code>
+     * $this->getApplication()->widget($module, $widget, array $params);
+     * </code>
+     *
+     * Attach callback function to event "widget"
+     * <code>
+     * $this->getApplication()->getEventManager()->attach('widget', function($event) {
+     *     $eventParams = $event->getParams();
+     *     $app = $event->getTarget();
+     *     \Bluz\Profiler::log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['widget']);
+     * });
+     * </code>
+     *
+     * @param string $module
+     * @param string $widget
+     * @param array  $params
+     * @throws Exception
+     * @return \Closure
+     */
+    public function widget($module, $widget, $params = array())
+    {
+        $this->log(__METHOD__.": ".$module.'/'.$widget);
+        $controllerFile = $this->getWidgetFile($module, $widget);
+        $reflectionData = $this->reflection($controllerFile);
+
+        $this->getEventManager()->trigger('widget', $this, array(
+            'module' => $module,
+            'widget' => $widget,
+            'params' => $params,
+            'reflection' => $reflectionData
+        ));
+
+        /**
+         * Cachable widgets
+         * @var \Closure $widgetClosure
+         */
+        if (isset($this->widgets[$module])
+            && isset($this->widgets[$module][$widget])) {
+            $widgetClosure = $this->widgets[$module][$widget];
+        } else {
+            $widgetClosure = require $this->getWidgetFile($module, $widget);
+
+            if (!isset($this->widgets[$module])) {
+                $this->widgets[$module] = array();
+            }
+            $this->widgets[$module][$widget] = $widgetClosure;
+        }
+
+        if (!is_callable($widgetClosure)) {
+            throw new Exception("Widget is not callable '$module/$widget'");
+        }
+
+        return $widgetClosure;
     }
 
     /**
@@ -664,174 +835,6 @@ class Application
             }
         }
         return $params;
-    }
-
-    /**
-     * dispatch
-     *
-     * Call dispatch from any \Bluz\Package
-     * <code>
-     * $this->getApplication()->dispatch($module, $controller, array $params);
-     * </code>
-     *
-     * Attach callback function to event "dispatch"
-     * <code>
-     * $this->getApplication()->getEventManager()->attach('dispatch', function($event) {
-     *     $eventParams = $event->getParams();
-     *     $app = $event->getTarget();
-     *     \Bluz\Profiler::log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['controller']);
-     * });
-     * </code>
-     *
-     * @param string $module
-     * @param string $controller
-     * @param array  $params
-     * @throws Exception
-     * @return View
-     */
-    public function dispatch($module, $controller, $params = array())
-    {
-        $this->log(__METHOD__.": ".$module.'/'.$controller);
-        $controllerFile = $this->getControllerFile($module, $controller);
-        $reflectionData = $this->reflection($controllerFile);
-
-        // system trigger "dispatch"
-        $this->getEventManager()->trigger('dispatch', $this, array(
-            'module' => $module,
-            'controller' => $controller,
-            'params' => $params,
-            'reflection' => $reflectionData
-        ));
-
-        $identity = $this->getAuth()->getIdentity();
-
-        // check acl
-        if (!$this->isAllowedController($module, $controller, $params)) {
-            if (!$identity) {
-                $this->redirectTo('users', 'login');
-            }
-            throw new Exception('You don\'t have permissions', 403);
-        }
-
-        // $request for use in closure
-        $request = $this->getRequest();
-        $request -> setParams($params);
-
-        // $view for use in closure
-        $view = new View($this->getConfigData('view'));
-        $view -> setPath(PATH_APPLICATION .'/modules/'. $module .'/views');
-        $view -> setTemplate($controller .'.phtml');
-
-        $bootstrapPath = PATH_APPLICATION .'/modules/' . $module .'/bootstrap.php';
-
-        /**
-         * optional $bootstrap for use in closure
-         * @var \closure $bootstrap
-         */
-        if (file_exists($bootstrapPath)) {
-            $bootstrap = require $bootstrapPath;
-        } else {
-            $bootstrap = null;
-        }
-
-        /**
-         * @var \closure $controllerClosure
-         */
-        $controllerClosure = include $controllerFile;
-
-        if (!is_callable($controllerClosure)) {
-            throw new Exception("Controller is not callable '$module/$controller'");
-        }
-
-        $params = $this->params($reflectionData);
-
-        // load html from cache file
-        if (isset($reflectionData['cache'])) {
-            if ($view->cache($reflectionData['cache'], $params)) {
-                return $view;
-            }
-        };
-
-        $result = call_user_func_array($controllerClosure, $params);
-
-        // return false is equal to disable view and layout
-        if ($result === false) {
-            $this->useLayout(false);
-            $this->useView(false);
-            return false;
-        }
-
-        // return array is equal to use json
-        if (is_array($result)) {
-            $this->useJson(true);
-            return $result;
-        }
-
-        // return closure is replace logic of controller
-        if (is_callable($result)) {
-            return $result;
-        }
-
-        return $view;
-    }
-
-    /**
-     * widget
-     *
-     * Call widget from any \Bluz\Package
-     * <code>
-     * $this->getApplication()->widget($module, $widget, array $params);
-     * </code>
-     *
-     * Attach callback function to event "widget"
-     * <code>
-     * $this->getApplication()->getEventManager()->attach('widget', function($event) {
-     *     $eventParams = $event->getParams();
-     *     $app = $event->getTarget();
-     *     \Bluz\Profiler::log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['widget']);
-     * });
-     * </code>
-     *
-     * @param string $module
-     * @param string $widget
-     * @param array  $params
-     * @throws Exception
-     * @return \Closure
-     */
-    public function widget($module, $widget, $params = array())
-    {
-        $this->log(__METHOD__.": ".$module.'/'.$widget);
-        $controllerFile = $this->getWidgetFile($module, $widget);
-        $reflectionData = $this->reflection($controllerFile);
-
-        $this->getEventManager()->trigger('widget', $this, array(
-            'module' => $module,
-            'widget' => $widget,
-            'params' => $params,
-            'reflection' => $reflectionData
-        ));
-
-        /**
-         * Cachable widgets
-         * @var \Closure $widgetClosure
-         */
-        if (isset($this->widgets[$module])
-            && isset($this->widgets[$module][$widget])) {
-            $widgetClosure = $this->widgets[$module][$widget];
-        } else {
-            $widgetClosure = require $this->getWidgetFile($module, $widget);
-
-            if (!isset($this->widgets[$module])) {
-                $this->widgets[$module] = array();
-            }
-            $this->widgets[$module][$widget] = $widgetClosure;
-        }
-
-        if (!is_callable($widgetClosure)) {
-            throw new Exception("Widget is not callable '$module/$widget'");
-        }
-
-        return $widgetClosure;
     }
 
     /**
@@ -934,71 +937,5 @@ class Application
         }
 
         return $widgetPath;
-    }
-
-    /**
-     * reload
-     * please, be careful to avoid loop of reload
-     *
-     * @throws Exception
-     * @return void
-     */
-    public function reload()
-    {
-        // for AJAX controllers
-        if ($this->jsonFlag) {
-            $this->getLayout()->_reload = true;
-            return;
-        }
-
-        // for other controllers
-        if (!headers_sent($file, $line)) {
-            // save notification to session
-            // if they exists
-            header('Refresh: 15; url=' . $_SERVER['PHP_SELF']);
-            exit;
-        } else {
-            throw new Exception("Headers already sent by $file:$line", 503);
-        }
-    }
-
-    /**
-     * redirect
-     *
-     * @param string $url
-     * @throws Exception
-     * @return void
-     */
-    public function redirect($url)
-    {
-        // for AJAX controllers
-        if ($this->jsonFlag) {
-            $this->getLayout()->_redirect = $url;
-            return;
-        }
-
-        // for other controllers
-        if (!headers_sent($file, $line)) {
-            // save notification to session
-            // if they exists
-            header('Location: '.$url);
-            exit;
-        } else {
-            throw new Exception("Headers already sent by $file:$line", 503);
-        }
-    }
-
-    /**
-     * redirect
-     *
-     * @param string $module
-     * @param string $controller
-     * @param array $params
-     * @return void
-     */
-    public function redirectTo($module = 'index', $controller = 'index', $params = array())
-    {
-        $url = $this->getRouter()->url($module, $controller, $params);
-        $this->redirect($url);
     }
 }
