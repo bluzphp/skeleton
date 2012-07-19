@@ -11,9 +11,10 @@ Options -Indexes
 # send modified time and size
 FileETag MTime Size
 
+
 # Mod Deflate
 <ifModule mod_deflate.c>
-	AddOutputFilterByType DEFLATE text/html text/plain text/text text/xml text/css
+	AddOutputFilterByType DEFLATE text/html text/xml text/plain text/css
 	AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
 </ifModule>
 
