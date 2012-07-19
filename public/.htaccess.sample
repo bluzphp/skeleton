@@ -1,32 +1,75 @@
 SetEnv APPLICATION_ENV production
 
-php_flag magic_quotes_gpc 0
+AddDefaultCharset UTF-8
 
-php_flag xdebug.show_local_vars 0
-php_flag xdebug.profiler_enable 0
-php_flag xdebug.profiler_enable_trigger 1
-php_value xdebug.var_display_max_children 128
-php_value xdebug.var_display_max_depth 5
-php_value xdebug.var_display_max_data 4096
+php_flag magic_quotes_gpc 0
 
 Options +FollowSymlinks
 Options -Indexes
 
+# Enable ETag
+# send modified time and size
+FileETag MTime Size
+
+# Mod Deflate
+<ifModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html text/plain text/text text/xml text/css
+	AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
+</ifModule>
+
+# Mod Expires
+<ifModule mod_expires.c>
+    Header append Cache-Control "public"
+    FileETag MTime Size
+    ExpiresActive On
+    ExpiresDefault "access plus 7 days"
+    ExpiresByType text/xml "access plus 30 days"
+    ExpiresByType text/plain "access plus 30 days"
+    ExpiresByType text/css "access plus 30 days"
+    ExpiresByType text/javascript "access plus 30 days"
+  	ExpiresByType application/x-javascript "access plus 30 days"
+    ExpiresByType image/ico "access plus 30 days"
+    ExpiresByType image/gif "access plus 30 days"
+    ExpiresByType image/jpg "access plus 30 days"
+    ExpiresByType image/jpeg "access plus 30 days"
+    ExpiresByType image/png "access plus 30 days"
+</ifModule>
+
+# Mod Header
+<ifModule mod_headers.c>
+	<filesMatch "\.(ico|jpe?g|png|gif|swf|flv)$">
+	 	# 30 days
+		Header set Cache-Control "max-age=2592000, public, no-transform"
+		FileETag None
+	</filesMatch>
+	<filesMatch "\.(css|js)$">
+		# 30 days or change source
+		Header set Cache-Control "max-age=2592000, public, no-transform"
+	</filesMatch>
+	<filesMatch "\.(xml|pdf|txt)$">
+		# 7 days or change source
+	    Header set Cache-Control "max-age=604800, public, must-revalidate"
+	</filesMatch>
+	<filesMatch "\.(html|htm|php)$">
+		# 1 hour or change source
+		Header set Cache-Control "max-age=3600, private, must-revalidate"
+	</filesMatch>
+</ifModule>
+
+# Mod Rewrite
 <IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /
 
-RewriteEngine On
-RewriteBase /
+	# loop stopping
+	RewriteCond %{ENV:REDIRECT_STATUS} 200
+	RewriteRule .* - [L]
 
-# loop stopping
-RewriteCond %{ENV:REDIRECT_STATUS} 200
-RewriteRule .* - [L]
-
-RewriteCond %{REQUEST_FILENAME} -s [OR]
-RewriteCond %{REQUEST_FILENAME} -l [OR]
-RewriteCond %{REQUEST_FILENAME} -d [OR]
-RewriteCond %{REQUEST_URI} ^/(css|img|js|uploads) [OR]
-RewriteCond %{REQUEST_URI} \.(jpe?g|png|gif|ico)$
-RewriteRule ^.*$ - [NC,L]
-RewriteRule ^.*$ index.php [NC,L]
-
+	RewriteCond %{REQUEST_FILENAME} -s [OR]
+	RewriteCond %{REQUEST_FILENAME} -l [OR]
+	RewriteCond %{REQUEST_FILENAME} -d [OR]
+	RewriteCond %{REQUEST_URI} ^/(css|img|js|uploads) [OR]
+	RewriteCond %{REQUEST_URI} \.(ico|jpe?g|png|gif|swf|flv)$
+	RewriteRule ^.*$ - [NC,L]
+	RewriteRule ^.*$ index.php [NC,L]
 </IfModule>

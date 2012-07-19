@@ -1,64 +1,8 @@
 /**
- * Ready event
- *
- * @author   Anton Shevchuk
+ * @author Anton Shevchuk
  */
-
-(function($, undefined) {
-    $(function(){
-
-		// fix sub nav on scroll
-		var $win = $(window)
-		  , $nav = $('.subnav')
-		  , navTop = $('.subnav').length && $('.subnav').offset().top - 40
-		  , isFixed = 0;
-
-		processScroll();
-
-		$win.on('scroll', processScroll);
-
-		function processScroll() {
-			var scrollTop = $win.scrollTop();
-			if (scrollTop >= navTop && !isFixed) {
-				isFixed = 1;
-				$nav.addClass('subnav-fixed');
-			} else if (scrollTop <= navTop && isFixed) {
-				isFixed = 0;
-				$nav.removeClass('subnav-fixed');
-			}
-		}
-
-		// jQUery UI widgets
-        // Datepickers
-        if (!$.browser.opera) {
-            $('input[type=date]').datepicker({"dateFormat":'yy-mm-dd'});
-        }
-		// Tabs
-		$(".tabs").tabs();
-
-        // Toggle the dropdown menu's
-//        $(".dropdown .button, .dropdown button").click(function () {
-//            if (!$(this).find('span.toggle').hasClass('active')) {
-//                $('.dropdown-slider').slideUp();
-//                $('span.toggle').removeClass('active');
-//            }
-//
-//            // open selected dropown
-//            $(this).parent().find('.dropdown-slider').slideToggle('fast');
-//            $(this).find('span.toggle').toggleClass('active');
-//
-//            return false;
-//        });
-//		// Close open dropdown slider by clicking elsewhwere on page
-//		$(document).bind('click', function (e) {
-//			if (e.target.id != $('.dropdown').attr('class')) {
-//				$('.dropdown-slider').slideUp();
-//				$('span.toggle').removeClass('active');
-//			}
-//		});
-
-        // Check All checkbox
-
+require(["jquery", "bootstrap", "messages"], function($) {
+    $(function() {
 		// Ajax global events
 		$("#loading").bind("ajaxSend", function(){
 		    $(this).show();
@@ -116,8 +60,6 @@
             });
             return plain;
         };
-
-
 
         // Ajax links
         $(document).on('click', 'a.ajax', function(){
@@ -228,5 +170,4 @@
             }
         });
     });
-})(jQuery);
-
+});

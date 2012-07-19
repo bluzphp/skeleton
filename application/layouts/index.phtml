@@ -2,25 +2,22 @@
 <?php require_once 'partial/nav-bar.phtml'; ?>
 
     <div class="container-fluid">
-
         <div class="row-fluid">
-            <div class="">
-                <ul class="breadcrumb">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="/"><?php echo $this->__('Home')?></a>
+                </li>
+                <?php if ($this->breadCrumbs()) foreach ($this->breadCrumbs() as $crump):?>
                     <li>
-                        <a href="/"><?php echo $this->__('Home')?></a>
+                        <span class="divider">/</span> <?php echo $crump?>
                     </li>
-                    <?php if ($this->breadCrumbs()) foreach ($this->breadCrumbs() as $crump):?>
-                        <li>
-                            <span class="divider">/</span> <?php echo $crump?>
-                        </li>
-                    <?php endforeach;?>
-                </ul>
-                <?php
-                /* @var closure $content */
-                echo $this->getContent();
-                ?>
-            </div>
+                <?php endforeach;?>
+            </ul>
         </div>
+        <?php
+        /* @var closure $content */
+        echo $this->getContent();
+        ?>
         <hr />
         <footer>
             <p align="center">&copy; <?=gmdate('Y')?> NIX Solutions Ltd</p>

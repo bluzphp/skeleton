@@ -1,0 +1,36 @@
+SetEnv APPLICATION_ENV dev
+
+AddDefaultCharset UTF-8
+
+php_flag magic_quotes_gpc 0
+php_flag short_open_tag on
+
+php_flag xdebug.show_local_vars 0
+php_flag xdebug.profiler_enable 0
+php_flag xdebug.profiler_enable_trigger 1
+php_value xdebug.profiler_output_dir /home/developer/src/bluz/profiler/
+
+php_value xdebug.var_display_max_children 128
+php_value xdebug.var_display_max_depth 5
+php_value xdebug.var_display_max_data 4096
+
+Options +FollowSymlinks
+Options -Indexes
+
+# Mod Rewrite
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /
+
+	# loop stopping
+	RewriteCond %{ENV:REDIRECT_STATUS} 200
+	RewriteRule .* - [L]
+
+	RewriteCond %{REQUEST_FILENAME} -s [OR]
+	RewriteCond %{REQUEST_FILENAME} -l [OR]
+	RewriteCond %{REQUEST_FILENAME} -d [OR]
+	RewriteCond %{REQUEST_URI} ^/(css|img|js|uploads) [OR]
+	RewriteCond %{REQUEST_URI} \.(jpe?g|png|gif|ico)$
+	RewriteRule ^.*$ - [NC,L]
+	RewriteRule ^.*$ index.php [NC,L]
+</IfModule>

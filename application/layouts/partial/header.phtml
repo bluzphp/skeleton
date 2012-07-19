@@ -7,25 +7,22 @@
     <link rel="profile" href="http://gmpg.org/xfn/11"/>
     <link rel="stylesheet" href="<?=$this->baseUrl('/css/styles.css')?>" />
     <link rel="stylesheet" href="<?=$this->baseUrl('/css/bootstrap.css')?>" />
-    <link rel="stylesheet" href="<?=$this->baseUrl('/css/jquery-ui.css')?>" />
     <link rel="icon" type="image/png" href="<?=$this->baseUrl('img/favicon.png')?>" />
 
-    <script src="<?=$this->baseUrl('/js/jquery/jquery.js')?>" ></script>
-    <script src="<?=$this->baseUrl('/js/bootstrap.js')?>" ></script>
-    <script src="<?=$this->baseUrl('/js/jquery/jquery-ui.js')?>" ></script>
-    <script src="<?=$this->baseUrl('/js/ready.js')?>" ></script>
-    <script src="<?=$this->baseUrl('/js/messages.js')?>" ></script>
+    <script src="<?=$this->baseUrl('/js/require-jquery.js')?>"
+            data-main="<?=$this->baseUrl('/js/main.js')?>" ></script>
 
     <!--[if lt IE 9]>
     <script src="<?=$this->baseUrl('/js/html5.js')?>"></script>
     <![endif]-->
+
     <?=$this->script();?>
     <?=$this->link();?>
 
     <?php $this->trigger('header'); ?>
 </head>
 <body class="module-<?=$this->getApplication()->getRequest()->module()?> controller-<?=$this->getApplication()
-    ->getRequest()->controller()?>" data-spy="scroll" data-target=".subnav" data-offset="50">
+    ->getRequest()->controller()?>">
 <?php if ($this->getApplication()->getMessages()->count()):?>
         <div id="messages" class="hide">
             <?php while ($message = $this->getApplication()->getMessages()->pop()):?>

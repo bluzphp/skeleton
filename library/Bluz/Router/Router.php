@@ -74,7 +74,7 @@ class Router
         $routers = $this->getApplication()->getCache()->get('router:routers');
         $reverse = $this->getApplication()->getCache()->get('router:reverse');
         // FIXME: disable cache for test
-        $routers = $reverse = null;
+//        $routers = $reverse = null;
 
         if (!$routers or !$reverse) {
             $routers = array();

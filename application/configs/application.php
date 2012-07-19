@@ -24,7 +24,7 @@ return array(
         ),
     ),
     "acl" => array(
-        "identityField" => "sid"
+
     ),
     "auth" => array(
         "adapter" => array(
