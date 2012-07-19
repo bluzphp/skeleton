@@ -182,7 +182,6 @@ class Application
 
             $this->log(__METHOD__);
 
-
             // initial default helper path
             $this->addHelperPath(dirname(__FILE__) . '/Application/Helper/');
 
@@ -751,7 +750,7 @@ class Application
     public function reflection($file)
     {
         // cache for reflection data
-        if (!$data = $this->getCache()->get('Reflection: '.$file)) {
+        if (!$data = $this->getCache()->get('reflection:'.$file)) {
 
             // TODO: workaround for get reflection of closure function
             $bootstrap = $request = $identity = $view = null;
@@ -792,7 +791,7 @@ class Application
                 $data['resourceParam'] = trim($matches[2]);
             }
 
-            $this->getCache()->set('Reflection: '.$file, $data);
+            $this->getCache()->set('reflection:'.$file, $data);
         }
         return $data;
     }

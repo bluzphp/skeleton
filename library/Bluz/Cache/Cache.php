@@ -121,7 +121,7 @@ class Cache
         }
         if (!$handler = $this->handler()) {
              return $callback();
-         }
+        }
 
         if (!$data = $handler->get($key)) {
             $data = $callback();

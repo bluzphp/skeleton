@@ -15,5 +15,5 @@ return
  * @return \closure
  */
 function() {
-
+//    var_dump($this);
 };

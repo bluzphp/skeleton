@@ -264,14 +264,7 @@ class View
      */
     public function toArray()
     {
-        $data = array();
-        foreach ($this->data as $key => $value) {
-            if ($value instanceof self) {
-                $value = $value->toArray();
-            }
-            $data[$key] = $value;
-        }
-        return $data;
+        return $this->data;
     }
 
     /**
