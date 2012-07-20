@@ -61,13 +61,24 @@ require(["jquery", "bootstrap", "messages"], function($) {
             return plain;
         };
 
-        // Ajax links
-        $(document).on('click', 'a.ajax', function(){
+        // live event handlers
+        $(document)
+
+		// Ajax links
+		.on('click', 'a.ajax', function(){
             var $this = $(this);
             if ($this.hasClass('noactive')) {
                 // request in progress
                 return false;
             }
+
+			if ($this.hasClass('danger')) {
+				var message = $this.attr('title') ? $this.attr('title') : 'Are you sure?';
+				if (!confirm(message)) {
+					return false;
+				}
+			}
+
             var data = processData($this);
             data.json = 1;
 
