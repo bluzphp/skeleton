@@ -309,6 +309,9 @@ class View
      * // simple
      * __('Message');
      *
+     * // simple replace of one argument
+     * __('Message to %s', 'Username');
+     *
      * // plural form + sprintf
      * // equal to sprintf(ngettext('%d comment', '%d comments', 4), 4)
      * __('%d comment', '%d comments', 4)
@@ -325,6 +328,10 @@ class View
 
         if (func_num_args() == 1) {
             return gettext($message);
+        } elseif (func_num_args() == 2) {
+            // simple replace
+            $args = func_get_args();
+            return sprintf(gettext($message), $args[1]);
         } elseif (func_num_args() == 3) {
             // plural form
             $args = func_get_args();

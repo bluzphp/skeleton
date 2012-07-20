@@ -30,8 +30,8 @@
                 </ul>
                 <?php if ($identity = $this->getIdentity()) : ?>
                     <p class="navbar-text pull-right">
-                        <?php echo $this->__('Logged in as %s', ($this->ahref($identity->login, ['users', 'profile', array('id' => $identity->id)]) ?: $identity->login))?>
-                        (<?=$this->ahref('logout', ['users', 'logout'])?>)
+                        <?= $this->__('Logged in as %s', $this->ahref($identity->login, ['users', 'profile', array('id' => $identity->id)]))?>
+                        (<?= $this->ahref('logout', ['users', 'logout'])?>)
                     </p>
                 <?php else: ?>
                 <ul class="nav pull-right">
