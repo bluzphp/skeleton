@@ -25,7 +25,26 @@ CREATE TABLE `users` (
   `updated` datetime DEFAULT NULL,
   `status` enum('active','pending','disabled') NOT NULL DEFAULT 'disabled',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+/*Table structure for table `pages` */
+
+DROP TABLE IF EXISTS `pages`;
+
+CREATE TABLE `pages` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` text NOT NULL,
+  `alias` varchar(255) NOT NULL COMMENT 'Key for permalinks',
+  `content` longtext,
+  `keywords` text COMMENT 'Meta Keywords',
+  `description` text COMMENT 'Meta Description',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `userId` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'Author, can be zero',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique` (`alias`),
+  KEY `FK_pages_to_users` (`userId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `acl_roles` */
 DROP TABLE IF EXISTS `acl_roles`;
@@ -35,7 +54,7 @@ CREATE TABLE `acl_roles` (
   `name` varchar(255) NOT NULL COMMENT 'Group name for virtual',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 /*Table structure for table `acl_privileges` */
@@ -61,7 +80,7 @@ CREATE TABLE `acl_usersToRoles` (
   KEY `FK_acl_2_roles` (`roleId`),
   CONSTRAINT `FK_acl_2_users` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_acl_2_roles` FOREIGN KEY (`roleId`) REFERENCES `acl_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `rcl_userToResource` */
 DROP TABLE IF EXISTS `rcl_userToResource`;
