@@ -6,12 +6,15 @@
  * @created  07.07.11 18:03
  * @return closure
  */
+namespace Application;
+use Bluz;
+
 return
 /**
- * @return closure
+ * @return \closure
  */
-function() {
-    /* @var Application $this */
-    return $this;
+function($a) {
+    /* @var Bluz\Application $this */
+    return $a*2;
 };
  
