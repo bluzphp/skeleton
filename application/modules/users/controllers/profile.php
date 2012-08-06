@@ -6,7 +6,9 @@
  * @created  01.09.11 13:15
  */
 namespace Application;
+
 use Bluz;
+use Application\Users;
 
 return
 /**
@@ -22,7 +24,7 @@ function($id = null) use ($view) {
      * @var Bluz\Application $this
      * @var Bluz\View\View $view
      */
-    $this->getLayout()->title = 'User Profile';
+    $this->getLayout()->title('User Profile');
 
     // try to load profile of current user
     if (!$id && $this->getAuth()->getIdentity()) {
@@ -30,12 +32,12 @@ function($id = null) use ($view) {
     }
 
     /**
-     * @var \Application\Users\Row $user
+     * @var Users\Row $user
      */
-    $user = $this->getDb()->fetchObject('SELECT * FROM users WHERE id = ?', array($id), 'Application\Users\Row');
+    $user = Users\Table::getInstance()->findRow($id);
 
     if (!$user) {
-        throw new \Exception('User not found', 404);
+        throw new Exception('User not found', 404);
     } else {
         $view->user = $user;
     }

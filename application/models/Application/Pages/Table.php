@@ -32,6 +32,6 @@ class Table extends \Bluz\Db\Table
      */
     public function getByAlias($alias)
     {
-        return $this->getAdapter()->fetchObject('SELECT * FROM pages WHERE alias = ?', array($alias), 'Application\Pages\Row');
+        return $this->findRowWhere(['alias'=>$alias]);
     }
 }

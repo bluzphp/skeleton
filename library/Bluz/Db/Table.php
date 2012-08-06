@@ -210,6 +210,17 @@ abstract class Table
      * The find() method always returns a Rowset object, even if only one row
      * was found.
      *
+     * <code>
+     * // row by primary key
+     * $table->find(123);
+     * // row by compound primary key
+     * $table->find([123, 'abc']);
+     *
+     * // multiple rows by primary key
+     * $table->find(123, 234, 345);
+     * // multiple rows by compound primary key
+     * $table->find([123, 'abc'], [234, 'def'], [345, 'ghi'])
+     * </code>
      *
      * @internal param mixed $key The value(s) of the primary keys.
      * @return Rowset Row(s) matching the criteria.
@@ -220,54 +231,20 @@ abstract class Table
         $args = func_get_args();
         $keyNames = array_values((array) $this->primary);
 
-        if (count($args) < count($keyNames)) {
-            throw new InvalidPrimaryKeyException("Too few columns for the primary key");
-        }
-
-        if (count($args) > count($keyNames)) {
-            throw new InvalidPrimaryKeyException("Too many columns for the primary key");
-        }
-
         $whereList = array();
-        $numberTerms = 0;
-        foreach ($args as $keyPosition => $keyValues) {
-            $keyValuesCount = count($keyValues);
-            // Coerce the values to an array.
-            // Don't simply typecast to array, because the values
-            // might be Zend_Db_Expr objects.
-            if (!is_array($keyValues)) {
-                $keyValues = array($keyValues);
+        foreach ($args as $keyValues) {
+            $keyValues = (array) $keyValues;
+            if (count($keyValues) < count($keyNames)) {
+                throw new InvalidPrimaryKeyException("Too few columns for the primary key");
             }
-            if ($numberTerms == 0) {
-                $numberTerms = $keyValuesCount;
-            } else if ($keyValuesCount != $numberTerms) {
-                throw new InvalidPrimaryKeyException("Missing value(s) for the primary key");
+
+            if (count($keyValues) > count($keyNames)) {
+                throw new InvalidPrimaryKeyException("Too many columns for the primary key");
             }
-            $keyValues = array_values($keyValues);
-            for ($i = 0; $i < $keyValuesCount; ++$i) {
-                if (!isset($whereList[$i])) {
-                    $whereList[$i] = array();
-                }
-                $whereList[$i][$keyPosition] = $keyValues[$i];
-            }
+            $whereList[] = array_combine($keyNames, $keyValues);
         }
 
-        $whereClause = null;
-        $whereParams = array();
-        if (count($whereList)) {
-            $whereOrTerms = array();
-            foreach ($whereList as $keyValueSets) {
-                $whereAndTerms = array();
-                foreach ($keyValueSets as $keyPosition => $keyValue) {
-                    $whereAndTerms[] = $this->table . '.' . $keyNames[$keyPosition] . ' = ?';
-                    $whereParams[] = $keyValue;
-                }
-                $whereOrTerms[] = '(' . implode(' AND ', $whereAndTerms) . ')';
-            }
-            $whereClause = '(' . implode(' OR ', $whereOrTerms) . ')';
-        }
-
-        return $this->fetch($this->select .' WHERE '. $whereClause, $whereParams);
+        return call_user_func_array(array($this, 'findWhere'), $whereList);
     }
 
     /**
@@ -278,6 +255,49 @@ abstract class Table
     public function findRow()
     {
         return call_user_func_array(array($this, 'find'), func_get_args())->current();
+    }
+
+    /**
+     * <code>
+     * // WHERE alias = 'foo'
+     * $table->findWhere(['alias'=>'foo']);
+     * // WHERE alias = 'foo' OR 'alias' = 'bar'
+     * $table->findWhere(['alias'=>'foo'], ['alias'=>'bar']);
+     * // WHERE (alias = 'foo' AND userId = 2) OR ('alias' = 'bar' AND userId = 4)
+     * $table->findWhere(['alias'=>'foo', 'userId'=> 2], ['alias'=>'foo', 'userId'=>4]);
+     * </code>
+     * @return Rowset Row(s) matching the criteria.
+     */
+    public function findWhere()
+    {
+        $whereList = func_get_args();
+
+        $whereClause = null;
+        $whereParams = array();
+        if (count($whereList)) {
+            $whereOrTerms = array();
+            foreach ($whereList as $keyValueSets) {
+                $whereAndTerms = array();
+                foreach ($keyValueSets as $keyName => $keyValue) {
+                    $whereAndTerms[] = $this->table . '.' . $keyName . ' = ?';
+                    $whereParams[] = $keyValue;
+                }
+                $whereOrTerms[] = '(' . implode(' AND ', $whereAndTerms) . ')';
+            }
+            $whereClause = '(' . implode(' OR ', $whereOrTerms) . ')';
+        }
+        return $this->fetch($this->select .' WHERE '. $whereClause, $whereParams);
+    }
+
+    /**
+     * Find row by where condition
+     *
+     * @param array $whereList
+     * @return Row
+     */
+    public function findRowWhere($whereList)
+    {
+        return call_user_func(array($this, 'findWhere'), $whereList)->current();
     }
 
     /**

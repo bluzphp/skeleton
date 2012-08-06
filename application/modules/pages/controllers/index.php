@@ -1,12 +1,15 @@
 <?php
 /**
- * Example of static route
+ * Example of static pages
  *
  * @author   Anton Shevchuk
- * @created  12.06.12 13:08
+ * @created  06.08.12 10:08
  */
 namespace Application;
+
 use Bluz;
+use Application\Pages;
+
 return
 /**
  * @route /{$alias}.html
@@ -16,12 +19,12 @@ return
 function($alias) use ($view) {
 
     /**
-     * @var \Application\Pages\Row $page
+     * @var Pages\Row $page
      */
-    $page = \Application\Pages\Table::getInstance()->getByAlias($alias);
+    $page = Pages\Table::getInstance()->getByAlias($alias);
 
     if (!$page) {
-        throw new \Exception('Page not found', 404);
+        throw new Exception('Page not found', 404);
     } else {
         $view->page = $page;
     }
