@@ -250,11 +250,12 @@ abstract class Table
     /**
      * Find row
      *
+     * @param $primaryKey
      * @return Row
      */
-    public function findRow()
+    public function findRow($primaryKey)
     {
-        return call_user_func_array(array($this, 'find'), func_get_args())->current();
+        return call_user_func_array(array($this, 'find'), $primaryKey)->current();
     }
 
     /**
