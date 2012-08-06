@@ -255,7 +255,7 @@ abstract class Table
      */
     public function findRow($primaryKey)
     {
-        return call_user_func_array(array($this, 'find'), $primaryKey)->current();
+        return call_user_func(array($this, 'find'), $primaryKey)->current();
     }
 
     /**
