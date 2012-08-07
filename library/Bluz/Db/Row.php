@@ -350,11 +350,12 @@ class Row
         /**
          * Reset all fields to null to indicate that the row is not there
          */
-        $this->data = array_combine(
-            array_keys($this->data),
-            array_fill(0, count($this->data), null)
+        $emptyData = array_combine(
+            array_keys($this->toArray()),
+            array_fill(0, count($this->toArray()), null)
         );
 
+        $this->setFromArray($emptyData);
         return $result;
     }
 
