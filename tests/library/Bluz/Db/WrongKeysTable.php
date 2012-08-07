@@ -22,19 +22,17 @@
  * THE SOFTWARE.
  */
 
+
 namespace Bluz\Db;
 
-require_once 'ConcreteTable.php';
-
 /**
- * Concrete realization of Table class.
+ * Wrong realization of Table class.
  *
  * @category Tests
  * @package  Bluz\Db
  * 
  * @author Eugene Zabolotniy <realbaziak@gmail.com>
  */
-class ConcreteRow extends Row
-{
-    protected $table = 'NoTable';
+class WrongKeysTable extends Table {
+    protected $table = 'foo';
 }

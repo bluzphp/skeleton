@@ -4,6 +4,7 @@ namespace Bluz\Db;
 
 require_once 'ConcreteTable.php';
 require_once 'WrongTable.php';
+require_once 'WrongKeysTable.php';
 
 /**
  * Test class for Table.
@@ -43,27 +44,9 @@ class TableTest extends \Application\TestCase
         // test that the method doesn't create new objects
         $this->assertSame($this->table, ConcreteTable::getInstance());
         
-        // tests that instances are creating separately for each table class 
-        $this->assertEquals('Bluz\Db\WrongTable', get_class(WrongTable::getInstance()));
+        // tests that instances are creating separately for each table class
         $this->assertEquals('Bluz\Db\ConcreteTable', get_class(ConcreteTable::getInstance()));
-    }
-    
-    /**
-     * @expectedException Bluz\Db\DbException
-     */
-    public function testSetAdapterException()
-    {
-        // save default aDb adapter
-        $adapter = \Bluz\Db\Db::$adapter;
-        
-        // set it to null
-        \Bluz\Db\Db::$adapter = null;
-        
-        // test exception rasing
-        $this->table->setAdapter();
-        
-        // restore the adapter
-        \Bluz\Db\Db::$adapter = $adapter;
+        $this->assertEquals('Bluz\Db\WrongKeysTable', get_class(WrongKeysTable::getInstance()));
     }
 
     /**
@@ -93,9 +76,7 @@ class TableTest extends \Application\TestCase
      */
     public function testGetPrimaryKeyException()
     {
-        
-        $table = WrongTable::getInstance();
-        
+        $table = WrongKeysTable::getInstance();
         $table->getPrimaryKey();
     }
 

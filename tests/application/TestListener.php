@@ -10,14 +10,14 @@ class TestListener implements \PHPUnit_Framework_TestListener
      *
      * @var integer
      */
-    protected $_timeTest = 0;
+    protected $timeTest = 0;
     
     /**
      * time of suite
      *
      * @var integer
      */
-    protected $_timeSuite = 0;
+    protected $timeSuite = 0;
     
     /**
      * @param \PHPUnit_Framework_Test $test
@@ -28,7 +28,7 @@ class TestListener implements \PHPUnit_Framework_TestListener
     public function addError(\PHPUnit_Framework_Test $test, \Exception $e, $time)
     {
         echo "\t[";
-        echo $this->_colorize("error", "red");
+        echo $this->colorize("error", "red");
         echo "]-";
     }
 
@@ -41,7 +41,7 @@ class TestListener implements \PHPUnit_Framework_TestListener
     public function addFailure(\PHPUnit_Framework_Test $test, \PHPUnit_Framework_AssertionFailedError $e, $time)
     {
         echo "\t[";
-        echo $this->_colorize("failed", "red");
+        echo $this->colorize("failed", "red");
         echo "]-";
     }
 
@@ -54,7 +54,7 @@ class TestListener implements \PHPUnit_Framework_TestListener
     public function addIncompleteTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
     {
         echo "\t\t[";
-        echo $this->_colorize("incomplete");
+        echo $this->colorize("incomplete");
         echo "]-";
     }
 
@@ -67,7 +67,7 @@ class TestListener implements \PHPUnit_Framework_TestListener
     public function addSkippedTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
     {
         echo "\t[";
-        echo $this->_colorize("skipped");
+        echo $this->colorize("skipped");
         echo "]-";
     }
 
@@ -77,8 +77,8 @@ class TestListener implements \PHPUnit_Framework_TestListener
      */
     public function startTest(\PHPUnit_Framework_Test $test)
     {
-        $this->_timeTest = microtime(1);
-        $method = $this->_colorize($test->getName(), 'green');
+        $this->timeTest = microtime(1);
+        $method = $this->colorize($test->getName(), 'green');
 
         echo "\n\t-> " . $method;
     }
@@ -90,10 +90,10 @@ class TestListener implements \PHPUnit_Framework_TestListener
      */
     public function endTest(\PHPUnit_Framework_Test $test, $time)
     {
-        $time = sprintf('%0.3f sec', microtime(1) - $this->_timeTest);
+        $time = sprintf('%0.3f sec', microtime(1) - $this->timeTest);
         
         echo "\t\t" . $test->getCount() . '(Assertions)';
-        echo $this->_colorize("\t" . $time, 'green');
+        echo $this->colorize("\t" . $time, 'green');
     }
 
     /**
@@ -102,8 +102,8 @@ class TestListener implements \PHPUnit_Framework_TestListener
      */
     public function startTestSuite(\PHPUnit_Framework_TestSuite $suite)
     {
-        $this->_timeSuite = microtime(1);
-        echo "\n\n".$this->_colorize($suite->getName(), 'blue');
+        $this->timeSuite = microtime(1);
+        echo "\n\n".$this->colorize($suite->getName(), 'blue');
     }
 
     /**
@@ -112,9 +112,9 @@ class TestListener implements \PHPUnit_Framework_TestListener
      */
     public function endTestSuite(\PHPUnit_Framework_TestSuite $suite)
     {
-        $time = sprintf('%0.3f sec', microtime(1) - $this->_timeSuite);
+        $time = sprintf('%0.3f sec', microtime(1) - $this->timeSuite);
 
-        echo $this->_colorize("\nTime: ".$time, 'green');
+        echo $this->colorize("\nTime: ".$time, 'green');
     }
 
     /**
@@ -122,7 +122,7 @@ class TestListener implements \PHPUnit_Framework_TestListener
      * @param string $color
      * @return string
      */
-    private function _colorize($text, $color = 'yellow')
+    private function colorize($text, $color = 'yellow')
     {
         switch ($color) {
             case 'red':
@@ -143,5 +143,4 @@ class TestListener implements \PHPUnit_Framework_TestListener
         }
         return "\033[" . $color .'m'. $text . "\033[0m";
     }
-    
 }

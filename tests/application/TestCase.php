@@ -15,16 +15,17 @@ class TestCase extends \PHPUnit_Framework_TestCase
     /**
      * Application entity
      *
-     * @var Application
+     * @var \Application\Bootstrap
      */
-    protected $_app;
+    protected $app;
 
     /**
      * Setup TestCase
      */
     protected function setUp()
     {
-        $this->_app = new \BootstrapTest();
-        $this->_app->init(APPLICATION_ENV);
+
+        $this->app = BootstrapTest::getInstance();
+        $this->app->init(APPLICATION_ENV);
     }
 }

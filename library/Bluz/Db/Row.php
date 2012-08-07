@@ -450,38 +450,43 @@ class Row
     /**
      * Returns the table object, or null if this is disconnected row
      *
+     *
      * @throws TableNotFoundException
+     * @throws DbException
      * @return Table|null
      */
     public function getTable()
     {
         if ($this->table instanceof Table) {
             return $this->table;
-        } else {
-
-            if (is_string($this->table)) {
-                $classTable = $this->table;
-            } else {
-                // try to guess table class
-
-                $classRow = get_class($this);
-                /**
-                 * @var string $classTable is child of \Bluz\Db\Table
-                 */
-                $classTable = substr($classRow, 0, strrpos($classRow, '\\', 1)+1) . 'Table';
-            }
-
-            if (class_exists($classTable)) {
-                $table = call_user_func(array($classTable, 'getInstance'));
-
-                if ($table) {
-                    $this->table = $table;
-                    return $this->table;
-                }
-            }
         }
 
-        throw new TableNotFoundException('Can\'t found table class');
+        if (is_string($this->table)) {
+            $classTable = $this->table;
+        } else {
+            // try to guess table class
+            $classRow = get_class($this);
+            /**
+             * @var string $classTable is child of \Bluz\Db\Table
+             */
+            $classTable = substr($classRow, 0, strrpos($classRow, '\\', 1)+1) . 'Table';
+        }
+
+        try {
+            if (class_exists($classTable)) {
+                if ($table = call_user_func(array($classTable, 'getInstance'))) {
+                    $this->table = $table;
+                    return $this->table;
+                } else {
+                    throw new DbException('"'.$classTable.'" is invalid');
+                }
+            } else {
+                throw new DbException('"'.$classTable.'" not found');
+            }
+        } catch (\Exception $e) {
+            throw new TableNotFoundException('Can\'t found table class with message: '.$e->getMessage());
+        }
+
     }
 
     /**

@@ -34,6 +34,6 @@ namespace Bluz\Db;
  */
 class ConcreteTable extends Table
 {
-    protected $_table = 'foo';
-    protected $_primary = array('bar', 'baz');
+    protected $table = 'foo';
+    protected $primary = array('bar', 'baz');
 }

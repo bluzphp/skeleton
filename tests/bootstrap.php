@@ -17,5 +17,6 @@ require_once 'application/BootstrapTest.php';
 require_once 'application/TestCase.php';
 require_once 'application/TestListener.php';
 
-$app = new BootstrapTest();
-$app -> init(APPLICATION_ENV);
+
+$app = \Application\BootstrapTest::getInstance();
+$app->init(APPLICATION_ENV);
