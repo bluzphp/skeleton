@@ -5,7 +5,6 @@
  */
 namespace Application;
 
-
 return
 /**
  * @privilege View

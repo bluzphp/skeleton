@@ -315,6 +315,17 @@ abstract class Table
     }
 
     /**
+     * Support method for fetching rows.
+     *
+     * @return array An array containing the row results in FETCH_ASSOC mode.
+     */
+//    public function fetchAll()
+//    {
+//        $data = $this->getAdapter()->fetchObjects($this->select, [], $this->getRowClass());
+//        return new Rowset(array('table' => $this, 'data' => $data));
+//    }
+
+    /**
      * Insert new rows.
      *
      * @param  array        $data  Column-value pairs.
