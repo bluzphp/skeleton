@@ -15,7 +15,7 @@ require(["jquery", "bootstrap", "messages"], function($) {
 			success:function(data) {
 				// redirect and reload page
 				var callback = null;
-				if (data._reload != undefined) {
+				if (typeof data._reload != undefined) {
 					callback = function() {
 						// reload current page
 						window.location.reload();
@@ -171,8 +171,8 @@ require(["jquery", "bootstrap", "messages"], function($) {
             return false;
         })
 
-        // Delete confirmation
-        .on('click', '.btn-danger', function(e){
+        // Confirmation dialog
+        .on('click', '.danger:not(.ajax)', function(e){
             var $this = $(this);
 
             var message = $this.attr('title') ? $this.attr('title') : 'Are you sure?';

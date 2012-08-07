@@ -20,7 +20,7 @@ return array(
     "cache" => array(
         "cache" => true,
         "servers" => array(
-            array("memcached", 11211, 1),
+            ["memcached", 11211, 1],
         ),
     ),
     "acl" => array(
@@ -54,8 +54,8 @@ return array(
         "data" => array(
             "title" => "Bluz Framework",
         ),
-        "viewHelpersPath" => PATH_APPLICATION .'/layouts/helpers',
-        "viewHelpers" => array(
+        "helpersPath" => PATH_APPLICATION .'/layouts/helpers',
+        "helpers" => array(
         ),
     ),
     "view" => array(

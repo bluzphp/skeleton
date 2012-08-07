@@ -21,4 +21,14 @@ class Row extends \Bluz\Db\Row
      * @var string
      */
     public $name;
+
+    /**
+     * isBasic
+     *
+     * @return boolean
+     */
+    public function isBasic()
+    {
+        return in_array(strtolower($this->name), ['guest', 'administrator']);
+    }
 }

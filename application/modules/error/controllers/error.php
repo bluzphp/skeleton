@@ -33,9 +33,12 @@ function ($code, $message = '') use ($view) {
     if (!headers_sent()) header("HTTP/1.0 {$code} {$message}");
     $this->getLayout()->title("{$message} {$code}");
 
-    $view->title = $this->getLayout()->title();
-    $view->description = $description;
-    $view->message = $message;
-//    $this->getMessages()->addError($message);
-    $this->useLayout('small.phtml');
+    if ($this->getRequest()->isXmlHttpRequest()) {
+        $this->getMessages()->addError($message);
+    } else {
+        $view->title = $this->getLayout()->title();
+        $view->description = $description;
+        $view->message = $message;
+        $this->useLayout('small.phtml');
+    }
 };

@@ -230,6 +230,16 @@ class View
     }
 
     /**
+     * toArray
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->data;
+    }
+
+    /**
      * setCache
      *
      * @param boolean $flag
@@ -255,16 +265,6 @@ class View
         }
         $this->cachePath = $path;
         return $this;
-    }
-
-    /**
-     * toArray
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->data;
     }
 
     /**
@@ -303,7 +303,7 @@ class View
 
 
     /**
-     * Simple gettext wrapper
+     * Simple gettext/formatter wrapper
      *
      * <code>
      * // simple
