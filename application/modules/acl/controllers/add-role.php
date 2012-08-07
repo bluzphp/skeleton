@@ -7,7 +7,6 @@ namespace Application;
 
 return
 /**
- *
  * @privilege Edit
  *
  * @return \closure
@@ -28,6 +27,10 @@ function($name = null) {
             if (!preg_match('/[a-zA-Z0-9-_]+/', $name)) {
                 throw new Exception('Role name should be alphanumeric');
             }
+            if ($role = Roles\Table::getInstance()->findRowWhere(['name'=>$name])) {
+                throw new Exception('Role "'.$name.'" already exists');
+            }
+
             // insert data to Db
             $this->getDb()->insert('acl_roles', ['name'=>$name]);
         } catch (\Exception $e) {

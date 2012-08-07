@@ -11,7 +11,14 @@
         <tr>
             <th width="180px">Privilege/Role</th>
             <?php foreach ($roles as $role) : ?>
-            <th><?=$role->name?></th>
+            <th width="180px">
+                <?=$role->name?>
+                <?php if (!$role->isBasic()) : ?>
+                <a href="<?=$this->url('acl', 'delete-role', ['id'=>$role->id]) ?>" class="btn btn-danger ajax danger btn-mini right">
+                    x
+                </a>
+                <?php endif; ?>
+            </th>
             <?php endforeach; ?>
         </tr>
     </thead>
