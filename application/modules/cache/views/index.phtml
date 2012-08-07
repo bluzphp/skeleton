@@ -4,7 +4,7 @@
 <div class="subnav">
     <ul class="nav nav-pills">
         <li><?=$this->ahref('Statistics', ['cache', 'stats'])?></li>
-        <li><?=$this->ahref('<i class="icon-fire"></i> Flush', ['cache', 'flush'], ['class'=>'danger ajax'])?></li>
+        <li><?=$this->ahref('<i class="icon-fire"></i> Flush', ['cache', 'flush'], ['class'=>'confirm ajax'])?></li>
     </ul>
 </div>
 <?php if (sizeof($servers)): ?>

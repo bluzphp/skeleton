@@ -72,7 +72,7 @@ require(["jquery", "bootstrap", "messages"], function($) {
                 return false;
             }
 
-			if ($this.hasClass('danger')) {
+			if ($this.hasClass('confirm')) {
 				var message = $this.attr('title') ? $this.attr('title') : 'Are you sure?';
 				if (!confirm(message)) {
 					return false;
@@ -172,7 +172,7 @@ require(["jquery", "bootstrap", "messages"], function($) {
         })
 
         // Confirmation dialog
-        .on('click', '.danger:not(.ajax)', function(e){
+        .on('click', '.confirm:not(.ajax)', function(e){
             var $this = $(this);
 
             var message = $this.attr('title') ? $this.attr('title') : 'Are you sure?';
