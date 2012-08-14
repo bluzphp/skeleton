@@ -13,7 +13,7 @@ return
  */
 function() use ($view) {
     $this->getLayout()->breadCrumbs([
-        $view->ahref('ACL', ['acl', 'index'])
+        'ACL'
     ]);
 
     $set = array();

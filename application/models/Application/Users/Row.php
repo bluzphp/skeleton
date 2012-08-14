@@ -10,6 +10,9 @@
  */
 namespace Application\Users;
 
+use Application\Roles;
+use Application\Privileges;
+
 /**
  * @property integer $id
  * @property string $login
@@ -74,18 +77,43 @@ class Row extends \Bluz\Auth\AbstractEntity
     }
 
     /**
+     * Get roles
+     */
+    public function getRoles()
+    {
+        return Roles\Table::getInstance()->getUserRoles($this->id);
+    }
+
+    /**
      * Get privileges
      */
     public function getPrivileges()
     {
-        return $this->getApplication()->getCache()->getData('privileges:'.$this->id, function() {
-            return $this->getTable()->getAdapter()->fetchColumnGroup("
-                        SELECT DISTINCT p.module, p.privilege
-                        FROM acl_privileges AS p, acl_roles AS r, acl_usersToRoles AS u2r
-                        WHERE p.roleId = r.id AND r.id = u2r.roleId AND u2r.userId = ?
-                        ORDER BY module, privilege",
-                        array($this->id)
-                    );
-        }, 0);
+        return Privileges\Table::getInstance()->getUserPrivileges($this->id);
+    }
+
+    /**
+     * hasRole
+     *
+     * @param $roleId
+     * @return boolean
+     */
+    public function hasRole($roleId)
+    {
+        $roles = $this->getRoles();
+
+        foreach ($roles as $role) {
+            if (is_numeric($roleId)) {
+                if ($role->id == $roleId) {
+                    return true;
+                }
+            } else {
+                if ($role->name == $roleId) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

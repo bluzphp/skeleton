@@ -64,12 +64,16 @@ abstract class AbstractEntity extends \Bluz\Db\Row
      */
     public function hasPrivilege($module, $privilege)
     {
-        $rules = $this->getPrivileges();
-        if (!isset($rules[$module])
-            or !in_array($privilege, $rules[$module])) {
-            return false;
+        $privileges = $this->getPrivileges();
+
+        foreach ($privileges as $rule) {
+            if ($rule->module == $module
+                && $rule->privilege == $privilege) {
+                return true;
+            }
         }
-        return true;
+
+        return false;
     }
 
     /**

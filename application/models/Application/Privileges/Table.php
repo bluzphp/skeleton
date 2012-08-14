@@ -44,12 +44,14 @@ class Table extends \Bluz\Db\Table
      */
     public function getUserPrivileges($userId)
     {
-        return $this->fetch("
-            SELECT DISTINCT p.module, p.privilege
-            FROM acl_privileges AS p, acl_roles AS r, acl_usersToRoles AS u2r
-            WHERE p.roleId = r.id AND r.id = u2r.roleId AND u2r.userId = ?
-            ORDER BY module, privilege",
-            array((int)$userId)
-        );
+        return \Bluz\Application::getInstance()->getCache()->getData('privileges:'.$userId, function() use ($userId) {
+            return $this->fetch("
+                        SELECT DISTINCT p.roleId, p.module, p.privilege
+                        FROM acl_privileges AS p, acl_roles AS r, acl_usersToRoles AS u2r
+                        WHERE p.roleId = r.id AND r.id = u2r.roleId AND u2r.userId = ?
+                        ORDER BY module, privilege",
+                        array((int) $userId)
+                    );
+        }, 0);
     }
 }

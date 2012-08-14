@@ -315,7 +315,6 @@ class Db
      */
     public function update($table, $params = array(), $where = array())
     {
-
         $sqlWhere = $this->prepareWhere($where);
 
         $sql = "UPDATE `$table` SET `". join('` = ?,`', array_keys($params)) ."` = ? " . $sqlWhere ;

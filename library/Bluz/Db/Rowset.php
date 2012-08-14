@@ -52,13 +52,6 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
     protected $count = 0;
 
     /**
-     * Link to model table.
-     *
-     * @var Table
-     */
-    protected $table;
-
-    /**
      * How many data rows in Db w/out LIMIT.
      *
      * @var integer
@@ -78,9 +71,6 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      */
     public function __construct($data = array())
     {
-        if (isset($data['table'])) {
-            $this->table = $data['table'];
-        }
         if (isset($data['total'])) {
             $this->total = $data['total'];
         }
@@ -89,7 +79,6 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
         }
         $this->count = sizeof($this->data);
     }
-
 
     /**
      * Rewind the Iterator to the first element.

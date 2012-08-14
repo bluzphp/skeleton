@@ -21,7 +21,8 @@ function() use ($view) {
     $this->getMessages()->addSuccess('Success Text');
     $this->getMessages()->addError('Error Text');
 
-    $this->reload();
+    $view->test = 123;
+    //$this->reload();
 
     sleep(2);
 };

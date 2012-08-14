@@ -8,14 +8,16 @@
         <tr>
             <th width="180px">User</th>
             <th>Role</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($users as $user):?>
         <tr>
-            <td><?=$this->ahref($user->login, ['rcl', 'edit-resources', ['id' => $user->id]], ['shown' => 'resourceTabs', 'class'=>"dialog"]) ?: $user->login?></td>
+            <td><?=$this->ahref($user->login, ['acl', 'edit-user', ['id' => $user->id]], ['shown' => 'resourceTabs', 'class'=>"dialog"]) ?: $user->login?></td>
             <td><?=$user->roles?>
                 <?//=$this->ahref($user->getRole(), ['acl', 'edit-user', ['id' => $user->getId()]], ['class' => 'dialog']) ?: $user->getRole()?></td>
+            <td></td>
         </tr>
         <?php endforeach;?>
     </tbody>

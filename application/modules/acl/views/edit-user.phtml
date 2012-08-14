@@ -1,0 +1,22 @@
+<form class="form-horizontal" method="post" action="/acl/edit-user/id/<?=$user->id?>" enctype="application/x-www-form-urlencoded">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3><?=$this->__('Choose roles for %s', $user->login)?></h3>
+    </div>
+    <div class="modal-body">
+        <div class="control-group">
+            <div class="controls">
+                <?php foreach ($roles as $role):?>
+                <label>
+                    <input type="checkbox" name="roles[]" value="<?=$role->id?>" <?=(!$user->hasRole($role->id)?:'checked')?>/>
+                    <?=$role->name?>
+                </label>
+                <?php endforeach;?>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><?=$this->__('Save changes')?></button>
+        <a href="#" class="btn" data-dismiss="modal"><?=$this->__('Close')?></a>
+    </div>
+</form>

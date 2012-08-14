@@ -14,10 +14,11 @@ return
  * @return \closure
  */
 function() use ($view) {
+
     /**
      * @var Bootstrap $app
      */
-    $view->users = Users\Table::getInstance()->fetchAll();
+//    $view->users = Users\Table::getInstance()->fetchAll();
     $view->users = $this->getDb()->fetchObjects('
         SELECT u.*, GROUP_CONCAT( ar.`name` SEPARATOR ", " ) AS roles
         FROM users u, acl_roles ar, acl_usersToRoles aur
@@ -25,7 +26,7 @@ function() use ($view) {
             u.`id` = aur.`userId`
         AND ar.`id` = aur.`roleId`', [], '\Application\Users\Row');
 
-    $this->getLayout()->breadcrumps([
+    $this->getLayout()->breadCrumbs([
         $view->ahref('ACL', ['acl', 'index']),
         'Users',
     ]);
