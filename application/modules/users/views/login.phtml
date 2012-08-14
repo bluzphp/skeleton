@@ -5,9 +5,11 @@
  */
 ?>
 <form action="<?=$this->url('users', 'login')?>" method="post" class="well">
-    <label for="login"><?=$this->__('Login')?>:</label>
-    <input type="text" id="login" name="login" value="" />
-    <label for="password"><?=$this->__('Password')?>:</label>
-    <input type="password" id="password" name="password" />
+    <label class="input-prepend">
+        <span class="add-on"><i class="icon-user"></i></span><input type="text" id="login" name="login" value="" />
+    </label>
+    <label class="input-prepend">
+        <span class="add-on"><i class="icon-lock"></i></span><input type="password" id="password" name="password" />
+    </label>
     <input type="submit" value="Login" class="btn btn-primary"/>
 </form>
