@@ -1,40 +1,16 @@
 <?php
 /**
- * Copyright (c) 2012 by Bluz PHP Team
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-namespace Bluz\Db;
-
-use Bluz\Db\DbException;
-
-/**
- * Rowset
+ * Adapter
  *
  * @category Bluz
- * @package  Db
+ * @package  Grid
  *
  * @author   Anton Shevchuk
- * @created  07.07.11 15:36
+ * @created  15.08.12 11:52
  */
-class Rowset implements \Iterator, \Countable, \ArrayAccess
+namespace Bluz\Grid;
+
+abstract class AbstractAdapter implements \Iterator, \Countable, \ArrayAccess
 {
     /**
      * Iterator pointer.
@@ -51,40 +27,32 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
     protected $count = 0;
 
     /**
-     * How many data rows in Db w/out LIMIT.
+     * How many data rows w/out limits
      *
      * @var integer
      */
     protected $total;
 
     /**
-     * Collection of instantiated Bluz\Db\Row objects.
+     * Collection of data rows
      *
      * @var array
      */
     protected $data = array();
 
     /**
-     * Constructor
-     * @param array $data
+     * Setup adapter source
+     *
+     * @return boolean
      */
-    public function __construct($data = array())
-    {
-        if (isset($data['total'])) {
-            $this->total = $data['total'];
-        }
-        if (isset($data['data'])) {
-            $this->data = $data['data'];
-        }
-        $this->count = sizeof($this->data);
-    }
+    abstract public function setSource();
 
     /**
      * Rewind the Iterator to the first element.
      * Similar to the reset() function for arrays in PHP.
      * Required by interface Iterator.
      *
-     * @return \Bluz\Db\Rowset|void Fluent interface.
+     * @return AbstractAdapter|void Fluent interface.
      */
     public function rewind()
     {
@@ -97,7 +65,7 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      * Similar to the current() function for arrays in PHP
      * Required by interface Iterator.
      *
-     * @return \Bluz\Db\Row|mixed current element from the collection
+     * @return mixed current element from the collection
      */
     public function current()
     {
@@ -161,7 +129,7 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      * Required by interface SeekableIterator.
      *
      * @param int $position the position to seek to
-     * @return Rowset
+     * @return AbstractAdapter
      * @throws \OutOfBoundsException
      */
     public function seek($position)
@@ -193,7 +161,7 @@ class Rowset implements \Iterator, \Countable, \ArrayAccess
      *
      * @param string $offset
      * @throws \OutOfBoundsException
-     * @return \Bluz\Db\Row|mixed
+     * @return mixed
      */
     public function offsetGet($offset)
     {
