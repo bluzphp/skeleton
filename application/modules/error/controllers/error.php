@@ -27,12 +27,25 @@ function ($code, $message = '') use ($view) {
             $header = "404 Not Found";
             $description = "The page you requested was not found.";
             break;
+        case 500:
+            $header = "500 Internal Server Error";
+            $description = "The server encountered an unexpected condition.";
+            break;
+        case 503:
+            $header = "503 Service Unavailable";
+            $description = "The server is currently unable to handle the request due to a temporary overloading.";
+            break;
         default:
             $header = "400 Bad Request";
             $description = "An unexpected error occurred with your request. Please try again later.";
             break;
     }
-    if (!headers_sent()) header("HTTP/1.1 {$header}");
+    if (!headers_sent()) {
+        header("HTTP/1.1 {$header}");
+        if ($code == 503) {
+            header('Retry-After: 600');
+        }
+    }
 
     $this->getLayout()->title($header);
 
