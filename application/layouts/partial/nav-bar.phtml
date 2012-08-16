@@ -39,7 +39,7 @@
                         </ul>
                     </li>
                 </ul>
-                <?php if ($identity = $this->getIdentity()) : ?>
+                <?php if ($identity = $this->getApplication()->getAuth()->getIdentity()) : ?>
                     <p class="navbar-text pull-right">
                         <?= $this->__('Logged in as %s', $this->ahref($identity->login, ['users', 'profile', array('id' => $identity->id)]))?>
                         (<?= $this->ahref('logout', ['users', 'logout'])?>)

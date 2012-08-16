@@ -515,7 +515,7 @@ class Application
                 $dispatchResult -> setData($this->getLayout()->toArray());
             }
         } catch (\Exception $e) {
-            $dispatchResult = $this->dispatch('error', 'error', array(
+             $dispatchResult = $this->dispatch('error', 'error', array(
                 'code' => $e->getCode(),
                 'message' => $e->getMessage()
             ));
@@ -572,8 +572,6 @@ class Application
             throw new Exception('You don\'t have permissions', 403);
         }
 
-        $params = $this->params($reflectionData);
-
         // cache initialization
         if (isset($reflectionData['cache'])) {
             $cache = new CacheView($this->getConfigData('cache'));
@@ -616,6 +614,8 @@ class Application
         if (!is_callable($controllerClosure)) {
             throw new Exception("Controller is not callable '$module/$controller'");
         }
+
+        $params = $this->params($reflectionData);
 
         $result = call_user_func_array($controllerClosure, $params);
 
