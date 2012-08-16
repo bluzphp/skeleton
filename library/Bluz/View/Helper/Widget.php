@@ -27,21 +27,33 @@
  */
 namespace Bluz\View\Helper;
 
+use Bluz\Application;
 use Bluz\View\View;
 
 return
+
 /**
- * @param array $data
- * @return array|null
+ * widget
+ *
+ * <code>
+ * $this->widget($module, $controller, array $params);
+ * </code>
+ *
+ * @param string $module
+ * @param string $widget
+ * @param array $params
+ * @return View
  */
-function (array $data = []) {
-    if (sizeof($data)) {
-        $this->system['breadcrumbs'] = $data;
-    } else {
-        if (isset($this->system['breadcrumbs'])) {
-            return $this->system['breadcrumbs'];
-        } else {
-            return null;
-        }
+function ($module, $widget, $params = array())
+{
+    /**
+     * @var View $this
+     */
+    $application = $this->getApplication();
+    try {
+        $widgetClosure = $application->widget($module, $widget);
+        call_user_func_array($widgetClosure, $params);
+    } catch (\Bluz\Acl\AclException $e) {
+        // nothing for Acl exception
     }
 };

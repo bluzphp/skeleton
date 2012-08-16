@@ -9,9 +9,6 @@ return array(
     "cache" => array(
         "cache" => false
     ),
-    "view" => array(
-        "cache" => false,
-    ),
     "session" => array(
         "store" => "array"
     )

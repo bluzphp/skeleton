@@ -37,11 +37,15 @@ use Bluz\Application;
  *
  * @method string ahref(\string $text, \string $href, array $attributes = [])
  * @method string baseUrl(\string $file)
- * @method array baseUrl(array $data = [])
+ * @method array|null breadCrumbs(array $data = [])
+ * @method string|View dispatch($module, $controller, $params = array())
  * @method string|View link(string $src = null, string $rel = 'stylesheet')
+ * @method void partial($__template, $__params = array())
+ * @method void partialLoop($template, $data = array(), $params = array())
  * @method string|View script(string $src = null)
  * @method string|View title(string $title = null, $position = 'replace', $separator = ' :: ')
  * @method string|View url(string $module, string $controller, array $params = [], boolean $checkAccess = false)
+ * @method void widget($module, $widget, $params = array())
  *
  * @author   Anton Shevchuk, ErgallM
  * @created  08.07.11 11:49
@@ -81,31 +85,16 @@ class View
     protected $path;
 
     /**
-     * Global cache flag
-     *
-     * @var boolean
-     */
-    protected $cache = false;
-
-    /**
-     * @var string
-     */
-    protected $cachePath;
-
-    /**
-     * @var string
-     */
-    protected $cacheFile;
-
-    /**
-     * @var boolean
-     */
-    protected $cacheFlag = false;
-
-    /**
      * @var string
      */
     protected $template;
+
+    /**
+     * Cache handler
+     *
+     * @var Cache
+     */
+    protected $cache;
 
     /**
      * init
@@ -242,30 +231,15 @@ class View
     /**
      * setCache
      *
-     * @param boolean $flag
+     * @param Cache $cache
      * @return View
      */
-    public function setCache($flag)
+    public function setCache(Cache $cache)
     {
-        $this->cache = (boolean) $flag;
+        $this->cache = $cache;
         return $this;
     }
 
-    /**
-     * setCachePath
-     *
-     * @param string $path
-     * @throws ViewException
-     * @return View
-     */
-    public function setCachePath($path)
-    {
-        if (!is_dir($path) or !is_writable($path)) {
-            throw new ViewException('View: Cache path is not writable');
-        }
-        $this->cachePath = $path;
-        return $this;
-    }
 
     /**
      * setup path
@@ -290,17 +264,6 @@ class View
         $this->template = $file;
         return $this;
     }
-
-    /**
-     * Get identity
-     *
-     * @return \Bluz\Auth\AbstractEntity
-     */
-    public function getIdentity()
-    {
-        return $this->getApplication()->getAuth()->getIdentity();
-    }
-
 
     /**
      * Simple gettext/formatter wrapper
@@ -345,115 +308,6 @@ class View
     }
 
     /**
-     * dispatch
-     *
-     * <code>
-     * $this->dispatch($module, $controller, array $params);
-     * </code>
-     *
-     * @param string $module
-     * @param string $controller
-     * @param array $params
-     * @return View|null
-     */
-    public function dispatch($module, $controller, $params = array())
-    {
-        $application = $this->getApplication();
-        try {
-            $view = $application->dispatch($module, $controller, $params);
-
-            if ($view instanceof \Closure) {
-                return $view();
-            }
-            return $view;
-        } catch (\Bluz\Acl\AclException $e) {
-            // nothing for Acl exception
-            return null;
-        }
-    }
-
-    /**
-     * widget
-     *
-     * <code>
-     * $this->widget($module, $controller, array $params);
-     * </code>
-     *
-     * @param string $module
-     * @param string $widget
-     * @param array $params
-     * @return View
-     */
-    public function widget($module, $widget, $params = array())
-    {
-        $application = $this->getApplication();
-        try {
-            $widgetClosure = $application->widget($module, $widget);
-            call_user_func_array($widgetClosure, $params);
-        } catch (\Bluz\Acl\AclException $e) {
-            // nothing for Acl exception
-        }
-    }
-
-    /**
-     * start cache
-     *
-     * @param integer $ttl in minutes
-     * @param array $keys
-     * @return View
-     */
-    public function cache($ttl, $keys = array())
-    {
-        if (!$this->cache) {
-            return false;
-        }
-
-        $cachePath = substr($this->path, strrpos($this->path, '/', -7) + 1);
-        $cachePath = substr($cachePath, 0, -5);
-        $cachePath = $this->cachePath .'/'. $cachePath . substr($this->template, 0, -6);
-
-        $key = md5(serialize($keys)) .'.html';
-
-        $this->cacheFile = $cachePath.'/'.$key;
-
-        if (is_file($this->cacheFile) && (filemtime($this->cacheFile) > (time() - $ttl*60))) {
-            $this->cacheFlag = true;
-            return true;
-        } else {
-            // create new cache
-            // clean old cache
-            if (is_file($this->cacheFile)) {
-                @unlink($this->cacheFile);
-            }
-            return false;
-        }
-    }
-
-    /**
-     * @return void
-     */
-    private function createCacheDir()
-    {
-        $path = substr($this->cacheFile, 0, strrpos($this->cacheFile, '/')) .'/';
-
-        // use or create path recursive
-        is_dir($path) || mkdir($path, 0755, true);
-        @chmod($path, 0755);
-    }
-
-    /**
-     * @todo http://habrahabr.ru/post/148527/#comment_5014715
-     * @param $content
-     * @return void
-     */
-    private function writeCacheFile($content)
-    {
-        $this->createCacheDir();
-        file_put_contents($this->cacheFile, $content);
-        @chmod($this->cacheFile, 0755);
-    }
-
-    /**
      * Render
      *
      * @throws ViewException
@@ -461,10 +315,6 @@ class View
      */
     public function render()
     {
-        // cache exists and valid
-        if ($this->cacheFlag) {
-            return file_get_contents($this->cacheFile);
-        }
         ob_start();
         try {
             if (!file_exists($this->path .'/'. $this->template)) {
@@ -480,8 +330,8 @@ class View
 
         $content = ob_get_clean();
         // save cache
-        if ($this->cache && $this->cacheFile) {
-            $this->writeCacheFile($content);
+        if ($this->cache) {
+            $this->cache->save($content);
         }
         return (string) $content;
     }

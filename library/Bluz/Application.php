@@ -40,6 +40,7 @@ use Bluz\Request;
 use Bluz\Router\Router;
 use Bluz\Session\Session;
 use Bluz\View\Layout;
+use Bluz\View\Cache as CacheView;
 use Bluz\View\View;
 
 /**
@@ -571,6 +572,18 @@ class Application
             throw new Exception('You don\'t have permissions', 403);
         }
 
+        $params = $this->params($reflectionData);
+
+        // cache initialization
+        if (isset($reflectionData['cache'])) {
+            $cache = new CacheView($this->getConfigData('cache'));
+            if ($cache -> load($module .'/'. $controller, $params, $reflectionData['cache'])) {
+                return $cache;
+            }
+        } else {
+            $cache = false;
+        }
+
         // $request for use in closure
         $request = $this->getRequest();
         $request -> setParams($params);
@@ -579,6 +592,9 @@ class Application
         $view = new View($this->getConfigData('view'));
         $view -> setPath(PATH_APPLICATION .'/modules/'. $module .'/views');
         $view -> setTemplate($controller .'.phtml');
+        if ($cache) {
+            $view -> setCache($cache);
+        }
 
         $bootstrapPath = PATH_APPLICATION .'/modules/' . $module .'/bootstrap.php';
 
@@ -600,15 +616,6 @@ class Application
         if (!is_callable($controllerClosure)) {
             throw new Exception("Controller is not callable '$module/$controller'");
         }
-
-        $params = $this->params($reflectionData);
-
-        // load html from cache file
-        if (isset($reflectionData['cache'])) {
-            if ($view->cache($reflectionData['cache'], $params)) {
-                return $view;
-            }
-        };
 
         $result = call_user_func_array($controllerClosure, $params);
 

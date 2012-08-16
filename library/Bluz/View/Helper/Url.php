@@ -41,7 +41,7 @@ return
  */
 function ($module, $controller, array $params = [], $checkAccess = false) {
     /**
-     * @var Application $app
+     * @var View $this
      */
     $app = $this->getApplication();
 

@@ -22,6 +22,7 @@ return array(
         "servers" => array(
             ["memcached", 11211, 1],
         ),
+        "path"  => PATH_DATA .'/cache'
     ),
     "acl" => array(
 
@@ -49,18 +50,16 @@ return array(
     "layout" => array(
         "path" => PATH_APPLICATION .'/layouts',
         "template" => 'index.phtml',
-        "cache" => true,
-        "cachePath" => PATH_DATA .'/cache',
         "data" => array(
             "title" => "Bluz Framework",
         ),
         "helpersPath" => PATH_APPLICATION .'/layouts/helpers',
         "helpers" => array(
+
         ),
     ),
     "view" => array(
-        "cache" => true,
-        "cachePath" => PATH_DATA .'/cache'
+
     ),
     "session" => array(
         "store" => "session",
