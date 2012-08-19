@@ -18,7 +18,7 @@ function($id) use ($view) {
      * @var Application $this
      * @var View $view
      */
-     $view->user = $this->getDb()->fetchObject("SELECT * FROM users WHERE id = ?", array($id), 'Users\Row');
+     $view->user = Users\Table::getInstance()->findRow($id);
 };
 ```
 
@@ -35,9 +35,7 @@ Model:
 namespace Application\Users;
 class Table extends \Bluz\Db\Table
 {
-    static $instance;
     protected $table = 'users';
-    protected $rowClass = '\Application\Users\Row';
     protected $primary = array('id');
 }
 ```
