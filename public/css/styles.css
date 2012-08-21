@@ -317,7 +317,7 @@ input.noactive, button.noactive, .button.noactive {
     background-color: #EEEEEE;
     border: 1px solid #CCCCCC;
     border-bottom: 0;
-    
+    padding: 0;
     transition: height 0.5s 0.33s;
     -moz-transition: height 0.5s 0.33s;
     -webkit-transition: height 0.5s 0.33s;

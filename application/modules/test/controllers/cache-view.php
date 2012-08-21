@@ -14,5 +14,9 @@ return
  * @return \closure
  */
 function() use ($view) {
+    $this->getLayout()->breadCrumbs([
+        $view->ahref('Test', ['test', 'index']),
+        'Cache View',
+    ]);
     $view->current = date('y-m-d H:i:s');
 };

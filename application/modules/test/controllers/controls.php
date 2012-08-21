@@ -19,4 +19,8 @@ function() use ($bootstrap, $request, $view) {
      * @var Bluz\Request\AbstractRequest $request
      * @var Bluz\View\View $view
      */
+    $this->getLayout()->breadCrumbs([
+        $view->ahref('Test', ['test', 'index']),
+        'Controls',
+    ]);
 };

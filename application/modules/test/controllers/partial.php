@@ -13,6 +13,10 @@ return
  * @return \closure
  */
 function() use ($view) {
+    $this->getLayout()->breadCrumbs([
+        $view->ahref('Test', ['test', 'index']),
+        'Partial',
+    ]);
     $view->data = array(
         'first'=> array(2,3,4,5),
         'second'=> array(9,8,7,6),

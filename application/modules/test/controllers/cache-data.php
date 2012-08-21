@@ -17,7 +17,10 @@ return
  * @return \closure
  */
 function($id = null) use ($bootstrap, $view) {
-
+    $this->getLayout()->breadCrumbs([
+        $view->ahref('Test', ['test', 'index']),
+        'Cache Data',
+    ]);
     /* @var \Bluz\Application $this */
     $this->getLayout()->title('Check cache');
 

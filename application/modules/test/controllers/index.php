@@ -1,9 +1,9 @@
 <?php
 /**
- * Test of markup
- * 
+ * Test of test of test
+ *
  * @author   Anton Shevchuk
- * @created  13.10.11 12:39
+ * @created  21.08.12 12:39
  * @return closure
  */
 namespace Application;
@@ -20,7 +20,6 @@ function() use ($bootstrap, $request, $view) {
      * @var Bluz\View\View $view
      */
     $this->getLayout()->breadCrumbs([
-        $view->ahref('Test', ['test', 'index']),
-        'Markup',
+        'Test',
     ]);
 };

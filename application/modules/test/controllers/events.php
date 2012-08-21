@@ -14,6 +14,10 @@ return
  * @return \closure
  */
 function() use ($view) {
+    $this->getLayout()->breadCrumbs([
+        $view->ahref('Test', ['test', 'index']),
+        'Events',
+    ]);
 
     /**
      * @var \Bluz\Application $this

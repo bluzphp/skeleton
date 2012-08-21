@@ -56,11 +56,17 @@ abstract class Grid
     const ORDER_ASC = 'asc';
     const ORDER_DESC = 'desc';
 
-    protected $page;
+    /**
+     * Start from 1!
+     *
+     * @var int
+     */
+    protected $page = 1;
 
-    protected $limit;
-
-    protected $total;
+    /**
+     * @var int
+     */
+    protected $limit = 25;
 
     /**
      * <code>
@@ -124,7 +130,23 @@ abstract class Grid
     }
 
     /**
-     * processRequest
+     * process request
+     *
+     * <code>
+     * // example of request url
+     * // http://domain.com/pages/grid/
+     * // http://domain.com/pages/grid/page/2/
+     * // http://domain.com/pages/grid/page/2/order-alias/desc/
+     * // http://domain.com/pages/grid/page/2/order-created/desc/order-alias/asc/
+     *
+     * // with prefix for support more than one grid on page
+     * // http://domain.com/users/grid/users-page/2/users-order-created/desc/
+     * // http://domain.com/users/grid/users-page/2/users-filter-status/active/
+     *
+     * // hash support
+     * // http://domain.com/pages/grid/#/page/2/order-created/desc/order-alias/asc/
+     *
+     * </code>
      *
      * @param \Bluz\Request\AbstractRequest $request
      * @return Grid
@@ -136,6 +158,16 @@ abstract class Grid
         } else {
             $prefix = '';
         }
+
+        $request->getParam($prefix.'page', 1);
+
+        foreach ($this->allowOrders as $column) {
+            $order = $request->getParam($prefix.'order-'.$column);
+            if ($order) {
+                $this->addOrder($column, $order);
+            }
+        }
+
 
 
 
@@ -199,6 +231,22 @@ abstract class Grid
         foreach ($orders as $column => $order) {
             $this->addOrder($column, $order);
         }
+        return $this;
+    }
+
+    /**
+     * setLimit
+     *
+     * @param $limit
+     * @throws GridException
+     * @return Grid
+     */
+    function setLimit($limit)
+    {
+        if ($limit < 1) {
+            throw new GridException('Wrong limit');
+        }
+        $this->limit = $limit;
         return $this;
     }
 }

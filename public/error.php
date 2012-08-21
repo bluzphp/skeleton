@@ -1,6 +1,6 @@
 <?php
 if (!headers_sent()) {
-    header("HTTP/1.1 503 Service Temporarily Unavailable");
+    header("HTTP/1.1 503 Service Unavailable");
     header('Retry-After: 600');
 }
 ?>
