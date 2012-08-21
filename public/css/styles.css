@@ -110,34 +110,10 @@ body > section {
 /*/Main*/
 
 /*/Forms elements*/
-/*Loader*/
-
-input.noactive, button.noactive, .button.noactive {
-    background: url(images/progress.gif) repeat-x 50% 50%;
-    cursor: progress;
-    color:#ccc;
-	-moz-box-shadow:inset 0 0 10px #D4D4D4;
-	-webkit-box-shadow:inset 0 0 10px #D4D4D4;
-	box-shadow:inset 0 0 10px #D4D4D4;
-}
-.navbar .noactive{
-    background: #777;
-	-moz-box-shadow:inset 0 0 10px #333;
-	-webkit-box-shadow:inset 0 0 10px #333;
-	box-shadow:inset 0 0 10px #333;
-}
-.navbar-fixed-top .dropdown-menu {
-	z-index: 1040;
-}
-#loader {
-    
-}
-/*/Loader*/
-
 /*Messages*/
 #messages {
     padding:0;
-    z-index:99999;
+    z-index:1100;
     font-weight:700;
     font-size:1.6em;
     position:fixed;

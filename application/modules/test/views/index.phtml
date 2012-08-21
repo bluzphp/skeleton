@@ -6,6 +6,9 @@
     <li><?= $this->ahref('Cache View', ['test', 'cache-view']);?></li>
     <li><?= $this->ahref('Cache Data', ['test', 'cache-data', ['id'=>1]]);?></li>
     <li><?= $this->ahref('Routers', ['test', 'route']);?></li>
-    <li><?= $this->ahref('Ajax', ['test', 'ajax'], ['class'=>'ajax']);?></li>
-    <li><?= $this->ahref('Ajax+Alert', ['test', 'ajax-callback'], ['class'=>'ajax']);?></li>
 </ul>
+<div class="btn-group">
+    <?= $this->ahref('Ajax + Messages', ['test', 'ajax'], ['class'=>'ajax btn']);?>
+    <?= $this->ahref('Ajax + Alert', ['test', 'ajax-callback'], ['class'=>'ajax btn btn-primary']);?>
+    <?= $this->ahref('Ajax + Confirm', ['test', 'ajax'], ['class'=>'ajax confirm btn btn-danger']);?>
+</div>

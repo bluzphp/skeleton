@@ -25,9 +25,14 @@
         // Ajax callback
         var ajax = {
 			success:function(data) {
+				// return
+				if (data == null) {
+					return false;
+				}
+
 				// redirect and reload page
 				var callback = null;
-				if (typeof data._reload != undefined) {
+				if (data._reload != undefined) {
 					callback = function() {
 						// reload current page
 						window.location.reload();
@@ -51,7 +56,10 @@
 					window[data.callback](data);
 				}
 			},
-			error:function() {
+			error:function(jqXHR, textStatus, errorThrown) {
+				if (console != undefined) {
+					console.error(errorThrown, "Response Text:", jqXHR.responseText);
+				}
 				Messages.addError('Connection is fail');
 			}
 		};
@@ -76,11 +84,11 @@
         // live event handlers
         $('body')
 		// disabled bootstrap dropdown event handler
-		.off('.dropdown', 'a.ajax, a.dialog, a.confirm')
+//		.off('.dropdown', 'a.ajax, a.dialog, a.confirm')
 		// Ajax links
 		.on('click.bluz.ajax', 'a.ajax', function(){
             var $this = $(this);
-            if ($this.hasClass('noactive')) {
+            if ($this.hasClass('disabled')) {
                 // request in progress
                 return false;
             }
@@ -100,10 +108,10 @@
                 data: data,
                 dataType:'json',
                 beforeSend:function() {
-                    $this.addClass('noactive');
+                    $this.addClass('disabled');
                 },
                 complete:function() {
-                    $this.removeClass('noactive');
+                    $this.removeClass('disabled');
                 }
             }, ajax));
             return false;
@@ -111,7 +119,7 @@
 		// Ajax modal
 		.on('click.bluz.ajax', 'a.dialog', function(){
 			var $this = $(this);
-			if ($this.hasClass('noactive')) {
+			if ($this.hasClass('disabled')) {
 				// request in progress
 				return false;
 			}
@@ -121,7 +129,7 @@
 				data: processData($this),
 				dataType:'html',
 				beforeSend:function() {
-				   $this.addClass('noactive');
+				   $this.addClass('disabled');
 				},
 				success:function(data) {
 					var $div = $('<div>', {'class': 'modal hide fade'});
@@ -147,7 +155,7 @@
 				   Messages.addError('Connection is fail');
 				},
 				complete:function() {
-				   $this.removeClass('noactive');
+				   $this.removeClass('disabled');
 				}
 			});
 			return false;
@@ -156,7 +164,7 @@
         // Ajax form
 		.on('submit.bluz.ajax', 'form.ajax', function(){
             var $this = $(this);
-            if ($this.hasClass('noactive')) {
+            if ($this.hasClass('disabled')) {
                 // request in progress
                 return false;
             }
@@ -174,10 +182,10 @@
                 data: data,
                 dataType:'json',
                 beforeSend:function() {
-                    $this.addClass('noactive');
+                    $this.addClass('disabled');
                 },
                 complete:function() {
-                    $this.removeClass('noactive');
+                    $this.removeClass('disabled');
                 }
             }, ajax));
             return false;
