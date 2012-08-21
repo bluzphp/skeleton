@@ -41,11 +41,11 @@ use Bluz\Application;
  * @method string|View dispatch($module, $controller, $params = array())
  * @method string|View link(string $src = null, string $rel = 'stylesheet')
  * @method void partial($__template, $__params = array())
- * @method void partialLoop($template, $data = array(), $params = array())
+ * @method void partialLoop($template, $data = [], $params = [])
  * @method string|View script(string $src = null)
  * @method string|View title(string $title = null, $position = 'replace', $separator = ' :: ')
  * @method string|View url(string $module, string $controller, array $params = [], boolean $checkAccess = false)
- * @method void widget($module, $widget, $params = array())
+ * @method void widget($module, $widget, $params = [])
  *
  * @author   Anton Shevchuk, ErgallM
  * @created  08.07.11 11:49
@@ -65,19 +65,18 @@ class View
     protected $baseUrl;
 
     /**
+     * View variables
+     *
      * @var array
      */
     protected $data = array();
 
     /**
+     * System variables, should be uses for helpers
+     *
      * @var array
      */
     protected $system = array();
-
-    /**
-     * @var mixed
-     */
-    protected $content;
 
     /**
      * @var string path to template
@@ -270,9 +269,11 @@ class View
      *
      * <code>
      * // simple
+     * // equal to gettext('Message')
      * __('Message');
      *
      * // simple replace of one argument
+     * // equal to sprintf(gettext('Message to %s'), 'Username')
      * __('Message to %s', 'Username');
      *
      * // plural form + sprintf

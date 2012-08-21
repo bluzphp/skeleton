@@ -49,7 +49,13 @@ function ($script = null) {
         }
         return $return;
     } elseif ('.js' == substr($script, -3, 3)) {
-        $this->headScriptFiles .= '<script src="' . $this->baseUrl($script) .'"></script>'."\n";
+        if (strpos($script, 'http://') === 0
+            or strpos($script, 'https://') === 0) {
+            $src = $script;
+        } else {
+            $src = $this->baseUrl($script);
+        }
+        $this->headScriptFiles .= '<script src="' . $src .'"></script>'."\n";
     } else {
         $this->headScriptContent .= $script . ';';
     }

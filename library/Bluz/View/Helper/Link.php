@@ -31,15 +31,21 @@ use Bluz\View\View;
 
 /**
  * TODO: move variable to system section
- * @param string $src
+ * @param string $link
  * @param string $rel
  * @return string|View
  */
-return function ($src = null, $rel = 'stylesheet') {
-    if (null === $src) {
+return function ($link = null, $rel = 'stylesheet') {
+    if (null === $link) {
         return $this->headLinkFiles;
     } else {
-        $this->headLinkFiles .= '<link href="' . $this->baseUrl($src) . '" rel="' . $rel .'"/>'."\n";
+        if (strpos($link, 'http://') === 0
+            or strpos($link, 'https://') === 0) {
+            $href = $link;
+        } else {
+            $href = $this->baseUrl($link);
+        }
+        $this->headLinkFiles .= '<link href="' . $href . '" rel="' . $rel .'"/>'."\n";
         return $this;
     }
 };
