@@ -65,19 +65,21 @@ class Layout extends View
     {
         try {
             switch (true) {
-                case ($content instanceof \Closure):
-                    /* @var \Closure $content */
-                    $content = $content();
-                    break;
                 case ($content instanceof View):
                     /* @var View $content */
                     $content = $content->render();
+                    break;
+                case ($content instanceof \Closure):
+                    /* @var \Closure $content */
+                case (is_callable($content)):
+                    $content = $content();
                     break;
             }
             $this->content = $content;
         } catch (\Exception $e) {
             $this->content = $e->getMessage();
         }
+        $this->content = $this->trigger('content', $this->content);
         return $this;
     }
 
@@ -88,8 +90,6 @@ class Layout extends View
      */
     public function getContent()
     {
-        $this->content = $this->trigger('content', $this->content);
-
         return $this->content;
     }
 }

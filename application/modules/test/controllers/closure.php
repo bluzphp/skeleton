@@ -12,5 +12,8 @@ return
  * @return \closure
  */
 function() {
-    return function(){};
+    $this->useLayout(false);
+    return function() {
+        echo "Closure is back";
+    };
 };
