@@ -96,6 +96,11 @@ class View
     protected $cache;
 
     /**
+     * @var boolean
+     */
+    protected $enabled = true;
+
+    /**
      * init
      *
      * @param null|array    $options
@@ -265,6 +270,17 @@ class View
     }
 
     /**
+     * disable render
+     *
+     * @return View
+     */
+    public function disable()
+    {
+        $this->enabled = false;
+        return $this;
+    }
+
+    /**
      * Simple gettext/formatter wrapper
      *
      * <code>
@@ -316,6 +332,11 @@ class View
      */
     public function render()
     {
+        // render is disabled
+        if (!$this->enabled) {
+            return '';
+        }
+
         ob_start();
         try {
             if (!file_exists($this->path .'/'. $this->template)) {
@@ -328,9 +349,9 @@ class View
             echo $e->getMessage();
             var_dump($e->getTraceAsString());
         }
-
         $content = ob_get_clean();
-        // save cache
+
+        // save cache by handler
         if ($this->cache) {
             $this->cache->save($content);
         }

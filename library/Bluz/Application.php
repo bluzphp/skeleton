@@ -143,12 +143,6 @@ class Application
     protected $layoutFlag = true;
 
     /**
-     * Use view flag
-     * @var boolean
-     */
-    protected $viewFlag = true;
-
-    /**
      * JSON response flag
      * @var boolean
      */

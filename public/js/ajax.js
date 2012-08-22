@@ -9,6 +9,12 @@
  *    <form action="/save/" class="ajax">
  *        ...
  *    </form>
+ *    <source>
+ *        // disable event handlers
+ *        $('li a').off('.bluz');
+ *        // or
+ *        $('li a').off('.ajax');
+ *    </source>
  * </code>
  *
  * @author   Anton Shevchuk
