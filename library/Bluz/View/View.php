@@ -265,6 +265,27 @@ class View
     }
 
     /**
+     * manipulation under system stack
+     *
+     * @param string $key
+     * @param mixed|null $value
+     * @return mixed|View
+     */
+    protected function system($key, $value = null)
+    {
+        if (null === $value) {
+            if (isset($this->system[$key])) {
+                return $this->system[$key];
+            } else {
+                return null;
+            }
+        } else {
+            $this->system[$key] = $value;
+        }
+        return $this;
+    }
+
+    /**
      * Simple gettext/formatter wrapper
      *
      * <code>

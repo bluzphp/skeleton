@@ -31,8 +31,6 @@ use Bluz\View\View;
 
 return
 /**
- * TODO: move variable to system section
- *
  * @param string $title
  * @param string $position
  * @param string $separator
@@ -40,21 +38,22 @@ return
  */
 function ($title = null, $position = View::POS_REPLACE, $separator = ' :: ') {
     if ($title === null) {
-        return $this->title;
+        return $this->system('title');
     } else {
         // switch statement for $position
         switch ($position) {
             case View::POS_PREPEND:
-                $this->title = $title . (empty($this->title)?:$separator.$this->title);
+                $result = $title . (!$this->system('title')?:$separator.$this->system('title'));
                 break;
             case View::POS_APPEND:
-                $this->title = (empty($this->title)?:$this->title.$separator).$title;
+                $result = (!$this->system('title')?:$this->system('title').$separator).$title;
                 break;
             case View::POS_REPLACE:
             default:
-                $this->title = $title;
+            $result = $title;
                 break;
         }
+        $this->system('title', $result);
         return $this;
     }
 };

@@ -50,9 +50,6 @@ return array(
     "layout" => array(
         "path" => PATH_APPLICATION .'/layouts',
         "template" => 'index.phtml',
-        "data" => array(
-            "title" => "Bluz Framework",
-        ),
         "helpersPath" => PATH_APPLICATION .'/layouts/helpers',
         "helpers" => array(
 
