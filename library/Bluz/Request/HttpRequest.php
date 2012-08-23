@@ -48,6 +48,15 @@ class HttpRequest extends AbstractRequest
     {
         parent::__construct();
         $this->method = $this->getServer('REQUEST_METHOD');
+
+        // switch statement for $this->method
+        switch ($this->method) {
+            case self::METHOD_PUT:
+            case self::METHOD_DELETE:
+                parse_str(file_get_contents('php://input'), $data);
+                $this->setParams($data);
+                break;
+        }
     }
 
     /**

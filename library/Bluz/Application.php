@@ -488,13 +488,7 @@ class Application
             $this->useJson(true);
         }
 
-        // TODO remove later
-        if ($this->request->getParam('flushCache')) {
-            $this->getCache()->handler()->flush();
-        }
-
         $layout = $this->getLayout();
-//        $layout->_code = 200;
 
         /* @var View $ControllerView */
         try {
@@ -645,12 +639,17 @@ class Application
         $content = $layout->getContent();
 
         if ('cli' == PHP_SAPI) {
+            // console render
+            // get data from layout
             $data = $layout->toArray();
+
+            // merge it with view data
             if ($this->dispatchResult instanceof View) {
                 $data = array_merge($data, $this->dispatchResult->toArray());
             }
 
-            if ($this->hasMessages()) {
+            // inject messages if exists
+            if (!isset($data['_messages']) && $this->hasMessages()) {
                 $data['_messages'] = $this->getMessages()->popAll();
             }
             foreach ($data as $key => $value) {
@@ -663,16 +662,30 @@ class Application
                 echo "\n";
             }
         } else {
+            // browser render
             if ($this->jsonFlag) {
-                header('Content-type: application/json', true, 200); //override response code so javascript can process it
+                //override response code so javascript can process it
+                header('Content-type: application/json', true, 200);
+
+                // get data from layout
                 $data = $layout->toArray();
+
+                // merge it with view data
                 if ($this->dispatchResult instanceof View) {
                     $data = array_merge($data, $this->dispatchResult->toArray());
                 }
 
-                if ($this->hasMessages()) {
+                // enable Bluz AJAX handler
+                if (!isset($data['_handler'])) {
+                    $data['_handler'] = true;
+                }
+
+                // inject messages if exists
+                if (!isset($data['_messages']) && $this->hasMessages()) {
                     $data['_messages'] = $this->getMessages()->popAll();
                 }
+
+                // output
                 echo json_encode($data);
             } elseif (!$this->layoutFlag) {
                 echo ($content instanceof \Closure) ? $content(): $content;
