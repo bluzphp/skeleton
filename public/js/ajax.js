@@ -23,8 +23,7 @@
 	$(function() {
 		// Ajax global events
 		$("#loading")
-			.ajaxStart(function(event, jqXHR, options){
-				console.log(this, event, jqXHR, options);
+			.ajaxStart(function(){
 				$(this).show();
 			})
 			.ajaxSuccess(function(event, jqXHR, options){
@@ -73,7 +72,7 @@
 				}
 				Messages.addError('Connection is fail');
 			})
-			.ajaxComplete(function(event, jqXHR, options){
+			.ajaxComplete(function(){
 				$(this).hide();
 			});
 
