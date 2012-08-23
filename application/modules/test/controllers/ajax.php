@@ -10,6 +10,7 @@ namespace Application;
 use Bluz;
 return
 /**
+ * @param bool $messages
  * @return \closure
  */
 function($messages = false) use ($view) {
@@ -22,7 +23,6 @@ function($messages = false) use ($view) {
         $this->getMessages()->addSuccess('Success Text');
         $this->getMessages()->addError('Error Text');
     }
-
     $this->getMessages()->addNotice('Method '. $this->getRequest()->getMethod());
 
     $view->foo = 'bar';
