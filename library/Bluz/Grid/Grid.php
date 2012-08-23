@@ -27,6 +27,7 @@
 namespace Bluz\Grid;
 
 use Bluz\Application;
+
 /**
  * Grid
  *

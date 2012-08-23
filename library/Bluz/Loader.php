@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2012 by Bluz PHP Team
  *
@@ -33,6 +32,7 @@ namespace Bluz;
  * @category Bluz
  * @package  Loader
  *
+ * <pre>
  * <code>
  * // configuration example
  * return array(
@@ -48,6 +48,7 @@ namespace Bluz;
  *    ),
  *
  * </code>
+ * </pre>
  *
  * @author   Anton Shevchuk
  * @created  06.07.11 16:07

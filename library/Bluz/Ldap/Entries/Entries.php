@@ -21,12 +21,19 @@
  * THE SOFTWARE.
  */
 
+/**
+ * @namespace
+ */
 namespace Bluz\Ldap\Entries;
+
 use ArrayAccess;
 use IteratorAggregate;
 
 /**
  * Ldap search results entries
+ *
+ * @category Bluz
+ * @package Ldap
  */
 class Entries implements ArrayAccess, IteratorAggregate
 {

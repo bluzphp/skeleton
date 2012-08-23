@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2012 by Bluz PHP Team
  *
@@ -35,6 +34,7 @@ return
 /**
  * partial loop
  *
+ * <pre>
  * <code>
  * <?php
  *  $data = array(2,4,6,8);
@@ -51,6 +51,7 @@ return
  *  </tr>
  * ?>
  * </code>
+ * </pre>
  *
  * @param       $template
  * @param array $data

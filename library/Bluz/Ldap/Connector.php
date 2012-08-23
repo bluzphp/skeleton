@@ -21,7 +21,11 @@
  * THE SOFTWARE.
  */
 
+/**
+ * @namespace
+ */
 namespace Bluz\Ldap;
+
 use Bluz\Exception;
 
 /**

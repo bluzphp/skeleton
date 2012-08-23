@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2012 by Bluz PHP Team
  *
@@ -33,6 +32,7 @@ namespace Bluz;
  * @category Bluz
  * @package  Package
  *
+ * <pre>
  * <code>
  * class Foo
  * {
@@ -54,6 +54,7 @@ namespace Bluz;
  *
  * $Foo = new Foo(array('bar'=>123, 'baz'=>456));
  * </code>
+ * </pre>
  *
  * @author   Anton Shevchuk
  * @created  12.07.11 16:15

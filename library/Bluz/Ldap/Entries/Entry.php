@@ -20,8 +20,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+/**
+ * @namespace
+ */
 namespace Bluz\Ldap\Entries;
 
+/**
+ * Ldap entries
+ *
+ * @category Bluz
+ * @package Ldap
+ */
 class Entry
 {
 

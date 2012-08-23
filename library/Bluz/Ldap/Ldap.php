@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Copyright (c) 2012 by Bluz PHP Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -30,6 +29,7 @@ namespace Bluz\Ldap;
 /**
  * Ldap
  *
+ * <pre>
  * <code>
  * $ldap->setHost('x.x.x.x');
  * $ldap->setDomain('somedomain.com');
@@ -61,8 +61,8 @@ namespace Bluz\Ldap;
  * } catch (Exception $err) {
  *      print($err->getMessage());
  * }
- *
  * </code>
+ * </pre>
  *
  * @category Bluz
  * @package  Ldap

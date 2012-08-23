@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright (C) 2012 by Bluz PHP Team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,6 +21,9 @@
  * THE SOFTWARE.
  */
 
+/**
+ * @namespace
+ */
 namespace Bluz\Db;
 
 /**

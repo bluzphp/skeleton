@@ -21,6 +21,9 @@
  * THE SOFTWARE.
  */
 
+/**
+ * @namespace
+ */
 namespace Bluz\Db;
 
 /**
@@ -28,7 +31,8 @@ namespace Bluz\Db;
  *
  * @category Bluz
  * @package  Db
- * @example
+ *
+ * <pre>
  * <code>
  * namespace Application\Users;
  * class Table extends \Bluz\Db\Table
@@ -46,6 +50,7 @@ namespace Bluz\Db;
  * }
  *
  * </code>
+ * </pre>
  *
  * @author   Anton Shevchuk
  * @created  08.07.11 17:32

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2012 by Bluz PHP Team
  *
@@ -35,9 +34,11 @@ return
 /**
  * widget
  *
+ * <pre>
  * <code>
  * $this->widget($module, $controller, array $params);
  * </code>
+ * </pre>
  *
  * @param string $module
  * @param string $widget

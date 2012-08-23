@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2012 by Bluz PHP Team
  *
@@ -35,6 +34,9 @@ use Bluz\Profiler;
  * @category Bluz
  * @package  Db
  *
+ * @link https://github.com/AntonShevchuk/Bluz/wiki/Db
+ *
+ * <pre>
  * <code>
  * // init settings, not connect!
  * $db->setConnect(array(
@@ -73,6 +75,7 @@ use Bluz\Profiler;
  * // .. to exists instance of Some object
  * $someClass = $db->fetchObject('SELECT * FROM some_table WHERE id = ?', array($id), $someClass);
  * </code>
+ * </pre>
  *
  * @author   Anton Shevchuk
  * @created  07.07.11 15:36
