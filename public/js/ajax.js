@@ -22,53 +22,60 @@
 (function($){
 	$(function() {
 		// Ajax global events
-		$("#loading").bind("ajaxSend", function(){
-		    $(this).show();
-		}).bind("ajaxComplete", function(){
-		    $(this).hide();
-		});
-
-        // Ajax callback
-        var ajax = {
-			success:function(data) {
-				// return
-				if (data == null) {
-					return false;
-				}
-
-				// redirect and reload page
-				var callback = null;
-				if (data._reload != undefined) {
-					callback = function() {
-						// reload current page
-						window.location.reload();
+		$("#loading")
+			.ajaxStart(function(event, jqXHR, options){
+				console.log(this, event, jqXHR, options);
+				$(this).show();
+			})
+			.ajaxSuccess(function(event, jqXHR, options){
+				if (options.dataType == 'json') {
+					try {
+					    var data = jQuery.parseJSON(jqXHR.responseText);
+					} catch(error) {
+					    // its not json
+						return false;
 					}
-				} else if (data._redirect != undefined) {
-					callback = function() {
-						// redirect to another page
-						window.location = data.redirect;
+					// check handler option
+					if (data._handler == undefined) {
+						return false;
+					}
+					// it has the data
+					// redirect and reload page
+					var callback = null;
+					if (data._reload != undefined) {
+						callback = function() {
+							// reload current page
+							window.location.reload();
+						}
+					} else if (data._redirect != undefined) {
+						callback = function() {
+							// redirect to another page
+							window.location = data.redirect;
+						}
+					}
+
+					// show messages and run callback after
+					if (data._messages != undefined) {
+						Messages.setCallback(callback);
+						Messages.addMessages(data._messages);
+					} else if (callback) {
+						callback();
+					}
+
+					if (data.callback != undefined && $.isFunction(window[data.callback])) {
+						window[data.callback](data);
 					}
 				}
-
-				// show messages and run callback after
-				if (data._messages != undefined) {
-					Messages.setCallback(callback);
-					Messages.addMessages(data._messages);
-				} else if (callback) {
-					callback();
-				}
-
-				if (data.callback != undefined && $.isFunction(window[data.callback])) {
-					window[data.callback](data);
-				}
-			},
-			error:function(jqXHR, textStatus, errorThrown) {
+			})
+			.ajaxError(function(event, jqXHR, options, thrownError){
 				if (console != undefined) {
-					console.error(errorThrown, "Response Text:", jqXHR.responseText);
+					console.error(thrownError, "Response Text:", jqXHR.responseText);
 				}
 				Messages.addError('Connection is fail');
-			}
-		};
+			})
+			.ajaxComplete(function(event, jqXHR, options){
+				$(this).hide();
+			});
 
         // get only plain data
         var processData = function(el) {
@@ -106,11 +113,14 @@
 				}
 			}
 
+			var method = $this.data('method');
+
             var data = processData($this);
             data.json = 1;
 
-            $.ajax($.extend({
+            $.ajax({
                 url:$this.attr('href'),
+				type: (method?method:'post'),
                 data: data,
                 dataType:'json',
                 beforeSend:function() {
@@ -119,7 +129,7 @@
                 complete:function() {
                     $this.removeClass('disabled');
                 }
-            }, ajax));
+            });
             return false;
         })
 		// Ajax modal
@@ -130,8 +140,11 @@
 				return false;
 			}
 
+			var method = $this.data('method');
+
 			$.ajax({
 				url:$this.attr('href'),
+				type: (method?method:'post'),
 				data: processData($this),
 				dataType:'html',
 				beforeSend:function() {
@@ -175,6 +188,7 @@
                 return false;
             }
 
+			var method = $this.attr('method');
             var data = {json: 1}; //responses as json
             var formData = $this.serializeArray();
 
@@ -182,9 +196,9 @@
                 data[formData[i].name] = formData[i].value;
             }
 
-            $.ajax($.extend({
+            $.ajax({
                 url: $this.attr('action'),
-                type: 'post',
+				type: (method?method:'post'),
                 data: data,
                 dataType:'json',
                 beforeSend:function() {
@@ -193,7 +207,7 @@
                 complete:function() {
                     $this.removeClass('disabled');
                 }
-            }, ajax));
+            });
             return false;
         })
 

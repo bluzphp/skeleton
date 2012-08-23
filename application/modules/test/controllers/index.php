@@ -13,6 +13,9 @@ return
  * @return \closure
  */
 function() use ($bootstrap, $request, $view) {
+    $view->title('Test Module');
+    $view->title('Append', $view::POS_APPEND);
+    $view->title('Prepend', $view::POS_PREPEND);
     /**
      * @var \closure $bootstrap
      * @var Bluz\Application $this

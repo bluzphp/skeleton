@@ -12,18 +12,23 @@ return
 /**
  * @return \closure
  */
-function() use ($view) {
+function($messages = false) use ($view) {
     /**
      * @var Bluz\Application $this
      * @var Bluz\View\View $view
      */
-    $this->getMessages()->addNotice('Notice Text');
-    $this->getMessages()->addSuccess('Success Text');
-    $this->getMessages()->addError('Error Text');
+    if ($messages) {
+        $this->getMessages()->addNotice('Notice Text');
+        $this->getMessages()->addSuccess('Success Text');
+        $this->getMessages()->addError('Error Text');
+    }
 
-//die(123);
-    $view->test = 123;
+    $this->getMessages()->addNotice('Method '. $this->getRequest()->getMethod());
+
+    $view->foo = 'bar';
     //$this->reload();
+    //$this->redirect('http://google.com');
+    //$this->redirectTo('test', 'index');
 
     sleep(2);
 };
