@@ -4,8 +4,8 @@
  * <code>
  *    <a href="/get" class="ajax">Click Me!</a>
  *    <a href="/dialog" class="dialog">Click Me!</a>
- *    <a href="/delete" class="confirm">Click Me!</a>
- *    <a href="/delete" class="ajax confirm">Click Me!</a>
+ *    <a href="/delete" class="confirm" data-confirm="Are you sure?">Click Me!</a>
+ *    <a href="/delete" class="ajax confirm" data-id="3" data-method="DELETE">Click Me!</a>
  *    <form action="/save/" class="ajax">
  *        ...
  *    </form>
@@ -95,8 +95,16 @@
 
         // live event handlers
         $('body')
-		// disabled bootstrap dropdown event handler
-//		.off('.dropdown', 'a.ajax, a.dialog, a.confirm')
+        // Confirmation dialog
+        .on('click.bluz', '.confirm', function(event){
+            var $this = $(this);
+
+            var message = $this.data('confirm') ? $this.data('confirm') : 'Are you sure?';
+            if (!confirm(message)) {
+				event.stopImmediatePropagation();
+				event.preventDefault();
+            }
+        })
 		// Ajax links
 		.on('click.bluz.ajax', 'a.ajax', function(){
             var $this = $(this);
@@ -104,13 +112,6 @@
                 // request in progress
                 return false;
             }
-
-			if ($this.hasClass('confirm')) {
-				var message = $this.attr('title') ? $this.attr('title') : 'Are you sure?';
-				if (!confirm(message)) {
-					return false;
-				}
-			}
 
 			var method = $this.data('method');
 
@@ -131,7 +132,7 @@
             });
             return false;
         })
-		// Ajax modal
+		// Ajax modal dialog
 		.on('click.bluz.ajax', 'a.dialog', function(){
 			var $this = $(this);
 			if ($this.hasClass('disabled')) {
@@ -209,15 +210,6 @@
             });
             return false;
         })
-
-        // Confirmation dialog
-        .on('click.bluz', '.confirm:not(.ajax)', function(e){
-            var $this = $(this);
-
-            var message = $this.attr('title') ? $this.attr('title') : 'Are you sure?';
-            if (!confirm(message)) {
-                e.preventDefault();
-            }
-        });
+		;
     });
 })(jQuery, undefined);
