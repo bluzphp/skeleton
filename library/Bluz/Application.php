@@ -495,7 +495,7 @@ class Application
             $dispatchResult = $this->dispatch(
                 $this->request->module(),
                 $this->request->controller(),
-                $this->request->getParams()
+                $this->request->getAllParams()
             );
 
             // move vars from layout to view instance

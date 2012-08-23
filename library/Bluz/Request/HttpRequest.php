@@ -140,6 +140,16 @@ class HttpRequest extends AbstractRequest
     }
 
     /**
+     * Get all request parameters
+     *
+     * @return array
+     */
+    public function getAllParams()
+    {
+        return array_merge($_ENV, $_SERVER, $_COOKIE, $_POST, $_GET, $this->params);
+    }
+
+    /**
      * Get the request URI scheme
      *
      * @return string
