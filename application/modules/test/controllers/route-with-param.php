@@ -9,7 +9,7 @@ namespace Application;
 use Bluz;
 return
 /**
- * @route /test/{$a}/
+ * @route /test/param/{$a}/
  * @param string $a
  * @return \closure
  */
@@ -18,7 +18,7 @@ function($a) {
         echo <<<CODE
 <pre>
 /**
- * @route /test/{\$a}/
+ * @route /test/param/{\$a}/
  * @param string \$a
  * @return closure
  */
