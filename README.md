@@ -81,9 +81,7 @@ Read LICENSE file
 ## Vendors
 
 * jQuery - https://github.com/jquery/jquery
-* jQuery UI - https://github.com/jquery/jquery-ui
-* Boostrap - http://twitter.github.com/bootstrap/javascript.html
-* jQuery UI Bootstrap - http://addyosmani.github.com/jquery-ui-bootstrap
+* Bootstrap - http://twitter.github.com/bootstrap/javascript.html
 
 [1]: https://github.com/AntonShevchuk
 [2]: https://github.com/Baziak
