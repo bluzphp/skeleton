@@ -43,9 +43,14 @@ abstract class Grid
     use \Bluz\Helper;
 
     /**
-     * @var AbstractAdapter
+     * @var Source\AbstractSource
      */
     protected $adapter;
+
+    /**
+     * @var Data
+     */
+    protected $data;
 
     /**
      * Unique identification of grid
@@ -87,6 +92,7 @@ abstract class Grid
      * @var array
      */
     protected $allowOrders = array();
+
     /**
      * __construct
      *
@@ -95,6 +101,8 @@ abstract class Grid
     public function __construct()
     {
         $this->init();
+        $this->processRequest($this->getApplication()->getRequest());
+        $this->processSource();
     }
 
     /**
@@ -107,10 +115,10 @@ abstract class Grid
     /**
      * setAdapter
      *
-     * @param AbstractAdapter $adapter
+     * @param Source\AbstractSource $adapter
      * @return Grid
      */
-    public function setAdapter(AbstractAdapter $adapter)
+    public function setAdapter(Source\AbstractSource $adapter)
     {
         $this->adapter = $adapter;
         return $this;
@@ -120,7 +128,7 @@ abstract class Grid
      * getAdapter
      *
      * @throws GridException
-     * @return AbstractAdapter
+     * @return Source\AbstractSource
      */
     public function getAdapter()
     {
@@ -160,7 +168,11 @@ abstract class Grid
             $prefix = '';
         }
 
-        $request->getParam($prefix.'page', 1);
+        $page = $request->getParam($prefix.'page', 1);
+        $this->setPage($page);
+
+        $limit = $request->getParam($prefix.'limit', $this->limit);
+        $this->setLimit($limit);
 
         foreach ($this->allowOrders as $column) {
             $order = $request->getParam($prefix.'order-'.$column);
@@ -169,18 +181,59 @@ abstract class Grid
             }
         }
 
-
-
-
         return $this;
     }
 
+    /**
+     * processSource
+     *
+     * @throws GridException
+     * @return self
+     */
+    public function processSource()
+    {
+        if (null === $this->adapter) {
+            throw new GridException("Grid Adapter is not initiated, please change method init() and try again");
+        }
+
+        $settings = array();
+        $settings['page'] = $this->page;
+        $settings['limit'] = $this->limit;
+        $settings['orders'] = $this->orders;
+
+
+        $this->data = $this->getAdapter()->process($settings);
+        
+        return $this;
+    }
+    
+    /**
+     * getData
+     * 
+     * @return Data
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * setAllowOrders
+     *
+     * @param array $orders
+     * @return Grid
+     */
+    public function setAllowOrders(array $orders = [])
+    {
+        $this->allowOrders = $orders;
+        return $this;
+    }
 
     /**
      * @param        $column
      * @param string $order
-     * @return AbstractAdapter
      * @throws GridException
+     * @return Grid
      */
     public function addOrder($column, $order = Grid::ORDER_ASC)
     {
@@ -200,7 +253,7 @@ abstract class Grid
 
     /**
      * @param array $orders
-     * @return AbstractAdapter
+     * @return Grid
      */
     public function addOrders(array $orders)
     {
@@ -213,7 +266,7 @@ abstract class Grid
     /**
      * @param        $column
      * @param string $order
-     * @return AbstractAdapter
+     * @return Grid
      */
     public function setOrder($column, $order = Grid::ORDER_ASC)
     {
@@ -224,7 +277,7 @@ abstract class Grid
 
     /**
      * @param array $orders
-     * @return AbstractAdapter
+     * @return Grid
      */
     public function setOrders(array $orders)
     {
@@ -236,18 +289,35 @@ abstract class Grid
     }
 
     /**
-     * setLimit
+     * setPage
      *
-     * @param $limit
+     * @param int $page
      * @throws GridException
      * @return Grid
      */
-    function setLimit($limit)
+    public function setPage($page = 1)
+    {
+        if ($page < 1) {
+            throw new GridException('Wrong page number, should be greater than zero');
+        }
+        $this->page = (int) $page;
+        return $this;
+    }
+
+
+    /**
+     * setLimit
+     *
+     * @param int $limit
+     * @throws GridException
+     * @return Grid
+     */
+    public function setLimit($limit)
     {
         if ($limit < 1) {
-            throw new GridException('Wrong limit');
+            throw new GridException('Wrong limit, should be greater than zero');
         }
-        $this->limit = $limit;
+        $this->limit = (int) $limit;
         return $this;
     }
 }

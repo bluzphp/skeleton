@@ -24,35 +24,39 @@
 /**
  * @namespace
  */
-namespace Application\Pages;
-
+namespace Bluz\Grid\Source;
 
 /**
- * Pages Grid
+ * Adapter
  *
- * @category Application
- * @package  Pages
+ * @category Bluz
+ * @package  Grid
+ *
+ * @author   Anton Shevchuk
+ * @created  15.08.12 11:52
  */
-class Grid extends \Bluz\Grid\Grid
+abstract class AbstractSource
 {
-    /**
-     * init
-     * 
-     * @return Grid
-     */
-    public function init()
-    {
-         // Array
-         $adapter = new \Bluz\Grid\Source\ArraySource();
-         $adapter->setSource([
-             ['id'=>1, 'name'=>'Foo', 'email'=>'a@bc.com', 'status'=>'active'],
-             ['id'=>2, 'name'=>'Bar', 'email'=>'d@ef.com', 'status'=>'active'],
-             ['id'=>3, 'name'=>'Foo 2', 'email'=>'m@ef.com', 'status'=>'disable'],
-             ['id'=>4, 'name'=>'Foo 3', 'email'=>'j@ef.com', 'status'=>'disable'],
-         ]);
 
-         $this->setAdapter($adapter);
-         $this->setLimit(2);
-         $this->setAllowOrders(['id', 'name']);
-    }
+    /**
+     * @var mixed
+     */
+    protected $source;
+
+    /**
+     * Setup adapter source
+     *
+     * @param $source
+     * @return AbstractSource
+     */
+    abstract public function setSource($source);
+
+    /**
+     * Process source
+     *
+     * @param array $settings
+     * @return AbstractSource
+     */
+    abstract public function process(array $settings = []);
+
 }

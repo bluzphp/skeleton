@@ -24,35 +24,27 @@
 /**
  * @namespace
  */
-namespace Application\Pages;
-
+namespace Bluz\Grid\Source;
 
 /**
- * Pages Grid
+ * Table Source Adapter for Grid package
  *
- * @category Application
- * @package  Pages
+ * @category Bluz
+ * @package  Grid
+ *
+ * @author   Anton Shevchuk
+ * @created  27.08.12 10:06
  */
-class Grid extends \Bluz\Grid\Grid
+class TableSource extends AbstractSource
 {
     /**
-     * init
-     * 
-     * @return Grid
+     * setSource
+     *
+     * @param $source
+     * @return self
      */
-    public function init()
+    public function setSource($source)
     {
-         // Array
-         $adapter = new \Bluz\Grid\Source\ArraySource();
-         $adapter->setSource([
-             ['id'=>1, 'name'=>'Foo', 'email'=>'a@bc.com', 'status'=>'active'],
-             ['id'=>2, 'name'=>'Bar', 'email'=>'d@ef.com', 'status'=>'active'],
-             ['id'=>3, 'name'=>'Foo 2', 'email'=>'m@ef.com', 'status'=>'disable'],
-             ['id'=>4, 'name'=>'Foo 3', 'email'=>'j@ef.com', 'status'=>'disable'],
-         ]);
-
-         $this->setAdapter($adapter);
-         $this->setLimit(2);
-         $this->setAllowOrders(['id', 'name']);
+        
     }
 }

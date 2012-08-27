@@ -96,7 +96,7 @@
         // live event handlers
         $('body')
         // Confirmation dialog
-        .on('click.bluz', '.confirm', function(event){
+        .on('click.bluz.confirm', '.confirm', function(event){
             var $this = $(this);
 
             var message = $this.data('confirm') ? $this.data('confirm') : 'Are you sure?';

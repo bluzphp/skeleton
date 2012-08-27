@@ -24,26 +24,27 @@
 /**
  * @namespace
  */
-namespace Bluz\Grid;
+namespace Bluz\Grid\Source;
 
 /**
- * Adapter
+ * SQL Source Adapter for Grid package
  *
  * @category Bluz
  * @package  Grid
  *
  * @author   Anton Shevchuk
- * @created  15.08.12 11:52
+ * @created  27.08.12 10:10
  */
-abstract class AbstractAdapter
+class SqlSource extends AbstractSource
 {
-
     /**
-     * Setup adapter source
+     * setSource
      *
      * @param $source
-     * @return AbstractAdapter
+     * @return self
      */
-    abstract public function setSource($source);
-
+    public function setSource($source)
+    {
+        
+    }
 }

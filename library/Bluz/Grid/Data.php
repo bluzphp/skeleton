@@ -35,7 +35,7 @@ namespace Bluz\Grid;
  * @author   AntonShevchuk
  * @created  16.08.12 9:55
  */
-abstract class Data implements \Iterator, \Countable, \ArrayAccess
+class Data implements \Iterator, \Countable, \ArrayAccess
 {
     /**
      * Iterator pointer.

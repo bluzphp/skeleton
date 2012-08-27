@@ -1,0 +1,39 @@
+<?php
+//$data = [];
+//$data[] = array('volume' => 67, 'edition' => 2);
+//$data[] = array('volume' => 86, 'edition' => 1);
+//$data[] = array('volume' => 85, 'edition' => 6);
+//$data[] = array('volume' => 98, 'edition' => 2);
+//$data[] = array('volume' => 86, 'edition' => 6);
+//$data[] = array('volume' => 67, 'edition' => 7);
+//// Obtain a list of columns
+//foreach ($data as $key => $row) {
+//    $volume[$key]  = $row['volume'];
+//    $edition[$key] = $row['edition'];
+//}
+//
+//var_dump($volume, $edition);
+//
+//// Sort the data with volume descending, edition ascending
+//// Add $data as the last parameter, to sort by the common key
+//array_multisort($volume, SORT_DESC, $edition, SORT_ASC, $data);
+?>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($grid->getData() as $row) : ?>
+        <tr>
+            <td><?=$row['id']?></td>
+            <td><?=$row['name']?></td>
+            <td><?=$row['email']?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
