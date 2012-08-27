@@ -80,6 +80,16 @@ class Data implements \Iterator, \Countable, \ArrayAccess
     }
 
     /**
+     * total
+     * 
+     * @return integer
+     */
+    public function total()
+    {
+        return $this->total;
+    }
+    
+    /**
      * Rewind the Iterator to the first element.
      * Similar to the reset() function for arrays in PHP.
      * Required by interface Iterator.

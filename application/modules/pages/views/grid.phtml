@@ -1,30 +1,11 @@
-<?php
-//$data = [];
-//$data[] = array('volume' => 67, 'edition' => 2);
-//$data[] = array('volume' => 86, 'edition' => 1);
-//$data[] = array('volume' => 85, 'edition' => 6);
-//$data[] = array('volume' => 98, 'edition' => 2);
-//$data[] = array('volume' => 86, 'edition' => 6);
-//$data[] = array('volume' => 67, 'edition' => 7);
-//// Obtain a list of columns
-//foreach ($data as $key => $row) {
-//    $volume[$key]  = $row['volume'];
-//    $edition[$key] = $row['edition'];
-//}
-//
-//var_dump($volume, $edition);
-//
-//// Sort the data with volume descending, edition ascending
-//// Add $data as the last parameter, to sort by the common key
-//array_multisort($volume, SORT_DESC, $edition, SORT_ASC, $data);
-?>
+Limit: <a href="<?=$grid->limit(5)?>">5</a>, <a href="<?=$grid->limit(10)?>">10</a>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Email</th>
+            <th><a href="<?=$grid->order('id', null, 'desc', false)?>">Id</a></th>
+            <th><a href="<?=$grid->order('name')?>">Name</a></th>
+            <th><a href="<?=$grid->order('email')?>">Email</a></th>
         </tr>
     </thead>
     <tbody>
@@ -36,4 +17,15 @@
         </tr>
         <?php endforeach; ?>
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">
+                <?php if ($prev = $grid->prev()) : ?><a href="<?=$prev?>">Prev</a> <?php endif; ?>
+                <?php if ($next = $grid->next()) : ?><a href="<?=$next?>">Next</a> <?php endif; ?>
+            </td>
+            <td>
+                Total: <strong><?=$grid->total()?></strong> records on <strong><?=$grid->pages()?></strong> pages
+            </td>
+        </tr>
+    </tfoot>
 </table>

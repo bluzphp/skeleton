@@ -103,6 +103,8 @@ abstract class Grid
         $this->init();
         $this->processRequest($this->getApplication()->getRequest());
         $this->processSource();
+        // initial default helper path
+        $this->addHelperPath(dirname(__FILE__) . '/Helper/');
     }
 
     /**
@@ -196,13 +198,9 @@ abstract class Grid
             throw new GridException("Grid Adapter is not initiated, please change method init() and try again");
         }
 
-        $settings = array();
-        $settings['page'] = $this->page;
-        $settings['limit'] = $this->limit;
-        $settings['orders'] = $this->orders;
 
 
-        $this->data = $this->getAdapter()->process($settings);
+        $this->data = $this->getAdapter()->process($this->getSettings());
         
         return $this;
     }
@@ -215,6 +213,55 @@ abstract class Grid
     public function getData()
     {
         return $this->data;
+    }
+    
+    /**
+     * getSettings
+     * 
+     * @return array
+     */
+    public function getSettings()
+    {
+        $settings = array();
+        $settings['page'] = $this->page;
+        $settings['limit'] = $this->limit;
+        $settings['orders'] = $this->orders;
+        return $settings;
+    }
+
+    /**
+     * getParams
+     *
+     * @param array $rewrite
+     * @return array
+     */
+    public function getParams(array $rewrite = [])
+    {
+        if ($this->uid) {
+            $prefix = $this->uid .'-';
+        } else {
+            $prefix = '';
+        }
+
+        $params = array();
+        $params[$prefix.'page'] = (isset($rewrite['page']))?$rewrite['page']:$this->page;
+
+        if (isset($rewrite['limit'])) {
+            $params[$prefix.'limit'] = ($rewrite['limit']!=$this->limit)?$rewrite['limit']:$this->limit;
+        }
+
+
+        if (isset($rewrite['orders'])) {
+            foreach($rewrite['orders'] as $column => $order) {
+                $params[$prefix.'order-'.$column] = $order;
+            }
+        } else {
+            foreach($this->orders as $column => $order) {
+                $params[$prefix.'order-'.$column] = $order;
+            }
+        }
+
+        return $params;
     }
 
     /**
