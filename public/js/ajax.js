@@ -132,8 +132,49 @@
             });
             return false;
         })
+		// Ajax load
+		.on('click.bluz.ajax', '.load', function(){
+			var $this = $(this);
+			if ($this.hasClass('disabled')) {
+				// request in progress
+				return false;
+			}
+
+			var method = $this.data('method');
+			var target = $this.data('target');
+			var source = $this.attr('href') || $this.data('source');
+
+			if (!target) {
+				throw "Undefined 'data-target' attribute";
+			}
+
+			if (!source) {
+				throw "Undefined 'data-source' attribute (and href is missing)";
+			}
+
+			$.ajax({
+				url: source,
+				type: (method?method:'post'),
+				data: processData($this),
+				dataType:'html',
+				beforeSend:function() {
+				    $this.addClass('disabled');
+				},
+				success:function(data) {
+					var $target = $(target);
+					if ($target.length == 0) {
+						throw "Element defined by 'data-target' not found";
+					}
+					$target.html(data);
+				},
+				complete:function() {
+				    $this.removeClass('disabled');
+				}
+			});
+			return false;
+		})
 		// Ajax modal dialog
-		.on('click.bluz.ajax', 'a.dialog', function(){
+		.on('click.bluz.ajax', '.dialog', function(){
 			var $this = $(this);
 			if ($this.hasClass('disabled')) {
 				// request in progress
@@ -169,9 +210,6 @@
 						$(this).remove();
 					});
 					$div.modal('show');
-				},
-				error:function() {
-				   Messages.addError('Connection is fail');
 				},
 				complete:function() {
 				   $this.removeClass('disabled');
