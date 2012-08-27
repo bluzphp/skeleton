@@ -38,11 +38,11 @@ function () {
     /**
      * @var Grid\Grid $this
      */
-    if ($this->page >= $this->pages()) {
+    if ($this->getPage() >= $this->pages()) {
         return null;
     }
     $rewrite = [];
-    $rewrite['page'] = $this->page + 1;
+    $rewrite['page'] = $this->getPage() + 1;
 
     // prepare params
     $params = $this->getParams($rewrite);

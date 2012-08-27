@@ -275,6 +275,16 @@ abstract class Grid
         $this->allowOrders = $orders;
         return $this;
     }
+    
+    /**
+     * getAllowOrders
+     * 
+     * @return array
+     */
+    public function getAllowOrders()
+    {
+        return $this->allowOrders;
+    }
 
     /**
      * @param        $column
@@ -336,6 +346,16 @@ abstract class Grid
     }
 
     /**
+     * getOrders
+     * 
+     * @return array
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
      * setPage
      *
      * @param int $page
@@ -351,6 +371,15 @@ abstract class Grid
         return $this;
     }
 
+    /**
+     * getPage
+     * 
+     * @return integer
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
 
     /**
      * setLimit
@@ -366,5 +395,15 @@ abstract class Grid
         }
         $this->limit = (int) $limit;
         return $this;
+    }
+
+    /**
+     * getLimit
+     * 
+     * @return integer
+     */
+    public function getLimit()
+    {
+        return $this->limit;
     }
 }

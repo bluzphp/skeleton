@@ -38,5 +38,5 @@ function () {
     /**
      * @var Grid\Grid $this
      */
-    return ceil($this->getData()->total()/$this->limit);
+    return ceil($this->getData()->total()/$this->getLimit());
 };

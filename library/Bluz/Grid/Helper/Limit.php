@@ -40,7 +40,7 @@ function ($limit = 25) {
      */
     $rewrite['limit'] = (int) $limit;
 
-    if ($limit != $this->limit) {
+    if ($limit != $this->getLimit()) {
         $rewrite['page'] = 1;
     }
 

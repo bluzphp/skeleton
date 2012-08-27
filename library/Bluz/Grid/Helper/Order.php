@@ -38,13 +38,16 @@ function ($column, $order = null, $defaultOrder = Grid\Grid::ORDER_ASC, $reset =
     /**
      * @var Grid\Grid $this
      */
-    if (!in_array($column, $this->allowOrders)) {
+    if (!in_array($column, $this->getAllowOrders())) {
         return null;
     }
+
+    $orders = $this->getOrders();
+
     // change order
     if (null === $order) {
-        if (isset($this->orders[$column])) {
-            $order = ($this->orders[$column]==Grid\Grid::ORDER_ASC)?
+        if (isset($orders[$column])) {
+            $order = ($orders[$column]==Grid\Grid::ORDER_ASC)?
                     Grid\Grid::ORDER_DESC:Grid\Grid::ORDER_ASC;
         } else {
             $order = $defaultOrder;
@@ -55,7 +58,7 @@ function ($column, $order = null, $defaultOrder = Grid\Grid::ORDER_ASC, $reset =
     if ($reset) {
         $rewrite = ['orders' => []];
     } else {
-        $rewrite = ['orders' => $this->orders];
+        $rewrite = ['orders' => $orders];
     }
 
     $rewrite['orders'][$column] = $order;
