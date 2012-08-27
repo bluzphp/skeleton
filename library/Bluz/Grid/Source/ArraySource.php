@@ -67,8 +67,8 @@ class ArraySource extends AbstractSource
     public function process(array $settings = [])
     {
         $data = $this->source;
-        $total = sizeof($data);
 
+        // process orders
         if (!empty($settings['orders'])) {
             // Create empty column stack
             $orders = [];
@@ -93,10 +93,45 @@ class ArraySource extends AbstractSource
             // Sort the data with volume descending, edition ascending
             // Add $data as the last parameter, to sort by the common key
             call_user_func_array('array_multisort', $funcArgs);
-            //array_multisort($volume, SORT_DESC, $edition, SORT_ASC, $data);
         }
 
+        // process filters
+        if (!empty($settings['filters'])) {
+            $data = array_filter($data, function($row) use ($settings){
+                foreach ($settings['filters'] as $column => $filters) {
+                    foreach ($filters as $filter => $value) {
+                        // switch statement for $filter
+                        switch ($filter) {
+                            case Grid\Grid::FILTER_EQ:
+                                if ($row[$column] != $value) return false;
+                                break;
+                            case Grid\Grid::FILTER_NE:
+                                if ($row[$column] == $value) return false;
+                                break;
+                            case Grid\Grid::FILTER_GT:
+                                if ($row[$column] <= $value) return false;
+                                break;
+                            case Grid\Grid::FILTER_GE:
+                                if ($row[$column] < $value) return false;
+                                break;
+                            case Grid\Grid::FILTER_LT:
+                                if ($row[$column] >= $value) return false;
+                                break;
+                            case Grid\Grid::FILTER_LE:
+                                if ($row[$column] > $value) return false;
+                                break;
+                        }
+                    }
+                    return true;
+                }
+            });
+        }
+
+        $total = sizeof($data);
+
+        // process pages
         $data = array_slice($data, ($settings['limit']*($settings['page']-1)), $settings['limit']);
+
         return new Grid\Data($data, $total);
     }
 }

@@ -42,6 +42,19 @@ abstract class Grid
     use \Bluz\Package;
     use \Bluz\Helper;
 
+    const ORDER_ASC = 'asc';
+    const ORDER_DESC = 'desc';
+
+    const FILTER_ENUM = 'enum'; // one from .., .., ..
+    const FILTER_NUM = 'num';   // ==, !=, >, >=, <, <=
+
+    const FILTER_EQ = 'eq'; // equal to ..
+    const FILTER_NE = 'ne'; // not equal to ..
+    const FILTER_GT = 'gt'; // greater than ..
+    const FILTER_GE = 'ge'; // greater than .. or equal
+    const FILTER_LT = 'lt'; // less than ..
+    const FILTER_LE = 'le'; // less than .. or equal
+
     /**
      * @var Source\AbstractSource
      */
@@ -66,9 +79,6 @@ abstract class Grid
      */
     protected $prefix;
 
-    const ORDER_ASC = 'asc';
-    const ORDER_DESC = 'desc';
-
     /**
      * Start from 1!
      *
@@ -87,23 +97,43 @@ abstract class Grid
     protected $defaultLimit = 25;
 
     /**
+     * <pre>
      * <code>
      * [
      *     'first' => 'ASC',
      *     'last' => 'ASC'
      * ]
      * </code>
+     * </pre>
      * @var array
      */
     protected $orders = array();
 
     /**
+     * <pre>
      * <code>
      * ['first', 'last', 'email']
      * </code>
+     * </pre>
      * @var array
      */
     protected $allowOrders = array();
+
+    /**
+     * @var array
+     */
+    protected $filters = array();
+
+    /**
+     * <pre>
+     * <code>
+     * ['id', 'status' => ['active', 'disable']]
+     * </code>
+     * </pre>
+     *
+     * @var array
+     */
+    protected $allowFilters = array();
 
     /**
      * __construct
@@ -195,6 +225,32 @@ abstract class Grid
             }
         }
 
+        foreach ($this->allowFilters as $column) {
+            $filter = $request->getParam($this->prefix.'filter-'.$column);
+            if ($filter) {
+                if (strpos($filter, '-')) {
+                    $filter = trim($filter, ' -');
+
+                    while ($pos = strpos($filter, '-')) {
+
+                        $filterType = substr($filter, 0, $pos);
+                        $filter = substr($filter, $pos+1);
+
+                        if ($pos = strpos($filter, '-')) {
+                            $filterValue = substr($filter, 0, strpos($filter, '-'));
+                            $filter = substr($filter, strpos($filter, '-')+1);
+                        } else {
+                            $filterValue = $filter;
+                        }
+
+                        $this->addFilter($column, $filterType, $filterValue);
+                    }
+
+                } else {
+                    $this->addFilter($column, self::FILTER_EQ, $filter);
+                }
+            }
+        }
         return $this;
     }
 
@@ -236,6 +292,7 @@ abstract class Grid
         $settings['page'] = $this->page;
         $settings['limit'] = $this->limit;
         $settings['orders'] = $this->orders;
+        $settings['filters'] = $this->filters;
         return $settings;
     }
 
@@ -267,13 +324,26 @@ abstract class Grid
 
         // change orders
         if (isset($rewrite['orders'])) {
-            foreach($rewrite['orders'] as $column => $order) {
-                $params[$this->prefix.'order-'.$column] = $order;
-            }
+            $orders = $rewrite['orders'];
         } else {
-            foreach($this->orders as $column => $order) {
-                $params[$this->prefix.'order-'.$column] = $order;
+            $orders = $this->orders;
+        }
+        foreach($orders as $column => $order) {
+            $params[$this->prefix.'order-'.$column] = $order;
+        }
+
+        // change filters
+        if (isset($rewrite['filters'])) {
+            $filters = $rewrite['filters'];
+        } else {
+            $filters = $this->filters;
+        }
+        foreach ($filters as $column => $columnFilters) {
+            $columnFilter = [];
+            foreach ($columnFilters as $filterName => $filterValue) {
+                $columnFilter[] = $filterName .'-'. $filterValue;
             }
+            $params[$this->prefix.'filter-'.$column] = join('-', $columnFilter);
         }
 
         return $params;
@@ -368,6 +438,88 @@ abstract class Grid
     public function getOrders()
     {
         return $this->orders;
+    }
+
+    /**
+     * setAllowedFilters
+     *
+     * @param array $filters
+     * @return self
+     */
+    public function setAllowFilters(array $filters = array())
+    {
+        $this->allowFilters = $filters;
+        return $this;
+    }
+    
+    /**
+     * getAllowedFilters
+     * 
+     * @return array
+     */
+    public function getAllowFilters()
+    {
+        return $this->allowFilters;
+    }
+
+    /**
+     * checkFilter
+     *
+     * @param $filter
+     * @return boolean
+     */
+    public function checkFilter($filter)
+    {
+        if ($filter == self::FILTER_EQ or
+            $filter == self::FILTER_NE or
+            $filter == self::FILTER_GT or
+            $filter == self::FILTER_GE or
+            $filter == self::FILTER_LT or
+            $filter == self::FILTER_LE
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * addFilter
+     *
+     * @param string $column
+     * @param string $filter
+     * @param string $value
+     * @throws GridException
+     * @return self
+     */
+    public function addFilter($column, $filter, $value)
+    {
+        if (!in_array($column, $this->allowFilters) &&
+            !array_key_exists($column, $this->allowFilters)) {
+            throw new GridException('Wrong column name for filter');
+        }
+
+        $filter = strtolower($filter);
+
+        if (!$this->checkFilter($filter)) {
+            throw new GridException('Wrong filter name');
+        }
+
+        if (!isset($this->filters[$column])) {
+            $this->filters[$column] = [];
+        }
+        $this->filters[$column][$filter] = $value;
+        return $this;
+    }
+
+
+    /**
+     * getFilters
+     * 
+     * @return array
+     */
+    public function getFilters()
+    {
+        return $this->filters;
     }
 
     /**

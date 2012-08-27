@@ -60,6 +60,7 @@ class ArrayGrid extends \Bluz\Grid\Grid
          $this->setAdapter($adapter);
          $this->setDefaultLimit(3);
          $this->setAllowOrders(['name', 'email', 'id']);
+         $this->setAllowFilters(['status', 'id']);
 
          return $this;
     }

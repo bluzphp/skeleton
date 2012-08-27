@@ -1,3 +1,10 @@
+<p>
+    Filters:<br/>
+    <a href="<?=$grid->filter('id', 'gt', 3)?>">Id &gt; 3</a> <br/>
+    <a href="<?=$grid->filter('id', 'lt', 9)?>">Id &lt; 9</a> <br/>
+    <a href="<?=$grid->filter('id', 'ne', 5, false)?>">AND Id != 5</a>
+</p>
+
 <div class="pagination pagination-right">
     <ul>
         <li><a href="#">Limit</a></li>
@@ -51,7 +58,7 @@
 
     <ul class="right">
         <li>
-            <a href="#">Total:
+            <a href="<?=$grid->reset()?>">Total:
                 <strong><?=$grid->total()?></strong> <?=$this->__('record','records', $grid->total())?> on
                 <strong><?=$grid->pages()?></strong> <?=$this->__('page','pages', $grid->pages())?></a>
         </li>
