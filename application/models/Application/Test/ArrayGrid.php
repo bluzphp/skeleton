@@ -24,7 +24,7 @@
 /**
  * @namespace
  */
-namespace Application\Pages;
+namespace Application\Test;
 
 
 /**
@@ -33,12 +33,12 @@ namespace Application\Pages;
  * @category Application
  * @package  Pages
  */
-class Grid extends \Bluz\Grid\Grid
+class ArrayGrid extends \Bluz\Grid\Grid
 {
     /**
      * init
      * 
-     * @return Grid
+     * @return self
      */
     public function init()
     {
@@ -60,5 +60,7 @@ class Grid extends \Bluz\Grid\Grid
          $this->setAdapter($adapter);
          $this->setLimit(3);
          $this->setAllowOrders(['name', 'email', 'id']);
+
+         return $this;
     }
 }

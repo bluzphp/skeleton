@@ -8,12 +8,12 @@
 namespace Application;
 
 use Bluz;
-use Application\Pages;
+use Application\Test;
 
 return
 /**
  * @return \closure
  */
 function() use ($view) {
-    $view->grid = new Pages\Grid();
+    $view->grid = new Test\ArrayGrid();
 };
