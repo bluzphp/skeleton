@@ -59,6 +59,13 @@ abstract class Grid
      */
     protected $uid;
 
+    /**
+     * Unique prefix of grid
+     *
+     * @var string
+     */
+    protected $prefix;
+
     const ORDER_ASC = 'asc';
     const ORDER_DESC = 'desc';
 
@@ -105,6 +112,12 @@ abstract class Grid
      */
     public function __construct()
     {
+        if ($this->uid) {
+            $this->prefix = $this->uid .'-';
+        } else {
+            $this->prefix = '';
+        }
+
         $this->init();
         $this->processRequest($this->getApplication()->getRequest());
         $this->processSource();
@@ -169,20 +182,14 @@ abstract class Grid
      */
     public function processRequest(\Bluz\Request\AbstractRequest $request)
     {
-        if ($this->uid) {
-            $prefix = $this->uid .'-';
-        } else {
-            $prefix = '';
-        }
-
-        $page = $request->getParam($prefix.'page', 1);
+        $page = $request->getParam($this->prefix.'page', 1);
         $this->setPage($page);
 
-        $limit = $request->getParam($prefix.'limit', $this->limit);
+        $limit = $request->getParam($this->prefix.'limit', $this->limit);
         $this->setLimit($limit);
 
         foreach ($this->allowOrders as $column) {
-            $order = $request->getParam($prefix.'order-'.$column);
+            $order = $request->getParam($this->prefix.'order-'.$column);
             if ($order) {
                 $this->addOrder($column, $order);
             }
@@ -233,40 +240,39 @@ abstract class Grid
     }
 
     /**
-     * getParams
+     * return params prepared for url builder
      *
      * @param array $rewrite
      * @return array
      */
     public function getParams(array $rewrite = [])
     {
-        if ($this->uid) {
-            $prefix = $this->uid .'-';
-        } else {
-            $prefix = '';
+        $params = array();
+
+        // change page
+        if (isset($rewrite['page']) && $rewrite['page'] > 1) {
+            $params[$this->prefix.'page'] = $rewrite['page'];
         }
 
-        $params = array();
-        $params[$prefix.'page'] = (isset($rewrite['page']))?$rewrite['page']:$this->page;
-
+        // change limit
         if (isset($rewrite['limit'])) {
             if ($rewrite['limit'] != $this->defaultLimit) {
-                $params[$prefix.'limit'] = ($rewrite['limit']!=$this->limit)?$rewrite['limit']:$this->limit;
+                $params[$this->prefix.'limit'] = ($rewrite['limit']!=$this->limit)?$rewrite['limit']:$this->limit;
             }
         } else {
             if ($this->limit != $this->defaultLimit) {
-                $params[$prefix.'limit'] = $this->limit;
+                $params[$this->prefix.'limit'] = $this->limit;
             }
         }
 
-
+        // change orders
         if (isset($rewrite['orders'])) {
             foreach($rewrite['orders'] as $column => $order) {
-                $params[$prefix.'order-'.$column] = $order;
+                $params[$this->prefix.'order-'.$column] = $order;
             }
         } else {
             foreach($this->orders as $column => $order) {
-                $params[$prefix.'order-'.$column] = $order;
+                $params[$this->prefix.'order-'.$column] = $order;
             }
         }
 
