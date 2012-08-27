@@ -1,9 +1,15 @@
-Limit: <a href="<?=$grid->limit(5)?>">5</a>, <a href="<?=$grid->limit(10)?>">10</a>
+<div class="pagination pagination-right">
+    <ul>
+        <li><a href="#">Limit</a></li>
+        <li <?=(($grid->getLimit()==5)?'class="active"':'')?>><a href="<?=$grid->limit(5)?>">5</a></li>
+        <li <?=(($grid->getLimit()==10)?'class="active"':'')?>><a href="<?=$grid->limit(10)?>">10</a></li>
+    </ul>
+</div>
 
 <table class="table">
     <thead>
         <tr>
-            <th><a href="<?=$grid->order('id', null, 'desc', false)?>">Id</a></th>
+            <th width="40px"><a href="<?=$grid->order('id', null, 'desc', false)?>">Id</a></th>
             <th><a href="<?=$grid->order('name')?>">Name</a></th>
             <th><a href="<?=$grid->order('email')?>">Email</a></th>
         </tr>
@@ -16,16 +22,37 @@ Limit: <a href="<?=$grid->limit(5)?>">5</a>, <a href="<?=$grid->limit(10)?>">10<
             <td><?=$row['email']?></td>
         </tr>
         <?php endforeach; ?>
+        <?php if (sizeof($grid->getData()) < $grid->getLimit()) : $emptyRows = $grid->getLimit() - sizeof($grid->getData()); ?>
+            <?php for ($i = 0; $i < $emptyRows; $i++): ?>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <?php endfor; ?>
+        <?php endif; ?>
     </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="2">
-                <?php if ($prev = $grid->prev()) : ?><a href="<?=$prev?>">Prev</a> <?php endif; ?>
-                <?php if ($next = $grid->next()) : ?><a href="<?=$next?>">Next</a> <?php endif; ?>
-            </td>
-            <td>
-                Total: <strong><?=$grid->total()?></strong> records on <strong><?=$grid->pages()?></strong> pages
-            </td>
-        </tr>
-    </tfoot>
 </table>
+<div class="pagination">
+    <?php if ($grid->pages() > 1) : ?>
+    <ul>
+        <?php if ($prev = $grid->prev()) : ?><li><a href="<?=$prev?>">&laquo;</a></li>
+        <?php else : ?> <li class="disabled"><a href="#">&laquo;</a></li>
+        <?php endif; ?>
+
+        <?php for ($page = 1; $page <= $grid->pages(); $page++) : ?>
+        <li <?=($page!=$grid->getPage()?:'class="active"') ?>><a href="<?=$grid->page($page)?>"><?=$page?></a></li>
+        <?php endfor; ?>
+
+        <?php if ($next = $grid->next()) : ?><li><a href="<?=$next?>">&raquo;</a></li>
+        <?php else : ?> <li class="disabled"><a href="#">&raquo;</a></li>
+        <?php endif; ?>
+    </ul>
+    <?php endif; ?>
+
+    <ul class="right">
+        <li>
+            <a href="#">Total:
+                <strong><?=$grid->total()?></strong> <?=$this->__('record','records', $grid->total())?> on
+                <strong><?=$grid->pages()?></strong> <?=$this->__('page','pages', $grid->pages())?></a>
+        </li>
+    </ul>
+</div>

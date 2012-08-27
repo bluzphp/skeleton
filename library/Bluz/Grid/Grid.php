@@ -75,6 +75,11 @@ abstract class Grid
     protected $limit = 25;
 
     /**
+     * @var int
+     */
+    protected $defaultLimit = 25;
+
+    /**
      * <code>
      * [
      *     'first' => 'ASC',
@@ -198,8 +203,6 @@ abstract class Grid
             throw new GridException("Grid Adapter is not initiated, please change method init() and try again");
         }
 
-
-
         $this->data = $this->getAdapter()->process($this->getSettings());
         
         return $this;
@@ -247,7 +250,13 @@ abstract class Grid
         $params[$prefix.'page'] = (isset($rewrite['page']))?$rewrite['page']:$this->page;
 
         if (isset($rewrite['limit'])) {
-            $params[$prefix.'limit'] = ($rewrite['limit']!=$this->limit)?$rewrite['limit']:$this->limit;
+            if ($rewrite['limit'] != $this->defaultLimit) {
+                $params[$prefix.'limit'] = ($rewrite['limit']!=$this->limit)?$rewrite['limit']:$this->limit;
+            }
+        } else {
+            if ($this->limit != $this->defaultLimit) {
+                $params[$prefix.'limit'] = $this->limit;
+            }
         }
 
 
@@ -391,7 +400,7 @@ abstract class Grid
     public function setLimit($limit)
     {
         if ($limit < 1) {
-            throw new GridException('Wrong limit, should be greater than zero');
+            throw new GridException('Wrong limit value, should be greater than zero');
         }
         $this->limit = (int) $limit;
         return $this;
@@ -405,5 +414,33 @@ abstract class Grid
     public function getLimit()
     {
         return $this->limit;
+    }
+
+    /**
+     * setDefaultLimit
+     *
+     * @param int $limit
+     * @throws GridException
+     * @return Grid
+     */
+    public function setDefaultLimit($limit)
+    {
+        if ($limit < 1) {
+            throw new GridException('Wrong default limit value, should be greater than zero');
+        }
+        $this->setLimit($limit);
+
+        $this->defaultLimit = (int) $limit;
+        return $this;
+    }
+
+    /**
+     * getDefaultLimit
+     *
+     * @return integer
+     */
+    public function getDefaultLimit()
+    {
+        return $this->defaultLimit;
     }
 }

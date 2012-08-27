@@ -34,9 +34,25 @@ return
 /**
  * @return string|null
  */
-function () {
+function ($page = 1) {
     /**
      * @var Grid\Grid $this
      */
+    if ($page < 1 or $page > $this->pages()) {
+        return null;
+    }
+    $rewrite = [];
+    $rewrite['page'] = $page;
 
+    // prepare params
+    $params = $this->getParams($rewrite);
+
+    // retrieve URL
+    $url = $this->getApplication()->getRouter()->url(
+        $this->getApplication()->getRequest()->module(),
+        $this->getApplication()->getRequest()->controller(),
+        $params
+    );
+
+    return $url;
 };

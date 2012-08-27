@@ -58,7 +58,7 @@ class ArrayGrid extends \Bluz\Grid\Grid
          ]);
 
          $this->setAdapter($adapter);
-         $this->setLimit(3);
+         $this->setDefaultLimit(3);
          $this->setAllowOrders(['name', 'email', 'id']);
 
          return $this;
