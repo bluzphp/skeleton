@@ -1,16 +1,20 @@
 <script>
     $(function(){
-        $('.<?=$grid->getPrefix()?>grid').on('click.bluz.ajax', '.pagination a, thead a', function(){
+        $('#<?=$grid->getPrefix()?>grid').on('click.bluz.ajax', '.pagination a, thead a', function(){
             var $this = $(this);
+            var href = $this.attr('href');
+
+            if (href == '#') return false;
+
             $.ajax({
-                url: $this.attr('href'),
+                url: href,
                 type: 'get',
                 dataType:'html',
                 beforeSend:function() {
                     $this.addClass('disabled');
                 },
                 success:function(html) {
-                    $('<?=$grid->getPrefix()?>grid').replaceWith(html);
+                    $('#<?=$grid->getPrefix()?>grid').replaceWith(html);
                 }
             });
             return false;
