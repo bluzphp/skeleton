@@ -54,7 +54,8 @@
                 <td><?=$row['email']?></td>
             </tr>
             <?php endforeach; ?>
-            <?php if (sizeof($grid->getData()) < $grid->getLimit()) : $emptyRows = $grid->getLimit() - sizeof($grid->getData()); ?>
+            <?php if (sizeof($grid->getData()) < $grid->getLimit()) :
+                $emptyRows = $grid->getLimit() - sizeof($grid->getData()); ?>
                 <?php for ($i = 0; $i < $emptyRows; $i++): ?>
                 <tr>
                     <td colspan="3">&nbsp;</td>
