@@ -189,6 +189,16 @@ abstract class Grid
     }
 
     /**
+     * getPrefix
+     * 
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+    
+    /**
      * process request
      *
      * <code>

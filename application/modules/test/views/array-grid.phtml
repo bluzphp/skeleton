@@ -1,66 +1,89 @@
-<p>
-    Filters:<br/>
-    <a href="<?=$grid->filter('id', 'gt', 3)?>">Id &gt; 3</a> <br/>
-    <a href="<?=$grid->filter('id', 'lt', 9)?>">Id &lt; 9</a> <br/>
-    <a href="<?=$grid->filter('id', 'ne', 5, false)?>">AND Id != 5</a>
-</p>
+<script>
+    $(function(){
+        $('.<?=$grid->getPrefix()?>grid').on('click.bluz.ajax', '.pagination a, thead a', function(){
+            var $this = $(this);
+            $.ajax({
+                url: $this.attr('href'),
+                type: 'get',
+                dataType:'html',
+                beforeSend:function() {
+                    $this.addClass('disabled');
+                },
+                success:function(html) {
+                    $('<?=$grid->getPrefix()?>grid').replaceWith(html);
+                }
+            });
+            return false;
+        });
+    });
+</script>
+<div id="<?=$grid->getPrefix()?>grid">
 
-<div class="pagination pagination-right">
-    <ul>
-        <li><a href="#">Limit</a></li>
-        <li <?=(($grid->getLimit()==5)?'class="active"':'')?>><a href="<?=$grid->limit(5)?>">5</a></li>
-        <li <?=(($grid->getLimit()==10)?'class="active"':'')?>><a href="<?=$grid->limit(10)?>">10</a></li>
-    </ul>
-</div>
+    <p>
+        Filters:<br/>
+        <a href="<?=$grid->filter('id', 'gt', 3)?>">Id &gt; 3</a> <br/>
+        <a href="<?=$grid->filter('id', 'lt', 9)?>">Id &lt; 9</a> <br/>
+        <a href="<?=$grid->filter('id', 'ne', 5, false)?>">AND Id != 5</a>
+    </p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th width="40px"><a href="<?=$grid->order('id', null, 'desc', false)?>">Id</a></th>
-            <th><a href="<?=$grid->order('name')?>">Name</a></th>
-            <th><a href="<?=$grid->order('email')?>">Email</a></th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach($grid->getData() as $row) : ?>
-        <tr>
-            <td><?=$row['id']?></td>
-            <td><?=$row['name']?></td>
-            <td><?=$row['email']?></td>
-        </tr>
-        <?php endforeach; ?>
-        <?php if (sizeof($grid->getData()) < $grid->getLimit()) : $emptyRows = $grid->getLimit() - sizeof($grid->getData()); ?>
-            <?php for ($i = 0; $i < $emptyRows; $i++): ?>
+    <div class="pagination pagination-right">
+        <ul>
+            <li><a href="#">Limit</a></li>
+            <li <?=(($grid->getLimit()==5)?'class="active"':'')?>><a href="<?=$grid->limit(5)?>">5</a></li>
+            <li <?=(($grid->getLimit()==10)?'class="active"':'')?>><a href="<?=$grid->limit(10)?>">10</a></li>
+        </ul>
+    </div>
+
+    <table class="table">
+        <thead>
             <tr>
-                <td colspan="3">&nbsp;</td>
+                <th width="40px"><a href="<?=$grid->order('id', null, 'desc', false)?>">Id</a></th>
+                <th><a href="<?=$grid->order('name')?>">Name</a></th>
+                <th><a href="<?=$grid->order('email')?>">Email</a></th>
             </tr>
+        </thead>
+        <tbody>
+            <?php foreach($grid->getData() as $row) : ?>
+            <tr>
+                <td><?=$row['id']?></td>
+                <td><?=$row['name']?></td>
+                <td><?=$row['email']?></td>
+            </tr>
+            <?php endforeach; ?>
+            <?php if (sizeof($grid->getData()) < $grid->getLimit()) : $emptyRows = $grid->getLimit() - sizeof($grid->getData()); ?>
+                <?php for ($i = 0; $i < $emptyRows; $i++): ?>
+                <tr>
+                    <td colspan="3">&nbsp;</td>
+                </tr>
+                <?php endfor; ?>
+            <?php endif; ?>
+        </tbody>
+    </table>
+    <div class="pagination">
+        <?php if ($grid->pages() > 1) : ?>
+        <ul>
+            <?php if ($prev = $grid->prev()) : ?><li><a href="<?=$prev?>">&laquo;</a></li>
+            <?php else : ?> <li class="disabled"><a href="#" onclick="javascript: return false;">&laquo;</a></li>
+            <?php endif; ?>
+
+
+            <?php for ($page = 1; $page <= $grid->pages(); $page++) : ?>
+            <li <?=($page!=$grid->getPage()?:'class="active"') ?>><a href="<?=$grid->page($page)?>"><?=$page?></a></li>
             <?php endfor; ?>
-        <?php endif; ?>
-    </tbody>
-</table>
-<div class="pagination">
-    <?php if ($grid->pages() > 1) : ?>
-    <ul>
-        <?php if ($prev = $grid->prev()) : ?><li><a href="<?=$prev?>">&laquo;</a></li>
-        <?php else : ?> <li class="disabled"><a href="#" onclick="javascript: return false;">&laquo;</a></li>
+
+            <?php if ($next = $grid->next()) : ?><li><a href="<?=$next?>">&raquo;</a></li>
+            <?php else : ?> <li class="disabled"><a href="#" onclick="javascript: return false;">&raquo;</a></li>
+            <?php endif; ?>
+        </ul>
         <?php endif; ?>
 
+        <ul class="right">
+            <li>
+                <a href="<?=$grid->reset()?>">Total:
+                    <strong><?=$grid->total()?></strong> <?=$this->__('record','records', $grid->total())?> on
+                    <strong><?=$grid->pages()?></strong> <?=$this->__('page','pages', $grid->pages())?></a>
+            </li>
+        </ul>
+    </div>
 
-        <?php for ($page = 1; $page <= $grid->pages(); $page++) : ?>
-        <li <?=($page!=$grid->getPage()?:'class="active"') ?>><a href="<?=$grid->page($page)?>"><?=$page?></a></li>
-        <?php endfor; ?>
-
-        <?php if ($next = $grid->next()) : ?><li><a href="<?=$next?>">&raquo;</a></li>
-        <?php else : ?> <li class="disabled"><a href="#" onclick="javascript: return false;">&raquo;</a></li>
-        <?php endif; ?>
-    </ul>
-    <?php endif; ?>
-
-    <ul class="right">
-        <li>
-            <a href="<?=$grid->reset()?>">Total:
-                <strong><?=$grid->total()?></strong> <?=$this->__('record','records', $grid->total())?> on
-                <strong><?=$grid->pages()?></strong> <?=$this->__('page','pages', $grid->pages())?></a>
-        </li>
-    </ul>
 </div>
