@@ -120,11 +120,12 @@ trait Helper
                     if ($helperInclude instanceof \Closure) {
                         self::$helpers[$method] = $helperInclude;
                     } else {
-                        throw new Exception("Helper '$method' not found");
+                        throw new Exception("Helper '$method' not found in file '$helperPath'");
                     }
                     return $this->__call($method, $args);
                 }
             }
+            throw new Exception("Helper '$method' not found for '". __CLASS__ ."'");
         }
     }
 }

@@ -323,6 +323,19 @@ class Application
     }
 
     /**
+     * getLayout
+     *
+     * @return Layout
+     */
+    public function getLayout()
+    {
+        if (!$this->layout && $conf = $this->getConfigData('layout')) {
+            $this->layout = new Layout($conf);
+        }
+        return $this->layout;
+    }
+
+    /**
      * hasMessages
      *
      * @return boolean
@@ -421,18 +434,6 @@ class Application
         return $this->session;
     }
 
-    /**
-     * getLayout
-     *
-     * @return Layout
-     */
-    public function getLayout()
-    {
-        if (!$this->layout && $conf = $this->getConfigData('layout')) {
-            $this->layout = new Layout($conf);
-        }
-        return $this->layout;
-    }
 
     /**
      * useLayout
@@ -466,8 +467,6 @@ class Application
         $this->jsonFlag = $flag;
         return $this;
     }
-
-
 
     /**
      * process

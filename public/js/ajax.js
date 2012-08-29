@@ -1,5 +1,5 @@
 /**
- * Fast AJAX development
+ * Declarative AJAX development
  *
  * <code>
  *    <a href="/get" class="ajax">Click Me!</a>

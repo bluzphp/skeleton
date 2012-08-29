@@ -113,7 +113,12 @@ class Bootstrap extends Application
             \Bluz\Profiler::log('bootstrap:widget: '.$eventParams['module'].'/'.$eventParams['widget']);
         });
 
-        return parent::init($environment);
+
+        $res = parent::init($environment);
+
+        $this->getLayout()->title("Dark Side");
+
+        return $res;
     }
 
     /**
