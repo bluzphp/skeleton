@@ -68,33 +68,6 @@ class ArraySource extends AbstractSource
     {
         $data = $this->source;
 
-        // process orders
-        if (!empty($settings['orders'])) {
-            // Create empty column stack
-            $orders = [];
-            foreach ($settings['orders'] as $column => $order) {
-                $orders[$column] = [];
-            }
-
-            // Obtain a list of columns
-            foreach ($data as $key => $row) {
-                foreach ($settings['orders'] as $column => $order) {
-                    $orders[$column][$key] = $row[$column];
-                }
-            }
-            // Prepare array of arguments
-            $funcArgs = [];
-            foreach ($settings['orders'] as $column => $order) {
-                $funcArgs[] = $orders[$column];
-                $funcArgs[] = ($order==Grid\Grid::ORDER_ASC) ? SORT_ASC : SORT_DESC;
-            }
-            $funcArgs[] = &$data;
-
-            // Sort the data with volume descending, edition ascending
-            // Add $data as the last parameter, to sort by the common key
-            call_user_func_array('array_multisort', $funcArgs);
-        }
-
         // process filters
         if (!empty($settings['filters'])) {
             $data = array_filter($data, function($row) use ($settings){
@@ -125,6 +98,33 @@ class ArraySource extends AbstractSource
                     return true;
                 }
             });
+        }
+
+        // process orders
+        if (!empty($settings['orders'])) {
+            // Create empty column stack
+            $orders = [];
+            foreach ($settings['orders'] as $column => $order) {
+                $orders[$column] = [];
+            }
+
+            // Obtain a list of columns
+            foreach ($data as $key => $row) {
+                foreach ($settings['orders'] as $column => $order) {
+                    $orders[$column][$key] = $row[$column];
+                }
+            }
+            // Prepare array of arguments
+            $funcArgs = [];
+            foreach ($settings['orders'] as $column => $order) {
+                $funcArgs[] = $orders[$column];
+                $funcArgs[] = ($order==Grid\Grid::ORDER_ASC) ? SORT_ASC : SORT_DESC;
+            }
+            $funcArgs[] = &$data;
+
+            // Sort the data with volume descending, edition ascending
+            // Add $data as the last parameter, to sort by the common key
+            call_user_func_array('array_multisort', $funcArgs);
         }
 
         $total = sizeof($data);

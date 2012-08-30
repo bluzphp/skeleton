@@ -172,12 +172,33 @@ abstract class Table
     }
 
     /**
-     * getPrimaryKey
+     * set select query
      *
-     * @return array
+     * @param $select
+     * @return Table
+     */
+    public function setSelectQuery($select)
+    {
+        $this->select = $select;
+        return $this;
+    }
+
+    /**
+     * get select query
+     *
+     * @return Table
+     */
+    public function getSelectQuery()
+    {
+        return $this->select;
+    }
+
+    /**
+     * get primary key(s)
      *
      * @throws InvalidPrimaryKeyException if primary key was not set or has
      *                                    wrong format
+     * @return array
      */
     public function getPrimaryKey()
     {
@@ -228,8 +249,8 @@ abstract class Table
      * </code>
      *
      * @internal param mixed $key The value(s) of the primary keys.
-     * @return Rowset Row(s) matching the criteria.
      * @throws InvalidPrimaryKeyException if wrong count of values passed
+     * @return Rowset Row(s) matching the criteria.
      */
     public function find()
     {
@@ -329,6 +350,10 @@ abstract class Table
 //        $data = $this->getAdapter()->fetchObjects($this->select, [], $this->getRowClass());
 //        return new Rowset(array('table' => $this, 'data' => $data));
 //    }
+
+    /**
+     * @TODO: insert/update/delete should use Row Object?!
+     */
 
     /**
      * Insert new rows.

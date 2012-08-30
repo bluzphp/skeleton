@@ -26,6 +26,10 @@
  */
 namespace Bluz\Grid\Source;
 
+use Bluz\Application;
+use Bluz\Db;
+use Bluz\Grid;
+
 /**
  * SQL Source Adapter for Grid package
  *
@@ -41,10 +45,93 @@ class SqlSource extends AbstractSource
      * setSource
      *
      * @param $source
+     * @throws \Bluz\Grid\GridException
      * @return self
      */
     public function setSource($source)
     {
-        
+        if (!is_string($source)) {
+            throw new Grid\GridException("Source of SqlSource should be string with SQL query");
+        }
+        $this->source = $source;
+
+        return $this;
+    }
+
+    /**
+     * process
+     *
+     * @param array $settings
+     * @return \Bluz\Grid\Data
+     */
+    public function process(array $settings = [])
+    {
+        // process filters
+        $where = [];
+        if (!empty($settings['filters'])) {
+            foreach ($settings['filters'] as $column => $filters) {
+                foreach ($filters as $filter => $value) {
+                    // switch statement for $filter
+                    switch ($filter) {
+                        case Grid\Grid::FILTER_EQ:
+                            $where[] = $column .' = '. Db\Db::getDefaultAdapter()->quote($value);
+                            break;
+                        case Grid\Grid::FILTER_NE:
+                            $where[] = $column .' != '. Db\Db::getDefaultAdapter()->quote($value);
+                            break;
+                        case Grid\Grid::FILTER_GT:
+                            $where[] = $column .' > '. Db\Db::getDefaultAdapter()->quote($value);
+                            break;
+                        case Grid\Grid::FILTER_GE:
+                            $where[] = $column .' >= '. Db\Db::getDefaultAdapter()->quote($value);
+                            break;
+                        case Grid\Grid::FILTER_LT:
+                            $where[] = $column .' < '. Db\Db::getDefaultAdapter()->quote($value);
+                            break;
+                        case Grid\Grid::FILTER_LE:
+                            $where[] = $column .' <= '. Db\Db::getDefaultAdapter()->quote($value);
+                            break;
+                    }
+                }
+            }
+        }
+
+        // process orders
+        $orders = [];
+        if (!empty($settings['orders'])) {
+            // Obtain a list of columns
+            foreach ($settings['orders'] as $column => $order) {
+                $orders[] = $column .' '. $order;
+            }
+        }
+
+        // process pages
+        $limit = ' LIMIT '. ($settings['page']-1)*$settings['limit'] .', '. $settings['limit'];
+
+        // prepare query
+        $connect = Application::getInstance()->getConfigData('db', 'connect');
+        if (strtolower($connect['type']) == 'mysql') { // MySQL
+            $dataSql = preg_replace('/SELECT (.*?) FROM/is', 'SELECT SQL_CALC_FOUND_ROWS $1 FROM', $this->source);
+            $countSql = 'SELECT FOUND_ROWS()';
+        } else { // other
+            $dataSql = $this->source;
+            $countSql = preg_replace('/SELECT (.*?) FROM/is', 'SELECT COUNT(*) FROM', $this->source);
+            if (sizeof($where)) {
+                $countSql .= ' WHERE '. (join(' AND ', $where));
+            }
+        }
+
+        if (sizeof($where)) {
+            $dataSql .= ' WHERE '. (join(' AND ', $where));
+        }
+        if (sizeof($orders)) {
+            $dataSql .= ' ORDER BY '. (join(', ', $orders));
+        }
+        $dataSql .= $limit;
+
+        // run queries
+        $data = Db\Db::getDefaultAdapter()->fetchAll($dataSql);
+        $total = Db\Db::getDefaultAdapter()->fetchOne($countSql);
+        return new Grid\Data($data, $total);
     }
 }

@@ -24,47 +24,36 @@
 /**
  * @namespace
  */
-namespace Bluz\Grid\Source;
+namespace Application\Test;
 
-use Bluz\Grid;
-use Bluz\Db;
 
 /**
- * Table Source Adapter for Grid package
+ * Pages Grid
  *
- * @category Bluz
- * @package  Grid
- *
- * @author   Anton Shevchuk
- * @created  27.08.12 10:06
+ * @category Application
+ * @package  Pages
  */
-class TableSource extends AbstractSource
+class SqlGrid extends \Bluz\Grid\Grid
 {
     /**
-     * setSource
-     *
-     * @param $source
-     * @throws \Bluz\Grid\GridException
+     * init
+     * 
      * @return self
      */
-    public function setSource($source)
+    public function init()
     {
-        if (!($source instanceof Db\Table)) {
-            throw new Grid\GridException("Source of TableSource should be Db/Table class");
-        }
-        $this->source = $source;
+         // Array
+         $adapter = new \Bluz\Grid\Source\SqlSource();
+         $adapter->setSource('
+             SELECT *
+             FROM test
+             ');
 
-        return $this;
-    }
+         $this->setAdapter($adapter);
+         $this->setDefaultLimit(15);
+         $this->setAllowOrders(['name', 'id', 'status']);
+         $this->setAllowFilters(['status', 'id']);
 
-    /**
-     * process
-     *
-     * @param array $settings
-     * @return \Bluz\Grid\Data
-     */
-    public function process(array $settings = [])
-    {
-
+         return $this;
     }
 }
