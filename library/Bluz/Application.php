@@ -616,6 +616,11 @@ class Application
             return $result;
         }
 
+        // return string is equal to change view template
+        if (is_string($result)) {
+            $view->setTemplate($result);
+        }
+
         // return array is equal to setup view
         if (is_array($result)) {
             $view->setData($result);
