@@ -25,9 +25,11 @@
 
     <p>
         Filters:<br/>
-        <a href="<?=$grid->filter('id', 'gt', 3)?>">Id &gt; 3</a> <br/>
-        <a href="<?=$grid->filter('id', 'lt', 9)?>">Id &lt; 9</a> <br/>
-        <a href="<?=$grid->filter('id', 'ne', 5, false)?>">AND Id != 5</a>
+        <a href="<?=$grid->filter('id', 'gt', 30)?>">Id &gt; 30</a> <br/>
+        <a href="<?=$grid->filter('id', 'lt', 70)?>">Id &lt; 70</a> <br/>
+        <a href="<?=$grid->filter('id', 'ne', 5, false)?>">AND Id != 5</a> <br/>
+        <a href="<?=$grid->filter('status', 'eq', 'active')?>">All Active Users</a> <br/>
+        <a href="<?=$grid->filter('status', 'eq', 'active', false)?>">AND Active Users</a> <br/>
     </p>
 
     <div class="pagination pagination-right">

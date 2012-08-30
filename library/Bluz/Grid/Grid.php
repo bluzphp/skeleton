@@ -351,7 +351,11 @@ abstract class Grid
         foreach ($filters as $column => $columnFilters) {
             $columnFilter = [];
             foreach ($columnFilters as $filterName => $filterValue) {
-                $columnFilter[] = $filterName .'-'. $filterValue;
+                if ($filterName == self::FILTER_EQ) {
+                    $columnFilter[] = $filterValue;
+                } else {
+                    $columnFilter[] = $filterName .'-'. $filterValue;
+                }
             }
             $params[$this->prefix.'filter-'.$column] = join('-', $columnFilter);
         }

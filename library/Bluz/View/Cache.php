@@ -31,6 +31,8 @@ use Bluz\Application;
 /**
  * Cache for View
  *
+ * @TODO: move to Cache package
+ *
  * @category Bluz
  * @package  View
  *
