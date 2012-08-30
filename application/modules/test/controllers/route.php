@@ -12,6 +12,10 @@ return
 /**
  * @return \closure
  */
-function() {
+function() use ($view) {
 
+    $this->getLayout()->breadCrumbs([
+        $view->ahref('Test', ['test', 'index']),
+        'Routers Examples',
+    ]);
 };

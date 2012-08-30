@@ -561,7 +561,7 @@ class Application
         // cache initialization
         if (isset($reflectionData['cache'])) {
             $cache = new CacheView($this->getConfigData('cache'));
-            if ($cache -> load($module .'/'. $controller, $params, $reflectionData['cache'])) {
+            if ($cache -> load($module .'/'. $controller, $reflectionData['params'], $reflectionData['cache'])) {
                 return $cache;
             }
         } else {

@@ -14,5 +14,9 @@ return
  * @return \closure
  */
 function() use ($bootstrap, $view) {
+    $this->getLayout()->breadCrumbs([
+        $this->getLayout()->ahref('Test', ['test', 'index']),
+        'Bootstrap',
+    ]);
     $view->result = $bootstrap(2);
 };

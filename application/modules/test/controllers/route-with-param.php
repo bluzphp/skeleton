@@ -14,8 +14,12 @@ return
  * @return \closure
  */
 function($a) {
-    return function() use ($a) {
-        echo <<<CODE
+    $this->getLayout()->breadCrumbs([
+        $this->getLayout()->ahref('Test', ['test', 'index']),
+        'Routers Examples',
+    ]);
+    var_dump("OK");
+    echo <<<CODE
 <pre>
 /**
  * @route /test/param/{\$a}/
@@ -25,6 +29,6 @@ function($a) {
 </pre>
 CODE;
 
-        var_dump($a);
-    };
+    var_dump($a);
+    return 'route.phtml';
 };

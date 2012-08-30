@@ -15,11 +15,15 @@ return
  * @return \closure
  */
 function() use ($request, $view) {
+    $this->getLayout()->breadCrumbs([
+        $view->ahref('Test', ['test', 'index']),
+        'Session',
+    ]);
     /**
      * @var Bluz\Request\HttpRequest $request
      * @var Bluz\View\View $view
      */
-    $this->getLayout()->title = "Index/Index";
+    $this->getLayout()->title("Index/Index");
 
     $this->getSession()->test = 'Session time: '.date("H:i:s");
 

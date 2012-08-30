@@ -13,4 +13,8 @@ return
  */
 function() {
 
+    $this->getLayout()->breadCrumbs([
+        $this->getLayout()->ahref('Test', ['test', 'index']),
+        'Dispatch',
+    ]);
 };

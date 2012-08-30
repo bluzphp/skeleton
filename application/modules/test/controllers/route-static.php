@@ -13,5 +13,10 @@ return
  * @return \closure
  */
 function() {
-    return false;
+    $this->getLayout()->breadCrumbs([
+        $this->getLayout()->ahref('Test', ['test', 'index']),
+        'Routers Examples',
+    ]);
+    var_dump("OK");
+    return 'route.phtml';
 };

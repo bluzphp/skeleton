@@ -15,5 +15,9 @@ return
  * @return \closure
  */
 function() use ($view) {
+    $this->getLayout()->breadCrumbs([
+        $view->ahref('Test', ['test', 'index']),
+        'Grid with SQL',
+    ]);
     $view->grid = new Test\SqlGrid();
 };
