@@ -43,7 +43,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th width="40px"><a href="<?=$grid->order('id', null, 'desc', false)?:'#'?>">Id</a></th>
+                <th width="40px"><a href="<?=$grid->order('id')?:'#'?>">Id</a></th>
                 <th><a href="<?=$grid->order('name')?:'#'?>">Name</a></th>
                 <th><a href="<?=$grid->order('status')?:'#'?>">Status</a></th>
             </tr>
@@ -75,7 +75,7 @@
 
 
             <?php for ($page = 1; $page <= $grid->pages(); $page++) : ?>
-            <li <?=($page!=$grid->getPage()?:'class="active"') ?>><a href="<?=$grid->page($page)?>"><?=$page?></a></li>
+            <li <?=($page==$grid->getPage()?'class="active"':'') ?>><a href="<?=$grid->page($page)?>"><?=$page?></a></li>
             <?php endfor; ?>
 
             <?php if ($next = $grid->next()) : ?><li><a href="<?=$next?>">&raquo;</a></li>
