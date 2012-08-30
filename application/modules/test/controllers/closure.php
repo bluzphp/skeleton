@@ -12,7 +12,7 @@ return
  * @return \closure
  */
 function() {
-    $this->useLayout(false);
+//    $this->useLayout(false);
     return function() {
         echo "Closure is back";
     };

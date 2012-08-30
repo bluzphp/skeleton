@@ -6,7 +6,7 @@
 namespace Application;
 return
 /**
- * @return closure
+ * @return \closure
  */
 function() {
     /**

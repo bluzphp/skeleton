@@ -24,4 +24,6 @@
     <?= $this->ahref('Confirm', ['index', 'index'], ['class'=>'confirm btn', 'data-confirm'=>'Confirm?']);?>
 </div>
 <hr/>
-<div id="load"></div>
+<div id="load">
+    <?= $this->dispatch('test', 'closure') ?>
+</div>
