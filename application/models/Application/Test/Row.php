@@ -26,34 +26,31 @@
  */
 namespace Application\Test;
 
-
 /**
- * Test Grid based on SQL
+ * Test Row
  *
  * @category Application
  * @package  Test
  */
-class SqlGrid extends \Bluz\Grid\Grid
+class Row extends \Bluz\Db\Row
 {
     /**
-     * init
-     * 
-     * @return self
+     * @var integer
      */
-    public function init()
-    {
-         // Array
-         $adapter = new \Bluz\Grid\Source\SqlSource();
-         $adapter->setSource('
-             SELECT *
-             FROM test
-             ');
+    public $id;
 
-         $this->setAdapter($adapter);
-         $this->setDefaultLimit(15);
-         $this->setAllowOrders(['name', 'id', 'status']);
-         $this->setAllowFilters(['status', 'id']);
+    /**
+     * @var string
+     */
+    public $name;
 
-         return $this;
-    }
+    /**
+     * @var string
+     */
+    public $email;
+
+    /**
+     * @var string
+     */
+    public $status;
 }

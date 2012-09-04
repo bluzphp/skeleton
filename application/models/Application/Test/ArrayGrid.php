@@ -28,10 +28,10 @@ namespace Application\Test;
 
 
 /**
- * Pages Grid
+ * Test Grid based on Array
  *
  * @category Application
- * @package  Pages
+ * @package  Test
  */
 class ArrayGrid extends \Bluz\Grid\Grid
 {

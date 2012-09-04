@@ -26,34 +26,27 @@
  */
 namespace Application\Test;
 
-
 /**
- * Test Grid based on SQL
+ * Table
  *
  * @category Application
- * @package  Test
+ * @package  Users
+ *
+ * @author   Anton Shevchuk
+ * @created  08.07.11 17:36
  */
-class SqlGrid extends \Bluz\Grid\Grid
+class Table extends \Bluz\Auth\Table
 {
     /**
-     * init
-     * 
-     * @return self
+     * Table
+     *
+     * @var string
      */
-    public function init()
-    {
-         // Array
-         $adapter = new \Bluz\Grid\Source\SqlSource();
-         $adapter->setSource('
-             SELECT *
-             FROM test
-             ');
+    protected $table = 'test';
 
-         $this->setAdapter($adapter);
-         $this->setDefaultLimit(15);
-         $this->setAllowOrders(['name', 'id', 'status']);
-         $this->setAllowFilters(['status', 'id']);
-
-         return $this;
-    }
+    /**
+     * Primary key(s)
+     * @var array
+     */
+    protected $primary = array('id');
 }

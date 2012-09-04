@@ -352,6 +352,19 @@ abstract class Table
 //    }
 
     /**
+     * create
+     *
+     * @param array $data
+     * @return Row
+     */
+    public function create(array $data = [])
+    {
+        $rowClass = $this->getRowClass();
+        $row = new $rowClass($data);
+        return $row;
+    }
+
+    /**
      * @TODO: insert/update/delete should use Row Object?!
      */
 
@@ -389,7 +402,7 @@ abstract class Table
      */
     public function delete($where)
     {
-        $tableSpec = ($this->schema ? $this->schema . '.' : '') . $this->table;
-        return $this->getAdapter()->delete($tableSpec, $where);
+        $table = ($this->schema ? $this->schema . '.' : '') . $this->table;
+        return $this->getAdapter()->delete($table, $where);
     }
 }

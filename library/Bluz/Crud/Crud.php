@@ -40,4 +40,7 @@ use Bluz\Application;
 class Crud
 {
     use \Bluz\Package;
+
+
+
 }

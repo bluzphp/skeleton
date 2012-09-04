@@ -138,10 +138,15 @@ abstract class Grid
     /**
      * __construct
      *
+     * @param array $options
      * @return Grid
      */
-    public function __construct()
+    public function __construct($options = null)
     {
+        if ($options) {
+            $this->setOptions($options);
+        }
+
         if ($this->uid) {
             $this->prefix = $this->uid .'-';
         } else {
@@ -149,7 +154,8 @@ abstract class Grid
         }
 
         $this->init();
-        $this->processRequest($this->getApplication()->getRequest());
+
+        $this->processRequest();
         $this->processSource();
         // initial default helper path
         $this->addHelperPath(dirname(__FILE__) . '/Helper/');
@@ -217,11 +223,11 @@ abstract class Grid
      *
      * </code>
      *
-     * @param \Bluz\Request\AbstractRequest $request
      * @return Grid
      */
-    public function processRequest(\Bluz\Request\AbstractRequest $request)
+    public function processRequest()
     {
+        $request = $this->getApplication()->getRequest();
         $page = $request->getParam($this->prefix.'page', 1);
         $this->setPage($page);
 
