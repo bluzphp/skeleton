@@ -84,7 +84,10 @@
             $.each(data, function(key, value){
                 if (
                     typeof value == 'function' ||
-                    typeof value == 'object') {
+                    typeof value == 'object' ||
+					key == 'ajaxMethod' ||
+					key == 'ajaxType' ||
+					key == 'ajaxTarget') {
                     return false;
                 } else {
                     plain[key] = value;
@@ -113,16 +116,17 @@
                 return false;
             }
 
-			var method = $this.data('method');
-
+			var method = $this.data('ajax-method');
+			var type = $this.data('ajax-type');
             var data = processData($this);
-            data.json = 1;
-
+			if (type && type == 'json') {
+				data._json = 1;
+			}
             $.ajax({
                 url:$this.attr('href'),
 				type: (method?method:'post'),
                 data: data,
-                dataType:'json',
+                dataType: (type?type:'json'),
                 beforeSend:function() {
                     $this.addClass('disabled');
                 },
@@ -140,8 +144,8 @@
 				return false;
 			}
 
-			var method = $this.data('method');
-			var target = $this.data('target');
+			var method = $this.data('ajax-method');
+			var target = $this.data('ajax-target');
 			var source = $this.attr('href') || $this.data('source');
 
 			if (!target) {
@@ -181,7 +185,7 @@
 				return false;
 			}
 
-			var method = $this.data('method');
+			var method = $this.data('ajax-method');
 
 			$.ajax({
 				url:$this.attr('href'),
@@ -227,7 +231,11 @@
             }
 
 			var method = $this.attr('method');
-            var data = {json: 1}; //responses as json
+			var type = $this.data('ajax-type');
+            var data = {};
+			if (type && type == 'json') {
+				data._json = 1;
+			}
             var formData = $this.serializeArray();
 
             for (var i in formData) {
@@ -238,7 +246,7 @@
                 url: $this.attr('action'),
 				type: (method?method:'post'),
                 data: data,
-                dataType:'json',
+                dataType: (type?type:'json'),
                 beforeSend:function() {
                     $this.addClass('disabled');
                 },

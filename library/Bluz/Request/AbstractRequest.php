@@ -257,10 +257,10 @@ class AbstractRequest
      *
      * @return array
      */
-    public function getAllParams()
-    {
-        return $this->params;
-    }
+//    public function getAllParams()
+//    {
+//        return $this->params;
+//    }
 
     /**
      * Retrieve a member of the $_ENV superglobal

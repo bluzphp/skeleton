@@ -482,7 +482,7 @@ class Application
         $this->getRouter()
              ->process();
 
-        if ($this->request->getParam('json')) {
+        if ($this->request->getParam('_json')) {
             $this->useJson(true);
         }
 
@@ -493,7 +493,7 @@ class Application
             $dispatchResult = $this->dispatch(
                 $this->request->module(),
                 $this->request->controller(),
-                $this->request->getAllParams()
+                $this->request->getParams()
             );
 
             // move vars from layout to view instance

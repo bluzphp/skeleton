@@ -53,6 +53,9 @@ try {
     require_once PATH_APPLICATION . '/Bootstrap.php';
     require_once PATH_APPLICATION . '/Exception.php';
 
+    /**
+     * @var \Application\Bootstrap $app
+     */
     $app = \Application\Bootstrap::getInstance();
     $app->init(APPLICATION_ENV)
         ->process()

@@ -550,12 +550,11 @@ class Row
      */
     public function setFromArray(array $data)
     {
-        $data = array_intersect_key($data, array_keys($this->toArray()));
+        $data = array_intersect_key($data, $this->toArray());
 
         foreach ($data as $columnName => $value) {
             $this->$columnName = $value;
         }
-
         return $this;
     }
 }
