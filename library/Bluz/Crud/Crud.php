@@ -27,6 +27,7 @@
 namespace Bluz\Crud;
 
 use Bluz\Application;
+use Bluz\Request\AbstractRequest;
 
 /**
  * Crud
@@ -41,6 +42,203 @@ class Crud
 {
     use \Bluz\Package;
 
+    /**
+     * @var string
+     */
+    protected $method = AbstractRequest::METHOD_GET;
 
+    /**
+     * @var array
+     */
+    protected $data = array();
+
+    /**
+     * @var \Bluz\Db\Table
+     */
+    protected $table;
+
+    /**
+     * @var array
+     */
+    protected $errors = array();
+
+    /**
+     * Result of last CRUD operation (on of get/put/post/delete)
+     * @var mixed
+     */
+    protected $result;
+
+    /**
+     * @return Crud
+     */
+    public function processRequest()
+    {
+        $request = $this->getApplication()->getRequest();
+
+        // get data from request
+        $this->data = $request->getParams();
+
+
+        // rewrite REST with "method" param
+        $this->method = $request->getParam('_method', $request->getMethod());
+
+        // switch by method
+        switch ($this->method) {
+            case AbstractRequest::METHOD_POST:
+                $this->result = $this->create();
+                break;
+            case AbstractRequest::METHOD_PUT:
+                $this->result = $this->update();
+                break;
+            case AbstractRequest::METHOD_DELETE:
+                $this->result = $this->delete();
+                break;
+            case AbstractRequest::METHOD_GET:
+            default:
+                $this->result = $this->get();
+                break;
+        }
+
+        return $this;
+    }
+
+    /**
+     * setTable
+     *
+     * @param \Bluz\Db\Table $table
+     * @return self
+     */
+    public function setTable(\Bluz\Db\Table $table)
+    {
+        $this->table = $table;
+        return $this;
+    }
+
+    /**
+     * getTable
+     *
+     * @return \Bluz\Db\Table
+     */
+    public function getTable()
+    {
+        if (!$this->table) {
+            $crudClass = get_called_class();
+            $tableClass = substr($crudClass, 0, strrpos($crudClass, '\\', 1)+1) . 'Table';
+
+            /**
+             * @var \Bluz\Db\Table $tableClass
+             */
+            $table = $tableClass::getInstance();
+
+            $this->setTable($table);
+        }
+        return $this->table;
+    }
+
+    /**
+     * getData
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * getResult
+     *
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
+     * getMethod
+     *
+     * @return string
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
+     * @throws \Bluz\Crud\ValidationException
+     */
+    public function validate()
+    {
+        // validate entity
+        // ...
+        if (sizeof( $this->errors )) {
+            throw new \Bluz\Crud\ValidationException('Validation error, please check errors stack');
+        }
+    }
+
+    /**
+     * @throws CrudException
+     * @return \Bluz\Db\Row|null
+     */
+    public function get()
+    {
+        $primary = array_flip( $this->getTable()->getPrimaryKey() );
+        $array = array_intersect_key( $this->getData(), $primary );
+
+        if (!sizeof($array)) {
+            return null;
+        }
+
+        $row = $this->getTable()->findRow( $array );
+        return $row;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function create()
+    {
+        $this->validate();
+        $row = $this->getTable()->create($this->data);
+        return $row->save();
+    }
+
+    /**
+     * @throws CrudException
+     * @return boolean
+     */
+    public function update()
+    {
+        $this->validate();
+        $primary = array_flip( $this->getTable()->getPrimaryKey() );
+
+        $array = array_intersect_key( $this->getData(), $primary );
+        $row = $this->getTable()->findRow( $array );
+
+        if (!$row) {
+            throw new CrudException("Record not found");
+        }
+
+        $row->setFromArray( $this->data );
+        return $row->save();
+    }
+
+    /**
+     * @throws CrudException
+     * @return boolean
+     */
+    public function delete()
+    {
+        $this->validate();
+        $primary = array_flip( $this->getTable()->getPrimaryKey() );
+
+        $array = array_intersect_key( $this->getData(), $primary );
+        $row = $this->getTable()->findRow( $array );
+        if (!$row) {
+            throw new CrudException("Record not found");
+        }
+        return $row->delete();
+    }
 
 }

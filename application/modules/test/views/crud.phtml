@@ -1,0 +1,43 @@
+<form action="<?=$this->url('test', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
+    <input type="hidden" name="id" value="<?=$row->id?>"/>
+    <div class="modal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h3>Test Table</h3>
+        </div>
+        <div class="modal-body">
+            <div class="control-group">
+                <label class="control-label" for="name"><?=$this->__('Name')?></label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" id="name" name="name" value="<?=($row->name)?>" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="mail"><?=$this->__('Email')?></label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" id="mail" name="mail" value="<?=($row->email)?>" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="status"><?=$this->__('Status')?></label>
+                <div class="controls">
+                    <select id="status" name="status" class="span2">
+                        <option <?=$row->status=='active'?'selected':''?>>active</option>
+                        <option <?=$row->status=='disable'?'selected':''?>>disable</option>
+                        <option <?=$row->status=='delete'?'selected':''?>>delete</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"><?=$this->__('Save')?></button>
+            <a href="#" class="btn" data-dismiss="modal"><?=$this->__('Close')?></a>
+        </div>
+    </div>
+
+
+</form>
+
+<?php
+
+//var_dump($data);
