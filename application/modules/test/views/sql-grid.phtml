@@ -22,10 +22,8 @@
     });
 </script>
 
-<a href="<?=$this->url('test', 'crud')?>" class="btn dialog" data-ajax-method="get">Create</a>
-
 <div id="<?=$grid->getPrefix()?>grid">
-
+    <a href="<?=$this->url('test', 'crud')?>" class="btn dialog" data-ajax-method="get">Create</a>
     <p>
         Filters:<br/>
         <a href="<?=$grid->filter('id', 'gt', 30)?>">Id &gt; 30</a> <br/>
@@ -59,8 +57,8 @@
                 <td><?=$row['id']?></td>
                 <td><?=$row['name']?></td>
                 <td><?=$row['status']?></td>
-                <td><a href="<?=$this->url('test', 'crud', ['id' => $row['id']]);?>" class="btn dialog" data-ajax-method="get">Edit</a></td>
-                <td><a href="<?=$this->url('test', 'crud', ['id' => $row['id']]);?>" class="confirm btn btn-danger ajax" data-ajax-method="delete">Delete</a></td>
+                <td><a href="<?=$this->url('test', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn dialog" data-ajax-method="get">Edit</a></td>
+                <td><a href="<?=$this->url('test', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-danger ajax" data-ajax-method="delete">Delete</a></td>
             </tr>
             <?php endforeach; ?>
             <?php if (sizeof($grid->getData()) < $grid->getLimit()) :

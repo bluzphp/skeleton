@@ -76,8 +76,7 @@ class Crud
         $request = $this->getApplication()->getRequest();
 
         // get data from request
-        $this->data = $request->getParams();
-
+        $this->data = $request->getParam('data')?:[];
 
         // rewrite REST with "method" param
         $this->method = $request->getParam('_method', $request->getMethod());
@@ -136,12 +135,32 @@ class Crud
     }
 
     /**
-     * getData
-     *
+     * getPrimaryKey
+     * 
      * @return array
      */
-    public function getData()
+    protected function getPrimaryKey()
     {
+        $primary = array_flip( $this->getTable()->getPrimaryKey() );
+        return array_intersect_key( $this->getData(), $primary );
+    }
+
+    /**
+     * getData
+     *
+     * @param string $field
+     * @return array
+     */
+    public function getData($field = null)
+    {
+        if (null !== $field) {
+            if (isset($this->data[$field])) {
+                return $this->data[$field];
+            } else {
+                return null;
+            }
+        }
+
         return $this->data;
     }
 
@@ -153,6 +172,32 @@ class Crud
     public function getResult()
     {
         return $this->result;
+    }
+
+    /**
+     * getResult
+     *
+     * @return mixed
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    /**
+     * addError
+     *
+     * @param $field
+     * @param $message
+     * @return self
+     */
+    protected function addError($field, $message)
+    {
+        if (!isset($this->errors[$field])) {
+            $this->errors[$field] = array();
+        }
+        $this->errors[$field][] = $message;
+        return $this;
     }
 
     /**
@@ -183,14 +228,19 @@ class Crud
      */
     public function get()
     {
-        $primary = array_flip( $this->getTable()->getPrimaryKey() );
-        $array = array_intersect_key( $this->getData(), $primary );
+        $primary = $this->getPrimaryKey();
 
-        if (!sizeof($array)) {
+        // nothing? ok, new row please
+        if (!sizeof($primary)) {
             return null;
         }
 
-        $row = $this->getTable()->findRow( $array );
+        $row = $this->getTable()->findRow($primary);
+
+        if (!$row) {
+            throw new CrudException("Record not found");
+        }
+
         return $row;
     }
 
@@ -211,16 +261,15 @@ class Crud
     public function update()
     {
         $this->validate();
-        $primary = array_flip( $this->getTable()->getPrimaryKey() );
+        $primary = $this->getPrimaryKey();
 
-        $array = array_intersect_key( $this->getData(), $primary );
-        $row = $this->getTable()->findRow( $array );
+        $row = $this->getTable()->findRow($primary);
 
         if (!$row) {
             throw new CrudException("Record not found");
         }
 
-        $row->setFromArray( $this->data );
+        $row->setFromArray($this->data);
         return $row->save();
     }
 
@@ -230,11 +279,9 @@ class Crud
      */
     public function delete()
     {
-        $this->validate();
-        $primary = array_flip( $this->getTable()->getPrimaryKey() );
+        $primary = $this->getPrimaryKey();
+        $row = $this->getTable()->findRow($primary);
 
-        $array = array_intersect_key( $this->getData(), $primary );
-        $row = $this->getTable()->findRow( $array );
         if (!$row) {
             throw new CrudException("Record not found");
         }

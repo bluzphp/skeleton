@@ -7,8 +7,9 @@
  */
 namespace Application;
 
-use Bluz;
 use Application\Test;
+use Bluz;
+use Bluz\Request\AbstractRequest;
 
 return
 /**
@@ -18,43 +19,53 @@ function() use ($view) {
     /**
      * @var Bluz\Application $this
      */
-
+    $this->useJson(true);
     $crud = new Test\Crud();
-    $crud->processRequest();
 
-    $result = $crud->getResult();
+    try {
+        $result = $crud->processRequest()
+            ->getResult();
+    } catch (\Bluz\Crud\CrudException $e){
+        // all "not found" errors
+        $this->getMessages()->addError($e->getMessage());
+        return;
+    }catch (\Bluz\Crud\ValidationException $e){
+        // validate errors
+        $this->getMessages()->addError("Please fix all errors");
+        $view->errors = $crud->getErrors();
+        $view->callback = 'validateForm';
+        return;
+    }
 
-    // switch statement for $result
-    switch (true) {
-        case (is_numeric($result)):
-            // UPDATE record
-            $this->useJson(true);
-            $this->getMessages()->addSuccess("Row was updated");
-            $this->reload();
-            break;
-        case (true === $result):
+    // switch statement for $crud->getMethod()
+    switch ($crud->getMethod()) {
+        case AbstractRequest::METHOD_POST:
             // CREATE record
-            $this->useJson(true);
             $this->getMessages()->addSuccess("Row was created");
             $this->reload();
             break;
-        case (false === $result):
-            // ERROR
-            $this->useJson(true);
-            $this->getMessages()->addError("Fail");
+        case AbstractRequest::METHOD_PUT:
+            // UPDATE record
+            $this->getMessages()->addSuccess("Row was updated");
             $this->reload();
             break;
-        case (null === $result):
-            // GET empty record
-            $view->row = $crud->getTable()->create();
-            $view->method = 'post';
+        case AbstractRequest::METHOD_DELETE:
+            // DELETE record
+            $this->getMessages()->addSuccess("Row was deleted");
+            $this->reload();
             break;
-        case ($result instanceof \Bluz\Db\Row):
-            // GET record
-            $view->row = $result;
-            $view->method = 'put';
-            break;
+        case AbstractRequest::METHOD_GET:
         default:
+            $this->useJson(false);
+            if ($result instanceof \Bluz\Db\Row) {
+                // edit form
+                $view->row = $result;
+                $view->method = 'put';
+            } else {
+                // create form
+                $view->row = $crud->getTable()->create();
+                $view->method = 'post';
+            }
             break;
     }
 };

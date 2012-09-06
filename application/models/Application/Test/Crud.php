@@ -42,10 +42,23 @@ class Crud extends \Bluz\Crud\Crud
      */
     public function validate()
     {
+        // name validator
+        $name = $this->getData('name');
+        if (empty($name)) {
+            $this->addError('name', 'Name can\'t be empty');
+        } elseif (!preg_match('/^[a-zA-Z .-]+$/i', $name)) {
+            $this->addError('name', 'Name should contains only Latin characters');
+        }
+
+        // email validator
+        $email = $this->getData('email');
+        if (empty($email)) {
+            $this->addError('email', 'Email can\'t be empty');
+        }
 
         // validate entity
         // ...
-        if (sizeof( $this->errors )) {
+        if (sizeof($this->errors)) {
             throw new \Bluz\Crud\ValidationException('Validation error, please check errors stack');
         }
     }
