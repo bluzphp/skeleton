@@ -25,11 +25,11 @@ function() use ($view) {
     try {
         $result = $crud->processRequest()
             ->getResult();
-    } catch (\Bluz\Crud\CrudException $e){
+    } catch (\Bluz\Crud\CrudException $e) {
         // all "not found" errors
         $this->getMessages()->addError($e->getMessage());
         return;
-    }catch (\Bluz\Crud\ValidationException $e){
+    } catch (\Bluz\Crud\ValidationException $e) {
         // validate errors
         $this->getMessages()->addError("Please fix all errors");
         $view->errors = $crud->getErrors();
@@ -56,7 +56,15 @@ function() use ($view) {
             break;
         case AbstractRequest::METHOD_GET:
         default:
+            // always HTML
             $this->useJson(false);
+
+            // enable Layout for not AJAX request
+            if (!$this->getRequest()->isXmlHttpRequest()) {
+                $this->useLayout(true);
+            }
+
+            // EDIT or CREATE form
             if ($result instanceof \Bluz\Db\Row) {
                 // edit form
                 $view->row = $result;

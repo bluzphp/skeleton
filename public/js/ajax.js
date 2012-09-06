@@ -5,7 +5,7 @@
  *    <a href="/get" class="ajax">Click Me!</a>
  *    <a href="/dialog" class="dialog">Click Me!</a>
  *    <a href="/delete" class="confirm" data-confirm="Are you sure?">Click Me!</a>
- *    <a href="/delete" class="ajax confirm" data-id="3" data-method="DELETE">Click Me!</a>
+ *    <a href="/delete" class="ajax confirm" data-id="3" data-ajax-method="DELETE">Click Me!</a>
  *    <form action="/save/" class="ajax">
  *        ...
  *    </form>
@@ -86,8 +86,10 @@
                     typeof value == 'function' ||
                     typeof value == 'object' ||
 					key == 'ajaxMethod' ||
-					key == 'ajaxType' ||
-					key == 'ajaxTarget') {
+					key == 'ajaxSource' ||
+					key == 'ajaxTarget' ||
+					key == 'ajaxType'
+					) {
                     return false;
                 } else {
                     plain[key] = value;
@@ -146,7 +148,7 @@
 
 			var method = $this.data('ajax-method');
 			var target = $this.data('ajax-target');
-			var source = $this.attr('href') || $this.data('source');
+			var source = $this.attr('href') || $this.data('ajax-source');
 
 			if (!target) {
 				throw "Undefined 'data-target' attribute";
@@ -167,7 +169,7 @@
 				success:function(data) {
 					var $target = $(target);
 					if ($target.length == 0) {
-						throw "Element defined by 'data-target' not found";
+						throw "Element defined by 'data-ajax-target' not found";
 					}
 					$target.html(data);
 				},
