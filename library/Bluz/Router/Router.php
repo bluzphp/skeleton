@@ -166,12 +166,21 @@ class Router
      */
     public function urlCustom($module, $controller, $params)
     {
-        $uri = $this->reverse[$module][$controller]['route'];
+        $url = $this->reverse[$module][$controller]['route'];
 
+        $getParams = array();
         foreach ($params as $key => $value) {
-            $uri = str_replace('{$'.$key.'}', $value, $uri);
+            // sub-array as GET params
+            if (is_array($value)) {
+                $getParams[$key] = $value;
+                continue;
+            }
+            $url = str_replace('{$'.$key.'}', $value, $url);
         }
-        return $uri;
+        if (!empty($getParams)) {
+            $url .= '?'. http_build_query($getParams);
+        }
+        return $this->getBaseUrl() . $url;
     }
 
     /**
@@ -197,15 +206,19 @@ class Router
         }
 
         $url .= $module.'/'.$controller;
-        $postfix = '';
+        $getParams = array();
         foreach ($params as $key => $value) {
-            if (empty($key)) {
-                $postfix .= $value;
-            } else if (!empty($value) || $value === "0") {
-                $url .= '/'.urlencode($key).'/'.urlencode($value);
+            // sub-array as GET params
+            if (is_array($value)) {
+                $getParams[$key] = $value;
+                continue;
             }
+            $url .= '/'.urlencode($key).'/'.urlencode($value);
         }
-        return $url . $postfix;
+        if (!empty($getParams)) {
+            $url .= '?'. http_build_query($getParams);
+        }
+        return $url;
     }
 
     /**
