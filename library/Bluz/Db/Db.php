@@ -613,6 +613,7 @@ class Db
                     // set query time
                     $timeSpent = $this->queries[$sql]['timer'][$timers-1] - $this->queries[$sql]['timer'][$timers-2];
 
+                    $sql = str_replace('%', '%%', $sql);
                     $sql = str_replace('?', '"%s"', $sql);
 
                     array_unshift(
