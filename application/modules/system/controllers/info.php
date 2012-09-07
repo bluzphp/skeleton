@@ -14,5 +14,6 @@ return
  * @return \closure
  */
 function() {
-
+    phpinfo();
+    return false;
 };

@@ -8,11 +8,15 @@
 namespace Application;
 
 return
+/**
+ * @TODO: need more informative example
+ * @return \closure
+ */
 function() {
     /**
      * @var Bootstrap $this
      */
-    $res = $this->getDb()->fetchAll('SELECT * FROM test WHERE name LIKE "a%"');
+    $res = $this->getDb()->fetchAll('SELECT * FROM test WHERE name LIKE ?', ['al%']);
     var_dump($res);
     return false;
 };
