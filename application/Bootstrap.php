@@ -50,12 +50,16 @@ class Bootstrap extends Application
     public function init($environment = ENVIRONMENT_PRODUCTION)
     {
         // Profiler hooks
-        if (constant('DEBUG')) {
+        if (constant('DEBUG') && DEBUG) {
             $this->getEventManager()->attach('log', function($event){
                 /* @var \Bluz\EventManager\Event $event */
                 \Bluz\Profiler::log($event->getTarget());
             });
             $this->getEventManager()->attach('layout:header', function($event){
+                $layout = $event->getTarget();
+                $layout->link($layout->baseUrl('/css/debug.css'));
+                echo $layout->link();
+
                 /* @var \Bluz\EventManager\Event $event */
                 \Bluz\Profiler::log('layout:header');
             });

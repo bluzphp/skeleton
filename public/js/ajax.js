@@ -120,6 +120,7 @@
 
 			var method = $this.data('ajax-method');
 			var type = $this.data('ajax-type');
+				type = (type?type:'json');
             var data = processData($this);
 			if (type && type == 'json') {
 				data._json = 1;
@@ -128,7 +129,7 @@
                 url:$this.attr('href'),
 				type: (method?method:'post'),
                 data: data,
-                dataType: (type?type:'json'),
+                dataType: type,
                 beforeSend:function() {
                     $this.addClass('disabled');
                 },

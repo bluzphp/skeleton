@@ -127,7 +127,7 @@ abstract class Table
     /**
      * getInstance
      *
-     * @return Table
+     * @return self
      */
     static public function getInstance()
     {

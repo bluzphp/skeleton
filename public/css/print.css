@@ -1,0 +1,36 @@
+body {
+    padding: 20px;
+	margin: 0;
+	color: #000;
+	background: #fff;
+    position: relative;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+a {
+	color: #06c;
+	text-decoration: underline;
+}
+a:link:after {
+	content: " [" attr(href) "] ";
+}
+.navbar {
+	display: none;
+}
+[class*="span"],
+.row-fluid [class*="span"] {
+	display: block;
+	float: none;
+	width: auto;
+	margin-left: 0;
+}
+.span12,
+.row-fluid .span12 {
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+}
+
+.debug-panel {
+	display: none;
+}

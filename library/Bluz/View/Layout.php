@@ -51,7 +51,7 @@ class Layout extends View
      */
     public function trigger($name, $target = null)
     {
-        return $this->getApplication()->getEventManager()->trigger('layout:'.$name, $target);
+        return $this->getApplication()->getEventManager()->trigger('layout:'.$name, $target?:$this);
     }
 
     /**

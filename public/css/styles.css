@@ -6,6 +6,13 @@
  * @author   Anton Shevchuk
  * @created  06.07.11 16:20
  */
+body {
+    padding-top: 60px;
+    position: relative;
+}
+article, aside, header, footer, section {
+    display:block;
+}
 .center {
     display: block;
     margin-left: auto;
@@ -20,9 +27,6 @@
 .textright { text-align:right }
 .textcenter { text-align:center }
 
-article, aside, header, footer, section {
-    display:block;
-}
 
 /*Messages*/
 #messages {
@@ -65,64 +69,6 @@ article, aside, header, footer, section {
 	display: none;
 }
 /*/Loading */
-/* Debug Panel */
-.debug-panel {
-    height: 32px;
-    width: 98%;
-    left:1%;
-    bottom: 0;
-    position: fixed;
-    overflow: hidden;
-    border-radius: 3px 3px 0 0;
-    z-index:99999;
-
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
-    background-color: #EEEEEE;
-    border: 1px solid #CCCCCC;
-    border-bottom: 0;
-    padding: 0;
-    transition: height 0.5s 0.33s;
-    -moz-transition: height 0.5s 0.33s;
-    -webkit-transition: height 0.5s 0.33s;
-    -o-transition: height 0.5s 0.33s;
-}
-.debug-panel:hover {
-    height: 432px;
-    max-height: 100%;
-
-    transition: height 1s 0.33s;
-    -moz-transition: height 1s 0.33s;
-    -webkit-transition: height 1s 0.33s;
-    -o-transition: height 1s 0.33s;
-}
-	.debug-panel-header {
-		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
-		padding: 4px 4px 0 4px;
-	}
-	.debug-panel-title {
-		font-size: 12px;
-		margin: 0 4px 4px 4px;
-		line-height: 24px;
-
-	}
-	.debug-panel-title span {
-		padding: 4px;
-		margin-right: 4px;
-	}
-	.debug-panel-version {
-		float: right;
-	}
-	.debug-panel-content {
-		height: 400px;
-		overflow: auto;
-		padding: 0 4px 4px 4px;
-	}
-	.debug-panel-content pre {
-		margin-top: 4px;
-		background: inherit;
-	}
-
-/*/Debug Panel */
 /*Bootstrap fix*/
 .modal form {
 	margin: 0;

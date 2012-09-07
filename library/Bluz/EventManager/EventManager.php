@@ -103,7 +103,7 @@ class EventManager
             foreach ($list as $listener) {
                 $result = call_user_func($listener, $event);
                 if (null === $result) {
-                    //continue;
+                    // continue;
                 } elseif (false === $result) {
                     break 2;
                 } else {
