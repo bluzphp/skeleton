@@ -22,7 +22,8 @@
  */
 
 /**
- * pre cache for Loader
+ * files in this list is core of framework
+ * use require_once it's really faster than use Loader for it
  *
  * @author   Anton Shevchuk
  * @created  15.07.11 13:21
