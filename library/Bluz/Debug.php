@@ -42,10 +42,6 @@ class Debug
      */
     public static function dump()
     {
-        if (!defined('DEBUG') or !DEBUG) {
-            return;
-        }
-
         if ('cli' == PHP_SAPI) {
             var_dump(func_get_args());
         } else {
@@ -55,7 +51,7 @@ class Debug
 
             ?>
             <div class="textleft clear">
-                <?php echo var_dump(func_get_args());?>
+                <?=var_dump(func_get_args());?>
             </div>
             <?php
         }

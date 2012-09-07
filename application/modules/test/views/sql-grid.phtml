@@ -41,7 +41,7 @@
         </ul>
     </div>
 
-    <table class="table">
+    <table class="table grid">
         <thead>
             <tr>
                 <th width="40px"><a href="<?=$grid->order('id')?:'#'?>">Id</a></th>
@@ -57,15 +57,15 @@
                 <td><?=$row['id']?></td>
                 <td><?=$row['name']?></td>
                 <td><?=$row['status']?></td>
-                <td><a href="<?=$this->url('test', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn dialog" data-ajax-method="get">Edit</a></td>
-                <td><a href="<?=$this->url('test', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-danger ajax" data-ajax-method="delete">Delete</a></td>
+                <td class="controls"><a href="<?=$this->url('test', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn dialog" data-ajax-method="get">Edit</a></td>
+                <td class="controls"><a href="<?=$this->url('test', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-danger ajax" data-ajax-method="delete">Delete</a></td>
             </tr>
             <?php endforeach; ?>
             <?php if (sizeof($grid->getData()) < $grid->getLimit()) :
                 $emptyRows = $grid->getLimit() - sizeof($grid->getData()); ?>
                 <?php for ($i = 0; $i < $emptyRows; $i++): ?>
                 <tr>
-                    <td colspan="3">&nbsp;</td>
+                    <td colspan="5">&nbsp;</td>
                 </tr>
                 <?php endfor; ?>
             <?php endif; ?>

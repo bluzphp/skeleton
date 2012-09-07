@@ -341,6 +341,8 @@ abstract class Table
     }
 
     /**
+     * Be or not to be?
+     *
      * Support method for fetching rows.
      *
      * @return array An array containing the row results in FETCH_ASSOC mode.
