@@ -1,7 +1,8 @@
 /**
- * Notices
+ * Notices on top
+ * @author   Anton Shevchuk
  */
-var Messages = (function($, undefined) {
+define(['jquery'], function($) {
     var M = {
         _uid:"messages",
         _el:null,
@@ -103,8 +104,7 @@ var Messages = (function($, undefined) {
             }
         }
     };
+	// DOM ready event
+	$(M.ready);
     return M;
-})(jQuery);
-
-// DOM ready event
-jQuery(Messages.ready);
+});

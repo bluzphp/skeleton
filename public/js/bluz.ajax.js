@@ -19,7 +19,9 @@
  *
  * @author   Anton Shevchuk
  */
-(function($){
+define(['jquery', 'bluz', 'messages'], function($, bluz, messages) {
+
+	// on DOM ready state
 	$(function() {
 		// Ajax global events
 		$("#loading")
@@ -55,8 +57,8 @@
 
 					// show messages and run callback after
 					if (data._messages != undefined) {
-						Messages.setCallback(callback);
-						Messages.addMessages(data._messages);
+						messages.setCallback(callback);
+						messages.addMessages(data._messages);
 					} else if (callback) {
 						callback();
 					}
@@ -67,10 +69,8 @@
 				}
 			})
 			.ajaxError(function(event, jqXHR, options, thrownError){
-				if (console != undefined) {
-					console.error(thrownError, "Response Text:", jqXHR.responseText);
-				}
-				Messages.addError('Connection is fail');
+				bluz.log(thrownError, "Response Text:", jqXHR.responseText);
+				messages.addError('Connection is fail');
 			})
 			.ajaxComplete(function(){
 				$(this).hide();
@@ -258,7 +258,6 @@
                 }
             });
             return false;
-        })
-		;
+        });
     });
-})(jQuery, undefined);
+});
