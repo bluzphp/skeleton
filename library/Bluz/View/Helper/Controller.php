@@ -42,8 +42,8 @@ function ($controller = null)
      */
     $request = $this->getApplication()->getRequest();
     if (null == $controller) {
-        return $request->controller();
+        return $request->getController();
     } else {
-        return $request->controller() == $controller;
+        return $request->getController() == $controller;
     }
 };

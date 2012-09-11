@@ -267,8 +267,8 @@ class Router
 
         foreach ($this->routers as $key => $router) {
             if (preg_match($router['pattern'], $uri, $matches)) {
-                $request->module($router['module']);
-                $request->controller($router['controller']);
+                $request->setModule($router['module']);
+                $request->setController($router['controller']);
 
                 foreach($router['params'] as $param => $type) {
                     if (isset($matches[$param])) {
@@ -294,10 +294,10 @@ class Router
         $params = preg_split('/\//', $uri);
 
         if (sizeof($params)) {
-            $request->module(array_shift($params));
+            $request->setModule(array_shift($params));
         }
         if (sizeof($params)) {
-            $request->controller(array_shift($params));
+            $request->setController(array_shift($params));
         }
 
         if ($size = sizeof($params)) {

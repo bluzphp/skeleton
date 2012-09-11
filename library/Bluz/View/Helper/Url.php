@@ -49,10 +49,10 @@ function ($module, $controller, array $params = [], $checkAccess = false) {
     }
 
     if (null === $module) {
-        $module = $app->getRequest()->module();
+        $module = $app->getRequest()->getModule();
     }
     if (null === $controller) {
-        $controller = $app->getRequest()->controller();
+        $controller = $app->getRequest()->getController();
     }
     if (null === $params) {
         $params = $app->getRequest()->getParams();

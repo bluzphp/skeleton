@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \Bluz\View\Layout self
+ */
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
@@ -24,8 +29,7 @@
 
     <?php $this->trigger('header'); ?>
 </head>
-<body data-spy="scroll" class="module-<?=$this->getApplication()->getRequest()->module()?> controller-<?=$this->getApplication()
-    ->getRequest()->controller()?>">
+<body data-spy="scroll" data-bluz-module="<?=$this->module()?>" data-bluz-controller="<?=$this->controller()?>">
 <?php if ($this->getApplication()->getMessages()->count()):?>
         <div id="messages" class="hide">
             <?php while ($message = $this->getApplication()->getMessages()->pop()):?>

@@ -491,8 +491,8 @@ class Application
         /* @var View $ControllerView */
         try {
             $dispatchResult = $this->dispatch(
-                $this->request->module(),
-                $this->request->controller(),
+                $this->request->getModule(),
+                $this->request->getController(),
                 $this->request->getParams()
             );
 

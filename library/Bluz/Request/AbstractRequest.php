@@ -112,13 +112,21 @@ class AbstractRequest
      * Retrieve the module name
      *
      * @param string $name
+     * @return self
+     */
+    public function setModule($name)
+    {
+        $this->module = $name;
+        return $this;
+    }
+
+    /**
+     * Retrieve the module name
+     *
      * @return string
      */
-    public function module($name = null)
+    public function getModule()
     {
-        if (null !== $name) {
-            $this->module = $name;
-        }
         return $this->module;
     }
 
@@ -126,13 +134,21 @@ class AbstractRequest
      * Retrieve the controller name
      *
      * @param string $name
+     * @return self
+     */
+    public function setController($name)
+    {
+        $this->controller = $name;
+        return $this;
+    }
+
+    /**
+     * Retrieve the controller name
+     *
      * @return string
      */
-    public function controller($name = null)
+    public function getController()
     {
-        if (null !== $name) {
-            $this->controller = $name;
-        }
         return $this->controller;
     }
 

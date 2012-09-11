@@ -42,8 +42,8 @@ function ($module = null)
      */
     $request = $this->getApplication()->getRequest();
     if (null == $module) {
-        return $request->module();
+        return $request->getModule();
     } else {
-        return $request->module() == $module;
+        return $request->getModule() == $module;
     }
 };
