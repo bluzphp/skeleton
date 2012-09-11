@@ -102,6 +102,75 @@ class Crud
     }
 
     /**
+     * processView
+     * 
+     * @return mixed
+     */
+    public function processController()
+    {
+        $this->getApplication()->useJson(true);
+        try {
+            $result = $this->processRequest()
+                ->getResult();
+        } catch (\Bluz\Crud\CrudException $e) {
+            // all "not found" errors
+            $this->getApplication()->getMessages()->addError($e->getMessage());
+            return false;
+        } catch (\Bluz\Crud\ValidationException $e) {
+            // validate errors
+            $this->getApplication()->getMessages()->addError("Please fix all errors");
+            return [
+                'errors' => $this->getErrors(),
+                'callback' => 'validateForm'
+            ];
+        }
+
+        // switch statement for $this->getMethod()
+        switch ($this->getMethod()) {
+            case AbstractRequest::METHOD_POST:
+                // CREATE record
+                $this->getApplication()->getMessages()->addSuccess("Row was created");
+                $this->getApplication()->reload();
+                break;
+            case AbstractRequest::METHOD_PUT:
+                // UPDATE record
+                $this->getApplication()->getMessages()->addSuccess("Row was updated");
+                $this->getApplication()->reload();
+                break;
+            case AbstractRequest::METHOD_DELETE:
+                // DELETE record
+                $this->getApplication()->getMessages()->addSuccess("Row was deleted");
+                $this->getApplication()->reload();
+                break;
+            case AbstractRequest::METHOD_GET:
+            default:
+                // always HTML
+                $this->getApplication()->useJson(false);
+
+                // enable Layout for not AJAX request
+                if (!$this->getApplication()->getRequest()->isXmlHttpRequest()) {
+                    $this->getApplication()->useLayout(true);
+                }
+
+                // EDIT or CREATE form
+                if ($result instanceof \Bluz\Db\Row) {
+                    // edit form
+                    return [
+                        'row' => $result,
+                        'method' => 'put'
+                    ];
+                } else {
+                    // create form
+                    return [
+                        'row' => $this->getTable()->create(),
+                        'method' => 'post'
+                    ];
+                }
+                break;
+        }
+    }
+
+    /**
      * setTable
      *
      * @param \Bluz\Db\Table $table
@@ -217,9 +286,25 @@ class Crud
     {
         // validate entity
         // ...
-        if (sizeof( $this->errors )) {
+        if (sizeof($this->errors)) {
             throw new \Bluz\Crud\ValidationException('Validation error, please check errors stack');
         }
+    }
+
+    /**
+     * @throws \Bluz\Crud\ValidationException
+     */
+    public function validateCreate()
+    {
+        $this->validate();
+    }
+
+    /**
+     * @throws \Bluz\Crud\ValidationException
+     */
+    public function validateUpdate($originalRow)
+    {
+        $this->validate();
     }
 
     /**
@@ -249,8 +334,11 @@ class Crud
      */
     public function create()
     {
-        $this->validate();
-        $row = $this->getTable()->create($this->data);
+        $this->validateCreate();
+
+        $row = $this->getTable()->create();
+
+        $row->setFromArray($this->data);
         return $row->save();
     }
 
@@ -260,7 +348,7 @@ class Crud
      */
     public function update()
     {
-        $this->validate();
+
         $primary = $this->getPrimaryKey();
 
         $row = $this->getTable()->findRow($primary);
@@ -268,6 +356,8 @@ class Crud
         if (!$row) {
             throw new CrudException("Record not found");
         }
+
+        $this->validateUpdate($row);
 
         $row->setFromArray($this->data);
         return $row->save();
