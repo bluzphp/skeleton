@@ -25,6 +25,11 @@ class Table extends \Bluz\Db\Table
     protected $primary = array('id');
 
     /**
+     * @var array
+     */
+    protected $basicRoles = ['guest', 'administrator'];
+
+    /**
      * Get all roles in system
      *
      * @return \Bluz\Db\Rowset
@@ -32,6 +37,16 @@ class Table extends \Bluz\Db\Table
     public function getRoles()
     {
         return $this->fetch("SELECT * FROM acl_roles ORDER BY id");
+    }
+
+    /**
+     * getBasicRoles
+     * 
+     * @return array
+     */
+    public function getBasicRoles()
+    {
+        return $this->basicRoles;
     }
 
     /**

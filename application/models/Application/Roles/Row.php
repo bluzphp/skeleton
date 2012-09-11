@@ -29,6 +29,6 @@ class Row extends \Bluz\Db\Row
      */
     public function isBasic()
     {
-        return in_array(strtolower($this->name), ['guest', 'administrator']);
+        return in_array(strtolower($this->name), Table::getInstance()->getBasicRoles());
     }
 }
