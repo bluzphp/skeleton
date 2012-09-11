@@ -35,6 +35,7 @@ namespace Application\Test;
  */
 class ArrayGrid extends \Bluz\Grid\Grid
 {
+    protected $uid = 'arr';
     /**
      * init
      * 

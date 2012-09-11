@@ -14,10 +14,14 @@ return
 /**
  * @return \closure
  */
-function() use ($view) {
+function() use ($view, $module, $controller) {
     $this->getLayout()->breadCrumbs([
         $view->ahref('Test', ['test', 'index']),
         'Grid with SQL',
     ]);
-    $view->grid = new Test\SqlGrid();
+    $grid = new Test\SqlGrid();
+    $grid->setModule($module);
+    $grid->setController($controller);
+
+    $view->grid = $grid;
 };

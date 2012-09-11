@@ -35,6 +35,8 @@ namespace Application\Test;
  */
 class SqlGrid extends \Bluz\Grid\Grid
 {
+    protected $uid = 'sql';
+
     /**
      * init
      * 

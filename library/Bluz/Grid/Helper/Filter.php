@@ -61,8 +61,8 @@ function ($column, $filter, $value, $reset = true) {
 
     // retrieve URL
     $url = $this->getApplication()->getRouter()->url(
-        $this->getApplication()->getRequest()->module(),
-        $this->getApplication()->getRequest()->controller(),
+        $this->getModule(),
+        $this->getController(),
         $params
     );
 

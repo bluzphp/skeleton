@@ -80,6 +80,18 @@ abstract class Grid
     protected $prefix;
 
     /**
+     * Location of Grid
+     * @var string $module
+     */
+    protected $module;
+
+    /**
+     * Location of Grid
+     * @var string $controller
+     */
+    protected $controller;
+
+    /**
      * Start from 1!
      *
      * @var int
@@ -148,7 +160,7 @@ abstract class Grid
         }
 
         if ($this->uid) {
-            $this->prefix = $this->uid .'-';
+            $this->prefix = $this->getUid() .'-';
         } else {
             $this->prefix = '';
         }
@@ -195,15 +207,69 @@ abstract class Grid
     }
 
     /**
-     * getPrefix
+     * getUid
      * 
+     * @return string
+     */
+    public function getUid()
+    {
+        return $this->uid;
+    }
+
+    /**
+     * getPrefix
+     *
      * @return string
      */
     public function getPrefix()
     {
         return $this->prefix;
     }
-    
+
+    /**
+     * setModule
+     *
+     * @param $module
+     * @return self
+     */
+    public function setModule($module)
+    {
+        $this->module = $module;
+        return $this;
+    }
+
+    /**
+     * getModule
+     *
+     * @return string
+     */
+    public function getModule()
+    {
+        return $this->module;
+    }
+
+    /**
+     * setController
+     *
+     * @param $controller
+     * @return self
+     */
+    public function setController($controller)
+    {
+        $this->controller = $controller;
+        return $this;
+    }
+
+    /**
+     * getController
+     *
+     * @return string
+     */
+    public function getController()
+    {
+        return $this->controller;
+    }
+
     /**
      * process request
      *
@@ -228,6 +294,10 @@ abstract class Grid
     public function processRequest()
     {
         $request = $this->getApplication()->getRequest();
+
+        $this->module = $request->getModule();
+        $this->controller = $request->getController();
+
         $page = $request->getParam($this->prefix.'page', 1);
         $this->setPage($page);
 

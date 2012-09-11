@@ -1,28 +1,14 @@
+<?php
+/**
+ * @var \Bluz\Grid\Grid $grid
+ */
+?>
 <script>
-    $(function(){
-        $('#<?=$grid->getPrefix()?>grid').on('click.bluz.ajax', '.pagination a, thead a', function(){
-            var $this = $(this);
-            var href = $this.attr('href');
-
-            if (href == '#') return false;
-
-            $.ajax({
-                url: href,
-                type: 'get',
-                dataType:'html',
-                beforeSend:function() {
-                    $this.addClass('disabled');
-                },
-                success:function(html) {
-                    $('#<?=$grid->getPrefix()?>grid').replaceWith(html);
-                }
-            });
-            return false;
-        });
-    });
+    // use data-spy="grid" for use AJAX for reload grid
+    require(['bluz.grid']);
 </script>
 
-<div id="<?=$grid->getPrefix()?>grid">
+<div data-spy="grid" data-grid="<?=$grid->getUid()?>">
     <a href="<?=$this->url('test', 'crud')?>" class="btn dialog" data-ajax-method="get">Create</a>
     <p>
         Filters:<br/>
