@@ -2,8 +2,8 @@
 <?php
     // for IDE syntax highlighter
     /** @var $key */
-    $on = "javascript:(function(){document.cookie='$key=1;path=/;';})()";
-    $off = "javascript:(function(){document.cookie='$key=;expires=Mon,%2005%20Jul%202000%2000:00:00%20GMT;path=/;';})()";
+    $on = "javascript:(function(){document.cookie='$key=1;path=/;';window.location.reload();})()";
+    $off = "javascript:(function(){document.cookie='$key=;expires=Mon,%2005%20Jul%202000%2000:00:00%20GMT;path=/;';window.location.reload();})()";
 ?>
 
 <ul class="unstyled">
@@ -11,3 +11,14 @@
     <li>&nbsp;</li>
     <li><a href="<?= $off ?>" class="btn">Bluz Debug (OFF)</a></li>
 </ul>
+
+<h3>Example</h3>
+<pre>
+debug(['key'=>'value'], 123, new \stdClass());
+</pre>
+<h3>Result</h3>
+<div class="well">
+    <?php
+        debug(['key'=>'value'], 123, new \stdClass());
+    ?>
+</div>
