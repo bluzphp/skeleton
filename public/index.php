@@ -12,7 +12,7 @@ define('ENVIRONMENT_TESTING', 'testing');
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : ENVIRONMENT_PRODUCTION));
 
 // Debug mode for development environment only
-if (APPLICATION_ENV != ENVIRONMENT_PRODUCTION) {
+if (isset($_COOKIE['BLUZ_DEBUG'])) {
     define('DEBUG', true);
     error_reporting(E_ALL | E_STRICT);
     ini_set('display_errors', 1);

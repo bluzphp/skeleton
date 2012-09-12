@@ -1,0 +1,13 @@
+<h2>Bookmarklets for debug site</h2>
+<?php
+    // for IDE syntax highlighter
+    /** @var $key */
+    $on = "javascript:(function(){document.cookie='$key=1;path=/;';})()";
+    $off = "javascript:(function(){document.cookie='$key=;expires=Mon,%2005%20Jul%202000%2000:00:00%20GMT;path=/;';})()";
+?>
+
+<ul class="unstyled">
+    <li><a href="<?= $on ?>" class="btn">Bluz Debug (ON)</a></li>
+    <li>&nbsp;</li>
+    <li><a href="<?= $off ?>" class="btn">Bluz Debug (OFF)</a></li>
+</ul>
