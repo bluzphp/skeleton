@@ -50,13 +50,26 @@ function ($module, $controller, $params = array()) {
     $application = $this->getApplication();
     try {
         $view = $application->dispatch($module, $controller, $params);
-
-        if ($view instanceof \Closure) {
-            return $view();
-        }
-        return $view;
     } catch (\Bluz\Acl\AclException $e) {
         // nothing for Acl exception
         return null;
+    } catch (\Exception $e) {
+        if (DEBUG) {
+            // exception message for developers
+            return
+                '<div class="alert alert-error">'.
+                '<strong>Dispatch of "'.$module.'/'.$controller.'"</strong>: '.
+                $e->getMessage().
+                '</div>';
+        } else {
+            // nothing for production
+            return null;
+        }
     }
+
+    // run closure
+    if ($view instanceof \Closure) {
+        return $view();
+    }
+    return $view;
 };
