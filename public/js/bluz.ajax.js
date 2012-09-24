@@ -239,16 +239,11 @@ define(['jquery', 'bluz', 'messages'], function($, bluz, messages) {
 			if (type && type == 'json') {
 				data._json = 1;
 			}
-            var formData = $this.serializeArray();
-
-            for (var i in formData) {
-                data[formData[i].name] = formData[i].value;
-            }
 
             $.ajax({
                 url: $this.attr('action'),
 				type: (method?method:'post'),
-                data: data,
+                data: $this.serialize(),
                 dataType: (type?type:'json'),
                 beforeSend:function() {
                     $this.addClass('disabled');
