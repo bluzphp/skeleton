@@ -28,12 +28,28 @@
     <?= $this->ahref('Confirm', ['index', 'index'], ['class'=>'confirm btn', 'data-confirm'=>'Confirm?']);?>
 </div>
 <hr/>
+<h3>Dispatch closure controller</h3>
 <div id="load">
     <?= $this->dispatch('test', 'closure') ?>
 </div>
+
+<h3>Wrong widget</h3>
+<div>
+    <?= $this->widget('test', 'not-found') ?>
+</div>
+
+<h3>Wrong controller</h3>
+<div>
+    <?= $this->dispatch('test', 'not-found') ?>
+</div>
+
+
+<h3>Dispatch grid based on array </h3>
 <div>
     <?= $this->dispatch('test', 'array-grid') ?>
 </div>
+
+<h3>Dispatch grid based on SQL</h3>
 <div>
     <?= $this->dispatch('test', 'sql-grid') ?>
 </div>

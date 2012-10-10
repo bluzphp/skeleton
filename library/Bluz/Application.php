@@ -548,7 +548,12 @@ class Application
             'reflection' => $reflectionData
         ));
 
-        $identity = $this->getAuth()->getIdentity();
+        // check user auth
+        if ($this->getAuth()) {
+            $identity = $this->getAuth()->getIdentity();
+        } else {
+            $identity = null;
+        }
 
         // check acl
         if (!$this->isAllowedController($module, $controller, $params)) {
@@ -770,7 +775,7 @@ class Application
         if (!$data = $this->getCache()->get('reflection:'.$file)) {
 
             // TODO: workaround for get reflection of closure function
-            $bootstrap = $request = $identity = $view = null;
+            $bootstrap = $request = $identity = $view = $module = $controller = null;
             $closure = include $file;
 
             $reflection = new \ReflectionFunction($closure);

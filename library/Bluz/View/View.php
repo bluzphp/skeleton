@@ -311,18 +311,29 @@ class View
     public function __($message) {
 
         if (func_num_args() == 1) {
-            return gettext($message);
+            if (function_exists('gettext')) {
+                $message = gettext($message);
+            }
+            return $message;
         } elseif (func_num_args() == 2) {
             // simple replace
             $args = func_get_args();
-            return sprintf(gettext($message), $args[1]);
+            if (function_exists('gettext')) {
+                $message = gettext($message);
+            }
+            return sprintf($message, $args[1]);
         } elseif (func_num_args() == 3) {
             // plural form
             $args = func_get_args();
-            return sprintf(ngettext($message, $args[1], $args[2]), $args[2]);
+            if (function_exists('ngettext')) {
+                $message = ngettext($message, $args[1], $args[2]);
+            }
+            return sprintf($message, $args[2]);
         } elseif (func_num_args() > 3) {
             // plural form with additional params
-            $message = call_user_func_array('ngettext', func_get_args());
+            if (function_exists('ngettext')) {
+                $message = call_user_func_array('ngettext', func_get_args());
+            }
             $args = array_slice(func_get_args(), 2);
             return vsprintf($message, $args);
         }

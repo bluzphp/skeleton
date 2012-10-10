@@ -56,5 +56,14 @@ function ($module, $widget, $params = array())
         call_user_func_array($widgetClosure, $params);
     } catch (\Bluz\Acl\AclException $e) {
         // nothing for Acl exception
+    } catch (\Exception $e) {
+        if (DEBUG) {
+            // exception message for developers
+            echo
+                '<div class="alert alert-error">'.
+                '<strong>Widget "'.$module.'/'.$widget.'"</strong>: '.
+                $e->getMessage().
+                '</div>';
+        }
     }
 };

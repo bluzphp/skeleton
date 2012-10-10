@@ -69,7 +69,7 @@ trait Package
      */
     public function __construct($options = null)
     {
-        if ($options) {
+        if ($options && is_array($options)) {
             $this->setOptions($options);
         }
         $this->init($options);
