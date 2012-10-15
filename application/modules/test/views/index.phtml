@@ -28,14 +28,19 @@
     <?= $this->ahref('Confirm', ['index', 'index'], ['class'=>'confirm btn', 'data-confirm'=>'Confirm?']);?>
 </div>
 <hr/>
-<h3>Dispatch closure controller</h3>
+<h3>Dispatch controller</h3>
 <div id="load">
     <?= $this->dispatch('test', 'closure') ?>
 </div>
 
-<h3>Wrong widget</h3>
+<h3>Call widget</h3>
 <div>
-    <?= $this->widget('test', 'not-found') ?>
+    <?= $this->widget('test', 'lorem') ?>
+</div>
+
+<h3>Call API method</h3>
+<div>
+    <?= $this->api('test', 'example', [2]) ?>
 </div>
 
 <h3>Wrong controller</h3>
@@ -43,6 +48,15 @@
     <?= $this->dispatch('test', 'not-found') ?>
 </div>
 
+<h3>Wrong widget</h3>
+<div>
+    <?= $this->widget('test', 'not-found') ?>
+</div>
+
+<h3>Wrong API method</h3>
+<div>
+    <?= $this->api('test', 'not-found') ?>
+</div>
 
 <h3>Dispatch grid based on array </h3>
 <div>

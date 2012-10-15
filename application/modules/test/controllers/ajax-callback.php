@@ -4,7 +4,6 @@
  *
  * @author   Anton Shevchuk
  * @created  26.09.11 17:41
- * @return closure
  */
 namespace Application;
 use Bluz;

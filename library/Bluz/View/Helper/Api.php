@@ -32,37 +32,36 @@ use Bluz\View\View;
 return
 
 /**
- * widget
+ * API call from View
+ * Be carefully, use it for calculate/update/save some data
+ * For render information use Widgets!
  *
  * <pre>
  * <code>
- * $this->widget($module, $controller, array $params);
+ * $this->api($module, $method, array $params);
  * </code>
  * </pre>
  *
  * @param string $module
- * @param string $widget
+ * @param string $method
  * @param array $params
  * @return View
  */
-function ($module, $widget, $params = array())
+function ($module, $method, $params = array())
 {
     /**
      * @var View $this
      */
     $application = $this->getApplication();
     try {
-        $widgetClosure = $application->widget($module, $widget);
-        call_user_func_array($widgetClosure, $params);
-    } catch (\Bluz\Acl\AclException $e) {
-        // nothing for Acl exception
-        return null;
+        $apiClosure = $application->api($module, $method);
+        return call_user_func_array($apiClosure, $params);
     } catch (\Exception $e) {
         if (DEBUG) {
             // exception message for developers
             echo
                 '<div class="alert alert-error">'.
-                '<strong>Widget "'.$module.'/'.$widget.'"</strong>: '.
+                '<strong>API "'.$module.'/'.$method.'"</strong>: '.
                 $e->getMessage().
                 '</div>';
         }

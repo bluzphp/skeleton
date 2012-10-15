@@ -154,6 +154,12 @@ class Application
     protected $widgets = array();
 
     /**
+     * api closures
+     * @var array
+     */
+    protected $api = array();
+
+    /**
      * Temporary variable for save dispatch result
      * @var null
      */
@@ -730,8 +736,8 @@ class Application
     public function widget($module, $widget, $params = array())
     {
         $this->log(__METHOD__.": ".$module.'/'.$widget);
-        $controllerFile = $this->getWidgetFile($module, $widget);
-        $reflectionData = $this->reflection($controllerFile);
+        $widgetFile = $this->getWidgetFile($module, $widget);
+        $reflectionData = $this->reflection($widgetFile);
 
         $this->getEventManager()->trigger('widget', $this, array(
             'module' => $module,
@@ -761,6 +767,62 @@ class Application
         }
 
         return $widgetClosure;
+    }
+
+    /**
+     * api
+     *
+     * Call API from any \Bluz\Package
+     * <code>
+     * $this->getApplication()->api($module, $widget, array $params);
+     * </code>
+     *
+     * Attach callback function to event "api"
+     * <code>
+     * $this->getApplication()->getEventManager()->attach('api', function($event) {
+     *     $eventParams = $event->getParams();
+     *     $app = $event->getTarget();
+     *     \Bluz\Profiler::log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['widget']);
+     * });
+     * </code>
+     *
+     * @param string $module
+     * @param string $method
+     * @param array  $params
+     * @throws Exception
+     * @return \Closure
+     */
+    public function api($module, $method, $params = array())
+    {
+        $this->log(__METHOD__.": ".$module.'/'.$method);
+
+        $this->getEventManager()->trigger('api', $this, array(
+            'module' => $module,
+            'method' => $method,
+            'params' => $params
+        ));
+
+        /**
+         * Cachable APIs
+         * @var \Closure $widgetClosure
+         */
+        if (isset($this->api[$module])
+            && isset($this->api[$module][$method])) {
+            $apiClosure = $this->api[$module][$method];
+        } else {
+            $apiClosure = require $this->getApiFile($module, $method);
+
+            if (!isset($this->api[$module])) {
+                $this->api[$module] = array();
+            }
+            $this->api[$module][$method] = $apiClosure;
+        }
+
+        if (!is_callable($apiClosure)) {
+            throw new Exception("API is not callable '$module/$method'");
+        }
+
+        return $apiClosure;
     }
 
     /**
@@ -928,7 +990,7 @@ class Application
      * @return \Closure
      * @throws Exception
      */
-    public function getControllerFile($module, $controller)
+    protected function getControllerFile($module, $controller)
     {
         $controllerPath = PATH_APPLICATION . '/modules/' . $module
                         .'/controllers/' . $controller .'.php';
@@ -948,7 +1010,7 @@ class Application
      * @return \Closure
      * @throws Exception
      */
-    public function getWidgetFile($module, $widget)
+    protected function getWidgetFile($module, $widget)
     {
         $widgetPath = PATH_APPLICATION . '/modules/' . $module
                         .'/widgets/' . $widget .'.php';
@@ -958,5 +1020,25 @@ class Application
         }
 
         return $widgetPath;
+    }
+
+    /**
+     * Get API file
+     *
+     * @param  string $module
+     * @param  string $method
+     * @return \Closure
+     * @throws Exception
+     */
+    protected function getApiFile($module, $method)
+    {
+        $apiPath = PATH_APPLICATION . '/modules/' . $module
+                        .'/api/' . $method .'.php';
+
+        if (!file_exists($apiPath)) {
+            throw new Exception("API not found '$module/$method'");
+        }
+
+        return $apiPath;
     }
 }
