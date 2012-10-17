@@ -7,6 +7,7 @@ define(['jquery'], function($) {
 
 	$(function(){
 		// TODO: require other modules if needed
+		$('[rel=tooltip]').tooltip();
 	});
 
 	return {

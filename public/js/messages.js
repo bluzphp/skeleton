@@ -15,12 +15,13 @@ define(['jquery'], function($) {
         },
         getContainer:function(){
             if (!M._el) {
-                if ($('#'+M._uid).length == 0) {
+				var _el = $('#'+M._uid);
+                if (_el.length == 0) {
                     M._el = $('<div id="'+M._uid+'">'+'</div>');
                     M._el.prependTo('body');
                     M._el.css({display:'none'});
-                } else if ($('#'+M._uid).length > 0) {
-                    M._el = $('#'+M._uid);
+                } else if (_el.length > 0) {
+                    M._el = _el;
                 }
                 M._el.click(function(){
                     $(this).hide();
