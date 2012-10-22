@@ -16,7 +16,7 @@
         <tr>
             <td>
                 <?=
-                    $this->ahref($user->login, ['acl', 'edit-user', ['id' => $user->id]], ['shown' => 'resourceTabs', 'class'=>"dialog", 'data-ajax-method'=>'get'])
+                    $this->ahref($user->login, ['acl', 'edit-user', ['id' => $user->id]], ['class'=>"dialog", 'data-ajax-method'=>'get'])
                         ?: $user->login
                 ?>
             </td>
