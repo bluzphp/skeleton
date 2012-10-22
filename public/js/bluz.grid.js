@@ -23,7 +23,8 @@ define(['jquery', 'bluz'], function ($, bluz) {
 					type: 'get',
 					dataType:'html',
 					beforeSend:function() {
-						$link.addClass('disabled');
+						$link.addClass('active');
+						$grid.find('a, .btn').addClass('disabled');
 					},
 					success:function(html) {
 						/*
@@ -34,6 +35,9 @@ define(['jquery', 'bluz'], function ($, bluz) {
 						</div>          </div>
 						 */
 						$grid.html($(html).children().unwrap());
+					},
+					complete:function() {
+//						$grid.find('a, .btn').removeClass('disabled');
 					}
 				});
 				return false;

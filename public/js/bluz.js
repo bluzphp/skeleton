@@ -7,7 +7,15 @@ define(['jquery'], function($) {
 
 	$(function(){
 		// TODO: require other modules if needed
-		$('[rel=tooltip]').tooltip();
+		if ($.fn.tooltip) {
+			$('.bluz-tooltip').tooltip();
+		}
+
+		if ($.fn.affix) {
+			$('.bluz-affix').affix()
+		}
+
+
 	});
 
 	return {

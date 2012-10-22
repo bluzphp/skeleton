@@ -23,7 +23,9 @@ function () use ($view) {
      * @var Bluz\View\View $view
      */
     $view->title('Routers Map');
+    $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->breadCrumbs([
+        $view->ahref('Dashboard', ['dashboard', 'index']),
         $view->ahref('System', ['system', 'index']),
         'Routers Map',
     ]);

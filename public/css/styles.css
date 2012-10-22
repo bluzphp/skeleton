@@ -79,5 +79,11 @@ article, aside, header, footer, section {
 .breadcrumb a:hover {
 	text-decoration: none;
 }
+.nav-tabs.nav-stacked > .active > a,
+.nav-tabs.nav-stacked > .active > a:hover {
+	color: white;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+	background-color: #08C;
+}
 /*/Bootstrap fix*/
 

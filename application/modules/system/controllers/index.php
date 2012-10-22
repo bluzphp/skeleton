@@ -17,7 +17,9 @@ function() use ($view) {
      * @var Bluz\View\View $view
      */
     $view->title('System Module');
+    $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->breadCrumbs([
+        $view->ahref('Dashboard', ['dashboard', 'index']),
         'System',
     ]);
 };

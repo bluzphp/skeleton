@@ -20,7 +20,9 @@ function() use ($view) {
      * @var Bluz\View\View $view
      */
     $view->title('PHP Info');
+    $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->breadCrumbs([
+        $view->ahref('Dashboard', ['dashboard', 'index']),
         $view->ahref('System', ['system', 'index']),
         'PHP Info',
     ]);

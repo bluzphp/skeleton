@@ -18,6 +18,12 @@ function() use ($view) {
     /**
      * @var Bootstrap $app
      */
+    $this->getLayout()->setTemplate('dashboard.phtml');
+    $this->getLayout()->breadCrumbs([
+        $view->ahref('Dashboard', ['dashboard', 'index']),
+        $view->ahref('ACL', ['acl', 'index']),
+        'Users',
+    ]);
 //    $view->users = Users\Table::getInstance()->fetchAll();
     $view->users = $this->getDb()->fetchObjects('
         SELECT u.*, GROUP_CONCAT( ar.`name` SEPARATOR ", " ) AS roles
@@ -26,8 +32,4 @@ function() use ($view) {
             u.`id` = aur.`userId`
         AND ar.`id` = aur.`roleId`', [], '\Application\Users\Row');
 
-    $this->getLayout()->breadCrumbs([
-        $view->ahref('ACL', ['acl', 'index']),
-        'Users',
-    ]);
 };

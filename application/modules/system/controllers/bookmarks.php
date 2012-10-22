@@ -20,7 +20,9 @@ function($key = null) use ($view) {
      * @var Bluz\View\View $view
      */
     $view->title('Bookmarklets');
+    $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->breadCrumbs([
+        $view->ahref('Dashboard', ['dashboard', 'index']),
         $view->ahref('System', ['system', 'index']),
         'Bookmarklets',
     ]);

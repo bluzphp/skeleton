@@ -15,7 +15,9 @@ return
  */
 function () use ($view) {
     /* @var \Bluz\Application $this */
+    $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->breadCrumbs([
+        $view->ahref('Dashboard', ['dashboard', 'index']),
         $view->ahref('Cache', ['cache', 'index']),
         'Statistics',
     ]);

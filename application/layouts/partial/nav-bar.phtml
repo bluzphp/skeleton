@@ -5,17 +5,7 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li <?=($this->module('index')?'class="active"':'')?>><?php echo $this->ahref('Home', ['index', 'index'])?></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
-                            System
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><?= $this->ahref('Acl', ['acl', 'index', [], true]) ?></li>
-                            <li><?= $this->ahref('Cache', ['cache', 'index', [], true]) ?></li>
-                            <li><?= $this->ahref('System', ['system', 'index', [], true]) ?></li>
-                        </ul>
-                    </li>
+                    <li <?=($this->module('dashboard')?'class="active"':'')?>><?php echo $this->ahref('Dashboard', ['dashboard', 'index'])?></li>
                     <li <?=($this->module('test')?'class="active"':'')?>><?php echo $this->ahref('Test', ['test', 'index'])?></li>
                 </ul>
                 <?php if ($identity = $this->getApplication()->getAuth()->getIdentity()) : ?>

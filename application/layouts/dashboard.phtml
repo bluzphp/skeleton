@@ -1,0 +1,37 @@
+<?php require_once 'partial/header.phtml'; ?>
+<?php require_once 'partial/nav-bar.phtml'; ?>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span2">
+                <ul class="nav nav-tabs nav-stacked">
+                    <li <?=($this->module('cache')?'class="active"':'')?>><?= $this->ahref('<i class="icon-hdd"></i> Cache', ['cache', 'index', [], true]) ?></li>
+                    <li <?=($this->module('acl')?'class="active"':'')?>><?= $this->ahref('<i class="icon-lock"></i> Permissions', ['acl', 'index', [], true]) ?></li>
+                    <li <?=($this->module('system')?'class="active"':'')?>><?= $this->ahref('<i class="icon-wrench"></i> System', ['system', 'index', [], true]) ?></li>
+                </ul>
+            </div>
+            <div class="span10">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="/" class="bluz-tooltip" data-placement="bottom" data-original-title="Back to homepage">
+                            <i class="icon-home"></i>
+                            <?php echo $this->__('Home')?>
+                        </a>
+                    </li>
+                    <?php if ($this->breadCrumbs()) foreach ($this->breadCrumbs() as $crump):?>
+                        <li>
+                            <span class="divider">/</span> <?php echo $crump?>
+                        </li>
+                    <?php endforeach;?>
+                </ul>
+                <?php
+                /* @var closure $content */
+                echo $this->getContent();
+                ?>
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p align="center">&copy; <?=gmdate('Y')?> NIX Solutions Ltd</p>
+        </footer>
+    </div>
+<?php require_once 'partial/footer.phtml'; ?>
