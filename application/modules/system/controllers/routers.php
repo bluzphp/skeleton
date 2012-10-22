@@ -9,6 +9,8 @@ namespace Application;
 use Bluz;
 
 /**
+ * @privilege Info
+ *
  * @return \closure
  */
 return

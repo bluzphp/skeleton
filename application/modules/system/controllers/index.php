@@ -7,6 +7,8 @@ namespace Application;
 use Bluz;
 return
 /**
+ * @privilege Info
+ *
  * @return \closure
  */
 function() use ($view) {
