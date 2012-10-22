@@ -6,6 +6,7 @@
  * @created  22.08.12 17:14
  */
 namespace Application;
+use Bluz;
 
 return
 /**
@@ -13,7 +14,14 @@ return
  *
  * @return \closure
  */
-function() {
-    phpinfo();
-    return false;
+function() use ($view) {
+    /**
+     * @var Bluz\Application $this
+     * @var Bluz\View\View $view
+     */
+    $view->title('PHP Info');
+    $this->getLayout()->breadCrumbs([
+        $view->ahref('System', ['system', 'index']),
+        'PHP Info',
+    ]);
 };

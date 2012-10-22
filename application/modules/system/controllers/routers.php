@@ -18,6 +18,15 @@ return
  * List of custom routers
  */
 function () use ($view) {
+    /**
+     * @var Bluz\Application $this
+     * @var Bluz\View\View $view
+     */
+    $view->title('Routers Map');
+    $this->getLayout()->breadCrumbs([
+        $view->ahref('System', ['system', 'index']),
+        'Routers Map',
+    ]);
     $routers = array();
     foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {
         $module = pathinfo(dirname(dirname($file->getPathname())), PATHINFO_FILENAME);
