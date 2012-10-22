@@ -46,7 +46,7 @@ class Equals extends AbstractAdapter
     protected $credentialColumn;
 
     /**
-     * @var closure
+     * @var \closure
      */
     protected $encryptFunction;
 

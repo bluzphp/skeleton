@@ -352,12 +352,16 @@ class View
             if (!file_exists($this->path .'/'. $this->template)) {
                 throw new ViewException("Template '{$this->template}' not found");
             }
-
             extract($this->data);
             require $this->path .'/'.  $this->template;
         } catch (\Exception $e) {
-            echo $e->getMessage();
-            var_dump($e->getTraceAsString());
+            ob_get_clean();
+            if (DEBUG) {
+                echo $e->getMessage();
+                var_dump($e->getTraceAsString());
+            }
+            // nothing for production
+            return '';
         }
         $content = ob_get_clean();
 

@@ -34,11 +34,11 @@ define(['jquery', 'bluz', 'messages'], function($, bluz, messages) {
 					    var data = jQuery.parseJSON(jqXHR.responseText);
 					} catch(error) {
 					    // its not json
-						return false;
+						return;
 					}
 					// check handler option
 					if (data._handler == undefined) {
-						return false;
+						return;
 					}
 					// it has the data
 					// redirect and reload page

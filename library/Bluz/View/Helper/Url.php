@@ -28,6 +28,7 @@ namespace Bluz\View\Helper;
 
 use Bluz\Application;
 use Bluz\View\View;
+use Bluz\View\ViewException;
 
 return
 
@@ -44,8 +45,12 @@ function ($module, $controller, array $params = [], $checkAccess = false) {
      */
     $app = $this->getApplication();
 
-    if ($checkAccess && !$app->isAllowedController($module, $controller, $params)) {
-        return null;
+    try {
+        if ($checkAccess && !$app->isAllowedController($module, $controller, $params)) {
+            return null;
+        }
+    } catch (\Exception $e) {
+        throw new \Bluz\View\ViewException('Url View Helper: '.$e->getMessage());
     }
 
     if (null === $module) {
