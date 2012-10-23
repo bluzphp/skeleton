@@ -23,10 +23,11 @@ function() use ($request, $view) {
      * @var Bluz\Request\HttpRequest $request
      * @var Bluz\View\View $view
      */
-    $this->getLayout()->title("Index/Index");
+    $this->getLayout()->title("Test/Index");
 
     $this->getSession()->test = 'Session time: '.date("H:i:s");
 
+    $view->title = $this->getLayout()->title();
     $view->session = $this->getSession()->test;
 
     //var_dump(\Staffload\Client::getInstance()->get('projects/search'));
