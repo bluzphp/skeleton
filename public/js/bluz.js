@@ -4,7 +4,6 @@
  * @created  11.09.12 10:02
  */
 define(['jquery'], function($) {
-
 	$(function(){
 		// TODO: require other modules if needed
 		if ($.fn.tooltip) {
@@ -14,8 +13,6 @@ define(['jquery'], function($) {
 		if ($.fn.affix) {
 			$('.bluz-affix').affix()
 		}
-
-
 	});
 
 	return {
