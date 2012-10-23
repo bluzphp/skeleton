@@ -180,7 +180,7 @@ class Router
         if (!empty($getParams)) {
             $url .= '?'. http_build_query($getParams);
         }
-        return $this->getBaseUrl() . $url;
+        return $this->getBaseUrl() . ltrim($url, '/');
     }
 
     /**
