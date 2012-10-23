@@ -492,8 +492,6 @@ class Application
             $this->useJson(true);
         }
 
-        $layout = $this->getLayout();
-
         /* @var View $ControllerView */
         try {
             $dispatchResult = $this->dispatch(
@@ -504,7 +502,9 @@ class Application
 
             // move vars from layout to view instance
             if ($dispatchResult instanceof View) {
-                $dispatchResult -> setData($this->getLayout()->toArray());
+                $dispatchResult -> setData(
+                    $this->getLayout()->toArray()
+                );
             }
         } catch (\Exception $e) {
              $dispatchResult = $this->dispatch('error', 'error', array(
@@ -513,7 +513,6 @@ class Application
             ));
         }
         $this->dispatchResult = $dispatchResult;
-        $layout->setContent($dispatchResult);
         return $this;
     }
 
@@ -649,17 +648,16 @@ class Application
     {
         $this->log(__METHOD__);
 
-        $layout = $this->getLayout();
-        $content = $layout->getContent();
+        $result = $this->dispatchResult;
 
         if ('cli' == PHP_SAPI) {
             // console render
             // get data from layout
-            $data = $layout->toArray();
+            $data = $this->getLayout()->toArray();
 
             // merge it with view data
-            if ($this->dispatchResult instanceof View) {
-                $data = array_merge($data, $this->dispatchResult->toArray());
+            if ($result instanceof View) {
+                $data = array_merge($data, $result->toArray());
             }
 
             // inject messages if exists
@@ -682,11 +680,11 @@ class Application
                 header('Content-type: application/json', true, 200);
 
                 // get data from layout
-                $data = $layout->toArray();
+                $data = $this->getLayout()->toArray();
 
                 // merge it with view data
-                if ($this->dispatchResult instanceof View) {
-                    $data = array_merge($data, $this->dispatchResult->toArray());
+                if ($result instanceof View) {
+                    $data = array_merge($data, $result->toArray());
                 }
 
                 // enable Bluz AJAX handler
@@ -702,9 +700,10 @@ class Application
                 // output
                 echo json_encode($data);
             } elseif (!$this->layoutFlag) {
-                echo ($content instanceof \Closure) ? $content(): $content;
+                echo ($result instanceof \Closure) ? $result() : $result;
             } else {
-                echo $layout;
+                $this->getLayout()->setContent($result);
+                echo $this->getLayout();
             }
         }
         return $this;
