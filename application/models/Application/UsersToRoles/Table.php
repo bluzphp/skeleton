@@ -26,8 +26,6 @@
  */
 namespace Application\UsersToRoles;
 
-use Bluz\Exception;
-
 /**
  * Table
  *

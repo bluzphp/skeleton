@@ -24,7 +24,7 @@
 /**
  * @namespace
  */
-namespace Application\Roles;
+namespace Application\UsersToRoles;
 
 /**
  * User
@@ -34,11 +34,6 @@ namespace Application\Roles;
  */
 class Row extends \Bluz\Db\Row
 {
-    /**
-     * @var integer
-     */
-    public $id;
-
     /**
      * @var integer
      */
