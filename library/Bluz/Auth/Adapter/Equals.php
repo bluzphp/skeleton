@@ -29,7 +29,7 @@ namespace Bluz\Auth\Adapter;
 use Bluz\Auth\AbstractAdapter;
 
 /**
- * Ldap
+ * Equals
  *
  * @category Bluz
  * @package  Auth

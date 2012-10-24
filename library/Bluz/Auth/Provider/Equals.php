@@ -24,35 +24,47 @@
 /**
  * @namespace
  */
-namespace Application\Users;
+namespace Bluz\Auth\Provider;
+
 
 /**
- * Table
+ * Equals Provider
  *
- * @category Application
- * @package  Users
+ * @category Bluz
+ * @package  Auth
  *
  * @author   Anton Shevchuk
- * @created  08.07.11 17:36
+ * @created  27.09.11 13:28
  */
-class Table extends \Bluz\Auth\Table
+class Equals
 {
     /**
-     * Table
-     *
-     * @var string
+     * @var \closure
      */
-    protected $table = 'users';
-
-    protected $identityColumn = 'login';
-
-    protected $credentialColumn = 'password';
-
-    protected $rowClass = '\Application\Users\Row';
+    protected $encryptFunction;
 
     /**
-     * Primary key(s)
-     * @var array
+     * authenticate
+     *
+     * @param string $login
+     * @param string $password
+     * @return bool
      */
-    protected $primary = array('id');
+    public function authenticate($login, $password)
+    {
+        $password = call_user_func($this->encryptFunction, $password);
+        return false;
+    }
+
+    /**
+     * setEncryptFunction
+     *
+     * @param \closure $function
+     * @return Equals
+     */
+    public function setEncryptFunction($function)
+    {
+        $this->encryptFunction = $function;
+        return $this;
+    }
 }

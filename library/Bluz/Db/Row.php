@@ -267,9 +267,10 @@ class Row
         $this->postInsert();
 
         /**
-         * Update the _clean to reflect that the data has been inserted.
+         * Update the "clean" to reflect that the data has been inserted.
          */
-        $this->refresh();
+        $this->clean = $this->toArray();
+        $this->modified = array();
 
         return $primaryKey;
     }
@@ -311,9 +312,10 @@ class Row
 
         /**
          * Refresh the data just in case triggers in the RDBMS changed
-         * any columns.  Also this resets the _clean.
+         * any columns.  Also this resets the "clean".
          */
-        $this->refresh();
+        $this->clean = $this->toArray();
+        $this->modified = array();
 
         /**
          * Return the primary key value(s) as an array

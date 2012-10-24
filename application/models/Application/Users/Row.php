@@ -40,6 +40,11 @@ use Application\Privileges;
  */
 class Row extends \Bluz\Auth\AbstractEntity
 {
+
+    const STATUS_PENDING = 'pending';
+    const STATUS_ACTIVE = 'active';
+    const STATUS_DISABLED = 'disabled';
+
     /**
      * @var integer
      */

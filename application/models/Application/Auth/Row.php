@@ -24,35 +24,29 @@
 /**
  * @namespace
  */
-namespace Application\Users;
+namespace Application\Auth;
 
 /**
- * Table
- *
  * @category Application
- * @package  Users
+ * @package  Auth
  *
  * @author   Anton Shevchuk
- * @created  08.07.11 17:36
+ * @created  24.10.12 11:57
  */
-class Table extends \Bluz\Auth\Table
+class Row extends \Bluz\Db\Row
 {
-    /**
-     * Table
-     *
-     * @var string
-     */
-    protected $table = 'users';
 
-    protected $identityColumn = 'login';
-
-    protected $credentialColumn = 'password';
-
-    protected $rowClass = '\Application\Users\Row';
+    const TYPE_REQUEST = 'request';
+    const TYPE_ACCESS = 'access';
 
     /**
-     * Primary key(s)
-     * @var array
+     * Foreign key to users table
+     * @var integer
      */
-    protected $primary = array('id');
+    public $userId;
+    public $provider;
+    public $foreignKey;
+    public $token;
+    public $tokenSecret;
+    public $tokenType;
 }

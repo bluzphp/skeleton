@@ -257,6 +257,8 @@ abstract class Table
         $args = func_get_args();
         $keyNames = array_values((array) $this->primary);
 
+//        var_dump($args, $keyNames);
+
         $whereList = array();
         foreach ($args as $keyValues) {
             $keyValues = (array) $keyValues;

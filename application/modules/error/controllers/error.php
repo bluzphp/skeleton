@@ -19,6 +19,14 @@ function ($code, $message = '') use ($view) {
      * @var \Bluz\View\View $view
      */
     switch ($code) {
+        case 400:
+            $header = "400 Bad Request";
+            $description = "The request cannot be fulfilled due to bad syntax";
+            break;
+        case 401:
+            $header = "401 Unauthorized";
+            $description = "Access denied";
+            break;
         case 403:
             $header = "403 Forbidden";
             $description = "Access denied";

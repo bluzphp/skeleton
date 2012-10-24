@@ -7,7 +7,6 @@
  * @return   array
  */
 return array(
-    "auth" => true,
     "cache" => array(
         "cache" => true,
         "path"  => PATH_DATA .'/cache'
