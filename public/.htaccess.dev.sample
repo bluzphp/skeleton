@@ -2,20 +2,24 @@ SetEnv APPLICATION_ENV dev
 
 AddDefaultCharset UTF-8
 
-php_flag magic_quotes_gpc 0
-php_flag short_open_tag on
-
-php_flag xdebug.show_local_vars 0
-php_flag xdebug.profiler_enable 0
-php_flag xdebug.profiler_enable_trigger 1
-php_value xdebug.profiler_output_dir /home/developer/src/bluz/profiler/
-
-php_value xdebug.var_display_max_children 128
-php_value xdebug.var_display_max_depth 5
-php_value xdebug.var_display_max_data 4096
 
 Options +FollowSymlinks
 Options -Indexes
+
+# PHP settings
+<ifModule mod_php5.c>
+	php_flag magic_quotes_gpc 0
+	php_flag short_open_tag on
+
+	php_flag xdebug.show_local_vars 0
+	php_flag xdebug.profiler_enable 0
+	php_flag xdebug.profiler_enable_trigger 1
+	php_value xdebug.profiler_output_dir /home/developer/src/bluz/profiler/
+
+	php_value xdebug.var_display_max_children 128
+	php_value xdebug.var_display_max_depth 5
+	php_value xdebug.var_display_max_data 4096
+</ifModule>
 
 # Mod Rewrite
 <IfModule mod_rewrite.c>

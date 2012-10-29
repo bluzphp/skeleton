@@ -17,17 +17,17 @@ function() {
     /**
      * @var Bluz\Application $this
      */
-    // рандомная строка (для безопасности)
+    $options = $this->getConfigData('auth', 'twitter');
+
+    // random string
     $oauth_nonce = md5(uniqid(rand(), true));
 
-    // время когда будет выполняться запрос (в секундах)
+    // timestamp
     $oauth_timestamp = time(); // 1310727371
 
     /**
-     * Обратите внимание на использование функции urlencode и расположение амперсандов.
-     * Если поменяете положение параметров oauth_... или уберете где-нибудь urlencode - получите ошибку
+     * Build base text
      */
-    $options = $this->getConfigData('auth', 'twitter');
     $oauth_base_text = "GET&"
                      . urlencode("https://api.twitter.com/oauth/request_token")."&"
                      . urlencode("oauth_callback=".urlencode("http://bluz.dark.php4.nixsolutions.com/twitter/callback/")."&")
@@ -37,7 +37,7 @@ function() {
                      . urlencode("oauth_timestamp=".$oauth_timestamp."&")
                      . urlencode("oauth_version=1.0");
 
-    $key = $options['consumerSecret']."&"; // На конце должен быть амперсанд & !!!
+    $key = $options['consumerSecret']."&";
 
     $oauth_signature = base64_encode(hash_hmac("sha1", $oauth_base_text, $key, true));
 
@@ -50,29 +50,25 @@ function() {
          . '&oauth_timestamp='.$oauth_timestamp
          . '&oauth_version=1.0';
 
-    /**
-     * Получить результат GET-запроса будем функцией file_get_contents
-     * можно и даже лучше использовать curl, но здесь и эта функция справляется отлично
-     */
+    // get response from Twitter service
     if (!$response = @file_get_contents($url)) {
         throw new Exception("Invalid settings for Twitter Auth Provider", 500);
     }
-    // если все сделано правильно, $response будет содержать нечто подобное:
+    // we should retrieve
     // oauth_token=DZmWEaKh7EqOJKScI48IgYMxYyFF2riTyD5N9wqTA&oauth_token_secret=NuAL0AvzocI9zxO7VnVPrNEcb9EW8kwpwJmcqg5pMWg&oauth_callback_confirmed=true
-    //
-    // Если что-то не так, будет выведено следующее:
-    // Failed to validate oauth signature and token
-    // Самая распространенная ошибка, означающая, что в большинстве случаев
-    // подпись oauth_signature сформирована неправильно.
-    // Еще раз внимательно просмотрите как формируется строка и кодируется oauth_signature,
-    // сверьте с примером использования функций urlencode
 
+    // parse response to array
     parse_str($response, $result);
 
+    // check response
     if (isset($result['oauth_token'])) {
+        // save secret token to session
         $this->getSession()->oauthTokenSecret = $result['oauth_token_secret'];
         $this->redirect('https://api.twitter.com/oauth/authorize?oauth_token='.$result['oauth_token']);
+    } else {
+        throw new Exception("Invalid response", 500);
     }
 
+    // disable view
     return false;
 };
