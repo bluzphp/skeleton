@@ -45,6 +45,9 @@ class Row extends \Bluz\Auth\AbstractEntity
     const STATUS_ACTIVE = 'active';
     const STATUS_DISABLED = 'disabled';
 
+    // system user with ID=0
+    const SYSTEM_USER = 0;
+
     /**
      * @var integer
      */
