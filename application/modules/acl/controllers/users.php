@@ -30,6 +30,7 @@ function() use ($view) {
         FROM users u, acl_roles ar, acl_usersToRoles aur
         WHERE
             u.`id` = aur.`userId`
-        AND ar.`id` = aur.`roleId`', [], '\Application\Users\Row');
+        AND ar.`id` = aur.`roleId`
+        GROUP BY u.id', [], '\Application\Users\Row');
 
 };
