@@ -7,12 +7,26 @@
  * @return closure
  */
 namespace Application;
+
+use Bluz;
+use Application\Users;
+
 return
 /**
+ * @privilege Management
  * @return \closure
  */
-function() {
+function() use ($view, $module, $controller) {
 
-    // change layout
-    $this->useLayout('grid.phtml');
+    $this->getLayout()->setTemplate('dashboard.phtml');
+    $this->getLayout()->breadCrumbs([
+        $view->ahref('Dashboard', ['dashboard', 'index']),
+        'Users'
+    ]);
+
+    $grid = new Users\Grid();
+    $grid->setModule($module);
+    $grid->setController($controller);
+
+    $view->grid = $grid;
 };

@@ -26,16 +26,13 @@
  */
 namespace Application\Pages;
 
-
 /**
- * Test Grid based on SQL
- *
  * @category Application
- * @package  Test
+ * @package  Pages
  */
 class Grid extends \Bluz\Grid\Grid
 {
-    protected $uid = 'sql';
+    protected $uid = 'pages';
 
     /**
      * init

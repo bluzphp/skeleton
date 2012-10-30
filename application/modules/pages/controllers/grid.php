@@ -8,7 +8,7 @@
 namespace Application;
 
 use Bluz;
-use Application\Test;
+use Application\Pages;
 
 return
 /**

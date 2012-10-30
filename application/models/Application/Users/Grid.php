@@ -24,84 +24,34 @@
 /**
  * @namespace
  */
-namespace Application\Pages;
+namespace Application\Users;
 
 /**
- * Pages Row
- *
  * @category Application
- * @package  Pages
+ * @package  Users
  */
-class Row extends \Bluz\Db\Row
+class Grid extends \Bluz\Grid\Grid
 {
-    /**
-     * @var integer
-     */
-    public $id;
+    protected $uid = 'users';
 
     /**
-     * @var string
+     * init
+     * 
+     * @return self
      */
-    public $title;
-
-    /**
-     * @var string
-     */
-    public $alias;
-
-    /**
-     * @var string
-     */
-    public $content;
-
-    /**
-     * @var string
-     */
-    public $keywords;
-
-    /**
-     * @var string
-     */
-    public $description;
-
-    /**
-     * @var string
-     */
-    public $created;
-
-    /**
-     * @var string
-     */
-    public $updated;
-
-    /**
-     * @var integer
-     */
-    public $userId;
-
-
-    /**
-     * __insert
-     *
-     * @return void
-     */
-    public function preInsert()
+    public function init()
     {
-        $this->created = gmdate('Y-m-d H:i:s');
-        if ($user = $this->getApplication()->getAuth()->getIdentity()) {
-            $this->userId = $user->id;
-        } else {
-            $this->userId = \Application\Users\Row::SYSTEM_USER;
-        }
-    }
+         // Array
+         $adapter = new \Bluz\Grid\Source\SqlSource();
+         $adapter->setSource('
+             SELECT *
+             FROM users
+             ');
 
-    /**
-     * __update
-     *
-     * @return void
-     */
-    public function preUpdate()
-    {
-        $this->updated = gmdate('Y-m-d H:i:s');
+         $this->setAdapter($adapter);
+         $this->setDefaultLimit(15);
+         $this->setAllowOrders(['login', 'email', 'id']);
+         $this->setAllowFilters(['login', 'email', 'id']);
+         return $this;
     }
 }

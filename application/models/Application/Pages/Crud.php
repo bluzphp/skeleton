@@ -27,10 +27,8 @@
 namespace Application\Pages;
 
 /**
- * Crud
- *
  * @category Application
- * @package  Test
+ * @package  Pages
  *
  * @author   Anton Shevchuk
  * @created  03.09.12 13:11

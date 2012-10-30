@@ -5,6 +5,7 @@
             <div class="span2">
                 <ul class="nav nav-tabs nav-stacked">
                     <li <?=($this->module('pages')?'class="active"':'')?>><?= $this->ahref('<i class="icon-edit"></i> Pages', ['pages', 'grid', [], true]) ?></li>
+                    <li <?=($this->module('users')?'class="active"':'')?>><?= $this->ahref('<i class="icon-user"></i> Users', ['users', 'grid', [], true]) ?></li>
                 </ul>
                 <ul class="nav nav-tabs nav-stacked">
                     <li <?=($this->module('cache')?'class="active"':'')?>><?= $this->ahref('<i class="icon-hdd"></i> Cache', ['cache', 'index', [], true]) ?></li>

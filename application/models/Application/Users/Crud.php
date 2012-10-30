@@ -24,84 +24,40 @@
 /**
  * @namespace
  */
-namespace Application\Pages;
+namespace Application\Users;
 
 /**
- * Pages Row
+ * Crud
  *
  * @category Application
- * @package  Pages
+ * @package  Users
+ *
+ * @author   Anton Shevchuk
+ * @created  30.10.12 16:11
  */
-class Row extends \Bluz\Db\Row
+class Crud extends \Bluz\Crud\Crud
 {
     /**
-     * @var integer
+     * @throws \Bluz\Crud\ValidationException
      */
-    public $id;
-
-    /**
-     * @var string
-     */
-    public $title;
-
-    /**
-     * @var string
-     */
-    public $alias;
-
-    /**
-     * @var string
-     */
-    public $content;
-
-    /**
-     * @var string
-     */
-    public $keywords;
-
-    /**
-     * @var string
-     */
-    public $description;
-
-    /**
-     * @var string
-     */
-    public $created;
-
-    /**
-     * @var string
-     */
-    public $updated;
-
-    /**
-     * @var integer
-     */
-    public $userId;
-
-
-    /**
-     * __insert
-     *
-     * @return void
-     */
-    public function preInsert()
+    public function validate()
     {
-        $this->created = gmdate('Y-m-d H:i:s');
-        if ($user = $this->getApplication()->getAuth()->getIdentity()) {
-            $this->userId = $user->id;
-        } else {
-            $this->userId = \Application\Users\Row::SYSTEM_USER;
+        // name validator
+        $login = $this->getData('login');
+        if (empty($login)) {
+            $this->addError('login', 'Login can\'t be empty');
         }
-    }
 
-    /**
-     * __update
-     *
-     * @return void
-     */
-    public function preUpdate()
-    {
-        $this->updated = gmdate('Y-m-d H:i:s');
+        // email validator
+        $email = $this->getData('email');
+        if (empty($email)) {
+            $this->addError('email', 'Email can\'t be empty');
+        }
+
+        // validate entity
+        // ...
+        if (sizeof($this->errors)) {
+            throw new \Bluz\Crud\ValidationException('Validation error, please check errors stack');
+        }
     }
 }

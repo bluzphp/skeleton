@@ -10,7 +10,6 @@
 
 <div data-spy="grid" data-grid="<?=$grid->getUid()?>">
     <div class="pagination pagination-right">
-        <a href="<?=$this->url('pages', 'crud')?>" class="btn btn-primary left dialog" data-ajax-method="get">Create</a>
         <ul>
             <li><a href="#">Limit</a></li>
             <li <?=(($grid->getLimit()==5)?'class="active"':'')?>><a href="<?=$grid->limit(5)?>">5</a></li>
@@ -22,8 +21,8 @@
         <thead>
             <tr>
                 <th width="40px">Id</th>
-                <th><a href="<?=$grid->order('title')?:'#'?>">Title</a></th>
-                <th>Description</th>
+                <th><a href="<?=$grid->order('login')?:'#'?>">Login</a></th>
+                <th><a href="<?=$grid->order('email')?:'#'?>">Email</a></th>
                 <th width="120px"></th>
             </tr>
         </thead>
@@ -31,13 +30,13 @@
             <?php foreach($grid->getData() as $row) : ?>
             <tr>
                 <td><?=$row['id']?></td>
-                <td><a href="<?=$this->url('pages', 'index', ['alias'=>$row['alias']])?>"><?=$row['title']?></a></td>
-                <td><?=$row['description']?></td>
+                <td><a href="<?=$this->url('users', 'profile', ['id'=>$row['id']])?>"><?=$row['login']?></a></td>
+                <td><?=$row['email']?></td>
                 <td class="controls">
-                    <a href="<?=$this->url('pages', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn dialog" data-ajax-method="get">
+                    <a href="<?=$this->url('users', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn dialog" data-ajax-method="get">
                         <i class="icon-edit"></i>
                     </a>
-                    <a href="<?=$this->url('pages', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-danger ajax" data-ajax-method="delete">
+                    <a href="<?=$this->url('users', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-danger ajax" data-ajax-method="delete">
                         <i class="icon-white icon-remove"></i>
                     </a>
                 </td>

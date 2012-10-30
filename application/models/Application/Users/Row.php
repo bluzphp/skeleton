@@ -61,6 +61,11 @@ class Row extends \Bluz\Auth\AbstractEntity
     /**
      * @var string
      */
+    public $email;
+
+    /**
+     * @var string
+     */
     public $created;
 
     /**

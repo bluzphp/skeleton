@@ -1,0 +1,57 @@
+<?php $uid = uniqid('form_'); ?>
+
+<script>
+    function validateForm (data) {
+        $('#<?=$uid?>').find('.control-group').removeClass('error');
+        $('#<?=$uid?>').find('.help-inline.error').remove();
+        if (data.errors) {
+            $.each(data.errors, function(field, messages) {
+                $('#<?=$uid?>').find('.control-group:has(#'+field+')').addClass('error');
+                $.each(messages, function(i, msg){
+                    $('#'+field).parent('.controls') // <div class="controls">..</div>
+                        .append('<span class="help-inline error">'+msg+'</span>');
+                });
+            });
+        }
+
+    }
+</script>
+
+<form id="<?=$uid?>" action="<?=$this->url('users', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
+    <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
+    <div class="modal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h3>Test Table</h3>
+        </div>
+        <div class="modal-body">
+            <div class="control-group">
+                <label class="control-label" for="login"><?=$this->__('Login')?></label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" id="name" name="data[login]" value="<?=($row->login)?>" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="email"><?=$this->__('Email')?></label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" id="email" name="data[email]" value="<?=($row->email)?>" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="status"><?=$this->__('Status')?></label>
+                <div class="controls">
+                    <select id="status" name="data[status]" class="span2">
+                        <option <?=$row->status== Application\Users\Row::STATUS_ACTIVE ?'selected':''?>>active</option>
+                        <option <?=$row->status== Application\Users\Row::STATUS_DISABLED ?'selected':''?>>disabled</option>
+                        <option <?=$row->status== Application\Users\Row::STATUS_PENDING ?'selected':''?>>pending</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"><?=$this->__('Save')?></button>
+            <a href="#" class="btn" data-dismiss="modal"><?=$this->__('Close')?></a>
+        </div>
+    </div>
+
+</form>
