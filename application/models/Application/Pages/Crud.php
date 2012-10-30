@@ -48,6 +48,14 @@ class Crud extends \Bluz\Crud\Crud
             $this->addError('title', 'Title can\'t be empty');
         }
 
+        // alias update
+        $alias = $this->getData('alias');
+        if (empty($alias)) {
+            $this->addError('alias', 'Alias can\'t be empty');
+        } elseif (!preg_match('/^[a-zA-Z.-]+$/i', $alias)) {
+            $this->addError('alias', 'Name should contains only Latin characters, dots and dashes');
+        }
+
         // content validator
         $content = $this->getData('content');
         if (empty($content)) {

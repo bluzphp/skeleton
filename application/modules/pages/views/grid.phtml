@@ -9,17 +9,8 @@
 </script>
 
 <div data-spy="grid" data-grid="<?=$grid->getUid()?>">
-    <p>
-        Filters:<br/>
-        <a href="<?=$grid->filter('id', 'gt', 30)?>">Id &gt; 30</a> <br/>
-        <a href="<?=$grid->filter('id', 'lt', 70)?>">Id &lt; 70</a> <br/>
-        <a href="<?=$grid->filter('id', 'ne', 5, false)?>">AND Id != 5</a> <br/>
-        <a href="<?=$grid->filter('status', 'eq', 'active')?>">All Active Users</a> <br/>
-        <a href="<?=$grid->filter('status', 'eq', 'active', false)?>">AND Active Users</a> <br/>
-    </p>
-
     <div class="pagination pagination-right">
-        <a href="<?=$this->url('test', 'crud')?>" class="btn btn-primary left dialog" data-ajax-method="get">Create</a>
+        <a href="<?=$this->url('pages', 'crud')?>" class="btn btn-primary left dialog" data-ajax-method="get">Create</a>
         <ul>
             <li><a href="#">Limit</a></li>
             <li <?=(($grid->getLimit()==5)?'class="active"':'')?>><a href="<?=$grid->limit(5)?>">5</a></li>
@@ -31,8 +22,8 @@
         <thead>
             <tr>
                 <th width="40px"><a href="<?=$grid->order('id')?:'#'?>">Id</a></th>
-                <th><a href="<?=$grid->order('name')?:'#'?>">Name</a></th>
-                <th><a href="<?=$grid->order('status')?:'#'?>">Status</a></th>
+                <th><a href="<?=$grid->order('title')?:'#'?>">Title</a></th>
+                <th>Description</th>
                 <th width="120px"></th>
             </tr>
         </thead>
@@ -40,13 +31,13 @@
             <?php foreach($grid->getData() as $row) : ?>
             <tr>
                 <td><?=$row['id']?></td>
-                <td><?=$row['name']?></td>
-                <td><?=$row['status']?></td>
+                <td><a href="<?=$this->url('pages', 'index', ['alias'=>$row['alias']])?>"><?=$row['title']?></a></td>
+                <td><?=$row['description']?></td>
                 <td class="controls">
-                    <a href="<?=$this->url('test', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn dialog" data-ajax-method="get">
+                    <a href="<?=$this->url('pages', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn dialog" data-ajax-method="get">
                         <i class="icon-edit"></i>
                     </a>
-                    <a href="<?=$this->url('test', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-danger ajax" data-ajax-method="delete">
+                    <a href="<?=$this->url('pages', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-danger ajax" data-ajax-method="delete">
                         <i class="icon-white icon-remove"></i>
                     </a>
                 </td>
@@ -66,7 +57,7 @@
         <?php if ($grid->pages() > 1) : ?>
         <ul>
             <?php if ($prev = $grid->prev()) : ?><li><a href="<?=$prev?>">&laquo;</a></li>
-            <?php else : ?> <li class="disabled"><a href="#" onclick="javascript: return false;">&laquo;</a></li>
+            <?php else : ?> <li class="disabled"><a href="#" onclick="javascript:return false;">&laquo;</a></li>
             <?php endif; ?>
 
 
@@ -75,7 +66,7 @@
             <?php endfor; ?>
 
             <?php if ($next = $grid->next()) : ?><li><a href="<?=$next?>">&raquo;</a></li>
-            <?php else : ?> <li class="disabled"><a href="#" onclick="javascript: return false;">&raquo;</a></li>
+            <?php else : ?> <li class="disabled"><a href="#" onclick="javascript:return false;">&raquo;</a></li>
             <?php endif; ?>
         </ul>
         <?php endif; ?>

@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Bluz\View\Layout self
+ * @var \Bluz\View\Layout $this
  */
 ?>
 <!DOCTYPE html>
@@ -26,6 +26,7 @@
 
     <?=$this->script();?>
     <?=$this->link();?>
+    <?=$this->meta();?>
 
     <?php $this->trigger('header'); ?>
 </head>
