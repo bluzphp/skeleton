@@ -3,11 +3,14 @@
  * @author   Anton Shevchuk
  * @created  23.10.12 10:02
  */
-define(['jquery'], function($) {
+define(['jquery'], function ($) {
+	"use strict";
 	// initial local storage
-	var storage = null;
-	var storageCheck = false;
-	if ("localStorage" in window){
+	var storage = null,
+		storageCheck = false,
+		data = {};
+
+	if ("localStorage" in window) {
 		try {
 			window.localStorage.setItem('_test', 'test');
 			storageCheck = true;
@@ -18,29 +21,27 @@ define(['jquery'], function($) {
 		}
 	}
 
-	var data = {};
-
 	// storage fail
 	// use simple object
 	// TODO: add cookie save handler
 	if (!storageCheck) {
 		storage = {
-			setItem:function(key, value) {
+			setItem: function (key, value) {
 				data[key] = value;
 			},
-			getItem:function(key) {
-				if (data[key] != undefined) {
+			getItem: function (key) {
+				if (data[key] !== undefined) {
 					return data[key];
 				} else {
 					return false;
 				}
 			},
-			removeItem:function(key) {
-				if (data[key] != undefined) {
+			removeItem: function (key) {
+				if (data[key] !== undefined) {
 					delete data[key];
 				}
 			},
-			clear:function() {
+			clear: function () {
 				data = {};
 			}
 		};
@@ -50,17 +51,17 @@ define(['jquery'], function($) {
 
 	// return default API
 	return {
-		setItem:function(key, value){
-			storage.setItem('bluz-'+key, value);
+		setItem: function (key, value) {
+			storage.setItem('bluz-' + key, value);
 		},
-		getItem:function(key) {
-			return storage.getItem('bluz-'+key);
+		getItem: function (key) {
+			return storage.getItem('bluz-' + key);
 		},
-		removeItem:function(key) {
-			storage.removeItem('bluz-'+key);
+		removeItem: function (key) {
+			storage.removeItem('bluz-' + key);
 		},
-		clear:function() {
+		clear: function () {
 			storage.clear();
 		}
-	}
+	};
 });

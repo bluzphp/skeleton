@@ -3,44 +3,42 @@
  *
  * @author   Anton Shevchuk
  */
-define(['jquery', 'bluz', 'bluz.storage'], function($, bluz, storage) {
+define(['jquery', 'bluz', 'bluz.storage'], function ($, bluz, storage) {
+	"use strict";
 	// on DOM ready state
-	$(function() {
+	$(function () {
 		// one handler for all widgets and all controls
 		$(document).on('click', '.widget .widget-control', function() {
-			var $this = $(this);
+			var $this, $widget, $content, key, control;
+			$this = $(this);
 			// widget container
-			var $widget = $this.parents('.widget');
+			$widget = $this.parents('.widget');
 			// widget content
-			var $content = $widget.find('.widget-content');
+			$content = $widget.find('.widget-content');
 			// storage key
-			var key = $widget.data('widget-key');
+			key = $widget.data('widget-key');
 			// switch by control action
-			var control = $this.data('widget-control');
-			switch (control) {
-				case 'collapse':
-					$content.slideToggle(function(){
-						if (key) {
-							var collapsedFlag = $content.is(':hidden') + 0; // save as integer in storage
-							storage.setItem(key+'-collapse', collapsedFlag);
-						}
-					});
-					// $widget.toggleClass('collapsed');
-					// update icon
-					$this.find('i').toggleClass('icon-chevron-up icon-chevron-down');
-					break;
+			control = $this.data('widget-control');
+
+			if (control === 'collapse') {
+				$content.slideToggle(function () {
+					if (key) {
+						storage.setItem(key + '-collapse', $content.is(':hidden') + 0);
+					}
+				});
+				$this.find('i').toggleClass('icon-chevron-up icon-chevron-down');
 			}
 		});
 
-		$('.widget').each(function(i, el){
-			var $widget = $(el);
-			var $content = $widget.find('.widget-content');
-			var key = $widget.data('widget-key');
+		$('.widget').each(function (i, el) {
+			var $widget, $content, key;
+			$widget = $(el);
+			$content = $widget.find('.widget-content');
+			key = $widget.data('widget-key');
 
 			if (key) {
 				// try to check collapse
-				var collapsedFlag = storage.getItem(key+'-collapse');
-				if (collapsedFlag == 1) {
+				if (storage.getItem(key + '-collapse') == 1) {
 					$content.hide();
 //					$widget.addClass('collapsed');
 					$widget.find('.widget-control i').toggleClass('icon-chevron-up icon-chevron-down');
