@@ -28,23 +28,40 @@ namespace Bluz\View\Helper;
 
 use Bluz\View\View;
 
-return
 /**
- * Return module name
- * or check to current module
- *
- * @param string $module
- * @return string|boolean
+ * @param string|array|null $name
+ * @param string|null $content
+ * @return string|View
  */
-function ($module = null)
-{
-    /**
-     * @var View $this
-     */
-    $request = $this->getApplication()->getRequest();
-    if (null == $module) {
-        return $request->getModule();
-    } else {
-        return $request->getModule() == $module;
+return function ($name = null, $content = null) {
+
+    if (!$meta = $this->system('meta')) {
+        $meta = array();
     }
+
+    if ($name && $content) {
+        $meta[] = ['name' => $name, 'content' => $content];
+    } elseif (is_array($name)) {
+        $meta[] = $name;
+    } elseif (!$name && !$content) {
+        if (sizeof($meta)) {
+            // prepare to output
+            $meta = array_map(function($arr){
+                $str = '<meta ';
+                foreach ($arr as $key => $value) {
+                    $str .= $key .'="'. addcslashes($value, '"') .'" ';
+                }
+                $str .= '/>';
+                return $str;
+            }, $meta);
+            // clear system vars
+            $this->system('meta', []);
+            return join("\n", $meta);
+        } else {
+            return '';
+        }
+    }
+
+    $this->system('meta', $meta);
+    return $this;
 };

@@ -30,10 +30,11 @@ use Bluz\View\View;
 
 return
 /**
- * Controller name
+ * Return controller name
+ * or check to current controller
  *
- * @param string $module
- * @return View
+ * @param string $controller
+ * @return string|boolean
  */
 function ($controller = null)
 {
