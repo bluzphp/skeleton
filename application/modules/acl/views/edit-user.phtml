@@ -7,7 +7,7 @@
         <div class="control-group">
             <div class="controls">
                 <?php foreach ($roles as $role):?>
-                <label>
+                <label class="checkbox">
                     <input type="checkbox" name="roles[]" value="<?=$role->id?>" <?=(!$user->hasRole($role->id)?:'checked')?>/>
                     <?=$role->name?>
                 </label>
