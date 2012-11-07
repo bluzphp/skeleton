@@ -32,6 +32,7 @@ use Bluz\Cache\Cache;
 use Bluz\Config\Config;
 use Bluz\Db\Db;
 use Bluz\EventManager\EventManager;
+use Bluz\Ldap\Ldap;
 use Bluz\Messages\Messages;
 use Bluz\Rcl\Rcl;
 use Bluz\Registry\Registry;
@@ -99,6 +100,11 @@ class Application
      * @var Layout
      */
     protected $layout;
+
+    /**
+     * @var Ldap
+     */
+    protected $ldap;
 
     /**
      * @var Messages
@@ -339,6 +345,19 @@ class Application
             $this->layout = new Layout($conf);
         }
         return $this->layout;
+    }
+
+    /**
+     * getLdap
+     *
+     * @return Ldap
+     */
+    public function getLdap()
+    {
+        if (!$this->ldap && $conf = $this->getConfigData('ldap')) {
+            $this->ldap = new Ldap($conf);
+        }
+        return $this->ldap;
     }
 
     /**
@@ -787,18 +806,16 @@ class Application
      *
      * @param string $module
      * @param string $method
-     * @param array  $params
      * @throws Exception
      * @return \Closure
      */
-    public function api($module, $method, $params = array())
+    public function api($module, $method)
     {
         $this->log(__METHOD__.": ".$module.'/'.$method);
 
         $this->getEventManager()->trigger('api', $this, array(
             'module' => $module,
-            'method' => $method,
-            'params' => $params
+            'method' => $method
         ));
 
         /**

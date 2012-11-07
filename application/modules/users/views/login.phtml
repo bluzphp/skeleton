@@ -6,7 +6,7 @@
 ?>
 <form action="<?=$this->url('users', 'login')?>" method="post" class="well">
     <label class="input-prepend">
-        <span class="add-on"><i class="icon-user"></i></span><input type="text" id="login" name="login" value="" />
+        <span class="add-on"><i class="icon-user"></i></span><input type="text" id="login" name="login" value="<?=isset($login)?$login:''?>" />
     </label>
     <label class="input-prepend">
         <span class="add-on"><i class="icon-lock"></i></span><input type="password" id="password" name="password" />
