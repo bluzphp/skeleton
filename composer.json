@@ -1,0 +1,34 @@
+{
+    "name": "bluzphp/bluz-skeleton",
+    "description": "Skeleton for Bluz, a lightweight PHP framework",
+    "type": "bluz-skeleton",
+    "require": {
+        "php": ">=5.4",
+        "bluzphp/bluz": "dev-master"
+    },
+    "config": {
+        "vendor-dir": "library"
+    },
+    "authors": [
+        {
+            "name": "Anton Shevchuk",
+            "email": "AntonShevchuk@gmail.com"
+        },
+        {
+            "name": "Eugene Zabolotniy",
+            "email": "realbaziak@gmail.com"
+        },
+        {
+            "name": "Maks Slesarenko"
+        },
+        {
+            "name": "EagleMoor"
+        }
+    ],
+    "support": {
+        "email": "AntonShevchuk@gmail.com",
+        "issues": "https://github.com/bluzphp/Bluz/issues",
+        "wiki": "https://github.com/bluzphp/Bluz/wiki"
+    },
+    "license": "MIT"
+}
