@@ -1,10 +1,16 @@
 {
     "name": "bluzphp/bluz-skeleton",
     "description": "Skeleton for Bluz, a lightweight PHP framework",
-    "type": "bluz-skeleton",
+    "type": "library",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bluzphp/Bluz"
+        }
+    ],
     "require": {
         "php": ">=5.4",
-        "bluzphp/bluz": "dev-master"
+        "bluzphp/Bluz": "dev-master"
     },
     "config": {
         "vendor-dir": "library"
