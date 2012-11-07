@@ -26,6 +26,9 @@
  */
 namespace Application\Auth;
 
+use Bluz\Application;
+use Bluz\Auth\AuthException;
+
 /**
  * @category Application
  * @package  Auth
@@ -47,4 +50,74 @@ class Table extends \Bluz\Db\Table
      * @var array
      */
     protected $primary = array('provider', 'foreignKey');
+
+
+    /**
+     * getAuthRow
+     *
+     * @param $provider
+     * @param $foreignKey
+     * @return Row
+     */
+    public function getAuthRow($provider, $foreignKey)
+    {
+        return $this->findRow([
+            'provider' => $provider,
+            'foreignKey' => $foreignKey
+        ]);
+    }
+
+    /**
+     * authenticate user by login/pass
+     *
+     * @param string $username
+     * @param string $password
+     * @throws \Application\Exception
+     * @throws \Bluz\Auth\AuthException
+     * @return boolean
+     */
+    public function authenticateEquals($username, $password)
+    {
+        if (empty($username)) {
+            throw new AuthException("Login is empty");
+        }
+
+        if (empty($password)) {
+            throw new AuthException("Password is empty");
+        }
+
+        /** @var $user \Application\Users\Row */
+        $authRow = $this->getAuthRow(Row::PROVIDER_EQUALS, $username);
+
+        if (!$authRow) {
+            throw new AuthException("User not found");
+        }
+
+        $auth = Application::getInstance()->getAuth();
+        $options = $auth->getOption(Row::PROVIDER_EQUALS);
+
+        if (!isset($options['encryptFunction']) or
+            !is_callable($options['encryptFunction'])
+        ) {
+            throw new \Application\Exception("Encryption function for 'equals' adapter is not callable");
+        }
+
+        // encrypt password
+        $password = call_user_func($options['encryptFunction'],  $password, $authRow->tokenSecret);
+
+        if ($password != $authRow->token) {
+            throw new AuthException("Wrong password");
+        }
+
+        // get user profile
+        $user = \Application\Users\Table::getInstance()->findRow($authRow->userId);
+
+        if (!$user->canLogin()) {
+            throw new AuthException("There is a problem with your account");
+        }
+
+        $user->login();
+
+        return true;
+    }
 }

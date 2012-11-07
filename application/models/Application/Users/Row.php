@@ -41,8 +41,17 @@ use Application\Privileges;
 class Row extends \Bluz\Auth\AbstractEntity
 {
 
+    /**
+     * Pending email verification
+     */
     const STATUS_PENDING = 'pending';
+    /**
+     * Active user
+     */
     const STATUS_ACTIVE = 'active';
+    /**
+     * Disabled by administrator
+     */
     const STATUS_DISABLED = 'disabled';
 
     // system user with ID=0
@@ -105,7 +114,7 @@ class Row extends \Bluz\Auth\AbstractEntity
      */
     public function canLogin()
     {
-        return 'active' == $this->status;
+        return self::STATUS_ACTIVE == $this->status;
     }
 
     /**
