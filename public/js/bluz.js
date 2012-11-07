@@ -5,7 +5,7 @@
  */
 define(['jquery'], function ($) {
 	"use strict";
-	$(function() {
+	$(function () {
 		// TODO: require other modules if needed
 		if ($.fn.tooltip) {
 			$('.bluz-tooltip').tooltip();

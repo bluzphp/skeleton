@@ -35,9 +35,13 @@ namespace Application\Auth;
  */
 class Row extends \Bluz\Db\Row
 {
-
     const TYPE_REQUEST = 'request';
     const TYPE_ACCESS = 'access';
+
+    const PROVIDER_EQUALS = 'equals';
+    const PROVIDER_LDAP = 'ldap';
+    const PROVIDER_TWITTER = 'twitter';
+    const PROVIDER_FACEBOOK = 'facebook';
 
     /**
      * Foreign key to users table
@@ -49,4 +53,26 @@ class Row extends \Bluz\Db\Row
     public $token;
     public $tokenSecret;
     public $tokenType;
+    public $created;
+    public $updated;
+
+    /**
+     * __insert
+     *
+     * @return void
+     */
+    public function preInsert()
+    {
+        $this->created = gmdate('Y-m-d H:i:s');
+    }
+
+    /**
+     * __update
+     *
+     * @return void
+     */
+    public function preUpdate()
+    {
+        $this->updated = gmdate('Y-m-d H:i:s');
+    }
 }

@@ -14,14 +14,11 @@ return array(
         )
     ),
     "auth" => array(
-        "adapter" => array(
-            "name" => "equals",
-            "options" => array(
-                "encryptFunction" => function($password) {
-                    return md5(md5($password) . 'salt');
-                }
-            )
-        )
+        "equals" => array(
+            "encryptFunction" => function($password, $salt) {
+                return md5(md5($password) . $salt);
+            }
+        ),
     ),
     "db" => array(
         "connect" => array(

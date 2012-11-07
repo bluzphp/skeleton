@@ -7,7 +7,7 @@
  */
 namespace Application;
 use Bluz;
-use Application\Users;
+use Application\Auth;
 return
 /**
  * @param $login
@@ -24,7 +24,7 @@ function($login, $password) use ($identity, $view) {
         $this->redirectTo('index', 'index');
     } elseif ($this->getRequest()->isPost()) {
         try {
-            Users\Table::getInstance()->login($login, $password);
+            Auth\Table::getInstance()->authenticateEquals($login, $password);
             //$this->getAuth()->authenticate($login, $password);
             $this->getMessages()->addNotice('You are signed');
             $this->redirectTo('index', 'index');

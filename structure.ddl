@@ -62,6 +62,22 @@ CREATE TABLE pages
     updated timestamp DEFAULT '0000-00-00 00:00:00' NOT NULL,
     userId bigint unsigned
 );
+CREATE TABLE rcl_userToResource
+(
+    id bigint unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    resourceId bigint unsigned,
+    resourceType varchar(255) NOT NULL,
+    userId bigint unsigned NOT NULL
+);
+CREATE TABLE rcl_userToResourceToPrivilege
+(
+    id bigint unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    resourceId bigint unsigned,
+    resourceType varchar(255),
+    userId bigint unsigned NOT NULL,
+    privilege varchar(255) NOT NULL,
+    flag char(6) DEFAULT 'deny' NOT NULL
+);
 CREATE TABLE users
 (
     id bigint unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,

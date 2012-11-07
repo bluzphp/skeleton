@@ -17,9 +17,8 @@ return
 function() use ($view) {
     /**
      * @var Bluz\Application $this
-     * @var Bluz\Auth\AbstractAdapter $auth
      */
-    $this->getAuth()->setIdentity(null);
+    $this->getAuth()->clearIdentity();
     $this->getMessages()->addNotice('You are signout');
     $this->redirectTo('index', 'index');
 };
