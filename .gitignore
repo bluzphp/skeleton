@@ -3,3 +3,5 @@
 /data/
 /public/.htaccess
 !.stub
+composer.lock
+/library/*
