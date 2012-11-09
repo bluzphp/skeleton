@@ -136,6 +136,22 @@ class Router
     }
 
     /**
+     * getFullUrl
+     *
+     * @param string $module
+     * @param string $controller
+     * @param array $params
+     * @return string
+     */
+    public function getFullUrl($module = self::DEFAULT_MODULE, $controller = self::DEFAULT_CONTROLLER, $params = array())
+    {
+        $scheme = $this->getApplication()->getRequest()->getScheme() . '://';
+        $host = $this->getApplication()->getRequest()->getHttpHost();
+        $url = $this->url($module, $controller, $params);
+        return $scheme . $host . $url;
+    }
+
+    /**
      * build URL
      *
      * @param string $module
