@@ -43,6 +43,10 @@ function errorHandler() {
         || !in_array($e['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR))) {
         return;
     }
+    // clean all buffers
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
     require_once 'error.php';
 }
 
