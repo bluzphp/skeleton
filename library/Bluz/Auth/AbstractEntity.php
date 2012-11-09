@@ -43,9 +43,10 @@ abstract class AbstractEntity extends \Bluz\Db\Row
     /**
      * Can entity login
      *
+     * @throws AuthException
      * @return boolean
      */
-    abstract function canLogin();
+    abstract function tryLogin();
 
     /**
      * Has user a resource
@@ -95,9 +96,7 @@ abstract class AbstractEntity extends \Bluz\Db\Row
      */
     public function login()
     {
-        if (!$this->canLogin()) {
-            throw new AuthException("There is a problem with your account");
-        }
+        $this->tryLogin();
         Application::getInstance()->getAuth()->setIdentity($this);
     }
 
