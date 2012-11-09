@@ -10,7 +10,6 @@ return
 /**
  * @privilege View
  *
- *
  * @return \closure
  */
 function() use ($view) {
