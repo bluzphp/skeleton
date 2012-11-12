@@ -38,6 +38,7 @@ return
 * @return void
 */
 function ($url) {
+    /** @var Application $this */
     // for AJAX controllers
     if ($this->jsonFlag) {
         $this->getLayout()->_redirect = $url;

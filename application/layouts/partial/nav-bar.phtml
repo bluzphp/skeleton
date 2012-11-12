@@ -1,14 +1,15 @@
+<?php /** @var \Bluz\View\Layout $this */ ?>
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
             <a class="brand" href="/"><?php echo $this->__('Bluz')?></a>
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li <?=($this->module('index')?'class="active"':'')?>><?php echo $this->ahref('Home', ['index', 'index'])?></li>
-                    <li <?=($this->module('dashboard')?'class="active"':'')?>><?php echo $this->ahref('Dashboard', ['dashboard', 'index'])?></li>
-                    <li <?=($this->module('test')?'class="active"':'')?>><?php echo $this->ahref('Test', ['test', 'index'])?></li>
+                    <li <?=($this->module('index')?'class="active"':'')?>><?=$this->ahref('Home', ['index', 'index'])?></li>
+                    <li <?=($this->module('dashboard')?'class="active"':'')?>><?=$this->ahref('Dashboard', ['dashboard', 'index'])?></li>
+                    <li <?=($this->module('test')?'class="active"':'')?>><?=$this->ahref('Test', ['test', 'index'])?></li>
                 </ul>
-                <?php if ($identity = $this->getApplication()->getAuth()->getIdentity()) : ?>
+                <?php if ($identity = $this->user()) : ?>
                     <p class="navbar-text pull-right">
                         <?= $this->__('Logged in as %s', $this->ahref($identity->login, ['users', 'profile', array('id' => $identity->id)]))?>
                         (<?= $this->ahref('logout', ['users', 'logout'])?>)

@@ -52,6 +52,7 @@ use Bluz\View\View;
  * @method void reload()
  * @method void redirect(\string $url)
  * @method void redirectTo(\string $module, \string $controller, array $params=array())
+ * @method \Bluz\Auth\AbstractEntity user()
  *
  * @author   Anton Shevchuk
  * @created  06.07.11 16:25
