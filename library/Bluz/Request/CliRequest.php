@@ -60,7 +60,7 @@ class CliRequest extends AbstractRequest
 
         $uriOrder = array_search('--uri', $args) + 1;
 
-        if (isset($args[$uriOrder]) && strpos($args[$uriOrder], '/') === 0) {
+        if (isset($args[$uriOrder])) {
             $uri = $args[$uriOrder];
             $this->setRequestUri($uri);
             if ($query = parse_url($uri, PHP_URL_QUERY)) {
@@ -92,7 +92,7 @@ class CliRequest extends AbstractRequest
      */
     public function getCleanUri()
     {
-        return $this->getRequestUri();
+        return ltrim($this->getRequestUri(), '/');
     }
 
     /**

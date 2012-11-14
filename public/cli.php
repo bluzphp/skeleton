@@ -5,14 +5,26 @@
  * @author   C.O.
  * @created  14.11.12 13:20
  */
-// Environment
+// Get CLI arguments
+$argv = $_SERVER['argv'];
+
+// Check environment
+if (in_array('--env', $argv)) {
+    $envOrder = array_search('--env', $argv) + 1;
+    if (isset($argv[$envOrder])) {
+        putenv('APPLICATION_ENV='.$argv[$envOrder]);
+    }
+}
+
+// Setup environment
 define('ENVIRONMENT_PRODUCTION', 'production');
 define('ENVIRONMENT_DEVELOPMENT', 'development');
 define('ENVIRONMENT_TESTING', 'testing');
+
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : ENVIRONMENT_PRODUCTION));
 
 // Debug mode for development environment only
-if (isset($_SERVER['argv']) && in_array('--debug', $_SERVER['argv'])) {
+if (in_array('--debug', $argv)) {
     define('DEBUG', true);
     error_reporting(E_ALL | E_STRICT);
     ini_set('display_errors', 1);
@@ -21,7 +33,6 @@ if (isset($_SERVER['argv']) && in_array('--debug', $_SERVER['argv'])) {
     error_reporting(0);
     ini_set('display_errors', 0);
 }
-
 
 // Paths
 define('PATH_ROOT', realpath(dirname(__FILE__) . '/../'));
