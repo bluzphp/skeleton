@@ -1,9 +1,9 @@
 <?php
 /**
- * Index file
+ * CLI file
  *
  * @author   C.O.
- * @created  06.07.11 16:20
+ * @created  14.11.12 13:20
  */
 // Environment
 define('ENVIRONMENT_PRODUCTION', 'production');
@@ -12,9 +12,7 @@ define('ENVIRONMENT_TESTING', 'testing');
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : ENVIRONMENT_PRODUCTION));
 
 // Debug mode for development environment only
-if (isset($_COOKIE['BLUZ_DEBUG'])
-    // for CLI interface
-    or (isset($_SERVER['argv']) && in_array('--debug', $_SERVER['argv']))) {
+if (isset($_SERVER['argv']) && in_array('--debug', $_SERVER['argv'])) {
     define('DEBUG', true);
     error_reporting(E_ALL | E_STRICT);
     ini_set('display_errors', 1);
@@ -36,16 +34,21 @@ define('PATH_THEME', PATH_ROOT . '/themes');
 // Shutdown function for handle critical and other errors
 register_shutdown_function('errorHandler');
 
-// iframe header - prevent security issues
-header('X-Frame-Options: SAMEORIGIN');
-
 function errorHandler() {
     $e = error_get_last();
     if (!is_array($e)
         || !in_array($e['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR))) {
         return;
     }
-    require_once 'error.php';
+    // clean all buffers
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
+    echo "\033[41m\033[1;37mApplication Error\033[m\033m\n";
+    if (defined('DEBUG') && DEBUG && isset($e)) {
+        echo "\033[1;37m".$e['message']."\033[m\n";
+        echo $e['file'] ."#". $e['line'] ."\n";
+    }
 }
 
 // Try to run application
@@ -61,7 +64,11 @@ try {
     $app = \Application\Bootstrap::getInstance();
     $app->init(APPLICATION_ENV)
         ->process()
-        ->render();
+        ->output();
 } catch (Exception $e) {
-    require_once 'error.php';
+    echo "\033[41m\033[1;37mApplication Exception\033[m\033m\n";
+    if (defined('DEBUG') && DEBUG && isset($e)) {
+        echo "\033[1;37m".$e->getMessage()."\033[m\n";
+        echo $e->getTraceAsString()."\n";
+    }
 }

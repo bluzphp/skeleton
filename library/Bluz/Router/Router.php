@@ -315,7 +315,6 @@ class Router
         if (sizeof($params)) {
             $request->setController(array_shift($params));
         }
-
         if ($size = sizeof($params)) {
             if ($size%2==1) {
                 array_pop($params);
