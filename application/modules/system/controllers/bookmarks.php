@@ -14,7 +14,7 @@ return
  *
  * @return \closure
  */
-function($key = null) use ($view) {
+function() use ($view) {
     /**
      * @var Bluz\Application $this
      * @var Bluz\View\View $view
@@ -27,6 +27,6 @@ function($key = null) use ($view) {
         'Bookmarklets',
     ]);
 
-    $key = $key?:'BLUZ_DEBUG';
+    $key = defined('DEBUG_KEY') ? DEBUG_KEY : 'BLUZ_DEBUG';
     return ['key' => $key];
 };
