@@ -5,6 +5,14 @@
  * @author   C.O.
  * @created  14.11.12 13:20
  */
+// Check CLI
+if (PHP_SAPI !== 'cli') {
+    exit;
+}
+
+// Require loader
+require_once '_loader.php';
+
 // Get CLI arguments
 $argv = $_SERVER['argv'];
 
@@ -16,11 +24,7 @@ if (in_array('--env', $argv)) {
     }
 }
 
-// Setup environment
-define('ENVIRONMENT_PRODUCTION', 'production');
-define('ENVIRONMENT_DEVELOPMENT', 'development');
-define('ENVIRONMENT_TESTING', 'testing');
-
+// Environment
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : ENVIRONMENT_PRODUCTION));
 
 // Debug mode for development environment only
@@ -34,17 +38,7 @@ if (in_array('--debug', $argv)) {
     ini_set('display_errors', 0);
 }
 
-// Paths
-define('PATH_ROOT', realpath(dirname(__FILE__) . '/../'));
-define('PATH_APPLICATION', PATH_ROOT . '/application');
-define('PATH_DATA', PATH_ROOT . '/data');
-define('PATH_LIBRARY', PATH_ROOT . '/library');
-define('PATH_PUBLIC', PATH_ROOT . '/public');
-define('PATH_THEME', PATH_ROOT . '/themes');
-
-// Shutdown function for handle critical and other errors
-register_shutdown_function('errorHandler');
-
+// Error Handler
 function errorHandler() {
     $e = error_get_last();
     if (!is_array($e)

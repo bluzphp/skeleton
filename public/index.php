@@ -5,16 +5,17 @@
  * @author   C.O.
  * @created  06.07.11 16:20
  */
+
+// Require loader
+require_once '_loader.php';
+
 // Environment
-define('ENVIRONMENT_PRODUCTION', 'production');
-define('ENVIRONMENT_DEVELOPMENT', 'development');
-define('ENVIRONMENT_TESTING', 'testing');
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : ENVIRONMENT_PRODUCTION));
 
 // Debug mode for development environment only
-if (isset($_COOKIE['BLUZ_DEBUG'])
-    // for CLI interface
-    or (isset($_SERVER['argv']) && in_array('--debug', $_SERVER['argv']))) {
+define('DEBUG_KEY', 'BLUZ_DEBUG');
+
+if (isset($_COOKIE[DEBUG_KEY])) {
     define('DEBUG', true);
     error_reporting(E_ALL | E_STRICT);
     ini_set('display_errors', 1);
@@ -24,21 +25,10 @@ if (isset($_COOKIE['BLUZ_DEBUG'])
     ini_set('display_errors', 0);
 }
 
-
-// Paths
-define('PATH_ROOT', realpath(dirname(__FILE__) . '/../'));
-define('PATH_APPLICATION', PATH_ROOT . '/application');
-define('PATH_DATA', PATH_ROOT . '/data');
-define('PATH_LIBRARY', PATH_ROOT . '/library');
-define('PATH_PUBLIC', PATH_ROOT . '/public');
-define('PATH_THEME', PATH_ROOT . '/themes');
-
-// Shutdown function for handle critical and other errors
-register_shutdown_function('errorHandler');
-
 // iframe header - prevent security issues
 header('X-Frame-Options: SAMEORIGIN');
 
+// Error Handler
 function errorHandler() {
     $e = error_get_last();
     if (!is_array($e)
