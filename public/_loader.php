@@ -8,7 +8,7 @@
 
 // Check PHP version
 if (version_compare(phpversion(), '5.4.3', '<') ) {
-    printf('PHP 5.4.3 is required, you have %s', phpversion());
+    printf("PHP 5.4.3 is required, you have %s\n", phpversion());
     exit();
 }
 
