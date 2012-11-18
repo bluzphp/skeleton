@@ -6,9 +6,11 @@
  * @author   Anton Shevchuk
  * @created  11.07.11 15:32
  */
-namespace Bluz;
+namespace Application;
+use Bluz;
 return
 /**
+ * @route  /error/{$code}
  * @param  integer $code
  * @param  string $message
  * @return \closure

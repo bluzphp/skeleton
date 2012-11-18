@@ -1,4 +1,9 @@
 <?php
+// clean all buffers
+while (ob_get_level()) {
+    ob_end_clean();
+}
+
 if (!headers_sent()) {
     header("HTTP/1.1 503 Service Unavailable");
     header('Retry-After: 600');
@@ -47,7 +52,6 @@ if (!headers_sent()) {
 <body>
 <section>
     <h1>Error 503</h1>
-
     <h2>Server Temporarily Unavailable</h2>
     <?php if (defined('DEBUG') && DEBUG && isset($e)) : ?>
         <?php if (is_array($e)) : ?>

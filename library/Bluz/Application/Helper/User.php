@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright (c) 2012 by Bluz PHP Team
  *
@@ -28,30 +27,14 @@
 namespace Bluz\Application\Helper;
 
 use Bluz\Application;
-use Bluz\Exception;
 
 return
 /**
-* redirect to url
+* get current user
 *
-* @param string $url
-* @throws Exception
-* @return void
+* @return \Bluz\Auth\AbstractEntity|null
 */
-function ($url) {
-    // for AJAX controllers
-    if ($this->jsonFlag) {
-        $this->getLayout()->_redirect = $url;
-        return;
-    }
-
-    // for other controllers
-    if (!headers_sent($file, $line)) {
-        // save notification to session
-        // if they exists
-        header('Location: '.$url);
-        exit;
-    } else {
-        throw new Exception("Headers already sent by $file:$line", 503);
-    }
+function () {
+    /** @var Application $this */
+    return $this->getAuth()->getIdentity();
 };
