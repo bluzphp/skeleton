@@ -729,7 +729,7 @@ class Application
                 echo "\033[41m\033[1;37mError    \033[m\033m: ";
                 echo $msg->text ."\n";
             }
-            while ($msg = $this->getMessages()->pop(Messages::TYPE_INFO)) {
+            while ($msg = $this->getMessages()->pop(Messages::TYPE_NOTICE)) {
                 echo "\033[44m\033[1;37mInfo     \033[m\033m: ";
                 echo $msg->text ."\n";
             }
