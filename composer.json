@@ -5,7 +5,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/bluzphp/Bluz"
+            "url": "https://github.com/bluzphp/bluz"
         }
     ],
     "require": {
