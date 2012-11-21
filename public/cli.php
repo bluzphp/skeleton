@@ -59,7 +59,8 @@ function errorHandler() {
 // Try to run application
 try {
     // init loader
-    require_once PATH_LIBRARY . '/Bluz/_loader.php';
+    require PATH_LIBRARY . '/autoload.php';
+
     require_once PATH_APPLICATION . '/Bootstrap.php';
     require_once PATH_APPLICATION . '/Exception.php';
 

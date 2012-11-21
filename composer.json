@@ -1,5 +1,5 @@
 {
-    "name": "bluzphp/bluz-skeleton",
+    "name": "bluzphp/skeleton",
     "description": "Skeleton for Bluz, a lightweight PHP framework",
     "type": "library",
     "repositories": [
@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=5.4",
-        "bluzphp/Bluz": "dev-master"
+        "bluzphp/bluz": "dev-master"
     },
     "config": {
         "vendor-dir": "library"
@@ -33,8 +33,8 @@
     ],
     "support": {
         "email": "AntonShevchuk@gmail.com",
-        "issues": "https://github.com/bluzphp/Bluz/issues",
-        "wiki": "https://github.com/bluzphp/Bluz/wiki"
+        "issues": "https://github.com/bluzphp/bluz/issues",
+        "wiki": "https://github.com/bluzphp/bluz/wiki"
     },
     "license": "MIT"
 }
