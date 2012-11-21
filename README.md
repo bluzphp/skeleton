@@ -2,6 +2,43 @@ Bluz, a lightweight PHP Framework
 =================================
 Easy to setup, easy to use.
 
+
+## Installation
+
+Bluz works with PHP 5.4 or later and MySQL 5.1 and later
+
+First you need to download composer.phar
+
+```
+curl -s https://getcomposer.org/installer | php
+```
+
+Then you need to install all the necessary project dependencies by this command:
+
+```
+php composer.phar install
+```
+
+Requried FollowSymlinks option. Create symlink to public directory:
+
+```
+ln -s /path/to/public /var/www/htdocs
+```
+
+Run install.sh:
+
+```
+./install.sh
+```
+
+Restore database structure from `structure.ddl` file.
+Restore default database data from `dump.sql`
+
+Edit your own configuration file ```/path/to/application/configs/app.dev.php```
+
+
+## Usage
+
 Controller:
 
 ```php
@@ -49,25 +86,6 @@ class Row extends \Bluz\Db\Row {
 }
 ```
 
-## Installation
-Bluz works with PHP 5.4 or later and MySQL 5.1 and later
-
-Requried FollowSymlinks option. Create symlink to public directory:
-
-```
-ln -s /path/to/public /var/www/htdocs
-```
-
-Run install.sh:
-
-```
-./install.sh
-```
-
-Restore database structure from `structure.ddl` file.
-Restore default database data from `dump.sql`
-
-Edit your own configuration file ```/path/to/application/configs/app.dev.php```
 
 ## License
 
