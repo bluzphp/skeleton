@@ -78,14 +78,6 @@ class Table extends \Bluz\Db\Table
      */
     public function authenticateEquals($username, $password)
     {
-        if (empty($username)) {
-            throw new AuthException("Login is empty");
-        }
-
-        if (empty($password)) {
-            throw new AuthException("Password is empty");
-        }
-
         /** @var $user \Application\Users\Row */
         $authRow = $this->getAuthRow(Row::PROVIDER_EQUALS, $username);
 
@@ -111,11 +103,7 @@ class Table extends \Bluz\Db\Table
 
         // get user profile
         $user = \Application\Users\Table::getInstance()->findRow($authRow->userId);
-
-        if (!$user->canLogin()) {
-            throw new AuthException("There is a problem with your account");
-        }
-
+        // try to login
         $user->login();
 
         return true;

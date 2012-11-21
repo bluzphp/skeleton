@@ -18,19 +18,27 @@ function() {
      * @var Bluz\Application $this
      */
     $options = $this->getConfigData('auth', 'twitter');
+    // check configuration
+    if (!$options || !isset($options['consumerKey']) || empty($options['consumerKey'])
+        || !isset($options['consumerSecret']) || empty($options['consumerSecret'])) {
+        throw new Exception('Twitter authorization is not configured');
+    }
+
+    // callback
+    $callbackUrl = $this->getRouter()->getFullUrl('twitter', 'callback');
 
     // random string
     $oauth_nonce = md5(uniqid(rand(), true));
 
     // timestamp
-    $oauth_timestamp = time(); // 1310727371
+    $oauth_timestamp = time();
 
     /**
      * Build base text
      */
     $oauth_base_text = "GET&"
                      . urlencode("https://api.twitter.com/oauth/request_token")."&"
-                     . urlencode("oauth_callback=".urlencode("http://bluz.dark.php4.nixsolutions.com/twitter/callback/")."&")
+                     . urlencode("oauth_callback=".urlencode($callbackUrl)."&")
                      . urlencode("oauth_consumer_key=".$options['consumerKey']."&")
                      . urlencode("oauth_nonce=".$oauth_nonce."&")
                      . urlencode("oauth_signature_method=HMAC-SHA1&")
@@ -42,7 +50,7 @@ function() {
     $oauth_signature = base64_encode(hash_hmac("sha1", $oauth_base_text, $key, true));
 
     $url = 'https://api.twitter.com/oauth/request_token'
-         . '?oauth_callback='.urlencode("http://bluz.dark.php4.nixsolutions.com/twitter/callback/")
+         . '?oauth_callback='.urlencode($callbackUrl)
          . '&oauth_consumer_key='.$options['consumerKey']
          . '&oauth_nonce='.$oauth_nonce
          . '&oauth_signature='.urlencode($oauth_signature)

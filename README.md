@@ -50,7 +50,7 @@ class Row extends \Bluz\Db\Row {
 ```
 
 ## Installation
-Bluz works with PHP 5.4 or later.
+Bluz works with PHP 5.4 or later and MySQL 5.1 and later
 
 Requried FollowSymlinks option. Create symlink to public directory:
 
@@ -58,14 +58,16 @@ Requried FollowSymlinks option. Create symlink to public directory:
 ln -s /path/to/public /var/www/htdocs
 ```
 
-Change permissions for all data directories:
+Run install.sh:
 
 ```
-chmod a+w /path/to/data/*
+./install.sh
 ```
 
-Rename ```/public/.htaccess.sample``` to ```/public/.htaccess```.
-Create your own configuration file ```/path/to/application/configs/app.development.php```
+Restore database structure from `structure.ddl` file.
+Restore default database data from `dump.sql`
+
+Edit your own configuration file ```/path/to/application/configs/app.dev.php```
 
 ## License
 

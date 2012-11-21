@@ -24,12 +24,28 @@ function($login, $password) use ($identity, $view) {
         $this->redirectTo('index', 'index');
     } elseif ($this->getRequest()->isPost()) {
         try {
+            if (empty($login)) {
+                throw new Exception("Login is empty");
+            }
+
+            if (empty($password)) {
+                throw new Exception("Password is empty");
+            }
+
+            // login/password
             Auth\Table::getInstance()->authenticateEquals($login, $password);
-            //$this->getAuth()->authenticate($login, $password);
+
+            // ldap
+//            $ldapAuth = $this->api('ldap', 'auth');
+//            if (!$ldapAuth($login, $password)) {
+//                throw new Exception('Wrong credentials');
+//            }
+
             $this->getMessages()->addNotice('You are signed');
             $this->redirectTo('index', 'index');
         } catch (\Exception $e) {
             $this->getMessages()->addError($e->getMessage());
+            $view->login = $login;
         }
     }
     // change layout

@@ -30,11 +30,18 @@ define(['jquery'], function($) {
             return M._el;
         },
         showMessage:function(type, text) {
-            var el = M.getContainer();
+            var className, el = M.getContainer();
+
 
             if (type != undefined && text != undefined) {
+
+                if (type == 'notice') {
+                    className = 'info';
+                } else {
+                    className = type;
+                }
                 // add new message to container
-                var p = $('<p class="'+type+'">'+text+'</p>');
+                var p = $('<p class="'+className+'">'+text+'</p>');
                 el.append(p);
             } else {
                 text = el.text();
@@ -60,7 +67,7 @@ define(['jquery'], function($) {
 			el.css('top', top);
             el.animate({opacity:"show"}, M._settings.fadeIn)
               .delay(delay)
-              .animate({opacity: "hide"}, M._settings.fadeOut, M.callback);
+              .animate({opacity:"hide"}, M._settings.fadeOut, M.callback);
 
         },
         addMessages:function(messages) {

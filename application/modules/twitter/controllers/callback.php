@@ -1,6 +1,6 @@
 <?php
 /**
- * Twitter Auth Сфддифсл controller
+ * Twitter Auth controller
  *
  * @author   Anton Shevchuk
  * @created  23.10.12 18:10
@@ -81,10 +81,7 @@ function() {
 
     // try to load previous information
     /* @var /Application/Auth/Row $row */
-    $row = $authTable->findRow([
-        'provider' => 'twitter',
-        'foreignKey' => $result['user_id']
-    ]);
+    $row = $authTable->getAuthRow(Auth\Row::PROVIDER_TWITTER, $result['user_id']);
 
     if ($row) {
 
@@ -105,7 +102,7 @@ function() {
         $user = $usersTable -> findRow($row->userId);
 
         // sign in
-        $this->getAuth()->setIdentity($user);
+        $user->login();
     } else {
 
         // if user already signed - link new auth provider to account
@@ -124,8 +121,7 @@ function() {
             $user2role -> save();
 
             // sign in
-            $this->getAuth()->setIdentity($user);
-
+            $user->login();
         }
 
         $row = new Auth\Row();

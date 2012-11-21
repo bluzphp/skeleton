@@ -7,6 +7,13 @@
  * @return   array
  */
 return array(
+    "auth" => array(
+        "equals" => array(
+            "encryptFunction" => function($password, $salt) {
+                return md5(md5($password) . $salt);
+            }
+        )
+    ),
     "cache" => array(
         "cache" => false,
     ),

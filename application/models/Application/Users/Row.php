@@ -53,6 +53,10 @@ class Row extends \Bluz\Auth\AbstractEntity
      * Disabled by administrator
      */
     const STATUS_DISABLED = 'disabled';
+    /**
+     * Removed account
+     */
+    const STATUS_DELETED = 'deleted';
 
     // system user with ID=0
     const SYSTEM_USER = 0;
@@ -110,11 +114,27 @@ class Row extends \Bluz\Auth\AbstractEntity
     /**
      * Can entity login
      *
+     *
+     * @throws \Application\Exception
+     * @throws \Bluz\Auth\AuthException
      * @return boolean
      */
-    public function canLogin()
+    public function tryLogin()
     {
-        return self::STATUS_ACTIVE == $this->status;
+        switch ($this->status) {
+            case self::STATUS_PENDING:
+                throw new \Bluz\Auth\AuthException("Your account is pending activation");
+                break;
+            case self::STATUS_DISABLED:
+                throw new \Bluz\Auth\AuthException("Your account is disabled by administrator");
+                break;
+            case self::STATUS_ACTIVE:
+                // all ok
+                break;
+            default:
+                throw new \Application\Exception("User status '".$this->status."' is undefined in system");
+                break;
+        }
     }
 
     /**
