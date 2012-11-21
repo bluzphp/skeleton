@@ -5,12 +5,12 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/bluzphp/bluz"
+            "url": "https://github.com/bluzphp/framework"
         }
     ],
     "require": {
         "php": ">=5.4",
-        "bluzphp/bluz": "dev-master"
+        "bluzphp/framework": "dev-master"
     },
     "config": {
         "vendor-dir": "library"
