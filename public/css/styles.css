@@ -10,6 +10,7 @@ body {
     padding-top: 60px;
     position: relative;
 }
+
 article, aside, header, footer, section {
     display:block;
 }
@@ -180,6 +181,12 @@ article, aside, header, footer, section {
 	color: white;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
 	background-color: #08C;
+}
+
+@media (max-width: 979px) {
+    body {
+        padding-top: 0;
+    }
 }
 /*/Bootstrap fix*/
 
