@@ -15,6 +15,11 @@
     "config": {
         "vendor-dir": "library"
     },
+    "autoload": {
+        "psr-0": {
+            "Application": "application/models"
+        }
+    },
     "scripts": {
         "post-install-cmd": [
             "chmod a+w ./data/cache/",

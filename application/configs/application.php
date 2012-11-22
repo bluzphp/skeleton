@@ -19,12 +19,6 @@ return array(
         "template" => 'index.phtml',
         "helpersPath" => PATH_APPLICATION .'/layouts/helpers'
     ),
-    "loader" => array(
-        "namespaces" => array(
-            'Bluz'        => PATH_LIBRARY,
-            'Application' => PATH_APPLICATION .'/models'
-        ),
-    ),
     "profiler" => DEBUG,
     "request" => array(
         "baseUrl" => '/',
