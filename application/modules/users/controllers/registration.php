@@ -4,7 +4,7 @@
  *
  * @category Application
  *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  09.11.12 13:19
  */
 namespace Application;
@@ -17,5 +17,6 @@ function () {
     /**
      * @var \Bluz\Application $this
      */
-
+    $crud = new Users\Crud();
+    return $crud->processController();
 };
