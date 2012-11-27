@@ -22,12 +22,7 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "chmod a+w ./data/cache/",
-            "chmod a+w ./data/logs/",
-            "chmod a+w ./data/sessions/",
-            "chmod a+w ./data/uploads/",
-            "cp ./application/configs/app.dev.sample.php ./application/configs/app.dev.php",
-            "cp ./public/.htaccess.dev.sample ./public/.htaccess"
+            "sh ./bin/install.sh"
         ]
     },
     "authors": [
