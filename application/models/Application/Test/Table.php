@@ -35,7 +35,7 @@ namespace Application\Test;
  * @author   Anton Shevchuk
  * @created  08.07.11 17:36
  */
-class Table extends \Bluz\Auth\Table
+class Table extends \Bluz\Db\Table
 {
     /**
      * Table
