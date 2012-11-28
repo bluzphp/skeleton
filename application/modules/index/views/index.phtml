@@ -1,1 +1,129 @@
-<h2>index/index</h2>
+<style>
+    code span { color: #006400 }
+    code em { color: #999 }
+    code var { color: #ff7f50 }
+    code strong { color: #b22222 }
+</style>
+
+<div class="hero-unit">
+    <h1>Congratulations!</h1>
+    <p>You have successfully installed the Skeleton application for <a href="https://github.com/bluzphp">Bluz Framework</a></p>
+</div>
+
+<h2>What next?</h2>
+
+<div class="accordion" id="accordion2"><div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+            Database setup &rarr;
+        </a>
+    </div>
+    <div id="collapseFour" class="accordion-body collapse">
+        <div class="accordion-inner">
+            <ol>
+                <li>
+                    Setup database structure from <code>structure.ddl</code>
+                </li>
+                <li>
+                    Restore database dump from <code>dump.sql</code>
+                </li>
+                <li>
+                    Setup configuration at <code>application/configs/app.dev.php</code>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
+                Login as administrator &rarr;
+            </a>
+        </div>
+        <div id="collapseFive" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <p>
+                    Try to login with credentials <code>admin</code> / <code>admin</code>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                Create your first controller &rarr;
+            </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <ol>
+                    <li>create new folder <code>application/my</code></li>
+                    <li>create new subfolder <code>application/my/controllers</code></li>
+                    <li>create file <code>application/my/controllers/index.php</code></li>
+                </ol>
+<pre><code><strong>&lt;?php</strong>
+return
+    <em>/**
+    * @param string $question
+    * @return \closure
+    */</em>
+    function(<var>$question</var> = null) use (<var>$view</var>) {
+        <em>/**
+        * @var Application $this
+        * @var View $view
+        */</em>
+        switch ($question) {
+            case <span>'2+2'</span>:
+            case <span>'2x2'</span>:
+                <var>$answer</var> = 4;
+                break;
+            case <span>'6x8'</span>:
+                default:
+                <var>$answer</var> = 42;
+        }
+        $view->question = <var>$question</var>;
+        $view->answer = <var>$answer</var>;
+    };</code></pre>
+
+            </div>
+        </div>
+    </div>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                Create view &rarr;
+            </a>
+        </div>
+        <div id="collapseTwo" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <ol>
+                    <li>create new subfolder <code>application/my/views</code></li>
+                    <li>create file <code>application/my/views/index.phtml</code></li>
+                </ol>
+<pre><code>&lt;p&gt;
+<strong>&lt;?</strong> if (<var>$question</var>) : <strong>?&gt;</strong>
+Q: <strong>&lt;?=</strong>html_entites(<var>$question</var>)<strong>?&gt;</strong>
+<strong>&lt;?</strong> endif; <strong>?&gt;</strong>
+A: <strong>&lt;?=</strong>html_entites(<var>$answer</var>)<strong>?&gt;</strong>
+&lt;/p&gt;
+</code></pre>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                Run &rarr;
+            </a>
+        </div>
+        <div id="collapseThree" class="accordion-body collapse">
+            <div class="accordion-inner">
+                Try to run:
+                <ul>
+                    <li><a href="<?=$this->baseUrl('/my/');?>"><?=$this->baseUrl('/my/');?></a></li>
+                    <li><a href="<?=$this->baseUrl('/my/?question=2+2');?>"><?=$this->baseUrl('/my/?question=2+2');?></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
