@@ -102,9 +102,9 @@ return
                 </ol>
 <pre><code>&lt;p&gt;
 <strong>&lt;?</strong> if (<var>$question</var>) : <strong>?&gt;</strong>
-Q: <strong>&lt;?=</strong>html_entites(<var>$question</var>)<strong>?&gt;</strong>
+Q: <strong>&lt;?=</strong>htmlentities(<var>$question</var>)<strong>?&gt;</strong>
 <strong>&lt;?</strong> endif; <strong>?&gt;</strong>
-A: <strong>&lt;?=</strong>html_entites(<var>$answer</var>)<strong>?&gt;</strong>
+A: <strong>&lt;?=</strong>htmlentities(<var>$answer</var>)<strong>?&gt;</strong>
 &lt;/p&gt;
 </code></pre>
             </div>
@@ -121,7 +121,7 @@ A: <strong>&lt;?=</strong>html_entites(<var>$answer</var>)<strong>?&gt;</strong>
                 Try to run:
                 <ul>
                     <li><a href="<?=$this->baseUrl('/my/');?>"><?=$this->baseUrl('/my/');?></a></li>
-                    <li><a href="<?=$this->baseUrl('/my/?question=2+2');?>"><?=$this->baseUrl('/my/?question=2+2');?></a></li>
+                    <li><a href="<?=$this->baseUrl('/my/index/question/2+2');?>"><?=$this->baseUrl('/my/index/question/2+2');?></a></li>
                 </ul>
             </div>
         </div>
