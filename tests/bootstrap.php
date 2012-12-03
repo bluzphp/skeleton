@@ -13,9 +13,9 @@ define('PATH_THEME', PATH_ROOT . '/themes');
 
 // init loader
 require_once PATH_LIBRARY . '/autoload.php';
-require_once 'application/BootstrapTest.php';
-require_once 'application/TestCase.php';
-require_once 'application/TestListener.php';
+require_once 'BootstrapTest.php';
+require_once 'TestCase.php';
+require_once 'TestListener.php';
 
 
 $app = \Application\BootstrapTest::getInstance();
