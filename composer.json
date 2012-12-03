@@ -34,9 +34,8 @@
         }
     ],
     "support": {
-        "email": "AntonShevchuk@gmail.com",
-        "issues": "https://github.com/bluzphp/bluz/issues",
-        "wiki": "https://github.com/bluzphp/bluz/wiki"
+        "issues": "https://github.com/bluzphp/skeleton/issues",
+        "wiki": "https://github.com/bluzphp/skeleton/wiki"
     },
     "license": "MIT"
 }

@@ -11,6 +11,7 @@ First you should clone Bluz skeleton project from github repository
 
 ```
 git clone git://github.com/bluzphp/skeleton.git
+cd skeleton
 ```
 
 Then you need to download composer.phar
@@ -85,24 +86,17 @@ class Row extends \Bluz\Db\Row {
 }
 ```
 
+## Documentation
+
+* [Framework wiki](https://github.com/bluzphp/framework/wiki)
+* [Skeleton wiki](https://github.com/bluzphp/skeleton/wiki)
 
 ## License
 
-Read LICENSE file
-
-## Contributors
-
-* [Anton Shevchuk][1] 
-* [Eugene Zabolotniy][2] 
-* [Maks Slesarenko][3] 
-* [EagleMoor][4]
+Read [LICENSE](https://raw.github.com/bluzphp/skeleton/master/LICENSE) file
 
 ## Vendors
 
-* jQuery - https://github.com/jquery/jquery
-* Bootstrap - http://twitter.github.com/bootstrap/javascript.html
-
-[1]: https://github.com/AntonShevchuk
-[2]: https://github.com/Baziak
-[3]: https://github.com/MaksSlesarenko
-[4]: https://github.com/EagleMoor
+* [Bluz](https://github.com/bluzphp/framework/)
+* [jQuery](https://github.com/jquery/jquery/)
+* [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
