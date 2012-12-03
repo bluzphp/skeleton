@@ -5,7 +5,7 @@
          bootstrap="./bootstrap.php">
     <testsuites>
         <testsuite name="Application Test Suite">
-            <directory>./application/</directory>
+            <directory>./modules/</directory>
         </testsuite>
     </testsuites>
     <listeners>
@@ -13,10 +13,10 @@
     </listeners>
     <filter>
         <whitelist>
-            <directory suffix=".php">../application</directory>
+            <directory suffix=".php">../modules</directory>
             <exclude>
-                <directory suffix=".phtml">../application</directory>
-                <directory suffix=".php">../application/configs</directory>
+                <directory suffix=".phtml">../modules</directory>
+                <directory suffix=".php">../modules/configs</directory>
             </exclude>
         </whitelist>
     </filter>
