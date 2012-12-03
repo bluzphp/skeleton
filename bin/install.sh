@@ -6,7 +6,8 @@
 #
 #############################################################################
 
-ROOT_DIR="$(readlink -f "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/../)"
+# Root directory
+ROOT_DIR=$( cd "$( dirname $0 )"/../ && pwd )
 
 # Server data
 echo "Set permissions for ./data/"
