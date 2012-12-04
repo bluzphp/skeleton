@@ -17,6 +17,9 @@ function () {
     /**
      * @var \Bluz\Application $this
      */
+    // change layout
+    $this->useLayout('small.phtml');
+
     $crud = new Users\Crud();
     return $crud->processController();
 };
