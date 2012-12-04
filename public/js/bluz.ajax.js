@@ -24,54 +24,57 @@ define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
 	// on DOM ready state
 	$(function () {
 		// Ajax global events
+        $("body")
+            .ajaxSuccess(function (event, jqXHR, options) {
+                if (options.dataType === 'json') {
+                    var data;
+                    try {
+                        data = jQuery.parseJSON(jqXHR.responseText);
+                    } catch (error) {
+                        // its not json
+                        return;
+                    }
+                    // check handler option
+                    if (data._handler === undefined) {
+                        return;
+                    }
+                    // it has the data
+                    // redirect and reload page
+                    var callback = null;
+                    if (data._reload !== undefined) {
+                        callback = function () {
+                            // reload current page
+                            window.location.reload();
+                        };
+                    } else if (data._redirect !== undefined) {
+                        callback = function () {
+                            // redirect to another page
+                            window.location = data.redirect;
+                        };
+                    }
+
+                    // show messages and run callback after
+                    if (data._messages !== undefined) {
+                        messages.setCallback(callback);
+                        messages.addMessages(data._messages);
+                    } else if (callback) {
+                        callback();
+                    }
+
+                    if (data.callback !== undefined && $.isFunction(window[data.callback])) {
+                        window[data.callback](data);
+                    }
+                }
+            })
+            .ajaxError(function (event, jqXHR, options, thrownError) {
+                bluz.log(thrownError, jqXHR.responseText);
+                messages.addError('Connection is fail');
+            });
+
+        // Loading
 		$("#loading")
 			.ajaxStart(function () {
 				$(this).show();
-			})
-			.ajaxSuccess(function (event, jqXHR, options) {
-				if (options.dataType === 'json') {
-					var data;
-					try {
-						data = jQuery.parseJSON(jqXHR.responseText);
-					} catch (error) {
-						// its not json
-						return;
-					}
-					// check handler option
-					if (data._handler === undefined) {
-						return;
-					}
-					// it has the data
-					// redirect and reload page
-					var callback = null;
-					if (data._reload !== undefined) {
-						callback = function () {
-							// reload current page
-							window.location.reload();
-						};
-					} else if (data._redirect !== undefined) {
-						callback = function () {
-							// redirect to another page
-							window.location = data.redirect;
-						};
-					}
-
-					// show messages and run callback after
-					if (data._messages !== undefined) {
-						messages.setCallback(callback);
-						messages.addMessages(data._messages);
-					} else if (callback) {
-						callback();
-					}
-
-					if (data.callback !== undefined && $.isFunction(window[data.callback])) {
-						window[data.callback](data);
-					}
-				}
-			})
-			.ajaxError(function (event, jqXHR, options, thrownError) {
-				bluz.log(thrownError, jqXHR.responseText);
-				messages.addError('Connection is fail');
 			})
 			.ajaxComplete(function () {
 				$(this).hide();
