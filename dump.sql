@@ -48,7 +48,7 @@ LOCK TABLES `acl_roles` WRITE;
 
 INSERT INTO `acl_roles` (`id`, `name`, `created`)
 VALUES
-	(1,'administrator','2012-11-09 07:37:31'),
+	(1,'admin','2012-11-09 07:37:31'),
 	(2,'member','2012-11-09 07:37:37'),
 	(3,'guest','2012-11-09 07:37:44');
 

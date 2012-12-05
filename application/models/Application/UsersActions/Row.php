@@ -1,0 +1,70 @@
+<?php
+/**
+ * Copyright (c) 2012 by Bluz PHP Team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/**
+ * @namespace
+ */
+namespace Application\UsersActions;
+
+/**
+ * User Actions
+ *
+ * @category Application
+ * @package  Users
+ *
+ * @author   Anton Shevchuk
+ * @created  05.12.12 10:32
+ */
+class Row extends \Bluz\Db\Row
+{
+
+    const ACTION_ACTIVATION = 'activation';
+    const ACTION_RESTORE = 'restore';
+    const ACTION_REMOVE = 'remove';
+
+    /**
+     * @var integer
+     */
+    public $userId;
+
+    /**
+     * @var string
+     */
+    public $token;
+
+    /**
+     * @var string
+     */
+    public $action;
+
+    /**
+     * @var string
+     */
+    public $created;
+
+    /**
+     * @var string
+     */
+    public $expired;
+
+}

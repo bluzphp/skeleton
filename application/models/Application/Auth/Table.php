@@ -108,4 +108,44 @@ class Table extends \Bluz\Db\Table
 
         return true;
     }
+
+    /**
+     * authenticate user by login/pass
+     *
+     * @param \Application\Users\Row $user
+     * @param string $password
+     * @throws \Application\Exception
+     * @throws \Bluz\Auth\AuthException
+     * @return boolean
+     */
+    public function generateEquals($user, $password)
+    {
+        $auth = Application::getInstance()->getAuth();
+        $options = $auth->getOption(Row::PROVIDER_EQUALS);
+
+        if (!isset($options['encryptFunction']) or
+            !is_callable($options['encryptFunction'])
+        ) {
+            throw new \Application\Exception("Encryption function for 'equals' adapter is not callable");
+        }
+
+        // new auth row
+        $row = new Row();
+        $row->userId = $user->id;
+        $row->foreignKey = $user->login;
+        $row->provider = Row::PROVIDER_EQUALS;
+        $row->tokenType = Row::TYPE_ACCESS;
+
+        // generate secret
+        $secret = array_rand(range('a', 'z', rand(1,5)));
+        $secret = md5($user->id . join('', $secret));
+        $row->tokenSecret = $secret;
+
+        // encrypt password and save as token
+        $row->token = call_user_func($options['encryptFunction'],  $password, $secret);
+
+        $row->save();
+
+        return $row;
+    }
 }

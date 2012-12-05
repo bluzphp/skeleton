@@ -27,7 +27,7 @@ class Table extends \Bluz\Db\Table
     /**
      * @var array
      */
-    protected $basicRoles = ['guest', 'administrator'];
+    protected $basicRoles = ['guest', 'member', 'admin'];
 
     /**
      * Get all roles in system
