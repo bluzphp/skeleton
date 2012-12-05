@@ -50,7 +50,7 @@ class Row extends \Bluz\Db\Row
     /**
      * @var string
      */
-    public $token;
+    public $code;
 
     /**
      * @var string

@@ -49,7 +49,7 @@ define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
                     } else if (data._redirect !== undefined) {
                         callback = function () {
                             // redirect to another page
-                            window.location = data.redirect;
+                            window.location = data._redirect;
                         };
                     }
 

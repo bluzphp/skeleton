@@ -124,7 +124,8 @@ class Crud extends \Bluz\Crud\Crud
         $userId = $row->save();
 
         // create auth
-        $authRow = \Application\Auth\Table::getInstance()->generateEquals($row, $this->getData('password'));
+        $password = $this->getData('password');
+        $authRow = \Application\Auth\Table::getInstance()->generateEquals($row, $password);
 
         // create activation token
         // valid for 5 days
@@ -135,7 +136,7 @@ class Crud extends \Bluz\Crud\Crud
         $activationUrl = $this->getApplication()->getRouter()->getFullUrl(
             'users',
             'activation',
-            ['code' => $actionRow->token, 'id' => $userId]
+            ['code' => $actionRow->code, 'id' => $userId]
         );
 
         $subject =  "Bluz Activation";
@@ -144,7 +145,17 @@ class Crud extends \Bluz\Crud\Crud
             . "From: Bluz <dark@nixsolutions.com> \r\n"
             . "Reply-To: Bluz <dark@nixsolutions.com>\r\n";
 
-        $body = "Follow next link $activationUrl\r\n";
+        $body = "Hello {$row->login},\r\n"
+              . "Thank you for registering at our site. Your account is created and must be activated before you can use it.\r\n"
+              . "To activate the account click on the following link or copy-paste it in your browser:\r\n"
+              . " $activationUrl \r\n"
+              . "After activation you may login to site using the following username and password:\r\n"
+              . " Username: {$row->login}\r\n"
+              . " Password: $password\r\n"
+              . "\r\n"
+              . "WBR, site team"
+        ;
+
 
         mail(
             $this->getData('email'),
@@ -156,7 +167,8 @@ class Crud extends \Bluz\Crud\Crud
 
         // show notification and redirect
         $this->getApplication()->getMessages()->addSuccess(
-            "Congratulations! You have successfully registered on our site. Please check your email for activation of your account"
+            "Your account has been created and an activation link has been sent to the e-mail address you entered.<br/>".
+            "Note that you must activate the account by clicking on the activation link when you get the e-mail before you can login."
         );
         $this->getApplication()->redirectTo('index', 'index');
 

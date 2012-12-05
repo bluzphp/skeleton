@@ -48,8 +48,7 @@ class Table extends \Bluz\Db\Table
      * Primary key(s)
      * @var array
      */
-    protected $primary = array('userId', 'token');
-
+    protected $primary = array('userId', 'code');
 
     /**
      * generate action with token
@@ -69,7 +68,7 @@ class Table extends \Bluz\Db\Table
         $actionRow->userId = $userId;
         $actionRow->action = $action;
         $random = array_rand(range('a', 'z', rand(1,5)));
-        $actionRow->token = md5($userId . $action . join('', $random));
+        $actionRow->code = md5($userId . $action . join('', $random));
         $actionRow->expired = strtotime("+$expired day");
         $actionRow->save();
 
