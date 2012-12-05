@@ -139,6 +139,7 @@ class Crud extends \Bluz\Crud\Crud
             ['code' => $actionRow->code, 'id' => $userId]
         );
 
+        // FIXME: HARDCODED EMAIL TEMPLATE!!!
         $subject =  "Bluz Activation";
 
         $headers = "Content-type: text/plain; charset=utf-8 \r\n"
