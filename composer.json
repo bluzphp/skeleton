@@ -12,7 +12,8 @@
     },
     "autoload": {
         "psr-0": {
-            "Application": "application/models"
+            "Application": "application/models",
+            "": "library"
         }
     },
     "scripts": {
