@@ -146,17 +146,14 @@ class Crud extends \Bluz\Crud\Crud
             . "From: Bluz <dark@nixsolutions.com> \r\n"
             . "Reply-To: Bluz <dark@nixsolutions.com>\r\n";
 
-        $body = "Hello {$row->login},\r\n"
-              . "Thank you for registering at our site. Your account is created and must be activated before you can use it.\r\n"
-              . "To activate the account click on the following link or copy-paste it in your browser:\r\n"
-              . " $activationUrl \r\n"
-              . "After activation you may login to site using the following username and password:\r\n"
-              . " Username: {$row->login}\r\n"
-              . " Password: $password\r\n"
-              . "\r\n"
-              . "WBR, site team"
-        ;
-
+        $body = $this->getApplication()->dispatch(
+            'users',
+            'mail-template',
+            [
+                'template' => 'registration',
+                'vars' => ['user' => $row, 'activationUrl' => $activationUrl, 'password' => $password]
+            ]
+        )->render();
 
         mail(
             $this->getData('email'),
