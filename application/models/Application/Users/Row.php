@@ -98,6 +98,7 @@ class Row extends \Bluz\Auth\AbstractEntity
      */
     public function preInsert()
     {
+        $this->email = strtolower($this->email);
         $this->created = gmdate('Y-m-d H:i:s');
     }
 
@@ -108,6 +109,7 @@ class Row extends \Bluz\Auth\AbstractEntity
      */
     public function preUpdate()
     {
+        $this->email = strtolower($this->email);
         $this->updated = gmdate('Y-m-d H:i:s');
     }
 

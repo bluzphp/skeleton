@@ -1,0 +1,82 @@
+<?php
+/**
+ * Reset password procedure
+ *
+ * @category Application
+ *
+ * @author   dark
+ * @created  11.12.12 15:25
+ */
+namespace Application;
+
+use Application\Auth;
+use Application\Users;
+
+return
+    /**
+     *
+     * @param int $id User UID
+     * @param string $code
+     * @return \closure
+     */
+    function ($id, $code, $password = null, $password2 = null) use ($view) {
+        /**
+         * @var \Bluz\Application $this
+         */
+        // change layout
+        $this->useLayout('small.phtml');
+
+        $actionTable = UsersActions\Table::getInstance();
+
+        $actionRow = $actionTable->findRow([
+            'userId' => $id,
+            'token' => $code
+        ]);
+
+        $datetime1 = new \DateTime(); // now
+        $datetime2 = new \DateTime($actionRow->expired);
+        $interval = $datetime1->diff($datetime2);
+
+        if (!$actionRow or $actionRow->action !== UsersActions\Row::ACTION_RECOVERY) {
+            $this->getMessages()->addError('Invalid code');
+            $this->redirectTo('index', 'index');
+        } elseif ($interval->invert) {
+            $this->getMessages()->addError('The activation code has expired');
+            $actionRow->delete();
+            $this->redirectTo('index', 'index');
+        } else {
+
+            $user = Users\Table::getInstance()->findRow($id);
+            $view->user = $user;
+            $view->code = $code;
+
+            if ($this->getRequest()->isPost()) {
+                try {
+
+                    if (empty($password) or empty($password2)) {
+                        throw new Exception('Please enter your new password');
+                    }
+
+                    if ($password != $password2) {
+                        throw new Exception('Please repeat your new password');
+                    }
+
+                    // remove old auth record
+                    if ($oldAuth = Auth\Table::getInstance()->getAuthRow(Auth\Row::PROVIDER_EQUALS, $user->login)) {
+                        $oldAuth -> delete();
+                    }
+
+                    // create new auth record
+                    Auth\Table::getInstance()->generateEquals($user, $password);
+
+                    // show notification and redirect
+                    $this->getMessages()->addSuccess(
+                        "Your password has been updated"
+                    );
+                    $this->redirectTo('users', 'login');
+                } catch (Exception $e) {
+                    $this->getMessages()->addError($e->getMessage());
+                }
+            }
+        }
+    };

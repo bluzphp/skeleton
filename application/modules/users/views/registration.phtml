@@ -18,7 +18,7 @@
     }
 </script>
 <div class="well span3">
-    <h3>Registration</h3>
+    <h3><?=$this->__('Registration')?></h3>
     <form id="<?=$uid?>" action="<?=$this->url('users', 'registration')?>" class="ajax" method="post">
         <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
 

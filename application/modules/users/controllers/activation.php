@@ -32,10 +32,17 @@ return
             'token' => $code
         ]);
 
+        $datetime1 = new \DateTime(); // now
+        $datetime2 = new \DateTime($actionRow->expired);
+        $interval = $datetime1->diff($datetime2);
+
         if (!$actionRow) {
             $this->getMessages()->addError('Invalid activation code');
         } elseif ($actionRow->action !== UsersActions\Row::ACTION_ACTIVATION) {
             $this->getMessages()->addError('Invalid activation');
+        } elseif ($interval->invert) {
+            $this->getMessages()->addError('The activation code has expired');
+            $actionRow->delete();
         } else {
             // change user status
             $userRow = Users\Table::getInstance()->findRow($id);

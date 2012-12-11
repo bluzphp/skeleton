@@ -1,7 +1,7 @@
 <?php
 /**
  * @var \Application\Users\Row $user
- * @var \Bluz\View $this
+ * @var \Bluz\View\View $this
  */
 ?>
 <div class="well span3">
@@ -18,8 +18,8 @@
             </label>
         </div>
         <input type="submit" value="Sign In" class="btn btn-primary"/>
-        <a href="<?=$this->url('users', 'registration')?>" title="Sign Up" class="btn right">Sign Up</a>
-        <hr/>
         <?=$this->widget('twitter', 'auth')?>
+        <a href="<?=$this->url('users', 'registration')?>" title="Sign Up" class="btn right"><?=$this->__('Sign Up')?></a>
     </form>
+    <a href="<?=$this->url('users', 'recovery')?>"><?=$this->__('Forgot your password?')?></a>
 </div>

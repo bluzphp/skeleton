@@ -61,6 +61,8 @@ class Crud extends \Bluz\Crud\Crud
         if ($this->getTable()->findRowWhere(['email' => $email])) {
             $this->addError('email', 'User with email "'.htmlentities($email).'" already exists');
         }
+        // TODO: add solution for check gmail accounts (because a.s.d@gmail.com === asd@gmail.com)
+
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             list($user, $domain) = explode("@", $email, 2);
             if (!checkdnsrr($domain,"MX") && !checkdnsrr($domain,"A")) {
