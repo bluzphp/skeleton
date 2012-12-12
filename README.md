@@ -34,7 +34,7 @@ Create symlink to public directory (required FollowSymlinks option):
 ln -s /path/to/public /var/www/htdocs
 ```
 
-Restore database structure from `structure.ddl` file.
+Restore database structure from `structure.ddl` file (use InnoDB as the Default MySQL Storage Engine!).
 Restore default database data from `dump.sql`
 
 
