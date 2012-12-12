@@ -70,6 +70,14 @@ article, aside, header, footer, section {
 	display: none;
 }
 /*/Loading */
+/*Small Layout*/
+.layout-small .center {
+    width: 290px;
+}
+.layout-small .well {
+    width: 250px;
+}
+/*/Small Layout*/
 /*Dashboard Widgets*/
 .widget {
     border: 1px solid #CDCDCD;

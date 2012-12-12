@@ -4,24 +4,22 @@
  * @var \Bluz\View\View $this
  */
 ?>
-<div class="well span3">
-    <h4><?=$this->__('Reset Password')?></h4>
-    <p>Hi <?=$user->login?>, enter your new password</p>
-    <form action="<?=$this->url('users', 'recovery-reset')?>" method="post" >
-        <input type="hidden" name="code" value="<?=$code?>"/>
-        <input type="hidden" name="id" value="<?=$user->id?>"/>
-        <div class="control-group">
-            <label class="input-prepend">
-                <span class="add-on"><i class="icon-lock"></i></span>
-                <input type="password" class="input-large" name="password" value="" placeholder="<?=$this->__('new password')?>"/>
-            </label>
-        </div>
-        <div class="control-group">
-            <label class="input-prepend">
-                <span class="add-on"><i class="icon-lock"></i></span>
-                <input type="password" class="input-large" name="password2" value="" placeholder="<?=$this->__('repeat password')?>"/>
-            </label>
-        </div>
-        <input type="submit" value="<?=$this->__('Change password')?>" class="btn btn-primary"/>
-    </form>
-</div>
+<h4><?=$this->__('Reset Password')?></h4>
+<p>Hi <?=$user->login?>, enter your new password</p>
+<form action="<?=$this->url('users', 'recovery-reset')?>" method="post" >
+    <input type="hidden" name="code" value="<?=$code?>"/>
+    <input type="hidden" name="id" value="<?=$user->id?>"/>
+    <div class="control-group">
+        <label class="input-prepend">
+            <span class="add-on"><i class="icon-lock"></i></span>
+            <input type="password" class="input-large" name="password" value="" placeholder="<?=$this->__('new password')?>"/>
+        </label>
+    </div>
+    <div class="control-group">
+        <label class="input-prepend">
+            <span class="add-on"><i class="icon-lock"></i></span>
+            <input type="password" class="input-large" name="password2" value="" placeholder="<?=$this->__('repeat password')?>"/>
+        </label>
+    </div>
+    <input type="submit" value="<?=$this->__('Change password')?>" class="btn btn-primary"/>
+</form>
