@@ -115,10 +115,10 @@ UNLOCK TABLES;
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `users` (`id`, `login`, `password`, `email`, `created`, `updated`, `status`)
+INSERT INTO `users` (`id`, `login`, `email`, `created`, `updated`, `status`)
 VALUES
-	(0,'system',NULL,NULL,'2012-11-09 07:37:58','0000-00-00 00:00:00','disabled'),
-	(1,'admin',NULL,NULL,'2012-11-09 07:38:41','0000-00-00 00:00:00','active');
+	(0,'system',NULL,'2012-11-09 07:37:58','0000-00-00 00:00:00','disabled'),
+	(1,'admin',NULL,'2012-11-09 07:38:41','0000-00-00 00:00:00','active');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
