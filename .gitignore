@@ -5,4 +5,4 @@
 !.stub
 composer.lock
 composer.phar
-/library/*
+/vendor/*
