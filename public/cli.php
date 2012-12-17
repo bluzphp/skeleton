@@ -60,7 +60,7 @@ function errorHandler() {
 try {
     // init loader
     require_once PATH_BLUZ . '/_loader.php';
-    require_once PATH_LIBRARY . '/autoload.php';
+    require_once PATH_VENDOR . '/autoload.php';
 
     require_once PATH_APPLICATION . '/Bootstrap.php';
     require_once PATH_APPLICATION . '/Exception.php';

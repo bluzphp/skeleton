@@ -8,12 +8,12 @@
         "bluzphp/framework": "dev-master"
     },
     "config": {
-        "vendor-dir": "library"
+        "vendor-dir": "vendor"
     },
     "autoload": {
         "psr-0": {
             "Application": "application/models",
-            "": "library"
+            "": "vendor"
         }
     },
     "scripts": {
