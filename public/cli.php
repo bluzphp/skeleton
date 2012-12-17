@@ -62,13 +62,13 @@ try {
     require_once PATH_BLUZ . '/_loader.php';
     require_once PATH_VENDOR . '/autoload.php';
 
-    require_once PATH_APPLICATION . '/Bootstrap.php';
+    require_once PATH_APPLICATION . '/CliBootstrap.php';
     require_once PATH_APPLICATION . '/Exception.php';
 
     /**
-     * @var \Application\Bootstrap $app
+     * @var \Application\CliBootstrap $app
      */
-    $app = \Application\Bootstrap::getInstance();
+    $app = \Application\CliBootstrap::getInstance();
     $app->init(APPLICATION_ENV)
         ->process()
         ->output();

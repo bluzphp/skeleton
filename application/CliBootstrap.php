@@ -14,7 +14,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -26,17 +26,35 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Application;
+use Bluz\Request;
+use Application\Exception;
 
 /**
- * Exception
+ * Bootstrap for CLI
  *
  * @category Application
- * @package  Exception
+ * @package  Bootstrap
  *
  * @author   Anton Shevchuk
- * @created  06.07.11 16:46
+ * @created  17.12.12 15:24
  */
-class Exception extends Bluz\Application\ApplicationException
+class CliBootstrap extends Application
 {
+    /**
+     * getRequest
+     *
+     * @return Request\CliRequest
+     */
+    public function getRequest()
+    {
+        if (!$this->request) {
+            $this->request = new Request\CliRequest($this->getConfigData('request'));
+
+            if ($this->request->isXmlHttpRequest()) {
+                $this->useLayout(false);
+            }
+        }
+        return $this->request;
+    }
 }

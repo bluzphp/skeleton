@@ -55,7 +55,7 @@ class Table extends \Bluz\Db\Table
     /**
      * getAuthRow
      *
-     * @todo foreign key for equals provider is equal to user logn -_- ?
+     * @todo foreign key for equals provider is equal to user login -_- ?
      * @param $provider
      * @param $foreignKey
      * @return Row

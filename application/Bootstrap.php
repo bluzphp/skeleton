@@ -126,6 +126,20 @@ class Bootstrap extends Application
     }
 
     /**
+     * denied
+     *
+     * @throws Exception
+     * @return void
+     */
+    public function denied()
+    {
+        if (!$this->getAuth()->getIdentity()) {
+            $this->redirectTo('users', 'signin');
+        }
+        throw new Exception('You don\'t have permissions', 403);
+    }
+
+    /**
      * getRcl
      *
      * @return \Bluz\Rcl\Rcl
