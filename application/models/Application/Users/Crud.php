@@ -90,7 +90,7 @@ class Crud extends \Bluz\Crud\Crud
     /**
      * @throws \Bluz\Crud\ValidationException
      */
-    public function validateUpdate()
+    public function validateUpdate($originalRow)
     {
         // name validator
         $login = $this->getData('login');
