@@ -77,15 +77,22 @@ function() {
           'screen_name' => string '*****' (length=13)
     */
 
+    /**
+     * @var Auth\Table $authTable
+     */
     $authTable = Auth\Table::getInstance();
 
     // try to load previous information
     /* @var /Application/Auth/Row $row */
     $row = $authTable->getAuthRow(Auth\Row::PROVIDER_TWITTER, $result['user_id']);
 
-    if ($row) {
 
-        if ($row->status != Users\Row::STATUS_ACTIVE) {
+    if ($row) {
+        // try to sign in
+        $usersTable = Users\Table::getInstance();
+        $user = $usersTable -> findRow($row->userId);
+
+        if ($user->status != Users\Row::STATUS_ACTIVE) {
             $this->getMessages()->addError('User is not active');
             $this->redirectTo('index', 'index');
         }
@@ -96,10 +103,7 @@ function() {
         $row->tokenType = Auth\Row::TYPE_ACCESS;
         $row->save();
 
-        // try to sign in
-        $usersTable = Users\Table::getInstance();
 
-        $user = $usersTable -> findRow($row->userId);
 
         // sign in
         $user->login();
