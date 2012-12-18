@@ -2,17 +2,15 @@
     <h1>Cache statistics</h1>
 </div>
 <div>
-    <table class="table-bordered table-condensed">
     <?php foreach ($servers as $server => $stat): ksort($stat)?>
-        <tr>
-            <th colspan="2"><?=$server?></th>
-        </tr>
+    <table class="table-bordered table-condensed">
+        <caption><?=$server?></caption>
         <?php foreach($stat as $key => $value): ?>
-        <tr>
-            <th class="span3"><?=$key?></th>
-            <td class="span2 textright"><?=$value?></td>
+        <tr class="row">
+            <td><strong><?=$key?></strong></td>
+            <td class="textright"><?=$value?></td>
         </tr>
         <?php endforeach; ?>
-    <?php endforeach; ?>
     </table>
+    <?php endforeach; ?>
 </div>

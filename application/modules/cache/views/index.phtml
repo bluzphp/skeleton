@@ -19,7 +19,7 @@
         <?php foreach ($servers as $stat):?>
         <tr>
             <td><?=$stat['host']?>:<?=$stat['port']?></td>
-            <td class="textcenter"><?=$stat['weight']?></td>
+            <td class="textcenter"><?=isset($stat['weight'])?$stat['weight']:''?></td>
         </tr>
         <?php endforeach; ?>
     </table>
