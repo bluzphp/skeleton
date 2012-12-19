@@ -57,7 +57,6 @@ function ($code, $message = '') use ($view) {
         }
     }
 
-    $this->getLayout()->title($header);
 
     if ($this->getRequest()->isXmlHttpRequest()) {
         $this->getMessages()->addError($message);
@@ -65,6 +64,7 @@ function ($code, $message = '') use ($view) {
         $view->title = $this->getLayout()->title();
         $view->description = $description;
         $view->message = $message;
+        $this->getLayout()->title($header);
         $this->useLayout('small.phtml');
     }
 };

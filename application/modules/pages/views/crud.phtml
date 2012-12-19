@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \Bluz\View\View $this
+ */
+?>
 <?php $uid = uniqid('form_'); ?>
 
 <script>
@@ -13,7 +18,6 @@
                 });
             });
         }
-
     }
 </script>
 
@@ -40,7 +44,7 @@
             <div class="control-group">
                 <label class="control-label" for="content"><?=$this->__('Content')?></label>
                 <div class="controls">
-                    <textarea rows="8" cols="26" id="content" class="input-xlarge" name="data[content]"><?=($row->content)?></textarea>
+                    <textarea rows="8" cols="26" id="content" class="input-xlarge redactor" name="data[content]"><?=($row->content)?></textarea>
                 </div>
             </div>
             <div class="control-group">
@@ -63,3 +67,5 @@
     </div>
 
 </form>
+
+<?=$this->redactor('.redactor')?>
