@@ -14,12 +14,12 @@ return
  * @param $password
  * @return \closure
  */
-function($login, $password) use ($identity, $view) {
+function($login, $password) use ($view) {
     /**
      * @var Bluz\Application $this
      * @var Bluz\View\View $view
      */
-    if ($identity) {
+    if ($this->getAuth()->getIdentity()) {
         $this->getMessages()->addNotice('Already signed');
         $this->redirectTo('index', 'index');
     } elseif ($this->getRequest()->isPost()) {
