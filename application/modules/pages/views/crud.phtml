@@ -7,24 +7,9 @@
 
 <script>
     function validateForm (data) {
-        $('#<?=$uid?>').find('.control-group').removeClass('error');
-        $('#<?=$uid?>').find('.help-inline.error').remove();
-        if (data.errors) {
-            $.each(data.errors, function(field, messages) {
-                var $ctrlGroup = $('#<?=$uid?>').find('.control-group:has(#'+field+')').addClass('error');
-
-                messages = messages.join('<br/>');
-                var $field = $('#'+field).tooltip({
-                    html:true,
-                    title:messages,
-                    trigger:'manual'
-                });
-                $field.tooltip('show');
-                $field.click(function(){
-                    $(this).tooltip('hide');
-                });
-            });
-        }
+        require(['bluz.validate'], function(validate) {
+            validate.notice('#<?=$uid?>', data);
+        });
     }
 </script>
 <style>

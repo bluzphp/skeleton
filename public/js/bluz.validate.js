@@ -7,8 +7,8 @@
 define(['jquery', 'bluz'], function ($, bluz) {
 
     return {
-        notice:function(el, data) {
-            var $form = $(el);
+        notice:function(data) {
+            var $form = $('#'+data.formId);
             $form.find('.control-group').removeClass('error');
             $form.find('.help-inline.error').remove();
             if (data.errors) {

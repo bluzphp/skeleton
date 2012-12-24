@@ -61,8 +61,23 @@ define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
                         callback();
                     }
 
+                    // callback to AMD
+                    if (data.callback !== undefined && (data.callback.substring(0, 5) == 'bluz.')) {
+                        var amd = data.callback.split('.');
+                        if (amd.length !== 3) {
+                            bluz.log('Response consist unsupported callback call: ' + data.callback);
+                            return;
+                        }
+                        require([amd[0]+'.'+amd[1]], function(module){
+                            module[amd[2]](data);
+                        });
+                        return;
+                    }
+
+                    // callback to global scope
                     if (data.callback !== undefined && $.isFunction(window[data.callback])) {
                         window[data.callback](data);
+                        return;
                     }
                 }
             })
