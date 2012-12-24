@@ -5,18 +5,23 @@
  */
 define(['jquery'], function ($) {
 	"use strict";
-	$(function () {
-		// TODO: require other modules if needed
-		if ($.fn.tooltip) {
-			$('.bluz-tooltip').tooltip();
-		}
-
-		if ($.fn.affix) {
-			$('.bluz-affix').affix();
-		}
-	});
 
 	return {
+        Callback: null,
+        ready: function() {
+            if (!arguments.length) {
+                if (self.Callback) {
+                    self.Callback.fire();
+                }
+                return;
+            }
+
+            if (!self.Callback) {
+                self.Callback = new $.Callbacks();
+            }
+
+            self.Callback.add(arguments[0]);
+        },
 		log: function (error, text) {
 			if (console !== undefined) {
 				console.error(error, "Response Text:", text);

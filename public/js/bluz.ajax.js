@@ -209,17 +209,18 @@ define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
 							keyboard: true,
 							backdrop: true
 						}).on('shown',function () {
-								var onShown = window[$this.attr('shown')];
-								if (typeof onShown === 'function') {
-									onShown.call($div);
-								}
-							}).on('hidden', function () {
-								var onHidden = window[$this.attr('hidden')];
-								if (typeof onHidden === 'function') {
-									onHidden.call($div);
-								}
-								$(this).remove();
-							});
+                            var onShown = window[$this.attr('shown')];
+                            if (typeof onShown === 'function') {
+                                onShown.call($div);
+                            }
+                            bluz.ready();
+                        }).on('hidden', function () {
+                            var onHidden = window[$this.attr('hidden')];
+                            if (typeof onHidden === 'function') {
+                                onHidden.call($div);
+                            }
+                            $(this).remove();
+                        });
 						$div.modal('show');
 					},
 					complete: function () {
@@ -247,7 +248,7 @@ define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
 				$.ajax({
 					url: $this.attr('action'),
 					type: (method ? method : 'post'),
-					data: $this.serialize(),
+					data: $this.serialize()+'&formId='+$this.attr('id'),
 					dataType: (type ? type : 'json'),
 					beforeSend: function () {
 						$this.addClass('disabled');

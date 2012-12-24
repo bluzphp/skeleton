@@ -6,21 +6,24 @@
  */
 define(['jquery', 'bluz'], function ($, bluz) {
 
-
-
-
-
     return {
         notice:function(el, data) {
-            $(el).find('.control-group').removeClass('error');
-            $(el).find('.help-inline.error').remove();
-
+            var $form = $(el);
+            $form.find('.control-group').removeClass('error');
+            $form.find('.help-inline.error').remove();
             if (data.errors) {
                 $.each(data.errors, function(field, messages) {
-                    $(el).find('.control-group:has(#'+field+')').addClass('error');
-                    $.each(messages, function(i, msg){
-                        $('#'+field).parent('.controls') // <div class="controls">..</div>
-                            .append('<span class="help-inline error">'+msg+'</span>');
+                    var $ctrlGroup = $form.find('.control-group:has(#'+field+')').addClass('error');
+
+                    messages = messages.join('<br/>');
+                    var $field = $('#'+field).tooltip({
+                        html:true,
+                        title:messages,
+                        trigger:'manual'
+                    });
+                    $field.tooltip('show');
+                    $field.click(function(){
+                        $(this).tooltip('hide');
                     });
                 });
             }

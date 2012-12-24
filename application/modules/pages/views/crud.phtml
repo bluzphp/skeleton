@@ -11,15 +11,40 @@
         $('#<?=$uid?>').find('.help-inline.error').remove();
         if (data.errors) {
             $.each(data.errors, function(field, messages) {
-                $('#<?=$uid?>').find('.control-group:has(#'+field+')').addClass('error');
-                $.each(messages, function(i, msg){
-                    $('#'+field).parent('.controls') // <div class="controls">..</div>
-                        .append('<span class="help-inline error">'+msg+'</span>');
+                var $ctrlGroup = $('#<?=$uid?>').find('.control-group:has(#'+field+')').addClass('error');
+
+                messages = messages.join('<br/>');
+                var $field = $('#'+field).tooltip({
+                    html:true,
+                    title:messages,
+                    trigger:'manual'
+                });
+                $field.tooltip('show');
+                $field.click(function(){
+                    $(this).tooltip('hide');
                 });
             });
         }
     }
 </script>
+<style>
+    #<?=$uid?> .modal {
+        top: 40%;
+        width: 750px;
+        margin-left: -345px;
+        margin-right: -375px;
+    }
+    #<?=$uid?> .modal-body {
+        max-height: 600px;
+    }
+    @media (max-width: 767px) {
+        #<?=$uid?> .modal.modal {
+            top: 10px;
+            width: 90%;
+            margin: 0
+        }
+    }
+</style>
 
 <form id="<?=$uid?>" action="<?=$this->url('pages', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
     <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
@@ -42,12 +67,6 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="content"><?=$this->__('Content')?></label>
-                <div class="controls">
-                    <textarea rows="8" cols="26" id="content" class="input-xlarge redactor" name="data[content]"><?=($row->content)?></textarea>
-                </div>
-            </div>
-            <div class="control-group">
                 <label class="control-label" for="keywords"><?=$this->__('Keywords')?></label>
                 <div class="controls">
                     <input type="text" class="input-xlarge" id="keywords" name="data[keywords]" value="<?=($row->keywords)?>" />
@@ -59,6 +78,10 @@
                     <input type="text" class="input-xlarge" id="description" name="data[description]" value="<?=($row->description)?>" />
                 </div>
             </div>
+            <div class="control-group">
+                <label for="content"><?=$this->__('Content')?></label>
+                <textarea rows="8" cols="26" id="content" class="input-xlarge redactor" name="data[content]"><?=($row->content)?></textarea>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-primary"><?=$this->__('Save')?></button>
@@ -68,4 +91,4 @@
 
 </form>
 
-<?=$this->redactor('.redactor')?>
+<?=$this->redactor('.redactor', ['autoresize'=>false])?>
