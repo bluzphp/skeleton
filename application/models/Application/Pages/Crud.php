@@ -56,7 +56,7 @@ class Crud extends \Bluz\Crud\Crud
 
         // content validator
         $content = $this->getData('content');
-        if (empty($content)) {
+        if (empty($content) or trim(strip_tags($content)) == '') {
             $this->addError('content', 'Content can\'t be empty');
         }
 

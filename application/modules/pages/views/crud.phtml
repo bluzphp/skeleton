@@ -4,14 +4,6 @@
  */
 ?>
 <?php $uid = uniqid('form_'); ?>
-
-<script>
-    function validateForm (data) {
-        require(['bluz.validate'], function(validate) {
-            validate.notice('#<?=$uid?>', data);
-        });
-    }
-</script>
 <style>
     #<?=$uid?> .modal {
         top: 40%;
@@ -21,6 +13,12 @@
     }
     #<?=$uid?> .modal-body {
         max-height: 600px;
+    }
+    #<?=$uid?> textarea {
+        margin-left: 100px;
+    }
+    #<?=$uid?> .redactor_box textarea {
+        margin-left: 0;
     }
     @media (max-width: 767px) {
         #<?=$uid?> .modal.modal {
@@ -40,32 +38,34 @@
         </div>
         <div class="modal-body">
             <div class="control-group">
-                <label class="control-label" for="title"><?=$this->__('Title')?></label>
+                <label class="control-label" for="title"><?=$this->__('Title')?>:</label>
                 <div class="controls">
                     <input type="text" class="input-xlarge" id="title" name="data[title]" value="<?=($row->title)?>" />
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="alias"><?=$this->__('Alias')?></label>
+                <label class="control-label" for="alias"><?=$this->__('Alias')?>:</label>
                 <div class="controls">
                     <input type="text" class="input-xlarge" id="alias" name="data[alias]" value="<?=($row->alias)?>" />
                 </div>
+                <small class="help-block controls">Alias for build permalink to this page</small>
             </div>
             <div class="control-group">
-                <label class="control-label" for="keywords"><?=$this->__('Keywords')?></label>
+                <label class="control-label" for="keywords"><?=$this->__('Meta Keywords')?>:</label>
                 <div class="controls">
                     <input type="text" class="input-xlarge" id="keywords" name="data[keywords]" value="<?=($row->keywords)?>" />
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="description"><?=$this->__('Description')?></label>
+                <label class="control-label" for="description"><?=$this->__('Meta Description')?>:</label>
                 <div class="controls">
                     <input type="text" class="input-xlarge" id="description" name="data[description]" value="<?=($row->description)?>" />
                 </div>
             </div>
             <div class="control-group">
-                <label for="content"><?=$this->__('Content')?></label>
-                <textarea rows="8" cols="26" id="content" class="input-xlarge redactor" name="data[content]"><?=($row->content)?></textarea>
+                <label for="content" class="control-label"><?=$this->__('Content')?>:</label>
+                <br class="clear"/>
+                <textarea rows="8" cols="26" id="content" class="input-xxlarge redactor" name="data[content]"><?=($row->content)?></textarea>
             </div>
         </div>
         <div class="modal-footer">
@@ -76,4 +76,4 @@
 
 </form>
 
-<?=$this->redactor('.redactor', ['autoresize'=>false])?>
+<?//=$this->redactor('.redactor', ['autoresize'=>false])?>
