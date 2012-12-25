@@ -1,22 +1,4 @@
 <?php $uid = uniqid('form_'); ?>
-
-<script>
-    function validateForm (data) {
-        $('#<?=$uid?>').find('.control-group').removeClass('error');
-        $('#<?=$uid?>').find('.help-inline.error').remove();
-
-        if (data.errors) {
-            $.each(data.errors, function(field, messages) {
-
-                var $group = $('#<?=$uid?>').find('.control-group:has([name="data['+field+']"])');
-                    $group.addClass('error');
-                $.each(messages, function(i, msg){
-                    $group.append('<span class="help-inline error">'+msg+'</span>');
-                });
-            });
-        }
-    }
-</script>
 <h3><?=$this->__('Registration')?></h3>
 <form id="<?=$uid?>" action="<?=$this->url('users', 'signup')?>" class="ajax" method="post">
     <input type="hidden" name="data[id]" value="<?=$row->id?>"/>

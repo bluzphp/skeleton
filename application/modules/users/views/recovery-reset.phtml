@@ -4,7 +4,7 @@
  * @var \Bluz\View\View $this
  */
 ?>
-<h4><?=$this->__('Reset Password')?></h4>
+<h3><?=$this->__('Reset Password')?></h3>
 <p>Hi <?=$user->login?>, enter your new password</p>
 <form action="<?=$this->url('users', 'recovery-reset')?>" method="post" >
     <input type="hidden" name="code" value="<?=$code?>"/>
