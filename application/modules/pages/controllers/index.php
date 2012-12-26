@@ -26,8 +26,8 @@ function($alias) use ($view) {
     if (!$page) {
         throw new Exception('Page not found', 404);
     } else {
-        $this->getLayout()->meta('keywords', $page->keywords);
-        $this->getLayout()->meta('description', $page->description);
+        $view->meta('keywords', $page->keywords);
+        $view->meta('description', $page->description);
         $view->page = $page;
     }
 };

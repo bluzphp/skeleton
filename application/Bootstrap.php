@@ -55,10 +55,11 @@ class Bootstrap extends Application
                 \Bluz\Profiler::log($event->getTarget());
             });
             $this->getEventManager()->attach('layout:header', function($event){
+                /* @var \Bluz\View\Layout $layout */
                 $layout = $event->getParam('layout');
+
                 // add debug.css
-                $layout->link($layout->baseUrl('/css/debug.css'));
-                echo $layout->link();
+                echo $layout->style('/css/debug.css');
 
                 /* @var \Bluz\EventManager\Event $event */
                 \Bluz\Profiler::log('layout:header');
