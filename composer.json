@@ -5,7 +5,8 @@
     "repositories": [],
     "require": {
         "php": ">=5.4",
-        "bluzphp/framework": "dev-master"
+        "bluzphp/framework": "dev-master",
+        "phpmailer/phpmailer": "dev-master"
     },
     "config": {
         "vendor-dir": "vendor"
