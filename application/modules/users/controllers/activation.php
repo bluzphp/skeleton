@@ -64,7 +64,7 @@ return
             $this->getMessages()->addSuccess(
                 'Your Account has been successfully activated. <br/>'.
                 'You can now log in using the username and password you chose during the registration.');
-            $this->redirectTo('users', 'login');
+            $this->redirectTo('users', 'signin');
         }
         $this->redirectTo('index', 'index');
         return false;
