@@ -139,18 +139,4 @@ class Bootstrap extends Application
         }
         throw new Exception('You don\'t have permissions', 403);
     }
-
-    /**
-     * getRcl
-     *
-     * @return \Bluz\Rcl\Rcl
-     */
-    public function getRcl()
-    {
-        if (!$this->rcl) {
-            $this->rcl = parent::getRcl();
-            //$this->rcl->addAssertion(\Application\UserToResourceToPrivilege\Table::getInstance());
-        }
-        return $this->rcl;
-    }
 }
