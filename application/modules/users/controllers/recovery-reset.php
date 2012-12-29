@@ -73,7 +73,7 @@ return
                     $this->getMessages()->addSuccess(
                         "Your password has been updated"
                     );
-                    $this->redirectTo('users', 'login');
+                    $this->redirectTo('users', 'signin');
                 } catch (Exception $e) {
                     $this->getMessages()->addError($e->getMessage());
                 }
