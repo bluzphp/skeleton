@@ -255,15 +255,16 @@ define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
 
 				var method = $this.attr('method');
 				var type = $this.data('ajax-type');
-				var data = {};
-				if (type && type === 'json') {
-					data._json = 1;
+				var data = $this.serializeArray();
+                    data.push({name:'_formId', value:$this.attr('id')});
+				if (!type || type === 'json') {
+					data.push({name:'_json', value:1});
 				}
 
 				$.ajax({
 					url: $this.attr('action'),
 					type: (method ? method : 'post'),
-					data: $this.serialize()+'&formId='+$this.attr('id'),
+					data: data,
 					dataType: (type ? type : 'json'),
 					beforeSend: function () {
 						$this.addClass('disabled');

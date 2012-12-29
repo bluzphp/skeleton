@@ -134,9 +134,12 @@ class Bootstrap extends Application
      */
     public function denied()
     {
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            $this->getMessages()->addError('You don\'t have permissions, please sign in');
+        }
         if (!$this->getAuth()->getIdentity()) {
             $this->redirectTo('users', 'signin');
         }
-        throw new Exception('You don\'t have permissions', 403);
+        throw new Exception('Your session has expired, please sign in and try again', 403);
     }
 }
