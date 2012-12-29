@@ -138,7 +138,9 @@ class Table extends \Bluz\Db\Table
         $row->tokenType = Row::TYPE_ACCESS;
 
         // generate secret
-        $secret = array_rand(range('a', 'z', rand(1,5)));
+        $alpha = range('a', 'z');
+        shuffle($alpha);
+        $secret = array_slice($alpha, 0, rand(5, 15));
         $secret = md5($user->id . join('', $secret));
         $row->tokenSecret = $secret;
 
