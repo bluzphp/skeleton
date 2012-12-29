@@ -163,7 +163,7 @@ class Crud extends \Bluz\Crud\Crud
 
             $mail->AddAddress($this->getData('email'));
 
-            $this->getApplication()->getMailer()->send();
+            $this->getApplication()->getMailer()->send($mail);
 
         } catch (\Exception $e) {
             // TODO: log me

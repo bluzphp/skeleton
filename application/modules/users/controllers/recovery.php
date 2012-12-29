@@ -79,7 +79,7 @@ return
 
                     $mail->AddAddress($user->email);
 
-                    $this->getMailer()->send();
+                    $this->getMailer()->send($mail);
 
                 } catch (\Exception $e) {
                     // TODO: log me
