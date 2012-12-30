@@ -27,6 +27,7 @@
 namespace Application\Users;
 
 use Application\UsersActions;
+use Application\Exception;
 
 /**
  * Crud
@@ -144,10 +145,6 @@ class Crud extends \Bluz\Crud\Crud
         // FIXME: HARDCODED EMAIL TEMPLATE!!!
         $subject =  "Bluz Activation";
 
-        $headers = "Content-type: text/plain; charset=utf-8 \r\n"
-            . "From: Bluz <dark@nixsolutions.com> \r\n"
-            . "Reply-To: Bluz <dark@nixsolutions.com>\r\n";
-
         $body = $this->getApplication()->dispatch(
             'users',
             'mail-template',
@@ -157,13 +154,22 @@ class Crud extends \Bluz\Crud\Crud
             ]
         )->render();
 
-        mail(
-            $this->getData('email'),
-            $subject,
-            $body,
-            $headers,
-            '-fdark@nixsolutions.com'
-        );
+        try {
+            $mail = $this->getApplication()->getMailer()->create();
+
+            // subject
+            $mail->Subject = $subject;
+            $mail->MsgHTML(nl2br($body));
+
+            $mail->AddAddress($this->getData('email'));
+
+            $this->getApplication()->getMailer()->send($mail);
+
+        } catch (\Exception $e) {
+            // TODO: log me
+
+            throw new Exception('Unable to send email. Please contact administrator.');
+        }
 
         // show notification and redirect
         $this->getApplication()->getMessages()->addSuccess(

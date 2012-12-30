@@ -61,10 +61,6 @@ return
                 // FIXME: HARDCODED EMAIL TEMPLATE!!!
                 $subject =  "Bluz Password Recovery";
 
-                $headers = "Content-type: text/plain; charset=utf-8 \r\n"
-                    . "From: Bluz <dark@nixsolutions.com> \r\n"
-                    . "Reply-To: Bluz <dark@nixsolutions.com>\r\n";
-
                 $body = $this->dispatch(
                     'users',
                     'mail-template',
@@ -74,13 +70,22 @@ return
                     ]
                 )->render();
 
-                mail(
-                    $user->email,
-                    $subject,
-                    $body,
-                    $headers,
-                    '-fdark@nixsolutions.com'
-                );
+                try {
+                    $mail = $this->getMailer()->create();
+
+                    // subject
+                    $mail->Subject = $subject;
+                    $mail->MsgHTML(nl2br($body));
+
+                    $mail->AddAddress($user->email);
+
+                    $this->getMailer()->send($mail);
+
+                } catch (\Exception $e) {
+                    // TODO: log me
+
+                    throw new Exception('Unable to send email. Please contact administrator.');
+                }
 
                 // show notification and redirect
                 $this->getMessages()->addSuccess(
