@@ -15,7 +15,7 @@ return array(
         )
     ),
     "cache" => array(
-        "cache" => false,
+        "enabled" => false,
     ),
     "db" => array(
         "connect" => array(

@@ -8,8 +8,10 @@
  */
 return array(
     "cache" => array(
-        "cache" => true,
-        "path"  => PATH_DATA .'/cache'
+        "enabled" => true,
+        "settings" => array(
+            "cacheAdapter" => "apc"
+        )
     ),
     "db" => array(
         "defaultAdapter" => true

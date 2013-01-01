@@ -8,7 +8,7 @@
 return array(
     "profiler" => false,
     "cache" => array(
-        "cache" => false
+        "enabled" => false
     ),
     "session" => array(
         "store" => "array"

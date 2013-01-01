@@ -8,9 +8,14 @@
  */
 return array(
     "cache" => array(
-        "cache" => true,
-        "servers" => array(
-            ["memcached", 11211, 1],
+        "enabled" => true,
+        "setings" => array(
+            "cacheAdapter" => [
+                "memcached" => array(
+                    ["memcached", 11211, 1],
+                )
+            ],
+            "tagAdapter" => "apc"
         )
     ),
     "auth" => array(
