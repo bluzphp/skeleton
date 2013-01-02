@@ -39,9 +39,10 @@ function($id = null) use ($bootstrap, $view) {
     /**
      * @var Bluz\Db\Rowset $userRows
      */
-    $userRow = $cache->getData('user:'.$id, function() use ($id) {
-        return Users\Table::getInstance()->findRow($id);
-    }, 30);
+    if (!$userRow = $cache->get('user:'.$id)) {
+        $userRow = Users\Table::getInstance()->findRow($id);
+        $cache->set('user:'.$id, $userRow, 30);
+    };
 
     if (!$userRow) {
         throw new \Exception('User not found', 404);

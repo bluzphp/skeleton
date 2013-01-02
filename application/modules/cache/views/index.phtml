@@ -3,12 +3,12 @@
 </div>
 <div class="subnav">
     <ul class="nav nav-pills">
-        <li class="bluz-tooltip" data-placement="bottom" data-original-title="Memcached Servers"><?=$this->ahref('Statistics', ['cache', 'stats'])?></li>
+        <li class="bluz-tooltip" data-placement="bottom" data-original-title="Cache Servers Stats"><?=$this->ahref('Statistics', ['cache', 'stats'])?></li>
         <li class="bluz-tooltip" data-placement="bottom" data-original-title="Clean ACL and Route Maps"><?=$this->ahref('<i class="icon-fire"></i> Clean', ['cache', 'clean'], ['class'=>'confirm ajax'])?></li>
         <li class="bluz-tooltip" data-placement="bottom" data-original-title="Flash all servers"><?=$this->ahref('<i class="icon-fire"></i> Flush', ['cache', 'flush'], ['class'=>'confirm ajax'])?></li>
     </ul>
 </div>
-<?php if (sizeof($servers)): ?>
+<?php if (isset($servers) && sizeof($servers)): ?>
 <hr/>
 <div>
     <table class="table-bordered table-condensed">

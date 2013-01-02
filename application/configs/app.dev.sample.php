@@ -26,22 +26,22 @@ return array(
             "pass" => "",
         ),
     ),
+    "mail" => array(
+        "subjectPrefix" => "Bluz - ",
+        "from" => [
+            "email" => "no-reply@nixsolutions.com",
+            "name" => "Bluz"
+        ],
+        "smtp" => [
+            "host" => "",
+            "port" => "",
+            "username" => "",
+            "password" => ""
+        ]
+    ),
     "session" => array(
         "options" => array(
             "savepath" => PATH_DATA .'/sessions'
         )
-    ),
-    'mail' => [
-        'subjectPrefix' => 'Dark Side - ',
-        'from' => [
-            'email' => 'no-reply@nixsolutions.com',
-            'name' => 'Dark Side'
-        ],
-        'smtp' => [
-            'host' => '',
-            'port' => '',
-            'username' => '',
-            'password' => ''
-        ]
-    ]
+    )
 );

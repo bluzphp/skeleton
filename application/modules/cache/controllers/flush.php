@@ -15,8 +15,10 @@ return
  * @return \closure
  */
 function () {
-    if ($handler = $this->getCache()->handler()) {
-        $this->getCache()->flush();
+    /* @var \Bluz\Application $this */
+    if ($handler = $this->getCache()->isEnabled()) {
+        $this->getCache()->getAdapter()->flush();
+        $this->getCache()->getTagAdapter()->flush();
         $this->getMessages()->addSuccess("Cache is flushed");
     } else {
         $this->getMessages()->addNotice("Cache is disabled");

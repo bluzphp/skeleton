@@ -10,7 +10,14 @@ return array(
     "cache" => array(
         "enabled" => true,
         "settings" => array(
-            "cacheAdapter" => "apc"
+            "cacheAdapter" => array(
+                "name" => "memcached",
+                "settings" => array(
+                    "servers" => [
+                        ["memcached", 11211, 1],
+                    ]
+                )
+            )
         )
     ),
     "db" => array(

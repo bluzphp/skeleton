@@ -20,11 +20,9 @@ function () {
      * @var Bootstrap $this
      */
     $userId = $this->getAuth()->getIdentity()->id;
-    if ($handler = $this->getCache()->handler()) {
-
+    if ($handler = $this->getCache()->isEnabled()) {
         $this->getCache()->delete('roles:'.$userId);
         $this->getCache()->delete('privileges:'.$userId);
-
         $this->getMessages()->addSuccess("Cache is cleaned");
     } else {
         $this->getMessages()->addNotice("Cache is disabled");
