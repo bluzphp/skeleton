@@ -54,6 +54,10 @@ class Bootstrap extends Application
                 /* @var \Bluz\EventManager\Event $event */
                 \Bluz\Profiler::log($event->getTarget());
             });
+            $this->getEventManager()->attach('view', function($event){
+                /* @var \Bluz\EventManager\Event $event */
+                \Bluz\Profiler::log('view');
+            });
             $this->getEventManager()->attach('layout:header', function($event){
                 /* @var \Bluz\View\Layout $layout */
                 $layout = $event->getParam('layout');

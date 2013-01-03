@@ -21,8 +21,12 @@ function () {
      */
     $userId = $this->getAuth()->getIdentity()->id;
     if ($handler = $this->getCache()->isEnabled()) {
-        $this->getCache()->delete('roles:'.$userId);
-        $this->getCache()->delete('privileges:'.$userId);
+        // routers
+        $this->getCache()->delete('router:routers');
+        $this->getCache()->delete('router:reverse');
+        // roles
+        $this->getCache()->deleteByTag('roles');
+        $this->getCache()->deleteByTag('privileges');
         $this->getMessages()->addSuccess("Cache is cleaned");
     } else {
         $this->getMessages()->addNotice("Cache is disabled");

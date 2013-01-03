@@ -26,7 +26,7 @@ return array(
             "pass" => "",
         ),
     ),
-    "mail" => array(
+    "mailer" => array(
         "subjectPrefix" => "Bluz - ",
         "from" => [
             "email" => "no-reply@nixsolutions.com",

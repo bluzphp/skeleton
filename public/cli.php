@@ -75,7 +75,9 @@ try {
 } catch (Exception $e) {
     echo "\033[41m\033[1;37mApplication Exception\033[m\033m\n";
     if (defined('DEBUG') && DEBUG && isset($e)) {
-        echo "\033[1;37m".$e->getMessage()."\033[m\n";
+        echo "\033[1;37m".strip_tags($e->getMessage())."\033[m\n\n";
+        echo "# --- \n";
         echo $e->getTraceAsString()."\n";
+        echo "# --- \n";
     }
 }

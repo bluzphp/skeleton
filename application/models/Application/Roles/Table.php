@@ -57,13 +57,17 @@ class Table extends \Bluz\Db\Table
      */
     public function getUserRoles($userId)
     {
-        return \Bluz\Application::getInstance()->getCache()->getData('roles:'.$userId, function() use ($userId) {
-            return $this->fetch("
+        if (!$data = \Bluz\Application::getInstance()->getCache()->get('roles:'.$userId)) {
+            $data = $this->fetch("
                         SELECT r.*
                         FROM acl_roles AS r, acl_usersToRoles AS u2r
                         WHERE r.id = u2r.roleId AND u2r.userId = ?
                         ", array($userId));
-        }, 0);
+            \Bluz\Application::getInstance()->getCache()->set('roles:'.$userId, $data, 0);
+            \Bluz\Application::getInstance()->getCache()->addTag('roles:'.$userId, 'roles');
+            \Bluz\Application::getInstance()->getCache()->addTag('roles:'.$userId, 'user:'.$userId);
+        }
+        return $data;
     }
 
 

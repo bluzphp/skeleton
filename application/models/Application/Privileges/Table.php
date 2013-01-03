@@ -52,7 +52,9 @@ class Table extends \Bluz\Db\Table
                         ORDER BY module, privilege",
                 array((int) $userId)
             );
-            \Bluz\Application::getInstance()->getCache()->get('privileges:'.$userId, $data, 0);
+            \Bluz\Application::getInstance()->getCache()->set('privileges:'.$userId, $data, 0);
+            \Bluz\Application::getInstance()->getCache()->addTag('privileges:'.$userId, 'privileges');
+            \Bluz\Application::getInstance()->getCache()->addTag('privileges:'.$userId, 'user:'.$userId);
         }
         return $data;
     }
