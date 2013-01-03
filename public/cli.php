@@ -25,7 +25,7 @@ if (in_array('--env', $argv)) {
 }
 
 // Environment
-define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : ENVIRONMENT_PRODUCTION));
+define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ?: 'production'));
 
 // Debug mode for development environment only
 if (in_array('--debug', $argv)) {

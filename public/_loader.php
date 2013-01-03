@@ -12,11 +12,6 @@ if (version_compare(phpversion(), '5.4.3', '<') ) {
     exit();
 }
 
-// Setup environment defines
-define('ENVIRONMENT_PRODUCTION', 'production');
-define('ENVIRONMENT_DEVELOPMENT', 'development');
-define('ENVIRONMENT_TESTING', 'testing');
-
 // Paths
 define('PATH_ROOT', realpath(dirname(__FILE__) . '/../'));
 define('PATH_APPLICATION', PATH_ROOT . '/application');

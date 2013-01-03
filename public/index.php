@@ -10,7 +10,7 @@
 require_once '_loader.php';
 
 // Environment
-define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : ENVIRONMENT_PRODUCTION));
+define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ?: 'production'));
 
 // Debug mode for development environment only
 define('DEBUG_KEY', 'BLUZ_DEBUG');
