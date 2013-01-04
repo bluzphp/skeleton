@@ -37,7 +37,7 @@ define_array('PATH', array(
     'PATH_APPLICATION' => $root . '/application',
     'PATH_DATA' => $root . '/data',
     'PATH_VENDOR' => $root . '/vendor',
-    'PATH_BLUZ' => $root . '/bluzphp/framework/src/Bluz',
+    'PATH_BLUZ' => $root . '/vendor/bluzphp/framework/src/Bluz',
     'PATH_PUBLIC' => $root . '/public'
 ));
 
