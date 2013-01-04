@@ -5,15 +5,17 @@
  * @author   C.O.
  * @created  06.07.11 16:20
  */
+// Check CLI
+if (PHP_SAPI === 'cli') {
+    echo "Use `cli.php` instead of `index.php`\n";
+    exit;
+}
 
 // Require loader
 require_once '_loader.php';
 
-// Environment
-define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ?: 'production'));
-
 // Debug mode for development environment only
-define('DEBUG_KEY', 'BLUZ_DEBUG');
+define('DEBUG_KEY', isset($_SERVER['BLUZ_DEBUG_KEY'])? $_SERVER['BLUZ_DEBUG_KEY']:'debug');
 
 if (isset($_COOKIE[DEBUG_KEY])) {
     define('DEBUG', true);
@@ -47,11 +49,15 @@ try {
     require_once PATH_APPLICATION . '/Bootstrap.php';
     require_once PATH_APPLICATION . '/Exception.php';
 
+
+    // Environment
+    $env = isset($_SERVER['BLUZ_ENV'])? $_SERVER['BLUZ_ENV']:'production';
+
     /**
      * @var \Application\Bootstrap $app
      */
     $app = \Application\Bootstrap::getInstance();
-    $app->init(APPLICATION_ENV)
+    $app->init($env)
         ->process()
         ->render();
 } catch (Exception $e) {

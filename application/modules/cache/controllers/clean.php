@@ -27,6 +27,9 @@ function () {
         // roles
         $this->getCache()->deleteByTag('roles');
         $this->getCache()->deleteByTag('privileges');
+        // reflection data
+        $this->getCache()->deleteByTag('reflection');
+
         $this->getMessages()->addSuccess("Cache is cleaned");
     } else {
         $this->getMessages()->addNotice("Cache is disabled");

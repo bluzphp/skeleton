@@ -16,16 +16,26 @@ require_once '_loader.php';
 // Get CLI arguments
 $argv = $_SERVER['argv'];
 
-// Check environment
+// Check help
+if (in_array('--help', $argv)) {
+    echo "Option `--uri` is required, it's similar to browser query\n";
+    echo "Use `--env` option for setup applicaiton environment\n";
+    echo "Use `--debug` flag for receive more information\n";
+    exit();
+}
+// Check URI option
+if (!in_array('--uri', $argv)) {
+    echo "\033[41m\033[1;37mOption `--uri` is required\033[m\033m\n";
+    exit();
+}
+
+// Check and setup environment
 if (in_array('--env', $argv)) {
     $envOrder = array_search('--env', $argv) + 1;
     if (isset($argv[$envOrder])) {
-        putenv('APPLICATION_ENV='.$argv[$envOrder]);
+        $_SERVER['APPLICATION_ENV'] = $argv[$envOrder];
     }
 }
-
-// Environment
-define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ?: 'production'));
 
 // Debug mode for development environment only
 if (in_array('--debug', $argv)) {
@@ -65,11 +75,14 @@ try {
     require_once PATH_APPLICATION . '/CliBootstrap.php';
     require_once PATH_APPLICATION . '/Exception.php';
 
+    // Environment
+    $env = isset($_SERVER['BLUZ_ENV'])? $_SERVER['BLUZ_ENV']:'production';
+
     /**
      * @var \Application\CliBootstrap $app
      */
     $app = \Application\CliBootstrap::getInstance();
-    $app->init(APPLICATION_ENV)
+    $app->init($env)
         ->process()
         ->output();
 } catch (Exception $e) {
@@ -79,5 +92,8 @@ try {
         echo "# --- \n";
         echo $e->getTraceAsString()."\n";
         echo "# --- \n";
+    } else {
+        echo "Use `--help` flag for show help notices\n";
+        echo "Use `--debug` flag for receive more information\n";
     }
 }

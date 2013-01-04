@@ -1,6 +1,5 @@
 <?php
 // Environment
-define('APPLICATION_ENV', 'testing');
 define('DEBUG', true);
 
 // Paths
@@ -19,4 +18,4 @@ require_once 'TestListener.php';
 
 
 $app = \Application\BootstrapTest::getInstance();
-$app->init(APPLICATION_ENV);
+$app->init('testing');

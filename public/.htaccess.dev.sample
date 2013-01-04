@@ -1,7 +1,7 @@
-SetEnv APPLICATION_ENV dev
+SetEnv BLUZ_ENV dev
+SetEnv BLUZ_DEBUG_KEY debug
 
 AddDefaultCharset UTF-8
-
 
 Options +FollowSymlinks
 Options -Indexes
