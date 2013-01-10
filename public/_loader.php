@@ -32,7 +32,7 @@ if (function_exists('apc_load_constants')) {
 // Paths
 $root = realpath(dirname(__FILE__) . '/../');
 
-define_array('PATH', array(
+define_array('PATH-' . $_SERVER['HTTP_HOST'], array(
     'PATH_ROOT' => $root,
     'PATH_APPLICATION' => $root . '/application',
     'PATH_DATA' => $root . '/data',
