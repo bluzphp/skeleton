@@ -4,8 +4,6 @@ php:
 before_script:
   - COMPOSER_ROOT_VERSION=dev-master composer --prefer-source --dev install
   - mysql -e 'CREATE DATABASE bluz;'
-  - mysql -e 'SHOW ENGINE INNODB STATUS;'
-  - mysql -uroot bluz < structure.ddl
-  - mysql -e 'SHOW ENGINE INNODB STATUS;'
+  - mysql -e 'SET foreign_key_checks = 0; SOURCE structure.ddl; SET foreign_key_checks = 1;'
   - mysql -uroot bluz < dump.sql
 script: phpunit --configuration tests/phpunit.xml --coverage-text
