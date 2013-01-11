@@ -3,7 +3,9 @@ php:
   - 5.4
 before_script:
   - COMPOSER_ROOT_VERSION=dev-master composer --prefer-source --dev install
-  - mysql -e 'create database bluz;'
+  - mysql -e 'CREATE DATABASE bluz;'
+  - mysql -e 'SHOW ENGINE INNODB STATUS;'
   - mysql -uroot bluz < structure.ddl
+  - mysql -e 'SHOW ENGINE INNODB STATUS;'
   - mysql -uroot bluz < dump.sql
 script: phpunit --configuration tests/phpunit.xml --coverage-text
