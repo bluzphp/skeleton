@@ -1,85 +1,85 @@
 CREATE TABLE acl_privileges
 (
-    roleId int unsigned NOT NULL,
-    module varchar(255) NOT NULL,
-    privilege varchar(255) NOT NULL
+  roleId INT UNSIGNED NOT NULL,
+  module VARCHAR(32) NOT NULL,
+  privilege VARCHAR(32) NOT NULL
 );
 CREATE TABLE acl_roles
 (
-    id int unsigned NOT NULL AUTO_INCREMENT,
-    name varchar(255) NOT NULL,
-    created timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    PRIMARY KEY (id, name)
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  PRIMARY KEY ( id, name )
 );
 CREATE TABLE acl_usersToRoles
 (
-    userId bigint unsigned NOT NULL,
-    roleId int unsigned NOT NULL,
-    PRIMARY KEY (userId, roleId)
+  userId BIGINT UNSIGNED NOT NULL,
+  roleId INT UNSIGNED NOT NULL,
+  PRIMARY KEY ( userId, roleId )
 );
 CREATE TABLE auth
 (
-    userId bigint unsigned NOT NULL,
-    provider varchar(255) NOT NULL,
-    foreignKey varchar(255) NOT NULL,
-    token varchar(64) NOT NULL,
-    tokenSecret varchar(64) NOT NULL,
-    tokenType char(8) NOT NULL,
-    created timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated timestamp DEFAULT '0000-00-00 00:00:00' NOT NULL,
-    PRIMARY KEY (provider, foreignKey)
+  userId BIGINT UNSIGNED NOT NULL,
+  provider VARCHAR(64) NOT NULL,
+  foreignKey VARCHAR(255) NOT NULL,
+  token VARCHAR(64) NOT NULL,
+  tokenSecret VARCHAR(64) NOT NULL,
+  tokenType CHAR(8) NOT NULL,
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  PRIMARY KEY ( userId, provider )
 );
 CREATE TABLE com_content
 (
-    id bigint unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    settingsId int unsigned NOT NULL,
-    foreignKey int unsigned NOT NULL,
-    userId bigint unsigned NOT NULL,
-    parentId bigint unsigned,
-    content longtext,
-    created timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated timestamp DEFAULT '0000-00-00 00:00:00' NOT NULL,
-    status char(7) DEFAULT 'active' NOT NULL
+  id BIGINT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  settingsId INT UNSIGNED NOT NULL,
+  foreignKey INT UNSIGNED NOT NULL,
+  userId BIGINT UNSIGNED NOT NULL,
+  parentId BIGINT UNSIGNED,
+  content LONGTEXT,
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  status CHAR(7) DEFAULT 'active' NOT NULL
 );
 CREATE TABLE com_settings
 (
-    id int unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    alias varchar(255) NOT NULL,
-    options longtext,
-    created timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated timestamp DEFAULT '0000-00-00 00:00:00' NOT NULL,
-    countPerPage smallint DEFAULT 10 NOT NULL,
-    relatedTable varchar(64)
+  id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  alias VARCHAR(32) NOT NULL,
+  options LONGTEXT,
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  countPerPage SMALLINT DEFAULT 10 NOT NULL,
+  relatedTable VARCHAR(64)
 );
 CREATE TABLE pages
 (
-    id int unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    title longtext NOT NULL,
-    alias varchar(255) NOT NULL,
-    content longtext,
-    keywords longtext,
-    description longtext,
-    created timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated timestamp DEFAULT '0000-00-00 00:00:00' NOT NULL,
-    userId bigint unsigned
+  id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  title LONGTEXT NOT NULL,
+  alias VARCHAR(32) NOT NULL,
+  content LONGTEXT,
+  keywords LONGTEXT,
+  description LONGTEXT,
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  userId BIGINT UNSIGNED
 );
 CREATE TABLE users
 (
-    id bigint unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    login varchar(255),
-    email text,
-    created timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated timestamp DEFAULT '0000-00-00 00:00:00' NOT NULL,
-    status char(8) DEFAULT 'disabled' NOT NULL
+  id BIGINT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  login VARCHAR(32),
+  email TEXT,
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  status CHAR(8) DEFAULT 'disabled' NOT NULL
 );
 CREATE TABLE users_actions
 (
-    userId bigint unsigned NOT NULL,
-    code varchar(255) NOT NULL,
-    action char(11) NOT NULL,
-    created timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    expired timestamp DEFAULT '0000-00-00 00:00:00' NOT NULL,
-    PRIMARY KEY (userId, code)
+  userId BIGINT UNSIGNED NOT NULL,
+  code VARCHAR(255) NOT NULL,
+  action CHAR(11) NOT NULL,
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  expired TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  PRIMARY KEY ( userId, code )
 );
 ALTER TABLE acl_privileges ADD FOREIGN KEY ( roleId ) REFERENCES acl_roles ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 CREATE UNIQUE INDEX role_privilege ON acl_privileges ( roleId, module, privilege );
@@ -87,7 +87,6 @@ CREATE UNIQUE INDEX unique_name ON acl_roles ( name );
 ALTER TABLE acl_usersToRoles ADD FOREIGN KEY ( roleId ) REFERENCES acl_roles ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE acl_usersToRoles ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE auth ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
-CREATE UNIQUE INDEX UNIQUE_user_provider ON auth ( userId, provider );
 ALTER TABLE com_content ADD FOREIGN KEY ( id ) REFERENCES com_content ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE com_content ADD FOREIGN KEY ( settingsId ) REFERENCES com_settings ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE com_content ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
