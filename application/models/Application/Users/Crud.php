@@ -112,7 +112,7 @@ class Crud extends \Bluz\Crud\Crud
     }
 
     /**
-     * @throws \Bluz\Crud\ValidationException
+     * @throws \Application\Exception
      * @return boolean
      */
     public function create()
@@ -142,8 +142,7 @@ class Crud extends \Bluz\Crud\Crud
             ['code' => $actionRow->code, 'id' => $userId]
         );
 
-        // FIXME: HARDCODED EMAIL TEMPLATE!!!
-        $subject =  "Bluz Activation";
+        $subject = "Activation";
 
         $body = $this->getApplication()->dispatch(
             'users',
@@ -167,7 +166,6 @@ class Crud extends \Bluz\Crud\Crud
 
         } catch (\Exception $e) {
             // TODO: log me
-
             throw new Exception('Unable to send email. Please contact administrator.');
         }
 

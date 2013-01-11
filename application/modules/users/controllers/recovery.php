@@ -58,8 +58,7 @@ return
                     ['code' => $actionRow->code, 'id' => $user->id]
                 );
 
-                // FIXME: HARDCODED EMAIL TEMPLATE!!!
-                $subject =  "Bluz Password Recovery";
+                $subject =  "Password Recovery";
 
                 $body = $this->dispatch(
                     'users',
