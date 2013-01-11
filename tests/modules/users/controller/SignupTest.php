@@ -15,8 +15,8 @@ class SignupTest extends TestCase
         $request->setRequestUri('/users/signin');
         $request->setParams(['login' => 'admin', 'password' => 'admin123']);
         $this->dispatchRequest($request);
-        $this->dispatchUri('/system');
-        $this->assertEquals($this->app->getLayout()->title(), '403 Forbidden');
+
+        $this->assertNull($this->app->getAuth()->getIdentity());
     }
 
     /*
@@ -29,7 +29,7 @@ class SignupTest extends TestCase
         $request->setRequestUri('/users/signin');
         $request->setParams(['login' => 'admin', 'password' => 'admin']);
         $this->dispatchRequest($request);
-        $this->dispatchUri('/system/index');
-        $this->assertNotEquals($this->app->getLayout()->title(), '403 Forbidden');
+
+        $this->assertNotNull($this->app->getAuth()->getIdentity());
     }
 }

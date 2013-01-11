@@ -52,8 +52,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         if ($params) {
             $this->app->getRequest()->setParams($params);
         }
-        $this->app->process();
-
+        return $this->app->process();
     }
 
     /*
@@ -64,6 +63,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected function dispatchRequest($request)
     {
         $this->app->setRequest($request);
-        $this->app->process();
+        return $this->app->process();
     }
 }

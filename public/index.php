@@ -58,8 +58,8 @@ try {
      */
     $app = \Application\Bootstrap::getInstance();
     $app->init($env)
-        ->process()
-        ->render();
+        ->process();
+    $app->render();
 } catch (Exception $e) {
     require_once 'error.php';
 }

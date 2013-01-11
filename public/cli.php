@@ -83,8 +83,8 @@ try {
      */
     $app = \Application\CliBootstrap::getInstance();
     $app->init($env)
-        ->process()
-        ->output();
+        ->process();
+    $app->output();
 } catch (Exception $e) {
     echo "\033[41m\033[1;37mApplication Exception\033[m\033m\n";
     if (defined('DEBUG') && DEBUG && isset($e)) {
