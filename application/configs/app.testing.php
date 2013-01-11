@@ -6,6 +6,9 @@
  * @created  08.07.11 12:14
  */
 return array(
+    "cache" => array(
+        "enabled" => false
+    ),
     "db" => array(
         "connect" => array(
             "type" => "mysql",
@@ -15,11 +18,8 @@ return array(
             "pass" => "",
         ),
     ),
-    "profiler" => false,
-    "cache" => array(
-        "enabled" => false
-    ),
     "session" => array(
         "store" => "array"
-    )
+    ),
+    "profiler" => false,
 );
