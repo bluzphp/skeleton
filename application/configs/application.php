@@ -7,6 +7,13 @@
  * @return   array
  */
 return array(
+    "auth" => array(
+        "equals" => array(
+            "encryptFunction" => function($password, $salt) {
+                return md5(md5($password) . $salt);
+            }
+        )
+    ),
     "cache" => array(
         "enabled" => true,
         "settings" => array(
@@ -33,6 +40,9 @@ return array(
         "baseUrl" => '/',
     ),
     "session" => array(
-        "store" => "session"
+        "store" => "session",
+        "options" => array(
+            "savepath" => PATH_DATA .'/sessions'
+        )
     ),
 );

@@ -3,4 +3,7 @@ php:
   - 5.4
 before_script:
   - COMPOSER_ROOT_VERSION=dev-master composer --prefer-source --dev install
+  - mysql -e 'create database bluz;'
+  - mysql -uroot bluz < structure.ddl
+  - mysql -uroot bluz < dump.sql
 script: phpunit --configuration tests/phpunit.xml --coverage-text

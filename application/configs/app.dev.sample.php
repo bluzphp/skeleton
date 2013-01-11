@@ -7,13 +7,6 @@
  * @return   array
  */
 return array(
-    "auth" => array(
-        "equals" => array(
-            "encryptFunction" => function($password, $salt) {
-                return md5(md5($password) . $salt);
-            }
-        )
-    ),
     "cache" => array(
         "enabled" => false,
     ),
@@ -27,7 +20,7 @@ return array(
         ),
     ),
     "mailer" => array(
-        "subjectPrefix" => "Bluz - ",
+        "subjectTemplate" => "Bluz - %s",
         "from" => [
             "email" => "no-reply@nixsolutions.com",
             "name" => "Bluz"
@@ -38,10 +31,5 @@ return array(
             "username" => "",
             "password" => ""
         ]
-    ),
-    "session" => array(
-        "options" => array(
-            "savepath" => PATH_DATA .'/sessions'
-        )
     )
 );
