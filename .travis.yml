@@ -8,19 +8,6 @@ before_script:
   - mysql -e 'CREATE DATABASE bluz;'
   - mysql -uroot bluz < structure.ddl
   - mysql -uroot bluz < dump.sql
-  # PEAR packages
-  - pear install pdepend/PHP_Depend-beta
-  - pear install phpunit/phpcpd
-  - pear install phpunit/phploc
-  - mkdir .reports
 script:
   # Unit Tests
   - phpunit --configuration tests/phpunit.xml --coverage-text
-  # Duplicate code
-  - phpcpd --log-pmd .reports/pmd-cpd.xml Classes/
-  # Lines of code
-  - phploc --log-csv .reports/phploc.csv Classes
-  # PHP Depend
-  - pdepend --jdepend-xml=.reports/jdepend.xml --jdepend-chart=.reports/dependencies.svg --overview-pyramid=.reports/pyramid.svg Classes
-  # Code sniffer
-  #- phpcs --standard=FLOW3 --extensions=php --report-checkstyle --report-file=.reports/checkstyle.xml Classes
