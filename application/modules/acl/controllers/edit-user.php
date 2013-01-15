@@ -11,14 +11,17 @@ return
  *
  * @return \closure
  */
-function($id) use ($request, $view) {
+function($id) use ($view) {
+    /**
+     * @var Bootstrap $this
+     */
+    $request = $this->getRequest();
     $user = Users\Table::getInstance()->findRow($id);
 
     if (!$user) {
         throw new Exception('User ID "'.$id.'" is incorrect');
     }
 
-    /*@var $request \Bluz\Request\AbstractRequest */
     if ($request->isPost()) {
         $roles = $request->getParam('roles');
 

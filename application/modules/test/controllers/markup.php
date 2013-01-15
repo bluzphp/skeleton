@@ -12,12 +12,11 @@ return
 /**
  * @return \closure
  */
-function() use ($bootstrap, $request, $view) {
+function() use ($bootstrap, $view) {
     /**
      * @var \closure $bootstrap
-     * @var Bluz\Application $this
-     * @var Bluz\Request\AbstractRequest $request
-     * @var Bluz\View\View $view
+     * @var Bootstrap $this
+     * @var \Bluz\View\View $view
      */
     $this->getLayout()->breadCrumbs([
         $view->ahref('Test', ['test', 'index']),

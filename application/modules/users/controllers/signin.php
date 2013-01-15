@@ -16,8 +16,8 @@ return
  */
 function($login, $password) use ($view) {
     /**
-     * @var Bluz\Application $this
-     * @var Bluz\View\View $view
+     * @var Bootstrap $this
+     * @var \Bluz\View\View $view
      */
     if ($this->getAuth()->getIdentity()) {
         $this->getMessages()->addNotice('Already signed');
