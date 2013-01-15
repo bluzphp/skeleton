@@ -102,4 +102,5 @@ Read [LICENSE](https://raw.github.com/bluzphp/skeleton/master/LICENSE) file
 
 * [Bluz](https://github.com/bluzphp/framework/)
 * [jQuery](https://github.com/jquery/jquery/)
+* [RequireJS](http://requirejs.org/)
 * [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
