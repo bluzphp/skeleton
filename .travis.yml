@@ -11,3 +11,5 @@ before_script:
 script:
   # Unit Tests
   - phpunit --configuration tests/phpunit.xml --coverage-text
+notifications:
+  email: false
