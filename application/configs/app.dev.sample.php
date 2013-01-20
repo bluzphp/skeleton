@@ -19,6 +19,9 @@ return array(
             "pass" => "",
         ),
     ),
+    "logger" => array(
+        "enabled" => true,
+    ),
     "mailer" => array(
         "subjectTemplate" => "Bluz - %s",
         "from" => [

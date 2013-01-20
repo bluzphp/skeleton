@@ -99,7 +99,7 @@ class Bootstrap extends Application
                             <?php endif ?>
                         </section>
                         <section class="debug-panel-content">
-                            <pre><?php print_r($this->getLogger());?></pre>
+                            <pre><?php print_r($this->getLogger()->get('info'));?></pre>
                         </section>
                     </section>
                 <?php
