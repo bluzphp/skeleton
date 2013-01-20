@@ -44,15 +44,15 @@ class Bootstrap extends Application
      * initial environment
      *
      * @param string $environment
-     * @return \Bluz\Application
+     * @return self
      */
-    public function init($environment = ENVIRONMENT_PRODUCTION)
+    public function init($environment = 'production')
     {
         // Profiler hooks
         if (constant('DEBUG') && DEBUG) {
             $this->getEventManager()->attach('view', function($event){
                 /* @var \Bluz\EventManager\Event $event */
-                \Bluz\Profiler::log('view');
+                $this->log('view');
             });
             $this->getEventManager()->attach('layout:header', function($event){
                 /* @var \Bluz\View\Layout $layout */
@@ -62,15 +62,15 @@ class Bootstrap extends Application
                 echo $layout->style('/css/debug.css');
 
                 /* @var \Bluz\EventManager\Event $event */
-                \Bluz\Profiler::log('layout:header');
+                $this->log('layout:header');
             });
             $this->getEventManager()->attach('layout:content', function($event){
                 /* @var \Bluz\EventManager\Event $event */
-                \Bluz\Profiler::log('layout:content');
+                $this->log('layout:content');
             });
             $this->getEventManager()->attach('layout:footer', function($event){
                 /* @var \Bluz\EventManager\Event $event */
-                \Bluz\Profiler::log('layout:footer');
+                $this->log('layout:footer');
 
                 $version = null;
                 $comment = null;
@@ -100,7 +100,6 @@ class Bootstrap extends Application
                         </section>
                         <section class="debug-panel-content">
                             <pre><?php print_r($this->getLogger());?></pre>
-                            <pre><?php print_r(\Bluz\Profiler::data());?></pre>
                         </section>
                     </section>
                 <?php
@@ -110,13 +109,13 @@ class Bootstrap extends Application
         // dispatch hook for acl realization
         $this->getEventManager()->attach('dispatch', function($event) {
             $eventParams = $event->getParams();
-            \Bluz\Profiler::log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['controller']);
+            $this->log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['controller']);
         });
 
         // widget hook for acl realization
         $this->getEventManager()->attach('widget', function($event) {
             $eventParams = $event->getParams();
-            \Bluz\Profiler::log('bootstrap:widget: '.$eventParams['module'].'/'.$eventParams['widget']);
+            $this->log('bootstrap:widget: '.$eventParams['module'].'/'.$eventParams['widget']);
         });
 
 
