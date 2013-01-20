@@ -50,10 +50,6 @@ class Bootstrap extends Application
     {
         // Profiler hooks
         if (constant('DEBUG') && DEBUG) {
-            $this->getEventManager()->attach('log', function($event){
-                /* @var \Bluz\EventManager\Event $event */
-                \Bluz\Profiler::log($event->getTarget());
-            });
             $this->getEventManager()->attach('view', function($event){
                 /* @var \Bluz\EventManager\Event $event */
                 \Bluz\Profiler::log('view');
@@ -103,6 +99,7 @@ class Bootstrap extends Application
                             <?php endif ?>
                         </section>
                         <section class="debug-panel-content">
+                            <pre><?php print_r($this->getLogger());?></pre>
                             <pre><?php print_r(\Bluz\Profiler::data());?></pre>
                         </section>
                     </section>
