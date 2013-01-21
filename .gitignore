@@ -1,4 +1,5 @@
 .idea
+nbproject
 /application/configs/app.*.php
 /data/
 /public/.htaccess
