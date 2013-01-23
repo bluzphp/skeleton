@@ -46,6 +46,7 @@ function ($code, $message = '') use ($view) {
             $description = "The server is currently unable to handle the request due to a temporary overloading.";
             break;
         default:
+            $code = 400;
             $header = "400 Bad Request";
             $description = "An unexpected error occurred with your request. Please try again later.";
             break;
