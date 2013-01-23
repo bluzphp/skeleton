@@ -43,7 +43,7 @@ function($login, $password) use ($view) {
 
             $this->getMessages()->addNotice('You are signed');
             $this->redirectTo('index', 'index');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->getMessages()->addError($e->getMessage());
             $view->login = $login;
         }
