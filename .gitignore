@@ -1,6 +1,8 @@
 .idea
 nbproject
+/application/configs/application.php
 /application/configs/app.*.php
+!/application/configs/app.*.sample.php
 /data/
 /public/.htaccess
 !.stub
