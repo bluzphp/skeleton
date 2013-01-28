@@ -141,9 +141,6 @@ define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
 				var type = $this.data('ajax-type');
 				type = (type ? type : 'json');
 				var data = processData($this);
-				if (type && type === 'json') {
-					data._json = 1;
-				}
 				$.ajax({
 					url: $this.attr('href'),
 					type: (method ? method : 'post'),
@@ -257,9 +254,6 @@ define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
 				var type = $this.data('ajax-type');
 				var data = $this.serializeArray();
                     data.push({name:'_formId', value:$this.attr('id')});
-				if (!type || type === 'json') {
-					data.push({name:'_json', value:1});
-				}
 
 				$.ajax({
 					url: $this.attr('action'),
