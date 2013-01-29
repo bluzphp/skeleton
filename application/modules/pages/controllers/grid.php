@@ -1,14 +1,11 @@
 <?php
 /**
- * Example of grid
+ * Grid of pages
  *
  * @author   Anton Shevchuk
  * @created  27.08.12 10:08
  */
 namespace Application;
-
-use Bluz;
-use Application\Pages;
 
 return
 /**
@@ -16,7 +13,10 @@ return
  * @return \closure
  */
 function() use ($view, $module, $controller) {
-
+    /**
+     * @var Bootstrap $this
+     * @var \Bluz\View\View $view
+     */
     $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->breadCrumbs([
         $view->ahref('Dashboard', ['dashboard', 'index']),

@@ -13,8 +13,9 @@
     <div class="pagination pagination-right">
         <ul>
             <li><a href="#">Limit</a></li>
-            <li <?=(($grid->getLimit()==5)?'class="active"':'')?>><a href="<?=$grid->limit(5)?>">5</a></li>
-            <li <?=(($grid->getLimit()==10)?'class="active"':'')?>><a href="<?=$grid->limit(10)?>">10</a></li>
+            <li <?=(($grid->getLimit()==25)?'class="active"':'')?>><a href="<?=$grid->limit(25)?>">25</a></li>
+            <li <?=(($grid->getLimit()==50)?'class="active"':'')?>><a href="<?=$grid->limit(50)?>">50</a></li>
+            <li <?=(($grid->getLimit()==100)?'class="active"':'')?>><a href="<?=$grid->limit(100)?>">100</a></li>
         </ul>
     </div>
 
@@ -35,10 +36,10 @@
                 <td><?=$row['email']?></td>
                 <td class="controls">
                     <a href="<?=$this->url('users', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn dialog" data-ajax-method="get">
-                        <i class="icon-edit"></i>
+                        <i class="icon-pencil"></i>
                     </a>
                     <a href="<?=$this->url('users', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-danger ajax" data-ajax-method="delete">
-                        <i class="icon-white icon-remove"></i>
+                        <i class="icon-white icon-trash"></i>
                     </a>
                 </td>
             </tr>

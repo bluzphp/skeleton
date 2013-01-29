@@ -49,7 +49,7 @@ class Grid extends \Bluz\Grid\Grid
              ');
 
          $this->setAdapter($adapter);
-         $this->setDefaultLimit(15);
+         $this->setDefaultLimit(25);
          $this->setAllowOrders(['login', 'email', 'id']);
          $this->setAllowFilters(['login', 'email', 'id']);
          return $this;
