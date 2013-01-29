@@ -24,7 +24,7 @@ define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
 	// on DOM ready state
 	$(function () {
 		// Ajax global events
-        $("body")
+        $(document)
             .ajaxSuccess(function (event, jqXHR, options) {
                 if (options.dataType === 'json' ||
                     jqXHR.getResponseHeader('Content-Type') == 'application/json') {
