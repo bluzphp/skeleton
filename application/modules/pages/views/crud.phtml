@@ -46,48 +46,47 @@
 <form id="<?=$uid?>" action="<?=$this->url('pages', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
     <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
     <div class="modal">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h3>Pages</h3>
-        </div>
-        <div class="modal-body">
-            <div class="control-group">
-                <label class="control-label" for="title"><?=$this->__('Title')?>:</label>
-                <div class="controls">
-                    <input type="text" class="input-xlarge" id="title" name="data[title]" value="<?=($row->title)?>" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="alias"><?=$this->__('Alias')?>:</label>
-                <div class="controls">
-                    <input type="text" class="input-xlarge" id="alias" name="data[alias]" value="<?=($row->alias)?>" />
-                </div>
-                <small class="help-block controls">Alias for build permalink to this page</small>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="keywords"><?=$this->__('Meta Keywords')?>:</label>
-                <div class="controls">
-                    <input type="text" class="input-xlarge" id="keywords" name="data[keywords]" value="<?=($row->keywords)?>" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="description"><?=$this->__('Meta Description')?>:</label>
-                <div class="controls">
-                    <input type="text" class="input-xlarge" id="description" name="data[description]" value="<?=($row->description)?>" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label for="content" class="control-label"><?=$this->__('Content')?>:</label>
-                <br class="clear"/>
-                <textarea rows="8" cols="26" id="content" class="input-xxlarge redactor" name="data[content]"><?=($row->content)?></textarea>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3>Pages</h3>
+    </div>
+    <div class="modal-body">
+        <div class="control-group">
+            <label class="control-label" for="title"><?=$this->__('Title')?>:</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" id="title" name="data[title]" value="<?=($row->title)?>" />
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary"><?=$this->__('Save')?></button>
-            <a href="#" class="btn" data-dismiss="modal"><?=$this->__('Close')?></a>
+        <div class="control-group">
+            <label class="control-label" for="alias"><?=$this->__('Alias')?>:</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" id="alias" name="data[alias]" value="<?=($row->alias)?>" />
+            </div>
+            <small class="help-block controls">Alias for build permalink to this page</small>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="keywords"><?=$this->__('Meta Keywords')?>:</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" id="keywords" name="data[keywords]" value="<?=($row->keywords)?>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="description"><?=$this->__('Meta Description')?>:</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" id="description" name="data[description]" value="<?=($row->description)?>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="content" class="control-label"><?=$this->__('Content')?>:</label>
+            <br class="clear"/>
+            <textarea rows="8" cols="26" id="content" class="input-xxlarge redactor" name="data[content]"><?=($row->content)?></textarea>
         </div>
     </div>
-
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><?=$this->__('Save')?></button>
+        <a href="#" class="btn" data-dismiss="modal"><?=$this->__('Close')?></a>
+    </div>
+    </div>
 </form>
 
 <?//=$this->redactor('.redactor', ['autoresize'=>false])?>

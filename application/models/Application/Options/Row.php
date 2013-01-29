@@ -24,34 +24,53 @@
 /**
  * @namespace
  */
-namespace Application\Users;
+namespace Application\Options;
 
 /**
+ * Options Row
+ *
  * @category Application
- * @package  Users
+ * @package  Options
  */
-class Grid extends \Bluz\Grid\Grid
+class Row extends \Bluz\Db\Row
 {
-    protected $uid = 'users';
+    /**
+     * @var integer
+     */
+    public $id;
 
     /**
-     * init
-     * 
-     * @return self
+     * @var string
      */
-    public function init()
-    {
-         // Array
-         $adapter = new \Bluz\Grid\Source\SqlSource();
-         $adapter->setSource('
-             SELECT *
-             FROM users
-             ');
+    public $name;
 
-         $this->setAdapter($adapter);
-         $this->setDefaultLimit(25);
-         $this->setAllowOrders(['login', 'email', 'id']);
-         $this->setAllowFilters(['login', 'email', 'id']);
-         return $this;
+    /**
+     * @var string
+     */
+    public $value;
+
+    /**
+     * @var string
+     */
+    public $namespace;
+
+    /**
+     * @var string
+     */
+    public $created;
+
+    /**
+     * @var string
+     */
+    public $updated;
+
+    /**
+     * __update
+     *
+     * @return void
+     */
+    public function preUpdate()
+    {
+        $this->updated = gmdate('Y-m-d H:i:s');
     }
 }

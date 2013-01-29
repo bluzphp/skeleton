@@ -1,9 +1,6 @@
 <?php
 /**
- * CRUD for pages
- *
- * @author   Anton Shevchuk
- * @created  30.10.12 09:29
+ * CRUD for options
  */
 namespace Application;
 
@@ -16,6 +13,6 @@ function() use ($view) {
     /**
      * @var Bootstrap $this
      */
-    $crud = new Pages\Crud();
+    $crud = new Options\Crud();
     return $crud->processController();
 };

@@ -1,22 +1,5 @@
 <?php $uid = uniqid('form_'); ?>
 
-<script>
-    function validateForm (data) {
-        $('#<?=$uid?>').find('.control-group').removeClass('error');
-        $('#<?=$uid?>').find('.help-inline.error').remove();
-        if (data.errors) {
-            $.each(data.errors, function(field, messages) {
-                $('#<?=$uid?>').find('.control-group:has(#'+field+')').addClass('error');
-                $.each(messages, function(i, msg){
-                    $('#'+field).parent('.controls') // <div class="controls">..</div>
-                        .append('<span class="help-inline error">'+msg+'</span>');
-                });
-            });
-        }
-
-    }
-</script>
-
 <form id="<?=$uid?>" action="<?=$this->url('test', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
     <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
     <div class="modal">
@@ -53,5 +36,4 @@
             <a href="#" class="btn" data-dismiss="modal"><?=$this->__('Close')?></a>
         </div>
     </div>
-
 </form>

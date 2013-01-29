@@ -13,8 +13,9 @@
         <a href="<?=$this->url('pages', 'crud')?>" class="btn btn-primary left dialog" data-ajax-method="get">Create</a>
         <ul>
             <li><a href="#">Limit</a></li>
-            <li <?=(($grid->getLimit()==5)?'class="active"':'')?>><a href="<?=$grid->limit(5)?>">5</a></li>
-            <li <?=(($grid->getLimit()==10)?'class="active"':'')?>><a href="<?=$grid->limit(10)?>">10</a></li>
+            <li <?=(($grid->getLimit()==25)?'class="active"':'')?>><a href="<?=$grid->limit(25)?>">25</a></li>
+            <li <?=(($grid->getLimit()==50)?'class="active"':'')?>><a href="<?=$grid->limit(50)?>">50</a></li>
+            <li <?=(($grid->getLimit()==100)?'class="active"':'')?>><a href="<?=$grid->limit(100)?>">100</a></li>
         </ul>
     </div>
 
@@ -24,7 +25,9 @@
                 <th width="40px">Id</th>
                 <th><a href="<?=$grid->order('title')?:'#'?>">Title</a></th>
                 <th>Description</th>
-                <th width="120px"></th>
+                <th width="160px"><a href="<?=$grid->order('created')?>">Created</a></th>
+                <th width="160px"><a href="<?=$grid->order('updated')?>">Updated</a></th>
+                <th width="100px"></th>
             </tr>
         </thead>
         <tbody>
@@ -33,12 +36,14 @@
                 <td><?=$row['id']?></td>
                 <td><a href="<?=$this->url('pages', 'index', ['alias'=>$row['alias']])?>"><?=$row['title']?></a></td>
                 <td><?=$row['description']?></td>
+                <td><?=$row['created']?></td>
+                <td><?=$row['updated']?></td>
                 <td class="controls">
                     <a href="<?=$this->url('pages', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn dialog" data-ajax-method="get">
-                        <i class="icon-edit"></i>
+                        <i class="icon-pencil"></i>
                     </a>
                     <a href="<?=$this->url('pages', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-danger ajax" data-ajax-method="delete">
-                        <i class="icon-white icon-remove"></i>
+                        <i class="icon-white icon-trash"></i>
                     </a>
                 </td>
             </tr>
@@ -47,7 +52,7 @@
                 $emptyRows = $grid->getLimit() - sizeof($grid->getData()); ?>
                 <?php for ($i = 0; $i < $emptyRows; $i++): ?>
                 <tr>
-                    <td colspan="5">&nbsp;</td>
+                    <td colspan="6">&nbsp;</td>
                 </tr>
                 <?php endfor; ?>
             <?php endif; ?>

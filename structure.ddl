@@ -51,6 +51,15 @@ CREATE TABLE com_settings
   countPerPage SMALLINT DEFAULT 10 NOT NULL,
   relatedTable VARCHAR(64)
 );
+CREATE TABLE options
+(
+  id BIGINT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  value LONGTEXT NOT NULL,
+  namespace VARCHAR(64) DEFAULT 'default' NOT NULL,
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL
+);
 CREATE TABLE pages
 (
   id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -92,6 +101,7 @@ ALTER TABLE com_content ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DE
 CREATE INDEX comments_target ON com_content ( settingsId, foreignKey );
 CREATE INDEX FK_comments_to_users ON com_content ( userId );
 CREATE UNIQUE INDEX com_aliases_unique ON com_settings ( alias );
+CREATE UNIQUE INDEX `unique` ON options ( name, namespace );
 ALTER TABLE pages ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 CREATE UNIQUE INDEX `unique` ON pages ( alias );
 CREATE INDEX FK_pages_to_users ON pages ( userId );
