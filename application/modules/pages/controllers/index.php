@@ -1,14 +1,11 @@
 <?php
 /**
- * Example of static pages
+ * Static pages
  *
  * @author   Anton Shevchuk
  * @created  06.08.12 10:08
  */
 namespace Application;
-
-use Bluz;
-use Application\Pages;
 
 return
 /**
@@ -27,7 +24,7 @@ function($alias) use ($view) {
     if (!$page) {
         throw new Exception('Page not found', 404);
     } else {
-        $view->title($page->title, Bluz\View\View::POS_PREPEND);
+        $view->title($page->title, \Bluz\View\View::POS_PREPEND);
         $view->meta('keywords', $page->keywords);
         $view->meta('description', $page->description);
         $view->page = $page;

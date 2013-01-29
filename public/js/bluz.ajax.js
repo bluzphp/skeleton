@@ -24,9 +24,10 @@ define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
 	// on DOM ready state
 	$(function () {
 		// Ajax global events
-        $("body")
+        $(document)
             .ajaxSuccess(function (event, jqXHR, options) {
-                if (options.dataType === 'json') {
+                if (options.dataType === 'json' ||
+                    jqXHR.getResponseHeader('Content-Type') == 'application/json') {
                     var data;
                     try {
                         data = jQuery.parseJSON(jqXHR.responseText);
@@ -84,6 +85,20 @@ define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
             .ajaxError(function (event, jqXHR, options, thrownError) {
                 bluz.log(thrownError, jqXHR.responseText);
                 messages.addError('Connection is fail');
+
+                // try to get error message from JSON response
+                if (options.dataType === 'json' ||
+                    jqXHR.getResponseHeader('Content-Type') == 'application/json') {
+                    try {
+                        var data = jQuery.parseJSON(jqXHR.responseText);
+                        // show messages
+                        if (data._messages !== undefined) {
+                            messages.addMessages(data._messages);
+                        }
+                    } catch (error) {
+                        // its not json
+                    }
+                }
             });
 
         // Loading

@@ -11,6 +11,7 @@ use Bluz;
 
 return
 /**
+ * @privilege Dashboard
  *
  * @return \closure
  */

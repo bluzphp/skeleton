@@ -24,34 +24,26 @@
 /**
  * @namespace
  */
-namespace Application\Users;
+namespace Application\Options;
 
 /**
+ * Table
+ *
  * @category Application
- * @package  Users
+ * @package  Options
  */
-class Grid extends \Bluz\Grid\Grid
+class Table extends \Bluz\Db\Table
 {
-    protected $uid = 'users';
+    /**
+     * Table
+     *
+     * @var string
+     */
+    protected $table = 'options';
 
     /**
-     * init
-     * 
-     * @return self
+     * Primary key(s)
+     * @var array
      */
-    public function init()
-    {
-         // Array
-         $adapter = new \Bluz\Grid\Source\SqlSource();
-         $adapter->setSource('
-             SELECT *
-             FROM users
-             ');
-
-         $this->setAdapter($adapter);
-         $this->setDefaultLimit(25);
-         $this->setAllowOrders(['login', 'email', 'id']);
-         $this->setAllowFilters(['login', 'email', 'id']);
-         return $this;
-    }
+    protected $primary = array('id');
 }

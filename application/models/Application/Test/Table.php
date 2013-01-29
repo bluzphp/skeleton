@@ -30,7 +30,7 @@ namespace Application\Test;
  * Table
  *
  * @category Application
- * @package  Users
+ * @package  Test
  *
  * @author   Anton Shevchuk
  * @created  08.07.11 17:36
