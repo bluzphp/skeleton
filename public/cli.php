@@ -33,7 +33,7 @@ if (!in_array('--uri', $argv)) {
 if (in_array('--env', $argv)) {
     $envOrder = array_search('--env', $argv) + 1;
     if (isset($argv[$envOrder])) {
-        $_SERVER['APPLICATION_ENV'] = $argv[$envOrder];
+        $_SERVER['BLUZ_ENV'] = $argv[$envOrder];
     }
 }
 
