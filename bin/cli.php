@@ -11,7 +11,7 @@ if (PHP_SAPI !== 'cli') {
 }
 
 // Require loader
-require_once '_loader.php';
+require_once dirname(dirname(__FILE__)) . '/application/_loader.php';
 
 // Get CLI arguments
 $argv = $_SERVER['argv'];
@@ -68,8 +68,7 @@ function errorHandler() {
 
 // Try to run application
 try {
-    // init loader
-    require_once PATH_BLUZ . '/_loader.php';
+    
     require_once PATH_VENDOR . '/autoload.php';
 
     require_once PATH_APPLICATION . '/CliBootstrap.php';

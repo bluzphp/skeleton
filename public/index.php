@@ -12,7 +12,7 @@ if (PHP_SAPI === 'cli') {
 }
 
 // Require loader
-require_once '_loader.php';
+require_once dirname(dirname(__FILE__)) . '/application/_loader.php';
 
 // Debug mode for development environment only
 define('DEBUG_KEY', isset($_SERVER['BLUZ_DEBUG_KEY'])? $_SERVER['BLUZ_DEBUG_KEY']:'debug');
@@ -42,8 +42,7 @@ function errorHandler() {
 
 // Try to run application
 try {
-    // init loader
-    require_once PATH_BLUZ . '/_loader.php';
+
     require_once PATH_VENDOR . '/autoload.php';
 
     require_once PATH_APPLICATION . '/Bootstrap.php';
