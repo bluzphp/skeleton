@@ -41,7 +41,7 @@ return array(
     ),
     "session" => array(
         "store" => "session",
-        "options" => array(
+        "parameters" => array(
             "savepath" => PATH_DATA .'/sessions'
         )
     ),
