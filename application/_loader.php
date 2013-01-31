@@ -29,14 +29,11 @@ if (function_exists('apc_load_constants')) {
 }
 
 
-// Paths
-$root = realpath(dirname(__FILE__) . '/../');
-
-// Key for APC cache
-$key = (PHP_SAPI === 'cli') ? get_current_user() : $_SERVER['HTTP_HOST'];
+// Root path, double level up
+$root = realpath(dirname(dirname(__FILE__)));
 
 // Definitions
-define_array('PATH-' . $key, array(
+define_array('PATH-' .$root, array(
     'PATH_ROOT' => $root,
     'PATH_APPLICATION' => $root . '/application',
     'PATH_DATA' => $root . '/data',
