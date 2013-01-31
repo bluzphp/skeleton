@@ -32,7 +32,11 @@ if (function_exists('apc_load_constants')) {
 // Paths
 $root = realpath(dirname(__FILE__) . '/../');
 
-define_array('PATH-' . $_SERVER['HTTP_HOST'], array(
+// Key for APC cache
+$key = (PHP_SAPI === 'cli') ? get_current_user() : $_SERVER['HTTP_HOST'];
+
+// Definitions
+define_array('PATH-' . $key, array(
     'PATH_ROOT' => $root,
     'PATH_APPLICATION' => $root . '/application',
     'PATH_DATA' => $root . '/data',
@@ -42,4 +46,5 @@ define_array('PATH-' . $_SERVER['HTTP_HOST'], array(
 ));
 
 // Shutdown function for handle critical and other errors
+// 'errorHandler' should defined in 'index.php' and 'cli.php'
 register_shutdown_function('errorHandler');
