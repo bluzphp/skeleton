@@ -45,7 +45,7 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                     if (jqXHR.getResponseHeader('Bluz-Reload')) {
                         callback = function () {
                             // reload current page
-//                            window.location.reload();
+                            window.location.reload();
                         };
                     } else if (jqXHR.getResponseHeader('Bluz-Redirect')) {
                         callback = function () {
