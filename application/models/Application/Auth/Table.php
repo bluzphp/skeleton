@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2012 by Bluz PHP Team
+ * Copyright (c) 2013 by Bluz PHP Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -86,6 +86,7 @@ class Table extends \Bluz\Db\Table
             throw new AuthException("User not found");
         }
 
+        /** @var \Bluz\Auth\Auth $auth */
         $auth = Application::getInstance()->getAuth();
         $options = $auth->getOption(Row::PROVIDER_EQUALS);
 
@@ -121,6 +122,7 @@ class Table extends \Bluz\Db\Table
      */
     public function generateEquals($user, $password)
     {
+        /** @var \Bluz\Auth\Auth $auth */
         $auth = Application::getInstance()->getAuth();
         $options = $auth->getOption(Row::PROVIDER_EQUALS);
 

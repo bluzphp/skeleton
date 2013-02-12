@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2012 by Bluz PHP Team
+ * Copyright (c) 2013 by Bluz PHP Team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +28,8 @@ namespace Application;
 
 use Bluz\Application;
 use Application\Exception;
+use Bluz\EventManager\Event;
+use Bluz\EventManager\EventManager;
 
 /**
  * Bootstrap
@@ -56,6 +58,7 @@ class Bootstrap extends Application
             });
             $this->getEventManager()->attach('layout:header', function($event){
                 /* @var \Bluz\View\Layout $layout */
+                /* @var \Bluz\EventManager\Event $event */
                 $layout = $event->getParam('layout');
 
                 // add debug.css
@@ -108,12 +111,14 @@ class Bootstrap extends Application
 
         // dispatch hook for acl realization
         $this->getEventManager()->attach('dispatch', function($event) {
+            /* @var \Bluz\EventManager\Event $event */
             $eventParams = $event->getParams();
             $this->log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['controller']);
         });
 
         // widget hook for acl realization
         $this->getEventManager()->attach('widget', function($event) {
+            /* @var \Bluz\EventManager\Event $event */
             $eventParams = $event->getParams();
             $this->log('bootstrap:widget: '.$eventParams['module'].'/'.$eventParams['widget']);
         });

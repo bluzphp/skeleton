@@ -19,7 +19,7 @@
  *
  * @author   Anton Shevchuk
  */
-define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
+define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 	"use strict";
 	// on DOM ready state
 	$(function () {
@@ -36,21 +36,21 @@ define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
                         return;
                     }
                     // check handler option
-                    if (data._handler === undefined) {
+                    if (jqXHR.getResponseHeader('Bluz-Handler') == 0) {
                         return;
                     }
                     // it has the data
                     // redirect and reload page
                     var callback = null;
-                    if (data._reload !== undefined) {
+                    if (jqXHR.getResponseHeader('Bluz-Reload')) {
                         callback = function () {
                             // reload current page
                             window.location.reload();
                         };
-                    } else if (data._redirect !== undefined) {
+                    } else if (jqXHR.getResponseHeader('Bluz-Redirect')) {
                         callback = function () {
                             // redirect to another page
-                            window.location = data._redirect;
+                            window.location = jqXHR.getResponseHeader('Bluz-Redirect');
                         };
                     }
 
@@ -218,45 +218,65 @@ define(['jquery', 'bluz', 'messages'], function ($, bluz, messages) {
 					// request in progress
 					return false;
 				}
+                var method = $this.data('ajax-method');
 
-				var method = $this.data('ajax-method');
-
-				$.ajax({
-					url: $this.attr('href'),
-					type: (method ? method : 'post'),
-					data: processData($this),
-					dataType: 'html',
-					beforeSend: function () {
-						$this.addClass('disabled');
-					},
-					success: function (data) {
-						var $div = $('<div>', {'class': 'modal hide fade'});
-						$div.html(data);
-						$div.modal({
-							keyboard: true,
-							backdrop: true
-						}).on('shown',function () {
-                            var onShown = window[$this.attr('shown')];
-                            if (typeof onShown === 'function') {
-                                onShown.call($div);
-                            }
-                            bluz.ready();
-                        }).on('hidden', function () {
-                            var onHidden = window[$this.attr('hidden')];
-                            if (typeof onHidden === 'function') {
-                                onHidden.call($div);
-                            }
-                            $(this).remove();
-                        });
-						$div.modal('show');
-					},
-					complete: function () {
-						$this.removeClass('disabled');
-					}
-				});
+                $.ajax({
+                    url: $this.attr('href'),
+                    type: (method ? method : 'post'),
+                    data: processData($this),
+                    dataType: 'html',
+                    beforeSend: function () {
+                        $this.addClass('disabled');
+                    },
+                    success: function(content) {
+                        var $div = $('<div>', {'class': 'modal hide fade'});
+                        $div.html(content);
+                        $div.modal()
+                            .on('shown',function () {
+                                var onShown = window[$this.attr('shown')];
+                                if (typeof onShown === 'function') {
+                                    onShown.call($div);
+                                }
+                                bluz.ready();
+                            }).on('hidden', function () {
+                                var onHidden = window[$this.attr('hidden')];
+                                if (typeof onHidden === 'function') {
+                                    onHidden.call($div);
+                                }
+                                $(this).remove();
+                            });
+                        $div.modal('show');
+                    },
+                    complete: function () {
+                        $this.removeClass('disabled');
+                    }
+                });
 				return false;
 			})
+            // Image popup preview
+            .on('click.bluz.modal', '.bl-preview', function() {
+                var url, $this = $(this);
+                // get image source
+                if ($this.is('a')) {
+                    url = $this.attr('href');
+                } else {
+                    url = $this.data('preview');
+                }
 
+                if (url == undefined) {
+                    return false;
+                }
+                var $img = $('<img>', {'src': url});
+                    $img.css({
+                        margin: '0 auto',
+                        display: 'block'
+                    });
+
+                var $div = $('<div>', {'class': 'modal hide fade'});
+                    $div.append($img);
+                    $div.modal({keyboard:true});
+                return false;
+            })
 			// Ajax form
 			.on('submit.bluz.ajax', 'form.ajax', function () {
 				var $this = $(this);

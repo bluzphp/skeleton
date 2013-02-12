@@ -4,7 +4,7 @@
  * @author
  * @created  26.11.12 12:51
  */
-define(['jquery', 'bluz', 'bootstrap'], function ($, bluz) {
+define(['jquery'], function ($) {
 
     // static validator
     var validator = {
