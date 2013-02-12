@@ -36,21 +36,21 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                         return;
                     }
                     // check handler option
-                    if (data._handler === undefined) {
+                    if (jqXHR.getResponseHeader('Bluz-Handler') == 0) {
                         return;
                     }
                     // it has the data
                     // redirect and reload page
                     var callback = null;
-                    if (data._reload !== undefined) {
+                    if (jqXHR.getResponseHeader('Bluz-Reload')) {
                         callback = function () {
                             // reload current page
-                            window.location.reload();
+//                            window.location.reload();
                         };
-                    } else if (data._redirect !== undefined) {
+                    } else if (jqXHR.getResponseHeader('Bluz-Redirect')) {
                         callback = function () {
                             // redirect to another page
-                            window.location = data._redirect;
+                            window.location = jqXHR.getResponseHeader('Bluz-Redirect');
                         };
                     }
 
