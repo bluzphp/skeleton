@@ -251,11 +251,32 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                         $this.removeClass('disabled');
                     }
                 });
-
-
 				return false;
 			})
+            // Image popup preview
+            .on('click.bluz.modal', '.bl-preview', function() {
+                var url, $this = $(this);
+                // get image source
+                if ($this.is('a')) {
+                    url = $this.attr('href');
+                } else {
+                    url = $this.data('preview');
+                }
 
+                if (url == undefined) {
+                    return false;
+                }
+                var $img = $('<img>', {'src': url});
+                    $img.css({
+                        margin: '0 auto',
+                        display: 'block'
+                    });
+
+                var $div = $('<div>', {'class': 'modal hide fade'});
+                    $div.append($img);
+                    $div.modal({keyboard:true});
+                return false;
+            })
 			// Ajax form
 			.on('submit.bluz.ajax', 'form.ajax', function () {
 				var $this = $(this);
