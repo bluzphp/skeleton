@@ -24,15 +24,18 @@
 /**
  * @namespace
  */
-namespace Application\Users;
+namespace Application\Media;
+
 
 /**
+ * Grid based on SQL
+ *
  * @category Application
- * @package  Users
+ * @package  Options
  */
 class Grid extends \Bluz\Grid\Grid
 {
-    protected $uid = 'users';
+    protected $uid = 'options';
 
     /**
      * init
@@ -44,14 +47,15 @@ class Grid extends \Bluz\Grid\Grid
          // Array
          $adapter = new \Bluz\Grid\Source\SqlSource();
          $adapter->setSource('
-             SELECT *
-             FROM users
+             SELECT m.*, u.login
+             FROM media m
+             LEFT JOIN users u ON u.id = m.userId
              ');
 
          $this->setAdapter($adapter);
          $this->setDefaultLimit(25);
-         $this->setAllowOrders(['login', 'email', 'id']);
-         $this->setAllowFilters(['login', 'email', 'id']);
+         $this->setAllowOrders(['id', 'login', 'title', 'type', 'created', 'deleted']);
+
          return $this;
     }
 }

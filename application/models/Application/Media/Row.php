@@ -24,23 +24,97 @@
 /**
  * @namespace
  */
-namespace Application\UsersToRoles;
+namespace Application\Media;
 
 /**
- * User
+ * Options Row
  *
  * @category Application
- * @package  Roles
+ * @package  Options
  */
 class Row extends \Bluz\Db\Row
 {
     /**
      * @var integer
      */
-    public $userId;
+    public $id;
 
     /**
      * @var integer
      */
-    public $roleId;
+    public $userId;
+
+    /**
+     * @var string
+     */
+    public $title;
+
+    /**
+     * @var string
+     */
+    public $module = 'users';
+
+    /**
+     * @var string
+     */
+    public $type;
+
+    /**
+     * @var string
+     */
+    public $file;
+
+    /**
+     * @var string
+     */
+    public $preview;
+
+    /**
+     * @var string
+     */
+    public $created;
+
+    /**
+     * @var string
+     */
+    public $updated;
+
+    /**
+     * __insert
+     *
+     * @return void
+     */
+    public function preInsert()
+    {
+        $this->created = gmdate('Y-m-d H:i:s');
+        if ($user = $this->getApplication()->getAuth()->getIdentity()) {
+            $this->userId = $user->id;
+        } else {
+            $this->userId = \Application\Users\Row::SYSTEM_USER;
+        }
+
+    }
+
+    /**
+     * __update
+     *
+     * @return void
+     */
+    public function preUpdate()
+    {
+        $this->updated = gmdate('Y-m-d H:i:s');
+
+
+    }
+
+    /**
+     * postDelete
+     *
+     * @return void
+     */
+    public function postDelete()
+    {
+        @unlink(PATH_PUBLIC .'/'. $this->file);
+        @unlink(PATH_PUBLIC .'/'. $this->preview);
+    }
 }

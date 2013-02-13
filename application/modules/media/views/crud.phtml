@@ -1,0 +1,79 @@
+<?php
+/**
+ * @var \Bluz\View\View $this
+ */
+?>
+<?php $uid = uniqid('form_'); ?>
+<?php
+//$this->headStyle('css/jquery.fileupload-ui.css');
+?>
+<script>
+    /*require(['jquery', 'fileupload/jquery.fileupload'], function($, fu){
+        // Initialize the jQuery File Upload widget:
+        $('#<?=$uid?>').fileupload({
+            // Uncomment the following to send cross-domain cookies:
+            //xhrFields: {withCredentials: true},
+            url: 'media/upload'
+        });
+    });*/
+</script>
+<form id="<?=$uid?>" action="<?=$this->url('media', 'crud')?>" class="form-horizontal" method="<?=$method?>" enctype="multipart/form-data">
+    <input type="hidden" name="_method" value="<?=$method?>"/>
+    <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
+    <div>
+        <h3>Options</h3>
+    </div>
+    <div>
+        <div class="control-group">
+            <label class="control-label" for="name"><?=$this->__('Title')?></label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" id="name" name="data[title]" value="<?=($row->title)?>" />
+            </div>
+        </div>
+        <?php if ($method == \Bluz\Request\AbstractRequest::METHOD_POST) : ?>
+            <div class="control-group">
+                <label class="control-label"><?=$this->__('File')?></label>
+                <div class="controls"><input type="file" name="data[file]" /></div>
+            </div>
+        <?php else: ?>
+            <div class="control-group">
+                <label class="control-label"><?=$this->__('File')?></label>
+                <div class="controls"><input type="text" class="input-xlarge" readonly name="data[file]" value="<?=($row->file)?>" /></div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?=$this->__('Type')?></label>
+                <div class="controls"><input type="text" class="input-xlarge" readonly name="data[type]" value="<?=($row->type)?>" /></div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?=$this->__('Link')?></label>
+                <div class="controls"><code>http://<?=$this->getApplication()->getRequest()->getHttpHost().'/'.($row->file)?></code></div>
+            </div>
+            <?php
+                if (substr($row->type, 0, 5) == 'image') :
+            ?>
+            <div class="control-group">
+                <a href="<?=$this->baseUrl($row->file)?>" class="bl-preview">
+                    <img src="<?=$this->baseUrl($row->preview?:$row->file)?>" alt="<?=$row->title?>" data-preview="<?=$this->baseUrl($row->file)?>" />
+                </a>
+            </div>
+            <?php
+                endif;
+            ?>
+        <?php endif; ?>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary"><?=$this->__('Save')?></button>
+    </div>
+</form>
+
+<?php
+if (isset($errors)) :
+    $data = json_encode([
+        'formId'=>$uid,
+        'errors'=>$errors
+    ]);
+    $this->headScript('require(["bluz.validate"], function(validate) {
+        validate.notices('.$data.');
+    });');
+    endif;
+?>

@@ -30,6 +30,7 @@ INSERT INTO `acl_privileges` (`roleId`, `module`, `privilege`)
 VALUES
 	(1,'acl','Edit'),
 	(1,'acl','View'),
+	(1,'dashboard','Dashboard'),
 	(1,'cache','Management'),
 	(1,'pages','Management'),
 	(1,'system','Info'),
