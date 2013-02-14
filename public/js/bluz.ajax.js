@@ -271,7 +271,7 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                 if (url == undefined) {
                     return false;
                 }
-                var $img = $('<img>', {'src': url});
+                var $img = $('<img>', {'src': url, 'class': 'img-polaroid'});
                     $img.css({
                         margin: '0 auto',
                         display: 'block'

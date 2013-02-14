@@ -2,15 +2,19 @@
     <h1>Cache statistics</h1>
 </div>
 <div>
-    <?php foreach ($servers as $server => $stat): ksort($stat)?>
-    <table class="table-bordered table-condensed">
-        <caption><?=$server?></caption>
-        <?php foreach($stat as $key => $value): ?>
-        <tr class="row">
-            <td><strong><?=$key?></strong></td>
-            <td class="textright"><?=$value?></td>
-        </tr>
+    <?php if ($adapter instanceof \Bluz\Cache\Adapter\Memcached) : ?>
+        <?php foreach ($adapter->getHandler()->getStats() as $server => $stat): ksort($stat)?>
+        <table class="table-bordered table-condensed">
+            <caption><?=$server?></caption>
+            <?php foreach($stat as $key => $value): ?>
+            <tr class="row">
+                <td><strong><?=$key?></strong></td>
+                <td class="textright"><?=$value?></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
         <?php endforeach; ?>
-    </table>
-    <?php endforeach; ?>
+    <?php elseif ($adapter instanceof \Bluz\Cache\Adapter\Apc): ?>
+
+    <?php endif; ?>
 </div>

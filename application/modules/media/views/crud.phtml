@@ -53,7 +53,7 @@
             ?>
             <div class="control-group">
                 <a href="<?=$this->baseUrl($row->file)?>" class="bl-preview">
-                    <img src="<?=$this->baseUrl($row->preview?:$row->file)?>" alt="<?=$row->title?>" data-preview="<?=$this->baseUrl($row->file)?>" />
+                    <img src="<?=$this->baseUrl($row->preview?:$row->file)?>" class="img-polaroid" alt="<?=$row->title?>" data-preview="<?=$this->baseUrl($row->file)?>" />
                 </a>
             </div>
             <?php
