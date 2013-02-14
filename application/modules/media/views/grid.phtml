@@ -35,14 +35,17 @@
             <tr>
                 <td><?=$row['id']?></td>
                 <td><?=$row['title']?></td>
-                <td><?=$row['login']?></td>
+                <td>
+                    <a href="<?=$grid->filter('userId', 'eq', $row['userId'])?>" class="btn btn-mini right"><i class="icon-filter"></i></a>
+                    <a href="<?=$this->url('users', 'profile', ['id'=>$row['userId']])?>"><?=$row['login']?></a>
+                </td>
                 <td><?=$row['created']?></td>
                 <td><?=$row['updated']?></td>
                 <td class="controls">
-                    <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn">
+                    <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-small">
                         <i class="icon-pencil"></i>
                     </a>
-                    <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-danger ajax" data-ajax-method="delete">
+                    <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-small btn-danger ajax" data-ajax-method="delete">
                         <i class="icon-white icon-trash"></i>
                     </a>
                 </td>
