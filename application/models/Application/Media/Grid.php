@@ -44,18 +44,19 @@ class Grid extends \Bluz\Grid\Grid
      */
     public function init()
     {
-         // Array
-         $adapter = new \Bluz\Grid\Source\SqlSource();
-         $adapter->setSource('
-             SELECT m.*, u.login
-             FROM media m
-             LEFT JOIN users u ON u.id = m.userId
-             ');
+        // Array
+        $adapter = new \Bluz\Grid\Source\SqlSource();
+        $adapter->setSource('
+         SELECT m.*, u.login
+         FROM media m
+         LEFT JOIN users u ON u.id = m.userId
+         ');
 
-         $this->setAdapter($adapter);
-         $this->setDefaultLimit(25);
-         $this->setAllowOrders(['id', 'login', 'title', 'type', 'created', 'deleted']);
+        $this->setAdapter($adapter);
+        $this->setDefaultLimit(25);
+        $this->setAllowOrders(['id', 'login', 'title', 'type', 'created', 'deleted']);
+        $this->setAllowFilters(['userId']);
 
-         return $this;
+        return $this;
     }
 }

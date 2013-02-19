@@ -36,15 +36,15 @@
             <tr>
                 <td><?=$row['id']?></td>
                 <td><span class="label"><?=$row['namespace']?></span></td>
-                <td><?=$row['name']?></td>
+                <td><a href="#" class="bluz-tooltip" data-toggle="tooltip" title="<?=($row['description'])?>"><?=$row['name']?></a></td>
                 <td><?=$row['value']?></td>
                 <td><?=$row['created']?></td>
                 <td><?=$row['updated']?></td>
                 <td class="controls">
-                    <a href="<?=$this->url('options', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn dialog" data-ajax-method="get">
+                    <a href="<?=$this->url('options', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-small dialog" data-ajax-method="get">
                         <i class="icon-pencil"></i>
                     </a>
-                    <a href="<?=$this->url('options', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-danger ajax" data-ajax-method="delete">
+                    <a href="<?=$this->url('options', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-small btn-danger ajax" data-ajax-method="delete">
                         <i class="icon-white icon-trash"></i>
                     </a>
                 </td>

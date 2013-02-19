@@ -22,8 +22,9 @@ function () use ($view) {
         'Statistics',
     ]);
 
-    if ($handler = $this->getCache()->isEnabled()) {
+    if ($handler = $this->getCache()->getAdapter()) {
         // TODO: code for inject stats of memcached/apc/etc
+        $view->adapter = $handler;
     } else {
         $this->getMessages()->addNotice("Cache is disabled");
         $this->redirectTo('cache', 'index');

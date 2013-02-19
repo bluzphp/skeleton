@@ -25,6 +25,12 @@
                 <input type="text" class="input-xlarge" id="value" name="data[value]" value="<?=($row->value)?>" />
             </div>
         </div>
+        <div class="control-group">
+            <label class="control-label" for="value"><?=$this->__('Description')?></label>
+            <div class="controls">
+                <textarea class="input-xlarge" id="description" name="data[description]"><?=htmlentities($row->description)?></textarea>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary"><?=$this->__('Save')?></button>

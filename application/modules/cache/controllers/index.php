@@ -22,7 +22,7 @@ function () use ($view) {
         'Cache'
     ]);
 
-    if ($handler = $this->getCache()->isEnabled()) {
+    if ($handler = $this->getCache()->getAdapter()) {
         // TODO: show active cache handlers
     } else {
         $this->getMessages()->addNotice("Cache is disabled");

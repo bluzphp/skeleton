@@ -57,6 +57,11 @@ class Row extends \Bluz\Db\Row
     /**
      * @var string
      */
+    public $description;
+
+    /**
+     * @var string
+     */
     public $created;
 
     /**
