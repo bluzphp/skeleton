@@ -32,9 +32,7 @@ header('X-Frame-Options: SAMEORIGIN');
 
 // Error Handler
 function errorHandler() {
-    $e = error_get_last();
-    if (!is_array($e)
-        || !in_array($e['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR))) {
+    if (!$e = error_get_last()) {
         return;
     }
     require_once 'error.php';
@@ -45,9 +43,10 @@ try {
 
     require_once PATH_VENDOR . '/autoload.php';
 
+    require_once PATH_BLUZ . '/_loader.php';
+
     require_once PATH_APPLICATION . '/Bootstrap.php';
     require_once PATH_APPLICATION . '/Exception.php';
-
 
     // Environment
     $env = isset($_SERVER['BLUZ_ENV'])? $_SERVER['BLUZ_ENV']:'production';

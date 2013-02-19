@@ -84,7 +84,7 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
             })
             .ajaxError(function (event, jqXHR, options, thrownError) {
                 bluz.log(thrownError, jqXHR.responseText);
-                messages.addError('Connection is fail');
+//                messages.addError('Connection is fail');
 
                 // try to get error message from JSON response
                 if (options.dataType === 'json' ||
@@ -95,10 +95,15 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                         if (data._messages !== undefined) {
                             messages.addMessages(data._messages);
                         }
+                        return;
                     } catch (error) {
-                        // its not json
+                        // wait for JSON but it is not it C.O.;
                     }
                 }
+                var $div = $('<div>', {'class': 'modal hide fade', 'style':'width:800px'});
+                    $div.html(jqXHR.responseText);
+                    $div.modal();
+                    $div.modal('show');
             });
 
         // Loading
@@ -254,7 +259,7 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 				return false;
 			})
             // Image popup preview
-            .on('click.bluz.modal', '.bl-preview', function() {
+            .on('click.bluz.modal', '.bluz-preview', function() {
                 var url, $this = $(this);
                 // get image source
                 if ($this.is('a')) {
@@ -266,7 +271,7 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                 if (url == undefined) {
                     return false;
                 }
-                var $img = $('<img>', {'src': url});
+                var $img = $('<img>', {'src': url, 'class': 'img-polaroid'});
                     $img.css({
                         margin: '0 auto',
                         display: 'block'
@@ -274,7 +279,7 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 
                 var $div = $('<div>', {'class': 'modal hide fade'});
                     $div.append($img);
-                    $div.modal({keyboard:true});
+                    $div.modal();
                 return false;
             })
 			// Ajax form

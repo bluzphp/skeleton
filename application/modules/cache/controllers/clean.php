@@ -20,7 +20,7 @@ function () {
      * @var Bootstrap $this
      */
     $userId = $this->getAuth()->getIdentity()->id;
-    if ($handler = $this->getCache()->isEnabled()) {
+    if ($handler = $this->getCache()->getAdapter()) {
         // routers
         $this->getCache()->delete('router:routers');
         $this->getCache()->delete('router:reverse');
