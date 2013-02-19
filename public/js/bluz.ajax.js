@@ -259,7 +259,7 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 				return false;
 			})
             // Image popup preview
-            .on('click.bluz.modal', '.bl-preview', function() {
+            .on('click.bluz.modal', '.bluz-preview', function() {
                 var url, $this = $(this);
                 // get image source
                 if ($this.is('a')) {

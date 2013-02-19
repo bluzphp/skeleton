@@ -52,7 +52,7 @@
                 if (substr($row->type, 0, 5) == 'image') :
             ?>
             <div class="control-group">
-                <a href="<?=$this->baseUrl($row->file)?>" class="bl-preview">
+                <a href="<?=$this->baseUrl($row->file)?>" class="bluz-preview">
                     <img src="<?=$this->baseUrl($row->preview?:$row->file)?>" class="img-polaroid" alt="<?=$row->title?>" data-preview="<?=$this->baseUrl($row->file)?>" />
                 </a>
             </div>
