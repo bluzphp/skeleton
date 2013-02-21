@@ -24,7 +24,7 @@ function() {
 
     $mediaTable = Media\Table::getInstance();
 
-    $images = $mediaTable->findWhere('type LIKE (?) AND userId = ?', ['image/%', $user->id]);
+    $images = $mediaTable->findWhere(['type LIKE' => 'image/%', 'userId' => $user->id]);
 
     $result = array();
     foreach ($images as $image) {

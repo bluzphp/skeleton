@@ -41,9 +41,18 @@ function() {
         //         filename.ext
         $file->moveTo(PATH_PUBLIC .'/uploads/'.$userId.'/media');
 
+        // save media data
+        $media = new Media\Row();
+        $media->userId = $userId;
+        $media->module = 'media';
+        $media->type = $file->getMimeType();
+        $media->file = '/uploads/'.$userId.'/media/'.$file->getFullName();
+        $media->preview = $media->file;
+        $media->save();
+
         // displaying file
         return array(
-            'filelink' => '/uploads/'.$userId.'/media/'.$file->getFullName()
+            'filelink' =>  $media->file
         );
 
     } else {
