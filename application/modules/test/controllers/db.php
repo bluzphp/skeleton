@@ -14,7 +14,7 @@ return
  */
 function() {
     /**
-     * @var Bootstrap $this
+     * @var \Bluz\Application $this
      */
     $res = $this->getDb()->fetchAll('SELECT * FROM test WHERE name LIKE ? LIMIT 10', ['al%']);
     debug($res);

@@ -13,10 +13,10 @@ return
  */
 function($id) use ($view) {
     /**
-     * @var Bootstrap $this
+     * @var \Bluz\Application $this
      */
     $request = $this->getRequest();
-    $user = Users\Table::getInstance()->findRow($id);
+    $user = Users\Table::findRow($id);
 
     if (!$user) {
         throw new Exception('User ID "'.$id.'" is incorrect');

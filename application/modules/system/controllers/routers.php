@@ -19,8 +19,8 @@ return
  */
 function () use ($view) {
     /**
-     * @var Bluz\Application $this
-     * @var Bluz\View\View $view
+     * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
      */
     $view->title('Routers Map');
     $this->getLayout()->setTemplate('dashboard.phtml');

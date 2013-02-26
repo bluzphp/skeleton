@@ -18,6 +18,7 @@ return
     function ($email = null) use ($view) {
         /**
          * @var \Bluz\Application $this
+         * @var \Bluz\View\View $view
          */
         // change layout
         $this->useLayout('small.phtml');

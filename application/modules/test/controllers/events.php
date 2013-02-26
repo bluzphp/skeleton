@@ -14,15 +14,15 @@ return
  * @return \closure
  */
 function() use ($view) {
+    /**
+     * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
+     */
     $this->getLayout()->breadCrumbs([
         $view->ahref('Test', ['test', 'index']),
         'Events',
     ]);
 
-    /**
-     * @var \Bluz\Application $this
-     * @var \Bluz\View\View $view
-     */
     $this->getEventManager()
         ->attach('testevent', function(Event $event){
             return $event->getTarget()*2;

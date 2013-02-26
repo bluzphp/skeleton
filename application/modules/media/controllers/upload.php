@@ -26,6 +26,8 @@ function() {
     $file = $fileUpload->getFile('file');
 
     if ($file && $file->getType() == HttpFile::TYPE_IMAGE) {
+        // save original name
+        $original = $file->getName();
         // rename file to date/time stamp
         $file->setName(date('Ymd_Hi'));
 
@@ -46,7 +48,8 @@ function() {
         $media->userId = $userId;
         $media->module = 'media';
         $media->type = $file->getMimeType();
-        $media->file = '/uploads/'.$userId.'/media/'.$file->getFullName();
+        $media->title = $original;
+        $media->file = 'uploads/'.$userId.'/media/'.$file->getFullName();
         $media->preview = $media->file;
         $media->save();
 

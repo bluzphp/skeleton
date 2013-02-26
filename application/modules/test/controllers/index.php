@@ -13,14 +13,14 @@ return
  * @return \closure
  */
 function() use ($bootstrap, $view) {
+    /**
+     * @var \Bluz\Application $this
+     * @var \closure $bootstrap
+     * @var Bluz\View\View $view
+     */
     $view->title('Test Module');
     $view->title('Append', $view::POS_APPEND);
     $view->title('Prepend', $view::POS_PREPEND);
-    /**
-     * @var \closure $bootstrap
-     * @var Bootstrap $this
-     * @var Bluz\View\View $view
-     */
     $this->getLayout()->breadCrumbs([
         'Test',
     ]);

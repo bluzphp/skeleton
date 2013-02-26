@@ -15,7 +15,8 @@ return
  */
 function() {
     /**
-     * @var Bluz\Application $this
+     * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
      */
     $options = $this->getConfigData('auth', 'twitter');
     // check configuration

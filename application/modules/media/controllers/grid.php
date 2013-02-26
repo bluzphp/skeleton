@@ -11,7 +11,7 @@ return
  */
 function() use ($view) {
     /**
-     * @var Bootstrap $this
+     * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->setTemplate('dashboard.phtml');

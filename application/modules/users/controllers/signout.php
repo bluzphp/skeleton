@@ -16,7 +16,8 @@ return
  */
 function() use ($view) {
     /**
-     * @var Bluz\Application $this
+     * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
      */
     $this->getAuth()->clearIdentity();
     $this->getMessages()->addNotice('You are signout');

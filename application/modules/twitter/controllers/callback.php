@@ -15,7 +15,8 @@ return
  */
 function() {
     /**
-     * @var Bluz\Application $this
+     * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
      */
     // process "denied" response
     if ($this->getRequest()->getParam('denied')) {

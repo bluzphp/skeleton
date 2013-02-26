@@ -16,7 +16,8 @@ return
  */
 function() use ($view) {
     /**
-     * @var Bluz\View\View $view
+     * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
      */
     $this->getLayout()->breadCrumbs([
         $view->ahref('Test', ['test', 'index']),

@@ -12,6 +12,9 @@ return
  * @return \closure
  */
 function() {
+    /**
+     * @var \Bluz\Application $this
+     */
 //    $this->useLayout(false);
     return function() {
         echo "Closure is back";

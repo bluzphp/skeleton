@@ -14,8 +14,8 @@ return
  */
 function($flag = false) use ($view) {
     /**
-     * @var Bluz\Application $this
-     * @var Bluz\View\View $view
+     * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
      */
     if ($flag) {
         $this->getMessages()->addNotice('Notice Text');

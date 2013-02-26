@@ -24,6 +24,7 @@ return
     function ($id, $code) {
         /**
          * @var \Bluz\Application $this
+         * @var \Bluz\View\View $view
          */
         $actionTable = UsersActions\Table::getInstance();
 
