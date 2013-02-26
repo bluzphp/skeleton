@@ -28,6 +28,7 @@ namespace Application\Auth;
 
 use Bluz\Application;
 use Bluz\Auth\AuthException;
+use Users;
 
 /**
  * @category Application
@@ -51,7 +52,6 @@ class Table extends \Bluz\Db\Table
      */
     protected $primary = array('provider', 'foreignKey');
 
-
     /**
      * getAuthRow
      *
@@ -62,7 +62,7 @@ class Table extends \Bluz\Db\Table
      */
     public function getAuthRow($provider, $foreignKey)
     {
-        return $this->findRow([
+        return self::findRow([
             'provider' => $provider,
             'foreignKey' => $foreignKey
         ]);
@@ -104,7 +104,7 @@ class Table extends \Bluz\Db\Table
         }
 
         // get user profile
-        $user = \Application\Users\Table::getInstance()->findRow($authRow->userId);
+        $user = \Application\Users\Table::findRow($authRow->userId);
         // try to login
         $user->login();
 

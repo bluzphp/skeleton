@@ -29,52 +29,23 @@ namespace Application\Options;
 /**
  * Options Row
  *
+ * @property integer $id
+ * @property string $name
+ * @property string $value
+ * @property string $namespace
+ * @property string $description
+ * @property string $created
+ * @property string $updated
+ *
  * @category Application
  * @package  Options
  */
 class Row extends \Bluz\Db\Row
 {
     /**
-     * @var integer
-     */
-    public $id;
-
-    /**
-     * @var string
-     */
-    public $name;
-
-    /**
-     * @var string
-     */
-    public $value;
-
-    /**
-     * @var string
-     */
-    public $namespace;
-
-    /**
-     * @var string
-     */
-    public $description;
-
-    /**
-     * @var string
-     */
-    public $created;
-
-    /**
-     * @var string
-     */
-    public $updated;
-
-    /**
-     * __update
-     *
      * @return void
      */
-    public function preUpdate()
+    public function beforeUpdate()
     {
         $this->updated = gmdate('Y-m-d H:i:s');
     }

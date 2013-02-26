@@ -32,6 +32,12 @@ namespace Application\UsersActions;
  * @category Application
  * @package  Users
  *
+ * @property integer $userId
+ * @property string $code
+ * @property string $action
+ * @property string $created
+ * @property string $expired
+ *
  * @author   Anton Shevchuk
  * @created  05.12.12 10:32
  */
@@ -41,30 +47,5 @@ class Row extends \Bluz\Db\Row
     const ACTION_ACTIVATION = 'activation';
     const ACTION_RECOVERY = 'recovery';
     const ACTION_REMOVE = 'remove';
-
-    /**
-     * @var integer
-     */
-    public $userId;
-
-    /**
-     * @var string
-     */
-    public $code;
-
-    /**
-     * @var string
-     */
-    public $action;
-
-    /**
-     * @var string
-     */
-    public $created;
-
-    /**
-     * @var string
-     */
-    public $expired;
 
 }
