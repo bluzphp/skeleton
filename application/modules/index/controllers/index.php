@@ -7,7 +7,6 @@
  * @return closure
  */
 namespace Application;
-use Bluz;
 
 return
 /**

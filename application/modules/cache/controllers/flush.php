@@ -15,7 +15,9 @@ return
  * @return \closure
  */
 function () {
-    /* @var \Bluz\Application $this */
+    /**
+     * @var \Bluz\Application $this
+     */
     if ($handler = $this->getCache()->getAdapter()) {
         $this->getCache()->getAdapter()->flush();
         $this->getCache()->getTagAdapter()->flush();

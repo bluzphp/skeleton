@@ -16,6 +16,7 @@ return
 function($alias) use ($view) {
 
     /**
+     * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
      * @var Pages\Row $page
      */

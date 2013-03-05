@@ -29,28 +29,14 @@ namespace Application\Test;
 /**
  * Test Row
  *
+ * @property integer $id
+ * @property string $name
+ * @property string $email
+ * @property string $status
+ *
  * @category Application
  * @package  Test
  */
 class Row extends \Bluz\Db\Row
 {
-    /**
-     * @var integer
-     */
-    public $id;
-
-    /**
-     * @var string
-     */
-    public $name;
-
-    /**
-     * @var string
-     */
-    public $email;
-
-    /**
-     * @var string
-     */
-    public $status;
 }

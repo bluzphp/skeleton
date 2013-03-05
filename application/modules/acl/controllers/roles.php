@@ -17,7 +17,7 @@ return
  */
 function() use ($view) {
     /**
-     * @var Bluz\Application $this
+     * @var \Bluz\Application $this
      */
     $crud = new Roles\Crud();
     return $crud->processController();

@@ -30,6 +30,15 @@ namespace Application\Auth;
  * @category Application
  * @package  Auth
  *
+ * @property integer $userId
+ * @property string $provider
+ * @property string $foreignKey
+ * @property string $token
+ * @property string $tokenSecret
+ * @property string $tokenType
+ * @property string $created
+ * @property string $updated
+ *
  * @author   Anton Shevchuk
  * @created  24.10.12 11:57
  */
@@ -44,24 +53,11 @@ class Row extends \Bluz\Db\Row
     const PROVIDER_FACEBOOK = 'facebook';
 
     /**
-     * Foreign key to users table
-     * @var integer
-     */
-    public $userId;
-    public $provider;
-    public $foreignKey;
-    public $token;
-    public $tokenSecret;
-    public $tokenType;
-    public $created;
-    public $updated;
-
-    /**
      * __insert
      *
      * @return void
      */
-    public function preInsert()
+    public function beforeInsert()
     {
         $this->created = gmdate('Y-m-d H:i:s');
     }
@@ -71,7 +67,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    public function preUpdate()
+    public function beforeUpdate()
     {
         $this->updated = gmdate('Y-m-d H:i:s');
     }

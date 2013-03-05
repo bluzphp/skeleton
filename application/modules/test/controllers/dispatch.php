@@ -12,7 +12,10 @@ return
  * @return \closure
  */
 function() {
-
+    /**
+     * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
+     */
     $this->getLayout()->breadCrumbs([
         $this->getLayout()->ahref('Test', ['test', 'index']),
         'Dispatch',

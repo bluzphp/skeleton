@@ -28,66 +28,36 @@ namespace Application\Media;
 
 /**
  * Options Row
- *
+ * @property integer $id
+ * @property integer $userId
+ * @property string $title
+ * @property string $module
+ * @property string $type
+ * @property string $file
+ * @property string $preview
+ * @property string $created
+ * @property string $updated
  * @category Application
  * @package  Options
  */
+use Composer\Console\Application;
+
 class Row extends \Bluz\Db\Row
 {
-    /**
-     * @var integer
-     */
-    public $id;
-
-    /**
-     * @var integer
-     */
-    public $userId;
-
-    /**
-     * @var string
-     */
-    public $title;
-
-    /**
-     * @var string
-     */
-    public $module = 'users';
-
-    /**
-     * @var string
-     */
-    public $type;
-
-    /**
-     * @var string
-     */
-    public $file;
-
-    /**
-     * @var string
-     */
-    public $preview;
-
-    /**
-     * @var string
-     */
-    public $created;
-
-    /**
-     * @var string
-     */
-    public $updated;
-
     /**
      * __insert
      *
      * @return void
      */
-    public function preInsert()
+    public function beforeInsert()
     {
         $this->created = gmdate('Y-m-d H:i:s');
-        if ($user = $this->getApplication()->getAuth()->getIdentity()) {
+        // set default module
+        if (!$this->module) {
+            $this->module = 'users';
+        }
+        // set user ID
+        if ($user = \Application\Bootstrap::getInstance()->getAuth()->getIdentity()) {
             $this->userId = $user->id;
         } else {
             $this->userId = \Application\Users\Row::SYSTEM_USER;
@@ -100,11 +70,9 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    public function preUpdate()
+    public function beforeUpdate()
     {
         $this->updated = gmdate('Y-m-d H:i:s');
-
-
     }
 
     /**
@@ -112,7 +80,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    public function postDelete()
+    public function afterDelete()
     {
         @unlink(PATH_PUBLIC .'/'. $this->file);
         @unlink(PATH_PUBLIC .'/'. $this->preview);

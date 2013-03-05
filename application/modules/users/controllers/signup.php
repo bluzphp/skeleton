@@ -16,6 +16,7 @@ return
 function () {
     /**
      * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
      */
     // change layout
     $this->useLayout('small.phtml');

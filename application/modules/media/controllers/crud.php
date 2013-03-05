@@ -13,7 +13,8 @@ return
  */
 function() use ($view) {
     /**
-     * @var Bootstrap $this
+     * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
      */
     $this->useLayout('dashboard.phtml');
     $this->getLayout()->breadCrumbs([
