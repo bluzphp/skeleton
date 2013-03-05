@@ -17,6 +17,10 @@ return
  * @return \closure
  */
 function($id = null) use ($bootstrap, $view) {
+    /**
+     * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
+     */
     $this->getLayout()->breadCrumbs([
         $view->ahref('Test', ['test', 'index']),
         'Cache Data',

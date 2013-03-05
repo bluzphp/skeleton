@@ -35,12 +35,18 @@ use Application\Privileges;
  * @category Application
  * @package  Users
  *
+ * @property integer $id
+ * @property string $login
+ * @property string $email
+ * @property string $created
+ * @property string $updated
+ * @property string $status
+ *
  * @author   Anton Shevchuk
  * @created  08.07.11 17:13
  */
 class Row extends \Bluz\Auth\AbstractEntity
 {
-
     /**
      * Pending email verification
      */
@@ -62,41 +68,11 @@ class Row extends \Bluz\Auth\AbstractEntity
     const SYSTEM_USER = 0;
 
     /**
-     * @var integer
-     */
-    public $id;
-
-    /**
-     * @var string
-     */
-    public $login;
-
-    /**
-     * @var string
-     */
-    public $email;
-
-    /**
-     * @var string
-     */
-    public $created;
-
-    /**
-     * @var string
-     */
-    public $updated;
-
-    /**
-     * @var string
-     */
-    public $status;
-
-    /**
      * __insert
      *
      * @return void
      */
-    public function preInsert()
+    public function beforeInsert()
     {
         $this->email = strtolower($this->email);
         $this->created = gmdate('Y-m-d H:i:s');
@@ -107,7 +83,7 @@ class Row extends \Bluz\Auth\AbstractEntity
      *
      * @return void
      */
-    public function preUpdate()
+    public function beforeUpdate()
     {
         $this->email = strtolower($this->email);
         $this->updated = gmdate('Y-m-d H:i:s');

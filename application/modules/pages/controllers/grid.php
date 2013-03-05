@@ -14,7 +14,7 @@ return
  */
 function() use ($view, $module, $controller) {
     /**
-     * @var Bootstrap $this
+     * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->setTemplate('dashboard.phtml');

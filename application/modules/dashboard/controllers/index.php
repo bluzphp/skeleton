@@ -16,6 +16,8 @@ return
  * @return \closure
  */
 function() {
-    /* @var \Bluz\Application $this */
+    /**
+     * @var \Bluz\Application $this
+     */
     $this->getLayout()->setTemplate('dashboard.phtml');
 };

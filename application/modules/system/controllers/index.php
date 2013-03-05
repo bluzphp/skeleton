@@ -13,8 +13,8 @@ return
  */
 function() use ($view) {
     /**
-     * @var Bluz\Application $this
-     * @var Bluz\View\View $view
+     * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
      */
     $view->title('System Module');
     $this->getLayout()->setTemplate('dashboard.phtml');

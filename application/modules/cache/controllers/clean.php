@@ -17,9 +17,9 @@ return
  */
 function () {
     /**
-     * @var Bootstrap $this
+     * @var \Bluz\Application $this
      */
-    $userId = $this->getAuth()->getIdentity()->id;
+//    $userId = $this->getAuth()->getIdentity()->id;
     if ($handler = $this->getCache()->getAdapter()) {
         // routers
         $this->getCache()->delete('router:routers');

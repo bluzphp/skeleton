@@ -29,18 +29,13 @@ namespace Application\UsersToRoles;
 /**
  * User
  *
+ * @property integer $userId
+ * @property integer $roleId
+ *
  * @category Application
  * @package  Roles
  */
 class Row extends \Bluz\Db\Row
 {
-    /**
-     * @var integer
-     */
-    public $userId;
 
-    /**
-     * @var integer
-     */
-    public $roleId;
 }

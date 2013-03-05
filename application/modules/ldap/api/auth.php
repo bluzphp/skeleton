@@ -16,7 +16,7 @@ use Application\Users;
  */
 return function($username, $password) {
     /**
-     * @var Bluz\Application $this
+     * @var \Bluz\Application $this
      */
     $ldap = $this->getLdap();
 

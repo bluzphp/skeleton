@@ -29,66 +29,30 @@ namespace Application\Pages;
 /**
  * Pages Row
  *
+ * @property integer $id
+ * @property string $title
+ * @property string $alias
+ * @property string $content
+ * @property string $keywords
+ * @property string $description
+ * @property string $created
+ * @property string $updated
+ * @property integer $userId
+ *
  * @category Application
- * @package  Pages
+ * @package  Application\Pages
  */
 class Row extends \Bluz\Db\Row
 {
-    /**
-     * @var integer
-     */
-    public $id;
-
-    /**
-     * @var string
-     */
-    public $title;
-
-    /**
-     * @var string
-     */
-    public $alias;
-
-    /**
-     * @var string
-     */
-    public $content;
-
-    /**
-     * @var string
-     */
-    public $keywords;
-
-    /**
-     * @var string
-     */
-    public $description;
-
-    /**
-     * @var string
-     */
-    public $created;
-
-    /**
-     * @var string
-     */
-    public $updated;
-
-    /**
-     * @var integer
-     */
-    public $userId;
-
-
     /**
      * __insert
      *
      * @return void
      */
-    public function preInsert()
+    public function beforeInsert()
     {
         $this->created = gmdate('Y-m-d H:i:s');
-        if ($user = $this->getApplication()->getAuth()->getIdentity()) {
+        if ($user = \Application\Bootstrap::getInstance()->getAuth()->getIdentity()) {
             $this->userId = $user->id;
         } else {
             $this->userId = \Application\Users\Row::SYSTEM_USER;
@@ -100,7 +64,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    public function preUpdate()
+    public function beforeUpdate()
     {
         $this->updated = gmdate('Y-m-d H:i:s');
     }
