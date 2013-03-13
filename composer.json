@@ -5,7 +5,7 @@
     "repositories": [],
     "require": {
         "php": ">=5.4",
-        "bluzphp/framework": "dev-master",
+        "bluzphp/framework": ">=0.1.0",
         "phpmailer/phpmailer": "dev-master"
     },
     "require-dev": {
