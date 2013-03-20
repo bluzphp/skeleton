@@ -1,6 +1,7 @@
 {
     "name": "bluzphp/skeleton",
     "description": "Skeleton for Bluz, a lightweight PHP framework",
+    "minimum-stability": "dev",
     "type": "library",
     "repositories": [],
     "require": {

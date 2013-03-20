@@ -7,6 +7,8 @@
  */
 namespace Application\Privileges;
 
+use Bluz\Db\Rowset;
+
 class Table extends \Bluz\Db\Table
 {
     /**
@@ -44,7 +46,7 @@ class Table extends \Bluz\Db\Table
      */
     public function getUserPrivileges($userId)
     {
-        if (!$data = \Bluz\Application::getInstance()->getCache()->get('privileges:'.$userId)) {
+        if (!$seralizedData = \Bluz\Application::getInstance()->getCache()->get('privileges:'.$userId)) {
             $data = $this->fetch("
                         SELECT DISTINCT p.roleId, p.module, p.privilege
                         FROM acl_privileges AS p, acl_roles AS r, acl_usersToRoles AS u2r
@@ -52,9 +54,13 @@ class Table extends \Bluz\Db\Table
                         ORDER BY module, privilege",
                 array((int) $userId)
             );
-            \Bluz\Application::getInstance()->getCache()->set('privileges:'.$userId, $data, 0);
+
+            \Bluz\Application::getInstance()->getCache()->set('privileges:'.$userId, $data->serialize(), 0);
             \Bluz\Application::getInstance()->getCache()->addTag('privileges:'.$userId, 'privileges');
             \Bluz\Application::getInstance()->getCache()->addTag('privileges:'.$userId, 'user:'.$userId);
+        } else {
+            $data = new Rowset();
+            $data->unserialize($seralizedData);
         }
         return $data;
     }
