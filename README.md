@@ -58,7 +58,7 @@ function($id) use ($view) {
      * @var Application $this
      * @var View $view
      */
-     $view->user = Users\Table::getInstance()->findRow($id);
+     $view->user = Users\Table::findRow($id);
 };
 ```
 
@@ -83,9 +83,12 @@ class Table extends \Bluz\Db\Table
 ```php
 <?php
 namespace Application\Users;
+/**
+ * @property integer $id
+ * @property string $login
+ */
 class Row extends \Bluz\Db\Row {
-    public $id;
-    public $login;
+
 }
 ```
 
