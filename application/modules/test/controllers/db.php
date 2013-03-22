@@ -16,6 +16,10 @@ function() {
     /**
      * @var \Bluz\Application $this
      */
+
+    $random = array_rand(range('a', 'z', rand(1,5)));
+    shuffle($random);
+
     $res = $this->getDb()->fetchAll('SELECT * FROM test WHERE name LIKE ? LIMIT 10', ['al%']);
     debug($res);
 
@@ -30,6 +34,9 @@ function() {
 
     $res = $this->getDb()->fetchColumnGroup('SELECT name, id FROM test LIMIT 10');
     debug($res);
+
+    $table = Users\Table::getInstance();
+    debug($table->getColumns());
 
     return false;
 };

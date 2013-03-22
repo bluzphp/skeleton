@@ -67,7 +67,8 @@ class Table extends \Bluz\Db\Table
         $actionRow = new Row();
         $actionRow->userId = $userId;
         $actionRow->action = $action;
-        $random = array_rand(range('a', 'z', rand(1,5)));
+        $random = range('a', 'z', rand(1,5));
+        shuffle($random);
         $actionRow->code = md5($userId . $action . join('', $random) . time());
         $actionRow->expired = date('Y-m-d H:i:s', strtotime("+$expired day"));
         $actionRow->save();
