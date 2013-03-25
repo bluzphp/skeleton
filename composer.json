@@ -6,11 +6,11 @@
     "repositories": [],
     "require": {
         "php": ">=5.4",
-        "bluzphp/framework": ">=0.1.0",
+        "bluzphp/framework": ">=0.1.1",
         "phpmailer/phpmailer": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.10"
+        "phpunit/phpunit": "3.7.*"
     },
     "config": {
         "vendor-dir": "vendor"
