@@ -13,6 +13,7 @@ use Application\Users;
 use Application\UsersActions;
 use Application\Roles;
 use Application\UsersToRoles;
+use Bluz\Application\RedirectException;
 
 return
     /**
@@ -33,13 +34,17 @@ return
             'token' => $code
         ]);
 
+        if (!$actionRow) {
+            $this->getMessages()->addError('Invalid activation code');
+            $this->redirectTo('index', 'index');
+            return false;
+        }
+
         $datetime1 = new \DateTime(); // now
         $datetime2 = new \DateTime($actionRow->expired);
         $interval = $datetime1->diff($datetime2);
 
-        if (!$actionRow) {
-            $this->getMessages()->addError('Invalid activation code');
-        } elseif ($actionRow->action !== UsersActions\Row::ACTION_ACTIVATION) {
+        if ($actionRow->action !== UsersActions\Row::ACTION_ACTIVATION) {
             $this->getMessages()->addError('Invalid activation');
         } elseif ($interval->invert) {
             $this->getMessages()->addError('The activation code has expired');
