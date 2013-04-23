@@ -129,7 +129,7 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 						key === 'ajaxTarget' ||
 						key === 'ajaxType'
 					) {
-					return false;
+					// skip value
 				} else {
 					plain[key] = value;
 				}
