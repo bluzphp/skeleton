@@ -4,7 +4,7 @@
  * @var \Bluz\View\View $this
  */
 ?>
-<h3><?=$this->__('Reset Password')?></h3>
+<h3><?=__('Reset Password')?></h3>
 <p>Hi <?=$user->login?>, enter your new password</p>
 <form action="<?=$this->url('users', 'recovery-reset')?>" method="post" >
     <input type="hidden" name="code" value="<?=$code?>"/>
@@ -12,14 +12,14 @@
     <div class="control-group">
         <label class="input-prepend">
             <span class="add-on"><i class="icon-lock"></i></span>
-            <input type="password" class="input-large" name="password" value="" placeholder="<?=$this->__('new password')?>"/>
+            <input type="password" class="input-large" name="password" value="" placeholder="<?=__('new password')?>"/>
         </label>
     </div>
     <div class="control-group">
         <label class="input-prepend">
             <span class="add-on"><i class="icon-lock"></i></span>
-            <input type="password" class="input-large" name="password2" value="" placeholder="<?=$this->__('repeat password')?>"/>
+            <input type="password" class="input-large" name="password2" value="" placeholder="<?=__('repeat password')?>"/>
         </label>
     </div>
-    <input type="submit" value="<?=$this->__('Change password')?>" class="btn btn-primary"/>
+    <input type="submit" value="<?=__('Change password')?>" class="btn btn-primary"/>
 </form>
