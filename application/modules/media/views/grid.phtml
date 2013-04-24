@@ -82,8 +82,8 @@
         <ul class="right">
             <li>
                 <a href="<?=$grid->reset()?>">Total:
-                    <strong><?=$grid->total()?></strong> <?=$this->__('record','records', $grid->total())?> on
-                    <strong><?=$grid->pages()?></strong> <?=$this->__('page','pages', $grid->pages())?></a>
+                    <strong><?=$grid->total()?></strong> <?=_n('record','records', $grid->total())?> on
+                    <strong><?=$grid->pages()?></strong> <?=_n('page','pages', $grid->pages())?></a>
             </li>
         </ul>
     </div>
