@@ -8,32 +8,32 @@
     </div>
     <div class="modal-body">
         <div class="control-group">
-            <label class="control-label" for="name"><?=$this->__('Namespace')?></label>
+            <label class="control-label" for="name"><?=__('Namespace')?></label>
             <div class="controls">
                 <input type="text" class="input-xlarge" id="namespace" name="data[namespace]" value="<?=($row->namespace)?:'default'?>" />
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="name"><?=$this->__('Name')?></label>
+            <label class="control-label" for="name"><?=__('Name')?></label>
             <div class="controls">
                 <input type="text" class="input-xlarge" id="name" name="data[name]" value="<?=($row->name)?>" />
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="value"><?=$this->__('Value')?></label>
+            <label class="control-label" for="value"><?=__('Value')?></label>
             <div class="controls">
                 <input type="text" class="input-xlarge" id="value" name="data[value]" value="<?=($row->value)?>" />
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="value"><?=$this->__('Description')?></label>
+            <label class="control-label" for="value"><?=__('Description')?></label>
             <div class="controls">
                 <textarea class="input-xlarge" id="description" name="data[description]"><?=htmlentities($row->description)?></textarea>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary"><?=$this->__('Save')?></button>
-        <a href="#" class="btn" data-dismiss="modal"><?=$this->__('Close')?></a>
+        <button type="submit" class="btn btn-primary"><?=__('Save')?></button>
+        <a href="#" class="btn" data-dismiss="modal"><?=__('Close')?></a>
     </div>
 </form>

@@ -41,8 +41,12 @@ return array(
     ),
     "session" => array(
         "store" => "session",
-        "parameters" => array(
+        "settings" => array(
             "savepath" => PATH_DATA .'/sessions'
         )
     ),
+    "translator" => array(
+        "locale" => "en_US",
+        "path" => PATH_DATA .'/locale'
+    )
 );

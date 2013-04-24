@@ -139,9 +139,14 @@ class Bootstrap extends Application
      */
     public function denied()
     {
+        // save URL to session
+        $this->rollback();
+
+        // process AJAX request
         if (!$this->getRequest()->isXmlHttpRequest()) {
             $this->getMessages()->addError('You don\'t have permissions, please sign in');
         }
+        // redirect to login page
         if (!$this->getAuth()->getIdentity()) {
             $this->redirectTo('users', 'signin');
         }

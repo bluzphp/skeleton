@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="/"><?php echo $this->__('Bluz')?></a>
+            <a class="brand" href="/"><?=__('Bluz')?></a>
             <div class="nav-collapse">
                 <ul class="nav">
                     <li <?=($this->module('index')?'class="active"':'')?>><?=$this->ahref('Home', ['index', 'index'])?></li>
@@ -16,7 +16,7 @@
                 </ul>
                 <?php if ($identity = $this->user()) : ?>
                     <p class="navbar-text pull-right">
-                        <?= $this->__('Logged in as %s', $this->ahref($identity->login, ['users', 'profile', array('id' => $identity->id)]))?>
+                        <?=__('Logged in as %s', $this->ahref($identity->login, ['users', 'profile', array('id' => $identity->id)]))?>
                         (<?= $this->ahref('Sign Out', ['users', 'signout'])?>)
                     </p>
                 <?php else: ?>
