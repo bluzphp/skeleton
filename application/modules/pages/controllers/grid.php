@@ -20,7 +20,7 @@ function() use ($view, $module, $controller) {
     $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->breadCrumbs([
         $view->ahref('Dashboard', ['dashboard', 'index']),
-        'Pages'
+        __('Pages')
     ]);
 
     $grid = new Pages\Grid();

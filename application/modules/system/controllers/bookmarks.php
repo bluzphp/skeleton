@@ -24,7 +24,7 @@ function() use ($view) {
     $this->getLayout()->breadCrumbs([
         $view->ahref('Dashboard', ['dashboard', 'index']),
         $view->ahref('System', ['system', 'index']),
-        'Bookmarklets',
+        __('Bookmarklets'),
     ]);
 
     $key = defined('DEBUG_KEY') ? DEBUG_KEY : 'BLUZ_DEBUG';

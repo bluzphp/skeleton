@@ -19,7 +19,7 @@ function($id) use ($view) {
     $user = Users\Table::findRow($id);
 
     if (!$user) {
-        throw new Exception('User ID "'.$id.'" is incorrect');
+        throw new Exception('User ID is incorrect');
     }
 
     if ($request->isPost()) {

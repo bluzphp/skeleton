@@ -27,7 +27,7 @@ function () use ($view) {
     $this->getLayout()->breadCrumbs([
         $view->ahref('Dashboard', ['dashboard', 'index']),
         $view->ahref('System', ['system', 'index']),
-        'Routers Map',
+        __('Routers Map'),
     ]);
     $routers = array();
     foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {

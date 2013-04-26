@@ -48,6 +48,9 @@ function($login, $password) use ($view) {
         } catch (Exception $e) {
             $this->getMessages()->addError($e->getMessage());
             $view->login = $login;
+        } catch (\Bluz\Auth\AuthException $e) {
+            $this->getMessages()->addError($e->getMessage());
+            $view->login = $login;
         }
     }
     // change layout

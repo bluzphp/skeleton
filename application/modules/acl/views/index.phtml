@@ -1,6 +1,6 @@
 <div class="navbar">
-    <a href="<?=$this->url('acl', 'roles')?>" class="btn btn-primary dialog" data-ajax-method="get">Add New Role</a>
-    <a href="<?=$this->url('acl', 'users')?>" class="btn">Users Roles</a>
+    <a href="<?=$this->url('acl', 'roles')?>" class="btn btn-primary dialog" data-ajax-method="get"><?=__('Create New Role')?></a>
+    <a href="<?=$this->url('acl', 'users')?>" class="btn"><?=__('Users Roles')?></a>
 
     <?//=$this->ahref('Direct Rules Management', ['acl', 'direct'], ['class' => 'btn']);?>
 </div>
@@ -8,7 +8,7 @@
 <table class="table table-bordered table-condensed ">
     <thead>
         <tr>
-            <th width="180px">Privilege/Role</th>
+            <th width="180px"><?=__('Privilege/Role')?></th>
             <?php foreach ($roles as $role) : ?>
             <th width="180px">
                 <?=$role->name?>

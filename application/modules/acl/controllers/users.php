@@ -20,7 +20,7 @@ function() use ($view) {
     $this->getLayout()->breadCrumbs([
         $view->ahref('Dashboard', ['dashboard', 'index']),
         $view->ahref('ACL', ['acl', 'index']),
-        'Users',
+        __('Users'),
     ]);
 //    $view->users = Users\Table::getInstance()->fetchAll();
     $view->users = $this->getDb()->fetchObjects('

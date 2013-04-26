@@ -5,7 +5,7 @@
  */
 ?>
 <h3><?=__('Reset Password')?></h3>
-<p>Hi <?=$user->login?>, enter your new password</p>
+<p><?=__('Hi %s, enter your new password', $user->login)?></p>
 <form action="<?=$this->url('users', 'recovery-reset')?>" method="post" >
     <input type="hidden" name="code" value="<?=$code?>"/>
     <input type="hidden" name="id" value="<?=$user->id?>"/>

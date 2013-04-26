@@ -20,6 +20,6 @@ function() use ($view) {
     $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->breadCrumbs([
         $view->ahref('Dashboard', ['dashboard', 'index']),
-        'System',
+        __('System'),
     ]);
 };

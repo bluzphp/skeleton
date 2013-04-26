@@ -45,7 +45,7 @@ return
         $interval = $datetime1->diff($datetime2);
 
         if ($actionRow->action !== UsersActions\Row::ACTION_ACTIVATION) {
-            $this->getMessages()->addError('Invalid activation');
+            $this->getMessages()->addError('Invalid activation code');
         } elseif ($interval->invert) {
             $this->getMessages()->addError('The activation code has expired');
             $actionRow->delete();

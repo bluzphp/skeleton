@@ -22,7 +22,7 @@ function () use ($view) {
     $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->breadCrumbs([
         $view->ahref('Dashboard', ['dashboard', 'index']),
-        'Cache'
+        __('Cache')
     ]);
 
     if ($handler = $this->getCache()->getAdapter()) {
