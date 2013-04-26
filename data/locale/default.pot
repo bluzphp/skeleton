@@ -1,0 +1,416 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Bluz\n"
+"POT-Creation-Date: 2013-04-24 20:56+0200\n"
+"PO-Revision-Date: 2013-04-24 20:56+0200\n"
+"Last-Translator: Anton Shevchuk <Anton.Shevchuk@gmail.com>\n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: __;_n\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: d:/projects/bluz/skeleton/application\n"
+
+#: d:/projects/bluz/skeleton/application/modules/acl/controllers/index.php:21
+msgid "ACL"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/acl/controllers/users.php:23
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/grid.php:27
+msgid "Users"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/cache/controllers/index.php:25
+msgid "Cache"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/controllers/crud.php:23
+msgid "Upload"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/controllers/grid.php:20
+msgid "Media"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/options/controllers/grid.php:20
+#: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:24
+#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:7
+msgid "Options"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/pages/controllers/grid.php:23
+#: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:51
+msgid "Pages"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/system/controllers/bookmarks.php:27
+msgid "Bookmarklets"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/system/controllers/index.php:23
+msgid "System"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/system/controllers/info.php:27
+msgid "PHP Info"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/system/controllers/routers.php:30
+#: d:/projects/bluz/skeleton/application/modules/system/views/index.phtml:3
+msgid "Routers Map"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:24
+#: d:/projects/bluz/skeleton/application/layouts/index.phtml:10
+msgid "Home"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/layouts/small.phtml:7
+#: d:/projects/bluz/skeleton/application/layouts/partial/nav-bar.phtml:10
+msgid "Bluz"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/layouts/partial/nav-bar.phtml:19
+#, php-format
+msgid "Logged in as %s"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/layouts/partial/nav-bar.phtml:20
+msgid "Sign Out"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/layouts/partial/nav-bar.phtml:24
+#: d:/projects/bluz/skeleton/application/modules/users/views/signin.phtml:19
+msgid "Sign In"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/acl/views/edit-user.phtml:4
+#, php-format
+msgid "Choose roles for %s"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/acl/views/edit-user.phtml:19
+msgid "Save changes"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/acl/views/edit-user.phtml:20
+#: d:/projects/bluz/skeleton/application/modules/acl/views/roles.phtml:22
+#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:37
+#: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:87
+#: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:36
+#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:35
+msgid "Close"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/acl/views/index.phtml:2
+msgid "Create New Role"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/acl/views/index.phtml:3
+msgid "Users Roles"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/acl/views/index.phtml:11
+msgid "Privilege/Role"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/acl/views/roles.phtml:14
+#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:17
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:27
+#: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:12
+#: d:/projects/bluz/skeleton/application/modules/users/views/profile.phtml:9
+msgid "Name"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/acl/views/roles.phtml:21
+#: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:65
+#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:36
+#: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:86
+#: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:35
+#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:34
+msgid "Save"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/acl/views/users.phtml:9
+#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:27
+msgid "User"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/acl/views/users.phtml:10
+msgid "Role"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:2
+msgid "Cache management"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:6
+msgid "Statistics"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:7
+msgid "Clean"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:8
+msgid "Flush"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:16
+msgid "Server"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:17
+msgid "Weight"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/cache/views/stats.phtml:2
+msgid "Cache statistics"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/dashboard/views/index.phtml:1
+msgid "Dashboard"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/index/views/changelog.phtml:1
+msgid "Changelog"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:28
+#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:26
+#: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:55
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:26
+msgid "Title"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:35
+#: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:40
+msgid "File"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:44
+msgid "Type"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:48
+msgid "Link"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:13
+msgid "Create"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:15
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:15
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:15
+msgid "Limit"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:28
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:29
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:28
+msgid "Created"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:29
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:30
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:29
+msgid "Updated"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:84
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:83
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:81
+#: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:77
+msgid "Total"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:85
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:84
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:82
+#: d:/projects/bluz/skeleton/application/modules/test/views/array-grid.phtml:73
+#: d:/projects/bluz/skeleton/application/modules/test/views/sql-grid.phtml:86
+#: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:78
+msgid "record"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:85
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:84
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:82
+#: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:78
+msgid "on"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:86
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:85
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:83
+#: d:/projects/bluz/skeleton/application/modules/test/views/array-grid.phtml:74
+#: d:/projects/bluz/skeleton/application/modules/test/views/sql-grid.phtml:87
+#: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:79
+msgid "page"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:11
+msgid "Namespace"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:23
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:28
+msgid "Value"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:29
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:27
+msgid "Description"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:25
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:25
+#: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:25
+msgid "Id"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:26
+msgid "Space"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:61
+msgid "Alias"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:65
+msgid "Alias for build permalink to this page"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:68
+msgid "Meta Keywords"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:74
+msgid "Meta Description"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:80
+msgid "Content"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/system/views/bookmarks.phtml:1
+msgid "Bookmarklets for debug site"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/system/views/bookmarks.phtml:32
+msgid "Example"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/system/views/index.phtml:2
+msgid "Bookmarklets generator"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/system/views/index.phtml:4
+msgid "PHP info"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/system/views/routers.phtml:5
+msgid "Module"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/system/views/routers.phtml:6
+msgid "Controller"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/system/views/routers.phtml:7
+msgid "Route"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:18
+#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:17
+#: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:27
+msgid "Email"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:24
+#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:23
+#: d:/projects/bluz/skeleton/application/modules/users/views/profile.phtml:10
+msgid "Status"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/test/views/mailer.phtml:6
+#: d:/projects/bluz/skeleton/application/modules/users/views/recovery.phtml:11
+#: d:/projects/bluz/skeleton/application/modules/users/views/signup.phtml:15
+msgid "email"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/test/views/mailer.phtml:10
+msgid "Send"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:11
+#: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:26
+msgid "Login"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/profile.phtml:7
+msgid "Profile"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/recovery-reset.phtml:7
+msgid "Reset Password"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/recovery-reset.phtml:8
+#, php-format
+msgid "Hi %s, enter your new password"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/recovery-reset.phtml:15
+msgid "new password"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/recovery-reset.phtml:21
+#: d:/projects/bluz/skeleton/application/modules/users/views/signup.phtml:27
+msgid "repeat password"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/recovery-reset.phtml:24
+msgid "Change password"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/recovery.phtml:7
+msgid "Recovery Password"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/recovery.phtml:14
+msgid "Recovery"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/signin.phtml:7
+msgid "Please sign in"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/signin.phtml:11
+#: d:/projects/bluz/skeleton/application/modules/users/views/signup.phtml:9
+msgid "login"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/signin.phtml:16
+#: d:/projects/bluz/skeleton/application/modules/users/views/signup.phtml:21
+msgid "password"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/signin.phtml:21
+msgid "Sign Up"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/signin.phtml:23
+msgid "Forgot your password?"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/users/views/signup.phtml:2
+#: d:/projects/bluz/skeleton/application/modules/users/views/signup.phtml:30
+msgid "Registration"
+msgstr ""
