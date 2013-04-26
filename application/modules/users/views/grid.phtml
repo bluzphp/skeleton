@@ -22,9 +22,9 @@
     <table class="table grid">
         <thead>
             <tr>
-                <th width="40px">Id</th>
-                <th><a href="<?=$grid->order('login')?:'#'?>">Login</a></th>
-                <th><a href="<?=$grid->order('email')?:'#'?>">Email</a></th>
+                <th width="40px"><?=__('Id')?></th>
+                <th><a href="<?=$grid->order('login')?:'#'?>"><?=__('Login')?></a></th>
+                <th><a href="<?=$grid->order('email')?:'#'?>"><?=__('Email')?></a></th>
                 <th width="120px"></th>
             </tr>
         </thead>
@@ -74,8 +74,8 @@
 
         <ul class="right">
             <li>
-                <a href="<?=$grid->reset()?>">Total:
-                    <strong><?=$grid->total()?></strong> <?=__('record','records', $grid->total())?> on
+                <a href="<?=$grid->reset()?>"><?=__('Total')?>:
+                    <strong><?=$grid->total()?></strong> <?=__('record','records', $grid->total())?> <?=__('on')?>
                     <strong><?=$grid->pages()?></strong> <?=__('page','pages', $grid->pages())?></a>
             </li>
         </ul>
