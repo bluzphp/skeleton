@@ -24,6 +24,6 @@ function() use ($view) {
     $this->getLayout()->breadCrumbs([
         $view->ahref('Dashboard', ['dashboard', 'index']),
         $view->ahref('System', ['system', 'index']),
-        'PHP Info',
+        __('PHP Info'),
     ]);
 };

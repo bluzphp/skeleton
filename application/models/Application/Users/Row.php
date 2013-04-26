@@ -110,7 +110,7 @@ class Row extends \Bluz\Auth\AbstractEntity
                 // all ok
                 break;
             default:
-                throw new \Application\Exception("User status '".$this->status."' is undefined in system");
+                throw new \Application\Exception("User status is undefined in system");
                 break;
         }
     }

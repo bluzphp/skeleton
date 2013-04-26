@@ -17,7 +17,7 @@ function() use ($view) {
     $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->breadCrumbs([
         $view->ahref('Dashboard', ['dashboard', 'index']),
-        'Options'
+        __('Options')
     ]);
     $grid = new Options\Grid();
     $view->grid = $grid;

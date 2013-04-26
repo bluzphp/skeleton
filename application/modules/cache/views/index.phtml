@@ -1,11 +1,11 @@
 <div class="page-header">
-    <h1>Cache management</h1>
+    <h1><?=__('Cache management')?></h1>
 </div>
 <div class="subnav">
     <ul class="nav nav-pills">
-        <li class="bluz-tooltip" data-placement="bottom" data-original-title="Cache Servers Stats"><?=$this->ahref('Statistics', ['cache', 'stats'])?></li>
-        <li class="bluz-tooltip" data-placement="bottom" data-original-title="Clean ACL and Route Maps"><?=$this->ahref('<i class="icon-fire"></i> Clean', ['cache', 'clean'], ['class'=>'confirm ajax'])?></li>
-        <li class="bluz-tooltip" data-placement="bottom" data-original-title="Flash all servers"><?=$this->ahref('<i class="icon-fire"></i> Flush', ['cache', 'flush'], ['class'=>'confirm ajax'])?></li>
+        <li class="bluz-tooltip" data-placement="bottom" data-original-title="Cache Servers Stats"><?=$this->ahref(__('Statistics'), ['cache', 'stats'])?></li>
+        <li class="bluz-tooltip" data-placement="bottom" data-original-title="Clean ACL and Route Maps"><?=$this->ahref('<i class="icon-fire"></i> '.__('Clean'), ['cache', 'clean'], ['class'=>'confirm ajax'])?></li>
+        <li class="bluz-tooltip" data-placement="bottom" data-original-title="Flash all servers"><?=$this->ahref('<i class="icon-fire"></i> '.__('Flush'), ['cache', 'flush'], ['class'=>'confirm ajax'])?></li>
     </ul>
 </div>
 <?php if (isset($servers) && sizeof($servers)): ?>
@@ -13,8 +13,8 @@
 <div>
     <table class="table-bordered table-condensed">
         <tr>
-            <th class="span3">Server</th>
-            <th class="span2 textcenter">Weight</th>
+            <th class="span3"><?=__('Server')?></th>
+            <th class="span2 textcenter"><?=__('Weight')?></th>
         </tr>
         <?php foreach ($servers as $stat):?>
         <tr>

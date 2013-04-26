@@ -17,11 +17,11 @@
                 <?php if ($identity = $this->user()) : ?>
                     <p class="navbar-text pull-right">
                         <?=__('Logged in as %s', $this->ahref($identity->login, ['users', 'profile', array('id' => $identity->id)]))?>
-                        (<?= $this->ahref('Sign Out', ['users', 'signout'])?>)
+                        (<?= $this->ahref(__('Sign Out'), ['users', 'signout'])?>)
                     </p>
                 <?php else: ?>
                 <ul class="nav pull-right">
-                    <li><?=$this->ahref('Sign In', ['users', 'signin'])?></li>
+                    <li><?=$this->ahref(__('Sign In') , ['users', 'signin'])?></li>
                 </ul>
                 <?php endif; ?>
                 <div id="loading"></div>

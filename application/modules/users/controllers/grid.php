@@ -24,7 +24,7 @@ function() use ($view, $module, $controller) {
     $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->breadCrumbs([
         $view->ahref('Dashboard', ['dashboard', 'index']),
-        'Users'
+        __('Users')
     ]);
 
     $grid = new Users\Grid();

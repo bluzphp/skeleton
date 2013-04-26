@@ -20,7 +20,7 @@ function() use ($view) {
     $this->getLayout()->breadCrumbs([
         $view->ahref('Dashboard', ['dashboard', 'index']),
         $view->ahref('Media', ['media', 'grid']),
-        'Upload'
+        __('Upload')
     ]);
 
     $userId = $this->getAuth()->getIdentity()->id;
