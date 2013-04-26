@@ -4,7 +4,8 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span2">
-                <ul class="nav nav-tabs nav-stacked">
+                <div class="nav-dashboard" data-spy="affix" data-offset-top="60">
+                <ul class="nav nav-tabs nav-stacked" >
                     <li <?=($this->module('pages')?'class="active"':'')?>><?= $this->ahref('<i class="icon-edit"></i> '.__('Pages'), ['pages', 'grid', [], true]) ?></li>
                     <li <?=($this->module('users')?'class="active"':'')?>><?= $this->ahref('<i class="icon-user"></i> '.__('Users'), ['users', 'grid', [], true]) ?></li>
                     <li <?=($this->module('media')?'class="active"':'')?>><?= $this->ahref('<i class="icon-picture"></i> '.__('Media'), ['media', 'grid', [], true]) ?></li>
@@ -15,11 +16,12 @@
                     <li <?=($this->module('acl')?'class="active"':'')?>><?= $this->ahref('<i class="icon-lock"></i> '.__('Permissions'), ['acl', 'index', [], true]) ?></li>
                     <li <?=($this->module('system')?'class="active"':'')?>><?= $this->ahref('<i class="icon-wrench"></i> '.__('System'), ['system', 'index', [], true]) ?></li>
                 </ul>
+                </div>
             </div>
             <div class="span10">
                 <ul class="breadcrumb">
                     <li>
-                        <a href="/" class="bluz-tooltip" data-placement="bottom" data-original-title="Back to homepage">
+                        <a href="/" class="bluz-tooltip" data-placement="bottom" data-original-title="<?=__('Back to homepage')?>">
                             <i class="icon-home"></i>
                             <?=__('Home')?>
                         </a>

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluz\n"
-"POT-Creation-Date: 2013-04-24 21:13+0200\n"
-"PO-Revision-Date: 2013-04-26 14:22+0200\n"
+"POT-Creation-Date: 2013-04-26 17:39+0200\n"
+"PO-Revision-Date: 2013-04-26 17:48+0200\n"
 "Last-Translator: Anton Shevchuk <Anton.Shevchuk@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -351,6 +351,10 @@ msgstr "Вы вышли"
 msgid "Permissions"
 msgstr "Права доступа"
 
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:22
+msgid "Back to homepage"
+msgstr "Вернуться на главную"
+
 #: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:24
 #: d:/projects/bluz/skeleton/application/layouts/index.phtml:10
 msgid "Home"
@@ -488,6 +492,8 @@ msgid "Link"
 msgstr "Ссылка"
 
 #: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:13
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:13
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:13
 msgid "Create"
 msgstr "Создать"
 
@@ -571,15 +577,15 @@ msgstr "Прямая ссылка"
 
 #: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:65
 msgid "Alias for build permalink to this page"
-msgstr "название постоянной ссылки"
+msgstr "название постоянной ссылки для построения URL"
 
 #: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:68
 msgid "Meta Keywords"
-msgstr "Meta Keywords"
+msgstr "Мета-слова"
 
 #: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:74
 msgid "Meta Description"
-msgstr "Meta Description"
+msgstr "Мета-описание"
 
 #: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:80
 msgid "Content"

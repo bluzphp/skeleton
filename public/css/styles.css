@@ -184,6 +184,9 @@ article, aside, header, footer, section {
 .breadcrumb a:hover {
 	text-decoration: none;
 }
+.nav-dashboard {
+    width:233px;
+}
 .nav-tabs.nav-stacked > .active > a,
 .nav-tabs.nav-stacked > .active > a:hover {
 	color: white;
