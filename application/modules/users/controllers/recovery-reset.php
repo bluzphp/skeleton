@@ -27,9 +27,7 @@ return
         // change layout
         $this->useLayout('small.phtml');
 
-        $actionTable = UsersActions\Table::getInstance();
-
-        $actionRow = $actionTable->findRow([
+        $actionRow = UsersActions\Table::findRow([
             'userId' => $id,
             'token' => $code
         ]);
@@ -47,7 +45,7 @@ return
             $this->redirectTo('index', 'index');
         } else {
 
-            $user = Users\Table::getInstance()->findRow($id);
+            $user = Users\Table::findRow($id);
             $view->user = $user;
             $view->code = $code;
 

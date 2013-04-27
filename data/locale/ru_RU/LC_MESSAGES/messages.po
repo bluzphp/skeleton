@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluz\n"
-"POT-Creation-Date: 2013-04-26 17:39+0200\n"
-"PO-Revision-Date: 2013-04-26 17:48+0200\n"
+"POT-Creation-Date: 2013-04-27 15:20+0200\n"
+"PO-Revision-Date: 2013-04-27 15:28+0200\n"
 "Last-Translator: Anton Shevchuk <Anton.Shevchuk@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -17,11 +17,11 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: d:/projects/bluz/skeleton/application\n"
 
-#: d:/projects/bluz/skeleton/application/Bootstrap.php:147
+#: d:/projects/bluz/skeleton/application/Bootstrap.php:148
 msgid "You don't have permissions, please sign in"
 msgstr "У вас нет прав доступа, пожалуйста авторизируйтесь"
 
-#: d:/projects/bluz/skeleton/application/Bootstrap.php:153
+#: d:/projects/bluz/skeleton/application/Bootstrap.php:154
 msgid "Your session has expired, please sign in and try again"
 msgstr "Ваша сессия завершилась, пожалуйста войдите ещё раз"
 
@@ -145,7 +145,7 @@ msgstr "Внутрення ошибка сервера"
 
 #: d:/projects/bluz/skeleton/application/modules/acl/controllers/users.php:23
 #: d:/projects/bluz/skeleton/application/modules/users/controllers/grid.php:27
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:9
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:10
 msgid "Users"
 msgstr "Пользователи"
 
@@ -167,7 +167,7 @@ msgid "Cache is flushed"
 msgstr "Кеш сброшен"
 
 #: d:/projects/bluz/skeleton/application/modules/cache/controllers/index.php:25
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:14
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:15
 msgid "Cache"
 msgstr "Кеш"
 
@@ -176,7 +176,8 @@ msgid "Upload"
 msgstr "Загрузка"
 
 #: d:/projects/bluz/skeleton/application/modules/media/controllers/grid.php:20
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:10
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:11
+#: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:24
 msgid "Media"
 msgstr "Медиа"
 
@@ -185,14 +186,13 @@ msgid "Wrong file type"
 msgstr "Неправильный тип файлов"
 
 #: d:/projects/bluz/skeleton/application/modules/options/controllers/grid.php:20
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:11
-#: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:24
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:12
 #: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:7
 msgid "Options"
 msgstr "Настройки"
 
 #: d:/projects/bluz/skeleton/application/modules/pages/controllers/grid.php:23
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:8
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:9
 #: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:51
 msgid "Pages"
 msgstr "Страницы"
@@ -206,7 +206,7 @@ msgid "Bookmarklets"
 msgstr "Генератор закладок"
 
 #: d:/projects/bluz/skeleton/application/modules/system/controllers/index.php:23
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:16
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:17
 msgid "System"
 msgstr "Система"
 
@@ -217,7 +217,7 @@ msgstr "PHP info"
 #: d:/projects/bluz/skeleton/application/modules/system/controllers/routers.php:30
 #: d:/projects/bluz/skeleton/application/modules/system/views/index.phtml:3
 msgid "Routers Map"
-msgstr "Карта роутинга"
+msgstr "Карта маршрутов ЧПУ"
 
 #: d:/projects/bluz/skeleton/application/modules/test/controllers/ajax.php:22
 #: d:/projects/bluz/skeleton/application/modules/test/controllers/cli.php:21
@@ -264,26 +264,26 @@ msgstr "Неверный код ответа"
 msgid "Invalid Twitter token"
 msgstr "Неверный код"
 
-#: d:/projects/bluz/skeleton/application/modules/twitter/controllers/callback.php:97
+#: d:/projects/bluz/skeleton/application/modules/twitter/controllers/callback.php:96
 msgid "User is not active"
 msgstr "Пользователь не активен"
 
-#: d:/projects/bluz/skeleton/application/modules/twitter/controllers/callback.php:142
+#: d:/projects/bluz/skeleton/application/modules/twitter/controllers/callback.php:141
 #: d:/projects/bluz/skeleton/application/modules/users/controllers/signin.php:44
 msgid "You are signed"
 msgstr "Вы вошли"
 
-#: d:/projects/bluz/skeleton/application/modules/users/controllers/activation.php:38
-#: d:/projects/bluz/skeleton/application/modules/users/controllers/activation.php:48
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/activation.php:36
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/activation.php:46
 msgid "Invalid activation code"
 msgstr "Неверный активационный код"
 
-#: d:/projects/bluz/skeleton/application/modules/users/controllers/activation.php:50
-#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery-reset.php:45
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/activation.php:48
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery-reset.php:43
 msgid "The activation code has expired"
 msgstr "Активационный код просрочен"
 
-#: d:/projects/bluz/skeleton/application/modules/users/controllers/activation.php:71
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/activation.php:69
 msgid ""
 "Your Account has been successfully activated. <br/>You can now log in using "
 "the username and password you chose during the registration."
@@ -291,19 +291,19 @@ msgstr ""
 "Ваш акаунт активирован. Теперь вы можете войти в систему используя ваш логин "
 "и пароль"
 
-#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery-reset.php:42
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery-reset.php:40
 msgid "Invalid code"
 msgstr "Неверный код"
 
-#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery-reset.php:58
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery-reset.php:56
 msgid "Please enter your new password"
 msgstr "Введите новый пароль"
 
-#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery-reset.php:62
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery-reset.php:60
 msgid "Please repeat your new password"
 msgstr "Повторите новый пароль"
 
-#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery-reset.php:75
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery-reset.php:73
 msgid "Your password has been updated"
 msgstr "Ваш пароль был обновлён"
 
@@ -347,15 +347,16 @@ msgstr "Пароль пуст"
 msgid "You are signout"
 msgstr "Вы вышли"
 
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:15
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:16
 msgid "Permissions"
 msgstr "Права доступа"
 
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:22
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:24
+#: d:/projects/bluz/skeleton/application/layouts/index.phtml:8
 msgid "Back to homepage"
 msgstr "Вернуться на главную"
 
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:24
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:26
 #: d:/projects/bluz/skeleton/application/layouts/index.phtml:10
 msgid "Home"
 msgstr "Главная"
@@ -409,14 +410,7 @@ msgstr "Роли пользователей"
 msgid "Privilege/Role"
 msgstr "Привелегия/Роль"
 
-#: d:/projects/bluz/skeleton/application/modules/acl/views/roles.phtml:14
-#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:17
-#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:27
-#: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:12
-#: d:/projects/bluz/skeleton/application/modules/users/views/profile.phtml:9
-msgid "Name"
-msgstr "Имя"
-
+#: d:/projects/bluz/skeleton/application/modules/acl/views/index.phtml:42
 #: d:/projects/bluz/skeleton/application/modules/acl/views/roles.phtml:21
 #: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:65
 #: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:36
@@ -426,14 +420,22 @@ msgstr "Имя"
 msgid "Save"
 msgstr "Сохранить"
 
+#: d:/projects/bluz/skeleton/application/modules/acl/views/roles.phtml:14
+#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:17
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:27
+#: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:12
+#: d:/projects/bluz/skeleton/application/modules/users/views/profile.phtml:9
+msgid "Name"
+msgstr "Имя"
+
 #: d:/projects/bluz/skeleton/application/modules/acl/views/users.phtml:9
 #: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:27
 msgid "User"
 msgstr "Пользователь"
 
 #: d:/projects/bluz/skeleton/application/modules/acl/views/users.phtml:10
-msgid "Role"
-msgstr "Роль"
+msgid "Roles"
+msgstr "Роли"
 
 #: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:2
 msgid "Cache management"
@@ -617,7 +619,7 @@ msgstr "Контроллер"
 
 #: d:/projects/bluz/skeleton/application/modules/system/views/routers.phtml:7
 msgid "Route"
-msgstr "Роут"
+msgstr "Маршрут"
 
 #: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:18
 #: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:17
@@ -635,10 +637,14 @@ msgstr "Статус"
 msgid "Send"
 msgstr "Отправить"
 
+#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:7
+msgid "Edit user"
+msgstr "Редактирование пользователя"
+
 #: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:11
 #: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:26
 msgid "Login"
-msgstr "Вход"
+msgstr "Логин"
 
 #: d:/projects/bluz/skeleton/application/modules/users/views/profile.phtml:7
 msgid "Profile"

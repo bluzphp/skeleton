@@ -22,9 +22,9 @@ function() use ($view) {
         $view->ahref('ACL', ['acl', 'index']),
         __('Users'),
     ]);
-//    $view->users = Users\Table::getInstance()->fetchAll();
+//    $view->users = Users\Table::fetchAll();
     $view->users = $this->getDb()->fetchObjects('
-        SELECT u.*, GROUP_CONCAT( ar.`name` SEPARATOR ", " ) AS roles
+        SELECT u.*, GROUP_CONCAT( ar.`name` SEPARATOR ", " ) AS rolesList
         FROM users u, acl_roles ar, acl_usersToRoles aur
         WHERE
             u.`id` = aur.`userId`

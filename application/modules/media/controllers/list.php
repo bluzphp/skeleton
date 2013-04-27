@@ -22,9 +22,7 @@ function() {
 
     $user = $this->getAuth()->getIdentity();
 
-    $mediaTable = Media\Table::getInstance();
-
-    $images = $mediaTable->findWhere(['type LIKE' => 'image/%', 'userId' => $user->id]);
+    $images = Media\Table::findWhere(['type LIKE' => 'image/%', 'userId' => $user->id]);
 
     $result = array();
     foreach ($images as $image) {
