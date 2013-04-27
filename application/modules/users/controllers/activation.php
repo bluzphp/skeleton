@@ -27,9 +27,7 @@ return
          * @var \Bluz\Application $this
          * @var \Bluz\View\View $view
          */
-        $actionTable = UsersActions\Table::getInstance();
-
-        $actionRow = $actionTable->findRow([
+        $actionRow = UsersActions\Table::findRow([
             'userId' => $id,
             'token' => $code
         ]);
@@ -51,14 +49,14 @@ return
             $actionRow->delete();
         } else {
             // change user status
-            $userRow = Users\Table::getInstance()->findRow($id);
+            $userRow = Users\Table::findRow($id);
             $userRow -> status = Users\Row::STATUS_ACTIVE;
             $userRow -> save();
 
             // create user role
             // get member role
             // FIXME f*cking magic
-            $roleRow = Roles\Table::getInstance()->findRowWhere(['name' => Roles\Row::BASIC_MEMBER]);
+            $roleRow = Roles\Table::findRowWhere(['name' => Roles\Row::BASIC_MEMBER]);
             // create relation user to role
             $usersRoleRow = new UsersToRoles\Row();
             $usersRoleRow->roleId = $roleRow->id;

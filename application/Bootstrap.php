@@ -126,7 +126,8 @@ class Bootstrap extends Application
 
         $res = parent::init($environment);
 
-        $this->getLayout()->title("Dark Side");
+        // example of setup Layout
+        $this->getLayout()->title("Bluz Skeleton");
 
         return $res;
     }

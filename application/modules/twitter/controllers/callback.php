@@ -90,8 +90,7 @@ function() {
 
     if ($row) {
         // try to sign in
-        $usersTable = Users\Table::getInstance();
-        $user = $usersTable -> findRow($row->userId);
+        $user = Users\Table::findRow($row->userId);
 
         if ($user->status != Users\Row::STATUS_ACTIVE) {
             $this->getMessages()->addError('User is not active');

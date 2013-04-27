@@ -46,6 +46,7 @@ return array(
         )
     ),
     "translator" => array(
+        "domain" => "messages",
         "locale" => "en_US",
         "path" => PATH_DATA .'/locale'
     )
