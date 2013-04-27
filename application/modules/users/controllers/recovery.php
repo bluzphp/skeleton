@@ -38,7 +38,7 @@ return
                     throw new Exception('Email is invalid');
                 }
                 // check exists
-                $user = Users\Table::getInstance()->findRowWhere(['email' => $email]);
+                $user = Users\Table::findRowWhere(['email' => $email]);
                 if (!$user) {
                     throw new Exception('Email not found');
                 }

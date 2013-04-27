@@ -7,22 +7,23 @@
     <thead>
         <tr>
             <th width="180px"><?=__('User')?></th>
-            <th><?=__('Role')?></th>
-            <th></th>
+            <th><?=__('Roles')?></th>
+            <th width="40px"></th>
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($users as $user):?>
+        <?php foreach ($users as $user): ?>
         <tr>
             <td>
-                <?=
-                    $this->ahref($user->login, ['acl', 'edit-user', ['id' => $user->id]], ['class'=>"dialog", 'data-ajax-method'=>'get'])
-                        ?: $user->login
-                ?>
+                <a href="<?=$this->url('users', 'profile', ['id'=>$user->id])?>"><?=$user->login?></a>
             </td>
-            <td><?=$user->roles?>
+            <td><?=$user->rolesList?>
                 <?//=$this->ahref($user->getRole(), ['acl', 'edit-user', ['id' => $user->getId()]], ['class' => 'dialog']) ?: $user->getRole()?></td>
-            <td></td>
+            <td>
+                <a href="<?=$this->url('acl', 'edit-user', ['id' => $user->id]);?>" class="btn btn-small dialog" data-ajax-method="get">
+                    <i class="icon-pencil"></i>
+                </a>
+            </td>
         </tr>
         <?php endforeach;?>
     </tbody>

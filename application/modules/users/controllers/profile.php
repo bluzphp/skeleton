@@ -33,7 +33,7 @@ function($id = null) use ($view) {
     /**
      * @var Users\Row $user
      */
-    $user = Users\Table::getInstance()->findRow($id);
+    $user = Users\Table::findRow($id);
 
     if (!$user) {
         throw new Exception('User not found', 404);

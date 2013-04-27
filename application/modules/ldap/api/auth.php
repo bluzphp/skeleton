@@ -21,8 +21,7 @@ return function($username, $password) {
     $ldap = $this->getLdap();
 
     if ($ldap->checkAuth($username, $password)) {
-        $usersTable = \Application\Users\Table::getInstance();
-        $user = $usersTable->findRowWhere(['login' => $username]);
+        $user = Users\Table::findRowWhere(['login' => $username]);
 
         // get LDAP information
         $filter = "samaccountname=" . $username . "*";
