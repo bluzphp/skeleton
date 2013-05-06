@@ -26,6 +26,8 @@
  */
 namespace Application\Roles;
 
+use \Bluz\Crud\ValidationException;
+
 /**
  * Crud
  *
@@ -54,7 +56,7 @@ class Crud extends \Bluz\Crud\Crud
     }
 
     /**
-     * @throws \Bluz\Crud\ValidationException
+     * @throws ValidationException
      */
     public function validateCreate()
     {
@@ -71,7 +73,7 @@ class Crud extends \Bluz\Crud\Crud
     }
 
     /**
-     * @throws \Bluz\Crud\ValidationException
+     * @throws ValidationException
      */
     public function validateUpdate($originalRow)
     {

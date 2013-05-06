@@ -26,6 +26,9 @@
  */
 namespace Application\Users;
 
+use \Bluz\Auth\AuthException;
+
+use Application\Exception;
 use Application\Roles;
 use Application\Privileges;
 
@@ -93,24 +96,24 @@ class Row extends \Bluz\Auth\AbstractEntity
      * Can entity login
      *
      *
-     * @throws \Application\Exception
-     * @throws \Bluz\Auth\AuthException
+     * @throws Exception
+     * @throws AuthException
      * @return boolean
      */
     public function tryLogin()
     {
         switch ($this->status) {
             case self::STATUS_PENDING:
-                throw new \Bluz\Auth\AuthException("Your account is pending activation");
+                throw new AuthException("Your account is pending activation");
                 break;
             case self::STATUS_DISABLED:
-                throw new \Bluz\Auth\AuthException("Your account is disabled by administrator");
+                throw new AuthException("Your account is disabled by administrator");
                 break;
             case self::STATUS_ACTIVE:
                 // all ok
                 break;
             default:
-                throw new \Application\Exception("User status is undefined in system");
+                throw new Exception("User status is undefined in system");
                 break;
         }
     }

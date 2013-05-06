@@ -141,7 +141,7 @@ class Bootstrap extends Application
     public function denied()
     {
         // save URL to session
-        $this->rollback();
+        $this->getSession()->rollback = $this->getRequest()->getRequestUri();
 
         // process AJAX request
         if (!$this->getRequest()->isXmlHttpRequest()) {
