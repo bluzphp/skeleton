@@ -28,7 +28,10 @@ namespace Application\Auth;
 
 use Bluz\Application;
 use Bluz\Auth\AuthException;
-use Users;
+
+use Application\Exception;
+use Application\Users;
+
 
 /**
  * @category Application
@@ -73,13 +76,13 @@ class Table extends \Bluz\Db\Table
      *
      * @param string $username
      * @param string $password
-     * @throws \Application\Exception
-     * @throws \Bluz\Auth\AuthException
+     * @throws Exception
+     * @throws AuthException
      * @return boolean
      */
     public function authenticateEquals($username, $password)
     {
-        /** @var $user \Application\Users\Row */
+        /** @var $user Users\Row */
         $authRow = $this->getAuthRow(Row::PROVIDER_EQUALS, $username);
 
         if (!$authRow) {
@@ -87,13 +90,13 @@ class Table extends \Bluz\Db\Table
         }
 
         /** @var \Bluz\Auth\Auth $auth */
-        $auth = Application::getInstance()->getAuth();
+        $auth = app()->getAuth();
         $options = $auth->getOption(Row::PROVIDER_EQUALS);
 
         if (!isset($options['encryptFunction']) or
             !is_callable($options['encryptFunction'])
         ) {
-            throw new \Application\Exception("Encryption function for 'equals' adapter is not callable");
+            throw new Exception("Encryption function for 'equals' adapter is not callable");
         }
 
         // encrypt password
@@ -104,7 +107,7 @@ class Table extends \Bluz\Db\Table
         }
 
         // get user profile
-        $user = \Application\Users\Table::findRow($authRow->userId);
+        $user = Users\Table::findRow($authRow->userId);
         // try to login
         $user->login();
 
@@ -114,22 +117,22 @@ class Table extends \Bluz\Db\Table
     /**
      * authenticate user by login/pass
      *
-     * @param \Application\Users\Row $user
+     * @param Users\Row $user
      * @param string $password
-     * @throws \Application\Exception
-     * @throws \Bluz\Auth\AuthException
+     * @throws Exception
+     * @throws AuthException
      * @return boolean
      */
     public function generateEquals($user, $password)
     {
         /** @var \Bluz\Auth\Auth $auth */
-        $auth = Application::getInstance()->getAuth();
+        $auth = app()->getAuth();
         $options = $auth->getOption(Row::PROVIDER_EQUALS);
 
         if (!isset($options['encryptFunction']) or
             !is_callable($options['encryptFunction'])
         ) {
-            throw new \Application\Exception("Encryption function for 'equals' adapter is not callable");
+            throw new Exception("Encryption function for 'equals' adapter is not callable");
         }
 
         // new auth row

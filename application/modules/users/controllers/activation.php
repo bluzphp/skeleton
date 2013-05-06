@@ -9,11 +9,10 @@
  */
 namespace Application;
 
+use Application\Roles;
 use Application\Users;
 use Application\UsersActions;
-use Application\Roles;
 use Application\UsersToRoles;
-use Bluz\Application\RedirectException;
 
 return
     /**

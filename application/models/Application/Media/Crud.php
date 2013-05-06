@@ -44,7 +44,7 @@ class Crud extends \Bluz\Crud\Crud
      * setUploadDir
      *
      * @param $directory
-     * @throws \Application\Exception
+     * @throws Exception
      * @return self
      */
     public function setUploadDir($directory)

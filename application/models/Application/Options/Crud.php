@@ -26,6 +26,8 @@
  */
 namespace Application\Options;
 
+use \Bluz\Crud\ValidationException;
+
 /**
  * Crud
  *
@@ -35,7 +37,7 @@ namespace Application\Options;
 class Crud extends \Bluz\Crud\Crud
 {
     /**
-     * @throws \Bluz\Crud\ValidationException
+     * @throws ValidationException
      */
     public function validate()
     {
@@ -65,7 +67,7 @@ class Crud extends \Bluz\Crud\Crud
         // validate entity
         // ...
         if (sizeof($this->errors)) {
-            throw new \Bluz\Crud\ValidationException('Validation error, please check errors stack');
+            throw new ValidationException('Validation error, please check errors stack');
         }
     }
 }

@@ -44,8 +44,6 @@ class Table extends \Bluz\Db\Table
      */
     protected $table = 'users';
 
-    protected $rowClass = '\Application\Users\Row';
-
     /**
      * Primary key(s)
      * @var array

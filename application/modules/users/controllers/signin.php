@@ -42,9 +42,15 @@ function($login, $password) use ($view) {
 //            }
 
             $this->getMessages()->addNotice('You are signed');
+
             // try to rollback to previous called URL
-            $this->rollback();
-            //$this->redirectTo('index', 'index');
+            if ($rollback = $this->getSession()->rollback) {
+                unset($this->getSession()->rollback);
+                $this->redirect($rollback);
+            }
+
+            // try back to index
+            $this->redirectTo('index', 'index');
         } catch (Exception $e) {
             $this->getMessages()->addError($e->getMessage());
             $view->login = $login;
