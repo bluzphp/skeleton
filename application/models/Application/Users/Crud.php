@@ -26,8 +26,11 @@
  */
 namespace Application\Users;
 
-use Application\UsersActions;
+use \Bluz\Crud\ValidationException;
+
+use Application\Auth;
 use Application\Exception;
+use Application\UsersActions;
 
 /**
  * Crud
@@ -41,7 +44,7 @@ use Application\Exception;
 class Crud extends \Bluz\Crud\Crud
 {
     /**
-     * @throws \Bluz\Crud\ValidationException
+     * @throws ValidationException
      */
     public function validateCreate()
     {
@@ -84,12 +87,12 @@ class Crud extends \Bluz\Crud\Crud
         }
         // validate entity
         if (sizeof($this->errors)) {
-            throw new \Bluz\Crud\ValidationException('Validation error, please check errors stack');
+            throw new ValidationException('Validation error, please check errors stack');
         }
     }
 
     /**
-     * @throws \Bluz\Crud\ValidationException
+     * @throws ValidationException
      */
     public function validateUpdate($originalRow)
     {
@@ -107,12 +110,12 @@ class Crud extends \Bluz\Crud\Crud
 
         // validate entity
         if (sizeof($this->errors)) {
-            throw new \Bluz\Crud\ValidationException('Validation error, please check errors stack');
+            throw new ValidationException('Validation error, please check errors stack');
         }
     }
 
     /**
-     * @throws \Application\Exception
+     * @throws Exception
      * @return boolean
      */
     public function create()
@@ -128,7 +131,7 @@ class Crud extends \Bluz\Crud\Crud
 
         // create auth
         $password = $this->getData('password');
-        $authRow = \Application\Auth\Table::getInstance()->generateEquals($row, $password);
+        $authRow = Auth\Table::getInstance()->generateEquals($row, $password);
 
         // create activation token
         // valid for 5 days

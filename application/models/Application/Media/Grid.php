@@ -26,7 +26,6 @@
  */
 namespace Application\Media;
 
-
 /**
  * Grid based on SQL
  *

@@ -26,8 +26,11 @@
  */
 namespace Application\Media;
 
+use Application\Users;
+
 /**
  * Options Row
+ *
  * @property integer $id
  * @property integer $userId
  * @property string $title
@@ -40,8 +43,6 @@ namespace Application\Media;
  * @category Application
  * @package  Options
  */
-use Composer\Console\Application;
-
 class Row extends \Bluz\Db\Row
 {
     /**
@@ -57,10 +58,10 @@ class Row extends \Bluz\Db\Row
             $this->module = 'users';
         }
         // set user ID
-        if ($user = \Application\Bootstrap::getInstance()->getAuth()->getIdentity()) {
+        if ($user = app()->getAuth()->getIdentity()) {
             $this->userId = $user->id;
         } else {
-            $this->userId = \Application\Users\Row::SYSTEM_USER;
+            $this->userId = Users\Row::SYSTEM_USER;
         }
 
     }
