@@ -1,5 +1,6 @@
 <ul>
-<li><?= $this->ahref('Static', ['test', 'route-static']);?></li>
-<li><?= $this->ahref('With one param', ['test', 'route-with-param', array('a'=>'foo')]);?></li>
-<li><?= $this->ahref('With many params', ['test', 'route-with-params', array('a'=>123, 'b'=>3.14, 'c'=>'bar')]);?></li>
+<li><?= $this->ahref('Static', ['test', 'route-static'], ['class'=>'dialog']);?> &mdash; static route (w/out variables) has priority under other</li>
+<li><?= $this->ahref('With one param', ['test', 'route-with-param', array('a'=>'foo')], ['class'=>'dialog']);?></li>
+<li><?= $this->ahref('The same route with one optional param', ['test', 'route-with-param'], ['class'=>'dialog']);?></li>
+<li><?= $this->ahref('With many params', ['test', 'route-with-params', array('a'=>123, 'b'=>3.14, 'c'=>'bar')], ['class'=>'dialog']);?></li>
 </ul>
