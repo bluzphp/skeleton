@@ -9,10 +9,11 @@ namespace Application;
 use Bluz;
 return
 /**
- * @route /static-route.html
+ * @route /static-route/
+ * @route /another-route.html
  * @return \closure
  */
-function() {
+function() use ($view) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
@@ -21,6 +22,18 @@ function() {
         $this->getLayout()->ahref('Test', ['test', 'index']),
         'Routers Examples',
     ]);
-    var_dump("OK");
-    return 'route.phtml';
+
+    $uri = $this->getRequest()->getRequestUri();
+    echo <<<CODE
+<h4>URL: $uri</h4>
+<h4>Route: {$this->getRequest()->getModule()}/{$this->getRequest()->getController()}</h4>
+<pre>
+/**
+ * @route /static-route/
+ * @route /another-route.html
+ * @return \closure
+ */
+</pre>
+CODE;
+    return false;
 };

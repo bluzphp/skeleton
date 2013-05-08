@@ -10,7 +10,7 @@ use Bluz;
 
 return
 /**
- * @route /{$a}-{$b}-{$c}.html
+ * @route /{$a}-{$b}-{$c}/
  * @param int $a
  * @param float $b
  * @param string $c
@@ -25,11 +25,13 @@ function($a, $b, $c) {
         $this->getLayout()->ahref('Test', ['test', 'index']),
         'Routers Examples',
     ]);
-    var_dump("OK");
+    $uri = $this->getRequest()->getRequestUri();
     echo <<<CODE
+<h4>URL: $uri</h4>
+<h4>Route: {$this->getRequest()->getModule()}/{$this->getRequest()->getController()}</h4>
 <pre>
 /**
- * @route /{\$a}-{\$b}-{\$c}.html
+ * @route /{\$a}-{\$b}-{\$c}/
  * @param int \$a
  * @param float \$b
  * @param string \$c
@@ -37,7 +39,6 @@ function($a, $b, $c) {
  */
 </pre>
 CODE;
-
-    var_dump($a, $b, $c);
-    return 'route.phtml';
+    var_dump(['$a'=>$a, '$b'=>$b, '$c'=>$c]);
+    return false;
 };
