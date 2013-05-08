@@ -9,11 +9,12 @@ namespace Application;
 use Bluz;
 return
 /**
+ * @route /test/param/$
  * @route /test/param/{$a}/
  * @param string $a
  * @return \closure
  */
-function($a) {
+function($a = 42) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
@@ -22,8 +23,10 @@ function($a) {
         $this->getLayout()->ahref('Test', ['test', 'index']),
         'Routers Examples',
     ]);
-    var_dump("OK");
+    $uri = $this->getRequest()->getRequestUri();
     echo <<<CODE
+<h4>URL: $uri</h4>
+<h4>Route: {$this->getRequest()->getModule()}/{$this->getRequest()->getController()}</h4>
 <pre>
 /**
  * @route /test/param/{\$a}/
@@ -32,7 +35,6 @@ function($a) {
  */
 </pre>
 CODE;
-
     var_dump($a);
-    return 'route.phtml';
+    return false;
 };
