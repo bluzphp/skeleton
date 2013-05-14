@@ -39,7 +39,7 @@ class Table extends \Bluz\Db\Table
      *
      * @var string
      */
-    protected $table = 'acl_usersToRoles';
+    protected $table = 'acl_users_roles';
 
     /**
      * Primary key(s)

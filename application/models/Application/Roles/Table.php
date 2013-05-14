@@ -60,7 +60,7 @@ class Table extends \Bluz\Db\Table
         if (!$data = app()->getCache()->get('roles:'.$userId)) {
             $data = $this->fetch("
                         SELECT r.*
-                        FROM acl_roles AS r, acl_usersToRoles AS u2r
+                        FROM acl_roles AS r, acl_users_roles AS u2r
                         WHERE r.id = u2r.roleId AND u2r.userId = ?
                         ", array($userId));
             app()->getCache()->set('roles:'.$userId, $data, 0);

@@ -49,7 +49,7 @@ class Table extends \Bluz\Db\Table
         if (!$seralizedData = app()->getCache()->get('privileges:'.$userId)) {
             $data = $this->fetch("
                         SELECT DISTINCT p.roleId, p.module, p.privilege
-                        FROM acl_privileges AS p, acl_roles AS r, acl_usersToRoles AS u2r
+                        FROM acl_privileges AS p, acl_roles AS r, acl_users_roles AS u2r
                         WHERE p.roleId = r.id AND r.id = u2r.roleId AND u2r.userId = ?
                         ORDER BY module, privilege",
                 array((int) $userId)
