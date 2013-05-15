@@ -26,10 +26,10 @@ function($id) use ($view) {
         $roles = $request->getParam('roles');
 
         // update roles
-        $this->getDb()->delete('acl_usersToRoles', ['userId' => $user->id]);
+        $this->getDb()->delete('acl_users_roles', ['userId' => $user->id]);
 
         foreach ($roles as $role) {
-            $this->getDb()->insert('acl_usersToRoles', ['userId' => $user->id, 'roleId' => $role]);
+            $this->getDb()->insert('acl_users_roles', ['userId' => $user->id, 'roleId' => $role]);
         }
 
         // clean cache

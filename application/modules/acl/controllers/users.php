@@ -25,7 +25,7 @@ function() use ($view) {
 //    $view->users = Users\Table::fetchAll();
     $view->users = $this->getDb()->fetchObjects('
         SELECT u.*, GROUP_CONCAT( ar.`name` SEPARATOR ", " ) AS rolesList
-        FROM users u, acl_roles ar, acl_usersToRoles aur
+        FROM users u, acl_roles ar, acl_users_roles aur
         WHERE
             u.`id` = aur.`userId`
         AND ar.`id` = aur.`roleId`

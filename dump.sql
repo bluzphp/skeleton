@@ -57,17 +57,17 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table acl_usersToRoles
+# Dump of table acl_users_roles
 # ------------------------------------------------------------
 
-LOCK TABLES `acl_usersToRoles` WRITE;
-/*!40000 ALTER TABLE `acl_usersToRoles` DISABLE KEYS */;
+LOCK TABLES `acl_users_roles` WRITE;
+/*!40000 ALTER TABLE `acl_users_roles` DISABLE KEYS */;
 
-INSERT INTO `acl_usersToRoles` (`userId`, `roleId`)
+INSERT INTO `acl_users_roles` (`userId`, `roleId`)
 VALUES
 	(1,1);
 
-/*!40000 ALTER TABLE `acl_usersToRoles` ENABLE KEYS */;
+/*!40000 ALTER TABLE `acl_users_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
