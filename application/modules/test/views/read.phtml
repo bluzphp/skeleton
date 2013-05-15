@@ -1,0 +1,11 @@
+<a href="<?=$this->url('test', 'create')?>" class="btn btn-primary">Create New</a>
+
+<dl>
+<?php foreach ($row->toArray() as $key => $value) : ?>
+    <dt><?=$key?></dt>
+    <dd><?=$value?></dd>
+<?php endforeach;?>
+</dl>
+
+<a href="<?=$this->url('test', 'update', ['id'=>$row->id])?>" class="btn dialog" data-ajax-method="GET">Edit</a>
+<a href="<?=$this->url('test', 'delete', ['id'=>$row->id])?>" class="btn btn-danger ajax confirm" data-ajax-method="DELETE">Delete</a>

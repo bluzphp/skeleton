@@ -1,0 +1,40 @@
+<?php if (isset($errors)) :?>
+<script>
+    require(['bluz.validate'], function(validate) {
+        var $form = $('#form');
+        <?php foreach ($errors as $field => $error) : ?>
+        validate.notice($form, '[name^="data[<?=$field?>]"]', '<?=$error?>');
+        <?php endforeach;?>
+    });
+</script>
+<?php endif; ?>
+<?php //$row = new \Bluz\Filter\Sanitize($row); ?>
+<form id="form" action="<?=$this->url('test', $this->controller())?>" class="form-horizontal ajax" method="<?=isset($method)?$method:'POST'?>">
+    <input type="hidden" name="id" value="<?=$row->id?>"/>
+    <div class="control-group">
+        <label class="control-label" for="inputName">Name</label>
+        <div class="controls">
+            <input type="text" id="inputName" name="data[name]" placeholder="" value="<?=$row->name?>"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputEmail">Email</label>
+        <div class="controls">
+            <input type="text" id="inputEmail" name="data[email]" placeholder="example@domain.com" value="<?=$row->email?>"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputStatus">Status</label>
+        <div class="controls">
+            <?php
+                $statuses = ['', 'active', 'delete', 'disable'];
+            ?>
+            <?=$this->select('data[status]', array_combine($statuses, $statuses), $row->status)?>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn"><?=__('Save')?></button>
+        </div>
+    </div>
+</form>
