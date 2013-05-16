@@ -28,11 +28,17 @@ return array(
             "email" => "no-reply@nixsolutions.com",
             "name" => "Bluz"
         ],
-        "smtp" => [
-            "host" => "",
-            "port" => "",
-            "username" => "",
-            "password" => ""
-        ]
+        // PHPMailer settings
+        // read more at https://github.com/Synchro/PHPMailer
+        "settings" => [
+            "CharSet" => "UTF-8",
+            "Mailer" => "smtp", // mail, sendmail, smtp, qmail
+            "SMTPSecure" => "ssl",
+            "Host" => "localhost",
+            "Port" => "2525",
+            "SMTPAuth" => true,
+            "Username" => "",
+            "Password" => "",
+        ],
     )
 );
