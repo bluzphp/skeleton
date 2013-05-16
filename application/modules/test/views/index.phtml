@@ -15,6 +15,11 @@
     <li><?= $this->ahref('View Form Helpers', ['test', 'view-helpers']);?></li>
 </ul>
 <hr/>
+<ul>
+    <li><?= $this->ahref('Create', ['test', 'create']) ?></li>
+    <li><?= $this->ahref('Read', ['test', 'read', ['id'=>42]]) ?></li>
+</ul>
+<hr/>
 <div class="btn-group">
     <?= $this->ahref('Ajax GET', ['test', 'ajax'], ['class'=>'ajax btn', 'data-ajax-method'=>'GET']);?>
     <?= $this->ahref('Ajax POST', ['test', 'ajax'], ['class'=>'ajax btn', 'data-ajax-method'=>'POST']);?>

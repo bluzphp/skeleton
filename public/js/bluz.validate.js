@@ -4,7 +4,7 @@
  * @author
  * @created  26.11.12 12:51
  */
-define(['jquery'], function ($) {
+define(["jquery", "bootstrap", "bluz"], function ($) {
 
     // static validator
     var validator = {
@@ -19,7 +19,9 @@ define(['jquery'], function ($) {
             var $field = $(field);
             var $group = $field.parents('.control-group');
 
-            messages = messages.join('<br/>');
+            if (messages instanceof Array) {
+                messages = messages.join('<br/>');
+            }
 
             $group.addClass('error');
 
