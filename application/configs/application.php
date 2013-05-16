@@ -35,6 +35,21 @@ return array(
         "template" => 'index.phtml',
         "helpersPath" => PATH_APPLICATION .'/layouts/helpers'
     ),
+    "logger" => array(
+        "enabled" => false,
+    ),
+    "mailer" => array(
+        "subjectTemplate" => "Bluz - %s",
+        "from" => [
+            "email" => "no-reply@example.com",
+            "name" => "Bluz"
+        ],
+        // PHPMailer settings
+        // read more at https://github.com/Synchro/PHPMailer
+        "settings" => [
+            "CharSet" => "UTF-8"
+        ],
+    ),
     "profiler" => DEBUG,
     "request" => array(
         "baseUrl" => '/',
