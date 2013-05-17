@@ -48,7 +48,7 @@ use Application\Privileges;
  * @author   Anton Shevchuk
  * @created  08.07.11 17:13
  */
-class Row extends \Bluz\Auth\AbstractEntity
+class Row extends \Bluz\Auth\AbstractRowEntity
 {
     /**
      * Pending email verification
