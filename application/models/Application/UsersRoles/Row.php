@@ -24,27 +24,18 @@
 /**
  * @namespace
  */
-namespace Application\UsersToRoles;
+namespace Application\UsersRoles;
 
 /**
- * Table
+ * User
+ *
+ * @property integer $userId
+ * @property integer $roleId
  *
  * @category Application
  * @package  Roles
  */
-class Table extends \Bluz\Db\Table
+class Row extends \Bluz\Db\Row
 {
-    /**
-     * Table
-     *
-     * @var string
-     */
-    protected $table = 'acl_users_roles';
-
-    /**
-     * Primary key(s)
-     * @var array
-     */
-    protected $primary = array('userId', 'roleId');
 
 }
