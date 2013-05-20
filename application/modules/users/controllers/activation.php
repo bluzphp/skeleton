@@ -12,7 +12,7 @@ namespace Application;
 use Application\Roles;
 use Application\Users;
 use Application\UsersActions;
-use Application\UsersToRoles;
+use Application\UsersRoles;
 
 return
     /**
@@ -57,7 +57,7 @@ return
             // FIXME f*cking magic
             $roleRow = Roles\Table::findRowWhere(['name' => Roles\Row::BASIC_MEMBER]);
             // create relation user to role
-            $usersRoleRow = new UsersToRoles\Row();
+            $usersRoleRow = new UsersRoles\Row();
             $usersRoleRow->roleId = $roleRow->id;
             $usersRoleRow->userId = $userRow->id;
             $usersRoleRow->save();
