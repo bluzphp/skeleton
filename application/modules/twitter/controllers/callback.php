@@ -90,6 +90,7 @@ function() {
 
     if ($row) {
         // try to sign in
+        /** @var Users\Row $user */
         $user = Users\Table::findRow($row->userId);
 
         if ($user->status != Users\Row::STATUS_ACTIVE) {
@@ -119,7 +120,7 @@ function() {
             $user->save();
 
             // set default role
-            $user2role = new UsersToRoles\Row();
+            $user2role = new UsersRoles\Row();
             $user2role -> userId = $user->id;
             $user2role -> roleId = 2;
             $user2role -> save();
