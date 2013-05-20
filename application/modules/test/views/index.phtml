@@ -60,6 +60,11 @@
     <?= $this->widget('test', 'not-found') ?>
 </div>
 
+<h3>Wrong without priveleges</h3>
+<div>
+    <?= $this->widget('test', 'acl-denied') ?>
+</div>
+
 <h3>Wrong API method</h3>
 <div>
     <?= $this->api('test', 'not-found') ?>

@@ -21,6 +21,7 @@ return function($username, $password) {
     $ldap = $this->getLdap();
 
     if ($ldap->checkAuth($username, $password)) {
+        /** @var Users\Row $user */
         $user = Users\Table::findRowWhere(['login' => $username]);
 
         // get LDAP information
