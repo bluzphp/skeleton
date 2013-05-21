@@ -11,7 +11,8 @@ namespace Application;
 
 return
 /**
- * @method GET,POST
+ * @method GET
+ * @method POST
  * @return \closure
  */
 function($data = array()) use ($view) {
