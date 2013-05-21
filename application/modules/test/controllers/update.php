@@ -13,7 +13,8 @@ use Bluz\Request\HttpRequest;
 
 return
 /**
- * @methods GET,PUT
+ * @method GET
+ * @method PUT
  * @return \closure
  */
 function($id, $data = array()) use ($view) {

@@ -11,7 +11,7 @@ namespace Application;
 
 return
 /**
- * @methods GET
+ * @method GET
  * @param integer $id
  * @return \closure
  */
