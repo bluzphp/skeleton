@@ -10,7 +10,7 @@ namespace Application;
 use Bluz;
 return
 /**
- * @cache 1 minute
+ * @cache 2
  * @param integer $a
  * @return \closure
  */
