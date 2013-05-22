@@ -63,11 +63,11 @@ article, aside, header, footer, section {
 /*/Messages*/
 /* Loading */
 #loading {
-	width: 180px;
-	height: 40px;
-	float:right;
-	background: url("../img/loading.gif") 50% 50% no-repeat;
-	display: none;
+  width: 180px;
+  height: 40px;
+  float:right;
+  background: url("../img/loading.gif") 50% 50% no-repeat;
+  display: none;
 }
 /*/Loading */
 /*Small Layout*/
@@ -87,9 +87,9 @@ article, aside, header, footer, section {
     position: relative;
 }
 .widget-title {
-	background-color: #efefef;
-	background-image: -webkit-gradient(linear, 0 0%, 0 100%, from(#fdfdfd), to(#eaeaea));
-	background-image: -webkit-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
+  background-color: #efefef;
+  background-image: -webkit-gradient(linear, 0 0%, 0 100%, from(#fdfdfd), to(#eaeaea));
+  background-image: -webkit-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
     background-image: -moz-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
     background-image: -ms-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
     background-image: -o-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
@@ -98,20 +98,20 @@ article, aside, header, footer, section {
     height: 36px;
 }
 .widget-title .iconholder-left {
-	border-right: 1px solid #cdcdcd;
-	padding: 9px 10px 7px 11px;
-	float: left;
-	opacity: .7;
+  border-right: 1px solid #cdcdcd;
+  padding: 9px 10px 7px 11px;
+  float: left;
+  opacity: .7;
 }
 .widget-title .iconholder-right {
-	border-left: 1px solid #cdcdcd;
-	padding: 9px 11px 7px 10px;
-	float: right;
-	opacity: .7;
+  border-left: 1px solid #cdcdcd;
+  padding: 9px 11px 7px 10px;
+  float: right;
+  opacity: .7;
 }
 .widget-title h4 {
     color: #666666;
-	text-shadow: 0 1px 0 #ffffff;
+  text-shadow: 0 1px 0 #ffffff;
     float: left;
     font-size: 12px;
     font-weight: bold;
@@ -120,23 +120,23 @@ article, aside, header, footer, section {
     margin: 0;
 }
 .widget-title .buttons {
-	float: right;
-	margin: 8px 10px 0 0;
+  float: right;
+  margin: 8px 10px 0 0;
 }
 .widget-title .label {
-	padding: 3px 5px 2px;
-	float: right;
-	margin: 9px 15px 0 0;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.3) inset, 0 1px 0 #ffffff;
+  padding: 3px 5px 2px;
+  float: right;
+  margin: 9px 15px 0 0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3) inset, 0 1px 0 #ffffff;
 }
 .widget-content {
-	padding: 12px 15px;
+  padding: 12px 15px;
 }
 
 .widget-stats {
-	margin: 0;
-	padding: 0;
-	list-style: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 .widget-stats li {
     background-color: #F5F5F5;
@@ -150,48 +150,48 @@ article, aside, header, footer, section {
     background-color: #EDEDED;
 }
 .widget-stats li.divider {
-	padding: 0;
-	border-width: 1px 0 0;
-	border-color: #DDDDDD;
-	border-style: dashed;
+  padding: 0;
+  border-width: 1px 0 0;
+  border-color: #DDDDDD;
+  border-style: dashed;
 }
 .widget-stats li i {
-	vertical-align: baseline;
+  vertical-align: baseline;
 }
 .widget-stats li strong {
-	font-weight: bold;
-	font-size: 20px;
-	margin-left: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 5px;
 }
 .widget-stats li small {
-	margin-left: 5px;
-	font-size: 12px;
-	color: #888888;
-	font-style: italic;
+  margin-left: 5px;
+  font-size: 12px;
+  color: #888888;
+  font-style: italic;
 }
 .widget-stats li a:hover {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 /*/Dashboard Widgets*/
 /*Bootstrap fix*/
 .modal form {
-	margin: 0;
+  margin: 0;
 }
 .table.grid .controls {
-	padding: 2px 8px;
+  padding: 2px 8px;
 }
 .breadcrumb a:hover {
-	text-decoration: none;
+  text-decoration: none;
 }
 .nav-dashboard {
     width:233px;
 }
 .nav-tabs.nav-stacked > .active > a,
 .nav-tabs.nav-stacked > .active > a:hover {
-	color: white;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-	background-color: #08C;
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+  background-color: #08C;
 }
 
 @media (max-width: 979px) {
@@ -201,3 +201,8 @@ article, aside, header, footer, section {
 }
 /*/Bootstrap fix*/
 
+/*icons for social api auth in sign-in page*/
+.social-auth{
+    vertical-align: bottom;
+    vertical-align: -webkit-baseline-middle;
+}

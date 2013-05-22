@@ -13,7 +13,9 @@ function () {
      * @var \Bluz\Application $this
      */
     ?>
-    <a href="<?=$this->getRouter()->url('twitter', 'auth')?>" class="btn btn-primary">Twitter</a>
+    <a href="<?=$this->getRouter()->url('twitter', 'auth')?>">
+        <i class="icon-twitter icon-2x" title="Use your twitter account!"></i>
+    </a>
     <?php
 };
 ?>
