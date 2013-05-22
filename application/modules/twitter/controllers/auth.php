@@ -59,7 +59,6 @@ function() {
          . '&oauth_timestamp='.$oauth_timestamp
          . '&oauth_version=1.0';
 
-
     // get response from Twitter service
     if (!$response = @file_get_contents($url)) {
         throw new Exception("Invalid settings for Twitter Auth Provider", 500);
