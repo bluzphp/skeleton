@@ -58,14 +58,25 @@ function ($code, $message = '') use ($view) {
         }
     }
 
+    $accept = $this->getRequest()->getHeader('accept');
+    $accept = substr($accept, 0, strpos($accept, ','));
 
-    if ($this->getRequest()->isXmlHttpRequest()) {
+    // simple AJAX call
+    if ($this->getRequest()->isXmlHttpRequest()
+        && $accept == "application/json") {
         $this->getMessages()->addError($message);
-    } else {
-        $view->title = $this->getLayout()->title();
-        $view->description = $description;
-        $view->message = $message;
-        $this->getLayout()->title($header);
+        return $view;
+    }
+
+    // dialog AJAX call
+    if (!$this->getRequest()->isXmlHttpRequest()) {
         $this->useLayout('small.phtml');
     }
+
+    $view->title = $header;
+    $view->description = $description;
+    $view->message = $message;
+    $this->getLayout()->title($header);
+
+
 };

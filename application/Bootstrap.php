@@ -151,6 +151,6 @@ class Bootstrap extends Application
         if (!$this->getAuth()->getIdentity()) {
             $this->redirectTo('users', 'signin');
         }
-        throw new Exception('Your session has expired, please sign in and try again', 403);
+        throw new Exception('You don\'t have permission to access this page', 403);
     }
 }
