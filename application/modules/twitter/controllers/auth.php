@@ -59,6 +59,7 @@ function() {
          . '&oauth_timestamp='.$oauth_timestamp
          . '&oauth_version=1.0';
 
+
     // get response from Twitter service
     if (!$response = @file_get_contents($url)) {
         throw new Exception("Invalid settings for Twitter Auth Provider", 500);
@@ -73,7 +74,7 @@ function() {
     if (isset($result['oauth_token'])) {
         // save secret token to session
         $this->getSession()->oauthTokenSecret = $result['oauth_token_secret'];
-        $this->redirect('https://api.twitter.com/oauth/authorize?oauth_token='.$result['oauth_token']);
+        $this->redirect('https://api.twitter.com/oauth/authenticate?oauth_token='.$result['oauth_token']);
     } else {
         throw new Exception("Invalid response", 500);
     }
