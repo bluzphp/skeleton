@@ -96,7 +96,14 @@ function(){
         /**
          * If user doesn't allow application yet, redirect him to fb page for this.
          * After this operation we will returned to this file.
+         * Is user declined app, we get param 'error' => 'access_denied'
          */
+
+        // if user declined
+        if ('access_denied' == $this->getRequest()->getParam('error', null)) {
+            $this->redirectTo('users', 'signin');
+        }
+
         $login_url = $facebook->getLoginUrl(array('scope' => 'email'));
         $this->redirect($login_url);
     }
