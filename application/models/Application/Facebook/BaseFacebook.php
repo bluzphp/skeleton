@@ -794,8 +794,7 @@ abstract class BaseFacebook
 
     // results are returned, errors are thrown
     if (is_array($result) && isset($result['error'])) {
-        \Bluz\Application::getInstance()->redirect($this->getLoginUrl(array('scope' => 'email')));
-      //$this->throwAPIException($result);
+      $this->throwAPIException($result);
       // @codeCoverageIgnoreStart
     }
     // @codeCoverageIgnoreEnd

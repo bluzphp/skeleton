@@ -43,62 +43,54 @@ function(){
     $user = $facebook->getUser();
 
     if ($user) {
-        try {
-            // Proceed knowing you have a logged in user who's authenticated.
-            $user_profile = $facebook->api('/me');
+        // Proceed knowing you have a logged in user who's authenticated.
+        $user_profile = $facebook->api('/me');
 
-            /**
-             * @var Auth\Table $authTable
-             */
-            $authTable = Auth\Table::getInstance();
-            $row = $authTable->getAuthRow(Auth\Row::PROVIDER_FACEBOOK, $user_profile['id']);
+        /**
+         * @var Auth\Table $authTable
+         */
+        $authTable = Auth\Table::getInstance();
+        $row = $authTable->getAuthRow(Auth\Row::PROVIDER_FACEBOOK, $user_profile['id']);
 
-            if ($row) {
-                // if user has been registered
-                $user = Users\Table::findRow($row->userId);
+        if ($row) {
+            // if user has been registered
+            $user = Users\Table::findRow($row->userId);
 
-                if ($user->status != Users\Row::STATUS_ACTIVE) {
-                    $this->getMessages()->addError('User is not active');
-                    $this->redirectTo('index', 'index');
-                }
-
-                $user->login();
-            } else {
-                // signup user
-                if (!$user = $this->getAuth()->getIdentity()) {
-                    $user = new Users\Row();
-                    // if username doesn't exist, concat first and last name for site's login
-                    $login = (isset($user_profile['username']))
-                        ? $user_profile['username']
-                        : $user_profile['first_name'] . $user_profile['last_name'];
-                    $user->login = $login;
-                    $user->status = Users\Row::STATUS_ACTIVE;
-                    $user->save();
-
-                    $user2role = new UsersRoles\Row();
-                    $user2role->userId = $user->id;
-                    $user2role->roleId = 2;
-                    $user2role->save();
-
-                    $row = new Auth\Row();
-                    $row->userId = $user->id;
-                    $row->provider = Auth\Row::PROVIDER_FACEBOOK;
-                    $row->foreignKey = $user_profile['id'];
-                    $row->token = 0;
-                    $row->tokenSecret = 0;
-                    $row->tokenType = Auth\Row::TYPE_ACCESS;
-                    $row->save();
-
-                    // sign in
-                    $user->login();
-                }
+            if ($user->status != Users\Row::STATUS_ACTIVE) {
+                $this->getMessages()->addError('User is not active');
+                $this->redirectTo('index', 'index');
             }
-        } catch (FacebookApiException $e){
 
-            $facebook->destroySession();
-            $login_url = $facebook->getLoginUrl(array('scope' => 'email'));
-            $user = null;
-            $this->redirect($login_url);
+            $user->login();
+        } else {
+            // signup user
+            if (!$user = $this->getAuth()->getIdentity()) {
+                $user = new Users\Row();
+                // if username doesn't exist, concat first and last name for site's login
+                $login = (isset($user_profile['username']))
+                    ? $user_profile['username']
+                    : $user_profile['first_name'] . $user_profile['last_name'];
+                $user->login = $login;
+                $user->status = Users\Row::STATUS_ACTIVE;
+                $user->save();
+
+                $user2role = new UsersRoles\Row();
+                $user2role->userId = $user->id;
+                $user2role->roleId = 2;
+                $user2role->save();
+
+                $row = new Auth\Row();
+                $row->userId = $user->id;
+                $row->provider = Auth\Row::PROVIDER_FACEBOOK;
+                $row->foreignKey = $user_profile['id'];
+                $row->token = 0;
+                $row->tokenSecret = 0;
+                $row->tokenType = Auth\Row::TYPE_ACCESS;
+                $row->save();
+
+                // sign in
+                $user->login();
+            }
         }
     } else {
         /**
