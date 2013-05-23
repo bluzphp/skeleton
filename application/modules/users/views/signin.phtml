@@ -4,7 +4,6 @@
  * @var \Bluz\View\View $this
  */
 ?>
-<?= $this->headStyle('/css/font-awesome.min.css') ?>
 <h3><?=__('Please sign in')?></h3>
 <form action="<?=$this->url('users', 'signin')?>" method="post" >
     <div class="control-group">
@@ -18,10 +17,10 @@
         </label>
     </div>
     <input type="submit" value="<?=__('Sign In')?>" class="btn btn-primary"/>
-    <span class="social-auth">
+    <a href="<?=$this->url('users', 'signup')?>" title="Sign Up" class="btn right"><?=__('Sign Up')?></a>
+    <div class="social-auth text-center">
         <?=$this->widget('twitter', 'auth')?>
         <?=$this->widget('facebook', 'auth')?>
-    </span>
-    <a href="<?=$this->url('users', 'signup')?>" title="Sign Up" class="btn right"><?=__('Sign Up')?></a>
+    </div>
 </form>
 <a href="<?=$this->url('users', 'recovery')?>"><?=__('Forgot your password?')?></a>

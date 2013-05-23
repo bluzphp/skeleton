@@ -14,7 +14,7 @@ return
          */
         ?>
     <a href="<?=$this->getRouter()->url('facebook', 'auth')?>">
-        <i class="icon-facebook icon-2x" title="Use your facebook account!"></i>
+        <img src="/img/social-icons/facebook.png" alt='Use your facebook account!' />
     </a>
     <?php
     };
