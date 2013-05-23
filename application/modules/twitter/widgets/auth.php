@@ -14,7 +14,7 @@ function () {
      */
     ?>
     <a href="<?=$this->getRouter()->url('twitter', 'auth')?>">
-        <img src="/img/social-icons/twitter.png" alt='Use your twitter account!' />
+        <img src="<?= $this->getView()->baseUrl('/img/social-icons/twitter.png') ?>" alt='Use your twitter account!' />
     </a>
     <?php
 };
