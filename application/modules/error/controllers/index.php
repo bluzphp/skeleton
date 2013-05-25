@@ -11,7 +11,7 @@ use Bluz;
 return
 /**
  * @route  /error/{$code}
- * @param  integer $code
+ * @param  int $code
  * @param  string $message
  * @return \closure
  */

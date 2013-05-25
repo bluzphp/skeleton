@@ -7,6 +7,7 @@ namespace Application;
 
 return
 /**
+ * @param int $id
  * @privilege Edit
  *
  * @return \closure

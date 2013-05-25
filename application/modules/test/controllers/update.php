@@ -15,6 +15,8 @@ return
 /**
  * @method GET
  * @method PUT
+ * @param int $id
+ * @param array $data
  * @return \closure
  */
 function($id, $data = array()) use ($view) {

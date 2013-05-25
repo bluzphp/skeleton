@@ -12,6 +12,7 @@ namespace Application;
 return
 /**
  * @method DELETE
+ * @param int $id
  * @return \closure
  */
 function($id) use ($view) {
