@@ -11,6 +11,8 @@ namespace Application;
 
 return
     /**
+     * @param string $template
+     * @param array $vars
      * @return \closure
      */
     function ($template, $vars = []) use ($view) {

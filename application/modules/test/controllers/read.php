@@ -12,7 +12,7 @@ namespace Application;
 return
 /**
  * @method GET
- * @param integer $id
+ * @param int $id
  * @return \closure
  */
 function($id = null) use ($view) {
