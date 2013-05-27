@@ -13,6 +13,7 @@ use Application\Users;
 
 return
     /**
+     * @param string $email
      * @return \closure
      */
     function ($email = null) use ($view) {

@@ -11,6 +11,9 @@ namespace Application;
 
 return
 /**
+ * @param bool $sex
+ * @param string $car
+ * @param bool $remember
  * @return \closure
  */
 function($sex = false, $car = 'none', $remember = false) use ($view) {

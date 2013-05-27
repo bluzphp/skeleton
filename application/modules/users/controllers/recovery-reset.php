@@ -17,6 +17,8 @@ return
      *
      * @param int $id User UID
      * @param string $code
+     * @param string $password
+     * @param string $password2
      * @return \closure
      */
     function ($id, $code, $password = null, $password2 = null) use ($view) {
