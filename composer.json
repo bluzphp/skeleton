@@ -10,8 +10,7 @@
         "phpmailer/phpmailer": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*",
-        "robmorgan/phinx": "*"
+        "phpunit/phpunit": "3.7.*"
     },
     "config": {
         "vendor-dir": "vendor"
