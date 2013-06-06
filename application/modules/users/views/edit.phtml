@@ -1,0 +1,45 @@
+<?php $uid = uniqid('form_'); ?>
+<h3><?=__('Edit profile')?></h3>
+<form id="<?=$uid?>" action="<?=$this->url('users', 'edit')?>" class="ajax" method="put">
+    <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
+
+    <div class="control-group">
+        <?php if ($row->changeEmail): ?>
+        <label class="input-prepend input-append">
+            <span class="add-on"><i class="icon-envelope"></i></span>
+        <input type="text" class="input-large" name="data[email]" value="<?=($row->email)?>"
+               placeholder="<?=__('email')?>"/>
+        <span class="add-on" title="<?=__('Email will be changed after confirmation')?>">
+                <i class="icon-warning-sign"></i>
+            </span>
+        <?php else: ?>
+        <label class="input-prepend">
+            <span class="add-on"><i class="icon-envelope"></i></span>
+        <input type="text" class="input-large" name="data[email]" value="<?=($row->email)?>"
+               placeholder="<?=__('email')?>"/>
+        <?php endif; ?>
+    </label>
+    </div>
+    <div class="control-group">
+        <label class="input-prepend">
+            <span class="add-on"><i class="icon-lock"></i></span>
+            <input type="password" class="input-large" name="data[old_password]"
+                   placeholder="<?=__('old password')?>"/>
+        </label>
+    </div>
+    <div class="control-group">
+        <label class="input-prepend">
+            <span class="add-on"><i class="icon-lock"></i></span>
+            <input type="password" class="input-large" name="data[new_password]"
+                   placeholder="<?=__('new password')?>"/>
+        </label>
+    </div>
+    <div class="control-group">
+        <label class="input-prepend">
+            <span class="add-on"><i class="icon-lock"></i></span>
+            <input type="password" class="input-large" name="data[new_password2]"
+                   placeholder="<?=__('repeat password')?>"/>
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary"><?=__('Edit profile')?></button>
+</form>
