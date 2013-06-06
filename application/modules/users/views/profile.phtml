@@ -8,4 +8,5 @@
 <p>
     <?=__('Name')?>: <?=$user->login?><br/>
     <?=__('Status')?>: <?=$user->status?><br/>
+    <?=$this->ahref(__('Edit profile'), ['users', 'edit'])?>
 </p>
