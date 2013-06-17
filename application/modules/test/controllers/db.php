@@ -7,6 +7,11 @@
  */
 namespace Application;
 
+use \Bluz\Db\Query\SelectBuilder;
+use \Bluz\Db\Query\InsertBuilder;
+use \Bluz\Db\Query\UpdateBuilder;
+use \Bluz\Db\Query\DeleteBuilder;
+
 return
 /**
  * @TODO: need more informative example
@@ -16,9 +21,14 @@ function() {
     /**
      * @var \Bluz\Application $this
      */
+    $res = $this->getDb()->fetchObject('SELECT * FROM test LIMIT 1');
+    debug($res);
 
-    $random = array_rand(range('a', 'z', rand(1,5)));
-    shuffle($random);
+    $res = $this->getDb()->fetchObject('SELECT * FROM test LIMIT 1', [], '\\Application\\Test\\Row');
+    debug($res);
+
+    $res = $this->getDb()->fetchObject('SELECT * FROM test LIMIT 1', [], new TeRow());
+    debug($res);
 
     $res = $this->getDb()->fetchAll('SELECT * FROM test WHERE name LIKE ? LIMIT 10', ['al%']);
     debug($res);
@@ -37,7 +47,6 @@ function() {
 
     $table = Users\Table::getInstance();
     debug($table->getColumns());
-
     return false;
 };
  
