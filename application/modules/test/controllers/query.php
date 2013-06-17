@@ -23,9 +23,9 @@ function() {
      */
     debug(file_get_contents(__FILE__));
 
-    $builer = new SelectBuilder();
+    $selectBuilder = new SelectBuilder();
 
-    $build = $builer
+    $selectBuilder = $selectBuilder
         ->select('u.*', 'ua.*')
         ->from('users', 'u')
         ->leftJoin('u', 'users_actions', 'ua', 'ua.userId = u.id')
@@ -33,12 +33,44 @@ function() {
         ->orWhere('u.id IN (?)', [4, 5])
         ->andWhere('u.status = ? OR u.status = ?', 'active', 'pending')
         ->orWhere('u.login LIKE (?)', 'A%')
-
+        ->limit(5)
     ;
-    debug($build->getSql());
-    debug($build->getQuery());
-    debug($build->execute());
+    debug($selectBuilder->getSql());
+    debug($selectBuilder->getQuery());
+//    debug($selectBuilder->execute());
+//    debug($selectBuilder->execute('\\Application\\Users\\Row'));
 
+    $insertBuilder = new InsertBuilder();
+    $insertBuilder = $insertBuilder
+        ->insert('users`')
+        ->set('login', 'example')
+        ->set('email', 'example@domain.com')
+    ;
+    debug($insertBuilder->getSql());
+    debug($insertBuilder->getQuery());
+
+    $updateBuilder = new UpdateBuilder();
+    $updateBuilder = $updateBuilder
+        ->update('users')
+        ->setArray(
+            [
+                'status' => 'active',
+                'updated' => date('Y-m-d H:i:s')
+            ]
+        )
+        ->where('id = ?', 30)
+    ;
+    debug($updateBuilder->getSql());
+    debug($updateBuilder->getQuery());
+
+    $deleteBuilder = new DeleteBuilder();
+    $deleteBuilder
+        ->delete('users')
+        ->where('id = ?', 5)
+        ->limit(1)
+    ;
+    debug($deleteBuilder->getSql());
+    debug($deleteBuilder->getQuery());
     return false;
 };
  
