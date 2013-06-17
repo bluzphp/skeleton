@@ -35,7 +35,6 @@ function() {
         ->orWhere('u.login LIKE (?)', 'A%')
         ->limit(5)
     ;
-    debug($selectBuilder->getSql());
     debug($selectBuilder->getQuery());
 //    debug($selectBuilder->execute());
 //    debug($selectBuilder->execute('\\Application\\Users\\Row'));
@@ -46,7 +45,6 @@ function() {
         ->set('login', 'example')
         ->set('email', 'example@domain.com')
     ;
-    debug($insertBuilder->getSql());
     debug($insertBuilder->getQuery());
 
     $updateBuilder = new UpdateBuilder();
@@ -60,7 +58,6 @@ function() {
         )
         ->where('id = ?', 30)
     ;
-    debug($updateBuilder->getSql());
     debug($updateBuilder->getQuery());
 
     $deleteBuilder = new DeleteBuilder();
@@ -69,7 +66,6 @@ function() {
         ->where('id = ?', 5)
         ->limit(1)
     ;
-    debug($deleteBuilder->getSql());
     debug($deleteBuilder->getQuery());
     return false;
 };
