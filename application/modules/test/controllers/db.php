@@ -21,6 +21,7 @@ function() {
     /**
      * @var \Bluz\Application $this
      */
+
     $res = $this->getDb()->fetchObject('SELECT * FROM test LIMIT 1');
     debug($res);
 
