@@ -6,7 +6,7 @@ Easy to setup, easy to use. Example application
 
 ## Installation
 
-Bluz works with PHP 5.4 or later and MySQL 5.1 or later
+Bluz works with PHP 5.4 or later and MySQL 5.4 or later (please check [requirements](https://github.com/bluzphp/skeleton/wiki/Requirements))
 
 First you should clone Bluz skeleton project from github repository,
 
