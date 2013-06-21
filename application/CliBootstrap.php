@@ -53,4 +53,15 @@ class CliBootstrap extends Application
         }
         return $this->request;
     }
+
+    /**
+     * @return Application
+     */
+    public function finish()
+    {
+        if ($messages = $this->getLogger()->get('error')) {
+            echo join("\n", $messages)."\n";
+        }
+        return $this;
+    }
 }
