@@ -21,15 +21,14 @@ function($acl) use ($view) {
         /**
          * @var \Bluz\Application $this
          */
-        $this->getDb()->delete('acl_privileges');
+        $this->getDb()->query('DELETE FROM acl_privileges');
         foreach ($acl as $roleId => $modules) {
             foreach ($modules as $module => $privileges) {
                 foreach ($privileges as $privilege => $flag) {
-                    $this->getDb()->insert('acl_privileges', array(
-                        'roleId' => $roleId,
-                        'module' => $module,
-                        'privilege' => $privilege
-                    ));
+                    $this->getDb()->query(
+                        'INSERT INTO acl_privileges SET roleId = ?, module = ?, privilege = ?',
+                        array($roleId, $module, $privilege)
+                    );
                 }
             }
         }

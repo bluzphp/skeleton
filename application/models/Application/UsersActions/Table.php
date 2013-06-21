@@ -61,7 +61,11 @@ class Table extends \Bluz\Db\Table
     public function generate($userId, $action, $expired = 5)
     {
         // remove previously generated tokens
-        $this->delete(['userId' => $userId, 'action' => $action]);
+        $this->getAdapter()->delete($this->table)
+            ->where('userId = ?', $userId)
+            ->andWhere('action = ?', $action)
+            ->execute()
+        ;
 
         // create new row
         $actionRow = new Row();
