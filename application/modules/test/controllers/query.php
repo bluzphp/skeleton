@@ -7,11 +7,6 @@
  */
 namespace Application;
 
-use \Bluz\Db\Query\SelectBuilder;
-use \Bluz\Db\Query\InsertBuilder;
-use \Bluz\Db\Query\UpdateBuilder;
-use \Bluz\Db\Query\DeleteBuilder;
-
 return
 /**
  * @TODO: need more informative example
@@ -23,9 +18,7 @@ function() {
      */
     debug(file_get_contents(__FILE__));
 
-    $selectBuilder = new SelectBuilder();
-
-    $selectBuilder = $selectBuilder
+    $selectBuilder = $this->getDb()
         ->select('u.*', 'ua.*')
         ->from('users', 'u')
         ->leftJoin('u', 'users_actions', 'ua', 'ua.userId = u.id')
@@ -39,16 +32,14 @@ function() {
 //    debug($selectBuilder->execute());
 //    debug($selectBuilder->execute('\\Application\\Users\\Row'));
 
-    $insertBuilder = new InsertBuilder();
-    $insertBuilder = $insertBuilder
+    $insertBuilder = $this->getDb()
         ->insert('users`')
         ->set('login', 'example')
         ->set('email', 'example@domain.com')
     ;
     debug($insertBuilder->getQuery());
 
-    $updateBuilder = new UpdateBuilder();
-    $updateBuilder = $updateBuilder
+    $updateBuilder = $this->getDb()
         ->update('users')
         ->setArray(
             [
@@ -60,8 +51,7 @@ function() {
     ;
     debug($updateBuilder->getQuery());
 
-    $deleteBuilder = new DeleteBuilder();
-    $deleteBuilder
+    $deleteBuilder = $this->getDb()
         ->delete('users')
         ->where('id = ?', 5)
         ->limit(1)
