@@ -20,9 +20,18 @@ function() {
      */
     $this->useJson();
 
+    /**
+     * @var Users\Row $user
+     */
     $user = $this->getAuth()->getIdentity();
 
-    $images = Media\Table::findWhere(['type LIKE' => 'image/%', 'userId' => $user->id]);
+    $images = $this->getDb()
+        ->select('*')
+        ->from('media', 'm')
+        ->where('type LIKE (?)', 'image/%')
+        ->andWhere('userId = ?', $user->id)
+        ->execute('Application\\Media\\Row')
+    ;
 
     $result = array();
     foreach ($images as $image) {

@@ -1,18 +1,21 @@
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
+         stopOnFailure="false"
          colors="true"
          verbose="true"
          bootstrap="./bootstrap.php">
     <testsuites>
         <testsuite name="Application Test Suite">
-            <directory>./modules/</directory>
+            <directory>./Application/Tests/modules</directory>
         </testsuite>
     </testsuites>
     <listeners>
-        <listener class="\Application\TestListener" file="./TestListener.php"/>
+        <listener class="\Application\Tests\TestListener"/>
     </listeners>
     <filter>
         <whitelist>
+            <directory suffix=".php">../library</directory>
+            <directory suffix=".php">../models</directory>
             <directory suffix=".php">../modules</directory>
             <exclude>
                 <directory suffix=".phtml">../modules</directory>

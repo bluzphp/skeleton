@@ -1,6 +1,6 @@
 <?php
 
-namespace Application;
+namespace Application\Tests;
 
 class SignupTest extends TestCase
 {
