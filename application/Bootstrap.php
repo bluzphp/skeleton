@@ -153,4 +153,15 @@ class Bootstrap extends Application
         }
         throw new Exception('You don\'t have permission to access this page', 403);
     }
+
+    /**
+     * @return Application
+     */
+    public function finish()
+    {
+        if ($messages = $this->getLogger()->get('error')) {
+            errorLog(join("\n", $messages)."\n");
+        }
+        return $this;
+    }
 }

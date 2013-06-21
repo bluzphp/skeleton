@@ -84,6 +84,7 @@ try {
     $app->init($env)
         ->process();
     $app->output();
+    $app->finish();
 } catch (Exception $e) {
     echo "\033[41m\033[1;37mApplication Exception\033[m\033m\n";
     if (defined('DEBUG') && DEBUG && isset($e)) {

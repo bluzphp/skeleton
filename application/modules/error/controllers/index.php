@@ -20,6 +20,8 @@ function ($code, $message = '') use ($view) {
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
      */
+    $this->getLogger()->error($message);
+
     switch ($code) {
         case 400:
             $header = "400 Bad Request";
@@ -58,6 +60,7 @@ function ($code, $message = '') use ($view) {
         }
     }
 
+
     $accept = $this->getRequest()->getHeader('accept');
     $accept = substr($accept, 0, strpos($accept, ','));
 
@@ -77,6 +80,4 @@ function ($code, $message = '') use ($view) {
     $view->description = $description;
     $view->message = $message;
     $this->getLayout()->title($header);
-
-
 };

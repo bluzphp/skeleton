@@ -7,7 +7,7 @@
  */
 // Check CLI
 if (PHP_SAPI === 'cli') {
-    echo "Use `cli.php` instead of `index.php`\n";
+    echo "Use `bin/cli.php` instead of `index.php`\n";
     exit;
 }
 
@@ -16,6 +16,7 @@ require_once dirname(dirname(__FILE__)) . '/application/_loader.php';
 
 // Debug mode for development environment only
 define('DEBUG_KEY', isset($_SERVER['BLUZ_DEBUG_KEY'])? $_SERVER['BLUZ_DEBUG_KEY']:'debug');
+define('DEBUG_LOG', isset($_SERVER['BLUZ_LOG']));
 
 if (isset($_COOKIE[DEBUG_KEY])) {
     define('DEBUG', true);
@@ -30,11 +31,22 @@ if (isset($_COOKIE[DEBUG_KEY])) {
 // iframe header - prevent security issues
 header('X-Frame-Options: SAMEORIGIN');
 
+
+// Error Log
+function errorLog($message) {
+    if (defined('DEBUG_LOG')
+        && is_dir(PATH_DATA .'/logs')
+        && is_writable(PATH_DATA .'/logs')) {
+        file_put_contents(PATH_DATA .'/logs/'.(date('Y-m-d')).'.log', "\t".$message, FILE_APPEND | LOCK_EX);
+    }
+}
+
 // Error Handler
 function errorHandler() {
     if (!$e = error_get_last()) {
         return;
     }
+    errorLog($e['message'] ."\n". $e['file'] ."#". $e['line'] ."\n");
     require_once 'error.php';
 }
 
@@ -58,6 +70,8 @@ try {
     $app->init($env)
         ->process();
     $app->render();
+    $app->finish();
 } catch (Exception $e) {
+    errorLog($e->getMessage() ."\n". $e->getTraceAsString() ."\n");
     require_once 'error.php';
 }
