@@ -2,7 +2,7 @@
 /**
  *
  */
-namespace Application;
+namespace Application\Tests;
 class TestListener implements \PHPUnit_Framework_TestListener
 {
     /**

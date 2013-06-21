@@ -8,10 +8,11 @@
  * @author   Anton Shevchuk
  * @created  20.07.11 17:38
  */
-namespace Application;
+namespace Application\Tests;
 
 use Bluz\Application;
 use Bluz\Exception;
+use Bluz\Request;
 
 class BootstrapTest extends Application
 {
@@ -23,7 +24,7 @@ class BootstrapTest extends Application
     public function getRequest()
     {
         if (!$this->request) {
-            $this->request = new \Bluz\Request\HttpRequest($this->getConfigData('request'));
+            $this->request = new Request\HttpRequest($this->getConfigData('request'));
         }
         return $this->request;
     }

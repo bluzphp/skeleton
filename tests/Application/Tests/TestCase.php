@@ -8,7 +8,7 @@
  * @author   Anton Shevchuk
  * @created  04.08.11 20:01
  */
-namespace Application;
+namespace Application\Tests;
 use Bluz\Request;
 class TestCase extends \PHPUnit_Framework_TestCase
 {

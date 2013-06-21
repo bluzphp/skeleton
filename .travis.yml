@@ -13,6 +13,6 @@ before_script:
   - mysql -uroot bluz < dump.sql
 script:
   # PHPUnit tests
-  - php vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-text
+  - php vendor/bin/phpunit --configuration tests/phpunit.xml.dist --coverage-text
 notifications:
   email: false
