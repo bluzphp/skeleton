@@ -116,6 +116,8 @@ class Crud extends \Bluz\Crud\Crud
         $this->data['type'] = $file->getMimeType();
 
         // create preview
+
+        $image = new \Application\Library\Image();
     }
 
     /**

@@ -5,7 +5,7 @@
  * @author   Anton Shevchuk
  * @created  04.08.11 19:52
  */
-namespace Application;
+namespace Application\Tests;
 
 class ErrorTest extends TestCase
 {
