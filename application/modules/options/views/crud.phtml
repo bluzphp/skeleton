@@ -28,7 +28,7 @@
         <div class="control-group">
             <label class="control-label" for="value"><?=__('Description')?></label>
             <div class="controls">
-                <textarea class="input-xlarge" id="description" name="data[description]"><?=htmlentities($row->description)?></textarea>
+                <textarea class="input-xlarge" id="description" name="data[description]"><?=esc($row->description)?></textarea>
             </div>
         </div>
     </div>

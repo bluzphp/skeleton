@@ -104,9 +104,9 @@ return
                 </ol>
 <pre><code>&lt;p&gt;
 <strong>&lt;?</strong> if (<var>$question</var>) : <strong>?&gt;</strong>
-Q: <strong>&lt;?=</strong>htmlentities(<var>$question</var>)<strong>?&gt;</strong>
+Q: <strong>&lt;?=</strong>esc(<var>$question</var>)<strong>?&gt;</strong>
 <strong>&lt;?</strong> endif; <strong>?&gt;</strong>
-A: <strong>&lt;?=</strong>htmlentities(<var>$answer</var>)<strong>?&gt;</strong>
+A: <strong>&lt;?=</strong>esc(<var>$answer</var>)<strong>?&gt;</strong>
 &lt;/p&gt;
 </code></pre>
             </div>
