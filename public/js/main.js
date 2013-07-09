@@ -3,9 +3,8 @@
  */
 require.config({
     paths: {
-        'bootstrap': './vendor/bootstrap'//,
-//        'jquery.fileupload': './fileupload/jquery.fileupload',
-//        'jquery.ui.widget': './vendor/jquery.ui.widget'
+        'bootstrap': './vendor/bootstrap',
+        'jquery': './vendor/jquery'
     }
 });
 require(["jquery", "bootstrap", "bluz", "bluz.messages", "bluz.ajax"], function($, bootstrap, messages, bluz) {
