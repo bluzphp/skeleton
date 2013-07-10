@@ -38,7 +38,7 @@ function() {
         $result[] = [
             "title" => $image->title,
             "image" => $image->file,
-            "thumb" => $image->file,
+            "thumb" => $image->preview,
             "folder" => $image->module,
         ];
     }

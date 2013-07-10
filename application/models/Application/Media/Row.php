@@ -27,6 +27,7 @@
 namespace Application\Media;
 
 use Application\Users;
+use Application\Library\Image;
 
 /**
  * Options Row
@@ -45,12 +46,15 @@ use Application\Users;
  */
 class Row extends \Bluz\Db\Row
 {
+    const THUMB_HEIGHT = 120;
+    const THUMB_WIDTH = 120;
+
     /**
      * __insert
      *
      * @return void
      */
-    public function beforeInsert()
+    protected function beforeInsert()
     {
         $this->created = gmdate('Y-m-d H:i:s');
         // set default module
@@ -64,6 +68,12 @@ class Row extends \Bluz\Db\Row
             $this->userId = Users\Row::SYSTEM_USER;
         }
 
+        // create preview
+        $image = new Image($this->file);
+        $image->setHeight(self::THUMB_HEIGHT);
+        $image->setWidth(self::THUMB_WIDTH);
+
+        $this->preview = $image->generateThumbnail();
     }
 
     /**
@@ -71,7 +81,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    public function beforeUpdate()
+    protected function beforeUpdate()
     {
         $this->updated = gmdate('Y-m-d H:i:s');
     }
@@ -81,9 +91,13 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    public function afterDelete()
+    protected function afterDelete()
     {
-        @unlink(PATH_PUBLIC .'/'. $this->file);
-        @unlink(PATH_PUBLIC .'/'. $this->preview);
+        if (is_file(PATH_PUBLIC .'/'. $this->file)) {
+            @unlink(PATH_PUBLIC .'/'. $this->file);
+        }
+        if (is_file(PATH_PUBLIC .'/'. $this->preview)) {
+            @unlink(PATH_PUBLIC .'/'. $this->preview);
+        }
     }
 }
