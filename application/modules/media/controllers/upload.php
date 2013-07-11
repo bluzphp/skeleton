@@ -50,6 +50,7 @@ function() {
         $media->type = $file->getMimeType();
         $media->title = $original;
         $media->file = 'uploads/'.$userId.'/media/'.$file->getFullName();
+
         $media->preview = $media->file;
         $media->save();
 
