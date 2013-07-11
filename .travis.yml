@@ -3,6 +3,8 @@ php:
   - 5.4
   - 5.5
 before_script:
+  # ImageMagick
+  - printf "\n" | pecl install imagick
   # Composer
   - COMPOSER_ROOT_VERSION=dev-master composer --prefer-source --dev install
   - composer self-update
