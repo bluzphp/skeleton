@@ -73,10 +73,6 @@ class Image
      */
     public function __construct($file)
     {
-        if (!class_exists('\\Imagick')) {
-            throw new Exception('Extension "ImageMagick" is required for generate image thumbnails');
-        }
-
         $this->path = dirname($file);
         $this->file = substr($file, strlen($this->path)+1);
     }
@@ -119,9 +115,16 @@ class Image
             throw new Exception("Thumbnail image can't be save. Parent directory is not writable");
         }
 
-        $image = new \Imagick($this->path.'/'.$this->file);
-        $image->cropThumbnailImage($this->width, $this->height);
-        $image->writeimage($dir.'/'.$this->file);
+        if (class_exists('\\Imagick')) {
+            $image = new \Imagick($this->path.'/'.$this->file);
+            $image->cropThumbnailImage($this->width, $this->height);
+            $image->writeimage($dir.'/'.$this->file);
+        } elseif (function_exists('gd_info')) {
+            // todo
+        } else {
+            // return original file
+            return $this->path .'/'. $this->file;
+        }
 
         return $dir .'/'. $this->file;
     }
