@@ -7,11 +7,6 @@
  */
 namespace Application;
 
-use \Bluz\Db\Query\SelectBuilder;
-use \Bluz\Db\Query\InsertBuilder;
-use \Bluz\Db\Query\UpdateBuilder;
-use \Bluz\Db\Query\DeleteBuilder;
-
 return
 /**
  * @TODO: need more informative example
@@ -28,7 +23,7 @@ function() {
     $res = $this->getDb()->fetchObject('SELECT * FROM test LIMIT 1', [], '\\Application\\Test\\Row');
     debug($res);
 
-    $res = $this->getDb()->fetchObject('SELECT * FROM test LIMIT 1', [], new TeRow());
+    $res = $this->getDb()->fetchObject('SELECT * FROM test LIMIT 1', [], new Test\Row());
     debug($res);
 
     $res = $this->getDb()->fetchAll('SELECT * FROM test WHERE name LIKE ? LIMIT 10', ['al%']);
