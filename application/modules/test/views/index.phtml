@@ -34,6 +34,24 @@
 </div>
 <hr/>
 <div class="btn-group">
+    <a href="/test/ajax" id="ajax-callback" class="btn ajax">AJAX call with fired trigger</a>
+</div>
+<script>
+    require(["jquery"], function($) {
+        $(function(){
+            $('#ajax-callback')
+                .on('ajax.success', function(event, data, textStatus, jqXHR){
+                    console.log(event);
+                    console.log(data)
+                })
+                .on('ajax.error', function(event, jqXHR, textStatus, errorThrown){
+                    console.log(event);
+                });
+        });
+    });
+</script>
+<hr/>
+<div class="btn-group">
     <?= $this->ahref('Ajax + Messages', ['test', 'ajax'], ['class'=>'ajax btn', 'data-messages'=>true]);?>
     <?= $this->ahref('Ajax + Alert', ['test', 'ajax-callback'], ['class'=>'ajax btn btn-primary']);?>
     <?= $this->ahref('Ajax + Confirm', ['test', 'ajax'], ['class'=>'ajax confirm btn btn-danger']);?>

@@ -169,6 +169,12 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 					beforeSend: function () {
 						$this.addClass('disabled');
 					},
+                    success: function(data, textStatus, jqXHR) {
+                        $this.trigger('ajax.success', arguments);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        $this.trigger('ajax.error', arguments);
+                    },
 					complete: function () {
 						$this.removeClass('disabled');
 					}
@@ -188,11 +194,11 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 				var source = $this.attr('href') || $this.data('ajax-source');
 
 				if (!target) {
-					throw "Undefined 'data-target' attribute";
+					throw "Undefined 'data-ajax-target' attribute";
 				}
 
 				if (!source) {
-					throw "Undefined 'data-source' attribute (and href is missing)";
+					throw "Undefined 'data-ajax-source' attribute (and href is missing)";
 				}
 
 				$.ajax({
@@ -303,6 +309,12 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 					beforeSend: function () {
 						$this.addClass('disabled');
 					},
+                    success: function(data, textStatus, jqXHR) {
+                        $this.trigger('ajax.success', arguments);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        $this.trigger('ajax.error', arguments);
+                    },
 					complete: function () {
 						$this.removeClass('disabled');
 					}
