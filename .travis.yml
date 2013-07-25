@@ -15,8 +15,8 @@ before_script:
   - mysql -uroot bluz < dump.sql
 script:
   # Code style
-  - php vendor/bin/phpcs ./application --standard=PSR1
-  - php vendor/bin/phpcs ./application --standard=PSR2
+  - php vendor/bin/phpcs ./application --standard=PSR1 --report=summary
+  - php vendor/bin/phpcs ./application --standard=PSR2 --report=summary
   # PHPUnit tests
   - php vendor/bin/phpunit --configuration tests/phpunit.xml.dist --coverage-text
 notifications:
