@@ -67,12 +67,12 @@ class Row extends \Bluz\Auth\AbstractRowEntity
      */
     const STATUS_DELETED = 'deleted';
 
-    // system user with ID=0
+    /**
+     * system user with ID=0
+     */
     const SYSTEM_USER = 0;
 
     /**
-     * __insert
-     *
      * @return void
      */
     public function beforeInsert()
@@ -82,8 +82,6 @@ class Row extends \Bluz\Auth\AbstractRowEntity
     }
 
     /**
-     * __update
-     *
      * @return void
      */
     public function beforeUpdate()
@@ -94,7 +92,6 @@ class Row extends \Bluz\Auth\AbstractRowEntity
 
     /**
      * Can entity login
-     *
      *
      * @throws Exception
      * @throws AuthException
@@ -119,7 +116,7 @@ class Row extends \Bluz\Auth\AbstractRowEntity
     }
 
     /**
-     * Get roles
+     * Get user roles
      */
     public function getRoles()
     {
@@ -127,7 +124,7 @@ class Row extends \Bluz\Auth\AbstractRowEntity
     }
 
     /**
-     * Get privileges
+     * Get user privileges
      */
     public function getPrivileges()
     {
@@ -135,7 +132,7 @@ class Row extends \Bluz\Auth\AbstractRowEntity
     }
 
     /**
-     * hasRole
+     * Check user role
      *
      * @param $roleId
      * @return boolean
