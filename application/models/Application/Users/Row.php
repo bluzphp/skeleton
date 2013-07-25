@@ -100,13 +100,13 @@ class Row extends AbstractRowEntity
     public function tryLogin()
     {
         switch ($this->status) {
-            case self::STATUS_PENDING:
+            case (self::STATUS_PENDING):
                 throw new AuthException("Your account is pending activation");
                 break;
-            case self::STATUS_DISABLED:
+            case (self::STATUS_DISABLED):
                 throw new AuthException("Your account is disabled by administrator");
                 break;
-            case self::STATUS_ACTIVE:
+            case (self::STATUS_ACTIVE):
                 // all ok
                 break;
             default:
