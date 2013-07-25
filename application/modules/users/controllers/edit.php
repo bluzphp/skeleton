@@ -13,25 +13,21 @@ use Application\UsersActions;
 use Bluz\Request\AbstractRequest;
 
 return
-    /**
-     * @privilege ViewProfile
-     * @return \closure
-     */
-function() {
+/**
+ * @privilege ViewProfile
+ * @return \closure
+ */
+function () {
     /**
      * @var \Bluz\Application $this
      */
-
     $request = $this->getRequest();
 
     // "catch" email changed
     $email = $request->getParam('email', null);
     $userId = $request->getParam('id', null);
     if ($email) {
-        $token = UsersActions\Table::findRowWhere([
-            'userId' => $userId,
-            'code'  => $email
-        ]);
+        $token = UsersActions\Table::findRowWhere(['userId' => $userId, 'code'  => $email]);
 
         /**
          * @todo Add wrapper for cookies
@@ -55,7 +51,6 @@ function() {
     if ($request->getMethod() == AbstractRequest::METHOD_GET) {
         $request->data = array('id' => $this->getAuth()->getIdentity()->id);
     }
-
 
     $crud = new Users\CrudProfile();
     return $crud->processController();

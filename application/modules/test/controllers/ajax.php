@@ -7,14 +7,16 @@
  * @return closure
  */
 namespace Application;
+
 use Bluz;
+
 return
 /**
  * @param sd
  * @param bool $messages
  * @return \closure
  */
-function($messages = false) use ($view) {
+function ($messages = false) use ($view) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view

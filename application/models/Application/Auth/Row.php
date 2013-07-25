@@ -27,6 +27,8 @@
 namespace Application\Auth;
 
 /**
+ * Auth Row
+ *
  * @category Application
  * @package  Auth
  *

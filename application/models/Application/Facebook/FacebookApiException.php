@@ -1,5 +1,6 @@
 <?php
 namespace Application\Facebook;
+
 /**
  * Thrown when an API call returns an exception.
  *
@@ -17,7 +18,8 @@ class FacebookApiException extends \Exception
      *
      * @param array $result The result from the API server
      */
-    public function __construct($result) {
+    public function __construct($result)
+    {
         $this->result = $result;
 
         $code = isset($result['error_code']) ? $result['error_code'] : 0;
@@ -25,14 +27,18 @@ class FacebookApiException extends \Exception
         if (isset($result['error_description'])) {
             // OAuth 2.0 Draft 10 style
             $msg = $result['error_description'];
-        } else if (isset($result['error']) && is_array($result['error'])) {
-            // OAuth 2.0 Draft 00 style
-            $msg = $result['error']['message'];
-        } else if (isset($result['error_msg'])) {
-            // Rest server style
-            $msg = $result['error_msg'];
         } else {
-            $msg = 'Unknown Error. Check getResult()';
+            if (isset($result['error']) && is_array($result['error'])) {
+                // OAuth 2.0 Draft 00 style
+                $msg = $result['error']['message'];
+            } else {
+                if (isset($result['error_msg'])) {
+                    // Rest server style
+                    $msg = $result['error_msg'];
+                } else {
+                    $msg = 'Unknown Error. Check getResult()';
+                }
+            }
         }
 
         parent::__construct($msg, $code);
@@ -43,7 +49,8 @@ class FacebookApiException extends \Exception
      *
      * @return array The result from the API server
      */
-    public function getResult() {
+    public function getResult()
+    {
         return $this->result;
     }
 
@@ -53,16 +60,19 @@ class FacebookApiException extends \Exception
      *
      * @return string
      */
-    public function getType() {
+    public function getType()
+    {
         if (isset($this->result['error'])) {
             $error = $this->result['error'];
             if (is_string($error)) {
                 // OAuth 2.0 Draft 10 style
                 return $error;
-            } else if (is_array($error)) {
-                // OAuth 2.0 Draft 00 style
-                if (isset($error['type'])) {
-                    return $error['type'];
+            } else {
+                if (is_array($error)) {
+                    // OAuth 2.0 Draft 00 style
+                    if (isset($error['type'])) {
+                        return $error['type'];
+                    }
                 }
             }
         }
@@ -75,7 +85,8 @@ class FacebookApiException extends \Exception
      *
      * @return string The string representation of the error
      */
-    public function __toString() {
+    public function __toString()
+    {
         $str = $this->getType() . ': ';
         if ($this->code != 0) {
             $str .= $this->code . ': ';

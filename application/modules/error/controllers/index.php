@@ -7,12 +7,15 @@
  * @created  11.07.11 15:32
  */
 namespace Application;
+
 use Bluz;
+
 return
 /**
  * @route  /error/{$code}
  * @param  int $code
  * @param  string $message
+ *
  * @return \closure
  */
 function ($code, $message = '') use ($view) {

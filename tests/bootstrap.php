@@ -11,7 +11,6 @@ define('PATH_BLUZ', PATH_ROOT . '/vendor/bluzphp/framework/src/Bluz');
 define('PATH_PUBLIC', PATH_ROOT . '/public');
 
 // init loader
-require_once PATH_BLUZ . '/_loader.php';
 require_once PATH_VENDOR . '/autoload.php';
 
 $app = \Application\Tests\BootstrapTest::getInstance();

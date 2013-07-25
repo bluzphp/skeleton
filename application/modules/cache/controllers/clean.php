@@ -6,6 +6,7 @@
  * @created  12.06.12 12:27
  */
 namespace Application;
+
 use Bluz;
 
 return
@@ -19,7 +20,6 @@ function () {
     /**
      * @var \Bluz\Application $this
      */
-//    $userId = $this->getAuth()->getIdentity()->id;
     if ($handler = $this->getCache()->getAdapter()) {
         // routers
         $this->getCache()->delete('router:routers');

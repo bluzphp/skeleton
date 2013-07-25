@@ -46,10 +46,7 @@ class SqlGrid extends \Bluz\Grid\Grid
     {
          // Array
          $adapter = new \Bluz\Grid\Source\SqlSource();
-         $adapter->setSource('
-             SELECT *
-             FROM test
-             ');
+         $adapter->setSource('SELECT * FROM test');
 
          $this->setAdapter($adapter);
          $this->setDefaultLimit(15);

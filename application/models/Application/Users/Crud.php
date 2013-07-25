@@ -69,7 +69,7 @@ class Crud extends \Bluz\Crud\Crud
 
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             list($user, $domain) = explode("@", $email, 2);
-            if (!checkdnsrr($domain,"MX") && !checkdnsrr($domain,"A")) {
+            if (!checkdnsrr($domain, "MX") && !checkdnsrr($domain, "A")) {
                 $this->addError('email', 'Email has invalid domain name');
             }
         } else {
@@ -174,8 +174,10 @@ class Crud extends \Bluz\Crud\Crud
 
         // show notification and redirect
         $this->getApplication()->getMessages()->addSuccess(
-            "Your account has been created and an activation link has been sent to the e-mail address you entered.<br/>".
-            "Note that you must activate the account by clicking on the activation link when you get the e-mail before you can login."
+            "Your account has been created and an activation link has".
+            "been sent to the e-mail address you entered.<br/>".
+            "Note that you must activate the account by clicking on the activation link".
+            "when you get the e-mail before you can login."
         );
         $this->getApplication()->redirectTo('index', 'index');
 

@@ -6,6 +6,7 @@
  * @created  23.10.12 18:10
  */
 namespace Application;
+
 use Bluz;
 use Application\Users;
 
@@ -13,7 +14,7 @@ return
 /**
  * @return \closure
  */
-function() {
+function () {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
@@ -64,7 +65,9 @@ function() {
         throw new Exception("Invalid settings for Twitter Auth Provider", 500);
     }
     // we should retrieve
-    // oauth_token=DZmWEaKh7EqOJKScI48IgYMxYyFF2riTyD5N9wqTA&oauth_token_secret=NuAL0AvzocI9zxO7VnVPrNEcb9EW8kwpwJmcqg5pMWg&oauth_callback_confirmed=true
+    // oauth_token=DZmWEaKh7EqOJKScI48IgYMxYyFF2riTyD5N9wqTA
+    //   &oauth_token_secret=NuAL0AvzocI9zxO7VnVPrNEcb9EW8kwpwJmcqg5pMWg
+    //   &oauth_callback_confirmed=true
 
     // parse response to array
     parse_str($response, $result);

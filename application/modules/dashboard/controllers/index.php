@@ -7,6 +7,7 @@
  * @return closure
  */
 namespace Application;
+
 use Bluz;
 
 return
@@ -15,7 +16,7 @@ return
  *
  * @return \closure
  */
-function() {
+function () {
     /**
      * @var \Bluz\Application $this
      */

@@ -6,6 +6,7 @@
  * @created  12.06.12 12:27
  */
 namespace Application;
+
 use Bluz;
 
 /**
@@ -24,11 +25,13 @@ function () use ($view) {
      */
     $view->title('Routers Map');
     $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs([
-        $view->ahref('Dashboard', ['dashboard', 'index']),
-        $view->ahref('System', ['system', 'index']),
-        __('Routers Map'),
-    ]);
+    $this->getLayout()->breadCrumbs(
+        [
+            $view->ahref('Dashboard', ['dashboard', 'index']),
+            $view->ahref('System', ['system', 'index']),
+            __('Routers Map'),
+        ]
+    );
     $routers = array();
     foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {
         $module = pathinfo(dirname(dirname($file->getPathname())), PATHINFO_FILENAME);

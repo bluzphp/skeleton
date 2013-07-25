@@ -6,6 +6,7 @@
  * @created  12.06.12 12:27
  */
 namespace Application;
+
 use Bluz;
 
 return
@@ -20,10 +21,12 @@ function () use ($view) {
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs([
-        $view->ahref('Dashboard', ['dashboard', 'index']),
-        __('Cache')
-    ]);
+    $this->getLayout()->breadCrumbs(
+        [
+            $view->ahref('Dashboard', ['dashboard', 'index']),
+            __('Cache')
+        ]
+    );
 
     if ($handler = $this->getCache()->getAdapter()) {
         // TODO: show active cache handlers

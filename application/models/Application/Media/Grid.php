@@ -30,7 +30,7 @@ namespace Application\Media;
  * Grid based on SQL
  *
  * @category Application
- * @package  Options
+ * @package  Media
  */
 class Grid extends \Bluz\Grid\Grid
 {
@@ -45,11 +45,13 @@ class Grid extends \Bluz\Grid\Grid
     {
         // Array
         $adapter = new \Bluz\Grid\Source\SqlSource();
-        $adapter->setSource('
-         SELECT m.*, u.login
-         FROM media m
-         LEFT JOIN users u ON u.id = m.userId
-         ');
+        $adapter->setSource(
+            '
+             SELECT m.*, u.login
+             FROM media m
+             LEFT JOIN users u ON u.id = m.userId
+             '
+        );
 
         $this->setAdapter($adapter);
         $this->setDefaultLimit(25);

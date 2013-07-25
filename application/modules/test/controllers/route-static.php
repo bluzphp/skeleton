@@ -6,22 +6,26 @@
  * @created  12.06.12 13:08
  */
 namespace Application;
+
 use Bluz;
+
 return
 /**
  * @route /static-route/
  * @route /another-route.html
  * @return \closure
  */
-function() use ($view) {
+function () use ($view) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs([
-        $this->getLayout()->ahref('Test', ['test', 'index']),
-        'Routers Examples',
-    ]);
+    $this->getLayout()->breadCrumbs(
+        [
+            $this->getLayout()->ahref('Test', ['test', 'index']),
+            'Routers Examples',
+        ]
+    );
 
     $uri = $this->getRequest()->getRequestUri();
     echo <<<CODE

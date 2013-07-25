@@ -64,14 +64,13 @@ class Table extends \Bluz\Db\Table
         $this->getAdapter()->delete($this->table)
             ->where('userId = ?', $userId)
             ->andWhere('action = ?', $action)
-            ->execute()
-        ;
+            ->execute();
 
         // create new row
         $actionRow = new Row();
         $actionRow->userId = $userId;
         $actionRow->action = $action;
-        $random = range('a', 'z', rand(1,5));
+        $random = range('a', 'z', rand(1, 5));
         shuffle($random);
         $actionRow->code = md5($userId . $action . join('', $random) . time());
         $actionRow->expired = date('Y-m-d H:i:s', strtotime("+$expired day"));

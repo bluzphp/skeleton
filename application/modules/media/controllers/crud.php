@@ -11,17 +11,19 @@ return
  * @privilege Management
  * @return \closure
  */
-function() use ($view) {
+function () use ($view) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
      */
     $this->useLayout('dashboard.phtml');
-    $this->getLayout()->breadCrumbs([
-        $view->ahref('Dashboard', ['dashboard', 'index']),
-        $view->ahref('Media', ['media', 'grid']),
-        __('Upload')
-    ]);
+    $this->getLayout()->breadCrumbs(
+        [
+            $view->ahref('Dashboard', ['dashboard', 'index']),
+            $view->ahref('Media', ['media', 'grid']),
+            __('Upload')
+        ]
+    );
 
     $userId = $this->getAuth()->getIdentity()->id;
 

@@ -6,18 +6,22 @@
  * @created  23.08.12 13:14
  */
 namespace Application;
+
 use Bluz;
+
 return
 /**
  * @return \closure
  */
-function() {
+function () {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs([
-        $this->getLayout()->ahref('Test', ['test', 'index']),
-        'Dispatch',
-    ]);
+    $this->getLayout()->breadCrumbs(
+        [
+            $this->getLayout()->ahref('Test', ['test', 'index']),
+            'Dispatch',
+        ]
+    );
 };

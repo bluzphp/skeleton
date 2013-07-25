@@ -26,8 +26,8 @@
  */
 namespace Application\Users;
 
+use \Bluz\Auth\AbstractRowEntity;
 use \Bluz\Auth\AuthException;
-
 use Application\Exception;
 use Application\Roles;
 use Application\Privileges;
@@ -48,7 +48,7 @@ use Application\Privileges;
  * @author   Anton Shevchuk
  * @created  08.07.11 17:13
  */
-class Row extends \Bluz\Auth\AbstractRowEntity
+class Row extends AbstractRowEntity
 {
     /**
      * Pending email verification
@@ -67,12 +67,12 @@ class Row extends \Bluz\Auth\AbstractRowEntity
      */
     const STATUS_DELETED = 'deleted';
 
-    // system user with ID=0
+    /**
+     * system user with ID=0
+     */
     const SYSTEM_USER = 0;
 
     /**
-     * __insert
-     *
      * @return void
      */
     public function beforeInsert()
@@ -82,8 +82,6 @@ class Row extends \Bluz\Auth\AbstractRowEntity
     }
 
     /**
-     * __update
-     *
      * @return void
      */
     public function beforeUpdate()
@@ -95,7 +93,6 @@ class Row extends \Bluz\Auth\AbstractRowEntity
     /**
      * Can entity login
      *
-     *
      * @throws Exception
      * @throws AuthException
      * @return boolean
@@ -103,13 +100,13 @@ class Row extends \Bluz\Auth\AbstractRowEntity
     public function tryLogin()
     {
         switch ($this->status) {
-            case self::STATUS_PENDING:
+            case (self::STATUS_PENDING):
                 throw new AuthException("Your account is pending activation");
                 break;
-            case self::STATUS_DISABLED:
+            case (self::STATUS_DISABLED):
                 throw new AuthException("Your account is disabled by administrator");
                 break;
-            case self::STATUS_ACTIVE:
+            case (self::STATUS_ACTIVE):
                 // all ok
                 break;
             default:
@@ -119,7 +116,7 @@ class Row extends \Bluz\Auth\AbstractRowEntity
     }
 
     /**
-     * Get roles
+     * Get user roles
      */
     public function getRoles()
     {
@@ -127,7 +124,7 @@ class Row extends \Bluz\Auth\AbstractRowEntity
     }
 
     /**
-     * Get privileges
+     * Get user privileges
      */
     public function getPrivileges()
     {
@@ -135,7 +132,7 @@ class Row extends \Bluz\Auth\AbstractRowEntity
     }
 
     /**
-     * hasRole
+     * Check user role
      *
      * @param $roleId
      * @return boolean

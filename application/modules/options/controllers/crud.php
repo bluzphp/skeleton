@@ -9,7 +9,7 @@ return
  * @privilege Management
  * @return \closure
  */
-function() use ($view) {
+function () use ($view) {
     /**
      * @var \Bluz\Application $this
      */

@@ -6,6 +6,7 @@
  * @created  12.06.12 12:27
  */
 namespace Application;
+
 use Bluz;
 
 return
@@ -19,11 +20,13 @@ function () use ($view) {
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs([
-        $view->ahref('Dashboard', ['dashboard', 'index']),
-        $view->ahref('Cache', ['cache', 'index']),
-        'Statistics',
-    ]);
+    $this->getLayout()->breadCrumbs(
+        [
+            $view->ahref('Dashboard', ['dashboard', 'index']),
+            $view->ahref('Cache', ['cache', 'index']),
+            'Statistics',
+        ]
+    );
 
     if ($handler = $this->getCache()->getAdapter()) {
         // TODO: code for inject stats of memcached/apc/etc
@@ -32,5 +35,4 @@ function () use ($view) {
         $this->getMessages()->addNotice("Cache is disabled");
         $this->redirectTo('cache', 'index');
     }
-
 };

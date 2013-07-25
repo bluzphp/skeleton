@@ -10,9 +10,8 @@ namespace Application;
 
 return
 /**
- *
  * @return \closure
  */
-function() {
+function () {
 
 };

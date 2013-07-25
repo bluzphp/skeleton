@@ -12,12 +12,12 @@ return
  * @param array $acl
  * @return \closure
  */
-function($acl) use ($view) {
+function ($acl) use ($view) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
      */
-    if ($this->getDb()->transaction(function() use ($acl) {
+    $callback = function () use ($acl) {
         /**
          * @var \Bluz\Application $this
          */
@@ -32,7 +32,9 @@ function($acl) use ($view) {
                 }
             }
         }
-    })) {
+    };
+
+    if ($this->getDb()->transaction($callback)) {
         $this->getMessages()->addSuccess('All data was saved');
     } else {
         $this->getMessages()->addError('Internal server error');

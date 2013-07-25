@@ -15,7 +15,7 @@ return
 /**
  * @return \closure
  */
-function(){
+function () {
     /**
      * @var $this \Bluz\Application
      */
@@ -31,10 +31,12 @@ function(){
         $this->redirectTo('index', 'index');
     }
 
-    $facebook = new Facebook\Facebook(array(
-        'appId'  => $options['appId'],
-        'secret' => $options['secret'],
-    ));
+    $facebook = new Facebook\Facebook(
+        array(
+            'appId'  => $options['appId'],
+            'secret' => $options['secret'],
+        )
+    );
     /**
      * Should be return id of user, if he allows application.
      * In false returned 0.

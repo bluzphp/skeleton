@@ -4,6 +4,7 @@
  * @created  22.10.12 18:40
  */
 namespace Application;
+
 return
 /**
  * @return \closure
@@ -20,7 +21,9 @@ function () {
         <div class="widget-title">
             <span class="iconholder-left"><i class="icon-signal"></i></span>
             <h4>Users</h4>
-            <span class="iconholder-right widget-control" data-widget-control="collapse"><i class="icon-chevron-up"></i></span>
+            <span class="iconholder-right widget-control" data-widget-control="collapse">
+                <i class="icon-chevron-up"></i>
+            </span>
         </div>
         <div class="widget-content">
             <ul class="widget-stats">
@@ -47,4 +50,3 @@ function () {
     </div>
     <?php
 };
-?>
