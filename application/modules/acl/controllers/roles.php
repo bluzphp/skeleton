@@ -15,7 +15,7 @@ return
 /**
  * @return \closure
  */
-function() use ($view) {
+function () use ($view) {
     /**
      * @var \Bluz\Application $this
      */

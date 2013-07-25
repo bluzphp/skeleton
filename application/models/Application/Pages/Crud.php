@@ -55,7 +55,7 @@ class Crud extends \Bluz\Crud\Crud
         } elseif (!preg_match('/^[a-zA-Z0-9_\.\-]+$/i', $alias)) {
             $this->addError('alias', 'Alias should contains only Latin characters, dots and dashes');
         } elseif ($row = $this->getTable()->findRowWhere(['alias' => $alias])) {
-            if ($row->id != $this->getData('id')){
+            if ($row->id != $this->getData('id')) {
                 $this->addError('alias', 'Alias "'.htmlentities($alias).'" already exists');
             }
         }

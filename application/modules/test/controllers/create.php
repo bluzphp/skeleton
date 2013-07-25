@@ -15,7 +15,7 @@ return
  * @method POST
  * @return \closure
  */
-function($data = array()) use ($view) {
+function ($data = array()) use ($view) {
     /**
      * @var \Bluz\Application $this
      */

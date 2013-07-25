@@ -7,19 +7,23 @@
  * @return closure
  */
 namespace Application;
+
 use Bluz;
+
 return
 /**
  * @return \closure
  */
-function() use ($bootstrap, $view) {
+function () use ($bootstrap, $view) {
     /**
      * @var \Bluz\Application $this
      * @var \closure $bootstrap
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs([
-        $view->ahref('Test', ['test', 'index']),
-        'Markup',
-    ]);
+    $this->getLayout()->breadCrumbs(
+        [
+            $view->ahref('Test', ['test', 'index']),
+            'Markup',
+        ]
+    );
 };

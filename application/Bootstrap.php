@@ -52,76 +52,80 @@ class Bootstrap extends Application
     {
         // Profiler hooks
         if (constant('DEBUG') && DEBUG) {
-            $this->getEventManager()->attach('view', function($event){
-                /* @var \Bluz\EventManager\Event $event */
-                $this->log('view');
-            });
-            $this->getEventManager()->attach('layout:header', function($event){
-                /* @var \Bluz\View\Layout $layout */
-                /* @var \Bluz\EventManager\Event $event */
-                $layout = $event->getParam('layout');
+            $this->getEventManager()->attach(
+                'view',
+                function ($event) {
+                    /* @var \Bluz\EventManager\Event $event */
+                    $this->log('view');
+                }
+            );
+            $this->getEventManager()->attach(
+                'layout:header',
+                function ($event) {
+                    /* @var \Bluz\View\Layout $layout */
+                    /* @var \Bluz\EventManager\Event $event */
+                    $layout = $event->getParam('layout');
 
-                // add debug.css
-                echo $layout->style('/css/debug.css');
+                    // add debug.css
+                    echo $layout->style('/css/debug.css');
 
-                /* @var \Bluz\EventManager\Event $event */
-                $this->log('layout:header');
-            });
-            $this->getEventManager()->attach('layout:content', function($event){
-                /* @var \Bluz\EventManager\Event $event */
-                $this->log('layout:content');
-            });
-            $this->getEventManager()->attach('layout:footer', function($event){
-                /* @var \Bluz\EventManager\Event $event */
-                $this->log('layout:footer');
-
-                $version = null;
-                $comment = null;
-
-                /*$version = shell_exec('hg tip --style compact');
-                if ($version) {
-                    list($version, $comment) = explode("\n", $version, 2);
-                    $comment = trim($comment);
-                }*/
-
-                ?>
-                    <section class="debug-panel">
-                        <section class="debug-panel-header">
-                            <h3 class="debug-panel-title">
-                                Debug Panel
-                                <span class="badge pull-right"><?php printf("%f :: %s kb", microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], ceil((memory_get_usage()/1024)))?></span>
-                            </h3>
-                            <?php if ($version) :?>
-                            <code class="debug-panel-version">
-                                <?= $this->getLayout()->ahref(
-                                        $version, ['index', 'changelog', array()],
-                                        array('title' => $comment)
-                                    )
-                                ?>
-                            </code>
-                            <?php endif ?>
+                    /* @var \Bluz\EventManager\Event $event */
+                    $this->log('layout:header');
+                }
+            );
+            $this->getEventManager()->attach(
+                'layout:content',
+                function ($event) {
+                    /* @var \Bluz\EventManager\Event $event */
+                    $this->log('layout:content');
+                }
+            );
+            $this->getEventManager()->attach(
+                'layout:footer',
+                function ($event) {
+                    /* @var \Bluz\EventManager\Event $event */
+                    $this->log('layout:footer');
+                    ?>
+                        <section class="debug-panel">
+                            <section class="debug-panel-header">
+                                <h3 class="debug-panel-title">
+                                    Debug Panel
+                                    <span class="badge pull-right"><?php
+                                        printf(
+                                            "%f :: %s kb",
+                                            microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
+                                            ceil((memory_get_usage()/1024))
+                                        ) ?></span>
+                                </h3>
+                            </section>
+                            <section class="debug-panel-content">
+                                <pre><?php print_r($this->getLogger()->get('info'));?></pre>
+                            </section>
                         </section>
-                        <section class="debug-panel-content">
-                            <pre><?php print_r($this->getLogger()->get('info'));?></pre>
-                        </section>
-                    </section>
-                <?php
-            });
+                    <?php
+                }
+            );
         }
 
         // dispatch hook for acl realization
-        $this->getEventManager()->attach('dispatch', function($event) {
-            /* @var \Bluz\EventManager\Event $event */
-            $eventParams = $event->getParams();
-            $this->log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['controller']);
-        });
+        $this->getEventManager()->attach(
+            'dispatch',
+            function ($event) {
+                /* @var \Bluz\EventManager\Event $event */
+                $eventParams = $event->getParams();
+                $this->log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['controller']);
+            }
+        );
 
         // widget hook for acl realization
-        $this->getEventManager()->attach('widget', function($event) {
-            /* @var \Bluz\EventManager\Event $event */
-            $eventParams = $event->getParams();
-            $this->log('bootstrap:widget: '.$eventParams['module'].'/'.$eventParams['widget']);
-        });
+        $this->getEventManager()->attach(
+            'widget',
+            function ($event) {
+                /* @var \Bluz\EventManager\Event $event */
+                $eventParams = $event->getParams();
+                $this->log('bootstrap:widget: '.$eventParams['module'].'/'.$eventParams['widget']);
+            }
+        );
 
 
         $res = parent::init($environment);

@@ -15,10 +15,10 @@ return
  * @custom First
  * @return \closure
  */
-function() use ($view) {
+function () use ($view) {
     /**
      * @var \Bluz\Application $this
-     * @var \Bluz\View $view
+     * @var \Bluz\View\View $view
      */
     $view->reflectionData = $this->reflection(__FILE__);
 };

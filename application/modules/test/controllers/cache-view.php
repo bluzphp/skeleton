@@ -7,14 +7,16 @@
  * @return closure
  */
 namespace Application;
+
 use Bluz;
+
 return
 /**
  * @cache 2
  * @param integer $a
  * @return \closure
  */
-function($a = 0) use ($view) {
+function ($a = 0) use ($view) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view

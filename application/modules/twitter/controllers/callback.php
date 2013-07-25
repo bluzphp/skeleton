@@ -6,6 +6,7 @@
  * @created  23.10.12 18:10
  */
 namespace Application;
+
 use Bluz;
 use Application\Users;
 
@@ -13,7 +14,7 @@ return
 /**
  * @return \closure
  */
-function() {
+function () {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view

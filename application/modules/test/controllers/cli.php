@@ -6,13 +6,15 @@
  * @created  18.11.12 19:41
  */
 namespace Application;
+
 use Bluz;
+
 return
 /**
  * @param bool $flag
  * @return \closure
  */
-function($flag = false) use ($view) {
+function ($flag = false) use ($view) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view

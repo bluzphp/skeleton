@@ -17,7 +17,7 @@ return
  * @privilege Upload
  * @return \closure
  */
-function() {
+function () {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\Request\HttpFileUpload $fileUpload

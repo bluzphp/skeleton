@@ -7,14 +7,16 @@
  * @return closure
  */
 namespace Application;
+
 use Bluz;
+
 return
 /**
  * @param $login
  * @param $password
  * @return \closure
  */
-function() use ($view) {
+function () use ($view) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view

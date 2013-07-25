@@ -16,16 +16,18 @@ return
  * @privilege Management
  * @return \closure
  */
-function() use ($view, $module, $controller) {
+function () use ($view, $module, $controller) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs([
-        $view->ahref('Dashboard', ['dashboard', 'index']),
-        __('Users')
-    ]);
+    $this->getLayout()->breadCrumbs(
+        [
+            $view->ahref('Dashboard', ['dashboard', 'index']),
+            __('Users')
+        ]
+    );
 
     $grid = new Users\Grid();
     $grid->setModule($module);

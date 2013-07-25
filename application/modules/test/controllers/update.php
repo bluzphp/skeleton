@@ -17,7 +17,7 @@ return
  * @method PUT
  * @return \closure
  */
-function($id, $data = array()) use ($view) {
+function ($id, $data = array()) use ($view) {
     /**
      * @var \Bluz\Application $this
      */

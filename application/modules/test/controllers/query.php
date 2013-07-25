@@ -12,7 +12,7 @@ return
  * @TODO: need more informative example
  * @return \closure
  */
-function() {
+function () {
     /**
      * @var \Bluz\Application $this
      */
@@ -26,17 +26,15 @@ function() {
         ->orWhere('u.id IN (?)', [4, 5])
         ->andWhere('u.status = ? OR u.status = ?', 'active', 'pending')
         ->orWhere('u.login LIKE (?)', 'A%')
-        ->limit(5)
-    ;
+        ->limit(5);
+
     debug($selectBuilder->getQuery());
-//    debug($selectBuilder->execute());
-//    debug($selectBuilder->execute('\\Application\\Users\\Row'));
 
     $insertBuilder = $this->getDb()
         ->insert('users`')
         ->set('login', 'example')
-        ->set('email', 'example@domain.com')
-    ;
+        ->set('email', 'example@domain.com');
+
     debug($insertBuilder->getQuery());
 
     $updateBuilder = $this->getDb()
@@ -47,16 +45,16 @@ function() {
                 'updated' => date('Y-m-d H:i:s')
             ]
         )
-        ->where('id = ?', 30)
-    ;
+        ->where('id = ?', 30);
+
     debug($updateBuilder->getQuery());
 
     $deleteBuilder = $this->getDb()
         ->delete('users')
         ->where('id = ?', 5)
-        ->limit(1)
-    ;
+        ->limit(1);
+
     debug($deleteBuilder->getQuery());
+
     return false;
 };
- 

@@ -6,6 +6,7 @@
  * @created  12.06.12 13:08
  */
 namespace Application;
+
 use Bluz;
 
 return
@@ -16,15 +17,17 @@ return
  * @param string $c
  * @return \closure
  */
-function($a, $b, $c) {
+function ($a, $b, $c) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs([
-        $this->getLayout()->ahref('Test', ['test', 'index']),
-        'Routers Examples',
-    ]);
+    $this->getLayout()->breadCrumbs(
+        [
+            $this->getLayout()->ahref('Test', ['test', 'index']),
+            'Routers Examples',
+        ]
+    );
     $uri = $this->getRequest()->getRequestUri();
     echo <<<CODE
 <h4>URL: $uri</h4>

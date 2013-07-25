@@ -10,14 +10,14 @@
 namespace Application;
 
 return
+/**
+ * @return \closure
+ */
+function ($template, $vars = []) use ($view) {
     /**
-     * @return \closure
+     * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
      */
-    function ($template, $vars = []) use ($view) {
-        /**
-         * @var \Bluz\Application $this
-         * @var \Bluz\View\View $view
-         */
-        $view->setTemplate('mail/' . $template . '.phtml');
-        return $vars;
-    };
+    $view->setTemplate('mail/' . $template . '.phtml');
+    return $vars;
+};

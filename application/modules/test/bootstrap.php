@@ -7,15 +7,15 @@
  * @return closure
  */
 namespace Application;
+
 use Bluz;
 
 return
 /**
  * @return \closure
  */
-function ($a)  {
+function ($a) {
     /* @var Bluz\Application $this */
     $this->getLayout()->title("Test", \Bluz\View\View::POS_APPEND);
     return $a*2;
 };
- 

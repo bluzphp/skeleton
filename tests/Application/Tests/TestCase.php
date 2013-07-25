@@ -9,7 +9,9 @@
  * @created  04.08.11 20:01
  */
 namespace Application\Tests;
+
 use Bluz\Request;
+
 class TestCase extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -27,23 +29,26 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $this->app = BootstrapTest::getInstance();
         $this->app->init('testing');
 
-        $this->_reset();
+        $this->reset();
     }
 
-    private function _reset()
+    /**
+     * Reset layout and Request
+     */
+    private function reset()
     {
         $this->app->resetLayout();
 
         $this->app->setRequest(new \Bluz\Request\HttpRequest());
     }
 
-    /*
+    /**
      * dispatch URI
-     * @param array $params
      * @param string $uri
-     *
-     * */
-    protected  function dispatchUri($uri,  array $params = null)
+     * @param array $params
+     * @return mixed
+     */
+    protected function dispatchUri($uri, array $params = null)
     {
         $this->app->setRequest(new Request\HttpRequest());
         $this->app->getRequest()->setOptions($this->app->getConfigData('request'));

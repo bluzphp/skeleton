@@ -39,7 +39,6 @@ use Application\Exception;
  */
 class Image
 {
-
     /**
      * Full path to file
      *

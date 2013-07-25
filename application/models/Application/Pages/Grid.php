@@ -43,10 +43,7 @@ class Grid extends \Bluz\Grid\Grid
     {
          // Array
          $adapter = new \Bluz\Grid\Source\SqlSource();
-         $adapter->setSource('
-             SELECT *
-             FROM pages
-             ');
+         $adapter->setSource('SELECT * FROM pages');
 
          $this->setAdapter($adapter);
          $this->setDefaultLimit(25);

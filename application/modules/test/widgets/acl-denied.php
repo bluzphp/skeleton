@@ -14,7 +14,7 @@ return
  * @privilege Another
  * @return \closure
  */
-function() {
+function () {
     /**
      * @var \Bluz\Application $this
      */

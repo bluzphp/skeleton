@@ -37,5 +37,4 @@ namespace Application\UsersRoles;
  */
 class Row extends \Bluz\Db\Row
 {
-
 }

@@ -13,8 +13,7 @@ return
  * @param string $alias
  * @return \closure
  */
-function($alias) use ($view) {
-
+function ($alias) use ($view) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
