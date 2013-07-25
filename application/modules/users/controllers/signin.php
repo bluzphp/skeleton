@@ -12,8 +12,8 @@ use Application\Auth;
 
 return
 /**
- * @param $login
- * @param $password
+ * @param string $login
+ * @param string $password
  * @return \closure
  */
 function ($login, $password) use ($view) {

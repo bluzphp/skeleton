@@ -13,6 +13,7 @@ return
 /**
  * @method GET
  * @method POST
+ * @param array $data
  * @return \closure
  */
 function ($data = array()) use ($view) {

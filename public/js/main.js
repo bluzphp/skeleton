@@ -27,5 +27,11 @@ require(["jquery", "bootstrap", "bluz", "bluz.messages", "bluz.ajax"], function(
         }
 
         bluz.ready();
+
+        // remove FB API's anchor #_=_
+        if (window.location.hash == '#_=_') {
+            window.location.hash = '';
+            history.pushState('', document.title, window.location.pathname);
+        }
     });
 });

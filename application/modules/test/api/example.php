@@ -9,7 +9,7 @@ namespace Application;
 
 return
 /**
- * @param integer $num
+ * @param int $num
  * @return \closure
  */
 function ($num) {

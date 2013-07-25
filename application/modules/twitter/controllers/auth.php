@@ -76,7 +76,7 @@ function () {
     if (isset($result['oauth_token'])) {
         // save secret token to session
         $this->getSession()->oauthTokenSecret = $result['oauth_token_secret'];
-        $this->redirect('https://api.twitter.com/oauth/authorize?oauth_token='.$result['oauth_token']);
+        $this->redirect('https://api.twitter.com/oauth/authenticate?oauth_token='.$result['oauth_token']);
     } else {
         throw new Exception("Invalid response", 500);
     }

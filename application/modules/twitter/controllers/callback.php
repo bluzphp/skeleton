@@ -132,7 +132,7 @@ function () {
 
         $row = new Auth\Row();
         $row->userId = $user->id;
-        $row->provider = 'twitter';
+        $row->provider = Auth\Row::PROVIDER_TWITTER;
         $row->foreignKey = $result['user_id'];
         $row->token = $result['oauth_token'];
         $row->tokenSecret = $result['oauth_token_secret'];

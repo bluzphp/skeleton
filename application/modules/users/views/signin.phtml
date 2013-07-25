@@ -17,7 +17,10 @@
         </label>
     </div>
     <input type="submit" value="<?=__('Sign In')?>" class="btn btn-primary"/>
-    <?=$this->widget('twitter', 'auth')?>
     <a href="<?=$this->url('users', 'signup')?>" title="Sign Up" class="btn right"><?=__('Sign Up')?></a>
+    <div class="text-center">
+        <?=$this->widget('twitter', 'auth')?>
+        <?=$this->widget('facebook', 'auth')?>
+    </div>
 </form>
 <a href="<?=$this->url('users', 'recovery')?>"><?=__('Forgot your password?')?></a>

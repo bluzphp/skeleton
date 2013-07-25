@@ -9,6 +9,7 @@ namespace Application;
 
 return
 /**
+ * @param string $email
  * @return \closure
  */
 function ($email = "no-reply@nixsolutions.com") use ($view) {

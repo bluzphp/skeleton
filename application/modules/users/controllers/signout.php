@@ -12,8 +12,6 @@ use Bluz;
 
 return
 /**
- * @param $login
- * @param $password
  * @return \closure
  */
 function () use ($view) {

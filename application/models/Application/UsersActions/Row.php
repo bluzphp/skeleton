@@ -44,6 +44,7 @@ namespace Application\UsersActions;
 class Row extends \Bluz\Db\Row
 {
     const ACTION_ACTIVATION = 'activation';
+    const ACTION_CHANGE_EMAIL = 'email';
     const ACTION_RECOVERY = 'recovery';
     const ACTION_REMOVE = 'remove';
 }

@@ -4,7 +4,7 @@
  *
  * @category Application
  *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  11.12.12 13:03
  */
 namespace Application;
@@ -13,6 +13,7 @@ use Application\Users;
 
 return
 /**
+ * @param string $email
  * @return \closure
  */
 function ($email = null) use ($view) {

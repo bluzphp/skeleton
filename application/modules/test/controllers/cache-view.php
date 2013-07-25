@@ -13,7 +13,7 @@ use Bluz;
 return
 /**
  * @cache 2
- * @param integer $a
+ * @param int $a
  * @return \closure
  */
 function ($a = 0) use ($view) {
