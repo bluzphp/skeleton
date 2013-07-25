@@ -31,10 +31,10 @@ use \Bluz\Crud\ValidationException;
 use \Bluz\Crud\CrudException;
 
 /**
- * Crud
+ * Media Crud
  *
  * @category Application
- * @package  Options
+ * @package  Media
  */
 class Crud extends \Bluz\Crud\Crud
 {
@@ -95,7 +95,7 @@ class Crud extends \Bluz\Crud\Crud
 
         if (!$file) {
             $this->addError('file', "Sorry, I can't receive file");
-        } elseif($file->getErrorCode() != UPLOAD_ERR_OK) {
+        } elseif ($file->getErrorCode() != UPLOAD_ERR_OK) {
             switch ($file->getErrorCode()) {
                 case UPLOAD_ERR_NO_FILE:
                     $this->addError('file', 'Please choose file for upload');
@@ -106,7 +106,7 @@ class Crud extends \Bluz\Crud\Crud
         $this->validate();
 
         // prepare files for store
-        $fileName = preg_replace('/([^a-z0-9])+/i', '-',strtolower($this->data['title']));
+        $fileName = preg_replace('/([^a-z0-9])+/i', '-', strtolower($this->data['title']));
 
         // process file
         $file->setName($fileName);

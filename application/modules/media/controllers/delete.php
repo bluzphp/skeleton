@@ -13,7 +13,7 @@ return
 /**
  * @return \closure
  */
-function($path) {
+function ($path) {
     /**
      * @var \Bluz\Application $this
      * @var Media\Table $mediaTable

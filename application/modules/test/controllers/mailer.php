@@ -12,7 +12,7 @@ return
  * @param string $email
  * @return \closure
  */
-function($email = "no-reply@nixsolutions.com") use ($view) {
+function ($email = "no-reply@nixsolutions.com") use ($view) {
     /**
      * @var \Bluz\Application $this
      */
@@ -31,4 +31,3 @@ function($email = "no-reply@nixsolutions.com") use ($view) {
     }
     $view->email = $email;
 };
- 

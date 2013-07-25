@@ -30,7 +30,10 @@ use Application\Users;
 use Application\Library\Image;
 
 /**
- * Options Row
+ * Media Row
+ *
+ * @category Application
+ * @package  Media
  *
  * @property integer $id
  * @property integer $userId
@@ -41,8 +44,6 @@ use Application\Library\Image;
  * @property string $preview
  * @property string $created
  * @property string $updated
- * @category Application
- * @package  Options
  */
 class Row extends \Bluz\Db\Row
 {

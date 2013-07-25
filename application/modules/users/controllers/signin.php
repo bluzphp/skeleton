@@ -6,15 +6,17 @@
  * @created  20.07.11 18:39
  */
 namespace Application;
+
 use Bluz;
 use Application\Auth;
+
 return
 /**
  * @param string $login
  * @param string $password
  * @return \closure
  */
-function($login, $password) use ($view) {
+function ($login, $password) use ($view) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
@@ -34,12 +36,6 @@ function($login, $password) use ($view) {
 
             // login/password
             Auth\Table::getInstance()->authenticateEquals($login, $password);
-
-            // ldap
-//            $ldapAuth = $this->api('ldap', 'auth');
-//            if (!$ldapAuth($login, $password)) {
-//                throw new Exception('Wrong credentials');
-//            }
 
             $this->getMessages()->addNotice('You are signed');
 

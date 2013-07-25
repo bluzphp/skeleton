@@ -50,6 +50,9 @@ function errorHandler() {
     require_once 'error.php';
 }
 
+// Shutdown function for handle critical and other errors
+register_shutdown_function('errorHandler');
+
 // Try to run application
 try {
 

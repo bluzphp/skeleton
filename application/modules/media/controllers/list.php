@@ -13,7 +13,7 @@ return
 /**
  * @return \closure
  */
-function() {
+function () {
     /**
      * @var \Bluz\Application $this
      * @var Media\Table $mediaTable
@@ -30,8 +30,7 @@ function() {
         ->from('media', 'm')
         ->where('type LIKE (?)', 'image/%')
         ->andWhere('userId = ?', $user->id)
-        ->execute('Application\\Media\\Row')
-    ;
+        ->execute('Application\\Media\\Row');
 
     $result = array();
     foreach ($images as $image) {

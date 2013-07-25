@@ -16,7 +16,7 @@ return
  * @param bool $remember
  * @return \closure
  */
-function($sex = false, $car = 'none', $remember = false) use ($view) {
+function ($sex = false, $car = 'none', $remember = false) use ($view) {
     /**
      * @var \Bluz\Application $this
      */

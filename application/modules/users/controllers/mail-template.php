@@ -4,22 +4,22 @@
  *
  * @category Application
  *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  06.12.12 12:43
  */
 namespace Application;
 
 return
+/**
+ * @param string $template
+ * @param array $vars
+ * @return \closure
+ */
+function ($template, $vars = []) use ($view) {
     /**
-     * @param string $template
-     * @param array $vars
-     * @return \closure
+     * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
      */
-    function ($template, $vars = []) use ($view) {
-        /**
-         * @var \Bluz\Application $this
-         * @var \Bluz\View\View $view
-         */
-        $view->setTemplate('mail/' . $template . '.phtml');
-        return $vars;
-    };
+    $view->setTemplate('mail/' . $template . '.phtml');
+    return $vars;
+};

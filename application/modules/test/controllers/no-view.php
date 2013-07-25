@@ -6,11 +6,14 @@
  * @created  22.08.12 17:14
  */
 namespace Application;
+
 use Bluz;
+
 return
 /**
  * @return \closure
  */
-function() {
-    return function(){};
+function () {
+    return function () {
+    };
 };

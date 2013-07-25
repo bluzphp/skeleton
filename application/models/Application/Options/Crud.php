@@ -59,8 +59,11 @@ class Crud extends \Bluz\Crud\Crud
 
         // unique validator
         if ($row = $this->getTable()->findRowWhere(['name' => $name, 'namespace' => $namespace])) {
-            if ($row->id != $this->getData('id')){
-                $this->addError('name', 'Name "'.htmlentities($name).'" already exists in namespace "'.htmlentities($namespace).'"');
+            if ($row->id != $this->getData('id')) {
+                $this->addError(
+                    'name',
+                    'Name "'.htmlentities($name).'" already exists in namespace "'.htmlentities($namespace).'"'
+                );
             }
         }
 

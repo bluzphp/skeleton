@@ -15,7 +15,7 @@ return
  * @param int $id
  * @return \closure
  */
-function($id) use ($view) {
+function ($id) use ($view) {
     /**
      * @var \Bluz\Application $this
      */

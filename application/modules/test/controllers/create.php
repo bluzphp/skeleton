@@ -16,7 +16,7 @@ return
  * @param array $data
  * @return \closure
  */
-function($data = array()) use ($view) {
+function ($data = array()) use ($view) {
     /**
      * @var \Bluz\Application $this
      */

@@ -11,15 +11,17 @@ return
  *
  * @return \closure
  */
-function() use ($view) {
+function () use ($view) {
     /**
      * @var \Bluz\Application $this
      */
     $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs([
-        $view->ahref('Dashboard', ['dashboard', 'index']),
-        __('ACL')
-    ]);
+    $this->getLayout()->breadCrumbs(
+        [
+            $view->ahref('Dashboard', ['dashboard', 'index']),
+            __('ACL')
+        ]
+    );
 
     $set = array();
     foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {

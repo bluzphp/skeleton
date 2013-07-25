@@ -44,7 +44,6 @@ use Application\UsersActions;
  */
 class CrudProfile extends \Bluz\Crud\Crud
 {
-
     /**
      * @param array $formData           Data from form
      * @param string $inputPassword     Encrypted password, which user enter
@@ -90,7 +89,7 @@ class CrudProfile extends \Bluz\Crud\Crud
             }
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 list($user, $domain) = explode("@", $email, 2);
-                if (!checkdnsrr($domain,"MX") && !checkdnsrr($domain,"A")) {
+                if (!checkdnsrr($domain, "MX") && !checkdnsrr($domain, "A")) {
                     $this->addError('email', 'Email has invalid domain name');
                 }
             } else {
@@ -137,10 +136,12 @@ class CrudProfile extends \Bluz\Crud\Crud
         }
 
         // if user changing email now, show him a hint
-        $changeEmail = UsersActions\Table::findRowWhere([
-            'userId' => $row->id,
-            'action' => UsersActions\Row::ACTION_CHANGE_EMAIL
-        ]);
+        $changeEmail = UsersActions\Table::findRowWhere(
+            [
+                'userId' => $row->id,
+                'action' => UsersActions\Row::ACTION_CHANGE_EMAIL
+            ]
+        );
         if ($changeEmail) {
             $row->changeEmail = true;
         }
@@ -171,7 +172,8 @@ class CrudProfile extends \Bluz\Crud\Crud
             $newPassword = call_user_func(
                 $options['encryptFunction'],
                 $this->data['new_password'],
-                $authRow->tokenSecret);
+                $authRow->tokenSecret
+            );
             $authRow->token = $newPassword;
             $authRow->save();
             $application->getMessages()->addSuccess('Password has been changed');
@@ -191,7 +193,8 @@ class CrudProfile extends \Bluz\Crud\Crud
             $actionRow = UsersActions\Table::getInstance()->generate(
                 $userId,
                 UsersActions\Row::ACTION_CHANGE_EMAIL,
-                5);
+                5
+            );
 
             $changeUrl = $router->getFullUrl(
                 'users',

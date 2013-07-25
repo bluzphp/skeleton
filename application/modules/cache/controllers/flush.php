@@ -6,6 +6,7 @@
  * @created  12.06.12 12:27
  */
 namespace Application;
+
 use Bluz;
 
 return

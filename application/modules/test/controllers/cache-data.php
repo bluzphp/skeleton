@@ -6,6 +6,7 @@
  * @created  08.07.11 13:23
  */
 namespace Application;
+
 use Bluz;
 
 return
@@ -16,15 +17,17 @@ return
  *
  * @return \closure
  */
-function($id = null) use ($bootstrap, $view) {
+function ($id = null) use ($bootstrap, $view) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs([
-        $view->ahref('Test', ['test', 'index']),
-        'Cache Data',
-    ]);
+    $this->getLayout()->breadCrumbs(
+        [
+            $view->ahref('Test', ['test', 'index']),
+            'Cache Data',
+        ]
+    );
     /* @var \Bluz\Application $this */
     $this->getLayout()->title('Check cache');
 

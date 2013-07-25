@@ -26,7 +26,6 @@
  */
 namespace Application\Options;
 
-
 /**
  * Grid based on SQL
  *
@@ -46,10 +45,7 @@ class Grid extends \Bluz\Grid\Grid
     {
          // Array
          $adapter = new \Bluz\Grid\Source\SqlSource();
-         $adapter->setSource('
-             SELECT *
-             FROM options
-             ');
+         $adapter->setSource('SELECT * FROM options');
 
          $this->setAdapter($adapter);
          $this->setDefaultLimit(25);

@@ -4,6 +4,7 @@
  * @created  06.07.11 18:39
  */
 namespace Application;
+
 return
 /**
  * @return \closure

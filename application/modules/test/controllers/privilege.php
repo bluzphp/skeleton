@@ -14,10 +14,9 @@ return
  * @privilege Denied
  * @return \closure
  */
-function() use ($view) {
+function () use ($view) {
     /**
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
      */
-          
 };

@@ -32,8 +32,9 @@ use Bluz\Auth\AuthException;
 use Application\Exception;
 use Application\Users;
 
-
 /**
+ * Auth Table
+ *
  * @category Application
  * @package  Auth
  *
@@ -65,10 +66,7 @@ class Table extends \Bluz\Db\Table
      */
     public function getAuthRow($provider, $foreignKey)
     {
-        return self::findRow([
-            'provider' => $provider,
-            'foreignKey' => $foreignKey
-        ]);
+        return self::findRow(['provider' => $provider, 'foreignKey' => $foreignKey]);
     }
 
     /**
@@ -100,7 +98,7 @@ class Table extends \Bluz\Db\Table
         }
 
         // encrypt password
-        $password = call_user_func($options['encryptFunction'],  $password, $authRow->tokenSecret);
+        $password = call_user_func($options['encryptFunction'], $password, $authRow->tokenSecret);
 
         if ($password != $authRow->token) {
             throw new AuthException("Wrong password");
@@ -150,7 +148,7 @@ class Table extends \Bluz\Db\Table
         $row->tokenSecret = $secret;
 
         // encrypt password and save as token
-        $row->token = call_user_func($options['encryptFunction'],  $password, $secret);
+        $row->token = call_user_func($options['encryptFunction'], $password, $secret);
 
         $row->save();
 

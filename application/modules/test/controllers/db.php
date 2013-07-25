@@ -12,7 +12,7 @@ return
  * @TODO: need more informative example
  * @return \closure
  */
-function() {
+function () {
     /**
      * @var \Bluz\Application $this
      */
@@ -45,4 +45,3 @@ function() {
     debug($table->getColumns());
     return false;
 };
- 

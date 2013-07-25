@@ -30,7 +30,7 @@ namespace Application\Media;
  * Table
  *
  * @category Application
- * @package  Options
+ * @package  Media
  */
 class Table extends \Bluz\Db\Table
 {
