@@ -26,8 +26,8 @@
  */
 namespace Application\Users;
 
+use \Bluz\Auth\AbstractRowEntity;
 use \Bluz\Auth\AuthException;
-
 use Application\Exception;
 use Application\Roles;
 use Application\Privileges;
@@ -48,7 +48,7 @@ use Application\Privileges;
  * @author   Anton Shevchuk
  * @created  08.07.11 17:13
  */
-class Row extends \Bluz\Auth\AbstractRowEntity
+class Row extends AbstractRowEntity
 {
     /**
      * Pending email verification
