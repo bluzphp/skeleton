@@ -38,6 +38,5 @@ function () use ($view) {
         // all ok, go to grid
         $this->redirectTo('media', 'grid');
     }
-
     return $result;
 };

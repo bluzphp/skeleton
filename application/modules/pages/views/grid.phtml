@@ -34,8 +34,8 @@
             <?php foreach($grid->getData() as $row) : ?>
             <tr>
                 <td><?=$row['id']?></td>
-                <td><a href="<?=$this->url('pages', 'index', ['alias'=>$row['alias']])?>"><?=$row['title']?></a></td>
-                <td><?=$row['description']?></td>
+                <td><a href="<?=$this->url('pages', 'index', ['alias'=>$row['alias']])?>"><?=esc($row['title'])?></a></td>
+                <td><?=esc($row['description'])?></td>
                 <td><?=$row['created']?></td>
                 <td><?=$row['updated']?></td>
                 <td class="controls">
