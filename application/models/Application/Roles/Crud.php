@@ -50,7 +50,7 @@ class Crud extends \Bluz\Crud\Crud
         if (empty($name)) {
             $this->addError('name', 'Role name can\'t be empty');
         }
-        if (!preg_match('/[a-zA-Z0-9-_]+/', $name)) {
+        if (!preg_match('/^[a-zA-Z0-9-_]+$/', $name)) {
             $this->addError('name', 'Name should contains only Latin characters');
         }
     }

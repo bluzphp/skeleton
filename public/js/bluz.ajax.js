@@ -61,25 +61,6 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                     } else if (callback) {
                         callback();
                     }
-
-                    // callback to AMD
-                    if (data.callback !== undefined && (data.callback.substring(0, 5) == 'bluz.')) {
-                        var amd = data.callback.split('.');
-                        if (amd.length !== 3) {
-                            bluz.log('Response consist unsupported callback call: ' + data.callback);
-                            return;
-                        }
-                        require([amd[0]+'.'+amd[1]], function(module){
-                            module[amd[2]](data);
-                        });
-                        return;
-                    }
-
-                    // callback to global scope
-                    if (data.callback !== undefined && $.isFunction(window[data.callback])) {
-                        window[data.callback](data);
-                        return;
-                    }
                 }
             })
             .ajaxError(function (event, jqXHR, options, thrownError) {
@@ -299,7 +280,6 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 				var method = $this.attr('method');
 				var type = $this.data('ajax-type');
 				var data = $this.serializeArray();
-                    data.push({name:'_formId', value:$this.attr('id')});
 
 				$.ajax({
 					url: $this.attr('action'),
@@ -311,6 +291,12 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 					},
                     success: function(data, textStatus, jqXHR) {
                         $this.trigger('ajax.success', arguments);
+
+                        if (data.errors !== undefined) {
+                            require(['bluz.validate'], function(validate) {
+                                validate.notices($this, data);
+                            });
+                        }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         $this.trigger('ajax.error', arguments);
