@@ -24,9 +24,9 @@ function ($alias) use ($view) {
     if (!$page) {
         throw new Exception('Page not found', 404);
     } else {
-        $view->title($page->title, \Bluz\View\View::POS_PREPEND);
-        $view->meta('keywords', $page->keywords);
-        $view->meta('description', $page->description);
+        $view->title(esc($page->title), \Bluz\View\View::POS_PREPEND);
+        $view->meta('keywords', esc($page->keywords));
+        $view->meta('description', esc($page->description));
         $view->page = $page;
     }
 };

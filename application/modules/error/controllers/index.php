@@ -42,6 +42,10 @@ function ($code, $message = '') use ($view) {
             $header = "404 Not Found";
             $description = "The page you requested was not found.";
             break;
+        case 405:
+            $header = "405 Method Not Allowed";
+            $description = "The server is not support method";
+            break;
         case 500:
             $header = "500 Internal Server Error";
             $description = "The server encountered an unexpected condition.";
@@ -56,13 +60,19 @@ function ($code, $message = '') use ($view) {
             $description = "An unexpected error occurred with your request. Please try again later.";
             break;
     }
+
+    // send headers, if possible
     if (!headers_sent()) {
         header("HTTP/1.1 {$header}");
-        if ($code == 503) {
-            header('Retry-After: 600');
+        switch ($code) {
+            case 405:
+                header('Allow: '. $message);
+                break;
+            case 503:
+                header('Retry-After: 600');
+                break;
         }
     }
-
 
     $accept = $this->getRequest()->getHeader('accept');
     $accept = substr($accept, 0, strpos($accept, ','));

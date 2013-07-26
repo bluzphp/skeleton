@@ -36,8 +36,8 @@
             <tr>
                 <td><?=$row['id']?></td>
                 <td><span class="label"><?=$row['namespace']?></span></td>
-                <td><a href="#" class="bluz-tooltip" data-toggle="tooltip" title="<?=($row['description'])?>"><?=$row['name']?></a></td>
-                <td><?=$row['value']?></td>
+                <td><a href="#" class="bluz-tooltip" data-toggle="tooltip" title="<?=esc($row['description'])?>"><?=esc($row['name'])?></a></td>
+                <td><?=esc($row['value'])?></td>
                 <td><?=$row['created']?></td>
                 <td><?=$row['updated']?></td>
                 <td class="controls">

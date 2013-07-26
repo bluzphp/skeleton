@@ -54,32 +54,32 @@
         <div class="control-group">
             <label class="control-label" for="title"><?=__('Title')?>:</label>
             <div class="controls">
-                <input type="text" class="input-xlarge" id="title" name="data[title]" value="<?=($row->title)?>" />
+                <input type="text" class="input-xlarge" id="title" name="data[title]" value="<?=esc($row->title)?>" />
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="alias"><?=__('Alias')?>:</label>
             <div class="controls">
-                <input type="text" class="input-xlarge" id="alias" name="data[alias]" value="<?=($row->alias)?>" />
+                <input type="text" class="input-xlarge" id="alias" name="data[alias]" value="<?=esc($row->alias)?>" />
             </div>
             <small class="help-block controls"><?=__('Alias for build permalink to this page')?></small>
         </div>
         <div class="control-group">
             <label class="control-label" for="keywords"><?=__('Meta Keywords')?>:</label>
             <div class="controls">
-                <input type="text" class="input-xlarge" id="keywords" name="data[keywords]" value="<?=($row->keywords)?>" />
+                <input type="text" class="input-xlarge" id="keywords" name="data[keywords]" value="<?=esc($row->keywords)?>" />
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="description"><?=__('Meta Description')?>:</label>
             <div class="controls">
-                <input type="text" class="input-xlarge" id="description" name="data[description]" value="<?=($row->description)?>" />
+                <input type="text" class="input-xlarge" id="description" name="data[description]" value="<?=esc($row->description)?>" />
             </div>
         </div>
         <div class="control-group">
             <label for="content" class="control-label"><?=__('Content')?>:</label>
             <br class="clear"/>
-            <textarea rows="8" cols="26" id="content" class="input-xxlarge redactor" name="data[content]"><?=($row->content)?></textarea>
+            <textarea rows="8" cols="26" id="content" class="input-xxlarge redactor" name="data[content]"><?=esc($row->content)?></textarea>
         </div>
     </div>
     <div class="modal-footer">
