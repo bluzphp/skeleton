@@ -54,13 +54,13 @@
         <div class="control-group">
             <label class="control-label" for="title"><?=__('Title')?>:</label>
             <div class="controls">
-                <input type="text" class="input-xlarge" id="title" name="data[title]" value="<?=esc($row->title)?>" />
+                <input type="text" class="input-xlarge" id="title" name="data[title]" value="<?=esc($row->title)?>" required />
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="alias"><?=__('Alias')?>:</label>
             <div class="controls">
-                <input type="text" class="input-xlarge" id="alias" name="data[alias]" value="<?=esc($row->alias)?>" />
+                <input type="text" class="input-xlarge" id="alias" name="data[alias]" value="<?=esc($row->alias)?>" required />
             </div>
             <small class="help-block controls"><?=__('Alias for build permalink to this page')?></small>
         </div>
