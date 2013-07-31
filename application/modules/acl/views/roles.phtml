@@ -13,7 +13,7 @@
             <div class="control-group">
                 <label class="control-label" for="name"><?=__('Name')?></label>
                 <div class="controls">
-                    <input type="text" class="input-xlarge" id="name" name="data[name]" value="<?=($row->name)?>" />
+                    <input type="text" class="input-xlarge" id="name" name="data[name]" value="<?=($row->name)?>" pattern="[a-zA-Z0-9-_]+" required/>
                 </div>
             </div>
         </div>

@@ -34,7 +34,7 @@
         <?php if ($method == \Bluz\Request\AbstractRequest::METHOD_POST) : ?>
             <div class="control-group">
                 <label class="control-label"><?=__('File')?></label>
-                <div class="controls"><input type="file" name="data[file]" required /></div>
+                <div class="controls"><input type="file" name="data[file]" accept="image/*" required /></div>
             </div>
         <?php else: ?>
             <div class="control-group">

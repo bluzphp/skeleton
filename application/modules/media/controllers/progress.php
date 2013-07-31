@@ -31,7 +31,7 @@ function ($file) use ($view) {
     }
 
     $this->useLayout(false);
-    return function() use ($key) {
+    return function () use ($key) {
         return json_encode($_SESSION[$key]);
     };
 };
