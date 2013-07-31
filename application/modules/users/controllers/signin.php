@@ -44,7 +44,6 @@ function ($login, $password) use ($view) {
                 unset($this->getSession()->rollback);
                 $this->redirect($rollback);
             }
-
             // try back to index
             $this->redirectTo('index', 'index');
         } catch (Exception $e) {

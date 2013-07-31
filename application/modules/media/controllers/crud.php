@@ -16,6 +16,8 @@ function () use ($view) {
      * @var \Bluz\Application $this
      * @var \Bluz\View\View $view
      */
+    $this->getSession()->getStore()->start();
+
     $this->useLayout('dashboard.phtml');
     $this->getLayout()->breadCrumbs(
         [
@@ -24,13 +26,13 @@ function () use ($view) {
             __('Upload')
         ]
     );
-
     $userId = $this->getAuth()->getIdentity()->id;
 
     $crud = new Media\Crud();
     $crud->setUploadDir('uploads/'.$userId.'/media');
-    $result = $crud->processController();
 
+
+    $result = $crud->processController();
     // FIXME: workaround
     if (($crud->getMethod() == AbstractRequest::METHOD_POST
         or $crud->getMethod() == AbstractRequest::METHOD_PUT )

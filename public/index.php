@@ -37,7 +37,11 @@ function errorLog($message) {
     if (defined('DEBUG_LOG')
         && is_dir(PATH_DATA .'/logs')
         && is_writable(PATH_DATA .'/logs')) {
-        file_put_contents(PATH_DATA .'/logs/'.(date('Y-m-d')).'.log', "\t".$message, FILE_APPEND | LOCK_EX);
+        file_put_contents(
+            PATH_DATA .'/logs/'.(date('Y-m-d')).'.log',
+            "\t[".date("H:i:s")."]\t".$message,
+            FILE_APPEND | LOCK_EX
+        );
     }
 }
 
@@ -46,7 +50,12 @@ function errorHandler() {
     if (!$e = error_get_last()) {
         return;
     }
+    if ($e['type'] == E_USER_NOTICE) {
+        // already handled error
+        return;
+    }
     errorLog($e['message'] ."\n". $e['file'] ."#". $e['line'] ."\n");
+
     require_once 'error.php';
 }
 

@@ -91,7 +91,12 @@ class Crud extends \Bluz\Crud\Crud
         /**
          * @var \Bluz\Request\HttpFile $file
          */
-        $file = $this->getApplication()->getRequest()->getFileUpload()->getFile('data[file]');
+        try {
+            $file = $this->getApplication()->getRequest()->getFileUpload()->getFile('data[file]');
+        } catch (\Bluz\Exception $e) {
+            $this->addError('file', $e->getMessage());
+            $this->validate();
+        }
 
         if (!$file) {
             $this->addError('file', "Sorry, I can't receive file");
