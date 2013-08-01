@@ -21,10 +21,6 @@ body {
 .clear { clear:both }
 .empty { height:0 }
 
-.textleft { text-align:left }
-.textright { text-align:right }
-.textcenter { text-align:center }
-
 footer {
     padding-top: 40px;
     padding-bottom: 30px;
@@ -78,7 +74,7 @@ footer {
     width: 290px;
 }
 .layout-small .well {
-    width: 250px;
+    /*width: 250px;*/
 }
 /*/Small Layout*/
 /*Dashboard Widgets*/
@@ -185,7 +181,6 @@ footer {
 }
 
 .nav-dashboard {
-    width:233px;
     margin-top: 30px;
     margin-bottom: 30px;
     padding-top: 10px;

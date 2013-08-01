@@ -4,9 +4,16 @@
  * @var \Bluz\View\View $this
  */
 ?>
-<h2><?=__('Profile')?></h2>
-<p>
-    <?=__('Name')?>: <?=$user->login?><br/>
-    <?=__('Status')?>: <?=$user->status?><br/>
-    <?=$this->ahref(__('Edit profile'), ['users', 'edit'])?>
-</p>
+<h3 class="page-header">
+    <?=__('Profile')?>
+    <?php if ($this->user()->id == $user->id) : ?>
+        <?=$this->ahref(__('Edit profile'), ['users', 'edit'], ['class'=>'btn btn-mini btn-primary pull-right'])?>
+    <?php endif; ?>
+</h3>
+<dl class="dl-horizontal">
+    <dt><?=__('Name')?></dt>
+    <dd><?=$user->login?></dd>
+    <dt><?=__('Status')?></dt>
+    <dd><?=$user->status?></dd>
+</dl>
+

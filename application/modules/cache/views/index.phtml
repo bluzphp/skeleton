@@ -20,12 +20,12 @@
     <table class="table-bordered table-condensed">
         <tr>
             <th class="span3"><?=__('Server')?></th>
-            <th class="span2 textcenter"><?=__('Weight')?></th>
+            <th class="span2 text-center"><?=__('Weight')?></th>
         </tr>
         <?php foreach ($servers as $stat):?>
         <tr>
             <td><?=$stat['host']?>:<?=$stat['port']?></td>
-            <td class="textcenter"><?=isset($stat['weight'])?$stat['weight']:''?></td>
+            <td class="text-center"><?=isset($stat['weight'])?$stat['weight']:''?></td>
         </tr>
         <?php endforeach; ?>
     </table>

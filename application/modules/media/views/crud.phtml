@@ -11,43 +11,53 @@
     <div>
         <h3><?=__('Media')?></h3>
     </div>
-    <div>
-        <div class="form-group">
-            <label class="control-label" for="name"><?=__('Title')?></label>
-            <div class="controls">
-                <input type="text" class="form-control" id="name" name="data[title]" value="<?=($row->title)?>" required />
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="form-group">
+                <label class="control-label col-lg-2" for="name"><?=__('Title')?></label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="name" name="data[title]" value="<?=($row->title)?>" required />
+                </div>
             </div>
-        </div>
         <?php if ($method == \Bluz\Request\AbstractRequest::METHOD_POST) : ?>
             <div class="form-group">
-                <label class="control-label"><?=__('File')?></label>
-                <div class="controls"><input type="file" name="data[file]" accept="image/*" required /></div>
+                <label class="control-label col-lg-2"><?=__('File')?></label>
+                <div class="col-lg-10">
+                    <input type="file" name="data[file]" accept="image/*" required />
+                </div>
             </div>
         <?php else: ?>
             <div class="form-group">
-                <label class="control-label"><?=__('File')?></label>
-                <div class="controls"><input type="text" class="form-control" readonly name="data[file]" value="<?=($row->file)?>" /></div>
+                <label class="control-label col-lg-2"><?=__('File')?></label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" readonly name="data[file]" value="<?=($row->file)?>" />
+                </div>
             </div>
             <div class="form-group">
-                <label class="control-label"><?=__('Type')?></label>
-                <div class="controls"><input type="text" class="form-control" readonly name="data[type]" value="<?=($row->type)?>" /></div>
+                <label class="control-label col-lg-2"><?=__('Type')?></label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" readonly name="data[type]" value="<?=($row->type)?>" />
+                </div>
             </div>
             <div class="form-group">
-                <label class="control-label"><?=__('Link')?></label>
-                <div class="controls"><code>http://<?=$this->getApplication()->getRequest()->getHttpHost().'/'.($row->file)?></code></div>
+                <label class="control-label col-lg-2"><?=__('Link')?></label>
+                <div class="col-lg-10">
+                    <code>http://<?=$this->getApplication()->getRequest()->getHttpHost().'/'.($row->file)?></code>
+                </div>
             </div>
-            <?php
-                if (substr($row->type, 0, 5) == 'image') :
-            ?>
-            <div class="form-group">
-                <a href="<?=$this->baseUrl($row->file)?>" class="bluz-preview">
-                    <img src="<?=$this->baseUrl($row->preview?:$row->file)?>" class="img-polaroid" alt="<?=$row->title?>" data-preview="<?=$this->baseUrl($row->file)?>" />
-                </a>
-            </div>
-            <?php
-                endif;
-            ?>
+        <?php
+            if (substr($row->type, 0, 5) == 'image') :
+        ?>
+        </div>
+        <div class="form-group col-lg-2">
+            <a href="<?=$this->baseUrl($row->file)?>" class="thumbnail bluz-preview">
+                <img src="<?=$this->baseUrl($row->preview?:$row->file)?>" class="img-polaroid" alt="<?=$row->title?>" data-preview="<?=$this->baseUrl($row->file)?>" />
+            </a>
+        <?php
+            endif;
+        ?>
         <?php endif; ?>
+        </div>
     </div>
     <div>
         <button type="submit" class="btn btn-primary"><?=__('Save')?></button>

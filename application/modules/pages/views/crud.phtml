@@ -30,19 +30,19 @@
         <div class="form-group">
             <label class="control-label col-lg-2" for="title"><?=__('Title')?>:</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="title" name="data[title]" value="<?=esc($row->title)?>"  />
+                <input type="text" class="form-control" id="title" name="data[title]" value="<?=esc($row->title)?>" required />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-lg-2" for="alias"><?=__('Alias')?>:</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="alias" name="data[alias]" value="<?=esc($row->alias)?>"  />
+                <input type="text" class="form-control" id="alias" name="data[alias]" value="<?=esc($row->alias)?>" required />
                 <small class="help-block controls"><?=__('Alias for build permalink to this page')?></small>
             </div>
         </div>
         <div class="form-group">
             <label for="content" class="control-label"><?=__('Content')?>:</label>
-            <textarea rows="12" cols="26" id="content" class="form-control redactor" name="data[content]"  ><?=esc($row->content)?></textarea>
+            <textarea rows="12" cols="26" id="content" class="form-control redactor" name="data[content]" required ><?=esc($row->content)?></textarea>
         </div>
         <div class="form-group">
             <div class="col-lg-2"></div>

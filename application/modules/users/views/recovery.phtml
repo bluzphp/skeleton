@@ -5,11 +5,11 @@
  */
 ?>
 <h3><?=__('Recovery Password')?></h3>
+
 <form action="<?=$this->url('users', 'recovery')?>" method="post" >
-    <div class="form-group">
-        <label class="input-prepend">
-            <span class="add-on"><i class="glyphicon glyphicon-envelope"></i></span><input type="text" id="email" name="email" class="input-large" value="<?=isset($email)?$email:''?>"  placeholder="<?=__('email')?>"/>
-        </label>
+    <div class="form-group input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        <input type="email" id="email" name="email" class="form-control" value="<?=isset($email)?$email:''?>" placeholder="<?=__('email')?>" required/>
     </div>
     <input type="submit" value="<?=__('Recovery')?>" class="btn btn-primary"/>
 </form>

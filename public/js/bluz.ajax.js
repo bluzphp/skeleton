@@ -115,6 +115,20 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 			return plain;
 		};
 
+        var createModal = function (content, style) {
+
+            var $div = $('<div>', {'class':'modal fade'});
+            var $divDialog = $('<div>', {'class':'modal-dialog', 'style':style});
+            var $divContent = $('<div>', {'class':'modal-content'});
+
+            $divContent.html(content);
+            $divDialog.append($divContent);
+            $div.append($divDialog);
+
+
+            return $div;
+        };
+
 		// live event handlers
 		$('body')
 			// Confirmation dialog
@@ -219,14 +233,7 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                         $this.addClass('disabled');
                     },
                     success: function(content) {
-                        var $div = $('<div>', {'class':'modal fade'});
-                        var $divDialog = $('<div>', {'class':'modal-dialog', 'style':style});
-                        var $divContent = $('<div>', {'class':'modal-content'});
-
-                        $divContent.html(content);
-                        $divDialog.append($divContent);
-                        $div.append($divDialog);
-
+                        var $div = createModal(content, style);
                         $div.modal()
                             .on('shown.bs.modal',function () {
                                 bluz.ready();
@@ -257,13 +264,16 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                 }
                 var $img = $('<img>', {'src': url, 'class': 'img-polaroid'});
                     $img.css({
+                        width: '100%',
                         margin: '0 auto',
                         display: 'block'
                     });
 
-                var $div = $('<div>', {'class': 'modal hide fade'});
-                    $div.append($img);
-                    $div.modal();
+                var $span = $('<span>', {'class':'thumbnail'});
+                    $span.append($img);
+
+                var $div = createModal($span, '');
+                    $div.modal('show');
                 return false;
             })
 			// Ajax form

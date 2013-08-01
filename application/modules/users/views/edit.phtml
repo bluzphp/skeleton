@@ -1,5 +1,6 @@
 <?php $uid = uniqid('form_'); ?>
-<h3><?=__('Edit profile')?></h3>
+<h3 class="page-header"><?=__('Edit profile')?></h3>
+
 <form id="<?=$uid?>" action="<?=$this->url('users', 'edit')?>" class="ajax form-horizontal" method="put">
     <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
     <div class="form-group input-group">
