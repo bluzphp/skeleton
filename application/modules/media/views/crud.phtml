@@ -4,19 +4,6 @@
  */
 ?>
 <?php $uid = uniqid('form_'); ?>
-<?php
-//$this->headStyle('css/jquery.fileupload-ui.css');
-?>
-<script>
-    /*require(['jquery', 'fileupload/jquery.fileupload'], function($, fu){
-        // Initialize the jQuery File Upload widget:
-        $('#<?=$uid?>').fileupload({
-            // Uncomment the following to send cross-domain cookies:
-            //xhrFields: {withCredentials: true},
-            url: 'media/upload'
-        });
-    });*/
-</script>
 <form id="<?=$uid?>" action="<?=$this->url('media', 'crud')?>" class="form-horizontal" method="<?=$method?>" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="<?=$method?>"/>
     <input type="hidden" name="<?=ini_get("session.upload_progress.name"); ?>" value="<?=$uid?>"/>
@@ -25,34 +12,34 @@
         <h3><?=__('Media')?></h3>
     </div>
     <div>
-        <div class="control-group">
+        <div class="form-group">
             <label class="control-label" for="name"><?=__('Title')?></label>
             <div class="controls">
-                <input type="text" class="input-xlarge" id="name" name="data[title]" value="<?=($row->title)?>" required />
+                <input type="text" class="form-control" id="name" name="data[title]" value="<?=($row->title)?>" required />
             </div>
         </div>
         <?php if ($method == \Bluz\Request\AbstractRequest::METHOD_POST) : ?>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label"><?=__('File')?></label>
                 <div class="controls"><input type="file" name="data[file]" accept="image/*" required /></div>
             </div>
         <?php else: ?>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label"><?=__('File')?></label>
-                <div class="controls"><input type="text" class="input-xlarge" readonly name="data[file]" value="<?=($row->file)?>" /></div>
+                <div class="controls"><input type="text" class="form-control" readonly name="data[file]" value="<?=($row->file)?>" /></div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label"><?=__('Type')?></label>
-                <div class="controls"><input type="text" class="input-xlarge" readonly name="data[type]" value="<?=($row->type)?>" /></div>
+                <div class="controls"><input type="text" class="form-control" readonly name="data[type]" value="<?=($row->type)?>" /></div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label"><?=__('Link')?></label>
                 <div class="controls"><code>http://<?=$this->getApplication()->getRequest()->getHttpHost().'/'.($row->file)?></code></div>
             </div>
             <?php
                 if (substr($row->type, 0, 5) == 'image') :
             ?>
-            <div class="control-group">
+            <div class="form-group">
                 <a href="<?=$this->baseUrl($row->file)?>" class="bluz-preview">
                     <img src="<?=$this->baseUrl($row->preview?:$row->file)?>" class="img-polaroid" alt="<?=$row->title?>" data-preview="<?=$this->baseUrl($row->file)?>" />
                 </a>

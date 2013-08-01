@@ -1,12 +1,21 @@
 <div class="page-header">
     <h1><?=__('Cache management')?></h1>
 </div>
-<div class="subnav">
-    <ul class="nav nav-pills">
-        <li class="bluz-tooltip" data-placement="bottom" data-original-title="Cache Servers Stats"><?=$this->ahref(__('Statistics'), ['cache', 'stats'])?></li>
-        <li class="bluz-tooltip" data-placement="bottom" data-original-title="Clean ACL and Route Maps"><?=$this->ahref('<i class="icon-fire"></i> '.__('Clean'), ['cache', 'clean'], ['class'=>'confirm ajax'])?></li>
-        <li class="bluz-tooltip" data-placement="bottom" data-original-title="Flash all servers"><?=$this->ahref('<i class="icon-fire"></i> '.__('Flush'), ['cache', 'flush'], ['class'=>'confirm ajax'])?></li>
-    </ul>
+<div class="navbar">
+    <a href="<?=$this->url('cache', 'stats')?>"
+       class="btn btn-default navbar-btn bluz-tooltip"
+       data-placement="bottom"
+       data-original-title="Cache Servers Stats"><?=__('Statistics')?></a>
+
+    <a href="<?=$this->url('cache', 'clean')?>"
+       class="btn btn-default navbar-btn bluz-tooltip confirm ajax"
+       data-placement="bottom"
+       data-original-title="Clean ACL and Route Maps"><i class="glyphicon glyphicon-fire"></i> <?=__('Clean')?></a>
+
+    <a href="<?=$this->url('cache', 'flush')?>"
+       class="btn btn-default navbar-btn bluz-tooltip confirm ajax"
+       data-placement="bottom"
+       data-original-title="Flash all servers"><i class="glyphicon glyphicon-fire"></i> <?=__('Flush')?></a>
 </div>
 <?php if (isset($servers) && sizeof($servers)): ?>
 <hr/>

@@ -6,22 +6,20 @@
 <form class="form-horizontal" method="post" action="/acl/edit-user/id/<?=$user->id?>" enctype="application/x-www-form-urlencoded">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3><?=__('Choose roles for %s', $user->login)?></h3>
+        <h3 class="modal-title"><?=__('Choose roles for %s', $user->login)?></h3>
     </div>
     <div class="modal-body">
-        <div class="control-group">
-            <div class="controls">
-                <?php foreach ($roles as $role):?>
-                <label class="checkbox">
-                    <input type="checkbox" name="roles[]" value="<?=$role->id?>" <?=(!$user->hasRole($role->id)?:'checked')?>/>
-                    <?=$role->name?>
-                </label>
-                <?php endforeach;?>
-            </div>
+        <?php foreach ($roles as $i => $role):?>
+        <div class="form-group input-group">
+            <span class="input-group-addon">
+                <input id="i-<?=$i?>" type="checkbox" name="roles[]" value="<?=$role->id?>" <?=(!$user->hasRole($role->id)?:'checked')?>/>
+            </span>
+            <label for="i-<?=$i?>" class="form-control"><?=$role->name?></label>
         </div>
+        <?php endforeach;?>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary"><?=__('Save changes')?></button>
-        <a href="#" class="btn" data-dismiss="modal"><?=__('Close')?></a>
+        <a href="#" class="btn btn-default" data-dismiss="modal"><?=__('Close')?></a>
     </div>
 </form>

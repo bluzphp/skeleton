@@ -6,9 +6,9 @@
 ?>
 <h3><?=__('Recovery Password')?></h3>
 <form action="<?=$this->url('users', 'recovery')?>" method="post" >
-    <div class="control-group">
+    <div class="form-group">
         <label class="input-prepend">
-            <span class="add-on"><i class="icon-envelope"></i></span><input type="text" id="email" name="email" class="input-large" value="<?=isset($email)?$email:''?>"  placeholder="<?=__('email')?>"/>
+            <span class="add-on"><i class="glyphicon glyphicon-envelope"></i></span><input type="text" id="email" name="email" class="input-large" value="<?=isset($email)?$email:''?>"  placeholder="<?=__('email')?>"/>
         </label>
     </div>
     <input type="submit" value="<?=__('Recovery')?>" class="btn btn-primary"/>

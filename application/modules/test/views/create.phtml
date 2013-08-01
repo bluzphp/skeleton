@@ -11,19 +11,19 @@
 <?php //$row = new \Bluz\Filter\Sanitize($row); ?>
 <form id="form" action="<?=$this->url('test', $this->controller())?>" class="form-horizontal ajax" method="<?=isset($method)?$method:'POST'?>">
     <input type="hidden" name="id" value="<?=$row->id?>"/>
-    <div class="control-group">
+    <div class="form-group">
         <label class="control-label" for="inputName">Name</label>
         <div class="controls">
             <input type="text" id="inputName" name="data[name]" placeholder="" value="<?=$row->name?>"/>
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         <label class="control-label" for="inputEmail">Email</label>
         <div class="controls">
             <input type="text" id="inputEmail" name="data[email]" placeholder="example@domain.com" value="<?=$row->email?>"/>
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         <label class="control-label" for="inputStatus">Status</label>
         <div class="controls">
             <?php
@@ -32,9 +32,9 @@
             <?=$this->select('data[status]', array_combine($statuses, $statuses), $row->status)?>
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         <div class="controls">
-            <button type="submit" class="btn"><?=__('Save')?></button>
+            <button type="submit" class="btn btn-default"><?=__('Save')?></button>
         </div>
     </div>
 </form>

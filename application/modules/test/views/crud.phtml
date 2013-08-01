@@ -8,19 +8,19 @@
             <h3>Test Table</h3>
         </div>
         <div class="modal-body">
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label" for="name"><?=__('Name')?></label>
                 <div class="controls">
-                    <input type="text" class="input-xlarge" id="name" name="data[name]" value="<?=($row->name)?>" />
+                    <input type="text" class="form-control" id="name" name="data[name]" value="<?=($row->name)?>" />
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label" for="email"><?=__('Email')?></label>
                 <div class="controls">
-                    <input type="text" class="input-xlarge" id="email" name="data[email]" value="<?=($row->email)?>" />
+                    <input type="text" class="form-control" id="email" name="data[email]" value="<?=($row->email)?>" />
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label" for="status"><?=__('Status')?></label>
                 <div class="controls">
                     <select id="status" name="data[status]" class="span2">
@@ -33,7 +33,7 @@
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-primary"><?=__('Save')?></button>
-            <a href="#" class="btn" data-dismiss="modal"><?=__('Close')?></a>
+            <a href="#" class="btn btn-default" data-dismiss="modal"><?=__('Close')?></a>
         </div>
     </div>
 </form>

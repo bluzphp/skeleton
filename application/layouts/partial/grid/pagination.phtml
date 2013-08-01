@@ -1,0 +1,21 @@
+<?php
+/**
+ * @var \Bluz\Grid\Grid $grid
+ */
+?>
+<?php if ($grid->pages() > 1) : ?>
+    <ul class="pagination pull-right">
+        <?php if ($prev = $grid->prev()) : ?><li><a href="<?=$prev?>">&laquo;</a></li>
+        <?php else : ?> <li class="disabled"><a href="#" onclick="javascript:return false;">&laquo;</a></li>
+        <?php endif; ?>
+
+
+        <?php for ($page = 1; $page <= $grid->pages(); $page++) : ?>
+            <li <?=($page==$grid->getPage()?'class="active"':'') ?>><a href="<?=$grid->page($page)?>"><?=$page?></a></li>
+        <?php endfor; ?>
+
+        <?php if ($next = $grid->next()) : ?><li><a href="<?=$next?>">&raquo;</a></li>
+    <?php else : ?> <li class="disabled"><a href="#" onclick="javascript:return false;">&raquo;</a></li>
+    <?php endif; ?>
+    </ul>
+<?php endif; ?>

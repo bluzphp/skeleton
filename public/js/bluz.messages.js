@@ -57,7 +57,7 @@ define(['jquery'], function($) {
 			var top = 0;
 
 			if ($('.navbar-fixed-top').length) {
-				top += 40;
+				top += 50;
 			}
 
 			if ($('.subnav-fixed').length) {

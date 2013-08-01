@@ -1,0 +1,28 @@
+<?php
+/**
+ * @var \Bluz\Grid\Grid $grid
+ */
+$filters;  // array [field=>title]
+$field = key($filters);
+$value = ''; // filter value
+
+$gridFilters = $grid->getFilters();
+
+foreach ($filters as $filterName => $filterTitle) {
+    if (isset($gridFilters[$filterName][$grid::FILTER_LIKE])) {
+        $field = $filterName;
+        $value = $gridFilters[$filterName][$grid::FILTER_LIKE];
+        break;
+    }
+}
+?>
+<div class="input-group-btn grid-filter-search">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><?=$filters[$field]?> <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+        <?php foreach($filters as $fieldName => $fieldTitle) :?>
+        <li><a href="#" data-filter="<?=$grid->getUid() .'-filter-'. $fieldName ?>"><?=$fieldTitle?></a></li>
+        <?php endforeach; ?>
+    </ul>
+</div><!-- /btn-group -->
+<input name="<?=$grid->getUid() .'-filter-'. $field ?>" class="grid-filter-search-input" value="<?=$grid::FILTER_LIKE.'-'.esc($value)?>" type="hidden"/>
+<input name="search-like" type="search" class="form-control" value="<?=esc($value)?>" required />

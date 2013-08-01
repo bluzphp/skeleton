@@ -2,14 +2,14 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <a class="navbar-brand" href="/"><?=__('Bluz')?></a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="/"><?=__('Bluz')?></a>
-            <div class="nav-collapse">
-                <ul class="nav">
+            <div class="nav-collapse collapse">
+                <ul class="nav navbar-nav">
                     <li <?=($this->module('index')?'class="active"':'')?>><?=$this->ahref('Home', ['index', 'index'])?></li>
                     <li <?=($this->module('dashboard')?'class="active"':'')?>><?=$this->ahref('Dashboard', ['dashboard', 'index'])?></li>
                     <li <?=($this->module('test')?'class="active"':'')?>><?=$this->ahref('Test', ['test', 'index'])?></li>

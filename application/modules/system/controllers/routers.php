@@ -42,7 +42,7 @@ function () use ($view) {
                 $routers[$module] = array();
             }
 
-            $routers[$module][$controller] = ['route' => $data['route'], 'params' => $data['types']];
+            $routers[$module][$controller] = ['route' => $data['route'], 'params' => $data['params']];
         }
     }
     $view->routers = $routers;

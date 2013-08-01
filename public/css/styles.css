@@ -11,9 +11,6 @@ body {
     position: relative;
 }
 
-article, aside, header, footer, section {
-    display:block;
-}
 .center {
     display: block;
     margin-left: auto;
@@ -28,7 +25,13 @@ article, aside, header, footer, section {
 .textright { text-align:right }
 .textcenter { text-align:center }
 
-
+footer {
+    padding-top: 40px;
+    padding-bottom: 30px;
+    margin-top: 100px;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+}
 /*Messages*/
 #messages {
     padding:0;
@@ -64,7 +67,7 @@ article, aside, header, footer, section {
 /* Loading */
 #loading {
 	width: 180px;
-	height: 40px;
+	height: 50px;
 	float:right;
 	background: url("../img/loading.gif") 50% 50% no-repeat;
 	display: none;
@@ -178,15 +181,27 @@ article, aside, header, footer, section {
 .modal form {
 	margin: 0;
 }
+.table.grid+.table {
+	margin-top: -20px;
+}
 .table.grid .controls {
 	padding: 2px 8px;
 }
 .breadcrumb a:hover {
 	text-decoration: none;
 }
+
 .nav-dashboard {
     width:233px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-shadow: 0 1px 0 #fff;
+    background-color: #f7f5fa;
+    border-radius: 5px;
 }
+
 .nav-tabs.nav-stacked > .active > a,
 .nav-tabs.nav-stacked > .active > a:hover {
 	color: white;

@@ -25,6 +25,9 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 	$(function () {
 		// Ajax global events
         $(document)
+            .ajaxStart(function () {
+                $('#loading').show();
+            })
             .ajaxSuccess(function (event, jqXHR, options) {
                 if (options.dataType === 'json' ||
                     jqXHR.getResponseHeader('Content-Type') == 'application/json') {
@@ -85,16 +88,10 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                     $div.html(jqXHR.responseText);
                     $div.modal();
                     $div.modal('show');
+            })
+            .ajaxComplete(function () {
+                $('#loading').hide();
             });
-
-        // Loading
-		$("#loading")
-			.ajaxStart(function () {
-				$(this).show();
-			})
-			.ajaxComplete(function () {
-				$(this).hide();
-			});
 
 		// get only plain data
 		var processData = function (el) {
@@ -211,6 +208,7 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 					return false;
 				}
                 var method = $this.data('ajax-method');
+                var style = $this.data('modal-style');
 
                 $.ajax({
                     url: $this.attr('href'),
@@ -221,21 +219,20 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                         $this.addClass('disabled');
                     },
                     success: function(content) {
-                        var $div = $('<div>', {'class': 'modal hide fade'});
-                        $div.html(content);
+                        var $div = $('<div>', {'class':'modal fade'});
+                        var $divDialog = $('<div>', {'class':'modal-dialog', 'style':style});
+                        var $divContent = $('<div>', {'class':'modal-content'});
+
+                        $divContent.html(content);
+                        $divDialog.append($divContent);
+                        $div.append($divDialog);
+
                         $div.modal()
-                            .on('shown',function () {
-                                var onShown = window[$this.attr('shown')];
-                                if (typeof onShown === 'function') {
-                                    onShown.call($div);
-                                }
+                            .on('shown.bs.modal',function () {
                                 bluz.ready();
-                            }).on('hidden', function () {
-                                var onHidden = window[$this.attr('hidden')];
-                                if (typeof onHidden === 'function') {
-                                    onHidden.call($div);
-                                }
-                                $(this).remove();
+                            })
+                            .on('hidden.bs.modal', function () {
+                                $div.remove();
                             });
                         $div.modal('show');
                     },
