@@ -3,29 +3,21 @@
 <form id="<?=$uid?>" action="<?=$this->url('users', 'signup')?>" class="ajax" method="post">
     <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
 
-    <div class="form-group">
-        <label class="input-prepend">
-            <span class="add-on"><i class="glyphicon glyphicon-user"></i></span>
-            <input type="text" class="input-large" name="data[login]" value="<?=($row->login)?>" placeholder="<?=__('login')?>" required />
-        </label>
+    <div class="form-group input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input type="text" class="form-control" name="data[login]" value="<?=($row->login)?>" placeholder="<?=__('login')?>" required />
     </div>
-    <div class="form-group">
-        <label class="input-prepend">
-            <span class="add-on"><i class="glyphicon glyphicon-envelope"></i></span>
-            <input type="text" class="input-large" name="data[email]" value="<?=($row->email)?>" placeholder="<?=__('email')?>" required />
-        </label>
+    <div class="form-group input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        <input type="email" class="form-control" name="data[email]" value="<?=($row->email)?>" placeholder="<?=__('email')?>" required />
     </div>
-    <div class="form-group">
-        <label class="input-prepend">
-            <span class="add-on"><i class="glyphicon glyphicon-lock"></i></span>
-            <input type="password" class="input-large" name="data[password]" value="<?=($row->password)?>" placeholder="<?=__('password')?>" required />
-        </label>
+    <div class="form-group input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input type="password" class="form-control" name="data[password]" value="<?=($row->password)?>" placeholder="<?=__('password')?>" required />
     </div>
-    <div class="form-group">
-        <label class="input-prepend">
-            <span class="add-on"><i class="glyphicon glyphicon-lock"></i></span>
-            <input type="password" class="input-large" name="data[password2]" value="<?=($row->password2)?>" placeholder="<?=__('repeat password')?>" required />
-        </label>
+    <div class="form-group input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input type="password" class="form-control" name="data[password2]" value="<?=($row->password2)?>" placeholder="<?=__('repeat password')?>" required />
     </div>
     <button type="submit" class="btn btn-primary"><?=__('Registration')?></button>
 </form>

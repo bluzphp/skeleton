@@ -7,7 +7,7 @@
  * @created  06.07.11 16:20
  */
 body {
-    padding-top: 60px;
+    padding-top: 70px;
     position: relative;
 }
 
@@ -84,19 +84,12 @@ footer {
 /*Dashboard Widgets*/
 .widget {
     border: 1px solid #CDCDCD;
-    clear: both;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin: 8px 0;
     position: relative;
+    padding: 0;
 }
 .widget-title {
 	background-color: #efefef;
-	background-image: -webkit-gradient(linear, 0 0%, 0 100%, from(#fdfdfd), to(#eaeaea));
-	background-image: -webkit-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
-    background-image: -moz-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
-    background-image: -ms-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
-    background-image: -o-linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
-    background-image: -linear-gradient(top, #fdfdfd 0%, #eaeaea 100%);
     border-bottom: 1px solid #CDCDCD;
     height: 36px;
 }

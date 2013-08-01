@@ -20,7 +20,7 @@ function () {
     <script>
         require(['bluz.widget']);
     </script>
-    <div class="widget span3" data-widget-key="users-stats">
+    <div class="widget col-4" data-widget-key="users-stats">
         <div class="widget-title">
             <span class="iconholder-left"><i class="glyphicon glyphicon-signal"></i></span>
             <h4>Users</h4>
