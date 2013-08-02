@@ -30,6 +30,7 @@ footer {
 }
 /*Notify*/
 #notify {
+    z-index:1100;
     position: fixed;
     left: 10px;
     top: 55px;
@@ -45,6 +46,7 @@ footer {
 /*/Notify*/
 /*Loading*/
 #loading {
+    z-index:1100;
 	width: 180px;
 	height: 50px;
 	float:right;

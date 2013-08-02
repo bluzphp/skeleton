@@ -40,8 +40,8 @@ define(['jquery'], function($) {
 
     /**
      * Prepare DOM element with native JS
-     * @param type
-     * @param content
+     * @param {string} type
+     * @param {string} content
      * @returns {HTMLElement}
      */
     function prepareNotify (type, content) {
@@ -59,19 +59,24 @@ define(['jquery'], function($) {
 
         // increase notifications counter
         counter++;
-
         return div;
     }
 
-    function hideNotify (el) {
+    /**
+     *
+     * @param {jQuery} $el
+     */
+    function hideNotify ($el) {
+        // decrease
         if (counter) {
             counter--;
         }
-
         // mark deferred object as resolved
         if (counter == 0) {
             deferred.resolve();
         }
+        // remove DOM element
+        $el.remove();
     }
 
     notify = {
@@ -95,12 +100,18 @@ define(['jquery'], function($) {
                 }
             }
         },
+        /**
+         * @param {string} type
+         * @param {string} content
+         */
         add: function (type, content) {
             var $el;
             $el = $(prepareNotify(type, content));
             $el.animate({opacity:"show"}, 300)
                 .delay(3000)
-                .animate({opacity:"hide"}, 300, hideNotify);
+                .animate({opacity:"hide"}, 300, function() {
+                    hideNotify($el);
+                });
         },
         addError: function (content) {
             notify.add('error', content);
@@ -111,6 +122,9 @@ define(['jquery'], function($) {
         addSuccess: function (content) {
             notify.add('success', content);
         },
+        /**
+         * @param callback
+         */
         addCallback: function (callback) {
             deferred.done(callback);
         }

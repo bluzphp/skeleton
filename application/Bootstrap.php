@@ -127,7 +127,6 @@ class Bootstrap extends Application
             }
         );
 
-
         $res = parent::init($environment);
 
         // example of setup Layout
