@@ -235,7 +235,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                                 bluz.ready();
                             })
                             .on('hidden.bs.modal', function () {
-                                $div.remove();
+                                //$div.remove();
                             });
                         $div.modal('show');
                     },

@@ -20,6 +20,7 @@ function ($data = array()) use ($view) {
     /**
      * @var \Bluz\Application $this
      */
+    $this->getLayout()->setTemplate('small.phtml');
     $row = new Test\Row();
 
     if ($this->getRequest()->isPost()) {
