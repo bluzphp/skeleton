@@ -29,10 +29,10 @@
 <?php $this->trigger('header'); ?>
 </head>
 <body data-spy="scroll" data-bluz-module="<?=$this->module()?>" data-bluz-controller="<?=$this->controller()?>">
-<?php if ($this->getApplication()->getMessages()->count()):?>
-        <div id="messages" class="hide">
-            <?php while ($message = $this->getApplication()->getMessages()->pop()):?>
-                <p class="<?php echo $message->type?>"><?=__($message->text)?></p>
-            <?php endwhile;?>
-        </div>
-<?php endif;?>
+<?php if (app()->hasMessages()): ?>
+    <script>
+        require(['bluz.notify'], function(notify) {
+            notify.set(<?=json_encode(app()->getMessages()->popAll())?>);
+        });
+    </script>
+<?php endif; ?>

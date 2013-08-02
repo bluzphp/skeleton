@@ -19,7 +19,7 @@
  *
  * @author   Anton Shevchuk
  */
-define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
+define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 	"use strict";
 	// on DOM ready state
 	$(function () {
@@ -58,9 +58,10 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                     }
 
                     // show messages and run callback after
-                    if (data._messages !== undefined) {
-                        messages.setCallback(callback);
-                        messages.addMessages(data._messages);
+                    if (jqXHR.getResponseHeader('Bluz-Notify')) {
+                        var notifications = $.parseJSON(jqXHR.getResponseHeader('Bluz-Notify'));
+                        notify.addCallback(callback);
+                        notify.set(notifications);
                     } else if (callback) {
                         callback();
                     }
@@ -68,26 +69,21 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
             })
             .ajaxError(function (event, jqXHR, options, thrownError) {
                 bluz.log(thrownError, jqXHR.responseText);
-//                messages.addError('Connection is fail');
+
+                // show error messages
+                if (jqXHR.getResponseHeader('Bluz-Notify')) {
+                    var notifications = $.parseJSON(jqXHR.getResponseHeader('Bluz-Notify'));
+                    notify.set(notifications);
+                }
 
                 // try to get error message from JSON response
                 if (options.dataType === 'json' ||
                     jqXHR.getResponseHeader('Content-Type') == 'application/json') {
-                    try {
-                        var data = jQuery.parseJSON(jqXHR.responseText);
-                        // show messages
-                        if (data._messages !== undefined) {
-                            messages.addMessages(data._messages);
-                        }
-                        return;
-                    } catch (error) {
-                        // wait for JSON but it is not it C.O.;
-                    }
-                }
-                var $div = $('<div>', {'class': 'modal hide fade', 'style':'width:800px'});
-                    $div.html(jqXHR.responseText);
-                    $div.modal();
+                    // do smth...
+                } else {
+                    var $div = createModal(jqXHR.responseText, 'width:800px');
                     $div.modal('show');
+                }
             })
             .ajaxComplete(function () {
                 $('#loading').hide();

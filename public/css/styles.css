@@ -28,39 +28,22 @@ footer {
     text-align: center;
     border-top: 1px solid #e5e5e5;
 }
-/*Messages*/
-#messages {
-    padding:0;
-    z-index:1100;
-    font-weight:700;
-    font-size:1.6em;
-    position:fixed;
-    top:40px;
-    left:0;
-    width:100%;
-    border-top:1px solid #aaa;
-    border-bottom:1px solid #aaa;
-    background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABBJREFUeNpi+P9/yxmAAAMACTIDf5NbzpMAAAAASUVORK5CYII=);
-    background:rgba(255, 255, 180, 0.9);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#95fffcc0, endColorstr=#95fffcc0);
+/*Notify*/
+#notify {
+    position: fixed;
+    left: 10px;
+    top: 55px;
 }
-    #messages p {
-        width:1024px;
-        margin:10px auto;
-        font-size: 14px;
-        line-height: 16px;
+    /* Notification BS Element */
+    #notify > div {
+        position: relative;
+        z-index: 9999;
+        margin: 5px 0;
+        min-width: 640px;
     }
-    #messages p.error {
-        color: #b94a48;
-    }
-    #messages p.info {
-        color: #3a87ad;
-    }
-    #messages p.success {
-        color: #468847;
-    }
-/*/Messages*/
-/* Loading */
+
+/*/Notify*/
+/*Loading*/
 #loading {
 	width: 180px;
 	height: 50px;
@@ -68,7 +51,7 @@ footer {
 	background: url("../img/loading.gif") 50% 50% no-repeat;
 	display: none;
 }
-/*/Loading */
+/*/Loading*/
 /*Small Layout*/
 .layout-small .center {
     width: 290px;
@@ -164,7 +147,6 @@ footer {
 .widget-stats li a:hover {
 	text-decoration: none;
 }
-
 /*/Dashboard Widgets*/
 /*Bootstrap fix*/
 .modal form {
@@ -179,7 +161,6 @@ footer {
 .breadcrumb a:hover {
 	text-decoration: none;
 }
-
 .nav-dashboard {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -189,7 +170,6 @@ footer {
     background-color: #f7f5fa;
     border-radius: 5px;
 }
-
 .nav-tabs.nav-stacked > .active > a,
 .nav-tabs.nav-stacked > .active > a:hover {
 	color: white;
