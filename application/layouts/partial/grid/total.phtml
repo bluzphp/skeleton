@@ -1,0 +1,12 @@
+<?php
+/**
+ * @var \Bluz\Grid\Grid $grid
+ */
+?>
+<ul class="pager pull-left">
+    <li>
+        <a href="<?=$grid->reset()?>"><?=__('Total')?>:
+            <strong><?=$grid->total()?></strong> <?=__('record','records', $grid->total())?> <?=__('on')?>
+            <strong><?=$grid->pages()?></strong> <?=__('page','pages', $grid->pages())?></a>
+    </li>
+</ul>

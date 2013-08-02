@@ -22,19 +22,19 @@
 </ul>
 <hr/>
 <div class="btn-group">
-    <?= $this->ahref('Ajax GET', ['test', 'ajax'], ['class'=>'ajax btn', 'data-ajax-method'=>'GET']);?>
-    <?= $this->ahref('Ajax POST', ['test', 'ajax'], ['class'=>'ajax btn', 'data-ajax-method'=>'POST']);?>
-    <?= $this->ahref('Ajax PUT', ['test', 'ajax'], ['class'=>'ajax btn', 'data-ajax-method'=>'PUT']);?>
-    <?= $this->ahref('Ajax DELETE', ['test', 'ajax'], ['class'=>'ajax btn', 'data-ajax-method'=>'DELETE']);?>
+    <?= $this->ahref('Ajax GET', ['test', 'ajax'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'GET']);?>
+    <?= $this->ahref('Ajax POST', ['test', 'ajax'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'POST']);?>
+    <?= $this->ahref('Ajax PUT', ['test', 'ajax'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'PUT']);?>
+    <?= $this->ahref('Ajax DELETE', ['test', 'ajax'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'DELETE']);?>
 </div>
 <hr/>
 <div class="btn-group">
-    <a href="/test/privilege" class="btn ajax">Denied page, AJAX call</a>
-    <a href="/test/privilege" class="btn dialog">Denied page, dialog</a>
+    <a href="/test/privilege" class="btn btn-default ajax">Denied page, AJAX call</a>
+    <a href="/test/privilege" class="btn btn-default dialog">Denied page, dialog</a>
 </div>
 <hr/>
 <div class="btn-group">
-    <a href="/test/ajax" id="ajax-callback" class="btn ajax">AJAX call with fired trigger</a>
+    <a href="/test/ajax" id="ajax-callback" class="btn btn-default ajax">AJAX call with fired trigger</a>
 </div>
 <script>
     require(["jquery"], function($) {
@@ -52,10 +52,10 @@
 </script>
 <hr/>
 <div class="btn-group">
-    <?= $this->ahref('Ajax + Messages', ['test', 'ajax'], ['class'=>'ajax btn', 'data-messages'=>true]);?>
+    <?= $this->ahref('Ajax + Messages', ['test', 'ajax'], ['class'=>'ajax btn btn-default', 'data-messages'=>true]);?>
     <?= $this->ahref('Ajax + Confirm', ['test', 'ajax'], ['class'=>'ajax confirm btn btn-danger']);?>
-    <?= $this->ahref('Loading', ['test', 'ajax-html'], ['class'=>'load btn', 'data-ajax-target'=>'#load']);?>
-    <?= $this->ahref('Confirm', ['index', 'index'], ['class'=>'confirm btn', 'data-confirm'=>'Confirm?']);?>
+    <?= $this->ahref('Loading', ['test', 'ajax-html'], ['class'=>'load btn btn-default', 'data-ajax-target'=>'#load']);?>
+    <?= $this->ahref('Confirm', ['index', 'index'], ['class'=>'confirm btn btn-default', 'data-confirm'=>'Confirm?']);?>
 </div>
 <hr/>
 <h3>Dispatch controller</h3>

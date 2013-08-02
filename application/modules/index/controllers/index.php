@@ -13,5 +13,7 @@ return
  * @return \closure
  */
 function () {
-
+    /**
+     * @var \Bluz\Application $this
+     */
 };

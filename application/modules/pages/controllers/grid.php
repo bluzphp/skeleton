@@ -7,6 +7,8 @@
  */
 namespace Application;
 
+use Application\Pages\Grid;
+
 return
 /**
  * @privilege Management

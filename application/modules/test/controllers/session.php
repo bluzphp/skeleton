@@ -28,7 +28,7 @@ function () use ($view) {
     );
     $this->getLayout()->title("Test/Index");
 
-    $this->getSession()->test = 'Session time: '.date("H:i:s");
+    $this->getSession()->test = $this->getSession()->test ?: 'Session time: '.date("H:i:s");
 
     $view->title = $this->getLayout()->title();
     $view->session = $this->getSession()->test;

@@ -9,13 +9,13 @@
 <div class="row">
 <div class="span3 bs-docs-sidebar">
     <ul class="nav nav-list bs-docs-sidenav" data-spy="affix" data-offset-top="60">
-        <li><a href="#typography"><i class="icon-chevron-right"></i> Typography</a></li>
-        <li><a href="#code"><i class="icon-chevron-right"></i> Code</a></li>
-        <li><a href="#tables"><i class="icon-chevron-right"></i> Tables</a></li>
-        <li><a href="#forms"><i class="icon-chevron-right"></i> Forms</a></li>
-        <li><a href="#buttons"><i class="icon-chevron-right"></i> Buttons</a></li>
-        <li><a href="#images"><i class="icon-chevron-right"></i> Images</a></li>
-        <li><a href="#icons"><i class="icon-chevron-right"></i> Icons by Glyphicons</a></li>
+        <li><a href="#typography"><i class="glyphicon glyphicon-chevron-right"></i> Typography</a></li>
+        <li><a href="#code"><i class="glyphicon glyphicon-chevron-right"></i> Code</a></li>
+        <li><a href="#tables"><i class="glyphicon glyphicon-chevron-right"></i> Tables</a></li>
+        <li><a href="#forms"><i class="glyphicon glyphicon-chevron-right"></i> Forms</a></li>
+        <li><a href="#buttons"><i class="glyphicon glyphicon-chevron-right"></i> Buttons</a></li>
+        <li><a href="#images"><i class="glyphicon glyphicon-chevron-right"></i> Images</a></li>
+        <li><a href="#icons"><i class="glyphicon glyphicon-chevron-right"></i> Icons by Glyphicons</a></li>
     </ul>
 </div>
 <div class="span9">
@@ -865,7 +865,7 @@ For example, &lt;code&gt;&lt;section&gt;&lt;/code&gt; should be wrapped as inlin
     <label class="checkbox">
         <input type="checkbox"> Check me out
     </label>
-    <button type="submit" class="btn">Submit</button>
+    <button type="submit" class="btn btn-default">Submit</button>
 </form>
 <pre class="prettyprint linenums">
 &lt;form&gt;
@@ -876,7 +876,7 @@ For example, &lt;code&gt;&lt;section&gt;&lt;/code&gt; should be wrapped as inlin
 &lt;label class="checkbox"&gt;
 &lt;input type="checkbox"&gt; Check me out
 &lt;/label&gt;
-&lt;button type="submit" class="btn"&gt;Submit&lt;/button&gt;
+&lt;button type="submit" class="btn btn-default"&gt;Submit&lt;/button&gt;
 &lt;/form&gt;
 </pre>
 
@@ -895,12 +895,12 @@ For example, &lt;code&gt;&lt;section&gt;&lt;/code&gt; should be wrapped as inlin
 
 <form class="bs-docs-example form-search">
     <input type="text" class="input-medium search-query">
-    <button type="submit" class="btn">Search</button>
+    <button type="submit" class="btn btn-default">Search</button>
 </form>
 <pre class="prettyprint linenums">
 &lt;form class="form-search"&gt;
 &lt;input type="text" class="input-medium search-query"&gt;
-&lt;button type="submit" class="btn"&gt;Search&lt;/button&gt;
+&lt;button type="submit" class="btn btn-default"&gt;Search&lt;/button&gt;
 &lt;/form&gt;
 </pre>
 
@@ -914,7 +914,7 @@ For example, &lt;code&gt;&lt;section&gt;&lt;/code&gt; should be wrapped as inlin
     <label class="checkbox">
         <input type="checkbox"> Remember me
     </label>
-    <button type="submit" class="btn">Sign in</button>
+    <button type="submit" class="btn btn-default">Sign in</button>
 </form>
 <pre class="prettyprint linenums">
 &lt;form class="form-inline"&gt;
@@ -923,7 +923,7 @@ For example, &lt;code&gt;&lt;section&gt;&lt;/code&gt; should be wrapped as inlin
 &lt;label class="checkbox"&gt;
 &lt;input type="checkbox"&gt; Remember me
 &lt;/label&gt;
-&lt;button type="submit" class="btn"&gt;Sign in&lt;/button&gt;
+&lt;button type="submit" class="btn btn-default"&gt;Sign in&lt;/button&gt;
 &lt;/form&gt;
 </pre>
 
@@ -933,55 +933,55 @@ For example, &lt;code&gt;&lt;section&gt;&lt;/code&gt; should be wrapped as inlin
     markup changes from a default form:</p>
 <ul>
     <li>Add <code>.form-horizontal</code> to the form</li>
-    <li>Wrap labels and controls in <code>.control-group</code></li>
+    <li>Wrap labels and controls in <code>.form-group</code></li>
     <li>Add <code>.control-label</code> to the label</li>
     <li>Wrap any associated controls in <code>.controls</code> for proper alignment</li>
 </ul>
 <form class="bs-docs-example form-horizontal">
     <legend>Legend</legend>
-    <div class="control-group">
+    <div class="form-group">
         <label class="control-label" for="inputEmail">Email</label>
 
         <div class="controls">
             <input type="text" id="inputEmail" placeholder="Email">
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         <label class="control-label" for="inputPassword">Password</label>
 
         <div class="controls">
             <input type="password" id="inputPassword" placeholder="Password">
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         <div class="controls">
             <label class="checkbox">
                 <input type="checkbox"> Remember me
             </label>
-            <button type="submit" class="btn">Sign in</button>
+            <button type="submit" class="btn btn-default">Sign in</button>
         </div>
     </div>
 </form>
 <pre class="prettyprint linenums">
 &lt;form class="form-horizontal"&gt;
-&lt;div class="control-group"&gt;
+&lt;div class="form-group"&gt;
 &lt;label class="control-label" for="inputEmail"&gt;Email&lt;/label&gt;
 &lt;div class="controls"&gt;
   &lt;input type="text" id="inputEmail" placeholder="Email"&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="control-group"&gt;
+&lt;div class="form-group"&gt;
 &lt;label class="control-label" for="inputPassword"&gt;Password&lt;/label&gt;
 &lt;div class="controls"&gt;
   &lt;input type="password" id="inputPassword" placeholder="Password"&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="control-group"&gt;
+&lt;div class="form-group"&gt;
 &lt;div class="controls"&gt;
   &lt;label class="checkbox"&gt;
     &lt;input type="checkbox"&gt; Remember me
   &lt;/label&gt;
-  &lt;button type="submit" class="btn"&gt;Sign in&lt;/button&gt;
+  &lt;button type="submit" class="btn btn-default"&gt;Sign in&lt;/button&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/form&gt;
@@ -1187,23 +1187,23 @@ Option two can be something else and selecting it will deselect option one
 <form class="bs-docs-example">
     <div class="input-append">
         <input class="span2" id="appendedInputButton" size="16" type="text">
-        <button class="btn" type="button">Go!</button>
+        <button class="btn btn-default" type="button">Go!</button>
     </div>
     <br>
 
     <div class="input-append">
         <input class="span2" id="appendedInputButtons" size="16" type="text">
-        <button class="btn" type="button">Search</button>
-        <button class="btn" type="button">Options</button>
+        <button class="btn btn-default" type="button">Search</button>
+        <button class="btn btn-default" type="button">Options</button>
     </div>
 </form>
 <pre class="prettyprint linenums">
 &lt;div class="input-append"&gt;
-&lt;input class="span2" id="appendedInputButton" size="16" type="text"&gt;&lt;button class="btn" type="button"&gt;Go!&lt;/button&gt;
+&lt;input class="span2" id="appendedInputButton" size="16" type="text"&gt;&lt;button class="btn btn-default" type="button"&gt;Go!&lt;/button&gt;
 &lt;/div&gt;
 
 &lt;div class="input-append"&gt;
-&lt;input class="span2" id="appendedInputButtons" size="16" type="text"&gt;&lt;button class="btn" type="button"&gt;Search&lt;/button&gt;&lt;button class="btn" type="button"&gt;Options&lt;/button&gt;
+&lt;input class="span2" id="appendedInputButtons" size="16" type="text"&gt;&lt;button class="btn btn-default" type="button"&gt;Search&lt;/button&gt;&lt;button class="btn btn-default" type="button"&gt;Options&lt;/button&gt;
 &lt;/div&gt;
 </pre>
 
@@ -1212,10 +1212,10 @@ Option two can be something else and selecting it will deselect option one
 <form class="bs-docs-example form-search">
     <div class="input-append">
         <input type="text" class="span2 search-query">
-        <button type="submit" class="btn">Search</button>
+        <button type="submit" class="btn btn-default">Search</button>
     </div>
     <div class="input-prepend">
-        <button type="submit" class="btn">Search</button>
+        <button type="submit" class="btn btn-default">Search</button>
         <input type="text" class="span2 search-query">
     </div>
 </form>
@@ -1223,10 +1223,10 @@ Option two can be something else and selecting it will deselect option one
 &lt;form class="form-search"&gt;
 &lt;div class="input-append"&gt;
 &lt;input type="text" class="span2 search-query"&gt;
-&lt;button type="submit" class="btn"&gt;Search&lt;/button&gt;
+&lt;button type="submit" class="btn btn-default"&gt;Search&lt;/button&gt;
 &lt;/div&gt;
 &lt;div class="input-prepend"&gt;
-&lt;button type="submit" class="btn"&gt;Search&lt;/button&gt;
+&lt;button type="submit" class="btn btn-default"&gt;Search&lt;/button&gt;
 &lt;input type="text" class="span2 search-query"&gt;
 &lt;/div&gt;
 &lt;/form&gt;
@@ -1245,7 +1245,7 @@ Option two can be something else and selecting it will deselect option one
         <input class="input-small" type="text" placeholder=".input-small">
         <input class="input-medium" type="text" placeholder=".input-medium">
         <input class="input-large" type="text" placeholder=".input-large">
-        <input class="input-xlarge" type="text" placeholder=".input-xlarge">
+        <input class="form-control" type="text" placeholder=".form-control">
         <input class="input-xxlarge" type="text" placeholder=".input-xxlarge">
     </div>
 </form>
@@ -1254,7 +1254,7 @@ Option two can be something else and selecting it will deselect option one
 &lt;input class="input-small" type="text" placeholder=".input-small"&gt;
 &lt;input class="input-medium" type="text" placeholder=".input-medium"&gt;
 &lt;input class="input-large" type="text" placeholder=".input-large"&gt;
-&lt;input class="input-xlarge" type="text" placeholder=".input-xlarge"&gt;
+&lt;input class="form-control" type="text" placeholder=".form-control"&gt;
 &lt;input class="input-xxlarge" type="text" placeholder=".input-xxlarge"&gt;
 </pre>
 <p>
@@ -1351,10 +1351,10 @@ Option two can be something else and selecting it will deselect option one
 <p>Present data in a form that's not editable without using actual form markup.</p>
 
 <form class="bs-docs-example">
-    <span class="input-xlarge uneditable-input">Some value here</span>
+    <span class="form-control uneditable-input">Some value here</span>
 </form>
 <pre class="prettyprint linenums">
-&lt;span class="input-xlarge uneditable-input"&gt;Some value here&lt;/span&gt;
+&lt;span class="form-control uneditable-input"&gt;Some value here&lt;/span&gt;
 </pre>
 
 <h3>Form actions</h3>
@@ -1365,13 +1365,13 @@ Option two can be something else and selecting it will deselect option one
 <form class="bs-docs-example">
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn">Cancel</button>
+        <button type="button" class="btn btn-default">Cancel</button>
     </div>
 </form>
 <pre class="prettyprint linenums">
 &lt;div class="form-actions"&gt;
 &lt;button type="submit" class="btn btn-primary"&gt;Save changes&lt;/button&gt;
-&lt;button type="button" class="btn"&gt;Cancel&lt;/button&gt;
+&lt;button type="button" class="btn btn-default"&gt;Cancel&lt;/button&gt;
 &lt;/div&gt;
 </pre>
 
@@ -1412,10 +1412,10 @@ Option two can be something else and selecting it will deselect option one
     place for <code>:focus</code>.</p>
 
 <form class="bs-docs-example form-inline">
-    <input class="input-xlarge focused" id="focusedInput" type="text" value="This is focused...">
+    <input class="form-control focused" id="focusedInput" type="text" value="This is focused...">
 </form>
 <pre class="prettyprint linenums">
-&lt;input class="input-xlarge" id="focusedInput" type="text" value="This is focused..."&gt;
+&lt;input class="form-control" id="focusedInput" type="text" value="This is focused..."&gt;
 </pre>
 
 <h3>Disabled inputs</h3>
@@ -1423,19 +1423,19 @@ Option two can be something else and selecting it will deselect option one
 <p>Add the <code>disabled</code> attribute on an input to prevent user input and trigger a slightly different look.</p>
 
 <form class="bs-docs-example form-inline">
-    <input class="input-xlarge" id="disabledInput" type="text" placeholder="Disabled input here…" disabled>
+    <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here…" disabled>
 </form>
 <pre class="prettyprint linenums">
-&lt;input class="input-xlarge" id="disabledInput" type="text" placeholder="Disabled input here..." disabled&gt;
+&lt;input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled&gt;
 </pre>
 
 <h3>Validation states</h3>
 
 <p>Bootstrap includes validation styles for error, warning, and success messages. To use, add the appropriate class to
-    the surrounding <code>.control-group</code>.</p>
+    the surrounding <code>.form-group</code>.</p>
 
 <form class="bs-docs-example form-horizontal">
-    <div class="control-group warning">
+    <div class="form-group warning">
         <label class="control-label" for="inputWarning">Input with warning</label>
 
         <div class="controls">
@@ -1443,7 +1443,7 @@ Option two can be something else and selecting it will deselect option one
             <span class="help-inline">Something may have gone wrong</span>
         </div>
     </div>
-    <div class="control-group error">
+    <div class="form-group error">
         <label class="control-label" for="inputError">Input with error</label>
 
         <div class="controls">
@@ -1451,7 +1451,7 @@ Option two can be something else and selecting it will deselect option one
             <span class="help-inline">Please correct the error</span>
         </div>
     </div>
-    <div class="control-group success">
+    <div class="form-group success">
         <label class="control-label" for="inputSuccess">Input with success</label>
 
         <div class="controls">
@@ -1461,21 +1461,21 @@ Option two can be something else and selecting it will deselect option one
     </div>
 </form>
 <pre class="prettyprint linenums">
-&lt;div class="control-group warning"&gt;
+&lt;div class="form-group warning"&gt;
 &lt;label class="control-label" for="inputWarning"&gt;Input with warning&lt;/label&gt;
 &lt;div class="controls"&gt;
 &lt;input type="text" id="inputWarning"&gt;
 &lt;span class="help-inline"&gt;Something may have gone wrong&lt;/span&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="control-group error"&gt;
+&lt;div class="form-group error"&gt;
 &lt;label class="control-label" for="inputError"&gt;Input with error&lt;/label&gt;
 &lt;div class="controls"&gt;
 &lt;input type="text" id="inputError"&gt;
 &lt;span class="help-inline"&gt;Please correct the error&lt;/span&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="control-group success"&gt;
+&lt;div class="form-group success"&gt;
 &lt;label class="control-label" for="inputSuccess"&gt;Input with success&lt;/label&gt;
 &lt;div class="controls"&gt;
 &lt;input type="text" id="inputSuccess"&gt;
@@ -1510,7 +1510,7 @@ Option two can be something else and selecting it will deselect option one
         <tbody>
         <tr>
             <td>
-                <button type="button" class="btn">Default</button>
+                <button type="button" class="btn btn-default">Default</button>
             </td>
             <td><code>btn</code></td>
             <td>Standard gray button with gradient</td>
@@ -1585,7 +1585,7 @@ Option two can be something else and selecting it will deselect option one
         </p>
         <p>
             <button type="button" class="btn btn-primary">Default button</button>
-            <button type="button" class="btn">Default button</button>
+            <button type="button" class="btn btn-default">Default button</button>
         </p>
         <p>
             <button type="button" class="btn btn-small btn-primary">Small button</button>
@@ -1603,7 +1603,7 @@ Option two can be something else and selecting it will deselect option one
 &lt;/p&gt;
 &lt;p&gt;
 &lt;button class="btn btn-primary" type="button"&gt;Default button&lt;/button&gt;
-&lt;button class="btn" type="button"&gt;Default button&lt;/button&gt;
+&lt;button class="btn btn-default" type="button"&gt;Default button&lt;/button&gt;
 &lt;/p&gt;
 &lt;p&gt;
 &lt;button class="btn btn-small btn-primary" type="button"&gt;Small button&lt;/button&gt;
@@ -1671,16 +1671,16 @@ Option two can be something else and selecting it will deselect option one
         &lt;input&gt;</code> element.</p>
 
     <form class="bs-docs-example">
-        <a class="btn" href="">Link</a>
-        <button class="btn" type="submit">Button</button>
-        <input class="btn" type="button" value="Input">
-        <input class="btn" type="submit" value="Submit">
+        <a class="btn btn-default" href="">Link</a>
+        <button class="btn btn-default" type="submit">Button</button>
+        <input class="btn btn-default" type="button" value="Input">
+        <input class="btn btn-default" type="submit" value="Submit">
     </form>
 <pre class="prettyprint linenums">
-&lt;a class="btn" href=""&gt;Link&lt;/a&gt;
-&lt;button class="btn" type="submit"&gt;Button&lt;/button&gt;
-&lt;input class="btn" type="button" value="Input"&gt;
-&lt;input class="btn" type="submit" value="Submit"&gt;
+&lt;a class="btn btn-default" href=""&gt;Link&lt;/a&gt;
+&lt;button class="btn btn-default" type="submit"&gt;Button&lt;/button&gt;
+&lt;input class="btn btn-default" type="button" value="Input"&gt;
+&lt;input class="btn btn-default" type="submit" value="Submit"&gt;
 </pre>
     <p>As a best practice, try to match the element for your context to ensure matching cross-browser rendering. If you
         have an <code>input</code>, use an <code>&lt;input type="submit"&gt;</code> for your button.</p>
@@ -1729,150 +1729,150 @@ Option two can be something else and selecting it will deselect option one
                                                                                         target="_blank">Glyphicons</a>.
 </p>
 <ul class="the-icons clearfix">
-    <li><i class="icon-glass"></i> icon-glass</li>
-    <li><i class="icon-music"></i> icon-music</li>
-    <li><i class="icon-search"></i> icon-search</li>
-    <li><i class="icon-envelope"></i> icon-envelope</li>
-    <li><i class="icon-heart"></i> icon-heart</li>
-    <li><i class="icon-star"></i> icon-star</li>
-    <li><i class="icon-star-empty"></i> icon-star-empty</li>
-    <li><i class="icon-user"></i> icon-user</li>
-    <li><i class="icon-film"></i> icon-film</li>
-    <li><i class="icon-th-large"></i> icon-th-large</li>
-    <li><i class="icon-th"></i> icon-th</li>
-    <li><i class="icon-th-list"></i> icon-th-list</li>
-    <li><i class="icon-ok"></i> icon-ok</li>
-    <li><i class="icon-remove"></i> icon-remove</li>
-    <li><i class="icon-zoom-in"></i> icon-zoom-in</li>
-    <li><i class="icon-zoom-out"></i> icon-zoom-out</li>
-    <li><i class="icon-off"></i> icon-off</li>
-    <li><i class="icon-signal"></i> icon-signal</li>
-    <li><i class="icon-cog"></i> icon-cog</li>
-    <li><i class="icon-trash"></i> icon-trash</li>
-    <li><i class="icon-home"></i> icon-home</li>
-    <li><i class="icon-file"></i> icon-file</li>
-    <li><i class="icon-time"></i> icon-time</li>
-    <li><i class="icon-road"></i> icon-road</li>
-    <li><i class="icon-download-alt"></i> icon-download-alt</li>
-    <li><i class="icon-download"></i> icon-download</li>
-    <li><i class="icon-upload"></i> icon-upload</li>
-    <li><i class="icon-inbox"></i> icon-inbox</li>
+    <li><i class="glyphicon glyphicon-glass"></i> glyphicon glyphicon-glass</li>
+    <li><i class="glyphicon glyphicon-music"></i> glyphicon glyphicon-music</li>
+    <li><i class="glyphicon glyphicon-search"></i> glyphicon glyphicon-search</li>
+    <li><i class="glyphicon glyphicon-envelope"></i> glyphicon glyphicon-envelope</li>
+    <li><i class="glyphicon glyphicon-heart"></i> glyphicon glyphicon-heart</li>
+    <li><i class="glyphicon glyphicon-star"></i> glyphicon glyphicon-star</li>
+    <li><i class="glyphicon glyphicon-star-empty"></i> glyphicon glyphicon-star-empty</li>
+    <li><i class="glyphicon glyphicon-user"></i> glyphicon glyphicon-user</li>
+    <li><i class="glyphicon glyphicon-film"></i> glyphicon glyphicon-film</li>
+    <li><i class="glyphicon glyphicon-th-large"></i> glyphicon glyphicon-th-large</li>
+    <li><i class="glyphicon glyphicon-th"></i> glyphicon glyphicon-th</li>
+    <li><i class="glyphicon glyphicon-th-list"></i> glyphicon glyphicon-th-list</li>
+    <li><i class="glyphicon glyphicon-ok"></i> glyphicon glyphicon-ok</li>
+    <li><i class="glyphicon glyphicon-remove"></i> glyphicon glyphicon-remove</li>
+    <li><i class="glyphicon glyphicon-zoom-in"></i> glyphicon glyphicon-zoom-in</li>
+    <li><i class="glyphicon glyphicon-zoom-out"></i> glyphicon glyphicon-zoom-out</li>
+    <li><i class="glyphicon glyphicon-off"></i> glyphicon glyphicon-off</li>
+    <li><i class="glyphicon glyphicon-signal"></i> glyphicon glyphicon-signal</li>
+    <li><i class="glyphicon glyphicon-cog"></i> glyphicon glyphicon-cog</li>
+    <li><i class="glyphicon glyphicon-trash"></i> glyphicon glyphicon-trash</li>
+    <li><i class="glyphicon glyphicon-home"></i> glyphicon glyphicon-home</li>
+    <li><i class="glyphicon glyphicon-file"></i> glyphicon glyphicon-file</li>
+    <li><i class="glyphicon glyphicon-time"></i> glyphicon glyphicon-time</li>
+    <li><i class="glyphicon glyphicon-road"></i> glyphicon glyphicon-road</li>
+    <li><i class="glyphicon glyphicon-download-alt"></i> glyphicon glyphicon-download-alt</li>
+    <li><i class="glyphicon glyphicon-download"></i> glyphicon glyphicon-download</li>
+    <li><i class="glyphicon glyphicon-upload"></i> glyphicon glyphicon-upload</li>
+    <li><i class="glyphicon glyphicon-inbox"></i> glyphicon glyphicon-inbox</li>
 
-    <li><i class="icon-play-circle"></i> icon-play-circle</li>
-    <li><i class="icon-repeat"></i> icon-repeat</li>
-    <li><i class="icon-refresh"></i> icon-refresh</li>
-    <li><i class="icon-list-alt"></i> icon-list-alt</li>
-    <li><i class="icon-lock"></i> icon-lock</li>
-    <li><i class="icon-flag"></i> icon-flag</li>
-    <li><i class="icon-headphones"></i> icon-headphones</li>
-    <li><i class="icon-volume-off"></i> icon-volume-off</li>
-    <li><i class="icon-volume-down"></i> icon-volume-down</li>
-    <li><i class="icon-volume-up"></i> icon-volume-up</li>
-    <li><i class="icon-qrcode"></i> icon-qrcode</li>
-    <li><i class="icon-barcode"></i> icon-barcode</li>
-    <li><i class="icon-tag"></i> icon-tag</li>
-    <li><i class="icon-tags"></i> icon-tags</li>
-    <li><i class="icon-book"></i> icon-book</li>
-    <li><i class="icon-bookmark"></i> icon-bookmark</li>
-    <li><i class="icon-print"></i> icon-print</li>
-    <li><i class="icon-camera"></i> icon-camera</li>
-    <li><i class="icon-font"></i> icon-font</li>
-    <li><i class="icon-bold"></i> icon-bold</li>
-    <li><i class="icon-italic"></i> icon-italic</li>
-    <li><i class="icon-text-height"></i> icon-text-height</li>
-    <li><i class="icon-text-width"></i> icon-text-width</li>
-    <li><i class="icon-align-left"></i> icon-align-left</li>
-    <li><i class="icon-align-center"></i> icon-align-center</li>
-    <li><i class="icon-align-right"></i> icon-align-right</li>
-    <li><i class="icon-align-justify"></i> icon-align-justify</li>
-    <li><i class="icon-list"></i> icon-list</li>
+    <li><i class="glyphicon glyphicon-play-circle"></i> glyphicon glyphicon-play-circle</li>
+    <li><i class="glyphicon glyphicon-repeat"></i> glyphicon glyphicon-repeat</li>
+    <li><i class="glyphicon glyphicon-refresh"></i> glyphicon glyphicon-refresh</li>
+    <li><i class="glyphicon glyphicon-list-alt"></i> glyphicon glyphicon-list-alt</li>
+    <li><i class="glyphicon glyphicon-lock"></i> glyphicon glyphicon-lock</li>
+    <li><i class="glyphicon glyphicon-flag"></i> glyphicon glyphicon-flag</li>
+    <li><i class="glyphicon glyphicon-headphones"></i> glyphicon glyphicon-headphones</li>
+    <li><i class="glyphicon glyphicon-volume-off"></i> glyphicon glyphicon-volume-off</li>
+    <li><i class="glyphicon glyphicon-volume-down"></i> glyphicon glyphicon-volume-down</li>
+    <li><i class="glyphicon glyphicon-volume-up"></i> glyphicon glyphicon-volume-up</li>
+    <li><i class="glyphicon glyphicon-qrcode"></i> glyphicon glyphicon-qrcode</li>
+    <li><i class="glyphicon glyphicon-barcode"></i> glyphicon glyphicon-barcode</li>
+    <li><i class="glyphicon glyphicon-tag"></i> glyphicon glyphicon-tag</li>
+    <li><i class="glyphicon glyphicon-tags"></i> glyphicon glyphicon-tags</li>
+    <li><i class="glyphicon glyphicon-book"></i> glyphicon glyphicon-book</li>
+    <li><i class="glyphicon glyphicon-bookmark"></i> glyphicon glyphicon-bookmark</li>
+    <li><i class="glyphicon glyphicon-print"></i> glyphicon glyphicon-print</li>
+    <li><i class="glyphicon glyphicon-camera"></i> glyphicon glyphicon-camera</li>
+    <li><i class="glyphicon glyphicon-font"></i> glyphicon glyphicon-font</li>
+    <li><i class="glyphicon glyphicon-bold"></i> glyphicon glyphicon-bold</li>
+    <li><i class="glyphicon glyphicon-italic"></i> glyphicon glyphicon-italic</li>
+    <li><i class="glyphicon glyphicon-text-height"></i> glyphicon glyphicon-text-height</li>
+    <li><i class="glyphicon glyphicon-text-width"></i> glyphicon glyphicon-text-width</li>
+    <li><i class="glyphicon glyphicon-align-left"></i> glyphicon glyphicon-align-left</li>
+    <li><i class="glyphicon glyphicon-align-center"></i> glyphicon glyphicon-align-center</li>
+    <li><i class="glyphicon glyphicon-align-right"></i> glyphicon glyphicon-align-right</li>
+    <li><i class="glyphicon glyphicon-align-justify"></i> glyphicon glyphicon-align-justify</li>
+    <li><i class="glyphicon glyphicon-list"></i> glyphicon glyphicon-list</li>
 
-    <li><i class="icon-indent-left"></i> icon-indent-left</li>
-    <li><i class="icon-indent-right"></i> icon-indent-right</li>
-    <li><i class="icon-facetime-video"></i> icon-facetime-video</li>
-    <li><i class="icon-picture"></i> icon-picture</li>
-    <li><i class="icon-pencil"></i> icon-pencil</li>
-    <li><i class="icon-map-marker"></i> icon-map-marker</li>
-    <li><i class="icon-adjust"></i> icon-adjust</li>
-    <li><i class="icon-tint"></i> icon-tint</li>
-    <li><i class="icon-edit"></i> icon-edit</li>
-    <li><i class="icon-share"></i> icon-share</li>
-    <li><i class="icon-check"></i> icon-check</li>
-    <li><i class="icon-move"></i> icon-move</li>
-    <li><i class="icon-step-backward"></i> icon-step-backward</li>
-    <li><i class="icon-fast-backward"></i> icon-fast-backward</li>
-    <li><i class="icon-backward"></i> icon-backward</li>
-    <li><i class="icon-play"></i> icon-play</li>
-    <li><i class="icon-pause"></i> icon-pause</li>
-    <li><i class="icon-stop"></i> icon-stop</li>
-    <li><i class="icon-forward"></i> icon-forward</li>
-    <li><i class="icon-fast-forward"></i> icon-fast-forward</li>
-    <li><i class="icon-step-forward"></i> icon-step-forward</li>
-    <li><i class="icon-eject"></i> icon-eject</li>
-    <li><i class="icon-chevron-left"></i> icon-chevron-left</li>
-    <li><i class="icon-chevron-right"></i> icon-chevron-right</li>
-    <li><i class="icon-plus-sign"></i> icon-plus-sign</li>
-    <li><i class="icon-minus-sign"></i> icon-minus-sign</li>
-    <li><i class="icon-remove-sign"></i> icon-remove-sign</li>
-    <li><i class="icon-ok-sign"></i> icon-ok-sign</li>
+    <li><i class="glyphicon glyphicon-indent-left"></i> glyphicon glyphicon-indent-left</li>
+    <li><i class="glyphicon glyphicon-indent-right"></i> glyphicon glyphicon-indent-right</li>
+    <li><i class="glyphicon glyphicon-facetime-video"></i> glyphicon glyphicon-facetime-video</li>
+    <li><i class="glyphicon glyphicon-picture"></i> glyphicon glyphicon-picture</li>
+    <li><i class="glyphicon glyphicon-pencil"></i> glyphicon glyphicon-pencil</li>
+    <li><i class="glyphicon glyphicon-map-marker"></i> glyphicon glyphicon-map-marker</li>
+    <li><i class="glyphicon glyphicon-adjust"></i> glyphicon glyphicon-adjust</li>
+    <li><i class="glyphicon glyphicon-tint"></i> glyphicon glyphicon-tint</li>
+    <li><i class="glyphicon glyphicon-edit"></i> glyphicon glyphicon-edit</li>
+    <li><i class="glyphicon glyphicon-share"></i> glyphicon glyphicon-share</li>
+    <li><i class="glyphicon glyphicon-check"></i> glyphicon glyphicon-check</li>
+    <li><i class="glyphicon glyphicon-move"></i> glyphicon glyphicon-move</li>
+    <li><i class="glyphicon glyphicon-step-backward"></i> glyphicon glyphicon-step-backward</li>
+    <li><i class="glyphicon glyphicon-fast-backward"></i> glyphicon glyphicon-fast-backward</li>
+    <li><i class="glyphicon glyphicon-backward"></i> glyphicon glyphicon-backward</li>
+    <li><i class="glyphicon glyphicon-play"></i> glyphicon glyphicon-play</li>
+    <li><i class="glyphicon glyphicon-pause"></i> glyphicon glyphicon-pause</li>
+    <li><i class="glyphicon glyphicon-stop"></i> glyphicon glyphicon-stop</li>
+    <li><i class="glyphicon glyphicon-forward"></i> glyphicon glyphicon-forward</li>
+    <li><i class="glyphicon glyphicon-fast-forward"></i> glyphicon glyphicon-fast-forward</li>
+    <li><i class="glyphicon glyphicon-step-forward"></i> glyphicon glyphicon-step-forward</li>
+    <li><i class="glyphicon glyphicon-eject"></i> glyphicon glyphicon-eject</li>
+    <li><i class="glyphicon glyphicon-chevron-left"></i> glyphicon glyphicon-chevron-left</li>
+    <li><i class="glyphicon glyphicon-chevron-right"></i> glyphicon glyphicon-chevron-right</li>
+    <li><i class="glyphicon glyphicon-plus-sign"></i> glyphicon glyphicon-plus-sign</li>
+    <li><i class="glyphicon glyphicon-minus-sign"></i> glyphicon glyphicon-minus-sign</li>
+    <li><i class="glyphicon glyphicon-remove-sign"></i> glyphicon glyphicon-remove-sign</li>
+    <li><i class="glyphicon glyphicon-ok-sign"></i> glyphicon glyphicon-ok-sign</li>
 
-    <li><i class="icon-question-sign"></i> icon-question-sign</li>
-    <li><i class="icon-info-sign"></i> icon-info-sign</li>
-    <li><i class="icon-screenshot"></i> icon-screenshot</li>
-    <li><i class="icon-remove-circle"></i> icon-remove-circle</li>
-    <li><i class="icon-ok-circle"></i> icon-ok-circle</li>
-    <li><i class="icon-ban-circle"></i> icon-ban-circle</li>
-    <li><i class="icon-arrow-left"></i> icon-arrow-left</li>
-    <li><i class="icon-arrow-right"></i> icon-arrow-right</li>
-    <li><i class="icon-arrow-up"></i> icon-arrow-up</li>
-    <li><i class="icon-arrow-down"></i> icon-arrow-down</li>
-    <li><i class="icon-share-alt"></i> icon-share-alt</li>
-    <li><i class="icon-resize-full"></i> icon-resize-full</li>
-    <li><i class="icon-resize-small"></i> icon-resize-small</li>
-    <li><i class="icon-plus"></i> icon-plus</li>
-    <li><i class="icon-minus"></i> icon-minus</li>
-    <li><i class="icon-asterisk"></i> icon-asterisk</li>
-    <li><i class="icon-exclamation-sign"></i> icon-exclamation-sign</li>
-    <li><i class="icon-gift"></i> icon-gift</li>
-    <li><i class="icon-leaf"></i> icon-leaf</li>
-    <li><i class="icon-fire"></i> icon-fire</li>
-    <li><i class="icon-eye-open"></i> icon-eye-open</li>
-    <li><i class="icon-eye-close"></i> icon-eye-close</li>
-    <li><i class="icon-warning-sign"></i> icon-warning-sign</li>
-    <li><i class="icon-plane"></i> icon-plane</li>
-    <li><i class="icon-calendar"></i> icon-calendar</li>
-    <li><i class="icon-random"></i> icon-random</li>
-    <li><i class="icon-comment"></i> icon-comment</li>
-    <li><i class="icon-magnet"></i> icon-magnet</li>
+    <li><i class="glyphicon glyphicon-question-sign"></i> glyphicon glyphicon-question-sign</li>
+    <li><i class="glyphicon glyphicon-info-sign"></i> glyphicon glyphicon-info-sign</li>
+    <li><i class="glyphicon glyphicon-screenshot"></i> glyphicon glyphicon-screenshot</li>
+    <li><i class="glyphicon glyphicon-remove-circle"></i> glyphicon glyphicon-remove-circle</li>
+    <li><i class="glyphicon glyphicon-ok-circle"></i> glyphicon glyphicon-ok-circle</li>
+    <li><i class="glyphicon glyphicon-ban-circle"></i> glyphicon glyphicon-ban-circle</li>
+    <li><i class="glyphicon glyphicon-arrow-left"></i> glyphicon glyphicon-arrow-left</li>
+    <li><i class="glyphicon glyphicon-arrow-right"></i> glyphicon glyphicon-arrow-right</li>
+    <li><i class="glyphicon glyphicon-arrow-up"></i> glyphicon glyphicon-arrow-up</li>
+    <li><i class="glyphicon glyphicon-arrow-down"></i> glyphicon glyphicon-arrow-down</li>
+    <li><i class="glyphicon glyphicon-share-alt"></i> glyphicon glyphicon-share-alt</li>
+    <li><i class="glyphicon glyphicon-resize-full"></i> glyphicon glyphicon-resize-full</li>
+    <li><i class="glyphicon glyphicon-resize-small"></i> glyphicon glyphicon-resize-small</li>
+    <li><i class="glyphicon glyphicon-plus"></i> glyphicon glyphicon-plus</li>
+    <li><i class="glyphicon glyphicon-minus"></i> glyphicon glyphicon-minus</li>
+    <li><i class="glyphicon glyphicon-asterisk"></i> glyphicon glyphicon-asterisk</li>
+    <li><i class="glyphicon glyphicon-exclamation-sign"></i> glyphicon glyphicon-exclamation-sign</li>
+    <li><i class="glyphicon glyphicon-gift"></i> glyphicon glyphicon-gift</li>
+    <li><i class="glyphicon glyphicon-leaf"></i> glyphicon glyphicon-leaf</li>
+    <li><i class="glyphicon glyphicon-fire"></i> glyphicon glyphicon-fire</li>
+    <li><i class="glyphicon glyphicon-eye-open"></i> glyphicon glyphicon-eye-open</li>
+    <li><i class="glyphicon glyphicon-eye-close"></i> glyphicon glyphicon-eye-close</li>
+    <li><i class="glyphicon glyphicon-warning-sign"></i> glyphicon glyphicon-warning-sign</li>
+    <li><i class="glyphicon glyphicon-plane"></i> glyphicon glyphicon-plane</li>
+    <li><i class="glyphicon glyphicon-calendar"></i> glyphicon glyphicon-calendar</li>
+    <li><i class="glyphicon glyphicon-random"></i> glyphicon glyphicon-random</li>
+    <li><i class="glyphicon glyphicon-comment"></i> glyphicon glyphicon-comment</li>
+    <li><i class="glyphicon glyphicon-magnet"></i> glyphicon glyphicon-magnet</li>
 
-    <li><i class="icon-chevron-up"></i> icon-chevron-up</li>
-    <li><i class="icon-chevron-down"></i> icon-chevron-down</li>
-    <li><i class="icon-retweet"></i> icon-retweet</li>
-    <li><i class="icon-shopping-cart"></i> icon-shopping-cart</li>
-    <li><i class="icon-folder-close"></i> icon-folder-close</li>
-    <li><i class="icon-folder-open"></i> icon-folder-open</li>
-    <li><i class="icon-resize-vertical"></i> icon-resize-vertical</li>
-    <li><i class="icon-resize-horizontal"></i> icon-resize-horizontal</li>
-    <li><i class="icon-hdd"></i> icon-hdd</li>
-    <li><i class="icon-bullhorn"></i> icon-bullhorn</li>
-    <li><i class="icon-bell"></i> icon-bell</li>
-    <li><i class="icon-certificate"></i> icon-certificate</li>
-    <li><i class="icon-thumbs-up"></i> icon-thumbs-up</li>
-    <li><i class="icon-thumbs-down"></i> icon-thumbs-down</li>
-    <li><i class="icon-hand-right"></i> icon-hand-right</li>
-    <li><i class="icon-hand-left"></i> icon-hand-left</li>
-    <li><i class="icon-hand-up"></i> icon-hand-up</li>
-    <li><i class="icon-hand-down"></i> icon-hand-down</li>
-    <li><i class="icon-circle-arrow-right"></i> icon-circle-arrow-right</li>
-    <li><i class="icon-circle-arrow-left"></i> icon-circle-arrow-left</li>
-    <li><i class="icon-circle-arrow-up"></i> icon-circle-arrow-up</li>
-    <li><i class="icon-circle-arrow-down"></i> icon-circle-arrow-down</li>
-    <li><i class="icon-globe"></i> icon-globe</li>
-    <li><i class="icon-wrench"></i> icon-wrench</li>
-    <li><i class="icon-tasks"></i> icon-tasks</li>
-    <li><i class="icon-filter"></i> icon-filter</li>
-    <li><i class="icon-briefcase"></i> icon-briefcase</li>
-    <li><i class="icon-fullscreen"></i> icon-fullscreen</li>
+    <li><i class="glyphicon glyphicon-chevron-up"></i> glyphicon glyphicon-chevron-up</li>
+    <li><i class="glyphicon glyphicon-chevron-down"></i> glyphicon glyphicon-chevron-down</li>
+    <li><i class="glyphicon glyphicon-retweet"></i> glyphicon glyphicon-retweet</li>
+    <li><i class="glyphicon glyphicon-shopping-cart"></i> glyphicon glyphicon-shopping-cart</li>
+    <li><i class="glyphicon glyphicon-folder-close"></i> glyphicon glyphicon-folder-close</li>
+    <li><i class="glyphicon glyphicon-folder-open"></i> glyphicon glyphicon-folder-open</li>
+    <li><i class="glyphicon glyphicon-resize-vertical"></i> glyphicon glyphicon-resize-vertical</li>
+    <li><i class="glyphicon glyphicon-resize-horizontal"></i> glyphicon glyphicon-resize-horizontal</li>
+    <li><i class="glyphicon glyphicon-hdd"></i> glyphicon glyphicon-hdd</li>
+    <li><i class="glyphicon glyphicon-bullhorn"></i> glyphicon glyphicon-bullhorn</li>
+    <li><i class="glyphicon glyphicon-bell"></i> glyphicon glyphicon-bell</li>
+    <li><i class="glyphicon glyphicon-certificate"></i> glyphicon glyphicon-certificate</li>
+    <li><i class="glyphicon glyphicon-thumbs-up"></i> glyphicon glyphicon-thumbs-up</li>
+    <li><i class="glyphicon glyphicon-thumbs-down"></i> glyphicon glyphicon-thumbs-down</li>
+    <li><i class="glyphicon glyphicon-hand-right"></i> glyphicon glyphicon-hand-right</li>
+    <li><i class="glyphicon glyphicon-hand-left"></i> glyphicon glyphicon-hand-left</li>
+    <li><i class="glyphicon glyphicon-hand-up"></i> glyphicon glyphicon-hand-up</li>
+    <li><i class="glyphicon glyphicon-hand-down"></i> glyphicon glyphicon-hand-down</li>
+    <li><i class="glyphicon glyphicon-circle-arrow-right"></i> glyphicon glyphicon-circle-arrow-right</li>
+    <li><i class="glyphicon glyphicon-circle-arrow-left"></i> glyphicon glyphicon-circle-arrow-left</li>
+    <li><i class="glyphicon glyphicon-circle-arrow-up"></i> glyphicon glyphicon-circle-arrow-up</li>
+    <li><i class="glyphicon glyphicon-circle-arrow-down"></i> glyphicon glyphicon-circle-arrow-down</li>
+    <li><i class="glyphicon glyphicon-globe"></i> glyphicon glyphicon-globe</li>
+    <li><i class="glyphicon glyphicon-wrench"></i> glyphicon glyphicon-wrench</li>
+    <li><i class="glyphicon glyphicon-tasks"></i> glyphicon glyphicon-tasks</li>
+    <li><i class="glyphicon glyphicon-filter"></i> glyphicon glyphicon-filter</li>
+    <li><i class="glyphicon glyphicon-briefcase"></i> glyphicon glyphicon-briefcase</li>
+    <li><i class="glyphicon glyphicon-fullscreen"></i> glyphicon glyphicon-fullscreen</li>
 </ul>
 
 <h3>Glyphicons attribution</h3>
@@ -1888,15 +1888,15 @@ Option two can be something else and selecting it will deselect option one
 
 <h2>How to use</h2>
 
-<p>All icons require an <code>&lt;i&gt;</code> tag with a unique class, prefixed with <code>icon-</code>. To use, place
+<p>All icons require an <code>&lt;i&gt;</code> tag with a unique class, prefixed with <code>glyphicon glyphicon-</code>. To use, place
     the following code just about anywhere:</p>
 <pre class="prettyprint linenums">
-&lt;i class="icon-search"&gt;&lt;/i&gt;
+&lt;i class="glyphicon glyphicon-search"&gt;&lt;/i&gt;
 </pre>
 <p>There are also styles available for inverted (white) icons, made ready with one extra class. We will specifically
     enforce this class on hover and active states for nav and dropdown links.</p>
 <pre class="prettyprint linenums">
-&lt;i class="icon-search icon-white"&gt;&lt;/i&gt;
+&lt;i class="glyphicon glyphicon-search glyphicon"&gt;&lt;/i&gt;
 </pre>
 <p>
     <span class="label label-info">Heads up!</span>
@@ -1919,10 +1919,10 @@ Option two can be something else and selecting it will deselect option one
 <div class="bs-docs-example">
     <div class="btn-toolbar">
         <div class="btn-group">
-            <a class="btn" href="#"><i class="icon-align-left"></i></a>
-            <a class="btn" href="#"><i class="icon-align-center"></i></a>
-            <a class="btn" href="#"><i class="icon-align-right"></i></a>
-            <a class="btn" href="#"><i class="icon-align-justify"></i></a>
+            <a class="btn btn-default" href="#"><i class="glyphicon glyphicon-align-left"></i></a>
+            <a class="btn btn-default" href="#"><i class="glyphicon glyphicon-align-center"></i></a>
+            <a class="btn btn-default" href="#"><i class="glyphicon glyphicon-align-right"></i></a>
+            <a class="btn btn-default" href="#"><i class="glyphicon glyphicon-align-justify"></i></a>
         </div>
     </div>
 </div>
@@ -1930,10 +1930,10 @@ Option two can be something else and selecting it will deselect option one
 &lt;div class="btn-toolbar"&gt;
 &lt;div class="btn-group"&gt;
 
-&lt;a class="btn" href="#"&gt;&lt;i class="icon-align-left"&gt;&lt;/i&gt;&lt;/a&gt;
-&lt;a class="btn" href="#"&gt;&lt;i class="icon-align-center"&gt;&lt;/i&gt;&lt;/a&gt;
-&lt;a class="btn" href="#"&gt;&lt;i class="icon-align-right"&gt;&lt;/i&gt;&lt;/a&gt;
-&lt;a class="btn" href="#"&gt;&lt;i class="icon-align-justify"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;a class="btn btn-default" href="#"&gt;&lt;i class="glyphicon glyphicon-align-left"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;a class="btn btn-default" href="#"&gt;&lt;i class="glyphicon glyphicon-align-center"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;a class="btn btn-default" href="#"&gt;&lt;i class="glyphicon glyphicon-align-right"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;a class="btn btn-default" href="#"&gt;&lt;i class="glyphicon glyphicon-align-justify"&gt;&lt;/i&gt;&lt;/a&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </pre>
@@ -1942,12 +1942,12 @@ Option two can be something else and selecting it will deselect option one
 
 <div class="bs-docs-example">
     <div class="btn-group">
-        <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i> User</a>
+        <a class="btn btn-primary" href="#"><i class="glyphicon glyphicon-user glyphicon"></i> User</a>
         <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a href="#"><i class="icon-pencil"></i> Edit</a></li>
-            <li><a href="#"><i class="icon-trash"></i> Delete</a></li>
-            <li><a href="#"><i class="icon-ban-circle"></i> Ban</a></li>
+            <li><a href="#"><i class="glyphicon glyphicon-pencil"></i> Edit</a></li>
+            <li><a href="#"><i class="glyphicon glyphicon-trash"></i> Delete</a></li>
+            <li><a href="#"><i class="glyphicon glyphicon-ban-circle"></i> Ban</a></li>
             <li class="divider"></li>
             <li><a href="#"><i class="i"></i> Make admin</a></li>
         </ul>
@@ -1955,12 +1955,12 @@ Option two can be something else and selecting it will deselect option one
 </div>
 <pre class="prettyprint linenums">
 &lt;div class="btn-group"&gt;
-&lt;a class="btn btn-primary" href="#"&gt;&lt;i class="icon-user icon-white"&gt;&lt;/i&gt; User&lt;/a&gt;
+&lt;a class="btn btn-primary" href="#"&gt;&lt;i class="glyphicon glyphicon-user glyphicon"&gt;&lt;/i&gt; User&lt;/a&gt;
 &lt;a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/a&gt;
 &lt;ul class="dropdown-menu"&gt;
-&lt;li&gt;&lt;a href="#"&gt;&lt;i class="icon-pencil"&gt;&lt;/i&gt; Edit&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#"&gt;&lt;i class="icon-trash"&gt;&lt;/i&gt; Delete&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#"&gt;&lt;i class="icon-ban-circle"&gt;&lt;/i&gt; Ban&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;&lt;i class="glyphicon glyphicon-pencil"&gt;&lt;/i&gt; Edit&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;&lt;i class="glyphicon glyphicon-trash"&gt;&lt;/i&gt; Delete&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;&lt;i class="glyphicon glyphicon-ban-circle"&gt;&lt;/i&gt; Ban&lt;/a&gt;&lt;/li&gt;
 &lt;li class="divider"&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#"&gt;&lt;i class="i"&gt;&lt;/i&gt; Make admin&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -1970,10 +1970,10 @@ Option two can be something else and selecting it will deselect option one
 <h5>Small button</h5>
 
 <div class="bs-docs-example">
-    <a class="btn btn-small" href="#"><i class="icon-star"></i></a>
+    <a class="btn btn-small" href="#"><i class="glyphicon glyphicon-star"></i></a>
 </div>
 <pre class="prettyprint linenums">
-&lt;a class="btn btn-small" href="#"&gt;&lt;i class="icon-star"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;a class="btn btn-small" href="#"&gt;&lt;i class="glyphicon glyphicon-star"&gt;&lt;/i&gt;&lt;/a&gt;
 </pre>
 
 
@@ -1982,18 +1982,18 @@ Option two can be something else and selecting it will deselect option one
 <div class="bs-docs-example">
     <div class="well" style="padding: 8px 0; margin-bottom: 0;">
         <ul class="nav nav-list">
-            <li class="active"><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
-            <li><a href="#"><i class="icon-book"></i> Library</a></li>
-            <li><a href="#"><i class="icon-pencil"></i> Applications</a></li>
+            <li class="active"><a href="#"><i class="glyphicon glyphicon-home glyphicon"></i> Home</a></li>
+            <li><a href="#"><i class="glyphicon glyphicon-book"></i> Library</a></li>
+            <li><a href="#"><i class="glyphicon glyphicon-pencil"></i> Applications</a></li>
             <li><a href="#"><i class="i"></i> Misc</a></li>
         </ul>
     </div>
 </div>
 <pre class="prettyprint linenums">
 &lt;ul class="nav nav-list"&gt;
-&lt;li class="active"&gt;&lt;a href="#"&gt;&lt;i class="icon-home icon-white"&gt;&lt;/i&gt; Home&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#"&gt;&lt;i class="icon-book"&gt;&lt;/i&gt; Library&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="#"&gt;&lt;i class="icon-pencil"&gt;&lt;/i&gt; Applications&lt;/a&gt;&lt;/li&gt;
+&lt;li class="active"&gt;&lt;a href="#"&gt;&lt;i class="glyphicon glyphicon-home glyphicon"&gt;&lt;/i&gt; Home&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;&lt;i class="glyphicon glyphicon-book"&gt;&lt;/i&gt; Library&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;&lt;i class="glyphicon glyphicon-pencil"&gt;&lt;/i&gt; Applications&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="#"&gt;&lt;i class="i"&gt;&lt;/i&gt; Misc&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </pre>
@@ -2001,23 +2001,23 @@ Option two can be something else and selecting it will deselect option one
 <h4>Form fields</h4>
 
 <form class="bs-docs-example form-horizontal">
-    <div class="control-group">
+    <div class="form-group">
         <label class="control-label" for="inputIcon">Email address</label>
 
         <div class="controls">
             <div class="input-prepend">
-                <span class="add-on"><i class="icon-envelope"></i></span><input class="span2" id="inputIcon"
+                <span class="add-on"><i class="glyphicon glyphicon-envelope"></i></span><input class="span2" id="inputIcon"
                                                                                 type="text">
             </div>
         </div>
     </div>
 </form>
 <pre class="prettyprint linenums">
-&lt;div class="control-group"&gt;
+&lt;div class="form-group"&gt;
 &lt;label class="control-label" for="inputIcon"&gt;Email address&lt;/label&gt;
 &lt;div class="controls"&gt;
 &lt;div class="input-prepend"&gt;
-&lt;span class="add-on"&gt;&lt;i class="icon-envelope"&gt;&lt;i&gt;&lt;span&gt;&lt;input class="span2" id="inputIcon" type="text"&gt;
+&lt;span class="add-on"&gt;&lt;i class="glyphicon glyphicon-envelope"&gt;&lt;i&gt;&lt;span&gt;&lt;input class="span2" id="inputIcon" type="text"&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </pre>

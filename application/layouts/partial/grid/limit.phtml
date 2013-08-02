@@ -1,0 +1,11 @@
+<?php
+/**
+ * @var \Bluz\Grid\Grid $grid
+ */
+?>
+<ul class="pagination pagination-small pull-right">
+    <li class="disabled"><a href="#"><?=__('Limit')?></a></li>
+    <li <?=(($grid->getLimit()==25)?'class="active"':'')?>><a href="<?=$grid->limit(25)?>">25</a></li>
+    <li <?=(($grid->getLimit()==50)?'class="active"':'')?>><a href="<?=$grid->limit(50)?>">50</a></li>
+    <li <?=(($grid->getLimit()==100)?'class="active"':'')?>><a href="<?=$grid->limit(100)?>">100</a></li>
+</ul>

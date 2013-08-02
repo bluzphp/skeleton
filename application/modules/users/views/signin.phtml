@@ -5,19 +5,21 @@
  */
 ?>
 <h3><?=__('Please sign in')?></h3>
-<form action="<?=$this->url('users', 'signin')?>" method="post" >
-    <div class="control-group">
-        <label class="input-prepend">
-            <span class="add-on"><i class="icon-user"></i></span><input type="text" id="login" name="login" class="input-large" value="<?=isset($login)?$login:''?>" placeholder="<?=__('login')?>" />
-        </label>
+<form action="<?=$this->url('users', 'signin')?>" method="post">
+    <div class="form-group input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input type="text" name="login" class="form-control" value="<?=isset($login)?$login:''?>" placeholder="<?=__('login')?>" required />
     </div>
-    <div class="control-group">
-        <label class="input-prepend">
-            <span class="add-on"><i class="icon-lock"></i></span><input type="password" id="password" name="password" class="input-large" placeholder="<?=__('password')?>" />
-        </label>
+
+    <div class="form-group input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input type="password" name="password" class="form-control" placeholder="<?=__('password')?>" required />
     </div>
+
     <input type="submit" value="<?=__('Sign In')?>" class="btn btn-primary"/>
-    <a href="<?=$this->url('users', 'signup')?>" title="Sign Up" class="btn right"><?=__('Sign Up')?></a>
+
+    <a href="<?=$this->url('users', 'signup')?>" title="Sign Up" class="btn btn-default right"><?=__('Sign Up')?></a>
+
     <div class="text-center">
         <?=$this->widget('twitter', 'auth')?>
         <?=$this->widget('facebook', 'auth')?>

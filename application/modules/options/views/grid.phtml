@@ -9,15 +9,17 @@
         require(['bluz.grid']);
     </script>
 
-    <div class="pagination pagination-right">
-        <a href="<?=$this->url('options', 'crud')?>" class="btn btn-primary left dialog" data-ajax-method="get"><?=__('Create')?></a>
-        <ul>
-            <li><a href="#"><?=__('Limit')?></a></li>
-            <li <?=(($grid->getLimit()==25)?'class="active"':'')?>><a href="<?=$grid->limit(25)?>">25</a></li>
-            <li <?=(($grid->getLimit()==50)?'class="active"':'')?>><a href="<?=$grid->limit(50)?>">50</a></li>
-            <li <?=(($grid->getLimit()==100)?'class="active"':'')?>><a href="<?=$grid->limit(100)?>">100</a></li>
-        </ul>
+    <div class="row">
+        <div class="col-lg-6">
+            <a href="<?=$this->url('options', 'crud')?>" class="btn btn-primary navbar-btn dialog" data-ajax-method="get"><?=__('Create')?></a>
+        </div>
+        <div class="col-lg-6">
+
+        </div>
     </div>
+
+    <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
+    <?php $this->partial('grid/limit.phtml', ['grid'=>$grid]) ?>
 
     <table class="table">
         <thead>
@@ -41,50 +43,20 @@
                 <td><?=$row['created']?></td>
                 <td><?=$row['updated']?></td>
                 <td class="controls">
-                    <a href="<?=$this->url('options', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-small dialog" data-ajax-method="get">
-                        <i class="icon-pencil"></i>
+                    <a href="<?=$this->url('options', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-small btn-primary dialog" data-ajax-method="get">
+                        <i class="glyphicon glyphicon-pencil"></i>
                     </a>
                     <a href="<?=$this->url('options', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-small btn-danger ajax" data-ajax-method="delete">
-                        <i class="icon-white icon-trash"></i>
+                        <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </td>
             </tr>
             <?php endforeach; ?>
-            <?php if (sizeof($grid->getData()) < $grid->getLimit()) :
-                $emptyRows = $grid->getLimit() - sizeof($grid->getData()); ?>
-                <?php for ($i = 0; $i < $emptyRows; $i++): ?>
-                <tr>
-                    <td colspan="7">&nbsp;</td>
-                </tr>
-                <?php endfor; ?>
-            <?php endif; ?>
         </tbody>
     </table>
-    <div class="pagination">
-        <?php if ($grid->pages() > 1) : ?>
-        <ul>
-            <?php if ($prev = $grid->prev()) : ?><li><a href="<?=$prev?>">&laquo;</a></li>
-            <?php else : ?> <li class="disabled"><a href="#" onclick="javascript: return false;">&laquo;</a></li>
-            <?php endif; ?>
 
-
-            <?php for ($page = 1; $page <= $grid->pages(); $page++) : ?>
-            <li <?=($page==$grid->getPage()?'class="active"':'') ?>><a href="<?=$grid->page($page)?>"><?=$page?></a></li>
-            <?php endfor; ?>
-
-            <?php if ($next = $grid->next()) : ?><li><a href="<?=$next?>">&raquo;</a></li>
-            <?php else : ?> <li class="disabled"><a href="#" onclick="javascript: return false;">&raquo;</a></li>
-            <?php endif; ?>
-        </ul>
-        <?php endif; ?>
-
-        <ul class="right">
-            <li>
-                <a href="<?=$grid->reset()?>"><?=__('Total')?>:
-                    <strong><?=$grid->total()?></strong> <?=__('record','records', $grid->total())?> <?=__('on')?>
-                    <strong><?=$grid->pages()?></strong> <?=__('page','pages', $grid->pages())?></a>
-            </li>
-        </ul>
-    </div>
+    <?php $this->partial('grid/empty-rows.phtml', ['grid'=>$grid]) ?>
+    <?php $this->partial('grid/pagination.phtml', ['grid'=>$grid]) ?>
+    <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
 
 </div>

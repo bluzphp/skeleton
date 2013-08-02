@@ -17,30 +17,20 @@ define(["jquery", "bootstrap", "bluz"], function ($) {
          */
         notice: function ($form, field, messages) {
             var $field = $(field);
-            var $group = $field.parents('.control-group');
+            var $group = $field.parents('.form-group');
 
             if (messages instanceof Array) {
                 messages = messages.join('<br/>');
             }
 
-            $group.addClass('error');
+            $group.addClass('has-error');
 
             // field can be hidden, e.g. by WYSIWYG editor
             if ($field.is(':hidden')) {
                 $field = $group.find('label');
             }
 
-            /**
-             * @url https://github.com/twitter/bootstrap/issues/6942
-             */
-            $field.on('show', function(event){
-                event.stopPropagation();
-            }).on('hidden', function(event){
-                event.stopPropagation();
-            });
-
             // remove previously generated tooltips
-             /*$field.tooltip('destroy');*/
             $field.tooltip({
                 html: true,
                 title: messages,
@@ -51,7 +41,7 @@ define(["jquery", "bootstrap", "bluz"], function ($) {
 
             $field.tooltip('show');
             $field.click(function () {
-                $field.parents('.control-group').removeClass('error');
+                $group.removeClass('has-error');
                 $field.tooltip('destroy');
             });
         },
@@ -62,7 +52,7 @@ define(["jquery", "bootstrap", "bluz"], function ($) {
          */
         notices: function ($form, data) {
             // clear previously generated classes
-            $form.find('.control-group').removeClass('error');
+            $form.find('.form-group').removeClass('has-error');
             if (data.errors) {
                 $.each(data.errors, function(field, notices) {
                     validator.notice($form, '[name^="data['+field+']"]:first', notices);

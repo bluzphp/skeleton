@@ -1,45 +1,31 @@
 <?php $uid = uniqid('form_'); ?>
-<h3><?=__('Edit profile')?></h3>
-<form id="<?=$uid?>" action="<?=$this->url('users', 'edit')?>" class="ajax" method="put">
-    <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
+<h3 class="page-header"><?=__('Edit profile')?></h3>
 
-    <div class="control-group">
+<form id="<?=$uid?>" action="<?=$this->url('users', 'edit')?>" class="ajax form-horizontal" method="put">
+    <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
+    <div class="form-group input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        <input type="email" class="form-control" name="data[email]" value="<?=($row->email)?>" required/>
+
         <?php if ($row->changeEmail): ?>
-        <label class="input-prepend input-append">
-            <span class="add-on"><i class="icon-envelope"></i></span>
-        <input type="text" class="input-large" name="data[email]" value="<?=($row->email)?>"
-               placeholder="<?=__('email')?>"/>
-        <span class="add-on" title="<?=__('Email will be changed after confirmation')?>">
-                <i class="icon-warning-sign"></i>
-            </span>
-        <?php else: ?>
-        <label class="input-prepend">
-            <span class="add-on"><i class="icon-envelope"></i></span>
-        <input type="text" class="input-large" name="data[email]" value="<?=($row->email)?>"
-               placeholder="<?=__('email')?>"/>
+        <span class="input-group-addon" title="<?=__('Email will be changed after confirmation')?>">
+            <i class="glyphicon glyphicon-info-sign"></i></span>
         <?php endif; ?>
-    </label>
     </div>
-    <div class="control-group">
-        <label class="input-prepend">
-            <span class="add-on"><i class="icon-lock"></i></span>
-            <input type="password" class="input-large" name="data[old_password]"
-                   placeholder="<?=__('old password')?>"/>
-        </label>
+    <div class="form-group input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input type="password" class="form-control" name="data[old_password]"
+               placeholder="<?=__('current password')?>" required/>
     </div>
-    <div class="control-group">
-        <label class="input-prepend">
-            <span class="add-on"><i class="icon-lock"></i></span>
-            <input type="password" class="input-large" name="data[new_password]"
-                   placeholder="<?=__('new password')?>"/>
-        </label>
+    <div class="form-group input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input type="password" class="form-control" name="data[new_password]"
+               placeholder="<?=__('new password')?>"/>
     </div>
-    <div class="control-group">
-        <label class="input-prepend">
-            <span class="add-on"><i class="icon-lock"></i></span>
-            <input type="password" class="input-large" name="data[new_password2]"
-                   placeholder="<?=__('repeat password')?>"/>
-        </label>
+    <div class="form-group input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input type="password" class="form-control" name="data[new_password2]"
+               placeholder="<?=__('repeat password')?>"/>
     </div>
-    <button type="submit" class="btn btn-primary"><?=__('Edit profile')?></button>
+    <button type="submit" class="btn btn-primary"><?=__('Save')?></button>
 </form>

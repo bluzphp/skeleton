@@ -17,15 +17,11 @@
         <a href="<?=$grid->filter('status', 'eq', 'active')?>">All Active Users</a> <br/>
         <a href="<?=$grid->filter('status', 'eq', 'active', false)?>">AND Active Users</a> <br/>
     </p>
-
-    <div class="pagination pagination-right">
+    <div class="input-group">
         <a href="<?=$this->url('test', 'crud')?>" class="btn btn-primary left dialog" data-ajax-method="get">Create</a>
-        <ul>
-            <li><a href="#">Limit</a></li>
-            <li <?=(($grid->getLimit()==5)?'class="active"':'')?>><a href="<?=$grid->limit(5)?>">5</a></li>
-            <li <?=(($grid->getLimit()==10)?'class="active"':'')?>><a href="<?=$grid->limit(10)?>">10</a></li>
-        </ul>
     </div>
+    <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
+    <?php $this->partial('grid/limit.phtml', ['grid'=>$grid]) ?>
 
     <table class="table grid">
         <thead>
@@ -43,50 +39,20 @@
                 <td><?=$row['name']?></td>
                 <td><?=$row['status']?></td>
                 <td class="controls">
-                    <a href="<?=$this->url('test', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-small dialog" data-ajax-method="get">
-                        <i class="icon-pencil"></i>
+                    <a href="<?=$this->url('test', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-small btn-primary dialog" data-ajax-method="get">
+                        <i class="glyphicon glyphicon-pencil"></i>
                     </a>
                     <a href="<?=$this->url('test', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-small btn-danger ajax" data-ajax-method="delete">
-                        <i class="icon-white icon-remove"></i>
+                        <i class="glyphicon glyphicon-remove"></i>
                     </a>
                 </td>
             </tr>
             <?php endforeach; ?>
-            <?php if (sizeof($grid->getData()) < $grid->getLimit()) :
-                $emptyRows = $grid->getLimit() - sizeof($grid->getData()); ?>
-                <?php for ($i = 0; $i < $emptyRows; $i++): ?>
-                <tr>
-                    <td colspan="5">&nbsp;</td>
-                </tr>
-                <?php endfor; ?>
-            <?php endif; ?>
         </tbody>
     </table>
-    <div class="pagination">
-        <?php if ($grid->pages() > 1) : ?>
-        <ul>
-            <?php if ($prev = $grid->prev()) : ?><li><a href="<?=$prev?>">&laquo;</a></li>
-            <?php else : ?> <li class="disabled"><a href="#" onclick="javascript: return false;">&laquo;</a></li>
-            <?php endif; ?>
 
-
-            <?php for ($page = 1; $page <= $grid->pages(); $page++) : ?>
-            <li <?=($page==$grid->getPage()?'class="active"':'') ?>><a href="<?=$grid->page($page)?>"><?=$page?></a></li>
-            <?php endfor; ?>
-
-            <?php if ($next = $grid->next()) : ?><li><a href="<?=$next?>">&raquo;</a></li>
-            <?php else : ?> <li class="disabled"><a href="#" onclick="javascript: return false;">&raquo;</a></li>
-            <?php endif; ?>
-        </ul>
-        <?php endif; ?>
-
-        <ul class="right">
-            <li>
-                <a href="<?=$grid->reset()?>">Total:
-                    <strong><?=$grid->total()?></strong> <?=__('record','records', $grid->total())?> on
-                    <strong><?=$grid->pages()?></strong> <?=__('page','pages', $grid->pages())?></a>
-            </li>
-        </ul>
-    </div>
+    <?php $this->partial('grid/empty-rows.phtml', ['grid'=>$grid]) ?>
+    <?php $this->partial('grid/pagination.phtml', ['grid'=>$grid]) ?>
+    <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
 
 </div>

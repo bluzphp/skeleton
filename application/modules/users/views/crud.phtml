@@ -4,25 +4,25 @@
     <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3><?=__('Edit user')?></h3>
+        <h4 class="modal-title"><?=__('Edit user')?></h4>
     </div>
     <div class="modal-body">
-        <div class="control-group">
-            <label class="control-label" for="login"><?=__('Login')?></label>
-            <div class="controls">
-                <input type="text" class="input-xlarge" id="login" name="data[login]" value="<?=($row->login)?>" />
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="login"><?=__('Login')?></label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="login" name="data[login]" value="<?=($row->login)?>" required />
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="email"><?=__('Email')?></label>
-            <div class="controls">
-                <input type="text" class="input-xlarge" id="email" name="data[email]" value="<?=($row->email)?>" />
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="email"><?=__('Email')?></label>
+            <div class="col-lg-10">
+                <input type="email" class="form-control" id="email" name="data[email]" value="<?=($row->email)?>" required />
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="status"><?=__('Status')?></label>
-            <div class="controls">
-                <select id="status" name="data[status]" class="span2">
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="status"><?=__('Status')?></label>
+            <div class="col-lg-10">
+                <select id="status" name="data[status]" class="form-control">
                     <option <?=$row->status== Application\Users\Row::STATUS_ACTIVE ?'selected':''?>>active</option>
                     <option <?=$row->status== Application\Users\Row::STATUS_DISABLED ?'selected':''?>>disabled</option>
                     <option <?=$row->status== Application\Users\Row::STATUS_PENDING ?'selected':''?>>pending</option>
@@ -32,6 +32,6 @@
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary"><?=__('Save')?></button>
-        <a href="#" class="btn" data-dismiss="modal"><?=__('Close')?></a>
+        <a href="#" class="btn btn-default" data-dismiss="modal"><?=__('Close')?></a>
     </div>
 </form>
