@@ -1,5 +1,6 @@
 /**
  * Bluz storage handler
+ *
  * @author   Anton Shevchuk
  * @created  23.10.12 10:02
  */

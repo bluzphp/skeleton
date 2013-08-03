@@ -6,18 +6,51 @@
 ?>
 <script>
     // use data-spy="grid" for use AJAX for reload grid
-    require(['bluz.grid']);
+    require(['bluz.grid'], function (grid) {
+        var $filterForm = $('form.filter-form');
+        var $dropToggle = $filterForm.find('button.dropdown-toggle');
+        var $filterField = $filterForm.find('[name=field]');
+        $filterForm.find('.dropdown-menu').on('click', 'a', function(e){
+            var filter = $(this).data('filter');
+            var title = $(this).text();
+            $dropToggle.html(title + '  <span class="caret"></span>');
+            $filterField.val(filter);
+            e.preventDefault();
+        });
+    });
 </script>
 
 <div data-spy="grid" data-grid="<?=$grid->getUid()?>">
-    <div class="pagination pagination-right">
-        <ul>
-            <li><a href="#"><?=__('Limit')?></a></li>
-            <li <?=(($grid->getLimit()==25)?'class="active"':'')?>><a href="<?=$grid->limit(25)?>">25</a></li>
-            <li <?=(($grid->getLimit()==50)?'class="active"':'')?>><a href="<?=$grid->limit(50)?>">50</a></li>
-            <li <?=(($grid->getLimit()==100)?'class="active"':'')?>><a href="<?=$grid->limit(100)?>">100</a></li>
-        </ul>
+
+    <div class="row">
+        <div class="col-lg-6">
+        </div>
+        <div class="col-lg-6">
+            <form action="<?=$this->url('users', 'grid')?>" class="navbar-form filter-form pull-right">
+                <input type="hidden" name="field" value="<?=esc($field)?>"/>
+                <div class="input-group">
+                    <?php
+                    $this->partial(
+                        'grid/filter-search.phtml',
+                        [
+                            'grid' => $grid,
+                            'filters' => [
+                                'login' => __('Login'),
+                                'email' => __('Email'),
+                            ]
+                        ]
+                    )
+                    ?>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><?=__("Search")?></button>
+                    </span>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
+    <?php $this->partial('grid/limit.phtml', ['grid'=>$grid]) ?>
 
     <table class="table grid">
         <thead>
@@ -25,6 +58,7 @@
                 <th width="40px"><?=__('Id')?></th>
                 <th><a href="<?=$grid->order('login')?:'#'?>"><?=__('Login')?></a></th>
                 <th><a href="<?=$grid->order('email')?:'#'?>"><?=__('Email')?></a></th>
+                <th><a href="<?=$grid->order('status')?:'#'?>"><?=__('Status')?></a></th>
                 <th width="100px"></th>
             </tr>
         </thead>
@@ -34,51 +68,22 @@
                 <td><?=$row['id']?></td>
                 <td><a href="<?=$this->url('users', 'profile', ['id'=>$row['id']])?>"><?=$row['login']?></a></td>
                 <td><?=$row['email']?></td>
+                <td><?=$row['status']?></td>
                 <td class="controls">
-                    <a href="<?=$this->url('users', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-small dialog" data-ajax-method="get">
-                        <i class="icon-pencil"></i>
+                    <a href="<?=$this->url('users', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-primary btn-small dialog" data-ajax-method="get">
+                        <i class="glyphicon glyphicon-pencil"></i>
                     </a>
                     <a href="<?=$this->url('users', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-small btn-danger ajax" data-ajax-method="delete">
-                        <i class="icon-white icon-trash"></i>
+                        <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </td>
             </tr>
             <?php endforeach; ?>
-            <?php if (sizeof($grid->getData()) < $grid->getLimit()) :
-                $emptyRows = $grid->getLimit() - sizeof($grid->getData()); ?>
-                <?php for ($i = 0; $i < $emptyRows; $i++): ?>
-                <tr>
-                    <td colspan="5">&nbsp;</td>
-                </tr>
-                <?php endfor; ?>
-            <?php endif; ?>
         </tbody>
     </table>
-    <div class="pagination">
-        <?php if ($grid->pages() > 1) : ?>
-        <ul>
-            <?php if ($prev = $grid->prev()) : ?><li><a href="<?=$prev?>">&laquo;</a></li>
-            <?php else : ?> <li class="disabled"><a href="#" onclick="javascript:return false;">&laquo;</a></li>
-            <?php endif; ?>
 
-
-            <?php for ($page = 1; $page <= $grid->pages(); $page++) : ?>
-            <li <?=($page==$grid->getPage()?'class="active"':'') ?>><a href="<?=$grid->page($page)?>"><?=$page?></a></li>
-            <?php endfor; ?>
-
-            <?php if ($next = $grid->next()) : ?><li><a href="<?=$next?>">&raquo;</a></li>
-            <?php else : ?> <li class="disabled"><a href="#" onclick="javascript:return false;">&raquo;</a></li>
-            <?php endif; ?>
-        </ul>
-        <?php endif; ?>
-
-        <ul class="right">
-            <li>
-                <a href="<?=$grid->reset()?>"><?=__('Total')?>:
-                    <strong><?=$grid->total()?></strong> <?=__('record','records', $grid->total())?> <?=__('on')?>
-                    <strong><?=$grid->pages()?></strong> <?=__('page','pages', $grid->pages())?></a>
-            </li>
-        </ul>
-    </div>
+    <?php $this->partial('grid/empty-rows.phtml', ['grid'=>$grid]) ?>
+    <?php $this->partial('grid/pagination.phtml', ['grid'=>$grid]) ?>
+    <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
 
 </div>

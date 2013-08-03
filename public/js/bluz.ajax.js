@@ -19,12 +19,15 @@
  *
  * @author   Anton Shevchuk
  */
-define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
+define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 	"use strict";
 	// on DOM ready state
 	$(function () {
 		// Ajax global events
         $(document)
+            .ajaxStart(function () {
+                $('#loading').show();
+            })
             .ajaxSuccess(function (event, jqXHR, options) {
                 if (options.dataType === 'json' ||
                     jqXHR.getResponseHeader('Content-Type') == 'application/json') {
@@ -55,9 +58,10 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                     }
 
                     // show messages and run callback after
-                    if (data._messages !== undefined) {
-                        messages.setCallback(callback);
-                        messages.addMessages(data._messages);
+                    if (jqXHR.getResponseHeader('Bluz-Notify')) {
+                        var notifications = $.parseJSON(jqXHR.getResponseHeader('Bluz-Notify'));
+                        notify.addCallback(callback);
+                        notify.set(notifications);
                     } else if (callback) {
                         callback();
                     }
@@ -65,36 +69,25 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
             })
             .ajaxError(function (event, jqXHR, options, thrownError) {
                 bluz.log(thrownError, jqXHR.responseText);
-//                messages.addError('Connection is fail');
+
+                // show error messages
+                if (jqXHR.getResponseHeader('Bluz-Notify')) {
+                    var notifications = $.parseJSON(jqXHR.getResponseHeader('Bluz-Notify'));
+                    notify.set(notifications);
+                }
 
                 // try to get error message from JSON response
                 if (options.dataType === 'json' ||
                     jqXHR.getResponseHeader('Content-Type') == 'application/json') {
-                    try {
-                        var data = jQuery.parseJSON(jqXHR.responseText);
-                        // show messages
-                        if (data._messages !== undefined) {
-                            messages.addMessages(data._messages);
-                        }
-                        return;
-                    } catch (error) {
-                        // wait for JSON but it is not it C.O.;
-                    }
-                }
-                var $div = $('<div>', {'class': 'modal hide fade', 'style':'width:800px'});
-                    $div.html(jqXHR.responseText);
-                    $div.modal();
+                    // do smth...
+                } else {
+                    var $div = createModal(jqXHR.responseText, 'width:800px');
                     $div.modal('show');
+                }
+            })
+            .ajaxComplete(function () {
+                $('#loading').hide();
             });
-
-        // Loading
-		$("#loading")
-			.ajaxStart(function () {
-				$(this).show();
-			})
-			.ajaxComplete(function () {
-				$(this).hide();
-			});
 
 		// get only plain data
 		var processData = function (el) {
@@ -117,6 +110,20 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 			});
 			return plain;
 		};
+
+        var createModal = function (content, style) {
+
+            var $div = $('<div>', {'class':'modal fade'});
+            var $divDialog = $('<div>', {'class':'modal-dialog', 'style':style});
+            var $divContent = $('<div>', {'class':'modal-content'});
+
+            $divContent.html(content);
+            $divDialog.append($divContent);
+            $div.append($divDialog);
+
+
+            return $div;
+        };
 
 		// live event handlers
 		$('body')
@@ -211,6 +218,7 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
 					return false;
 				}
                 var method = $this.data('ajax-method');
+                var style = $this.data('modal-style');
 
                 $.ajax({
                     url: $this.attr('href'),
@@ -221,21 +229,13 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                         $this.addClass('disabled');
                     },
                     success: function(content) {
-                        var $div = $('<div>', {'class': 'modal hide fade'});
-                        $div.html(content);
+                        var $div = createModal(content, style);
                         $div.modal()
-                            .on('shown',function () {
-                                var onShown = window[$this.attr('shown')];
-                                if (typeof onShown === 'function') {
-                                    onShown.call($div);
-                                }
+                            .on('shown.bs.modal',function () {
                                 bluz.ready();
-                            }).on('hidden', function () {
-                                var onHidden = window[$this.attr('hidden')];
-                                if (typeof onHidden === 'function') {
-                                    onHidden.call($div);
-                                }
-                                $(this).remove();
+                            })
+                            .on('hidden.bs.modal', function () {
+                                //$div.remove();
                             });
                         $div.modal('show');
                     },
@@ -260,13 +260,16 @@ define(['jquery', 'bluz', 'bluz.messages'], function ($, bluz, messages) {
                 }
                 var $img = $('<img>', {'src': url, 'class': 'img-polaroid'});
                     $img.css({
+                        width: '100%',
                         margin: '0 auto',
                         display: 'block'
                     });
 
-                var $div = $('<div>', {'class': 'modal hide fade'});
-                    $div.append($img);
-                    $div.modal();
+                var $span = $('<span>', {'class':'thumbnail'});
+                    $span.append($img);
+
+                var $div = createModal($span, '');
+                    $div.modal('show');
                 return false;
             })
 			// Ajax form

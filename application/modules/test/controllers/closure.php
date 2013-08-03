@@ -13,10 +13,17 @@ return
 /**
  * @return \closure
  */
-function () {
+function () use ($view) {
     /**
      * @var \Bluz\Application $this
+     * @var \Bluz\View\View $view
      */
+    $this->getLayout()->breadCrumbs(
+        [
+            $view->ahref('Test', ['test', 'index']),
+            'Closure',
+        ]
+    );
     return function () {
         echo "Closure is back";
     };

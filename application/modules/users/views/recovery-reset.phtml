@@ -9,15 +9,15 @@
 <form action="<?=$this->url('users', 'recovery-reset')?>" method="post" >
     <input type="hidden" name="code" value="<?=$code?>"/>
     <input type="hidden" name="id" value="<?=$user->id?>"/>
-    <div class="control-group">
+    <div class="form-group">
         <label class="input-prepend">
-            <span class="add-on"><i class="icon-lock"></i></span>
+            <span class="add-on"><i class="glyphicon glyphicon-lock"></i></span>
             <input type="password" class="input-large" name="password" value="" placeholder="<?=__('new password')?>"/>
         </label>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         <label class="input-prepend">
-            <span class="add-on"><i class="icon-lock"></i></span>
+            <span class="add-on"><i class="glyphicon glyphicon-lock"></i></span>
             <input type="password" class="input-large" name="password2" value="" placeholder="<?=__('repeat password')?>"/>
         </label>
     </div>

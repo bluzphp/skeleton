@@ -10,6 +10,7 @@ namespace Application;
 
 use Bluz;
 use Application\Users;
+use Application\Users\Grid;
 
 return
 /**
@@ -33,5 +34,14 @@ function () use ($view, $module, $controller) {
     $grid->setModule($module);
     $grid->setController($controller);
 
+    // added search by field
+    $search = $this->getRequest()->getParam('search', '');
+    $field = $this->getRequest()->getParam('field', 'login');
+    if (!empty($search)) {
+        $grid->addFilter($field, Grid::FILTER_LIKE, '%'.$search.'%');
+    }
+
     $view->grid = $grid;
+    $view->search = $search;
+    $view->field = $field;
 };

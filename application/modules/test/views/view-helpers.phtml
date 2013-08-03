@@ -1,12 +1,10 @@
 <form class="form-horizontal">
-    <div class="control-group">
-        <label class="control-label" for="inputEmail">Sex</label>
-        <div class="controls">
-            <label><?=$this->radio('sex', 'male', $sex)?> Male</label>
-            <label><?=$this->radio('sex', 'female', $sex)?> Female</label>
-        </div>
+    <div class="form-group">
+        <span class="control-label">Sex</span>
+        <div class="radio"><label><?=$this->radio('sex', 'male', $sex)?> Male</label></div>
+        <div class="radio"><label><?=$this->radio('sex', 'female', $sex)?> Female</label></div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         <label class="control-label" for="car">Car</label>
         <div class="controls">
             <?=
@@ -20,16 +18,16 @@
                     'audi-a1' => 'Audi A1',
                     'citroen-c3' => 'Citroen C3',
                 ],
-            ], $car, ["id" => "car"]);
+            ], $car, ["id" => "car", "class" => "form-control"]);
             ?>
         </div>
     </div>
-    <div class="control-group">
-        <div class="controls">
+    <div class="form-group">
+        <div class="checkbox">
             <label class="checkbox">
                 <?=$this->checkbox('remember', true, $remember)?> Remember me
             </label>
-            <button type="submit" class="btn"><?=__('Send')?></button>
         </div>
+        <button type="submit" class="btn btn-default"><?=__('Send')?></button>
     </div>
 </form>

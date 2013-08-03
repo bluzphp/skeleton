@@ -2,38 +2,36 @@
 
 <form id="<?=$uid?>" action="<?=$this->url('test', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
     <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
-    <div class="modal">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h3>Test Table</h3>
-        </div>
-        <div class="modal-body">
-            <div class="control-group">
-                <label class="control-label" for="name"><?=__('Name')?></label>
-                <div class="controls">
-                    <input type="text" class="input-xlarge" id="name" name="data[name]" value="<?=($row->name)?>" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="email"><?=__('Email')?></label>
-                <div class="controls">
-                    <input type="text" class="input-xlarge" id="email" name="data[email]" value="<?=($row->email)?>" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="status"><?=__('Status')?></label>
-                <div class="controls">
-                    <select id="status" name="data[status]" class="span2">
-                        <option <?=$row->status=='active'?'selected':''?>>active</option>
-                        <option <?=$row->status=='disable'?'selected':''?>>disable</option>
-                        <option <?=$row->status=='delete'?'selected':''?>>delete</option>
-                    </select>
-                </div>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Test Table</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="name"><?=__('Name')?></label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="name" name="data[name]" value="<?=($row->name)?>" required />
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary"><?=__('Save')?></button>
-            <a href="#" class="btn" data-dismiss="modal"><?=__('Close')?></a>
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="email"><?=__('Email')?></label>
+            <div class="col-lg-10">
+                <input type="email" class="form-control" id="email" name="data[email]" value="<?=($row->email)?>" required />
+            </div>
         </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="status"><?=__('Status')?></label>
+            <div class="col-lg-10">
+                <select id="status" name="data[status]" class="form-control">
+                    <option <?=$row->status=='active'?'selected':''?>>active</option>
+                    <option <?=$row->status=='disable'?'selected':''?>>disable</option>
+                    <option <?=$row->status=='delete'?'selected':''?>>delete</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><?=__('Save')?></button>
+        <a href="#" class="btn btn-default" data-dismiss="modal"><?=__('Close')?></a>
     </div>
 </form>

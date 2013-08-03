@@ -1,39 +1,36 @@
 <?php $uid = uniqid('form_'); ?>
-
 <form id="<?=$uid?>" action="<?=$this->url('options', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
     <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3><?=__('Options')?></h3>
+        <h4 class="modal-title"><?=__('Options')?></h4>
     </div>
     <div class="modal-body">
-        <div class="control-group">
-            <label class="control-label" for="name"><?=__('Namespace')?></label>
-            <div class="controls">
-                <input type="text" class="input-xlarge" id="namespace" name="data[namespace]" value="<?=($row->namespace)?:'default'?>" required />
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="name"><?=__('Namespace')?></label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="namespace" name="data[namespace]" value="<?=esc($row->namespace)?:'default'?>" required />
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="name"><?=__('Name')?></label>
-            <div class="controls">
-                <input type="text" class="input-xlarge" id="name" name="data[name]" value="<?=($row->name)?>" required />
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="name"><?=__('Name')?></label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="name" name="data[name]" value="<?=esc($row->name)?>" required />
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="value"><?=__('Value')?></label>
-            <div class="controls">
-                <input type="text" class="input-xlarge" id="value" name="data[value]" value="<?=($row->value)?>" />
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="value"><?=__('Value')?></label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="value" name="data[value]" value="<?=esc($row->value)?>" />
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             <label class="control-label" for="value"><?=__('Description')?></label>
-            <div class="controls">
-                <textarea class="input-xlarge" id="description" name="data[description]"><?=esc($row->description)?></textarea>
-            </div>
+            <textarea class="form-control" id="description" name="data[description]"><?=esc($row->description)?></textarea>
         </div>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary"><?=__('Save')?></button>
-        <a href="#" class="btn" data-dismiss="modal"><?=__('Close')?></a>
+        <a href="#" class="btn btn-default" data-dismiss="modal"><?=__('Close')?></a>
     </div>
 </form>

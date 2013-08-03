@@ -17,7 +17,9 @@ require.config({
     },
     enforceDefine: true
 });
-require(["jquery", "bootstrap", "bluz", "bluz.messages", "bluz.ajax"], function($, bootstrap, messages, bluz) {
+require(
+    ["jquery", "bootstrap", "bluz", "bluz.notify", "bluz.ajax"],
+    function($, bootstrap, bluz, notify) {
     $(function(){
         // TODO: require other modules if needed
         if ($.fn.tooltip) {
