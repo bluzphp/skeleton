@@ -1,0 +1,17 @@
+<table class="table grid">
+    <thead>
+    <tr>
+        <th width="40px"><?='id'?></th>
+        <th><a href=""><?='name file'?></a></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($files as $file => $key) { ?>
+    <tr>
+        <td><?=$file?></td>
+        <td><a href=""><?=$key?></a></td>
+
+    </tr>
+        <?php }; ?>
+    </tbody>
+</table>
