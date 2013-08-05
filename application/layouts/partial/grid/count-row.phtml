@@ -1,0 +1,14 @@
+<?php
+/**
+ * @var \Bluz\Grid\Grid $grid
+ */
+?>
+<ul class="pagination pagination-small pull-right">
+    <li class="disabled"><a href="#"><?=__('Count row')?></a></li>
+    <li <?=(($grid->getCountRow()==1)?'class="active"':'')?>><a href="<?=$grid->countRow(1)?>">1</a></li>
+    <li <?=(($grid->getCountRow()==2)?'class="active"':'')?>><a href="<?=$grid->countRow(2)?>">2</a></li>
+    <li <?=(($grid->getCountRow()==3)?'class="active"':'')?>><a href="<?=$grid->countRow(3)?>">3</a></li>
+    <li <?=(($grid->getCountRow()==4)?'class="active"':'')?>><a href="<?=$grid->countRow(4)?>">4</a></li>
+    <li <?=(($grid->getCountRow()==5)?'class="active"':'')?>><a href="<?=$grid->countRow(5)?>">5</a></li>
+    <li <?=(($grid->getCountRow()==6)?'class="active"':'')?>><a href="<?=$grid->countRow(6)?>">6</a></li>
+</ul>
