@@ -41,14 +41,24 @@ class Grid extends \Bluz\Grid\Grid
      */
     public function init()
     {
-         // Array
-         $adapter = new \Bluz\Grid\Source\SqlSource();
-         $adapter->setSource('SELECT * FROM users');
+        // Array
+        $adapter = new \Bluz\Grid\Source\SelectSource();
 
-         $this->setAdapter($adapter);
-         $this->setDefaultLimit(25);
-         $this->setAllowOrders(['login', 'email', 'status', 'id']);
-         $this->setAllowFilters(['login', 'email', 'status', 'id']);
-         return $this;
+
+        $select = new \Bluz\Db\Query\Select();
+        $select->select('u.*, GROUP_CONCAT( ar.`name` SEPARATOR ", " ) AS rolesList')
+            ->from('users', 'u')
+            ->leftJoin('u', 'acl_users_roles', 'aur', 'u.`id` = aur.`userId`')
+            ->leftJoin('aur', 'acl_roles', 'ar', 'ar.`id` = aur.`roleId`')
+            ->groupBy('u.id');
+
+
+        $adapter->setSource($select);
+
+        $this->setAdapter($adapter);
+        $this->setDefaultLimit(25);
+        $this->setAllowOrders(['login', 'email', 'status', 'id']);
+        $this->setAllowFilters(['login', 'email', 'status', 'id', 'roleId']);
+        return $this;
     }
 }

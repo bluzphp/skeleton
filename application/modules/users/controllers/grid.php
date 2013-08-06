@@ -34,14 +34,7 @@ function () use ($view, $module, $controller) {
     $grid->setModule($module);
     $grid->setController($controller);
 
-    // added search by field
-    $search = $this->getRequest()->getParam('search', '');
-    $field = $this->getRequest()->getParam('field', 'login');
-    if (!empty($search)) {
-        $grid->addFilter($field, Grid::FILTER_LIKE, '%'.$search.'%');
-    }
+    $view->roles = $this->getDb()->fetchAll('SELECT * FROM acl_roles');
 
     $view->grid = $grid;
-    $view->search = $search;
-    $view->field = $field;
 };

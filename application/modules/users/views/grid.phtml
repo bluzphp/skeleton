@@ -6,28 +6,20 @@
 ?>
 <script>
     // use data-spy="grid" for use AJAX for reload grid
-    require(['bluz.grid'], function (grid) {
-        var $filterForm = $('form.filter-form');
-        var $dropToggle = $filterForm.find('button.dropdown-toggle');
-        var $filterField = $filterForm.find('[name=field]');
-        $filterForm.find('.dropdown-menu').on('click', 'a', function(e){
-            var filter = $(this).data('filter');
-            var title = $(this).text();
-            $dropToggle.html(title + '  <span class="caret"></span>');
-            $filterField.val(filter);
-            e.preventDefault();
-        });
-    });
+    require(['bluz.grid']);
 </script>
 
-<div data-spy="grid" data-grid="<?=$grid->getUid()?>">
+<div class="clearfix" data-spy="grid" data-grid="<?=$grid->getUid()?>">
 
+    <div class="navbar">
     <div class="row">
         <div class="col-lg-6">
+            <?php foreach ($roles as $role) : ?>
+            <a href="<?=$grid->filter('roleId', 'eq', $role['id'])?>" class="btn btn-primary navbar-btn"><?=$role['name']?></a>
+            <?php endforeach; ?>
         </div>
         <div class="col-lg-6">
             <form action="<?=$this->url('users', 'grid')?>" class="navbar-form filter-form pull-right">
-                <input type="hidden" name="field" value="<?=esc($field)?>"/>
                 <div class="input-group">
                     <?php
                     $this->partial(
@@ -48,6 +40,7 @@
             </form>
         </div>
     </div>
+    </div>
 
     <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
     <?php $this->partial('grid/limit.phtml', ['grid'=>$grid]) ?>
@@ -58,8 +51,9 @@
                 <th width="40px"><?=__('Id')?></th>
                 <th><a href="<?=$grid->order('login')?:'#'?>"><?=__('Login')?></a></th>
                 <th><a href="<?=$grid->order('email')?:'#'?>"><?=__('Email')?></a></th>
+                <th><?=__('Roles')?></th>
                 <th><a href="<?=$grid->order('status')?:'#'?>"><?=__('Status')?></a></th>
-                <th width="100px"></th>
+                <th width="150px"></th>
             </tr>
         </thead>
         <tbody>
@@ -68,10 +62,14 @@
                 <td><?=$row['id']?></td>
                 <td><a href="<?=$this->url('users', 'profile', ['id'=>$row['id']])?>"><?=$row['login']?></a></td>
                 <td><?=$row['email']?></td>
+                <td><?=$row['rolesList']?></td>
                 <td><?=$row['status']?></td>
                 <td class="controls">
                     <a href="<?=$this->url('users', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-primary btn-small dialog" data-ajax-method="get">
                         <i class="glyphicon glyphicon-pencil"></i>
+                    </a>
+                    <a href="<?=$this->url('acl', 'user', ['id' => $row['id']]);?>" class="btn btn-default btn-small dialog" data-ajax-method="get">
+                        <i class="glyphicon glyphicon-lock"></i>
                     </a>
                     <a href="<?=$this->url('users', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-small btn-danger ajax" data-ajax-method="delete">
                         <i class="glyphicon glyphicon-trash"></i>

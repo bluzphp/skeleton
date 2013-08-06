@@ -3,12 +3,13 @@
  * @var \Bluz\Grid\Grid $grid
  */
 ?>
-<div data-spy="grid" data-grid="<?=$grid->getUid()?>">
+<div class="clearfix" data-spy="grid" data-grid="<?=$grid->getUid()?>">
     <script>
         // use data-spy="grid" for use AJAX for reload grid
         require(['bluz.grid']);
     </script>
 
+    <div class="navbar">
     <div class="row">
         <div class="col-lg-6">
             <a href="<?=$this->url('options', 'crud')?>" class="btn btn-primary navbar-btn dialog" data-ajax-method="get"><?=__('Create')?></a>
@@ -16,6 +17,7 @@
         <div class="col-lg-6">
 
         </div>
+    </div>
     </div>
 
     <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>

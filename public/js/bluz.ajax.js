@@ -111,6 +111,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 			return plain;
 		};
 
+        var modals = [];
         var createModal = function (content, style) {
 
             var $div = $('<div>', {'class':'modal fade'});
@@ -120,9 +121,18 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
             $divContent.html(content);
             $divDialog.append($divContent);
             $div.append($divDialog);
+            $div.modal();
 
+            modals.push($div);
 
             return $div;
+        };
+        var closeModals = function () {
+            for (var i = 0; i < modals.length; i++) {
+                modals[i].modal('hide');
+                modals[i].data('modal', null);
+            }
+            modals = [];
         };
 
 		// live event handlers
@@ -230,12 +240,11 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                     },
                     success: function(content) {
                         var $div = createModal(content, style);
-                        $div.modal()
-                            .on('shown.bs.modal',function () {
+                        $div.on('shown.bs.modal',function () {
                                 bluz.ready();
                             })
                             .on('hidden.bs.modal', function () {
-                                //$div.remove();
+                                $(this).data('modal', null);
                             });
                         $div.modal('show');
                     },
@@ -246,7 +255,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 				return false;
 			})
             // Image popup preview
-            .on('click.bluz.modal', '.bluz-preview', function() {
+            .on('click.bluz.preview', '.bluz-preview', function() {
                 var url, $this = $(this);
                 // get image source
                 if ($this.is('a')) {
@@ -299,6 +308,8 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                             require(['bluz.form'], function(form) {
                                 form.notices($this, data);
                             });
+                        } else {
+                            closeModals()
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
