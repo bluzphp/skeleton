@@ -1,9 +1,9 @@
 <?php if (isset($errors)) :?>
 <script>
-    require(['bluz.validate'], function(validate) {
+    require(['bluz.form'], function(form) {
         var $form = $('#form');
         <?php foreach ($errors as $field => $error) : ?>
-        validate.notice($form, '[name^="data[<?=$field?>]"]', '<?=$error?>');
+        form.notice($form, '[name^="data[<?=$field?>]"]', '<?=$error?>');
         <?php endforeach;?>
     });
 </script>

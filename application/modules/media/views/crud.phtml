@@ -67,8 +67,8 @@
 <?php
 if (isset($errors)) :
     $data = json_encode(['errors'=>$errors]);
-    $this->headScript('require(["bluz.validate"], function(validate) {
-        validate.notices($("#'.$uid.'"), '.$data.');
+    $this->headScript('require(["bluz.form"], function(form) {
+        form.notices($("#'.$uid.'"), '.$data.');
     });');
     endif;
 ?>
