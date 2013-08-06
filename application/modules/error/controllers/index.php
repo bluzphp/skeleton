@@ -9,6 +9,7 @@
 namespace Application;
 
 use Bluz;
+use Bluz\Request;
 
 return
 /**
@@ -74,19 +75,22 @@ function ($code, $message = '') use ($view) {
         }
     }
 
-    $accept = $this->getRequest()->getHeader('accept');
-    $accept = substr($accept, 0, strpos($accept, ','));
+    // check CLI or HTTP request
+    if ($this->getRequest()->getMethod() !== Request\AbstractRequest::METHOD_CLI) {
+        $accept = $this->getRequest()->getHeader('accept');
+        $accept = substr($accept, 0, strpos($accept, ','));
 
-    // simple AJAX call
-    if ($this->getRequest()->isXmlHttpRequest()
-        && $accept == "application/json") {
-        $this->getMessages()->addError($message);
-        return $view;
-    }
+        // simple AJAX call
+        if ($this->getRequest()->isXmlHttpRequest()
+            && $accept == "application/json") {
+            $this->getMessages()->addError($message);
+            return $view;
+        }
 
-    // dialog AJAX call
-    if (!$this->getRequest()->isXmlHttpRequest()) {
-        $this->useLayout('small.phtml');
+        // dialog AJAX call
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            $this->useLayout('small.phtml');
+        }
     }
 
     $view->title = $header;
