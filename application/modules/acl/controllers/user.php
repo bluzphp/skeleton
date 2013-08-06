@@ -42,7 +42,7 @@ function ($id) use ($view) {
         $this->getCache()->delete('roles:'.$user->id);
         $this->getCache()->delete('privileges:'.$user->id);
 
-        $this->redirectTo('acl', 'users');
+        $this->getMessages()->addSuccess('User roles was updated');
     }
 
     /* @var $view \Bluz\View\View */

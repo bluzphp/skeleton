@@ -8,7 +8,7 @@
     require(['bluz.grid']);
 </script>
 
-<div data-spy="grid" data-grid="<?=$grid->getUid()?>">
+<div class="clearfix" data-spy="grid" data-grid="<?=$grid->getUid()?>">
     <p>
         Filters:<br/>
         <a href="<?=$grid->filter('id', 'gt', 30)?>">Id &gt; 30</a> <br/>

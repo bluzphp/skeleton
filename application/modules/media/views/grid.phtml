@@ -7,11 +7,12 @@
     // use data-spy="grid" for use AJAX for reload grid
     require(['bluz.grid']);
 </script>
-<div data-spy="grid" data-grid="<?=$grid->getUid()?>">
+<div class="clearfix" data-spy="grid" data-grid="<?=$grid->getUid()?>">
 
+    <div class="navbar">
     <div class="row">
         <div class="col-lg-6">
-            <a href="<?=$this->url('media', 'crud')?>" class="btn btn-primary left"><?=__('Create')?></a>
+            <a href="<?=$this->url('media', 'crud')?>" class="btn btn-primary navbar-btn"><?=__('Create')?></a>
         </div>
         <div class="col-lg-6">
             <form action="<?=$this->url('media', 'grid')?>" class="navbar-form filter-form pull-right">
@@ -34,6 +35,7 @@
                 </div>
             </form>
         </div>
+    </div>
     </div>
 
     <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
