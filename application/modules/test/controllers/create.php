@@ -50,7 +50,7 @@ function ($data = array()) use ($view) {
             if (sizeof($errors)) {
                 $view->formId = 'form'; // form UID
                 $view->errors = $errors;
-                $view->callback = 'bluz.validate.notices';
+                $view->callback = 'bluz.form.notices';
                 throw new Exception("Please fix all errors");
             }
 

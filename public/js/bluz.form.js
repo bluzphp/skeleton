@@ -5,10 +5,11 @@
  * @created  26.11.12 12:51
  */
 define(["jquery", "bootstrap", "bluz"], function ($) {
+    "use strict";
 
     // static validator
-    var validator;
-    validator = {
+    var form;
+    form = {
         /**
          * Show notice message for fields
          * @param $form jQuery
@@ -55,10 +56,10 @@ define(["jquery", "bootstrap", "bluz"], function ($) {
             $form.find('.form-group').removeClass('has-error');
             if (data.errors) {
                 $.each(data.errors, function(field, notices) {
-                    validator.notice($form, '[name^="data['+field+']"]:first', notices);
+                    form.notice($form, '[name^="data['+field+']"]:first', notices);
                 });
             }
         }
     };
-    return validator;
+    return form;
 });
