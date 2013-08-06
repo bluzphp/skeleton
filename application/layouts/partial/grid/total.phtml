@@ -6,7 +6,7 @@
 <ul class="pager pull-left">
     <li>
         <a href="<?=$grid->reset()?>"><?=__('Total')?>:
-            <strong><?=$grid->total()?></strong> <?=__('record','records', $grid->total())?> <?=__('on')?>
-            <strong><?=$grid->pages()?></strong> <?=__('page','pages', $grid->pages())?></a>
+            <strong><?=$grid->total()?></strong> <?=_n('record', 'records', $grid->total())?>
+            <?=_n('on %s page', 'on %s pages', $grid->pages(), '<strong>'.$grid->pages().'</strong>')?></a>
     </li>
 </ul>

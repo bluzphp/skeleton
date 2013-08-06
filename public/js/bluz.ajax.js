@@ -296,8 +296,8 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                         $this.trigger('ajax.success', arguments);
 
                         if (data.errors !== undefined) {
-                            require(['bluz.validate'], function(validate) {
-                                validate.notices($this, data);
+                            require(['bluz.form'], function(form) {
+                                form.notices($this, data);
                             });
                         }
                     },
