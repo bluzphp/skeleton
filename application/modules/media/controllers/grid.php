@@ -24,8 +24,8 @@ function () use ($view) {
     $grid = new Media\Grid();
 
 
-    $countCol = $this->getRequest()->getParam('col', 4);
-    $lnCol = (int)(12/$countCol);
+    $countCol = $this->getRequest()->getParam('countCol', 4);
+    $lnCol = (integer)(12/$countCol);
 
     $view->countCol = $countCol;
     $view->col = $lnCol;

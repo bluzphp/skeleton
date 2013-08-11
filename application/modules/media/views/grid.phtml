@@ -41,6 +41,17 @@
     <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
     <?php $this->partial('grid/limit.phtml', ['grid'=>$grid]) ?>
 
+    <ul class="pagination pagination-small pull-right">
+        <li class="disabled"><a href="#"><?=__('Count row')?></a></li>
+        <li <?=(($countCol==1)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 1]);?>">1</a></li>
+        <li <?=(($countCol==2)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 2]);?>">2</a></li>
+        <li <?=(($countCol==3)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 3]);?>">3</a></li>
+        <li <?=(($countCol==4)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 4]);?>">4</a></li>
+        <li <?=(($countCol==5)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 5]);?>">5</a></li>
+        <li <?=(($countCol==6)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 6]);?>">6</a></li>
+    </ul>
+
+
     <div class="row">
         <div class="col-lg-12">
             <?php
