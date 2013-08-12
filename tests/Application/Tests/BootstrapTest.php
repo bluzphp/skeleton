@@ -11,10 +11,10 @@
 namespace Application\Tests;
 
 use Bluz\Application;
-use Bluz\Exception;
 use Bluz\Request;
+use Application\Bootstrap;
 
-class BootstrapTest extends Application
+class BootstrapTest extends Bootstrap
 {
     /**
      * getRequest
