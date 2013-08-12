@@ -29,7 +29,6 @@ namespace Application;
 use Bluz\Application;
 use Application\Exception;
 use Bluz\EventManager\Event;
-use Bluz\EventManager\EventManager;
 
 /**
  * Bootstrap
