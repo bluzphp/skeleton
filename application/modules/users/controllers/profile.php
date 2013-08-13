@@ -20,7 +20,7 @@ return
  */
 function ($id = null) use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->title('User Profile');

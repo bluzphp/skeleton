@@ -19,7 +19,7 @@ return
  */
 function ($id = null) use ($bootstrap, $view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->breadCrumbs(
@@ -28,7 +28,7 @@ function ($id = null) use ($bootstrap, $view) {
             'Cache Data',
         ]
     );
-    /* @var \Bluz\Application $this */
+    /* @var \Application\Bootstrap $this */
     $this->getLayout()->title('Check cache');
 
     $view->title = "Index/Test";

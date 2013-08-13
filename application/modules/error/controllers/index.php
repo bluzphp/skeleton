@@ -21,7 +21,7 @@ return
  */
 function ($code, $message = '') use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLogger()->error($message);
