@@ -32,8 +32,8 @@ use Bluz\Rest\AbstractRest;
  * Class Rest
  * @package Application\Test
  */
-class Rest extends AbstractRest {
-
+class Rest extends AbstractRest
+{
     /**
      * create
      *
