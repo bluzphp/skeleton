@@ -139,7 +139,7 @@ class Crud extends \Bluz\Crud\Crud
 
         // send activation email
         // generate activation URL
-        $activationUrl = $this->getApplication()->getRouter()->getFullUrl(
+        $activationUrl = app()->getRouter()->getFullUrl(
             'users',
             'activation',
             ['code' => $actionRow->code, 'id' => $userId]
@@ -147,7 +147,7 @@ class Crud extends \Bluz\Crud\Crud
 
         $subject = "Activation";
 
-        $body = $this->getApplication()->dispatch(
+        $body = app()->dispatch(
             'users',
             'mail-template',
             [
@@ -157,7 +157,7 @@ class Crud extends \Bluz\Crud\Crud
         )->render();
 
         try {
-            $mail = $this->getApplication()->getMailer()->create();
+            $mail = app()->getMailer()->create();
 
             // subject
             $mail->Subject = $subject;
@@ -173,13 +173,13 @@ class Crud extends \Bluz\Crud\Crud
         }
 
         // show notification and redirect
-        $this->getApplication()->getMessages()->addSuccess(
+        app()->getMessages()->addSuccess(
             "Your account has been created and an activation link has".
             "been sent to the e-mail address you entered.<br/>".
             "Note that you must activate the account by clicking on the activation link".
             "when you get the e-mail before you can login."
         );
-        $this->getApplication()->redirectTo('index', 'index');
+        app()->redirectTo('index', 'index');
 
         // disable default crud behaviour
         return false;
