@@ -15,7 +15,7 @@ return
  */
 function () use ($bootstrap, $view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      * @var \closure $bootstrap
      * @var Bluz\View\View $view
      */

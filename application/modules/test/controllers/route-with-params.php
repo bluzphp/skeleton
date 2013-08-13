@@ -19,7 +19,7 @@ return
  */
 function ($a, $b, $c) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->breadCrumbs(

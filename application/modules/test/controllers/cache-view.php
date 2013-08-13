@@ -18,7 +18,7 @@ return
  */
 function ($a = 0) use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $view->current = date('y-m-d H:i:s') . ' # '. $a;

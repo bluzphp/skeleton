@@ -17,7 +17,7 @@ return
  */
 function ($id) use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      */
     if ($row = Test\Table::findRow($id)) {
         $row->delete();

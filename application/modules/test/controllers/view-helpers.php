@@ -18,7 +18,7 @@ return
  */
 function ($sex = false, $car = 'none', $remember = false) use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      */
     $view->sex = $sex;
     $view->car = $car;

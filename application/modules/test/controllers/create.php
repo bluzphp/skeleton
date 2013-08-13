@@ -18,7 +18,7 @@ return
  */
 function ($data = array()) use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      */
     $this->getLayout()->setTemplate('small.phtml');
     $row = new Test\Row();

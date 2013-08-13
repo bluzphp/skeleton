@@ -14,7 +14,7 @@ return
  */
 function () {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      */
     debug(file_get_contents(__FILE__));
 

@@ -17,7 +17,7 @@ return
  */
 function () use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $crud = new Test\Crud();
