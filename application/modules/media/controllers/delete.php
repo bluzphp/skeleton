@@ -15,7 +15,7 @@ return
  */
 function ($path) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      * @var Media\Table $mediaTable
      */
     $this->useJson();

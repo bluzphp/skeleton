@@ -21,7 +21,7 @@ return
  */
 function ($code, $message = '') use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLogger()->error($message);
@@ -37,7 +37,7 @@ function ($code, $message = '') use ($view) {
             break;
         case 403:
             $header = "403 Forbidden";
-            $description = "Access denied";
+            $description = "You don't have permissions";
             break;
         case 404:
             $header = "404 Not Found";
@@ -50,6 +50,10 @@ function ($code, $message = '') use ($view) {
         case 500:
             $header = "500 Internal Server Error";
             $description = "The server encountered an unexpected condition.";
+            break;
+        case 501:
+            $header = "501 Not Implemented";
+            $description = "The server does not understand or does not support the HTTP method.";
             break;
         case 503:
             $header = "503 Service Unavailable";

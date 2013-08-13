@@ -11,7 +11,7 @@ return
  */
 function () use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      */
     $crud = new Options\Crud();
     return $crud->processController();

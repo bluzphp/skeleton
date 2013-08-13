@@ -14,7 +14,7 @@ return
  */
 function ($email = "no-reply@nixsolutions.com") use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      */
     if ($this->getRequest()->isPost()) {
         try {

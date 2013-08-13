@@ -18,7 +18,7 @@ return
  */
 function ($login, $password) use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
      */
     if ($this->getAuth()->getIdentity()) {

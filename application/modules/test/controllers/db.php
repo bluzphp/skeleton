@@ -14,7 +14,7 @@ return
  */
 function () {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      */
 
     $res = $this->getDb()->fetchObject('SELECT * FROM test LIMIT 1');

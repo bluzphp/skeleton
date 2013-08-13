@@ -14,12 +14,12 @@ return
  */
 function ($acl) use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $callback = function () use ($acl) {
         /**
-         * @var \Bluz\Application $this
+         * @var \Application\Bootstrap $this
          */
         $this->getDb()->query('DELETE FROM acl_privileges');
         foreach ($acl as $roleId => $modules) {
