@@ -43,4 +43,18 @@ class Rest extends AbstractRest
     {
 
     }
+
+    /**
+     * create
+     *
+     * @return mixed
+     */
+    protected function index()
+    {
+        $test = app()->getDb()
+            ->select('*')->from('test', 't')
+            ->execute();
+
+        return $test;
+    }
 }
