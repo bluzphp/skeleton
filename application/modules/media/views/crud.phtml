@@ -42,7 +42,7 @@
             <div class="form-group">
                 <label class="control-label col-lg-2"><?=__('Link')?></label>
                 <div class="col-lg-10">
-                    <code>http://<?=$this->getApplication()->getRequest()->getHttpHost().'/'.($row->file)?></code>
+                    <code>http://<?=app()->getRequest()->getHttpHost().'/'.($row->file)?></code>
                 </div>
             </div>
         <?php

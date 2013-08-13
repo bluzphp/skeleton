@@ -92,8 +92,8 @@ class Crud extends \Bluz\Crud\Crud
          * @var \Bluz\Request\HttpFile $file
          */
         try {
-            $file = $this->getApplication()->getRequest()->getFileUpload()->getFile('data[file]');
-        } catch (\Bluz\Exception $e) {
+            $file = app()->getRequest()->getFileUpload()->getFile('data[file]');
+        } catch (\Bluz\Common\Exception $e) {
             $this->addError('file', $e->getMessage());
             $this->validate();
         }
