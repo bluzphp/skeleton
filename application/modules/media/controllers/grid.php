@@ -26,13 +26,13 @@ function () use ($view) {
     $request = $this->getRequest();
     $countCol = $request->getParam('countCol');
 
-    if ($countCol <> null){
+    if ($countCol <> null) {
         setcookie("countCol", $countCol, time()+3600, '/');
     }else{
         $request->getCookie('countCol', 4);
     }
 
-    $lnCol = (integer)(12/$countCol);
+    $lnCol = (integer)(12 / $countCol);
     $view->countCol = $countCol;
     $view->col = $lnCol;
     $view->grid = $grid;
