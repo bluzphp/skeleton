@@ -39,7 +39,7 @@ class Rest extends AbstractRest
     /**
      * {@inheritdoc}
      */
-    protected function index($params)
+    protected function index(array $params = array())
     {
         return app()->getDb()
             ->select('*')
@@ -63,8 +63,9 @@ class Rest extends AbstractRest
     /**
      * {@inheritdoc}
      */
-    protected function post($data)
+    protected function post(array $data)
     {
+        // TODO: validation here
         return app()->getDb()
             ->insert('test')
             ->setArray($data)
@@ -74,8 +75,9 @@ class Rest extends AbstractRest
     /**
      * {@inheritdoc}
      */
-    protected function put($id, $data)
+    protected function put($id, array $data)
     {
+        // TODO: validation here
         return app()->getDb()->update('test')
             ->setArray($data)
             ->where('id = ?', $id)
