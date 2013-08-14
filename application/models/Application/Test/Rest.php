@@ -26,21 +26,77 @@
  */
 namespace Application\Test;
 
+use Bluz\Application\Exception\NotFoundException;
 use Bluz\Rest\AbstractRest;
 
 /**
  * Class Rest
+ *
  * @package Application\Test
  */
 class Rest extends AbstractRest
 {
     /**
-     * create
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    protected function get()
+    protected function index(array $params = array())
     {
+        $select = app()->getDb()
+            ->select('*')
+            ->from('test', 't');
 
+        if (isset($params['page']) && isset($params['limit'])) {
+            $select->setLimit($params['limit']);
+            $select->setPage($params['page']);
+        }
+
+        return $select->execute();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function get($id)
+    {
+        return app()->getDb()
+            ->select('*')
+            ->from('test', 't')
+            ->where('t.id = ?', $id)
+            ->limit(1)
+            ->execute();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function post(array $data)
+    {
+        // TODO: validation here
+        return app()->getDb()
+            ->insert('test')
+            ->setArray($data)
+            ->execute();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function put($id, array $data)
+    {
+        // TODO: validation here
+        return app()->getDb()->update('test')
+            ->setArray($data)
+            ->where('id = ?', $id)
+            ->execute();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function delete($id)
+    {
+        return app()->getDb()->delete('test')
+            ->where('id = ?', $id)
+            ->execute();
     }
 }

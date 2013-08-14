@@ -10,7 +10,6 @@
 <div class="clearfix" data-spy="grid" data-grid="<?=$grid->getUid()?>">
 
     <div class="navbar">
-    <div class="row">
         <div class="col-lg-6">
             <a href="<?=$this->url('media', 'crud')?>" class="btn btn-primary navbar-btn"><?=__('Create')?></a>
         </div>
@@ -35,7 +34,6 @@
                 </div>
             </form>
         </div>
-    </div>
     </div>
 
     <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
@@ -81,10 +79,10 @@
 
                         <div class="panel-footer">
                             <P align="right">
-                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-small btn-primary">
+                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-xs btn-primary">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </a>
-                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-small btn-danger ajax" data-ajax-method="delete">
+                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
                                     <i class="glyphicon glyphicon-trash"></i>
                                 </a>
                             </P>
