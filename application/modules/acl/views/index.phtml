@@ -1,5 +1,7 @@
 <div class="navbar">
-    <a href="<?=$this->url('acl', 'roles')?>" class="btn btn-primary navbar-btn dialog" data-ajax-method="get"><?=__('Create New Role')?></a>
+    <div class="navbar-header">
+        <a href="<?=$this->url('acl', 'roles')?>" class="btn btn-primary navbar-btn dialog" data-ajax-method="get"><?=__('Create New Role')?></a>
+    </div>
 </div>
 <form action="<?=$this->url('acl', 'save')?>" method="POST">
 <table class="table table-bordered table-condensed ">

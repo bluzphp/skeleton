@@ -8,6 +8,7 @@
 namespace Application;
 
 use Bluz;
+use Bluz\Auth\AuthException;
 use Application\Auth;
 
 return
@@ -42,7 +43,6 @@ function ($login, $password) use ($view) {
             // try to rollback to previous called URL
             if ($rollback = $this->getSession()->rollback) {
                 unset($this->getSession()->rollback);
-                debug($rollback, $this->getSession());
                 $this->redirect($rollback);
             }
             // try back to index
@@ -50,7 +50,7 @@ function ($login, $password) use ($view) {
         } catch (Exception $e) {
             $this->getMessages()->addError($e->getMessage());
             $view->login = $login;
-        } catch (\Bluz\Auth\AuthException $e) {
+        } catch (AuthException $e) {
             $this->getMessages()->addError($e->getMessage());
             $view->login = $login;
         }
