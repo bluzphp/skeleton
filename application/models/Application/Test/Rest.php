@@ -39,6 +39,17 @@ class Rest extends AbstractRest
     /**
      * {@inheritdoc}
      */
+    protected function index($params)
+    {
+        return app()->getDb()
+            ->select('*')
+            ->from('test', 't')
+            ->execute();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function get($id)
     {
         return app()->getDb()
@@ -46,17 +57,6 @@ class Rest extends AbstractRest
             ->from('test', 't')
             ->where('t.id = ?', $id)
             ->limit(1)
-            ->execute();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function index($params)
-    {
-        return app()->getDb()
-            ->select('*')
-            ->from('test', 't')
             ->execute();
     }
 
@@ -78,6 +78,16 @@ class Rest extends AbstractRest
     {
         return app()->getDb()->update('test')
             ->setArray($data)
+            ->where('id = ?', $id)
+            ->execute();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function delete($id)
+    {
+        return app()->getDb()->delete('test')
             ->where('id = ?', $id)
             ->execute();
     }
