@@ -10,7 +10,6 @@
 
 <div class="clearfix" data-spy="grid" data-grid="<?=$grid->getUid()?>">
     <div class="navbar">
-    <div class="row">
         <div class="col-lg-6">
             <a href="<?=$this->url('pages', 'crud')?>" class="btn btn-primary navbar-btn dialog" data-ajax-method="get" data-modal-style="width:800px"><?=__('Create')?></a>
         </div>
@@ -38,7 +37,6 @@
             </form>
         </div>
     </div>
-    </div>
 
     <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
     <?php $this->partial('grid/limit.phtml', ['grid'=>$grid]) ?>
@@ -63,10 +61,10 @@
                 <td><?=$row['created']?></td>
                 <td><?=$row['updated']?></td>
                 <td class="controls">
-                    <a href="<?=$this->url('pages', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-primary btn-small dialog" data-ajax-method="get" data-modal-style="width:800px">
+                    <a href="<?=$this->url('pages', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-primary btn-xs dialog" data-ajax-method="get" data-modal-style="width:800px">
                         <i class="glyphicon glyphicon-pencil"></i>
                     </a>
-                    <a href="<?=$this->url('pages', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-small btn-danger ajax" data-ajax-method="delete">
+                    <a href="<?=$this->url('pages', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </td>

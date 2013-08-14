@@ -19,7 +19,7 @@ return
  */
 function () {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      * @var \Bluz\Request\HttpFileUpload $fileUpload
      */
     $fileUpload = $this->getRequest()->getFileUpload();

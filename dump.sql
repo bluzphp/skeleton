@@ -28,14 +28,21 @@ LOCK TABLES `acl_privileges` WRITE;
 
 INSERT INTO `acl_privileges` (`roleId`, `module`, `privilege`)
 VALUES
-	(1,'acl','Edit'),
-	(1,'acl','View'),
-	(1,'dashboard','Dashboard'),
-	(1,'cache','Management'),
-	(1,'pages','Management'),
-	(1,'system','Info'),
-	(1,'users','Management'),
-	(1,'users','ViewProfile');
+  (3,'users','ViewProfile'),
+  (2,'media','Upload'),
+  (2,'users','ViewProfile'),
+  (1,'acl','Edit'),
+  (1,'acl','View'),
+  (1,'cache','Management'),
+  (1,'dashboard','Dashboard'),
+  (1,'media','Management'),
+  (1,'media','Upload'),
+  (1,'options','Management'),
+  (1,'pages','Management'),
+  (1,'system','Info'),
+  (1,'users','Management'),
+  (1,'users','ViewProfile')
+;
 
 /*!40000 ALTER TABLE `acl_privileges` ENABLE KEYS */;
 UNLOCK TABLES;

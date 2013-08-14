@@ -5,11 +5,11 @@
 
     <div class="form-group input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input type="text" class="form-control" name="data[login]" value="<?=($row->login)?>" placeholder="<?=__('login')?>" required />
+        <input type="text" class="form-control" name="data[login]" value="<?=($row->login)?>" placeholder="<?=__('login')?>" maxlength="255" required />
     </div>
     <div class="form-group input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        <input type="email" class="form-control" name="data[email]" value="<?=($row->email)?>" placeholder="<?=__('email')?>" required />
+        <input type="email" class="form-control" name="data[email]" value="<?=($row->email)?>" placeholder="<?=__('email')?>" maxlength="255" required />
     </div>
     <div class="form-group input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>

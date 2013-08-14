@@ -3,38 +3,36 @@
  * @var \Bluz\Grid\Grid $grid
  */
 ?>
-<script xmlns="http://www.w3.org/1999/html">
+<script>
     // use data-spy="grid" for use AJAX for reload grid
     require(['bluz.grid']);
 </script>
 <div class="clearfix" data-spy="grid" data-grid="<?=$grid->getUid()?>">
 
     <div class="navbar">
-        <div class="row">
-            <div class="col-lg-6">
-                <a href="<?=$this->url('media', 'crud')?>" class="btn btn-primary navbar-btn"><?=__('Create')?></a>
-            </div>
-            <div class="col-lg-6">
-                <form action="<?=$this->url('media', 'grid')?>" class="navbar-form filter-form pull-right">
-                    <div class="input-group">
-                        <?php
-                        $this->partial(
-                            'grid/filter-search.phtml',
-                            [
-                                'grid' => $grid,
-                                'filters' => [
-                                    'title' => __('Title'),
-                                    'file' => __('File'),
-                                ]
+        <div class="col-lg-6">
+            <a href="<?=$this->url('media', 'crud')?>" class="btn btn-primary navbar-btn"><?=__('Create')?></a>
+        </div>
+        <div class="col-lg-6">
+            <form action="<?=$this->url('media', 'grid')?>" class="navbar-form filter-form pull-right">
+                <div class="input-group">
+                    <?php
+                    $this->partial(
+                        'grid/filter-search.phtml',
+                        [
+                            'grid' => $grid,
+                            'filters' => [
+                                'title' => __('Title'),
+                                'file' => __('File'),
                             ]
-                        )
-                        ?>
-                        <span class="input-group-btn">
+                        ]
+                    )
+                    ?>
+                    <span class="input-group-btn">
                         <button class="btn btn-default" type="submit"><?=__("Search")?></button>
                     </span>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -42,7 +40,7 @@
     <?php $this->partial('grid/limit.phtml', ['grid'=>$grid]) ?>
 
     <ul class="pagination pagination-small pull-right">
-        <li class="disabled"><a href="#"><?=__('Quantity image')?></a></li>
+        <li class="disabled"><a href="#"><?=__('Count row')?></a></li>
         <li <?=(($countCol==1)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 1]);?>">1</a></li>
         <li <?=(($countCol==2)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 2]);?>">2</a></li>
         <li <?=(($countCol==3)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 3]);?>">3</a></li>
@@ -65,22 +63,26 @@
                 <div class="col-lg-<?=$col?>">
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <P>
-                                <span ><?=$row['title']?></span>
-                                <span class="pull-right" ><?=substr($row['created'], 0, -9)?>
-                            </p>
+                            <h3 class="panel-title"><?=$row['title']?></h3>
                         </div>
-                        <img style="height:<?=$col*50?>px" class="img-thumbnail"src="<?=$row['preview']?>">
+
+                        <img class="img-thumbnail"src="<?=$row['preview']?>">
+
+                        <P align="left">
+                            <a class="" href="<?=$this->url('users', 'profile', ['id'=>$row['userId']]);?>" >
+                                <?=$row['login']?>
+                            </a>
+                            <a class="" href="<?=$grid->order('created')?>">
+                                <?=substr($row['created'], 0, -9)?>
+                            </a>
+                        </P>
 
                         <div class="panel-footer">
                             <P align="right">
-                                <a class="pull-left" href="<?=$this->url('users', 'profile', ['id'=>$row['userId']]);?>" >
-                                    <?=$row['login']?>
-                                </a>
-                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-small btn-primary">
+                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-xs btn-primary">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </a>
-                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-small btn-danger ajax" data-ajax-method="delete">
+                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
                                     <i class="glyphicon glyphicon-trash"></i>
                                 </a>
                             </P>

@@ -14,7 +14,7 @@ return
  */
 function ($id) use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      */
     $request = $this->getRequest();
     $user = Users\Table::findRow($id);

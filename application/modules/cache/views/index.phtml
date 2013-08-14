@@ -1,4 +1,5 @@
 <div class="navbar">
+    <div class="navbar-header">
     <a href="<?=$this->url('cache', 'stats')?>"
        class="btn btn-default navbar-btn bluz-tooltip"
        data-placement="bottom"
@@ -13,6 +14,7 @@
        class="btn btn-default navbar-btn bluz-tooltip confirm ajax"
        data-placement="bottom"
        data-original-title="Flash all servers"><i class="glyphicon glyphicon-fire"></i> <?=__('Flush')?></a>
+    </div>
 </div>
 <?php if (isset($servers) && sizeof($servers)): ?>
 <hr/>

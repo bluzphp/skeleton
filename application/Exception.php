@@ -26,7 +26,7 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Application\Exception\ApplicationException;
 
 /**
  * Exception
@@ -37,6 +37,6 @@ use Bluz;
  * @author   Anton Shevchuk
  * @created  06.07.11 16:46
  */
-class Exception extends Bluz\Application\ApplicationException
+class Exception extends ApplicationException
 {
 }

@@ -17,7 +17,7 @@ return
  */
 function ($template, $vars = []) use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $view->setTemplate('mail/' . $template . '.phtml');

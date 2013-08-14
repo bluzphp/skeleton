@@ -26,9 +26,8 @@
  */
 namespace Application;
 
-use Bluz\Application;
+use Bluz\Application\Application;
 use Bluz\Request;
-use Application\Exception;
 
 /**
  * Bootstrap for CLI

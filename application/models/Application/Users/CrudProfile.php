@@ -64,11 +64,9 @@ class CrudProfile extends \Bluz\Crud\Crud
      */
     public function validateUpdate($originalRow)
     {
-        $application = $this->getApplication();
+        $options = app()->getConfigData('auth', 'equals');
 
-        $options = $application->getConfigData('auth', 'equals');
-
-        $userId = $application->getAuth()->getIdentity()->id;
+        $userId = app()->getAuth()->getIdentity()->id;
         $userRow = $this->getTable()->findRow($userId);
         $authRow = Auth\Table::findRowWhere(['userId' => $userId]);
 
@@ -157,12 +155,11 @@ class CrudProfile extends \Bluz\Crud\Crud
     {
         $this->validateUpdate($this->data);
 
-        $application = $this->getApplication();
-        $router = $application->getRouter();
-        $mailer = $application->getMailer();
+        $router = app()->getRouter();
+        $mailer = app()->getMailer();
 
         $userId = $this->data['id'];
-        $options = $this->getApplication()->getConfigData('auth', 'equals');
+        $options = app()->getConfigData('auth', 'equals');
 
         $authRow = Auth\Table::findRowWhere(['userId' => $this->data['id']]);
         $usersRow = $this->getTable()->findRowWhere(['id' => $userId]);
@@ -176,7 +173,7 @@ class CrudProfile extends \Bluz\Crud\Crud
             );
             $authRow->token = $newPassword;
             $authRow->save();
-            $application->getMessages()->addSuccess('Password has been changed');
+            app()->getMessages()->addSuccess('Password has been changed');
         }
 
         /**
@@ -204,7 +201,7 @@ class CrudProfile extends \Bluz\Crud\Crud
 
             $subject = "Change email";
 
-            $body = $application->dispatch(
+            $body = app()->dispatch(
                 'users',
                 'mail-template',
                 [
@@ -228,7 +225,7 @@ class CrudProfile extends \Bluz\Crud\Crud
                 $mail->AddAddress($usersRow->email);
 
                 $mailer->send($mail);
-                $application->getMessages()->addNotice(__('Check your email and follow instructions in letter.'));
+                app()->getMessages()->addNotice(__('Check your email and follow instructions in letter.'));
 
             } catch (\Exception $e) {
                 // TODO: log me

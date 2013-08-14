@@ -11,7 +11,7 @@ return
  */
 function () {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      */
     $total = $this->getDb()->fetchOne('SELECT COUNT(*) FROM users');
     $active = $this->getDb()->fetchOne('SELECT COUNT(*) FROM users WHERE status = ?', [Users\Row::STATUS_ACTIVE]);

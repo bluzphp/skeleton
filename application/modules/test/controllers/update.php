@@ -21,7 +21,7 @@ return
  */
 function ($id, $data = array()) use ($view) {
     /**
-     * @var \Bluz\Application $this
+     * @var \Application\Bootstrap $this
      */
     if ($row = Test\Table::findRow($id)) {
         $view->row = $row;
