@@ -124,7 +124,7 @@ $this->headScript('//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.j
                     this.footer = this.$('footer');
                     this.main = $('#main');
 
-                    testList.fetch();
+                    testList.fetch(/*{ data: { page: 3, limit: 10, sort: 'asc' } }*/);
                 },
 
                 // Re-rendering the App just means refreshing the statistics -- the rest

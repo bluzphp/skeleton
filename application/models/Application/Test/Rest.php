@@ -41,10 +41,16 @@ class Rest extends AbstractRest
      */
     protected function index(array $params = array())
     {
-        return app()->getDb()
+        $select = app()->getDb()
             ->select('*')
-            ->from('test', 't')
-            ->execute();
+            ->from('test', 't');
+
+        if (isset($params['page']) && isset($params['limit'])) {
+            $select->setLimit($params['limit']);
+            $select->setPage($params['page']);
+        }
+
+        return $select->execute();
     }
 
     /**
