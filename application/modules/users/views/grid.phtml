@@ -10,12 +10,10 @@
 </script>
 
 <div class="clearfix" data-spy="grid" data-grid="<?=$grid->getUid()?>">
-
     <div class="navbar">
-    <div class="row">
         <div class="col-lg-6">
             <?php foreach ($roles as $role) : ?>
-            <a href="<?=$grid->filter('roleId', 'eq', $role['id'])?>" class="btn btn-primary navbar-btn"><?=$role['name']?></a>
+            <a href="<?=$grid->filter('roleId', 'eq', $role['id'])?>" class="btn btn-default navbar-btn"><?=$role['name']?></a>
             <?php endforeach; ?>
         </div>
         <div class="col-lg-6">
@@ -39,7 +37,6 @@
                 </div>
             </form>
         </div>
-    </div>
     </div>
 
     <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
@@ -65,13 +62,13 @@
                 <td><?=$row['rolesList']?></td>
                 <td><?=$row['status']?></td>
                 <td class="controls">
-                    <a href="<?=$this->url('users', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-primary btn-small dialog" data-ajax-method="get">
+                    <a href="<?=$this->url('users', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-primary btn-xs dialog" data-ajax-method="get">
                         <i class="glyphicon glyphicon-pencil"></i>
                     </a>
-                    <a href="<?=$this->url('acl', 'user', ['id' => $row['id']]);?>" class="btn btn-default btn-small dialog" data-ajax-method="get">
+                    <a href="<?=$this->url('acl', 'user', ['id' => $row['id']]);?>" class="btn btn-default btn-xs dialog" data-ajax-method="get">
                         <i class="glyphicon glyphicon-lock"></i>
                     </a>
-                    <a href="<?=$this->url('users', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-small btn-danger ajax" data-ajax-method="delete">
+                    <a href="<?=$this->url('users', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </td>

@@ -26,35 +26,59 @@
  */
 namespace Application\Test;
 
+use Bluz\Application\Exception\NotFoundException;
 use Bluz\Rest\AbstractRest;
 
 /**
  * Class Rest
+ *
  * @package Application\Test
  */
 class Rest extends AbstractRest
 {
     /**
-     * create
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    protected function get()
+    protected function get($id)
     {
-
+        return app()->getDb()
+            ->select('*')
+            ->from('test', 't')
+            ->where('t.id = ?', $id)
+            ->limit(1)
+            ->execute();
     }
 
     /**
-     * create
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    protected function index()
+    protected function index($params)
     {
-        $test = app()->getDb()
-            ->select('*')->from('test', 't')
+        return app()->getDb()
+            ->select('*')
+            ->from('test', 't')
             ->execute();
+    }
 
-        return $test;
+    /**
+     * {@inheritdoc}
+     */
+    protected function post($data)
+    {
+        return app()->getDb()
+            ->insert('test')
+            ->setArray($data)
+            ->execute();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function put($id, $data)
+    {
+        return app()->getDb()->update('test')
+            ->setArray($data)
+            ->where('id = ?', $id)
+            ->execute();
     }
 }

@@ -5,7 +5,7 @@
     <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
     <div class="form-group input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        <input type="email" class="form-control" name="data[email]" value="<?=($row->email)?>" required/>
+        <input type="email" class="form-control" name="data[email]" value="<?=($row->email)?>" maxlength="255" required/>
 
         <?php if ($row->changeEmail): ?>
         <span class="input-group-addon" title="<?=__('Email will be changed after confirmation')?>">

@@ -8,9 +8,6 @@ $this->headScript('//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.j
         $(function(){
             window.Test = Backbone.Model.extend({
                 urlRoot: '/test/rest/',
-    //            url: function() {
-    //                return this.urlRoot;
-    //            },
                 defaults:{
                     "id":null,
                     "name":"",
@@ -24,7 +21,7 @@ $this->headScript('//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.j
                 url: '/test/rest/'
             });
 
-            var testList = new TestCollection();
+            window.testList = new TestCollection();
             // Listener on all events
             testList.on('all', function(event){
                 console.log(event);
@@ -39,6 +36,185 @@ $this->headScript('//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.j
                     alert('Script Error!');
                 }
             });
+
+            window.TestView = Backbone.View.extend({
+                //... is a list tag.
+                tagName:  "li",
+                className: "list-group-item",
+
+                // Cache the template function for a single item.
+                template: _.template($('#item-template').html()),
+
+                // The DOM events specific to an item.
+                events: {
+                    "click .view"     : "edit",
+                    "click a.destroy" : "clear",
+                    "keypress .edit"  : "updateOnEnter",
+                    "blur .edit"      : "close"
+                },
+
+                // The TodoView listens for changes to its model, re-rendering. Since there's
+                // a one-to-one correspondence between a **Todo** and a **TodoView** in this
+                // app, we set a direct reference on the model for convenience.
+                initialize: function() {
+                    this.listenTo(this.model, 'change', this.render);
+                    this.listenTo(this.model, 'destroy', this.remove);
+                },
+
+                // Re-render the titles of the todo item.
+                render: function() {
+                    this.$el.html(this.template(this.model.toJSON()));
+                    this.input = this.$('.edit');
+                    return this;
+                },
+
+                // Switch this view into `"editing"` mode, displaying the input field.
+                edit: function() {
+                    this.$el.addClass("editing");
+                    this.input.focus();
+                },
+
+                // Close the `"editing"` mode, saving changes to the todo.
+                close: function() {
+                    var value = this.input.val();
+                    if (!value) {
+                        this.clear();
+                    } else {
+                        this.model.save({name: value});
+                        this.$el.removeClass("editing");
+                    }
+                },
+
+                // If you hit `enter`, we're through editing the item.
+                updateOnEnter: function(e) {
+                    if (e.keyCode == 13) this.close();
+                },
+
+                // Remove the item, destroy the model.
+                clear: function() {
+                    this.model.destroy();
+                }
+            });
+
+            // Our overall **AppView** is the top-level piece of UI.
+            window.AppView = Backbone.View.extend({
+
+                // Instead of generating a new element, bind to the existing skeleton of
+                // the App already present in the HTML.
+                el: $("#testapp"),
+
+                // Delegated events for creating new items, and clearing completed ones.
+                events: {
+                    "keypress #create-row":  "createOnEnter",
+                    "click #clear-completed": "clearCompleted",
+                    "click #toggle-all": "toggleAllComplete"
+                },
+
+                // At initialization we bind to the relevant events on the `Todos`
+                // collection, when items are added or changed. Kick things off by
+                // loading any preexisting todos that might be saved in *localStorage*.
+                initialize: function() {
+
+                    this.input = this.$("#create-row");
+
+                    this.listenTo(testList, 'add', this.addOne);
+                    this.listenTo(testList, 'reset', this.addAll);
+                    this.listenTo(testList, 'all', this.render);
+
+                    this.footer = this.$('footer');
+                    this.main = $('#main');
+
+                    testList.fetch();
+                },
+
+                // Re-rendering the App just means refreshing the statistics -- the rest
+                // of the app doesn't change.
+                render: function() {
+                    this.main.show();
+                    this.footer.show();
+                },
+
+                // Add a single todo item to the list by creating a view for it, and
+                // appending its element to the `<ul>`.
+                addOne: function(todo) {
+                    var view = new TestView({model: todo});
+                    this.$("#test-list").append(view.render().el);
+                },
+
+                // Add all items in the **Todos** collection at once.
+                addAll: function() {
+                    testList.each(this.addOne, this);
+                },
+
+                // If you hit return in the main input field, create new **Todo** model,
+                // persisting it to *localStorage*.
+                createOnEnter: function(e) {
+                    if (e.keyCode != 13) return;
+                    if (!this.input.val()) return;
+
+                    testList.create({name: this.input.val()});
+                    this.input.val('');
+                }
+            });
+
+            // Finally, we kick things off by creating the **App**.
+            var App = new AppView;
         });
     });
+</script><!-- Templates -->
+
+<style>
+
+    #test-list {
+        list-style: none;
+    }
+
+    #test-list li {
+        margin-bottom: 4px;
+        width: 244px;
+    }
+
+    #test-list li label {
+        width: 180px;
+        margin-right: 4px;
+    }
+
+    #test-list li.editing {
+        padding: 6px 15px;
+    }
+
+    #test-list li.editing .edit {
+        display: block;
+    }
+
+    #test-list li.editing .view {
+        display: none;
+    }
+
+    #test-list li .view label {
+        word-break: break-word;
+    }
+
+    #test-list li .edit {
+        display: none;
+    }
+
+</style>
+<script type="text/template" id="item-template">
+    <div class="view">
+        <label class="btn btn-xs btn-default"><%- name %></label>
+        <a class="destroy btn btn-xs btn-danger confirm"><span class="glyphicon glyphicon-remove"></span></a>
+    </div>
+    <input class="edit form-control" type="text" value="<%- name %>" />
 </script>
+<div id="testapp">
+    <header>
+        <h1>Tests table</h1>
+        <div class="list-group">
+            <input id="create-row" class="list-item form-control" type="text" placeholder="Name" />
+        </div>
+    </header>
+    <section id="main">
+        <ul id="test-list" class="list-group"></ul>
+    </section>
+</div>
