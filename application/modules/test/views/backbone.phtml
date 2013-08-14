@@ -18,24 +18,14 @@ $this->headScript('//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.j
 
             window.TestCollection = Backbone.Collection.extend({
                 model:Test,
-                url: '/test/rest/'
+                url: '/test/rest/',
+                page: 1,
+                pages: 1,
+                limit: 10,
+                total: 0
             });
 
-            window.testList = new TestCollection();
-            // Listener on all events
-            testList.on('all', function(event){
-                console.log(event);
-            });
-            // Load data
-            testList.fetch({
-                "success":function (collection, response) {
-                    console.dir(collection); // collection
-                    console.dir(response); // the raw data from the server
-                },
-                "error":function (collection, response) {
-                    alert('Script Error!');
-                }
-            });
+            var testList = new TestCollection();
 
             window.TestView = Backbone.View.extend({
                 //... is a list tag.
@@ -103,11 +93,15 @@ $this->headScript('//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.j
                 // the App already present in the HTML.
                 el: $("#testapp"),
 
+                // Our template for the line of statistics at the bottom of the app.
+                pagerTemplate: _.template($('#pager-template').html()),
+
                 // Delegated events for creating new items, and clearing completed ones.
                 events: {
                     "keypress #create-row":  "createOnEnter",
                     "click #clear-completed": "clearCompleted",
-                    "click #toggle-all": "toggleAllComplete"
+                    "click #toggle-all": "toggleAllComplete",
+                    "click #footer a": "fetchPage"
                 },
 
                 // At initialization we bind to the relevant events on the `Todos`
@@ -121,33 +115,62 @@ $this->headScript('//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.j
                     this.listenTo(testList, 'reset', this.addAll);
                     this.listenTo(testList, 'all', this.render);
 
-                    this.footer = this.$('footer');
-                    this.main = $('#main');
+                    this.main = this.$('#main');
+                    this.footer = this.$('#footer');
 
-                    testList.fetch(/*{ data: { page: 3, limit: 10, sort: 'asc' } }*/);
+                    testList.fetch({
+                        success: function(collection, response, options) {
+                            testList.total = options.xhr.getResponseHeader('Bluz-Rest-Total');
+                            testList.pages = Math.ceil(testList.total / testList.limit);
+                        },
+                        data: { page: testList.page, limit: testList.limit },
+                        reset: true,
+                        remove: true
+                    });
                 },
-
-                // Re-rendering the App just means refreshing the statistics -- the rest
+                // Re-rendering the App just means refreshing the pagination -- the rest
                 // of the app doesn't change.
                 render: function() {
-                    this.main.show();
-                    this.footer.show();
+                    if (testList.length) {
+                        this.main.show();
+                        this.footer.show();
+                        this.footer.html(this.pagerTemplate({model:testList}));
+                    } else {
+                        this.main.hide();
+                        this.footer.hide();
+                    }
                 },
 
                 // Add a single todo item to the list by creating a view for it, and
                 // appending its element to the `<ul>`.
-                addOne: function(todo) {
-                    var view = new TestView({model: todo});
+                addOne: function(row) {
+                    var view = new TestView({model: row});
                     this.$("#test-list").append(view.render().el);
                 },
 
                 // Add all items in the **Todos** collection at once.
                 addAll: function() {
+                    this.$("#test-list").empty();
                     testList.each(this.addOne, this);
                 },
 
-                // If you hit return in the main input field, create new **Todo** model,
-                // persisting it to *localStorage*.
+                fetchPage: function(event) {
+                    var $target = $(event.target);
+                    var page = $target.data('page');
+                    testList.fetch({
+                        success: function(collection, response, options) {
+                            testList.total = options.xhr.getResponseHeader('Bluz-Rest-Total');
+                            testList.pages = Math.ceil(testList.total / testList.limit);
+                            testList.page = page;
+                        },
+                        data: { page: page, limit: testList.limit },
+                        reset: true,
+                        remove: true
+                    });
+                    return false;
+                },
+
+                // If you hit return in the main input field, create new **Test** model
                 createOnEnter: function(e) {
                     if (e.keyCode != 13) return;
                     if (!this.input.val()) return;
@@ -161,10 +184,8 @@ $this->headScript('//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.j
             var App = new AppView;
         });
     });
-</script><!-- Templates -->
-
+</script>
 <style>
-
     #test-list {
         list-style: none;
     }
@@ -191,15 +212,12 @@ $this->headScript('//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.j
         display: none;
     }
 
-    #test-list li .view label {
-        word-break: break-word;
-    }
-
     #test-list li .edit {
         display: none;
     }
 
 </style>
+<!-- Template -->
 <script type="text/template" id="item-template">
     <div class="view">
         <label class="btn btn-xs btn-default"><%- name %></label>
@@ -207,14 +225,29 @@ $this->headScript('//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.j
     </div>
     <input class="edit form-control" type="text" value="<%- name %>" />
 </script>
+<script type="text/template" id="pager-template">
+    <% if (model.pages > 1) { %>
+    <ul class="pagination">
+        <li <% if (model.page == 1) {%> class="disabled" <%}%>><a href="#">&laquo;</a></li>
+        <% for (i = 1; i <= model.pages; i++ ) { %>
+            <li <% if (model.page == i) {%> class="active" <%}%>><a href="#" data-page="<%= i %>"><%= i %></a></li>
+        <% }; %>
+        <li <% if (model.page == model.pages) {%> class="disabled" <%}%>><a href="#">&raquo;</a></li>
+    </ul>
+    <% } %>
+</script>
+
 <div id="testapp">
-    <header>
+    <div id="header">
         <h1>Tests table</h1>
         <div class="list-group">
             <input id="create-row" class="list-item form-control" type="text" placeholder="Name" />
         </div>
-    </header>
-    <section id="main">
+    </div>
+    <div id="main">
         <ul id="test-list" class="list-group"></ul>
-    </section>
+    </div>
+    <div id="footer">
+
+    </div>
 </div>
