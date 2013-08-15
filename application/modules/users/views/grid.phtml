@@ -13,7 +13,7 @@
     <div class="navbar">
         <div class="col-lg-6">
             <?php foreach ($roles as $role) : ?>
-            <a href="<?=$grid->filter('roleId', 'eq', $role['id'])?>" class="btn btn-default navbar-btn"><?=$role['name']?></a>
+            <a href="<?=$grid->filter('roleId', 'eq', $role['id'])?>" class="btn btn-default navbar-btn ajax"><?=$role['name']?></a>
             <?php endforeach; ?>
         </div>
         <div class="col-lg-6">
@@ -50,7 +50,7 @@
                 <th><a href="<?=$grid->order('email')?:'#'?>"><?=__('Email')?></a></th>
                 <th><?=__('Roles')?></th>
                 <th><a href="<?=$grid->order('status')?:'#'?>"><?=__('Status')?></a></th>
-                <th width="150px"></th>
+                <th width="96px"></th>
             </tr>
         </thead>
         <tbody>

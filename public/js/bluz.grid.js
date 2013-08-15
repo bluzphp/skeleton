@@ -10,8 +10,11 @@ define(['jquery', 'bluz'], function ($, bluz) {
 		$('[data-spy="grid"]').each(function (i, el) {
 			var $grid = $(el);
 			// TODO: work with hash from URI
+            if (!$grid.data('url')) {
+                $grid.data('url', window.location.pathname);
+            }
 
-			$grid.on('click.bluz.ajax', '.pagination li a, thead a', function () {
+			$grid.on('click.bluz.ajax', '.pagination li a, thead a, .navbar a.ajax', function () {
 				var $link = $(this),
 					href = $link.attr('href');
 
@@ -35,11 +38,26 @@ define(['jquery', 'bluz'], function ($, bluz) {
 						[...]   <--     [...]
 						</div>          </div>
 						 */
+                        $grid.data('url', href);
 						$grid.html($(html).children().unwrap());
 					}
 				});
 				return false;
 			});
+            // refresh grid if form was success sent
+            $grid.on('form.success', 'a.dialog', function() {
+                $.ajax({
+                    url: $grid.data('url'),
+                    type: 'get',
+                    dataType: 'html',
+                    beforeSend: function () {
+                        $grid.find('a, .btn').addClass('disabled');
+                    },
+                    success: function (html) {
+                        $grid.html($(html).children().unwrap());
+                    }
+                });
+            });
             $grid.on('submit.bluz.ajax', 'form.filter-form', function () {
                 var $form = $(this);
 
