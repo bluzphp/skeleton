@@ -181,5 +181,13 @@ footer {
         padding-top: 0;
     }
 }
+@media screen and (min-width: 1200px) {
+
+    /* Widen the fixed sidebar again */
+    .nav-dashboard.affix {
+        width: 263px;
+    }
+
+}
 /*/Bootstrap fix*/
 
