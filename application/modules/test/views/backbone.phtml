@@ -1,10 +1,8 @@
 <?php
 /* @var \Bluz\View\View $this */
-$this->headScript('//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore.js');
-$this->headScript('//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.js');
 ?>
 <script>
-    require(['jquery'], function($) {
+    require(['jquery', 'backbone'], function($, Backbone) {
         $(function(){
             window.Test = Backbone.Model.extend({
                 urlRoot: '/test/rest/',

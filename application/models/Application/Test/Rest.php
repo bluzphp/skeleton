@@ -86,6 +86,8 @@ class Rest extends AbstractRest
      */
     protected function post(array $data)
     {
+
+
         // TODO: validation here
         return app()->getDb()
             ->insert('test')
