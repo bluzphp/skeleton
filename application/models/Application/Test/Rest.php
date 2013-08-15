@@ -46,11 +46,26 @@ class Rest extends AbstractRest
             ->from('test', 't');
 
         if (isset($params['page']) && isset($params['limit'])) {
+            $selectPart = $select->getQueryPart('select');
+            $selectPart[0] = 'SQL_CALC_FOUND_ROWS ' . current($selectPart);
+            $select->select($selectPart);
+
             $select->setLimit($params['limit']);
             $select->setPage($params['page']);
         }
 
-        return $select->execute();
+        $result = $select->execute();
+
+
+        if (isset($params['page']) && isset($params['limit'])) {
+            $total = app()->getDb()->fetchOne('SELECT FOUND_ROWS()');
+        } else {
+            $total = sizeof($result);
+        }
+
+        header('Bluz-Rest-Total: '. $total);
+
+        return $result;
     }
 
     /**
@@ -71,6 +86,8 @@ class Rest extends AbstractRest
      */
     protected function post(array $data)
     {
+
+
         // TODO: validation here
         return app()->getDb()
             ->insert('test')
