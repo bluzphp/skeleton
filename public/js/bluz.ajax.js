@@ -148,7 +148,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 				}
 			})
 			// Ajax links
-			.on('click.bluz.ajax', 'a.ajax', function () {
+			.on('click.bluz.ajax', 'a.ajax', function (event) {
 				var $this = $(this);
 				if ($this.hasClass('disabled')) {
 					// request in progress
@@ -177,7 +177,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 						$this.removeClass('disabled');
 					}
 				});
-				return false;
+				event.preventDefault();
 			})
 			// Ajax load
 			.on('click.bluz.ajax', '.load', function () {
@@ -240,12 +240,15 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                     },
                     success: function(content) {
                         var $div = createModal(content, style);
-                        $div.on('shown.bs.modal',function () {
-                                bluz.ready();
-                            })
-                            .on('hidden.bs.modal', function () {
-                                $(this).data('modal', null);
-                            });
+                        $div.on('shown.bs.modal', function () {
+                            bluz.ready();
+                        })
+                        .on('hidden.bs.modal', function () {
+                            $(this).data('modal', null);
+                        })
+                        .on('form.success', 'form.ajax', function (){
+                            $this.trigger('form.success');
+                        });
                         $div.modal('show');
                     },
                     complete: function () {
@@ -309,6 +312,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                                 form.notices($this, data);
                             });
                         } else {
+                            $this.trigger('form.success');
                             closeModals()
                         }
                     },
