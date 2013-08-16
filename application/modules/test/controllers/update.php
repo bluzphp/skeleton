@@ -9,12 +9,18 @@
  */
 namespace Application;
 
+use Bluz\Crud\ValidationException;
+use Bluz\Request\AbstractRequest;
 use Bluz\Request\HttpRequest;
 
 return
 /**
  * @method GET
  * @method PUT
+ * @method POST
+ *
+ * @route /test/update/{$id}
+ *
  * @param int $id
  * @param array $data
  * @return \closure
@@ -23,53 +29,31 @@ function ($id, $data = array()) use ($view) {
     /**
      * @var \Application\Bootstrap $this
      */
-    if ($row = Test\Table::findRow($id)) {
-        $view->row = $row;
-    } else {
-        throw new Exception('Record not found');
-    }
+    $this->getLayout()->setTemplate('small.phtml');
 
-    if ($this->getRequest()->getMethod() === HttpRequest::METHOD_PUT) {
-        try {
-            // simple validation here
-            $errors = [];
-            if (!isset($data['name'])) {
-                $errors['name'] = "Name can't be empty";
-            } elseif (!preg_match('/^[a-z][a-z0-9]+$/i', $data['name'])) {
-                $errors['name'] = "Invalid name";
-            }
+    $rest = new Test\Rest();
 
-            if (!isset($data['email'])) {
-                $errors['email'] = "Email can't be empty";
-            } elseif (!preg_match('/^[a-z0-9-_.]+@[a-z0-9-_.]+$/i', $data['email'])) {
-                $errors['email'] = "Invalid email format";
-            }
+    try {
+        $result = $rest();
 
-            if (!isset($data['status']) or !in_array($data['status'], ['active', 'delete', 'disable'])) {
-                $errors['status'] = "Please choose user status";
-            }
-
-            $row->name = $data['name'];
-            $row->email = $data['email'];
-            $row->status = $data['status'];
-
-
-            if (sizeof($errors)) {
-                $view->formId = 'form'; // form UID
-                $view->errors = $errors;
-                $view->callback = 'bluz.form.notices';
-                throw new Exception("Please fix all errors");
-            }
-
-            if ($id = $row->save()) {
-                $this->getMessages()->addSuccess("Test record was save");
-                $this->redirectTo('test', 'read', ['id'=>$id]);
-            }
-        } catch (Exception $e) {
-            $this->getMessages()->addError($e->getMessage());
+        switch ($rest->getMethod()) {
+            default:
+            case AbstractRequest::METHOD_GET:
+                $view->row = $result;
+                $view->method = 'put';
+                return 'create.phtml';
+            case AbstractRequest::METHOD_PUT:
+                $this->getMessages()->addSuccess("Raw was updated");
+                $this->redirectTo('test', 'update', ['id' => $id]);
+                return false; // disable view and layout
+            case AbstractRequest::METHOD_POST:
+                $this->getMessages()->addSuccess("Raw was created");
+                $this->redirectTo('test', 'update', ['id' => $result]);
+                return false; // disable view and layout
         }
+    } catch (ValidationException $e) {
+        // validation error
+        $view->method = $rest->getMethod();
+        return 'create.phtml';
     }
-    $view->row = $row;
-    $view->method = 'PUT';
-    return 'create.phtml';
 };

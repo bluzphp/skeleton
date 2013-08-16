@@ -39,7 +39,7 @@ class Rest extends AbstractRest
     /**
      * {@inheritdoc}
      */
-    protected function index(array $params = array())
+    public function index(array $params = array())
     {
         $select = app()->getDb()
             ->select('*')
@@ -54,8 +54,7 @@ class Rest extends AbstractRest
             $select->setPage($params['page']);
         }
 
-        $result = $select->execute();
-
+        $result = $select->execute('\\Application\\Test\\Row');
 
         if (isset($params['page']) && isset($params['limit'])) {
             $total = app()->getDb()->fetchOne('SELECT FOUND_ROWS()');
@@ -71,23 +70,21 @@ class Rest extends AbstractRest
     /**
      * {@inheritdoc}
      */
-    protected function get($id)
+    public function get($id)
     {
         return app()->getDb()
             ->select('*')
             ->from('test', 't')
             ->where('t.id = ?', $id)
             ->limit(1)
-            ->execute();
+            ->execute('\\Application\\Test\\Row');
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function post(array $data)
+    public function post(array $data)
     {
-
-
         // TODO: validation here
         return app()->getDb()
             ->insert('test')
@@ -98,7 +95,7 @@ class Rest extends AbstractRest
     /**
      * {@inheritdoc}
      */
-    protected function put($id, array $data)
+    public function put($id, array $data)
     {
         // TODO: validation here
         return app()->getDb()->update('test')
@@ -110,7 +107,7 @@ class Rest extends AbstractRest
     /**
      * {@inheritdoc}
      */
-    protected function delete($id)
+    public function delete($id)
     {
         return app()->getDb()->delete('test')
             ->where('id = ?', $id)
