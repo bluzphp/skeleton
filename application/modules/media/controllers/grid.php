@@ -28,7 +28,7 @@ function () use ($view) {
 
     if ($countCol <> null) {
         setcookie("countCol", $countCol, time() + 3600, '/');
-    }else{
+    } else {
         $request->getCookie('countCol', 4);
     }
 
