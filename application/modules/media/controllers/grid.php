@@ -29,7 +29,7 @@ function () use ($view) {
     if ($countCol <> null) {
         setcookie("countCol", $countCol, time() + 3600, '/');
     } else {
-        $request->getCookie('countCol', 4);
+        $countCol = $request->getCookie('countCol', 4);
     }
 
     $lnCol = (integer)(12 / $countCol);
