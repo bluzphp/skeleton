@@ -23,10 +23,16 @@ function () use ($view) {
     );
     $grid = new Media\Grid();
 
+    $request = $this->getRequest();
+    $countCol = $request->getParam('countCol');
 
-    $countCol = $this->getRequest()->getParam('countCol', 4);
-    $lnCol = (integer)(12/$countCol);
+    if ($countCol <> null) {
+        setcookie("countCol", $countCol, time() + 3600, '/');
+    } else {
+        $countCol = $request->getCookie('countCol', 4);
+    }
 
+    $lnCol = (integer)(12 / $countCol);
     $view->countCol = $countCol;
     $view->col = $lnCol;
     $view->grid = $grid;
