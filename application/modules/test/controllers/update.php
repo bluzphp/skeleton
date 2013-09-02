@@ -38,15 +38,15 @@ function ($id, $data = array()) use ($view) {
 
         switch ($rest->getMethod()) {
             default:
-            case AbstractRequest::METHOD_GET:
+            case (AbstractRequest::METHOD_GET):
                 $view->row = $result;
                 $view->method = 'put';
                 return 'create.phtml';
-            case AbstractRequest::METHOD_PUT:
+            case (AbstractRequest::METHOD_PUT):
                 $this->getMessages()->addSuccess("Raw was updated");
                 $this->redirectTo('test', 'update', ['id' => $id]);
                 return false; // disable view and layout
-            case AbstractRequest::METHOD_POST:
+            case (AbstractRequest::METHOD_POST):
                 $this->getMessages()->addSuccess("Raw was created");
                 $this->redirectTo('test', 'update', ['id' => $result]);
                 return false; // disable view and layout
