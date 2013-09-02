@@ -28,6 +28,11 @@ return array(
         )
     ),
     "db" => array(
+        "connect" => array(
+            "options" => array(
+                \PDO::ATTR_PERSISTENT => true
+            )
+        ),
         "defaultAdapter" => true
     ),
     "layout" => array(

@@ -1,21 +1,21 @@
-<div class="navbar">
-    <div class="navbar-header">
-    <a href="<?=$this->url('cache', 'stats')?>"
-       class="btn btn-default navbar-btn bluz-tooltip"
-       data-placement="bottom"
-       data-original-title="Cache Servers Stats"><?=__('Statistics')?></a>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="collapse navbar-collapse">
+        <a href="<?=$this->url('cache', 'stats')?>"
+           class="btn btn-default navbar-btn bluz-tooltip"
+           data-placement="bottom"
+           data-original-title="Cache Servers Stats"><?=__('Statistics')?></a>
 
-    <a href="<?=$this->url('cache', 'clean')?>"
-       class="btn btn-default navbar-btn bluz-tooltip confirm ajax"
-       data-placement="bottom"
-       data-original-title="Clean ACL and Route Maps"><i class="glyphicon glyphicon-fire"></i> <?=__('Clean')?></a>
+        <a href="<?=$this->url('cache', 'clean')?>"
+           class="btn btn-default navbar-btn bluz-tooltip confirm ajax"
+           data-placement="bottom"
+           data-original-title="Clean ACL and Route Maps"><i class="glyphicon glyphicon-fire"></i> <?=__('Clean')?></a>
 
-    <a href="<?=$this->url('cache', 'flush')?>"
-       class="btn btn-default navbar-btn bluz-tooltip confirm ajax"
-       data-placement="bottom"
-       data-original-title="Flash all servers"><i class="glyphicon glyphicon-fire"></i> <?=__('Flush')?></a>
+        <a href="<?=$this->url('cache', 'flush')?>"
+           class="btn btn-default navbar-btn bluz-tooltip confirm ajax"
+           data-placement="bottom"
+           data-original-title="Flash all servers"><i class="glyphicon glyphicon-fire"></i> <?=__('Flush')?></a>
     </div>
-</div>
+</nav>
 <?php if (isset($servers) && sizeof($servers)): ?>
 <hr/>
 <div>
