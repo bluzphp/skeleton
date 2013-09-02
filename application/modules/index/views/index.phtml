@@ -6,56 +6,69 @@
 </style>
 
 <div class="jumbotron">
-    <h1>Congratulations!</h1>
-    <p>You have successfully installed the Skeleton application for <a href="https://github.com/bluzphp">Bluz Framework</a></p>
+    <div class="container">
+        <h1>Congratulations!</h1>
+        <p>You have successfully installed the Skeleton application for <a href="https://github.com/bluzphp">Bluz Framework</a></p>
+    </div>
 </div>
 
 <h2>What next?</h2>
 
-<div class="accordion" id="accordion2"><div class="accordion-group">
-    <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-            Database setup &rarr;
-        </a>
-    </div>
-    <div id="collapseFour" class="accordion-body collapse">
-        <div class="accordion-inner">
-            <ol>
-                <li>
-                    Setup database structure from <code>structure.ddl</code>
-                </li>
-                <li>
-                    Restore database dump from <code>dump.sql</code>
-                </li>
-                <li>
-                    Setup configuration at <code>application/configs/app.dev.php</code>
-                </li>
-            </ol>
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+                    Database setup &rarr;
+                </a>
+            </div>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse">
+            <div class="panel-body">
+                <ol>
+                    <li>
+                        Setup database structure from <code>structure.ddl</code>
+                    </li>
+                    <li>
+                        Restore database dump from <code>dump.sql</code>
+                    </li>
+                    <li>
+                        Setup configuration at <code>application/configs/app.dev.php</code>
+                    </li>
+                </ol>
+            </div>
         </div>
     </div>
-</div>
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
-                Login as administrator &rarr;
-            </a>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
+                    Login as administrator &rarr;
+                </a>
+            </div>
         </div>
-        <div id="collapseFive" class="accordion-body collapse">
-            <div class="accordion-inner">
+        <div id="collapseFive" class="panel-collapse collapse">
+            <div class="panel-body">
                 <p>
                     Try to login with credentials <code>admin</code> / <code>admin</code>
                 </p>
             </div>
         </div>
     </div>
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                Create your first controller &rarr;
-            </a>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                    Create your first controller &rarr;
+                </a>
+            </div>
         </div>
-        <div id="collapseOne" class="accordion-body collapse">
-            <div class="accordion-inner">
+        <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body">
                 <ol>
                     <li>create new folder <code>application/modules/my</code>, where <code>my</code> it's module name </li>
                     <li>create new subfolder <code>application/modules/my/controllers</code></li>
@@ -90,14 +103,16 @@ return
             </div>
         </div>
     </div>
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                Create view &rarr;
-            </a>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                    Create view &rarr;
+                </a>
+            </div>
         </div>
-        <div id="collapseTwo" class="accordion-body collapse">
-            <div class="accordion-inner">
+        <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body">
                 <ol>
                     <li>create new subfolder <code>application/modules/my/views</code></li>
                     <li>create file <code>application/modules/my/views/index.phtml</code></li>
@@ -112,14 +127,16 @@ A: <strong>&lt;?=</strong>esc(<var>$answer</var>)<strong>?&gt;</strong>
             </div>
         </div>
     </div>
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-                Run &rarr;
-            </a>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                    Run &rarr;
+                </a>
+            </div>
         </div>
-        <div id="collapseThree" class="accordion-body collapse">
-            <div class="accordion-inner">
+        <div id="collapseThree" class="panel-collapse collapse">
+            <div class="panel-body">
                 Try to run:
                 <ul>
                     <li><a href="<?=$this->baseUrl('/my/');?>"><?=$this->baseUrl('/my/');?></a></li>

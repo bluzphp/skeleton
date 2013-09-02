@@ -8,18 +8,19 @@
     });
 </script>
 <?php endif; ?>
-<form id="form" action="<?=$this->url('test', $this->controller())?>" class="form-horizontal ajax" method="<?=isset($method)?$method:'POST'?>">
+<form id="form" action="<?=$this->url('test', 'update')?><?=$row->id?>" class="form-horizontal" method="POST">
+    <input type="hidden" name="_method" value="<?=isset($method)?$method:'POST'?>" />
     <input type="hidden" name="id" value="<?=$row->id?>"/>
     <div class="form-group">
         <label class="control-label col-lg-2" for="inputName">Name</label>
         <div class="col-lg-10">
-            <input type="text" id="inputName" name="data[name]" placeholder="" value="<?=$row->name?>" class="form-control"/>
+            <input type="text" id="inputName" name="name" placeholder="" value="<?=$row->name?>" class="form-control"/>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-lg-2" for="inputEmail">Email</label>
         <div class="col-lg-10">
-            <input type="text" id="inputEmail" name="data[email]" placeholder="example@domain.com" value="<?=$row->email?>" class="form-control"/>
+            <input type="text" id="inputEmail" name="email" placeholder="example@domain.com" value="<?=$row->email?>" class="form-control"/>
         </div>
     </div>
     <div class="form-group">
@@ -28,7 +29,7 @@
             <?php
                 $statuses = ['', 'active', 'delete', 'disable'];
             ?>
-            <?=$this->select('data[status]', array_combine($statuses, $statuses), $row->status, ['class'=>'form-control'])?>
+            <?=$this->select('status', array_combine($statuses, $statuses), $row->status, ['class'=>'form-control'])?>
         </div>
     </div>
     <div class="form-group">
