@@ -12,7 +12,6 @@ return
 function () {
     /**
      * @var \Application\Bootstrap $this
-     * @var \Bluz\View\View $view
      */
     ?>
     <a href="<?=$this->getRouter()->url('facebook', 'auth')?>">

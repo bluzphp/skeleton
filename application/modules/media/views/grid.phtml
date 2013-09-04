@@ -41,16 +41,12 @@
 
     <ul class="pagination pagination-small pull-right">
         <li class="disabled"><a href="#"><?=__('Image quantity')?></a></li>
-        <li <?=(($countCol==1)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 1]);?>">1</a></li>
         <li <?=(($countCol==2)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 2]);?>">2</a></li>
-        <li <?=(($countCol==3)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 3]);?>">3</a></li>
         <li <?=(($countCol==4)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 4]);?>">4</a></li>
-        <li <?=(($countCol==5)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 5]);?>">5</a></li>
-        <li <?=(($countCol==6)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 6]);?>">6</a></li>
     </ul>
 
 
-    <div class="row">
+    <div class="row clear">
         <div class="col-lg-12">
             <?php
             $count = 0;
@@ -60,26 +56,26 @@
                 }
             ?>
                 <div class="col-lg-<?=$col?>">
-                    <div class="panel panel-info">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
-                            <P>
-                                <span><?=$row['title']?></span>
-                                <span class="pull-right"><?=substr($row['created'], 0, -9)?>
-                            </p>
-                        </div>
-                        <img style="height:<?=$col*40?>px" class="img-thumbnail" src="<?=$row['preview']?>">
-                        <div class="panel-footer">
-                            <P align="right">
-                                <a class="pull-left" href="<?=$this->url('users', 'profile', ['id'=>$row['userId']])?>">
-                                    <?=$row['login']?>
-                                </a>
-                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]])?>" class="btn btn-small btn-primary">
+                            <?php if (strlen($row['title']) > 16) : echo substr($row['title'], 0, 10), '...'; else: echo $row['title']; endif; ?>
+                            <div class="pull-right">
+                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]])?>" class="btn btn-xs btn-primary ">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </a>
-                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]])?>" class="confirm btn btn-small btn-danger ajax" data-ajax-method="delete">
+                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]])?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
                                     <i class="glyphicon glyphicon-trash"></i>
                                 </a>
-                            </P>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <img style="height:<?=$col*40?>px" class="img-thumbnail" src="<?=$row['preview']?>"/>
+                        </div>
+                        <div class="panel-footer">
+                            <a href="<?=$this->url('users', 'profile', ['id'=>$row['userId']])?>">
+                                <?=$row['login']?>
+                            </a>
+                            <div class="pull-right"><?=substr($row['created'], 0, -9)?></div>
                         </div>
                     </div>
                 </div>
