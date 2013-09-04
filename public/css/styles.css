@@ -28,6 +28,24 @@ footer {
     text-align: center;
     border-top: 1px solid #e5e5e5;
 }
+/*Buttons*/
+.btn.icon-twitter, .btn.icon-facebook {
+    color: #fff;
+    display: block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 8px;
+    border-radius: 50%;
+    margin:0 2px
+}
+.btn.icon-twitter {
+    background: #0088CC;
+}
+.btn.icon-facebook {
+    background: #1155cc;
+}
+/*/Buttons*/
 /*Notify*/
 #notify {
     z-index:1100;

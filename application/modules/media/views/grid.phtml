@@ -61,10 +61,10 @@
                             <?php if (strlen($row['title']) > 16) : echo substr($row['title'], 0, 10), '...'; else: echo $row['title']; endif; ?>
                             <div class="pull-right">
                                 <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]])?>" class="btn btn-xs btn-primary ">
-                                    <i class="glyphicon glyphicon-pencil"></i>
+                                    <i class="icon-pencil"></i>
                                 </a>
                                 <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]])?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
-                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <i class="icon-trash"></i>
                                 </a>
                             </div>
                         </div>
