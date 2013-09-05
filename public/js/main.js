@@ -4,7 +4,7 @@
 require.config({
     baseUrl: 'js',
     // if you need disable JS cache
-    urlArgs: "bust=" + (new Date()).getTime(),
+    //urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
         bootstrap: './vendor/bootstrap',
         jquery: './vendor/jquery',

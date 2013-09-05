@@ -4,25 +4,36 @@
  * @var \Bluz\View\View $this
  */
 ?>
-<h3><?=__('Please sign in')?></h3>
-<form action="<?=$this->url('users', 'signin')?>" method="post">
-    <div class="form-group input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input type="text" name="login" class="form-control" value="<?=isset($login)?$login:''?>" placeholder="<?=__('login')?>" maxlength="255" required />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?=__('Please sign in')?></h3>
+    </div>
+    <div class="panel-body">
+        <form action="<?=$this->url('users', 'signin')?>" method="post">
+            <div class="form-group input-group">
+                <span class="input-group-addon"><i class="icon-user"></i></span>
+                <input type="text" name="login" class="form-control" value="<?=isset($login)?$login:''?>" placeholder="<?=__('login')?>" maxlength="255" required />
+            </div>
+
+            <div class="form-group input-group">
+                <span class="input-group-addon"><i class="icon-lock"></i></span>
+                <input type="password" name="password" class="form-control" placeholder="<?=__('password')?>" required />
+            </div>
+
+            <input type="submit" value="<?=__('Sign In')?>" class="btn btn-primary"/>
+
+            <a href="<?=$this->url('users', 'signup')?>" title="Sign Up" class="btn btn-default right"><?=__('Sign Up')?></a>
+
+        </form>
+    </div>
+    <div class="panel-footer clearfix">
+        <div class="pull-left">
+            <?=$this->widget('twitter', 'auth')?>
+        </div>
+        <div class="pull-left">
+            <?=$this->widget('facebook', 'auth')?>
+        </div>
+        <a href="<?=$this->url('users', 'recovery')?>"  class="pull-right"><?=__('Forgot your password?')?></a>
     </div>
 
-    <div class="form-group input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-        <input type="password" name="password" class="form-control" placeholder="<?=__('password')?>" required />
-    </div>
-
-    <input type="submit" value="<?=__('Sign In')?>" class="btn btn-primary"/>
-
-    <a href="<?=$this->url('users', 'signup')?>" title="Sign Up" class="btn btn-default right"><?=__('Sign Up')?></a>
-
-    <div class="text-center">
-        <?=$this->widget('twitter', 'auth')?>
-        <?=$this->widget('facebook', 'auth')?>
-    </div>
-</form>
-<a href="<?=$this->url('users', 'recovery')?>"><?=__('Forgot your password?')?></a>
+</div>
