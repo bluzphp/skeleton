@@ -4,26 +4,26 @@
 <form id="<?=$uid?>" action="<?=$this->url('users', 'edit')?>" class="ajax form-horizontal" method="put">
     <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
     <div class="form-group input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        <span class="input-group-addon"><i class="icon-envelope"></i></span>
         <input type="email" class="form-control" name="data[email]" value="<?=($row->email)?>" maxlength="255" required/>
 
         <?php if ($row->changeEmail): ?>
         <span class="input-group-addon" title="<?=__('Email will be changed after confirmation')?>">
-            <i class="glyphicon glyphicon-info-sign"></i></span>
+            <i class="icon-info-sign"></i></span>
         <?php endif; ?>
     </div>
     <div class="form-group input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <span class="input-group-addon"><i class="icon-lock"></i></span>
         <input type="password" class="form-control" name="data[old_password]"
                placeholder="<?=__('current password')?>" required/>
     </div>
     <div class="form-group input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <span class="input-group-addon"><i class="icon-lock"></i></span>
         <input type="password" class="form-control" name="data[new_password]"
                placeholder="<?=__('new password')?>"/>
     </div>
     <div class="form-group input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <span class="input-group-addon"><i class="icon-lock"></i></span>
         <input type="password" class="form-control" name="data[new_password2]"
                placeholder="<?=__('repeat password')?>"/>
     </div>

@@ -14,8 +14,6 @@ function () {
      * @var \Application\Bootstrap $this
      */
     ?>
-    <a href="<?=$this->getRouter()->url('twitter', 'auth')?>">
-        <img src="<?= $this->getView()->baseUrl('/img/social-icons/twitter.png') ?>" alt='Use your twitter account!' />
-    </a>
+    <a href="<?=$this->getRouter()->url('twitter', 'auth')?>" class="btn icon-twitter"></a>
     <?php
 };

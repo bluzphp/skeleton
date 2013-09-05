@@ -12,12 +12,8 @@ return
 function () {
     /**
      * @var \Application\Bootstrap $this
-     * @var \Bluz\View\View $view
      */
     ?>
-    <a href="<?=$this->getRouter()->url('facebook', 'auth')?>">
-        <img src="<?= $this->getView()->baseUrl('/img/social-icons/facebook.png') ?>"
-             alt="<?= _("Use your facebook account!")?>" />
-    </a>
+    <a href="<?=$this->getRouter()->url('facebook', 'auth')?>" class="btn icon-facebook"></a>
     <?php
 };
