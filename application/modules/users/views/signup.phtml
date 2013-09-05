@@ -1,23 +1,31 @@
 <?php $uid = uniqid('form_'); ?>
-<h3><?=__('Registration')?></h3>
-<form id="<?=$uid?>" action="<?=$this->url('users', 'signup')?>" class="ajax" method="post">
-    <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
 
-    <div class="form-group input-group">
-        <span class="input-group-addon"><i class="icon-user"></i></span>
-        <input type="text" class="form-control" name="data[login]" value="<?=($row->login)?>" placeholder="<?=__('login')?>" maxlength="255" required />
+<div class="panel panel-default">
+    <form id="<?=$uid?>" action="<?=$this->url('users', 'signup')?>" class="ajax" method="post">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?=__('Registration')?></h3>
     </div>
-    <div class="form-group input-group">
-        <span class="input-group-addon"><i class="icon-envelope"></i></span>
-        <input type="email" class="form-control" name="data[email]" value="<?=($row->email)?>" placeholder="<?=__('email')?>" maxlength="255" required />
+    <div class="panel-body">
+        <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
+        <div class="form-group input-group">
+            <span class="input-group-addon"><i class="icon-user"></i></span>
+            <input type="text" class="form-control" name="data[login]" value="<?=($row->login)?>" placeholder="<?=__('login')?>" maxlength="255" required />
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon"><i class="icon-envelope"></i></span>
+            <input type="email" class="form-control" name="data[email]" value="<?=($row->email)?>" placeholder="<?=__('email')?>" maxlength="255" required />
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon"><i class="icon-lock"></i></span>
+            <input type="password" class="form-control" name="data[password]" value="<?=($row->password)?>" placeholder="<?=__('password')?>" required />
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon"><i class="icon-lock"></i></span>
+            <input type="password" class="form-control" name="data[password2]" value="<?=($row->password2)?>" placeholder="<?=__('repeat password')?>" required />
+        </div>
     </div>
-    <div class="form-group input-group">
-        <span class="input-group-addon"><i class="icon-lock"></i></span>
-        <input type="password" class="form-control" name="data[password]" value="<?=($row->password)?>" placeholder="<?=__('password')?>" required />
+    <div class="panel-footer">
+        <button type="submit" class="btn btn-primary"><?=__('Registration')?></button>
     </div>
-    <div class="form-group input-group">
-        <span class="input-group-addon"><i class="icon-lock"></i></span>
-        <input type="password" class="form-control" name="data[password2]" value="<?=($row->password2)?>" placeholder="<?=__('repeat password')?>" required />
-    </div>
-    <button type="submit" class="btn btn-primary"><?=__('Registration')?></button>
-</form>
+    </form>
+</div>
