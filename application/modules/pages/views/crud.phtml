@@ -4,21 +4,6 @@
  */
 ?>
 <?php $uid = uniqid('form_'); ?>
-<?=$this->headScript('require(["jquery", "bluz"], function($, bluz) {
-    bluz.ready(function(){
-        $("#title").blur(function(){
-            if ($("#alias").val() == "") {
-                var title = $(this).val();
-                title = title.toLowerCase();
-                title = title.replace(/[ :;]+/gi, "-");
-                title = title.replace(/[-]+/gi, "-");
-                title = title.replace(/[^a-z0-9.-]/gi, "");
-                $("#alias").val(title);
-            }
-        });
-    });
-});');
-?>
 <form id="<?=$uid?>" action="<?=$this->url('pages', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
     <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
     <div class="modal-content">
@@ -74,3 +59,15 @@
     ])
 //*/
 ?>
+<script>
+    $("#title").blur(function(){
+        if ($("#alias").val() == "") {
+            var title = $(this).val();
+            title = title.toLowerCase();
+            title = title.replace(/[ :;]+/gi, "-");
+            title = title.replace(/[-]+/gi, "-");
+            title = title.replace(/[^a-z0-9.-]/gi, "");
+            $("#alias").val(title);
+        }
+    });
+</script>
