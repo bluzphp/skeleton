@@ -27,7 +27,7 @@
 namespace Application;
 
 use Bluz\Application\Application;
-use Application\Exception;
+use Bluz\Application\Exception\ForbiddenException;
 use Bluz\EventManager\Event;
 
 /**
@@ -51,13 +51,6 @@ class Bootstrap extends Application
     {
         // Profiler hooks
         if (constant('DEBUG') && DEBUG) {
-            $this->getEventManager()->attach(
-                'view',
-                function ($event) {
-                    /* @var \Bluz\EventManager\Event $event */
-                    $this->log('view');
-                }
-            );
             $this->getEventManager()->attach(
                 'layout:header',
                 function ($event) {
@@ -137,23 +130,43 @@ class Bootstrap extends Application
     /**
      * denied
      *
-     * @throws Exception
+     * @throws ForbiddenException
      * @return void
      */
     public function denied()
     {
-        // save URL to session
-        $this->getSession()->rollback = $this->getRequest()->getRequestUri();
-
         // process AJAX request
         if (!$this->getRequest()->isXmlHttpRequest()) {
             $this->getMessages()->addError('You don\'t have permissions, please sign in');
         }
         // redirect to login page
         if (!$this->getAuth()->getIdentity()) {
+            // save URL to session
+            $this->getSession()->rollback = $this->getRequest()->getRequestUri();
             $this->redirectTo('users', 'signin');
         }
-        throw new Exception('You don\'t have permission to access this page', 403);
+        throw new ForbiddenException();
+    }
+
+    /**
+     * render
+     *
+     * @return void
+     */
+    public function render()
+    {
+        if (constant('DEBUG') && DEBUG && !headers_sent()) {
+            $debug = sprintf(
+                "%f; %skb",
+                microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
+                ceil((memory_get_usage()/1024))
+            );
+            header(
+                'Bluz-Debug: '. $debug .'; '.
+                $this->getRequest()->getModule() .'/'. $this->getRequest()->getController()
+            );
+        }
+        parent::render();
     }
 
     /**

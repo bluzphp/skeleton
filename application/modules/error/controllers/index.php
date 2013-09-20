@@ -28,47 +28,47 @@ function ($code, $message = '') use ($view) {
 
     switch ($code) {
         case 400:
-            $header = "400 Bad Request";
-            $description = "The request cannot be fulfilled due to bad syntax";
+            $title = __("Bad Request");
+            $description = __("The server didn't understand the syntax of the request");
             break;
         case 401:
-            $header = "401 Unauthorized";
-            $description = "Access denied";
+            $title = __("Unauthorized");
+            $description = __("You are not authorized to view this page, please sign in");
             break;
         case 403:
-            $header = "403 Forbidden";
-            $description = "You don't have permissions";
+            $title = __("Forbidden");
+            $description = __("You don't have permissions to access this page");
             break;
         case 404:
-            $header = "404 Not Found";
-            $description = "The page you requested was not found.";
+            $title = __("Not Found");
+            $description = __("The page you requested was not found");
             break;
         case 405:
-            $header = "405 Method Not Allowed";
-            $description = "The server is not support method";
+            $title = __("Method Not Allowed");
+            $description = __("The server is not support method");
             break;
         case 500:
-            $header = "500 Internal Server Error";
-            $description = "The server encountered an unexpected condition.";
+            $title = __("Internal Server Error");
+            $description = __("The server encountered an unexpected condition");
             break;
         case 501:
-            $header = "501 Not Implemented";
-            $description = "The server does not understand or does not support the HTTP method.";
+            $title = __("Not Implemented");
+            $description = __("The server does not understand or does not support the HTTP method");
             break;
         case 503:
-            $header = "503 Service Unavailable";
-            $description = "The server is currently unable to handle the request due to a temporary overloading.";
+            $title = __("Service Unavailable");
+            $description = __("The server is currently unable to handle the request due to a temporary overloading");
             break;
         default:
-            $code = 400;
-            $header = "400 Bad Request";
-            $description = "An unexpected error occurred with your request. Please try again later.";
+            $code = 500;
+            $title = __("Internal Server Error");
+            $description = __("An unexpected error occurred with your request. Please try again later");
             break;
     }
 
     // send headers, if possible
     if (!headers_sent()) {
-        header("HTTP/1.1 {$header}");
+        http_response_code($code);
         switch ($code) {
             case 405:
                 header('Allow: '. $message);
@@ -80,7 +80,7 @@ function ($code, $message = '') use ($view) {
     }
 
     // check CLI or HTTP request
-    if ($this->getRequest()->getMethod() !== Request\AbstractRequest::METHOD_CLI) {
+    if (!$this->getRequest()->isCli()) {
         $accept = $this->getRequest()->getHeader('accept');
         $accept = substr($accept, 0, strpos($accept, ','));
 
@@ -97,8 +97,8 @@ function ($code, $message = '') use ($view) {
         }
     }
 
-    $view->title = $header;
+    $view->title = $title;
     $view->description = $description;
     $view->message = $message;
-    $this->getLayout()->title($header);
+    $this->getLayout()->title($title);
 };

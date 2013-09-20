@@ -1,3 +1,6 @@
+/*!
+ * Print CSS
+ */
 body {
     padding: 20px;
 	margin: 0;
@@ -10,15 +13,12 @@ a {
 	color: #06c;
 	text-decoration: underline;
 }
-
 a:link:after {
 	content: " [" attr(href) "] ";
 }
-
 .navbar {
 	display: none;
 }
-
 .debug-panel {
 	display: none;
 }

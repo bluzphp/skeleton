@@ -19,6 +19,7 @@
                 url: '/test/rest/',
                 page: 1,
                 pages: 1,
+                offset: 0,
                 limit: 10,
                 total: 0
             });
@@ -118,10 +119,19 @@
 
                     testList.fetch({
                         success: function(collection, response, options) {
-                            testList.total = options.xhr.getResponseHeader('Bluz-Rest-Total');
+                            // items 0-10/99
+                            var range = options.xhr.getResponseHeader('Content-Range');
+                            if (range) {
+                                // items, 0, 10, 99
+                                range = range.split(/[ -/]/);
+                                testList.total = range[3];
+                            } else {
+                                testList.total = collection.length;
+                            }
                             testList.pages = Math.ceil(testList.total / testList.limit);
                         },
-                        data: { page: testList.page, limit: testList.limit },
+                        data: { offset: testList.offset, limit: testList.limit },
+                        headers: { Range: 'items='+testList.offset+'-'+(testList.offset+testList.limit)},
                         reset: true,
                         remove: true
                     });
@@ -155,13 +165,24 @@
                 fetchPage: function(event) {
                     var $target = $(event.target);
                     var page = $target.data('page');
+                    var offset = testList.limit * (page - 1);
                     testList.fetch({
                         success: function(collection, response, options) {
-                            testList.total = options.xhr.getResponseHeader('Bluz-Rest-Total');
+                            // items 0-10/99
+                            var range = options.xhr.getResponseHeader('Content-Range');
+                            if (range) {
+                                // items, 0, 10, 99
+                                range = range.split(/[ -/]/);
+                                testList.total = range[3];
+                            } else {
+                                testList.total = collection.length;
+                            }
+
                             testList.pages = Math.ceil(testList.total / testList.limit);
                             testList.page = page;
+                            testList.offset = offset;
                         },
-                        data: { page: page, limit: testList.limit },
+                        data: { offset: offset, limit: testList.limit },
                         reset: true,
                         remove: true
                     });
@@ -226,11 +247,11 @@
 <script type="text/template" id="pager-template">
     <% if (model.pages > 1) { %>
     <ul class="pagination">
-        <li <% if (model.page == 1) {%> class="disabled" <%}%>><a href="#">&laquo;</a></li>
+        <li <% if (model.page == 1) {%> class="disabled" <%}%>><a href="#" <% if (model.page > 1) {%> data-page="<%= model.page-1 %>" <%}%>>&laquo;</a></li>
         <% for (i = 1; i <= model.pages; i++ ) { %>
             <li <% if (model.page == i) {%> class="active" <%}%>><a href="#" data-page="<%= i %>"><%= i %></a></li>
         <% }; %>
-        <li <% if (model.page == model.pages) {%> class="disabled" <%}%>><a href="#">&raquo;</a></li>
+        <li <% if (model.page == model.pages) {%> class="disabled" <%}%>><a href="#" <% if (model.page < model.pages) {%> data-page="<%= model.page+1 %>" <%}%>>&raquo;</a></li>
     </ul>
     <% } %>
 </script>

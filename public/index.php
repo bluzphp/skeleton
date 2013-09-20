@@ -65,7 +65,11 @@ register_shutdown_function('errorHandler');
 // Try to run application
 try {
 
-    require_once PATH_VENDOR . '/autoload.php';
+    /**
+     * @var \Composer\Autoload\ClassLoader $loader
+     * @link http://getcomposer.org/apidoc/master/Composer/Autoload/ClassLoader.html
+     */
+    require PATH_VENDOR . '/autoload.php';
 
     require_once PATH_APPLICATION . '/Bootstrap.php';
     require_once PATH_APPLICATION . '/Exception.php';
@@ -77,8 +81,8 @@ try {
      * @var \Application\Bootstrap $app
      */
     $app = \Application\Bootstrap::getInstance();
-    $app->init($env)
-        ->process();
+    $app->init($env);
+    $app->process();
     $app->render();
     $app->finish();
 } catch (Exception $e) {
