@@ -1,0 +1,91 @@
+/*!
+ * Dashboard Layout CSS
+ */
+/*Dashboard Widgets*/
+.widget {
+    border: 1px solid #CDCDCD;
+    margin: 8px 0;
+    position: relative;
+    padding: 0;
+}
+.widget-title {
+	background-color: #efefef;
+    border-bottom: 1px solid #CDCDCD;
+    height: 36px;
+}
+.widget-title .iconholder-left {
+	border-right: 1px solid #cdcdcd;
+	padding: 9px 10px 7px 11px;
+	float: left;
+	opacity: .7;
+}
+.widget-title .iconholder-right {
+	border-left: 1px solid #cdcdcd;
+	padding: 9px 11px 7px 10px;
+	float: right;
+	opacity: .7;
+}
+.widget-title h4 {
+    color: #666666;
+	text-shadow: 0 1px 0 #ffffff;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px;
+    line-height: 12px;
+    margin: 0;
+}
+.widget-title .buttons {
+	float: right;
+	margin: 8px 10px 0 0;
+}
+.widget-title .label {
+	padding: 3px 5px 2px;
+	float: right;
+	margin: 9px 15px 0 0;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.3) inset, 0 1px 0 #ffffff;
+}
+.widget-content {
+	padding: 12px 15px;
+}
+
+.widget-stats {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.widget-stats li {
+    background-color: #F5F5F5;
+    border: 1px solid #DDDDDD;
+    cursor: pointer;
+    margin: 0 0 10px;
+    padding: 13px 20px 10px;
+    position: relative;
+}
+.widget-stats li:hover {
+    background-color: #EDEDED;
+}
+.widget-stats li.divider {
+	padding: 0;
+	border-width: 1px 0 0;
+	border-color: #DDDDDD;
+	border-style: dashed;
+}
+.widget-stats li i {
+	vertical-align: baseline;
+}
+.widget-stats li strong {
+	font-weight: bold;
+	font-size: 20px;
+	margin-left: 5px;
+}
+.widget-stats li small {
+	margin-left: 5px;
+	font-size: 12px;
+	color: #888888;
+	font-style: italic;
+}
+.widget-stats li a:hover {
+	text-decoration: none;
+}
+/*/Dashboard Widgets*/
