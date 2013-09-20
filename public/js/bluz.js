@@ -3,29 +3,34 @@
  * @author   Anton Shevchuk
  * @created  11.09.12 10:02
  */
-define(['jquery'], function ($) {
+define(['jquery', 'bootstrap'], function ($) {
 	"use strict";
 
-	return {
-        Callback: null,
-        ready: function() {
-            if (!arguments.length) {
-                if (self.Callback) {
-                    self.Callback.fire();
-                }
-                return;
+    var bluz = {
+        log: function (error, text) {
+            if (console !== undefined) {
+                console.error(error, "Response Text:", text);
             }
+        }
+    };
 
-            if (!self.Callback) {
-                self.Callback = new $.Callbacks();
-            }
+    $(function(){
+        // TODO: require other modules if needed
+        if ($.fn.tooltip) {
+            $('.bluz-tooltip').tooltip();
+        }
 
-            self.Callback.add(arguments[0]);
-        },
-		log: function (error, text) {
-			if (console !== undefined) {
-				console.error(error, "Response Text:", text);
-			}
-		}
-	};
+        if ($.fn.affix) {
+            $('.bluz-affix').affix();
+        }
+
+        // remove FB API's anchor #_=_
+        if (window.location.hash == '#_=_') {
+            window.location.hash = '';
+            history.pushState('', document.title, window.location.pathname);
+        }
+    });
+
+
+    return bluz;
 });
