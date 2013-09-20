@@ -45,24 +45,30 @@ class Rest extends AbstractRest
             ->select('*')
             ->from('test', 't');
 
-        if (isset($params['page']) && isset($params['limit'])) {
+        $offset = isset($params['offset']) ? $params['offset'] : 0;
+        $limit = isset($params['limit']) ? $params['limit'] : 0;
+
+        if ($limit) {
             $selectPart = $select->getQueryPart('select');
             $selectPart[0] = 'SQL_CALC_FOUND_ROWS ' . current($selectPart);
             $select->select($selectPart);
 
-            $select->setLimit($params['limit']);
-            $select->setPage($params['page']);
+            $select->setLimit($limit);
+            $select->setOffset($offset);
         }
 
         $result = $select->execute('\\Application\\Test\\Row');
 
-        if (isset($params['page']) && isset($params['limit'])) {
+        if ($limit) {
             $total = app()->getDb()->fetchOne('SELECT FOUND_ROWS()');
         } else {
             $total = sizeof($result);
         }
 
-        header('Bluz-Rest-Total: '. $total);
+        if (sizeof($result) < $total) {
+            http_response_code(206);
+            header('Content-Range: items '.$offset.'-'.($offset+sizeof($result)).'/'. $total);
+        }
 
         return $result;
     }
