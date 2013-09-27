@@ -3,7 +3,6 @@
     "description": "Skeleton for Bluz, a lightweight PHP framework",
     "minimum-stability": "dev",
     "type": "library",
-    "repositories": [],
     "require": {
         "php": ">=5.4",
         "bluzphp/framework": ">=0.1.6",

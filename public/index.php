@@ -14,7 +14,11 @@ if (PHP_SAPI === 'cli') {
 // Require loader
 require_once dirname(dirname(__FILE__)) . '/application/_loader.php';
 
-// Debug mode for development environment only
+/**
+ * Debug mode for development environment only,
+ * use bookmarklets for enable it
+ * @link https://github.com/bluzphp/skeleton/wiki/Module-System
+ */
 define('DEBUG_KEY', isset($_SERVER['BLUZ_DEBUG_KEY'])? $_SERVER['BLUZ_DEBUG_KEY']:'debug');
 define('DEBUG_LOG', isset($_SERVER['BLUZ_LOG']));
 
@@ -28,9 +32,11 @@ if (isset($_COOKIE[DEBUG_KEY])) {
     ini_set('display_errors', 0);
 }
 
-// iframe header - prevent security issues
+/**
+ * Block iframe embedding for prevent security issues
+ * @link https://developer.mozilla.org/en-US/docs/HTTP/X-Frame-Options
+ */
 header('X-Frame-Options: SAMEORIGIN');
-
 
 // Error Log
 function errorLog($message) {
