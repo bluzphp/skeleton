@@ -4,6 +4,7 @@
  * @author   Anton Shevchuk
  * @created  23.10.12 10:02
  */
+/*global define,require*/
 define(['jquery'], function ($) {
 	"use strict";
 	// initial local storage

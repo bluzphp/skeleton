@@ -5,6 +5,7 @@
  * @author   Anton Shevchuk
  * @created  02.08.13 10:52
  */
+/*global define,require*/
 define(['jquery'], function($) {
     "use strict";
 
@@ -72,7 +73,7 @@ define(['jquery'], function($) {
             counter--;
         }
         // mark deferred object as resolved
-        if (counter == 0) {
+        if (counter === 0) {
             deferred.resolve();
         }
         // remove DOM element
@@ -94,9 +95,9 @@ define(['jquery'], function($) {
         set: function (notifications) {
             for (var type in notifications) {
                 if (notifications.hasOwnProperty(type)) {
-                    $(notifications[type]).each(function(i, content){
-                        notify.add(type, content);
-                    })
+                    for (var i = 0; i < notifications[type].length; i++) {
+                        notify.add(type, notifications[type][i]);
+                    }
                 }
             }
         },
