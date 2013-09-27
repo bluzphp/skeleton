@@ -3,6 +3,7 @@
  *
  * @author   Anton Shevchuk
  */
+/*global define,require*/
 define(['jquery', 'bluz', 'bluz.storage'], function ($, bluz, storage) {
 	"use strict";
 	// on DOM ready state

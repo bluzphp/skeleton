@@ -16,9 +16,9 @@
  *        $('li a').off('.ajax');
  *    </source>
  * </code>
- *
  * @author   Anton Shevchuk
  */
+/*global define,require*/
 define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 	"use strict";
 	// on DOM ready state
@@ -28,39 +28,28 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
             .ajaxStart(function () {
                 $('#loading').show();
             })
-            .ajaxSuccess(function (event, jqXHR, options) {
-                if (options.dataType === 'json' ||
-                    jqXHR.getResponseHeader('Content-Type') == 'application/json') {
-                    var data;
-                    try {
-                        data = jQuery.parseJSON(jqXHR.responseText);
-                    } catch (error) {
-                        // its not json
-                        return;
-                    }
-                    // it has the data
-                    // redirect and reload page
-                    var callback = null;
-                    if (jqXHR.getResponseHeader('Bluz-Reload')) {
-                        callback = function () {
-                            // reload current page
-                            window.location.reload();
-                        };
-                    } else if (jqXHR.getResponseHeader('Bluz-Redirect')) {
-                        callback = function () {
-                            // redirect to another page
-                            window.location = jqXHR.getResponseHeader('Bluz-Redirect');
-                        };
-                    }
+            .ajaxSuccess(function (event, jqXHR) {
+                // redirect and reload page
+                var callback = null;
+                if (jqXHR.getResponseHeader('Bluz-Reload')) {
+                    callback = function () {
+                        // reload current page
+                        window.location.reload();
+                    };
+                } else if (jqXHR.getResponseHeader('Bluz-Redirect')) {
+                    callback = function () {
+                        // redirect to another page
+                        window.location = jqXHR.getResponseHeader('Bluz-Redirect');
+                    };
+                }
 
-                    // show messages and run callback after
-                    if (jqXHR.getResponseHeader('Bluz-Notify')) {
-                        var notifications = $.parseJSON(jqXHR.getResponseHeader('Bluz-Notify'));
-                        notify.addCallback(callback);
-                        notify.set(notifications);
-                    } else if (callback) {
-                        callback();
-                    }
+                // show messages and run callback after
+                if (jqXHR.getResponseHeader('Bluz-Notify')) {
+                    var notifications = $.parseJSON(jqXHR.getResponseHeader('Bluz-Notify'));
+                    notify.addCallback(callback);
+                    notify.set(notifications);
+                } else if (callback) {
+                    callback();
                 }
             })
             .ajaxError(function (event, jqXHR, options, thrownError) {
@@ -73,10 +62,8 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                 }
 
                 // try to get error message from JSON response
-                if (options.dataType === 'json' ||
-                    jqXHR.getResponseHeader('Content-Type') == 'application/json') {
-                    // do smth...
-                } else {
+                if (!(options.dataType === 'json' ||
+                    jqXHR.getResponseHeader('Content-Type') === 'application/json')) {
                     var $div = createModal(jqXHR.responseText, 'width:800px');
                     $div.modal('show');
                 }
@@ -91,18 +78,14 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 			var plain = {};
 
 			$.each(data, function (key, value) {
-				if (
-					typeof value === 'function' ||
-						typeof value === 'object' ||
-						key === 'ajaxMethod' ||
-						key === 'ajaxSource' ||
-						key === 'ajaxTarget' ||
-						key === 'ajaxType'
-					) {
-					// skip value
-				} else {
-					plain[key] = value;
-				}
+                if (!(typeof value === 'function' ||
+                    typeof value === 'object' ||
+                    key === 'ajaxMethod' ||
+                    key === 'ajaxSource' ||
+                    key === 'ajaxTarget' ||
+                    key === 'ajaxType')) {
+                    plain[key] = value;
+                }
 			});
 			return plain;
 		};
@@ -138,7 +121,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 				var $this = $(this);
 
 				var message = $this.data('confirm') ? $this.data('confirm') : 'Are you sure?';
-				if (!confirm(message)) {
+				if (!window.confirm(message)) {
 					event.stopImmediatePropagation();
 					event.preventDefault();
 				}
@@ -274,7 +257,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                     url = $this.data('preview');
                 }
 
-                if (url == undefined) {
+                if (!url) {
                     return false;
                 }
                 var $img = $('<img>', {'src': url, 'class': 'img-polaroid'});
@@ -321,7 +304,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                             });
                         } else {
                             $this.trigger('form.bluz.success', arguments);
-                            closeModals()
+                            closeModals();
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {

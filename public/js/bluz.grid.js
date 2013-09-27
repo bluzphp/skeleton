@@ -4,6 +4,7 @@
  * @author   Anton Shevchuk
  * @created  11.09.12 10:30
  */
+/*global define,require*/
 define(['jquery', 'bluz'], function ($, bluz) {
 	"use strict";
 	$(function () {

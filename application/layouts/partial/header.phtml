@@ -18,7 +18,8 @@
 
     <!-- For IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-    <script src="<?=$this->baseUrl('/js/vendor/html5.js')?>"></script>
+    <script src="<?=$this->baseUrl('/js/vendor/html5shiv.js')?>"></script>
+    <script src="<?=$this->baseUrl('/js/vendor/html5shiv-printshiv.js')?>"></script>
     <![endif]-->
 
 <?=$this->headScript();?>
@@ -29,7 +30,9 @@
 <?php $this->trigger('header'); ?>
 </head>
 <body data-spy="scroll" data-bluz-module="<?=$this->module()?>" data-bluz-controller="<?=$this->controller()?>">
-<?php if (app()->hasMessages()): ?>
+<?php if (app()->hasMessages()):
+    // JS not allow read headers of current request, only for XMLHTTPRequests :(
+    ?>
     <script>
         require(['bluz.notify'], function(notify) {
             notify.set(<?=json_encode(app()->getMessages()->popAll())?>);
