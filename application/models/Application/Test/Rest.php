@@ -39,14 +39,11 @@ class Rest extends AbstractRest
     /**
      * {@inheritdoc}
      */
-    public function index(array $params = array())
+    public function readSet($offset = 0, $limit = 10, array $params = array())
     {
         $select = app()->getDb()
             ->select('*')
             ->from('test', 't');
-
-        $offset = isset($params['offset']) ? $params['offset'] : 0;
-        $limit = isset($params['limit']) ? $params['limit'] : 0;
 
         if ($limit) {
             $selectPart = $select->getQueryPart('select');
@@ -76,7 +73,7 @@ class Rest extends AbstractRest
     /**
      * {@inheritdoc}
      */
-    public function get($id)
+    public function readOne($id)
     {
         return app()->getDb()
             ->select('*')
@@ -89,7 +86,7 @@ class Rest extends AbstractRest
     /**
      * {@inheritdoc}
      */
-    public function post(array $data)
+    public function createOne(array $data)
     {
         // TODO: validation here
         return app()->getDb()
@@ -101,7 +98,7 @@ class Rest extends AbstractRest
     /**
      * {@inheritdoc}
      */
-    public function put($id, array $data)
+    public function updateOne($id, array $data)
     {
         // TODO: validation here
         return app()->getDb()->update('test')
@@ -113,7 +110,7 @@ class Rest extends AbstractRest
     /**
      * {@inheritdoc}
      */
-    public function delete($id)
+    public function deleteOne($id)
     {
         return app()->getDb()->delete('test')
             ->where('id = ?', $id)
