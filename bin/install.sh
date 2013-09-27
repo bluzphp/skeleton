@@ -2,8 +2,7 @@
 #############################################################################
 # Installation
 #
-# Small installation script
-#
+# Small installation script for "post-install-cmd" event
 #############################################################################
 
 # Root directory

@@ -4,6 +4,7 @@
  * @author Anton Shevchuk
  * @created  26.11.12 12:51
  */
+/*global define,require*/
 define(["jquery"], function ($) {
     "use strict";
 

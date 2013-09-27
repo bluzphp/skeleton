@@ -5,7 +5,6 @@
  * @author   C.O.
  * @created  16.11.12 14:33
  */
-
 require_once '_functions.php';
 
 // Check PHP version

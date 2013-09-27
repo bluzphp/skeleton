@@ -3,13 +3,14 @@
  * @author   Anton Shevchuk
  * @created  11.09.12 10:02
  */
+/*global define,require*/
 define(['jquery', 'bootstrap'], function ($) {
 	"use strict";
 
     var bluz = {
         log: function (error, text) {
-            if (console !== undefined) {
-                console.error(error, "Response Text:", text);
+            if (window.console !== undefined) {
+                window.console.error(error, "Response Text:", text);
             }
         }
     };
@@ -25,12 +26,11 @@ define(['jquery', 'bootstrap'], function ($) {
         }
 
         // remove FB API's anchor #_=_
-        if (window.location.hash == '#_=_') {
+        if (window.location.hash === '#_=_') {
             window.location.hash = '';
             history.pushState('', document.title, window.location.pathname);
         }
     });
-
 
     return bluz;
 });

@@ -164,7 +164,7 @@
 
                 fetchPage: function(event) {
                     var $target = $(event.target);
-                    var page = $target.data('page');
+                    var page = $target.data('page') ? $target.data('page') : 1;
                     var offset = testList.limit * (page - 1);
                     testList.fetch({
                         success: function(collection, response, options) {

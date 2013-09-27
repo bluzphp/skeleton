@@ -1,6 +1,8 @@
 /**
+ * Configuration example
  * @author Anton Shevchuk
  */
+/*global define,require*/
 require.config({
     // why not simple "js"? Because IE eating our minds!
     baseUrl: '/js',
