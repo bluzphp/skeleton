@@ -10,7 +10,7 @@ namespace Application;
 use Application\Test;
 use Bluz\Controller;
 
-return function() {
+return function () {
     $crudController = new Controller\Crud();
     $crudController->setCrud(Test\Crud::getInstance());
     return $crudController();
