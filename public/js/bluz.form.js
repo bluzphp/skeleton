@@ -1,11 +1,12 @@
 /**
  * Working with forms
+ * Require bootstrap.notify
  *
  * @author Anton Shevchuk
  * @created  26.11.12 12:51
  */
 /*global define,require*/
-define(["jquery"], function ($) {
+define(["jquery", "bootstrap"], function ($) {
     "use strict";
 
     // static validator
@@ -13,7 +14,7 @@ define(["jquery"], function ($) {
     defaults =  {
         container: '.form-group', // default for Twitter Bootstrap layout
         errorClass: 'has-error',
-        inputCollection: true,    // uses "data[field-name]" or "field-name"
+        inputCollection: false,    // uses "data[field-name]" or "field-name"
         tooltipPosition: 'top'    // can be bottom
     };
 
@@ -71,6 +72,7 @@ define(["jquery"], function ($) {
         notices: function ($form, data) {
             // clear previously generated classes
             $form.find(settings.container).removeClass(settings.errorClass);
+
             if (data.errors) {
                 $.each(data.errors, function(field, notices) {
                     if (settings.inputCollection) {

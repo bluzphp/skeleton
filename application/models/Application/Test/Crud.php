@@ -26,10 +26,10 @@
  */
 namespace Application\Test;
 
-use \Bluz\Crud\ValidationException;
+use Bluz\Crud\Table;
 
 /**
- * Crud
+ * Crud based on Db\Table
  *
  * @category Application
  * @package  Test
@@ -37,31 +37,99 @@ use \Bluz\Crud\ValidationException;
  * @author   Anton Shevchuk
  * @created  03.09.12 13:11
  */
-class Crud extends \Bluz\Crud\Crud
+class Crud extends Table
 {
     /**
-     * @throws ValidationException
+     * {@inheritdoc}
      */
-    public function validate()
+    public function readSet($offset = 0, $limit = 10, array $params = array())
     {
-        // name validator
-        $name = $this->getData('name');
+        $select = app()->getDb()
+            ->select('*')
+            ->from('test', 't');
+
+        if ($limit) {
+            $selectPart = $select->getQueryPart('select');
+            $selectPart[0] = 'SQL_CALC_FOUND_ROWS ' . current($selectPart);
+            $select->select($selectPart);
+
+            $select->setLimit($limit);
+            $select->setOffset($offset);
+        }
+
+        $result = $select->execute('\\Application\\Test\\Row');
+
+        if ($limit) {
+            $total = app()->getDb()->fetchOne('SELECT FOUND_ROWS()');
+        } else {
+            $total = sizeof($result);
+        }
+
+        if (sizeof($result) < $total) {
+            http_response_code(206);
+            header('Content-Range: items '.$offset.'-'.($offset+sizeof($result)).'/'. $total);
+        }
+
+        return $result;
+    }
+
+    /**
+     * checkName
+     *
+     * @param $name
+     * @return void
+     */
+    protected function checkName($name)
+    {
         if (empty($name)) {
             $this->addError('name', 'Name can\'t be empty');
         } elseif (!preg_match('/^[a-zA-Z .-]+$/i', $name)) {
             $this->addError('name', 'Name should contains only Latin characters');
         }
+    }
 
-        // email validator
-        $email = $this->getData('email');
+    /**
+     * checkEmail
+     *
+     * @param $email
+     * @return void
+     */
+    protected function checkEmail($email)
+    {
         if (empty($email)) {
             $this->addError('email', 'Email can\'t be empty');
+        } elseif (!$email = filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->addError('email', 'Email has invalid format');
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validateCreate(array $data)
+    {
+        // name validator
+        $name = isset($data['name'])?$data['name']:null;
+        $this->checkName($name);
+
+        // email validator
+        $email = isset($data['email'])?$data['email']:null;
+        $this->checkEmail($email);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validateUpdate($id, array $data)
+    {
+        // name validator
+        if (isset($data['name'])) {
+            $this->checkName($data['name']);
         }
 
-        // validate entity
-        // ...
-        if (sizeof($this->errors)) {
-            throw new ValidationException('Validation error, please check errors stack');
+        // email validator
+        if (isset($data['email'])) {
+            $this->checkEmail($data['email']);
         }
     }
 }
