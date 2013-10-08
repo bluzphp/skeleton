@@ -1,0 +1,13 @@
+<table class="table">
+<?php
+foreach ($this->data as $record) :
+    echo "<tr>";
+    foreach ($record->toArray() as $field => $value) :
+?>
+    <td><?=$value?></td>
+<?php
+    endforeach;
+    echo "</tr>";
+endforeach;
+?>
+</table>

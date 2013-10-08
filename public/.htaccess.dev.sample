@@ -10,7 +10,6 @@ Options -Indexes
 # PHP settings
 <ifModule mod_php5.c>
 	php_flag magic_quotes_gpc 0
-	php_flag short_open_tag on
 
 	php_flag xdebug.show_local_vars 0
 	php_flag xdebug.profiler_enable 0

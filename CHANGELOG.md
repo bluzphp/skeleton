@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
---.--.2013
+08.10.2013
 ------------------
 * Added CHANGELOG.md file (this file)
 * Added backbone example /test/backbone

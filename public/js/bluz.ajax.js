@@ -235,7 +235,11 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                             $(this).data('modal', null).remove();
                             // you can handle event "hidden.bluz.modal" on button
                             $this.trigger('hidden.bluz.modal');
-                        });
+                        })
+                        .on('form.bluz.success', function () {
+                            $this.trigger('ajax.bluz.complete', arguments);
+                        })
+                        ;
                         $div.modal('show');
                     },
                     error: function(jqXHR, textStatus, errorThrown) {

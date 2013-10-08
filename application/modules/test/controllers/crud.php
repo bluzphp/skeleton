@@ -1,6 +1,6 @@
 <?php
 /**
- * Example of Crud
+ * Example of Crud Controller
  *
  * @author   Anton Shevchuk
  * @created  04.09.12 11:21
@@ -8,18 +8,10 @@
 namespace Application;
 
 use Application\Test;
-use Bluz;
-use Bluz\Request\AbstractRequest;
+use Bluz\Controller;
 
-return
-/**
- * @return \closure
- */
-function () use ($view) {
-    /**
-     * @var \Application\Bootstrap $this
-     * @var \Bluz\View\View $view
-     */
-    $crud = new Test\Crud();
-    return $crud->processController();
+return function() {
+    $crudController = new Controller\Crud();
+    $crudController->setCrud(Test\Crud::getInstance());
+    return $crudController();
 };

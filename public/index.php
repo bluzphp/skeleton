@@ -38,6 +38,9 @@ if (isset($_COOKIE[DEBUG_KEY])) {
  */
 header('X-Frame-Options: SAMEORIGIN');
 
+// Make fake header
+header('X-Powered-By: backend');
+
 // Error Log
 function errorLog($message) {
     if (defined('DEBUG_LOG')
