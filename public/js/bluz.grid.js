@@ -15,6 +15,7 @@ define(['jquery', 'bluz'], function ($, bluz) {
                 $grid.data('url', window.location.pathname);
             }
 
+            // pagination, sorting and filtering over AJAX
 			$grid.on('click.bluz.ajax', '.pagination li a, thead a, .navbar a.ajax', function () {
 				var $link = $(this),
 					href = $link.attr('href');
@@ -46,7 +47,7 @@ define(['jquery', 'bluz'], function ($, bluz) {
 				return false;
 			});
             // refresh grid if form was success sent
-            $grid.on('form.success', 'a.dialog', function() {
+            $grid.on('ajax.bluz.complete', 'a.dialog', function() {
                 $.ajax({
                     url: $grid.data('url'),
                     type: 'get',
@@ -59,6 +60,22 @@ define(['jquery', 'bluz'], function ($, bluz) {
                     }
                 });
             });
+            // refresh grid if confirmed ajax button (e.g. delete record)
+            $grid.on('ajax.bluz.success', 'a.ajax.confirm', function() {
+                $.ajax({
+                    url: $grid.data('url'),
+                    type: 'get',
+                    dataType: 'html',
+                    beforeSend: function () {
+                        $grid.find('a, .btn').addClass('disabled');
+                    },
+                    success: function (html) {
+                        $grid.html($(html).children().unwrap());
+                    }
+                });
+            });
+
+            // apply filter form
             $grid.on('submit.bluz.ajax', 'form.filter-form', function () {
                 var $form = $(this);
 

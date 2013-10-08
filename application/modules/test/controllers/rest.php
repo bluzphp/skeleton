@@ -1,12 +1,19 @@
 <?php
 /**
- * REST based on class
+ * Example of REST controller
  *
  * @category Application
  *
  * @author   Anton Shevchuk
  * @created  12.08.13 17:23
  */
-namespace Application\Test;
+namespace Application;
 
-return new Rest();
+use Application\Test;
+use Bluz\Controller;
+
+return function () {
+    $restController = new Controller\Rest();
+    $restController->setCrud(Test\Crud::getInstance());
+    return $restController();
+};
