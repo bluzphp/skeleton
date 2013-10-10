@@ -27,6 +27,7 @@
 namespace Application\Pages;
 
 use \Bluz\Crud\ValidationException;
+use \Bluz\Crud\Table;
 
 /**
  * @category Application
@@ -35,41 +36,35 @@ use \Bluz\Crud\ValidationException;
  * @author   Anton Shevchuk
  * @created  03.09.12 13:11
  */
-class Crud extends \Bluz\Crud\Crud
+class Crud extends Table
 {
     /**
      * @throws ValidationException
      */
-    public function validate()
+    public function validate($id, $data)
     {
         // name validator
-        $title = $this->getData('title');
+        $title = isset($data['title'])?$data['title']:null;
         if (empty($title)) {
             $this->addError('title', 'Title can\'t be empty');
         }
 
         // alias update
-        $alias = $this->getData('alias');
+        $alias = isset($data['alias'])?$data['alias']:null;
         if (empty($alias)) {
             $this->addError('alias', 'Alias can\'t be empty');
         } elseif (!preg_match('/^[a-zA-Z0-9_\.\-]+$/i', $alias)) {
             $this->addError('alias', 'Alias should contains only Latin characters, dots and dashes');
         } elseif ($row = $this->getTable()->findRowWhere(['alias' => $alias])) {
-            if ($row->id != $this->getData('id')) {
+            if ($row->id != $id) {
                 $this->addError('alias', 'Alias "'.htmlentities($alias).'" already exists');
             }
         }
 
         // content validator
-        $content = $this->getData('content');
+        $content = isset($data['content'])?$data['content']:null;
         if (empty($content) or trim(strip_tags($content, '<img>')) == '') {
             $this->addError('content', 'Content can\'t be empty');
-        }
-
-        // validate entity
-        // ...
-        if (sizeof($this->errors)) {
-            throw new ValidationException('Validation error, please check errors stack');
         }
     }
 }

@@ -8,9 +8,8 @@
     });
 </script>
 <?php endif; ?>
-<form id="form" action="<?=$this->url('test', 'update')?><?=$row->id?>" class="form-horizontal" method="POST">
+<form id="form" action="<?=$this->url('test', 'crud')?><?=$row->id?>" class="form-horizontal" method="POST">
     <input type="hidden" name="_method" value="<?=isset($method)?$method:'POST'?>" />
-    <input type="hidden" name="id" value="<?=$row->id?>"/>
     <div class="form-group">
         <label class="control-label col-lg-2" for="inputName">Name</label>
         <div class="col-lg-10">

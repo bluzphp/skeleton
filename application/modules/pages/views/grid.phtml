@@ -61,10 +61,10 @@
                 <td><?=$row['created']?></td>
                 <td><?=$row['updated']?></td>
                 <td class="controls">
-                    <a href="<?=$this->url('pages', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-primary btn-xs dialog" data-ajax-method="get" data-modal-style="width:800px">
+                    <a href="<?=$this->url('pages', 'crud');?>/<?=$row['id']?>" class="btn btn-primary btn-xs dialog" data-ajax-method="get" data-modal-style="width:800px">
                         <i class="icon-pencil"></i>
                     </a>
-                    <a href="<?=$this->url('pages', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
+                    <a href="<?=$this->url('pages', 'crud');?>/<?=$row['id']?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
                         <i class="icon-trash"></i>
                     </a>
                 </td>

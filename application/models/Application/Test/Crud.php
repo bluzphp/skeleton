@@ -42,7 +42,7 @@ class Crud extends Table
     /**
      * {@inheritdoc}
      */
-    public function readSet($offset = 0, $limit = 10, array $params = array())
+    public function readSet($offset = 0, $limit = 10, $params = array())
     {
         $select = app()->getDb()
             ->select('*')
@@ -106,7 +106,7 @@ class Crud extends Table
     /**
      * {@inheritdoc}
      */
-    public function validateCreate(array $data)
+    public function validateCreate($data)
     {
         // name validator
         $name = isset($data['name'])?$data['name']:null;
@@ -120,7 +120,7 @@ class Crud extends Table
     /**
      * {@inheritdoc}
      */
-    public function validateUpdate($id, array $data)
+    public function validateUpdate($id, $data)
     {
         // name validator
         if (isset($data['name'])) {

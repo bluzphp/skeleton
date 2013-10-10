@@ -7,15 +7,19 @@
  */
 namespace Application;
 
+use Application\Pages;
+use Bluz\Controller;
+
 return
 /**
  * @privilege Management
  * @return \closure
  */
-function () use ($view) {
+function () {
     /**
      * @var \Application\Bootstrap $this
      */
-    $crud = new Pages\Crud();
-    return $crud->processController();
+    $crudController = new Controller\Crud();
+    $crudController->setCrud(Pages\Crud::getInstance());
+    return $crudController();
 };
