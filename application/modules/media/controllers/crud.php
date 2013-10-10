@@ -4,6 +4,8 @@
  */
 namespace Application;
 
+use Application\Media;
+use Bluz\Controller;
 use Bluz\Request\AbstractRequest;
 
 return
@@ -28,17 +30,22 @@ function () use ($view) {
     );
     $userId = $this->getAuth()->getIdentity()->id;
 
-    $crud = new Media\Crud();
+    $crud = Media\Crud::getInstance();
     $crud->setUploadDir('uploads/'.$userId.'/media');
 
 
-    $result = $crud->processController();
+    $crudController = new Controller\Crud();
+    $crudController->setCrud($crud);
+    $result = $crudController();
+
+//    var_dump($result);die();
     // FIXME: workaround
-    if (($crud->getMethod() == AbstractRequest::METHOD_POST
-        or $crud->getMethod() == AbstractRequest::METHOD_PUT )
-        && !$result) {
+    if (($crudController->getMethod() == AbstractRequest::METHOD_POST
+            or $crudController->getMethod() == AbstractRequest::METHOD_PUT )
+        && !$result /*($result instanceof Media\Row)*/) {
         // all ok, go to grid
         $this->redirectTo('media', 'grid');
     }
+
     return $result;
 };

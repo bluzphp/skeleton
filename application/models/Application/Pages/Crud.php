@@ -26,7 +26,6 @@
  */
 namespace Application\Pages;
 
-use \Bluz\Crud\ValidationException;
 use \Bluz\Crud\Table;
 
 /**
@@ -39,7 +38,7 @@ use \Bluz\Crud\Table;
 class Crud extends Table
 {
     /**
-     * @throws ValidationException
+     * {@inheritdoc}
      */
     public function validate($id, $data)
     {

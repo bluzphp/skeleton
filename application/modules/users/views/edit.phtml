@@ -2,10 +2,10 @@
 <h3 class="page-header"><?=__('Edit profile')?></h3>
 
 <form id="<?=$uid?>" action="<?=$this->url('users', 'edit')?>" class="ajax form-horizontal" method="put">
-    <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
+    <input type="hidden" name="id" value="<?=$row->id?>"/>
     <div class="form-group input-group">
         <span class="input-group-addon"><i class="icon-envelope"></i></span>
-        <input type="email" class="form-control" name="data[email]" value="<?=($row->email)?>" maxlength="255" required/>
+        <input type="email" class="form-control" name="email" value="<?=($row->email)?>" maxlength="255" required/>
 
         <?php if ($row->changeEmail): ?>
         <span class="input-group-addon" title="<?=__('Email will be changed after confirmation')?>">
@@ -14,17 +14,17 @@
     </div>
     <div class="form-group input-group">
         <span class="input-group-addon"><i class="icon-lock"></i></span>
-        <input type="password" class="form-control" name="data[old_password]"
+        <input type="password" class="form-control" name="old_password"
                placeholder="<?=__('current password')?>" required/>
     </div>
     <div class="form-group input-group">
         <span class="input-group-addon"><i class="icon-lock"></i></span>
-        <input type="password" class="form-control" name="data[new_password]"
+        <input type="password" class="form-control" name="new_password"
                placeholder="<?=__('new password')?>"/>
     </div>
     <div class="form-group input-group">
         <span class="input-group-addon"><i class="icon-lock"></i></span>
-        <input type="password" class="form-control" name="data[new_password2]"
+        <input type="password" class="form-control" name="new_password2"
                placeholder="<?=__('repeat password')?>"/>
     </div>
     <button type="submit" class="btn btn-primary"><?=__('Save')?></button>

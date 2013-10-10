@@ -4,7 +4,8 @@
  */
 ?>
 <?php $uid = uniqid('form_'); ?>
-<form id="<?=$uid?>" action="<?=$this->url('pages', 'crud')?>/<?=$row->id?>" class="form-horizontal ajax" method="<?=$method?>">
+<form id="<?=$uid?>" action="<?=$this->url('pages', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
+    <input type="hidden" name="id" value="<?=$row->id?>"/>
     <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>

@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+--.--.2013
+------------------
+* Migrated Pages module to new Crud system
+
 08.10.2013
 ------------------
 * Added CHANGELOG.md file (this file)
@@ -21,7 +25,6 @@ CHANGELOG
 05.09.2013
 ------------------
 * Replaced Gliphicons with Awesome
-
 
 05.08.2013
 ------------------
