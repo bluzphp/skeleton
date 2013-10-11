@@ -38,7 +38,6 @@ function () use ($view) {
     $crudController->setCrud($crud);
     $result = $crudController();
 
-//    var_dump($result);die();
     // FIXME: workaround
     if (($crudController->getMethod() == AbstractRequest::METHOD_POST
             or $crudController->getMethod() == AbstractRequest::METHOD_PUT )
