@@ -9,6 +9,9 @@
  */
 namespace Application;
 
+use Application\Users;
+use Bluz\Controller;
+
 return
 /**
  * @return \closure
@@ -21,6 +24,7 @@ function () {
     // change layout
     $this->useLayout('small.phtml');
 
-    $crud = new Users\Crud();
-    return $crud->processController();
+    $crudController = new Controller\Crud();
+    $crudController->setCrud(Users\Crud::getInstance());
+    return $crudController();
 };

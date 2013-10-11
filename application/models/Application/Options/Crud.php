@@ -26,7 +26,7 @@
  */
 namespace Application\Options;
 
-use \Bluz\Crud\ValidationException;
+use \Bluz\Crud\Table;
 
 /**
  * Crud
@@ -34,15 +34,15 @@ use \Bluz\Crud\ValidationException;
  * @category Application
  * @package  Options
  */
-class Crud extends \Bluz\Crud\Crud
+class Crud extends Table
 {
     /**
-     * @throws ValidationException
+     * {@inheritdoc}
      */
-    public function validate()
+    public function validate($id, $data)
     {
         // name validator
-        $name = $this->getData('name');
+        $name = isset($data['name'])?$data['name']:null;
         if (empty($name)) {
             $this->addError('name', 'Name can\'t be empty');
         } elseif (!preg_match('/^[a-zA-Z .-]+$/i', $name)) {
@@ -50,7 +50,7 @@ class Crud extends \Bluz\Crud\Crud
         }
 
         // namespace validator
-        $namespace = $this->getData('namespace');
+        $namespace = isset($data['namespace'])?$data['namespace']:null;
         if (empty($namespace)) {
             $this->addError('namespace', 'Name can\'t be empty');
         } elseif (!preg_match('/^[a-zA-Z .-]+$/i', $namespace)) {
@@ -59,18 +59,12 @@ class Crud extends \Bluz\Crud\Crud
 
         // unique validator
         if ($row = $this->getTable()->findRowWhere(['name' => $name, 'namespace' => $namespace])) {
-            if ($row->id != $this->getData('id')) {
+            if ($row->id != $id) {
                 $this->addError(
                     'name',
                     'Name "'.htmlentities($name).'" already exists in namespace "'.htmlentities($namespace).'"'
                 );
             }
-        }
-
-        // validate entity
-        // ...
-        if (sizeof($this->errors)) {
-            throw new ValidationException('Validation error, please check errors stack');
         }
     }
 }

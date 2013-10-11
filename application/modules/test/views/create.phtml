@@ -3,14 +3,12 @@
     require(['bluz.form'], function(form) {
         var $form = $('#form');
         <?php foreach ($errors as $field => $error) : ?>
-        form.notice($form, '[name^="data[<?=$field?>]"]', '<?=$error?>');
+        form.notice($form, '[name^="<?=$field?>"]', '<?=$error?>');
         <?php endforeach;?>
     });
 </script>
 <?php endif; ?>
-<form id="form" action="<?=$this->url('test', 'update')?><?=$row->id?>" class="form-horizontal" method="POST">
-    <input type="hidden" name="_method" value="<?=isset($method)?$method:'POST'?>" />
-    <input type="hidden" name="id" value="<?=$row->id?>"/>
+<form id="form" action="<?=$this->url('test', 'create')?>" class="form-horizontal" method="POST">
     <div class="form-group">
         <label class="control-label col-lg-2" for="inputName">Name</label>
         <div class="col-lg-10">

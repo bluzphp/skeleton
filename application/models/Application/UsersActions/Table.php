@@ -56,9 +56,10 @@ class Table extends \Bluz\Db\Table
      * @param int $userId
      * @param string $action
      * @param int $expired in days
+     * @param array $params
      * @return Row
      */
-    public function generate($userId, $action, $expired = 5)
+    public function generate($userId, $action, $expired = 5, $params = [])
     {
         // remove previously generated tokens
         $this->getAdapter()->delete($this->table)
@@ -74,6 +75,7 @@ class Table extends \Bluz\Db\Table
         shuffle($random);
         $actionRow->code = md5($userId . $action . join('', $random) . time());
         $actionRow->expired = date('Y-m-d H:i:s', strtotime("+$expired day"));
+        $actionRow->params = $params;
         $actionRow->save();
 
         return $actionRow;

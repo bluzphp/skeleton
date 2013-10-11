@@ -7,12 +7,15 @@
 <h3 class="page-header">
     <?=__('Profile')?>
     <?php if ($this->user()->id == $user->id) : ?>
-        <?=$this->ahref(__('Edit profile'), ['users', 'edit'], ['class'=>'btn btn-mini btn-primary pull-right'])?>
+        <?=$this->ahref(__('Change email'), ['users', 'change-email'], ['class'=>'btn btn-mini pull-right'])?>
+        <?=$this->ahref(__('Change password'), ['users', 'change-password'], ['class'=>'btn btn-mini pull-right'])?>
     <?php endif; ?>
 </h3>
 <dl class="dl-horizontal">
     <dt><?=__('Login')?></dt>
     <dd><?=$user->login?></dd>
+    <dt><?=__('Email')?></dt>
+    <dd><a href="mailto:<?=$user->email?>"><?=$user->email?></a></dd>
     <dt><?=__('Status')?></dt>
     <dd><?=$user->status?></dd>
 </dl>

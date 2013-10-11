@@ -11,7 +11,7 @@ namespace Application;
 
 return
 /**
- * @method GET
+ * @method GET, POST
  * @return \closure
  */
 function () use ($view) {
@@ -23,6 +23,8 @@ function () use ($view) {
     $row = new Test\Row();
     $view->row = $row;
 
-    $view->method = 'post';
-    return;
+
+    if ($this->getRequest()->isPost()) {
+        // TODO: example without AJAX calls
+    }
 };

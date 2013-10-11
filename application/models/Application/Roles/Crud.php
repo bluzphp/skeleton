@@ -37,61 +37,59 @@ use \Bluz\Crud\ValidationException;
  * @author   Anton Shevchuk
  * @created  03.09.12 13:11
  */
-class Crud extends \Bluz\Crud\Crud
+class Crud extends \Bluz\Crud\Table
 {
     /**
-     * validateName
+     * validate Name
      *
-     * @param $name
+     * @param string $name
      * @return void
      */
-    public function validateName($name)
+    public function checkName($name)
     {
         if (empty($name)) {
-            $this->addError('name', 'Role name can\'t be empty');
+            $this->addError('name', __('Role name can\'t be empty'));
         }
         if (!preg_match('/^[a-zA-Z0-9-_ ]+$/', $name)) {
-            $this->addError('name', 'Name should contains only Latin characters');
+            $this->addError('name', __('Name should contains only Latin characters'));
         }
     }
 
     /**
      * @throws ValidationException
      */
-    public function validateCreate()
+    public function validateCreate($data)
     {
         // role name validator
-        $name = $this->getData('name');
+        $name = isset($data['name'])?$data['name']:null;
 
-        $this->validateName($name);
+        $this->checkName($name);
 
         if (Table::getInstance()->findRowWhere(['name'=>$name])) {
-            $this->addError('name', 'Role "'.$name.'" already exists');
+            $this->addError('name', __('Role name "%s" already exists', $name));
         }
-
-        parent::validate();
     }
 
     /**
      * @throws ValidationException
      */
-    public function validateUpdate($originalRow)
+    public function validateUpdate($id, $data)
     {
         // role name validator
-        $name = $this->getData('name');
+        $name = isset($data['name'])?$data['name']:null;
 
-        $this->validateName($name);
+        $this->checkName($name);
 
         if (in_array(strtolower($name), Table::getInstance()->getBasicRoles())) {
-            $this->addError('name', 'Role name "'.$name.'" is basic and can\'t be editable');
+            $this->addError('name', __('Role name "%s" is basic and can\'t be editable', $name));
         };
 
-        if ($originalRow->name == $name) {
-            $this->addError('name', 'Role name "'.$name.'" the same as original');
-        } elseif (Table::getInstance()->findRowWhere(['name'=>$name])) {
-            $this->addError('name', 'Role "'.$name.'" already exists');
-        }
+        $originalRow = $this->readOne($id);
 
-        parent::validate();
+        if ($originalRow->name == $name) {
+            $this->addError('name', __('Role name "%s" the same as original', $name));
+        } elseif (Table::getInstance()->findRowWhere(['name'=>$name])) {
+            $this->addError('name', __('Role name "%s" already exists', $name));
+        }
     }
 }

@@ -42,7 +42,7 @@ class Crud extends Table
     /**
      * {@inheritdoc}
      */
-    public function readSet($offset = 0, $limit = 10, array $params = array())
+    public function readSet($offset = 0, $limit = 10, $params = array())
     {
         $select = app()->getDb()
             ->select('*')
@@ -74,6 +74,36 @@ class Crud extends Table
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function validateCreate($data)
+    {
+        // name validator
+        $name = isset($data['name'])?$data['name']:null;
+        $this->checkName($name);
+
+        // email validator
+        $email = isset($data['email'])?$data['email']:null;
+        $this->checkEmail($email);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validateUpdate($id, $data)
+    {
+        // name validator
+        if (isset($data['name'])) {
+            $this->checkName($data['name']);
+        }
+
+        // email validator
+        if (isset($data['email'])) {
+            $this->checkEmail($data['email']);
+        }
+    }
+
+    /**
      * checkName
      *
      * @param $name
@@ -100,36 +130,6 @@ class Crud extends Table
             $this->addError('email', 'Email can\'t be empty');
         } elseif (!$email = filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->addError('email', 'Email has invalid format');
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateCreate(array $data)
-    {
-        // name validator
-        $name = isset($data['name'])?$data['name']:null;
-        $this->checkName($name);
-
-        // email validator
-        $email = isset($data['email'])?$data['email']:null;
-        $this->checkEmail($email);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateUpdate($id, array $data)
-    {
-        // name validator
-        if (isset($data['name'])) {
-            $this->checkName($data['name']);
-        }
-
-        // email validator
-        if (isset($data['email'])) {
-            $this->checkEmail($data['email']);
         }
     }
 }

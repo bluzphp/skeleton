@@ -54,6 +54,7 @@ class Row extends \Bluz\Db\Row
     public function beforeInsert()
     {
         $this->created = gmdate('Y-m-d H:i:s');
+        /* @var \Application\Users\Row $user */
         if ($user = app()->getAuth()->getIdentity()) {
             $this->userId = $user->id;
         } else {

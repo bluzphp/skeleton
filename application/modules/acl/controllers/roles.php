@@ -7,18 +7,19 @@
  */
 namespace Application;
 
-use Application\Test;
-use Bluz;
-use Bluz\Request\AbstractRequest;
+use Application\Roles;
+use Bluz\Controller;
 
 return
 /**
+ * @privilege Management
  * @return \closure
  */
-function () use ($view) {
+function () {
     /**
      * @var \Application\Bootstrap $this
      */
-    $crud = new Roles\Crud();
-    return $crud->processController();
+    $crudController = new Controller\Crud();
+    $crudController->setCrud(Roles\Crud::getInstance());
+    return $crudController();
 };

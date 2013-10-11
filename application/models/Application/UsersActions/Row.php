@@ -35,6 +35,7 @@ namespace Application\UsersActions;
  * @property integer $userId
  * @property string $code
  * @property string $action
+ * @property string $params
  * @property string $created
  * @property string $expired
  *
@@ -47,4 +48,18 @@ class Row extends \Bluz\Db\Row
     const ACTION_CHANGE_EMAIL = 'email';
     const ACTION_RECOVERY = 'recovery';
     const ACTION_REMOVE = 'remove';
+
+    /**
+     * Return params of token
+     *
+     * @return array
+     */
+    public function getParams()
+    {
+        if (isset($this->data['params']) && sizeof($this->data['params'])) {
+            return unserialize($this->data['params']);
+        } else {
+            return array();
+        }
+    }
 }

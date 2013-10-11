@@ -60,10 +60,10 @@
                         <div class="panel-heading">
                             <?php if (strlen($row['title']) > 16) : echo substr($row['title'], 0, 10), '...'; else: echo $row['title']; endif; ?>
                             <div class="pull-right">
-                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]])?>" class="btn btn-xs btn-primary ">
+                                <a href="<?=$this->url('media', 'crud', ['id' => $row['id']])?>" class="btn btn-xs btn-primary ">
                                     <i class="icon-pencil"></i>
                                 </a>
-                                <a href="<?=$this->url('media', 'crud', ['data' => ['id' => $row['id']]])?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
+                                <a href="<?=$this->url('media', 'crud', ['id' => $row['id']])?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
                                     <i class="icon-trash"></i>
                                 </a>
                             </div>
