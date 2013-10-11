@@ -301,7 +301,10 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                     success: function(data, textStatus, jqXHR) {
                         $this.trigger('ajax.bluz.success', arguments);
 
-                        if (data.errors !== undefined) {
+                        // data can be "undefined" if server return
+                        // 204 header without content
+                        if (data !== undefined
+                            && data.errors !== undefined) {
                             $this.trigger('form.bluz.error', arguments);
                             require(['bluz.form'], function(form) {
                                 form.notices($this, data);

@@ -5,7 +5,7 @@
 ?>
 <?php $uid = uniqid('form_'); ?>
 <form id="<?=$uid?>" action="<?=$this->url('pages', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
-    <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
+    <input type="hidden" name="id" value="<?=$row->id?>"/>
     <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -15,19 +15,19 @@
         <div class="form-group">
             <label class="control-label col-lg-2" for="title"><?=__('Title')?>:</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="title" name="data[title]" value="<?=esc($row->title)?>" required />
+                <input type="text" class="form-control" id="title" name="title" value="<?=esc($row->title)?>" required />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-lg-2" for="alias"><?=__('Alias')?>:</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="alias" name="data[alias]" value="<?=esc($row->alias)?>" required />
+                <input type="text" class="form-control" id="alias" name="alias" value="<?=esc($row->alias)?>" required />
                 <small class="help-block controls"><?=__('Alias for build permalink to this page')?></small>
             </div>
         </div>
         <div class="form-group">
             <label for="content" class="control-label"><?=__('Content')?>:</label>
-            <textarea rows="12" cols="26" id="content" class="form-control redactor" name="data[content]" required ><?=esc($row->content)?></textarea>
+            <textarea rows="12" cols="26" id="content" class="form-control redactor" name="content" required ><?=esc($row->content)?></textarea>
         </div>
         <div class="form-group">
             <div class="col-lg-2"></div>
@@ -35,13 +35,13 @@
 
             <label class="control-label col-lg-2" for="keywords"><?=__('Keywords')?>:</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="keywords" name="data[keywords]" value="<?=esc($row->keywords)?>" />
+                <input type="text" class="form-control" id="keywords" name="keywords" value="<?=esc($row->keywords)?>" />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-lg-2" for="description"><?=__('Description')?>:</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="description" name="data[description]" value="<?=esc($row->description)?>" />
+                <input type="text" class="form-control" id="description" name="description" value="<?=esc($row->description)?>" />
             </div>
         </div>
     </div>

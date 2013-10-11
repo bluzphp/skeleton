@@ -4,15 +4,19 @@
  */
 namespace Application;
 
+use Application\Options;
+use Bluz\Controller;
+
 return
-/**
- * @privilege Management
- * @return \closure
- */
-function () use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @privilege Management
+     * @return \closure
      */
-    $crud = new Options\Crud();
-    return $crud->processController();
-};
+    function () {
+        /**
+         * @var \Application\Bootstrap $this
+         */
+        $crudController = new Controller\Crud();
+        $crudController->setCrud(Options\Crud::getInstance());
+        return $crudController();
+    };

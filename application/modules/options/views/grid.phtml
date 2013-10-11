@@ -37,16 +37,16 @@
             <?php foreach($grid->getData() as $row) : ?>
             <tr>
                 <td><?=$row['id']?></td>
-                <td><span class="label"><?=$row['namespace']?></span></td>
+                <td><span class="label label-info"><?=$row['namespace']?></span></td>
                 <td><a href="#" class="bluz-tooltip" data-toggle="tooltip" title="<?=esc($row['description'])?>"><?=esc($row['name'])?></a></td>
                 <td><?=esc($row['value'])?></td>
                 <td><?=$row['created']?></td>
                 <td><?=$row['updated']?></td>
                 <td class="controls">
-                    <a href="<?=$this->url('options', 'crud', ['data' => ['id' => $row['id']]]);?>" class="btn btn-xs btn-primary dialog" data-ajax-method="get">
+                    <a href="<?=$this->url('options', 'crud', ['id' => $row['id']]);?>" class="btn btn-xs btn-primary dialog" data-ajax-method="get">
                         <i class="icon-pencil"></i>
                     </a>
-                    <a href="<?=$this->url('options', 'crud', ['data' => ['id' => $row['id']]]);?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
+                    <a href="<?=$this->url('options', 'crud', ['id' => $row['id']]);?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
                         <i class="icon-trash"></i>
                     </a>
                 </td>

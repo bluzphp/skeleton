@@ -27,8 +27,7 @@
 namespace Application\Media;
 
 use Application\Exception;
-use \Bluz\Crud\ValidationException;
-use \Bluz\Crud\CrudException;
+use \Bluz\Crud\Table;
 
 /**
  * Media Crud
@@ -36,9 +35,41 @@ use \Bluz\Crud\CrudException;
  * @category Application
  * @package  Media
  */
-class Crud extends \Bluz\Crud\Crud
+class Crud extends Table
 {
+    /**
+     * @var string
+     */
     protected $uploadDir;
+
+
+    /**
+     * @var \Bluz\Request\HttpFile
+     */
+    protected $file;
+
+    /**
+     * createOne
+     *
+     * @param array $data
+     * @return integer
+     */
+    public function createOne($data)
+    {
+        $this->file = null;
+
+        $this->validate(null, $data);
+        $this->validateCreate($data);
+        $this->checkErrors();
+
+        $data['file'] = $this->uploadDir .'/'. $this->file->getFullName();
+        $data['type'] = $this->file->getMimeType();
+
+        $row = $this->getTable()->create();
+
+        $row->setFromArray($data);
+        return $row->save();
+    }
 
     /**
      * setUploadDir
@@ -62,74 +93,76 @@ class Crud extends \Bluz\Crud\Crud
         return $this;
     }
 
-    /**
-     * @throws ValidationException
-     */
-    public function validate()
-    {
-        // name validator
-        $title = $this->getData('title');
-        if (empty($title)) {
-            $this->addError('title', 'Title can\'t be empty');
-        } elseif (!preg_match('/^[a-z0-9 .-]+$/i', $title)) {
-            $this->addError('title', 'Title should contains only Latin characters');
-        }
-        // validate entity
-        // ...
-        if (sizeof($this->errors)) {
-            throw new ValidationException('Validation error, please check errors stack');
-        } else {
 
-        }
+    /**
+     * {@inheritdoc}
+     */
+    public function validate($id, $data)
+    {
+        $this->checkTitle($data);
     }
 
     /**
-     * @throws ValidationException
+     * {@inheritdoc}
      */
-    public function validateCreate()
+    public function validateCreate($data)
     {
         /**
          * @var \Bluz\Request\HttpFile $file
          */
         try {
-            $file = app()->getRequest()->getFileUpload()->getFile('data[file]');
+            $file = app()->getRequest()->getFileUpload()->getFile('file');
         } catch (\Bluz\Common\Exception $e) {
             $this->addError('file', $e->getMessage());
-            $this->validate();
+            return;
         }
 
         if (!$file) {
             $this->addError('file', "Sorry, I can't receive file");
+            return;
         } elseif ($file->getErrorCode() != UPLOAD_ERR_OK) {
             switch ($file->getErrorCode()) {
                 case UPLOAD_ERR_NO_FILE:
                     $this->addError('file', 'Please choose file for upload');
                     break;
             }
+            return;
         }
 
-        $this->validate();
+        $title = isset($data['title'])?$data['title']:null;
 
         // prepare files for store
-        $fileName = preg_replace('/([^a-z0-9])+/i', '-', strtolower($this->data['title']));
+        $fileName = preg_replace('/([^a-z0-9])+/i', '-', strtolower($title));
 
         // process file
-        $file->setName($fileName);
-        $file->moveTo(PATH_PUBLIC .'/'. $this->uploadDir);
-
-        $this->data['file'] = $this->uploadDir .'/'. $file->getFullName();
-        $this->data['type'] = $file->getMimeType();
-
+        $this->file = $file;
+        $this->file->setName($fileName);
+        $this->file->moveTo(PATH_PUBLIC .'/'. $this->uploadDir);
     }
 
     /**
-     * @param $originalRow
-     * @throws ValidationException
+     * {@inheritdoc}
      */
-    public function validateUpdate($originalRow)
+    public function validateUpdate($id, $data)
     {
-        $this->validate();
-
         // check and replace original file and preview
+    }
+
+    /**
+     * check title
+     *
+     * @param array $data
+     * @return void
+     */
+    public function checkTitle($data)
+    {
+        // name validator
+        $title = isset($data['title'])?$data['title']:null;
+
+        if (empty($title)) {
+            $this->addError('title', 'Title can\'t be empty');
+        } elseif (!preg_match('/^[a-z0-9 .-]+$/i', $title)) {
+            $this->addError('title', 'Title should contains only Latin characters');
+        }
     }
 }

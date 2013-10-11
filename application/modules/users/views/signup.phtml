@@ -6,22 +6,22 @@
         <h3 class="panel-title"><?=__('Registration')?></h3>
     </div>
     <div class="panel-body">
-        <input type="hidden" name="data[id]" value="<?=$row->id?>"/>
+        <input type="hidden" name="id" value="<?=$row->id?>"/>
         <div class="form-group input-group">
             <span class="input-group-addon"><i class="icon-user"></i></span>
-            <input type="text" class="form-control" name="data[login]" value="<?=($row->login)?>" placeholder="<?=__('login')?>" maxlength="255" required />
+            <input type="text" class="form-control" name="login" value="<?=($row->login)?>" placeholder="<?=__('login')?>" maxlength="255" required />
         </div>
         <div class="form-group input-group">
             <span class="input-group-addon"><i class="icon-envelope"></i></span>
-            <input type="email" class="form-control" name="data[email]" value="<?=($row->email)?>" placeholder="<?=__('email')?>" maxlength="255" required />
+            <input type="email" class="form-control" name="email" value="<?=($row->email)?>" placeholder="<?=__('email')?>" maxlength="255" required />
         </div>
         <div class="form-group input-group">
             <span class="input-group-addon"><i class="icon-lock"></i></span>
-            <input type="password" class="form-control" name="data[password]" value="<?=($row->password)?>" placeholder="<?=__('password')?>" required />
+            <input type="password" class="form-control" name="password" value="<?=($row->password)?>" placeholder="<?=__('password')?>" required />
         </div>
         <div class="form-group input-group">
             <span class="input-group-addon"><i class="icon-lock"></i></span>
-            <input type="password" class="form-control" name="data[password2]" value="<?=($row->password2)?>" placeholder="<?=__('repeat password')?>" required />
+            <input type="password" class="form-control" name="password2" value="<?=($row->password2)?>" placeholder="<?=__('repeat password')?>" required />
         </div>
     </div>
     <div class="panel-footer">
