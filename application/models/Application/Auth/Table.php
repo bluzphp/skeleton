@@ -70,17 +70,16 @@ class Table extends \Bluz\Db\Table
     }
 
     /**
-     * authenticate user by login/pass
+     * check user by login/pass
      *
      * @param string $username
      * @param string $password
      * @throws Exception
      * @throws AuthException
-     * @return boolean
+     * @return Row
      */
-    public function authenticateEquals($username, $password)
+    public function checkEquals($username, $password)
     {
-        /** @var $user Users\Row */
         $authRow = $this->getAuthRow(Row::PROVIDER_EQUALS, $username);
 
         if (!$authRow) {
@@ -104,8 +103,27 @@ class Table extends \Bluz\Db\Table
             throw new AuthException("Wrong password");
         }
 
+        // get auth row
+        return $authRow;
+    }
+
+    /**
+     * authenticate user by login/pass
+     *
+     * @param string $username
+     * @param string $password
+     * @throws Exception
+     * @throws AuthException
+     * @return boolean
+     */
+    public function authenticateEquals($username, $password)
+    {
+        /** @var $user Users\Row */
+        $authRow = $this->checkEquals($username, $password);
+
         // get user profile
         $user = Users\Table::findRow($authRow->userId);
+
         // try to login
         $user->login();
 
@@ -132,6 +150,17 @@ class Table extends \Bluz\Db\Table
         ) {
             throw new Exception("Encryption function for 'equals' adapter is not callable");
         }
+
+        // clear previous generated Auth record
+        // works with change password
+        $this->delete(
+            [
+                'userId' => $user->id,
+                'foreignKey' => $user->login,
+                'provider' => Row::PROVIDER_EQUALS,
+                'tokenType' => Row::TYPE_ACCESS
+            ]
+        );
 
         // new auth row
         $row = new Row();

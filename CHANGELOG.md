@@ -1,9 +1,11 @@
 CHANGELOG
 =========
 
---.--.2013
+11.10.2013
 ------------------
-* Migrated Pages module to new Crud system
+* Added params to users action for store custom information
+* Migrated all modules to new Crud system
+* Updated `users_action` table (added `params` field)
 
 08.10.2013
 ------------------

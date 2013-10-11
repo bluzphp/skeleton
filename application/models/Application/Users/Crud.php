@@ -44,6 +44,85 @@ use Application\UsersActions;
 class Crud extends \Bluz\Crud\Table
 {
     /**
+     * @param $data
+     * @throws \Application\Exception
+     * @return boolean
+     */
+    public function createOne($data)
+    {
+        $this->validate(null, $data);
+        $this->validateCreate($data);
+        $this->checkErrors();
+
+        /** @var $row Row */
+        $row = $this->getTable()->create();
+        $row->setFromArray($data);
+        $row->status = Row::STATUS_PENDING;
+        $row->save();
+
+        $userId = $row->id;
+
+        // create auth
+        $password = isset($data['password'])?$data['password']:null;
+        Auth\Table::getInstance()->generateEquals($row, $password);
+
+        // create activation token
+        // valid for 5 days
+        $actionRow = UsersActions\Table::getInstance()->generate($userId, UsersActions\Row::ACTION_ACTIVATION, 5);
+
+        // send activation email
+        // generate activation URL
+        $activationUrl = app()->getRouter()->getFullUrl(
+            'users',
+            'activation',
+            ['code' => $actionRow->code, 'id' => $userId]
+        );
+
+        $subject = "Activation";
+
+        $body = app()->dispatch(
+            'users',
+            'mail-template',
+            [
+                'template' => 'registration',
+                'vars' => ['user' => $row, 'activationUrl' => $activationUrl, 'password' => $password]
+            ]
+        )->render();
+
+        try {
+            $mail = app()->getMailer()->create();
+
+            // subject
+            $mail->Subject = $subject;
+            $mail->MsgHTML(nl2br($body));
+
+            $mail->AddAddress($data['email']);
+
+            app()->getMailer()->send($mail);
+
+        } catch (\Exception $e) {
+            app()->getLogger()->log(
+                'error',
+                $e->getMessage(),
+                ['module' => 'users', 'controller' => 'change-email', 'userId' => $userId]
+            );
+
+            throw new Exception('Unable to send email. Please contact administrator.');
+        }
+
+        // show notification and redirect
+        app()->getMessages()->addSuccess(
+            "Your account has been created and an activation link has".
+            "been sent to the e-mail address you entered.<br/>".
+            "Note that you must activate the account by clicking on the activation link".
+            "when you get the e-mail before you can login."
+        );
+        app()->redirectTo('index', 'index');
+
+        return $userId;
+    }
+
+    /**
      * @throws ValidationException
      */
     public function validateCreate($data)
@@ -112,102 +191,32 @@ class Crud extends \Bluz\Crud\Table
      * checkEmail
      *
      * @param array $data
-     * @return void
+     * @return boolean
      */
-    protected function checkEmail($data)
+    public function checkEmail($data)
     {
         $email = isset($data['email'])?$data['email']:null;
 
         if (empty($email)) {
             $this->addError('email', 'Email can\'t be empty');
+            return false;
         }
 
         if (strlen($email) > 255) {
             $this->addError('email', 'Email can\'t be bigger than 255 symbols');
+            return false;
         }
 
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             list($user, $domain) = explode("@", $email, 2);
             if (!checkdnsrr($domain, "MX") && !checkdnsrr($domain, "A")) {
                 $this->addError('email', 'Email has invalid domain name');
+                return false;
             }
         } else {
             $this->addError('email', 'Email is invalid');
+            return false;
         }
-    }
-
-    /**
-     *
-     * @param $data
-     * @throws \Application\Exception
-     * @return boolean
-     */
-    public function createOne($data)
-    {
-        $this->validate(null, $data);
-        $this->validateCreate($data);
-        $this->checkErrors();
-
-        /** @var $row Row */
-        $row = $this->getTable()->create();
-        $row->setFromArray($data);
-        $row->status = Row::STATUS_PENDING;
-        $row->save();
-
-        $userId = $row->id;
-
-        // create auth
-        $password = isset($data['password'])?$data['password']:null;
-        $authRow = Auth\Table::getInstance()->generateEquals($row, $password);
-
-        // create activation token
-        // valid for 5 days
-        $actionRow = UsersActions\Table::getInstance()->generate($userId, UsersActions\Row::ACTION_ACTIVATION, 5);
-
-        // send activation email
-        // generate activation URL
-        $activationUrl = app()->getRouter()->getFullUrl(
-            'users',
-            'activation',
-            ['code' => $actionRow->code, 'id' => $userId]
-        );
-
-        $subject = "Activation";
-
-        $body = app()->dispatch(
-            'users',
-            'mail-template',
-            [
-                'template' => 'registration',
-                'vars' => ['user' => $row, 'activationUrl' => $activationUrl, 'password' => $password]
-            ]
-        )->render();
-
-        try {
-            $mail = app()->getMailer()->create();
-
-            // subject
-            $mail->Subject = $subject;
-            $mail->MsgHTML(nl2br($body));
-
-            $mail->AddAddress($data['email']);
-
-            app()->getMailer()->send($mail);
-
-        } catch (\Exception $e) {
-            // TODO: log me
-            throw new Exception('Unable to send email. Please contact administrator.');
-        }
-
-        // show notification and redirect
-        app()->getMessages()->addSuccess(
-            "Your account has been created and an activation link has".
-            "been sent to the e-mail address you entered.<br/>".
-            "Note that you must activate the account by clicking on the activation link".
-            "when you get the e-mail before you can login."
-        );
-        app()->redirectTo('index', 'index');
-
-        return $userId;
+        return true;
     }
 }

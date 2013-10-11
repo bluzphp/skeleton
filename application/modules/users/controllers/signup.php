@@ -14,7 +14,6 @@ use Bluz\Controller;
 
 return
 /**
- * @privilege Management
  * @return \closure
  */
 function () {
