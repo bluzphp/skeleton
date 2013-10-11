@@ -14,7 +14,7 @@ define(["jquery", "bootstrap"], function ($) {
     defaults =  {
         container: '.form-group', // default for Twitter Bootstrap layout
         errorClass: 'has-error',
-        inputCollection: false,    // uses "data[field-name]" or "field-name"
+        inputCollection: false,   // uses "data[field-name]" or "field-name"
         tooltipPosition: 'top'    // can be bottom
     };
 
@@ -73,7 +73,7 @@ define(["jquery", "bootstrap"], function ($) {
             // clear previously generated classes
             $form.find(settings.container).removeClass(settings.errorClass);
 
-            if (data.errors) {
+            if (data !== undefined && data.errors !== undefined) {
                 $.each(data.errors, function(field, notices) {
                     if (settings.inputCollection) {
                         form.notice($form, '[name^="data['+field+']"]:first', notices);

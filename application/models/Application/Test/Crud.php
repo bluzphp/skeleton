@@ -74,36 +74,6 @@ class Crud extends Table
     }
 
     /**
-     * checkName
-     *
-     * @param $name
-     * @return void
-     */
-    protected function checkName($name)
-    {
-        if (empty($name)) {
-            $this->addError('name', 'Name can\'t be empty');
-        } elseif (!preg_match('/^[a-zA-Z .-]+$/i', $name)) {
-            $this->addError('name', 'Name should contains only Latin characters');
-        }
-    }
-
-    /**
-     * checkEmail
-     *
-     * @param $email
-     * @return void
-     */
-    protected function checkEmail($email)
-    {
-        if (empty($email)) {
-            $this->addError('email', 'Email can\'t be empty');
-        } elseif (!$email = filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->addError('email', 'Email has invalid format');
-        }
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function validateCreate($data)
@@ -130,6 +100,36 @@ class Crud extends Table
         // email validator
         if (isset($data['email'])) {
             $this->checkEmail($data['email']);
+        }
+    }
+
+    /**
+     * checkName
+     *
+     * @param $name
+     * @return void
+     */
+    protected function checkName($name)
+    {
+        if (empty($name)) {
+            $this->addError('name', 'Name can\'t be empty');
+        } elseif (!preg_match('/^[a-zA-Z .-]+$/i', $name)) {
+            $this->addError('name', 'Name should contains only Latin characters');
+        }
+    }
+
+    /**
+     * checkEmail
+     *
+     * @param $email
+     * @return void
+     */
+    protected function checkEmail($email)
+    {
+        if (empty($email)) {
+            $this->addError('email', 'Email can\'t be empty');
+        } elseif (!$email = filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->addError('email', 'Email has invalid format');
         }
     }
 }
