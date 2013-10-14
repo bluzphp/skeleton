@@ -14,6 +14,7 @@ return
 function () use ($view) {
     /**
      * @var \Application\Bootstrap $this
+     * @var \Bluz\View\View $view
      */
     $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->breadCrumbs(

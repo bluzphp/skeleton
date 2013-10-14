@@ -32,7 +32,7 @@ class Table extends \Bluz\Db\Table
     /**
      * Get all roles in system
      *
-     * @return \Bluz\Db\Rowset
+     * @return array
      */
     public function getRoles()
     {
@@ -53,7 +53,7 @@ class Table extends \Bluz\Db\Table
      * Get all user roles in system
      *
      * @param integer $userId
-     * @return \Bluz\Db\Rowset
+     * @return array
      */
     public function getUserRoles($userId)
     {
