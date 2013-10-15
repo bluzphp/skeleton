@@ -49,8 +49,10 @@ class Bootstrap extends Application
      */
     public function init($environment = 'production')
     {
+        $res = parent::init($environment);
+
         // Profiler hooks
-        if (constant('DEBUG') && DEBUG) {
+        if ($this->debugFlag) {
             $this->getEventManager()->attach(
                 'layout:header',
                 function ($event) {
@@ -119,7 +121,6 @@ class Bootstrap extends Application
             }
         );
 
-        $res = parent::init($environment);
 
         // example of setup Layout
         $this->getLayout()->title("Bluz Skeleton");
@@ -155,7 +156,7 @@ class Bootstrap extends Application
      */
     public function render()
     {
-        if (constant('DEBUG') && DEBUG && !headers_sent()) {
+        if ($this->debugFlag && !headers_sent()) {
             $debug = sprintf(
                 "%f; %skb",
                 microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],

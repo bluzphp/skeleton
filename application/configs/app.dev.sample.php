@@ -4,7 +4,6 @@
  *
  * @author   Anton Shevchuk
  * @created  18.09.12 11:14
- * @return   array
  */
 return array(
     "cache" => array(
