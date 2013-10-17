@@ -73,6 +73,12 @@ class Row extends AbstractRowEntity
     const SYSTEM_USER = 0;
 
     /**
+     * Small cache of user privileges
+     * @var array
+     */
+    protected $privileges;
+
+    /**
      * @return void
      */
     public function beforeInsert()
@@ -128,31 +134,22 @@ class Row extends AbstractRowEntity
      */
     public function getPrivileges()
     {
-        return Privileges\Table::getInstance()->getUserPrivileges($this->id);
+        if (!$this->privileges) {
+            $this->privileges = Privileges\Table::getInstance()->getUserPrivileges($this->id);
+        }
+        return $this->privileges;
     }
 
     /**
      * Check user role
      *
-     * @param $roleId
+     * @param integer $roleId
      * @return boolean
      */
     public function hasRole($roleId)
     {
-        $roles = $this->getRoles();
+        $roles = Roles\Table::getInstance()->getUserRolesIdentity($this->id);
 
-        foreach ($roles as $role) {
-            if (is_numeric($roleId)) {
-                if ($role->id == $roleId) {
-                    return true;
-                }
-            } else {
-                if ($role->name == $roleId) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return in_array($roleId, $roles);
     }
 }

@@ -4,7 +4,6 @@
  *
  * @author   Anton Shevchuk
  * @created  08.07.11 12:14
- * @return   array
  */
 return array(
     "auth" => array(
@@ -27,10 +26,12 @@ return array(
             )
         )
     ),
+    "debug" => defined('DEBUG')?DEBUG:false,
     "db" => array(
         "connect" => array(
             "options" => array(
-                \PDO::ATTR_PERSISTENT => true
+                \PDO::ATTR_PERSISTENT => true,
+                \PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET utf8"
             )
         ),
         "defaultAdapter" => true
@@ -55,7 +56,6 @@ return array(
             "CharSet" => "UTF-8"
         ],
     ),
-    "profiler" => DEBUG,
     "request" => array(
         "baseUrl" => '/',
     ),

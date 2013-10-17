@@ -7,6 +7,8 @@
  */
 namespace Application\Roles;
 
+use Bluz\Cache\Cache;
+use Bluz\Db\Db;
 use Bluz\Exception;
 
 class Table extends \Bluz\Db\Table
@@ -32,7 +34,7 @@ class Table extends \Bluz\Db\Table
     /**
      * Get all roles in system
      *
-     * @return \Bluz\Db\Rowset
+     * @return array
      */
     public function getRoles()
     {
@@ -53,20 +55,39 @@ class Table extends \Bluz\Db\Table
      * Get all user roles in system
      *
      * @param integer $userId
-     * @return \Bluz\Db\Rowset
+     * @return array of rows
      */
     public function getUserRoles($userId)
     {
-        if (!$data = app()->getCache()->get('roles:'.$userId)) {
-            $data = $this->fetch(
-                "SELECT r.*
+        $data = $this->fetch(
+            "SELECT r.*
+            FROM acl_roles AS r, acl_users_roles AS u2r
+            WHERE r.id = u2r.roleId AND u2r.userId = ?",
+            array($userId)
+        );
+        return $data;
+    }
+
+    /**
+     * Get all user roles in system
+     *
+     * @param integer $userId
+     * @return array of identity
+     */
+    public function getUserRolesIdentity($userId)
+    {
+        $cacheKey = 'roles:user:'.$userId;
+        if (!$data = app()->getCache()->get($cacheKey)) {
+            $data = Db::getDefaultAdapter()->fetchColumn(
+                "SELECT r.id
                 FROM acl_roles AS r, acl_users_roles AS u2r
-                WHERE r.id = u2r.roleId AND u2r.userId = ?",
+                WHERE r.id = u2r.roleId AND u2r.userId = ?
+                ORDER BY r.id ASC",
                 array($userId)
             );
-            app()->getCache()->set('roles:'.$userId, $data, 0);
-            app()->getCache()->addTag('roles:'.$userId, 'roles');
-            app()->getCache()->addTag('roles:'.$userId, 'user:'.$userId);
+            app()->getCache()->set($cacheKey, $data, Cache::TTL_NO_EXPIRY);
+            app()->getCache()->addTag($cacheKey, 'roles');
+            app()->getCache()->addTag($cacheKey, 'user:'.$userId);
         }
         return $data;
     }

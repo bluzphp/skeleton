@@ -35,6 +35,7 @@ function ($acl) use ($view) {
     };
 
     if ($this->getDb()->transaction($callback)) {
+        $this->getCache()->deleteByTag('privileges');
         $this->getMessages()->addSuccess('All data was saved');
     } else {
         $this->getMessages()->addError('Internal server error');

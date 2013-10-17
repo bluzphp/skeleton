@@ -1,5 +1,4 @@
 <?php $uid = uniqid('form_'); ?>
-
 <form id="<?=$uid?>" action="<?=$this->url('acl', 'roles')?>" class="form-horizontal ajax" method="<?=$method?>">
     <input type="hidden" name="id" value="<?=$row->id?>"/>
     <div class="modal-header">
@@ -21,3 +20,12 @@
         <a href="#" class="btn btn-default" data-dismiss="modal"><?=__('Close')?></a>
     </div>
 </form>
+<?php
+// need for plain request
+if (isset($errors)) :
+    $data = json_encode(['errors'=>$errors]);
+    $this->headScript('require(["bluz.form"], function(form) {
+        form.notices($("#'.$uid.'"), '.$data.');
+    });');
+endif;
+?>

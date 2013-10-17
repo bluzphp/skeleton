@@ -4,12 +4,13 @@
  */
 ?>
 <?php $uid = uniqid('form_'); ?>
-<form id="<?=$uid?>" action="<?=$this->url('pages', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
+<form id="<?=$uid?>" action="<?=$this->url('pages', 'crud')?>" class="form-horizontal ajax" method="post">
     <input type="hidden" name="id" value="<?=$row->id?>"/>
+    <input type="hidden" name="_method" value="<?=$method?>"/>
     <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><?=__('Pages')?></h4>
+        <h4 class="modal-title"><?=__('Edit page')?></h4>
     </div>
     <div class="modal-body">
         <div class="form-group">
@@ -60,14 +61,26 @@
 //*/
 ?>
 <script>
-    $("#title").blur(function(){
-        if ($("#alias").val() == "") {
-            var title = $(this).val();
-            title = title.toLowerCase();
-            title = title.replace(/[ :;]+/gi, "-");
-            title = title.replace(/[-]+/gi, "-");
-            title = title.replace(/[^a-z0-9.-]/gi, "");
-            $("#alias").val(title);
-        }
+    require(['jquery'], function($) {
+        $("#title").blur(function() {
+            var $alias = $("#alias");
+            if ($alias.val() == "") {
+                var title = $(this).val();
+                title = title.toLowerCase();
+                title = title.replace(/[ :;]+/gi, "-");
+                title = title.replace(/[-]+/gi, "-");
+                title = title.replace(/[^a-z0-9.-]/gi, "");
+                $alias.val(title);
+            }
+        });
     });
 </script>
+<?php
+// need for plain request
+if (isset($errors)) :
+    $data = json_encode(['errors'=>$errors]);
+    $this->headScript('require(["bluz.form"], function(form) {
+        form.notices($("#'.$uid.'"), '.$data.');
+    });');
+endif;
+?>
