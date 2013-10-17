@@ -4,6 +4,7 @@ CHANGELOG
 11.10.2013
 ------------------
 * Update skeleton for Bluz ver. 0.1.9
+* Fixed #108, flush cache required
 
 11.10.2013
 ------------------
