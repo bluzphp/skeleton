@@ -39,8 +39,7 @@ function ($id) use ($view) {
         }
 
         // clean cache
-        $this->getCache()->delete('roles:'.$user->id);
-        $this->getCache()->delete('privileges:'.$user->id);
+        $this->getCache()->delete('user:'.$user->id);
 
         $this->getMessages()->addSuccess('User roles was updated');
     }

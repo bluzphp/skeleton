@@ -20,6 +20,5 @@ return array(
     ),
     "session" => array(
         "store" => "array"
-    ),
-    "profiler" => false,
+    )
 );

@@ -26,7 +26,9 @@
  */
 namespace Application\Privileges;
 
-use Bluz\Db\Rowset;
+use Bluz\Cache\Cache;
+use Bluz\Db\Db;
+use Application\Roles;
 
 /**
  * Table
@@ -52,7 +54,7 @@ class Table extends \Bluz\Db\Table
     /**
      * Get all privileges
      *
-     * @return \Bluz\Db\Rowset
+     * @return array
      */
     public function getPrivileges()
     {
@@ -67,25 +69,63 @@ class Table extends \Bluz\Db\Table
      * Get user privileges
      *
      * @param integer $userId
-     * @return \Bluz\Db\Rowset
+     * @return array
      */
     public function getUserPrivileges($userId)
     {
-        if (!$seralizedData = app()->getCache()->get('privileges:'.$userId)) {
-            $data = $this->fetch(
-                "SELECT DISTINCT p.roleId, p.module, p.privilege
+        $roles = Roles\Table::getInstance()->getUserRolesIdentity($userId);
+
+        $stack = [];
+        foreach ($roles as $roleId) {
+            $stack = array_merge($stack, $this->getRolePrivileges($roleId));
+        }
+
+        // magic array_unique for multi array
+        return array_unique($stack);
+
+        // follow code is faster, but required record for every user in memcache
+        // in other words, need more memory for decrease CPU load
+        // for update
+        /*
+        $cacheKey = 'privileges:user:'.$userId;
+        if (!$data = app()->getCache()->get($cacheKey)) {
+            $data = Db::getDefaultAdapter()->fetchColumn(
+                "SELECT DISTINCT r.id, CONCAT(p.module, ':', p.privilege)
                 FROM acl_privileges AS p, acl_roles AS r, acl_users_roles AS u2r
                 WHERE p.roleId = r.id AND r.id = u2r.roleId AND u2r.userId = ?
                 ORDER BY module, privilege",
                 array((int) $userId)
             );
 
-            app()->getCache()->set('privileges:'.$userId, $data->serialize(), 0);
-            app()->getCache()->addTag('privileges:'.$userId, 'privileges');
-            app()->getCache()->addTag('privileges:'.$userId, 'user:'.$userId);
-        } else {
-            $data = new Rowset();
-            $data->unserialize($seralizedData);
+            app()->getCache()->set($cacheKey, $data, Cache::TTL_NO_EXPIRY);
+            app()->getCache()->addTag($cacheKey, 'privileges');
+            app()->getCache()->addTag($cacheKey, 'user:'.$userId);
+        }
+        return $data;
+        */
+    }
+
+    /**
+     * Get user privileges
+     *
+     * @param integer $roleId
+     * @return array
+     */
+    public function getRolePrivileges($roleId)
+    {
+        $cacheKey = 'privileges:role:'.$roleId;
+
+        if (!$data = app()->getCache()->get($cacheKey)) {
+            $data = Db::getDefaultAdapter()->fetchColumn(
+                "SELECT DISTINCT CONCAT(p.module, ':', p.privilege)
+                FROM acl_privileges AS p, acl_roles AS r
+                WHERE p.roleId = r.id AND r.id = ?
+                ORDER BY module, privilege",
+                array((int) $roleId)
+            );
+
+            app()->getCache()->set($cacheKey, $data, Cache::TTL_NO_EXPIRY);
+            app()->getCache()->addTag($cacheKey, 'privileges');
         }
         return $data;
     }

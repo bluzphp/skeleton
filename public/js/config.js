@@ -11,6 +11,7 @@ require.config({
     paths: {
         bootstrap: './vendor/bootstrap',
         jquery: './vendor/jquery',
+        redactor: './../redactor/redactor',
         // cdnjs settings
         underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min',
         backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min'
@@ -23,6 +24,10 @@ require.config({
         backbone: {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone'
+        },
+        redactor: {
+            deps: ['jquery'],
+            exports: '$.fn.redactor'
         },
         underscore: {
             exports: '_'

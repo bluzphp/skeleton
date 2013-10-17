@@ -44,7 +44,7 @@ function ($id = null) use ($bootstrap, $view) {
 
     $cache = $this->getCache();
     /**
-     * @var Bluz\Db\Rowset $userRows
+     * @var Users\Row $userRow
      */
     if (!$userRow = $cache->get('user:'.$id)) {
         $userRow = Users\Table::findRow($id);
