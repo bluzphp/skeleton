@@ -1,7 +1,11 @@
 CHANGELOG
 =========
 
-11.10.2013
+18.10.2013
+------------------
+* Update skeleton for Bluz ver. 0.2.0
+
+17.10.2013
 ------------------
 * Update skeleton for Bluz ver. 0.1.9
 * Fixed #108, flush cache required
