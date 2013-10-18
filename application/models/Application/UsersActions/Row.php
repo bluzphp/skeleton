@@ -50,14 +50,24 @@ class Row extends \Bluz\Db\Row
     const ACTION_REMOVE = 'remove';
 
     /**
+     * beforeSave
+     *
+     * @return void
+     */
+    public function beforeSave()
+    {
+        $this->params = serialize($this->params);
+    }
+
+    /**
      * Return params of token
      *
      * @return array
      */
     public function getParams()
     {
-        if (isset($this->data['params']) && sizeof($this->data['params'])) {
-            return unserialize($this->data['params']);
+        if ($this->params) {
+            return unserialize($this->params);
         } else {
             return array();
         }
