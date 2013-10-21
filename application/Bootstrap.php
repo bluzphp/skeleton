@@ -123,7 +123,7 @@ class Bootstrap extends Application
 
 
         // example of setup Layout
-        $this->getLayout()->title("Bluz Skeleton");
+//        $this->getLayout()->title("Bluz Skeleton");
 
         return $res;
     }

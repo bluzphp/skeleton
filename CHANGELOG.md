@@ -45,3 +45,15 @@ CHANGELOG
 02.08.2013
 ------------------
 * Refactoring Flash Messages
+
+01.06.2013
+------------------
+* Added Query Builders for Select/Insert/Update/Delete
+* Changed behaviour of insert/update/delete in Db\Db (works with Query Builders now)
+* Removed methods insert/update/delete from Db\Table
+
+01.05.2013
+------------------
+* Rename class Auth\AbstractEntity to Auth\AbstractRowEntity
+* Rename table acl_usersToRoles to acl_users_roles
+* Rename Models\UsersToRoles to UsersRoles
