@@ -14,31 +14,36 @@ if (PHP_SAPI !== 'cli') {
 require_once dirname(dirname(__FILE__)) . '/application/_loader.php';
 
 // Get CLI arguments
-$argv = $_SERVER['argv'];
+$arguments = getopt(
+    "",
+    [
+        "uri:",  // required
+        "env::", // optional
+        "debug", // just flag
+        "help"   // flag too
+    ]
+);
 
 // Check help
-if (in_array('--help', $argv)) {
+if (array_key_exists('help', $arguments)) {
     echo "Option `--uri` is required, it's similar to browser query\n";
     echo "Use `--env` option for setup applicaiton environment\n";
     echo "Use `--debug` flag for receive more information\n";
     exit();
 }
 // Check URI option
-if (!in_array('--uri', $argv)) {
+if (!array_key_exists('uri', $arguments)) {
     echo "\033[41m\033[1;37mOption `--uri` is required\033[m\033m\n";
     exit();
 }
 
 // Check and setup environment
-if (in_array('--env', $argv)) {
-    $envOrder = array_search('--env', $argv) + 1;
-    if (isset($argv[$envOrder])) {
-        $_SERVER['BLUZ_ENV'] = $argv[$envOrder];
-    }
+if (array_key_exists('env', $arguments)) {
+    putenv('BLUZ_ENV='.$arguments['env']);
 }
 
 // Debug mode for development environment only
-if (in_array('--debug', $argv)) {
+if (array_key_exists('debug', $arguments)) {
     define('DEBUG', true);
     error_reporting(E_ALL | E_STRICT);
     ini_set('display_errors', 1);
@@ -78,7 +83,7 @@ try {
     require_once PATH_APPLICATION . '/Exception.php';
 
     // Environment
-    $env = isset($_SERVER['BLUZ_ENV'])? $_SERVER['BLUZ_ENV']:'production';
+    $env = getenv('BLUZ_ENV')?:'production';
 
     /**
      * @var \Application\CliBootstrap $app

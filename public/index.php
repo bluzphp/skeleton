@@ -22,7 +22,7 @@ require_once dirname(dirname(__FILE__)) . '/application/_loader.php';
 define('DEBUG_KEY', getenv('BLUZ_DEBUG_KEY') ?: 'debug');
 define('DEBUG_LOG', getenv('BLUZ_LOG') ? true : false);
 
-if (isset($_COOKIE[DEBUG_KEY])) {
+if (getenv('BLUZ_DEBUG') or isset($_COOKIE[DEBUG_KEY])) {
     define('DEBUG', true);
     error_reporting(E_ALL | E_STRICT);
     ini_set('display_errors', 1);

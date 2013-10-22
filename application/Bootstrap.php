@@ -123,7 +123,7 @@ class Bootstrap extends Application
 
 
         // example of setup Layout
-//        $this->getLayout()->title("Bluz Skeleton");
+        $this->getLayout()->title("Bluz Skeleton");
 
         return $res;
     }
@@ -166,6 +166,8 @@ class Bootstrap extends Application
                 'Bluz-Debug: '. $debug .'; '.
                 $this->getRequest()->getModule() .'/'. $this->getRequest()->getController()
             );
+            $bar = json_encode($this->getLogger()->get('info'));
+            header('Bluz-Bar: '. $bar);
         }
         parent::render();
     }
