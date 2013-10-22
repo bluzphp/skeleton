@@ -19,8 +19,8 @@ require_once dirname(dirname(__FILE__)) . '/application/_loader.php';
  * use bookmarklets for enable it
  * @link https://github.com/bluzphp/skeleton/wiki/Module-System
  */
-define('DEBUG_KEY', isset($_SERVER['BLUZ_DEBUG_KEY'])? $_SERVER['BLUZ_DEBUG_KEY']:'debug');
-define('DEBUG_LOG', isset($_SERVER['BLUZ_LOG']));
+define('DEBUG_KEY', getenv('BLUZ_DEBUG_KEY') ?: 'debug');
+define('DEBUG_LOG', getenv('BLUZ_LOG') ? true : false);
 
 if (isset($_COOKIE[DEBUG_KEY])) {
     define('DEBUG', true);
@@ -84,7 +84,7 @@ try {
     require_once PATH_APPLICATION . '/Exception.php';
 
     // Environment
-    $env = isset($_SERVER['BLUZ_ENV'])? $_SERVER['BLUZ_ENV']:'production';
+    $env = getenv('BLUZ_ENV') ?: 'production';
 
     /**
      * @var \Application\Bootstrap $app
