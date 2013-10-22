@@ -166,6 +166,8 @@ class Bootstrap extends Application
                 'Bluz-Debug: '. $debug .'; '.
                 $this->getRequest()->getModule() .'/'. $this->getRequest()->getController()
             );
+            $bar = json_encode($this->getLogger()->get('info'));
+            header('Bluz-Bar: '. $bar);
         }
         parent::render();
     }
