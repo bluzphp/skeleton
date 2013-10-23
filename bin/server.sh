@@ -8,7 +8,7 @@
 # Root directory
 ROOT_DIR=$( cd "$( dirname $0 )"/../ && pwd )
 
-declare host env debug
+# declare host env debug
 host="localhost:8000"
 env="production"
 
