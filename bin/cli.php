@@ -10,9 +10,6 @@ if (PHP_SAPI !== 'cli') {
     exit;
 }
 
-// Require loader
-require_once dirname(dirname(__FILE__)) . '/application/_loader.php';
-
 // Get CLI arguments
 $arguments = getopt(
     "",
@@ -20,7 +17,8 @@ $arguments = getopt(
         "uri:",  // required
         "env::", // optional
         "debug", // just flag
-        "help"   // flag too
+        "log",   // just flag too
+        "help"   // display help
     ]
 );
 
@@ -29,6 +27,7 @@ if (array_key_exists('help', $arguments)) {
     echo "Option `--uri` is required, it's similar to browser query\n";
     echo "Use `--env` option for setup applicaiton environment\n";
     echo "Use `--debug` flag for receive more information\n";
+    echo "Use `--log` flag for save information about errors in files\n";
     exit();
 }
 // Check URI option
@@ -41,28 +40,25 @@ if (!array_key_exists('uri', $arguments)) {
 if (array_key_exists('env', $arguments)) {
     putenv('BLUZ_ENV='.$arguments['env']);
 }
+// Check and setup log save
+if (array_key_exists('log', $arguments)) {
+    putenv('BLUZ_LOG=1');
+}
 
 // Debug mode for development environment only
 if (array_key_exists('debug', $arguments)) {
-    define('DEBUG', true);
-    error_reporting(E_ALL | E_STRICT);
-    ini_set('display_errors', 1);
-} else {
-    define('DEBUG', false);
-    error_reporting(0);
-    ini_set('display_errors', 0);
+    putenv('BLUZ_DEBUG=1');
 }
 
-// Error Handler
-function errorHandler() {
+// Require loader
+require_once dirname(dirname(__FILE__)) . '/application/_loader.php';
+
+// Display error
+function errorDisplay() {
     $e = error_get_last();
     if (!is_array($e)
         || !in_array($e['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR))) {
         return;
-    }
-    // clean all buffers
-    while (ob_get_level()) {
-        ob_end_clean();
     }
     echo "\033[41m\033[1;37mApplication Error\033[m\033m\n";
     if (defined('DEBUG') && DEBUG && isset($e)) {
@@ -72,11 +68,14 @@ function errorHandler() {
 }
 
 // Shutdown function for handle critical and other errors
-register_shutdown_function('errorHandler');
+register_shutdown_function('errorDisplay');
 
 // Try to run application
 try {
-    
+    /**
+     * @var \Composer\Autoload\ClassLoader $loader
+     * @see http://getcomposer.org/apidoc/master/Composer/Autoload/ClassLoader.html
+     */
     require_once PATH_VENDOR . '/autoload.php';
 
     require_once PATH_APPLICATION . '/CliBootstrap.php';

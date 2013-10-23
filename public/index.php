@@ -11,26 +11,19 @@ if (PHP_SAPI === 'cli') {
     exit;
 }
 
-// Require loader
-require_once dirname(dirname(__FILE__)) . '/application/_loader.php';
-
+// Setup environment
 /**
  * Debug mode for development environment only,
  * use bookmarklets for enable it
  * @link https://github.com/bluzphp/skeleton/wiki/Module-System
  */
-define('DEBUG_KEY', getenv('BLUZ_DEBUG_KEY') ?: 'debug');
-define('DEBUG_LOG', getenv('BLUZ_LOG') ? true : false);
-
-if (getenv('BLUZ_DEBUG') or isset($_COOKIE[DEBUG_KEY])) {
-    define('DEBUG', true);
-    error_reporting(E_ALL | E_STRICT);
-    ini_set('display_errors', 1);
-} else {
-    define('DEBUG', false);
-    error_reporting(0);
-    ini_set('display_errors', 0);
+define('DEBUG_KEY', getenv('BLUZ_DEBUG_KEY') ?: 'BLUZ_DEBUG');
+if (isset($_COOKIE[DEBUG_KEY])) {
+    putenv('BLUZ_DEBUG=1');
 }
+
+// Require loader
+require_once dirname(dirname(__FILE__)) . '/application/_loader.php';
 
 /**
  * Block iframe embedding for prevent security issues
@@ -41,42 +34,26 @@ header('X-Frame-Options: SAMEORIGIN');
 // Make fake header
 header('X-Powered-By: backend');
 
-// Error Log
-function errorLog($message) {
-    if (defined('DEBUG_LOG')
-        && is_dir(PATH_DATA .'/logs')
-        && is_writable(PATH_DATA .'/logs')) {
-        file_put_contents(
-            PATH_DATA .'/logs/'.(date('Y-m-d')).'.log',
-            "\t[".date("H:i:s")."]\t".$message,
-            FILE_APPEND | LOCK_EX
-        );
-    }
-}
-
 // Error Handler
-function errorHandler() {
+function errorDisplay() {
     if (!$e = error_get_last()) {
         return;
     }
-    if ($e['type'] == E_USER_NOTICE) {
-        // already handled error
+    if (!is_array($e)
+        || !in_array($e['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR))) {
         return;
     }
-    errorLog($e['message'] ."\n". $e['file'] ."#". $e['line'] ."\n");
-
     require_once 'error.php';
 }
 
 // Shutdown function for handle critical and other errors
-register_shutdown_function('errorHandler');
+register_shutdown_function('errorDisplay');
 
 // Try to run application
 try {
-
     /**
      * @var \Composer\Autoload\ClassLoader $loader
-     * @link http://getcomposer.org/apidoc/master/Composer/Autoload/ClassLoader.html
+     * @see http://getcomposer.org/apidoc/master/Composer/Autoload/ClassLoader.html
      */
     require PATH_VENDOR . '/autoload.php';
 
@@ -90,8 +67,8 @@ try {
      * @var \Application\Bootstrap $app
      */
     $app = \Application\Bootstrap::getInstance();
-    $app->init($env);
-    $app->process();
+    $app->init($env)
+        ->process();
     $app->render();
     $app->finish();
 } catch (Exception $e) {
