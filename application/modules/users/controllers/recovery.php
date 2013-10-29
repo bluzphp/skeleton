@@ -83,8 +83,12 @@ function ($email = null) use ($view) {
                 $this->getMailer()->send($mail);
 
             } catch (\Exception $e) {
-                // TODO: log me
-
+                // log it
+                app()->getLogger()->log(
+                    'error',
+                    $e->getMessage(),
+                    ['module' => 'users', 'controller' => 'recovery', 'email' => $email]
+                );
                 throw new Exception('Unable to send email. Please contact administrator.');
             }
 

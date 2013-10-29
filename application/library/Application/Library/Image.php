@@ -119,7 +119,7 @@ class Image
             $image->cropThumbnailImage($this->width, $this->height);
             $image->writeimage($dir.'/'.$this->file);
         } elseif (function_exists('gd_info')) {
-            // todo
+            // TODO: Implementation image manipulation with gd_info
         } else {
             // return original file
             return $this->path .'/'. $this->file;

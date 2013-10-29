@@ -51,7 +51,6 @@ function ($id, $code) {
 
         // create user role
         // get member role
-        // FIXME f*cking magic
         $roleRow = Roles\Table::findRowWhere(['name' => Roles\Row::BASIC_MEMBER]);
         // create relation user to role
         $usersRoleRow = new UsersRoles\Row();

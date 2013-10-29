@@ -7,6 +7,8 @@
  */
 namespace Application;
 
+use Bluz\Application\Exception\NotFoundException;
+
 return
 /**
  * @route /{$alias}.html
@@ -22,7 +24,7 @@ function ($alias) use ($view) {
     $page = Pages\Table::getInstance()->getByAlias($alias);
 
     if (!$page) {
-        throw new Exception('Page not found', 404);
+        throw new NotFoundException();
     } else {
         $view->title(esc($page->title), \Bluz\View\View::POS_PREPEND);
         $view->meta('keywords', esc($page->keywords));
