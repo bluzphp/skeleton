@@ -7,14 +7,38 @@
         <table class="table table-hover table-bordered table-condensed">
             <caption><?=$server?></caption>
             <?php foreach($stat as $key => $value): ?>
-            <tr class="row">
-                <td><strong><?=$key?></strong></td>
+            <tr>
+                <th><?=$key?></th>
                 <td class="text-right"><?=$value?></td>
             </tr>
             <?php endforeach; ?>
         </table>
         <?php endforeach; ?>
+    <?php elseif ($adapter instanceof \Bluz\Cache\Adapter\Redis): ?>
+        <table class="table table-hover table-bordered table-condensed">
+            <?php foreach($adapter->getHandler()->info() as $key => $value): ?>
+                <tr>
+                    <th><?=$key?></th>
+                    <td class="text-right"><?=$value?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
     <?php elseif ($adapter instanceof \Bluz\Cache\Adapter\Apc): ?>
-
+        <table class="table table-hover table-bordered table-condensed">
+            <?php foreach(apc_cache_info() as $key => $value): ?>
+                <tr>
+                    <th><?=$key?></th>
+                    <td class="text-right">
+                        <?php
+                        if (is_array($value)) :
+                            echo '"'.sizeof($value).'" elements in array';
+                        else:
+                            echo $value;
+                        endif;
+                        ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
     <?php endif; ?>
 </div>

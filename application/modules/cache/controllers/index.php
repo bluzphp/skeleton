@@ -29,8 +29,9 @@ function () use ($view) {
     );
 
     if ($handler = $this->getCache()->getAdapter()) {
-        // TODO: show active cache handlers
+        $view->adapter = get_class($handler);
     } else {
+        $view->adapter = null;
         $this->getMessages()->addNotice("Cache is disabled");
     }
 };

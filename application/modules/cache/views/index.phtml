@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default <?php if(!$adapter) echo 'disabled';?>" role="navigation">
     <div class="collapse navbar-collapse">
         <a href="<?=$this->url('cache', 'stats')?>"
            class="btn btn-default navbar-btn bluz-tooltip"
@@ -16,6 +16,7 @@
            data-original-title="Flash all servers"><i class="icon-fire"></i> <?=__('Flush')?></a>
     </div>
 </nav>
+<p class="text-info"><?=__('Current cache adapter is "%s"', $adapter)?></p>
 <?php if (isset($servers) && sizeof($servers)): ?>
 <hr/>
 <div>
