@@ -38,7 +38,8 @@ function () {
                     </a>
                 </li>
                 <li>
-                    <a href="<?=app()->getRouter()->url('users', 'grid', ['users-filter-status' => Users\Row::STATUS_ACTIVE])?>">
+                    <a href="
+                    <?=app()->getRouter()->url('users', 'grid', ['users-filter-status' => Users\Row::STATUS_ACTIVE])?>">
                     <i class="icon-eye-open"></i>
                     <strong><?=$active?></strong>
                     <small><?=__('Active Users')?></small>
