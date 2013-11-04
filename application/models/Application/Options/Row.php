@@ -43,10 +43,28 @@ namespace Application\Options;
 class Row extends \Bluz\Db\Row
 {
     /**
-     * @return void
+     * {@inheritdoc}
      */
-    public function beforeUpdate()
+    protected function beforeSave()
+    {
+        $this->value = serialize($this->value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function beforeUpdate()
     {
         $this->updated = gmdate('Y-m-d H:i:s');
+    }
+
+    /**
+     * getValue
+     *
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return unserialize($this->value);
     }
 }

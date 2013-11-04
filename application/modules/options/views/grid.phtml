@@ -39,7 +39,7 @@
                 <td><?=$row['id']?></td>
                 <td><span class="label label-info"><?=$row['namespace']?></span></td>
                 <td><a href="#" class="bluz-tooltip" data-toggle="tooltip" title="<?=esc($row['description'])?>"><?=esc($row['name'])?></a></td>
-                <td><?=esc($row['value'])?></td>
+                <td><?=esc(unserialize($row['value']))?></td>
                 <td><?=$row['created']?></td>
                 <td><?=$row['updated']?></td>
                 <td class="controls">
