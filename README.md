@@ -13,25 +13,37 @@ Easy to setup, easy to use. Example application
 
 Bluz works with PHP 5.4 or later and MySQL 5.4 or later (please check [requirements](https://github.com/bluzphp/skeleton/wiki/Requirements))
 
-First you should clone Bluz skeleton project from github repository,
+### From composer
 
+Download `composer.phar`, it's easy:
 ```
-git clone git://github.com/bluzphp/skeleton.git
-```
-or download the latest version from [here](https://github.com/bluzphp/skeleton/downloads) and extract it.
-
-Then you need to download composer.phar to the project folder:
-
-```
-cd skeleton
 curl -s https://getcomposer.org/installer | php
 ```
 
-and install dependencies with the following command:
+Run `create-project` command (replace `%path%` ;):
+```
+php composer.phar create-project bluzphp/skeleton %path% --stability=dev
+```
 
+### From repository
+
+Get Bluz skeleton source files from GitHub repository:
+```
+git clone git://github.com/bluzphp/skeleton.git %path%
+```
+
+Download `composer.phar` to the project folder:
+```
+cd %path%
+curl -s https://getcomposer.org/installer | php
+```
+
+Install composer dependencies with the following command:
 ```
 php composer.phar install
 ```
+
+### Last step
 
 Create symlink to public directory (required FollowSymlinks option):
 
@@ -42,8 +54,7 @@ ln -s /path/to/public /var/www/htdocs
 Restore database structure from `structure.ddl` file (use InnoDB as the Default MySQL Storage Engine for avoid "Error Code: 1071"!).
 Restore default database data from `dump.sql`
 
-
-Edit your own configuration file ```/path/to/application/configs/app.dev.php```
+Edit your own configuration file `/path/to/application/configs/app.dev.php`
 
 ## Usage
 

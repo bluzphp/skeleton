@@ -4,7 +4,7 @@
  */
 ?>
 <?php $uid = uniqid('form_'); ?>
-<form id="<?=$uid?>" action="<?=$this->url('media', 'crud')?>" class="form-horizontal" method="POST" enctype="multipart/form-data">
+<form id="<?=$uid?>" action="<?=$this->url('media', 'crud')?>" class="form-horizontal" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="<?=$method?>"/>
     <input type="hidden" name="id" value="<?=$row->id?>"/>
     <div>
@@ -41,7 +41,9 @@
             <div class="form-group">
                 <label class="control-label col-lg-2"><?=__('Link')?></label>
                 <div class="col-lg-10">
-                    <code>http://<?=app()->getRequest()->getHttpHost().'/'.($row->file)?></code>
+                    <a href="<?=$this->baseUrl($row->file)?>">
+                        <?=app()->getRequest()->getScheme().'://'.app()->getRequest()->getHttpHost().$this->baseUrl($row->file)?>
+                    </a>
                 </div>
             </div>
         <?php

@@ -46,4 +46,58 @@ class Table extends \Bluz\Db\Table
      * @var array
      */
     protected $primary = array('id');
+
+    /**
+     * Get option value for use it from any application place
+     *
+     * @param string $key
+     * @param string $namespace
+     * @return mixed
+     */
+    public static function get($key, $namespace = 'default')
+    {
+        /**
+         * @var \Application\Options\Row $row
+         */
+        if ($row = self::findRowWhere(['name' => $key, 'namespace' => $namespace])) {
+            return $row->getValue();
+        }
+        return null;
+    }
+
+    /**
+     * Set option value for use it from any application place
+     *
+     * @param string $key
+     * @param mixed $value
+     * @param string $namespace
+     * @return mixed
+     */
+    public static function set($key, $value, $namespace = 'default')
+    {
+        /**
+         * @var \Application\Options\Row $row
+         */
+        $row = self::findRowWhere(['name' => $key, 'namespace' => $namespace]);
+        if (!$row) {
+            $row = self::create();
+            $row->name = $key;
+            $row->value = $value;
+            $row->namespace = $namespace;
+        }
+        $row->value = $value;
+        return $row->save();
+    }
+
+    /**
+     * Remove option
+     *
+     * @param string $key
+     * @param string $namespace
+     * @return boolean
+     */
+    public static function remove($key, $namespace = 'default')
+    {
+        return self::delete(['name' => $key, 'namespace' => $namespace]);
+    }
 }

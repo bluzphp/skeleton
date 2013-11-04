@@ -31,18 +31,23 @@ function () {
         <div class="widget-content">
             <ul class="widget-stats">
                 <li>
+                    <a href="<?=app()->getRouter()->url('users', 'grid')?>">
                     <i class="icon-user"></i>
                     <strong><?=$total?></strong>
                     <small><?=__('Total Users')?></small>
+                    </a>
                 </li>
                 <li>
+                    <a href="
+                    <?=app()->getRouter()->url('users', 'grid', ['users-filter-status' => Users\Row::STATUS_ACTIVE])?>">
                     <i class="icon-eye-open"></i>
                     <strong><?=$active?></strong>
                     <small><?=__('Active Users')?></small>
+                    </a>
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="/users/profile/id/<?=$last['id']?>">
+                    <a href="<?=app()->getRouter()->url('users', 'profile', ['id' => $last['id']])?>">
                     <i class="icon-user"></i>
                     <strong><?=$last['login']?></strong>
                     <small><?=__('Last Registers')?></small>
