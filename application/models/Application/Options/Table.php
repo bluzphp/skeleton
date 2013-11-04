@@ -46,4 +46,22 @@ class Table extends \Bluz\Db\Table
      * @var array
      */
     protected $primary = array('id');
+
+    /**
+     * Get option value for use it from any application place
+     *
+     * @param string $key
+     * @param string $namespace
+     * @return mixed
+     */
+    public static function get($key, $namespace = 'default')
+    {
+        /**
+         * @var \Application\Options\Row $row
+         */
+        if ($row = self::findRowWhere(['key' => $key, 'namespace' => $namespace])) {
+            return $row->value;
+        }
+        return null;
+    }
 }
