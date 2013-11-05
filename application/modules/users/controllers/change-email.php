@@ -9,10 +9,10 @@ namespace Application;
 
 use Application\Users;
 use Application\UsersActions;
+use Application\UsersActions\Table;
 use Bluz\Application\Exception\NotFoundException;
 use Bluz\Auth\AuthException;
 use Bluz\Controller;
-use Bluz\Request\AbstractRequest;
 
 return
 /**
@@ -59,7 +59,7 @@ function ($email = null, $password = null, $token = null) use ($view) {
             // generate change mail token and get full url
             $actionRow = UsersActions\Table::getInstance()->generate(
                 $userId,
-                UsersActions\Row::ACTION_CHANGE_EMAIL,
+                Table::ACTION_CHANGE_EMAIL,
                 5,
                 ['email' => $email]
             );

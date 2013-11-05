@@ -1,4 +1,7 @@
-<?php $uid = uniqid('form_'); ?>
+<?php
+use Application\Users\Table;
+
+$uid = uniqid('form_'); ?>
 
 <form id="<?=$uid?>" action="<?=$this->url('users', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
     <input type="hidden" name="id" value="<?=$row->id?>"/>
@@ -23,9 +26,9 @@
             <label class="control-label col-lg-2" for="status"><?=__('Status')?></label>
             <div class="col-lg-10">
                 <select id="status" name="status" class="form-control">
-                    <option <?=$row->status== Application\Users\Row::STATUS_ACTIVE ?'selected':''?>>active</option>
-                    <option <?=$row->status== Application\Users\Row::STATUS_DISABLED ?'selected':''?>>disabled</option>
-                    <option <?=$row->status== Application\Users\Row::STATUS_PENDING ?'selected':''?>>pending</option>
+                    <option <?=$row->status == Table::STATUS_ACTIVE ?'selected':''?>>active</option>
+                    <option <?=$row->status == Table::STATUS_DISABLED ?'selected':''?>>disabled</option>
+                    <option <?=$row->status == Table::STATUS_PENDING ?'selected':''?>>pending</option>
                 </select>
             </div>
         </div>

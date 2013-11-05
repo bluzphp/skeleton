@@ -46,14 +46,6 @@ namespace Application\Auth;
  */
 class Row extends \Bluz\Db\Row
 {
-    const TYPE_REQUEST = 'request';
-    const TYPE_ACCESS = 'access';
-
-    const PROVIDER_EQUALS = 'equals';
-    const PROVIDER_LDAP = 'ldap';
-    const PROVIDER_TWITTER = 'twitter';
-    const PROVIDER_FACEBOOK = 'facebook';
-
     /**
      * __insert
      *

@@ -29,10 +29,9 @@ namespace Application\Options;
 /**
  * Options Row
  *
- * @property integer $id
- * @property string $name
- * @property string $value
  * @property string $namespace
+ * @property string $key
+ * @property string $value
  * @property string $description
  * @property string $created
  * @property string $updated
@@ -42,6 +41,14 @@ namespace Application\Options;
  */
 class Row extends \Bluz\Db\Row
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected function afterRead()
+    {
+        $this->value = unserialize($this->value);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -56,15 +63,5 @@ class Row extends \Bluz\Db\Row
     protected function beforeUpdate()
     {
         $this->updated = gmdate('Y-m-d H:i:s');
-    }
-
-    /**
-     * getValue
-     *
-     * @return mixed
-     */
-    public function getValue()
-    {
-        return unserialize($this->value);
     }
 }

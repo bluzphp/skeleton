@@ -5,6 +5,8 @@
  */
 namespace Application;
 
+use Application\Users\Table;
+
 return
 /**
  * @return \closure
@@ -14,7 +16,7 @@ function () {
      * @var \Application\Bootstrap $this
      */
     $total = $this->getDb()->fetchOne('SELECT COUNT(*) FROM users');
-    $active = $this->getDb()->fetchOne('SELECT COUNT(*) FROM users WHERE status = ?', [Users\Row::STATUS_ACTIVE]);
+    $active = $this->getDb()->fetchOne('SELECT COUNT(*) FROM users WHERE status = ?', [Table::STATUS_ACTIVE]);
     $last = $this->getDb()->fetchRow('SELECT id, login FROM users ORDER BY id DESC LIMIT 1');
     ?>
     <script>
@@ -39,7 +41,7 @@ function () {
                 </li>
                 <li>
                     <a href="
-                    <?=app()->getRouter()->url('users', 'grid', ['users-filter-status' => Users\Row::STATUS_ACTIVE])?>">
+                    <?=app()->getRouter()->url('users', 'grid', ['users-filter-status' => Table::STATUS_ACTIVE])?>">
                     <i class="icon-eye-open"></i>
                     <strong><?=$active?></strong>
                     <small><?=__('Active Users')?></small>

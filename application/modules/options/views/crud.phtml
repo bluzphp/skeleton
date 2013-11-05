@@ -1,6 +1,6 @@
 <?php $uid = uniqid('form_'); ?>
-<form id="<?=$uid?>" action="<?=$this->url('options', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
-    <input type="hidden" name="id" value="<?=$row->id?>"/>
+<form id="<?=$uid?>" action="<?=$this->url('options', 'crud')?>" class="form-horizontal ajax" method="post">
+    <input type="hidden" name="_method" value="<?=$method?>"/>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title"><?=__('Options')?></h4>
@@ -13,15 +13,22 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-lg-2" for="name"><?=__('Name')?></label>
+            <label class="control-label col-lg-2" for="key"><?=__('Key name')?></label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="name" name="name" value="<?=esc($row->name)?>" required />
+                <input type="text" class="form-control" id="key" name="key" value="<?=esc($row->key)?>" required />
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-lg-2" for="value"><?=__('Value')?></label>
+            <label class="control-label col-lg-2" for="value"><?=__('Key value')?></label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="value" name="value" value="<?=esc($row->getValue())?>" />
+                <?php $value = $row->value; ?>
+                <?php if (is_array($value)) : ?>
+                <input type="text" class="form-control" disabled value="<?=__('Array (length=%d)', sizeof($value));?>"/>
+                <?php elseif (is_object($value)): ?>
+                <input type="text" class="form-control" disabled value="<?=__('Object of `%s` class', get_class($value));?>"/>
+                <?php else: ?>
+                <input type="text" class="form-control" id="value" name="value" value="<?=esc($row->value)?>" />
+                <?php endif; ?>
             </div>
         </div>
         <div class="form-group">

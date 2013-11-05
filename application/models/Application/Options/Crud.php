@@ -41,30 +41,36 @@ class Crud extends Table
      */
     public function validate($id, $data)
     {
-        // name validator
-        $name = isset($data['name'])?$data['name']:null;
-        if (empty($name)) {
-            $this->addError('name', 'Name can\'t be empty');
-        } elseif (!preg_match('/^[a-zA-Z .-]+$/i', $name)) {
-            $this->addError('name', 'Name should contains only Latin characters');
+        // key name validator
+        $key = isset($data['key'])?$data['key']:null;
+        if (empty($key)) {
+            $this->addError('Key name can\'t be empty', 'key');
+        } elseif (!preg_match('/^[a-zA-Z .-]+$/i', $key)) {
+            $this->addError('Key name should contains only Latin characters', 'key');
         }
 
         // namespace validator
         $namespace = isset($data['namespace'])?$data['namespace']:null;
         if (empty($namespace)) {
-            $this->addError('namespace', 'Name can\'t be empty');
+            $this->addError('Name can\'t be empty', 'namespace');
         } elseif (!preg_match('/^[a-zA-Z .-]+$/i', $namespace)) {
-            $this->addError('namespace', 'Name should contains only Latin characters');
+            $this->addError('Name should contains only Latin characters', 'namespace');
         }
+    }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function validateCreate($data)
+    {
+        $key = isset($data['key'])?$data['key']:null;
+        $namespace = isset($data['namespace'])?$data['namespace']:null;
         // unique validator
-        if ($row = $this->getTable()->findRowWhere(['name' => $name, 'namespace' => $namespace])) {
-            if ($row->id != $id) {
-                $this->addError(
-                    'name',
-                    'Name "'.htmlentities($name).'" already exists in namespace "'.htmlentities($namespace).'"'
-                );
-            }
+        if ($row = $this->getTable()->findRowWhere(['key' => $key, 'namespace' => $namespace])) {
+            $this->addError(
+                __('Key name "%s" already exists in namespace "%s"', esc($key), esc($namespace)),
+                'key'
+            );
         }
     }
 }

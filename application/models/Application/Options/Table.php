@@ -35,6 +35,11 @@ namespace Application\Options;
 class Table extends \Bluz\Db\Table
 {
     /**
+     * Default namespace for all keys
+     */
+    const NAMESPACE_DEFAULT = 'default';
+
+    /**
      * Table
      *
      * @var string
@@ -45,7 +50,7 @@ class Table extends \Bluz\Db\Table
      * Primary key(s)
      * @var array
      */
-    protected $primary = array('id');
+    protected $primary = array('namespace', 'key');
 
     /**
      * Get option value for use it from any application place
@@ -54,13 +59,13 @@ class Table extends \Bluz\Db\Table
      * @param string $namespace
      * @return mixed
      */
-    public static function get($key, $namespace = 'default')
+    public static function get($key, $namespace = self::NAMESPACE_DEFAULT)
     {
         /**
          * @var \Application\Options\Row $row
          */
-        if ($row = self::findRowWhere(['name' => $key, 'namespace' => $namespace])) {
-            return $row->getValue();
+        if ($row = self::findRowWhere(['key' => $key, 'namespace' => $namespace])) {
+            return $row->value;
         }
         return null;
     }
@@ -73,15 +78,15 @@ class Table extends \Bluz\Db\Table
      * @param string $namespace
      * @return mixed
      */
-    public static function set($key, $value, $namespace = 'default')
+    public static function set($key, $value, $namespace = self::NAMESPACE_DEFAULT)
     {
         /**
          * @var \Application\Options\Row $row
          */
-        $row = self::findRowWhere(['name' => $key, 'namespace' => $namespace]);
+        $row = self::findRowWhere(['key' => $key, 'namespace' => $namespace]);
         if (!$row) {
             $row = self::create();
-            $row->name = $key;
+            $row->key = $key;
             $row->value = $value;
             $row->namespace = $namespace;
         }
@@ -96,8 +101,8 @@ class Table extends \Bluz\Db\Table
      * @param string $namespace
      * @return boolean
      */
-    public static function remove($key, $namespace = 'default')
+    public static function remove($key, $namespace = self::NAMESPACE_DEFAULT)
     {
-        return self::delete(['name' => $key, 'namespace' => $namespace]);
+        return self::delete(['key' => $key, 'namespace' => $namespace]);
     }
 }

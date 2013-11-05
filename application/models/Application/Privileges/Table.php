@@ -27,7 +27,6 @@
 namespace Application\Privileges;
 
 use Bluz\Cache\Cache;
-use Bluz\Db\Db;
 use Application\Roles;
 
 /**
@@ -116,7 +115,7 @@ class Table extends \Bluz\Db\Table
         $cacheKey = 'privileges:role:'.$roleId;
 
         if (!$data = app()->getCache()->get($cacheKey)) {
-            $data = Db::getDefaultAdapter()->fetchColumn(
+            $data = app()->getDb()->fetchColumn(
                 "SELECT DISTINCT CONCAT(p.module, ':', p.privilege)
                 FROM acl_privileges AS p, acl_roles AS r
                 WHERE p.roleId = r.id AND r.id = ?

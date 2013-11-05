@@ -29,6 +29,8 @@ function () {
         $this->getCache()->deleteByTag('privileges');
         // reflection data
         $this->getCache()->deleteByTag('reflection');
+        // db metadata
+        $this->getCache()->deleteByTag('db');
 
         $this->getMessages()->addSuccess("Cache is cleaned");
     } else {
