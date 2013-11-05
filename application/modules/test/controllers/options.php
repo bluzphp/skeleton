@@ -27,7 +27,7 @@ function () use ($view) {
     );
 
     if ($data = Options\Table::get('example')) {
-        $view->message = sprintf('Option `example` was found, it is `%s`', $data);
+        $view->message = sprintf('Option `example` was found, it is `%s`', (string) $data);
         Options\Table::remove('example');
     } else {
         $view->message = 'Option `example` not found, try again later';

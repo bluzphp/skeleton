@@ -26,11 +26,11 @@
  */
 namespace Application\Users;
 
-use \Bluz\Auth\AbstractRowEntity;
-use \Bluz\Auth\AuthException;
 use Application\Exception;
-use Application\Roles;
 use Application\Privileges;
+use Application\Roles;
+use Bluz\Auth\AbstractRowEntity;
+use Bluz\Auth\AuthException;
 
 /**
  * User
@@ -50,28 +50,6 @@ use Application\Privileges;
  */
 class Row extends AbstractRowEntity
 {
-    /**
-     * Pending email verification
-     */
-    const STATUS_PENDING = 'pending';
-    /**
-     * Active user
-     */
-    const STATUS_ACTIVE = 'active';
-    /**
-     * Disabled by administrator
-     */
-    const STATUS_DISABLED = 'disabled';
-    /**
-     * Removed account
-     */
-    const STATUS_DELETED = 'deleted';
-
-    /**
-     * system user with ID=0
-     */
-    const SYSTEM_USER = 0;
-
     /**
      * Small cache of user privileges
      * @var array
@@ -106,13 +84,13 @@ class Row extends AbstractRowEntity
     public function tryLogin()
     {
         switch ($this->status) {
-            case (self::STATUS_PENDING):
+            case (Table::STATUS_PENDING):
                 throw new AuthException("Your account is pending activation");
                 break;
-            case (self::STATUS_DISABLED):
+            case (Table::STATUS_DISABLED):
                 throw new AuthException("Your account is disabled by administrator");
                 break;
-            case (self::STATUS_ACTIVE):
+            case (Table::STATUS_ACTIVE):
                 // all ok
                 break;
             default:

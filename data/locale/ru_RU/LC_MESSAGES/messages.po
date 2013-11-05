@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluz\n"
-"POT-Creation-Date: 2013-10-23 15:03+0200\n"
-"PO-Revision-Date: 2013-10-23 15:17+0200\n"
+"POT-Creation-Date: 2013-11-05 12:59+0200\n"
+"PO-Revision-Date: 2013-11-05 13:07+0200\n"
 "Last-Translator: Anton Shevchuk <Anton.Shevchuk@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -16,6 +16,16 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: d:/projects/bluz/skeleton/application\n"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Options/Crud.php:71
+#, php-format
+msgid "Key name \"%s\" already exists in namespace \"%s\""
+msgstr "Ключ \"%s\" уже существует в области \"%s\""
+
+#: d:/projects/bluz/skeleton/application/models/Application/Pages/Crud.php:60
+#, php-format
+msgid "Alias \"%s\" already exists"
+msgstr "Сокращение \"%s\" уже существует"
 
 #: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:51
 msgid "Role name can't be empty"
@@ -40,6 +50,16 @@ msgstr "Роль \"%s\" является основной, и не может б
 #, php-format
 msgid "Role name \"%s\" the same as original"
 msgstr "Имя роли \"%s\" не было изменено"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:137
+#, php-format
+msgid "User with login \"%s\" already exists"
+msgstr "Пользователь с логином \"%s\" уже существует"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:150
+#, php-format
+msgid "User with email \"%s\" already exists"
+msgstr "Пользователь с адресом \"%s\" уже существует"
 
 #: d:/projects/bluz/skeleton/application/modules/acl/controllers/index.php:23
 msgid "ACL"
@@ -172,15 +192,15 @@ msgstr "Изменить email"
 msgid "Users"
 msgstr "Пользователи"
 
-#: d:/projects/bluz/skeleton/application/modules/users/widgets/stats.php:36
+#: d:/projects/bluz/skeleton/application/modules/users/widgets/stats.php:39
 msgid "Total Users"
 msgstr "Всего пользователей"
 
-#: d:/projects/bluz/skeleton/application/modules/users/widgets/stats.php:41
+#: d:/projects/bluz/skeleton/application/modules/users/widgets/stats.php:47
 msgid "Active Users"
 msgstr "Активных"
 
-#: d:/projects/bluz/skeleton/application/modules/users/widgets/stats.php:48
+#: d:/projects/bluz/skeleton/application/modules/users/widgets/stats.php:55
 msgid "Last Registers"
 msgstr "Последний"
 
@@ -226,12 +246,18 @@ msgstr "Итого"
 
 #: d:/projects/bluz/skeleton/application/layouts/partial/grid/total.phtml:9
 msgid "record"
-msgstr "запись"
+msgid_plural "records"
+msgstr[0] "запись"
+msgstr[1] "записи"
+msgstr[2] "записей"
 
 #: d:/projects/bluz/skeleton/application/layouts/partial/grid/total.phtml:10
 #, php-format
 msgid "on %s page"
-msgstr "на %s странице"
+msgid_plural "on %s pages"
+msgstr[0] "на %s странице"
+msgstr[1] "на %s страницах"
+msgstr[2] "на %s страницах"
 
 #: d:/projects/bluz/skeleton/application/modules/acl/views/index.phtml:3
 msgid "Create New Role"
@@ -243,14 +269,14 @@ msgstr "Привелегия/Роль"
 
 #: d:/projects/bluz/skeleton/application/modules/acl/views/index.phtml:41
 #: d:/projects/bluz/skeleton/application/modules/acl/views/roles.phtml:19
-#: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:62
-#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:33
+#: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:64
+#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:40
 #: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:50
 #: d:/projects/bluz/skeleton/application/modules/test/views/create.phtml:35
 #: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:34
 #: d:/projects/bluz/skeleton/application/modules/users/views/change-email.phtml:14
 #: d:/projects/bluz/skeleton/application/modules/users/views/change-password.phtml:21
-#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:34
+#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:37
 msgid "Save"
 msgstr "Сохранить"
 
@@ -263,18 +289,16 @@ msgid "Edit Role"
 msgstr "Редактирование роли"
 
 #: d:/projects/bluz/skeleton/application/modules/acl/views/roles.phtml:12
-#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:16
-#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:29
 #: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:11
 msgid "Name"
 msgstr "Имя"
 
 #: d:/projects/bluz/skeleton/application/modules/acl/views/roles.phtml:20
 #: d:/projects/bluz/skeleton/application/modules/acl/views/user.phtml:23
-#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:34
+#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:41
 #: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:51
 #: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:35
-#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:35
+#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:38
 msgid "Close"
 msgstr "Закрыть"
 
@@ -299,11 +323,16 @@ msgstr "Очистка"
 msgid "Flush"
 msgstr "Сброс"
 
-#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:24
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:19
+#, php-format
+msgid "Current cache adapter is \"%s\""
+msgstr "Текущий кеширующий адаптер - \"%s\""
+
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:25
 msgid "Server"
 msgstr "Сервер"
 
-#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:25
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:26
 msgid "Weight"
 msgstr "Приоритет"
 
@@ -314,10 +343,6 @@ msgstr "Статистика кеша"
 #: d:/projects/bluz/skeleton/application/modules/dashboard/views/index.phtml:1
 msgid "Dashboard"
 msgstr "Панель управления"
-
-#: d:/projects/bluz/skeleton/application/modules/index/views/changelog.phtml:1
-msgid "Changelog"
-msgstr "Список изменения"
 
 #: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:16
 #: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:25
@@ -353,7 +378,7 @@ msgstr "Создать"
 msgid "Search"
 msgstr "Поиск"
 
-#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:43
+#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:44
 msgid "Image quantity"
 msgstr "Количество изображений"
 
@@ -361,12 +386,27 @@ msgstr "Количество изображений"
 msgid "Namespace"
 msgstr "Раздел"
 
+#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:16
+msgid "Key name"
+msgstr "Ключ"
+
 #: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:22
-#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:30
-msgid "Value"
+msgid "Key value"
 msgstr "Значение"
 
+#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:26
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:44
+#, php-format
+msgid "Array (length=%d)"
+msgstr "Массив (длина=%d)"
+
 #: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:28
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:46
+#, php-format
+msgid "Object of `%s` class"
+msgstr "Объект класса `%s`"
+
+#: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:35
 #: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:43
 #: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:27
 #: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:49
@@ -374,21 +414,23 @@ msgid "Description"
 msgstr "Описание"
 
 #: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:27
-#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:47
-#: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:48
-msgid "Id"
-msgstr "Id"
-
-#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:28
 msgid "Space"
 msgstr "Раздел"
 
-#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:31
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:28
+msgid "Key"
+msgstr "Ключ"
+
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:29
+msgid "Value"
+msgstr "Значение"
+
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:30
 #: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:50
 msgid "Created"
 msgstr "Дата создания"
 
-#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:32
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:31
 #: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:51
 msgid "Updated"
 msgstr "Дата изменения"
@@ -419,6 +461,11 @@ msgstr "Мета-информация о странице"
 msgid "Keywords"
 msgstr "Мета-слова"
 
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:47
+#: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:48
+msgid "Id"
+msgstr "Id"
+
 #: d:/projects/bluz/skeleton/application/modules/system/views/bookmarks.phtml:1
 msgid "Bookmarklets for debug site"
 msgstr "Генератор закладок отладки сайта"
@@ -448,7 +495,7 @@ msgid "Route"
 msgstr "Маршрут"
 
 #: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:17
-#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:17
+#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:20
 #: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:29
 #: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:50
 #: d:/projects/bluz/skeleton/application/modules/users/views/profile.phtml:17
@@ -456,7 +503,7 @@ msgid "Email"
 msgstr "Email"
 
 #: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:23
-#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:23
+#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:26
 #: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:52
 #: d:/projects/bluz/skeleton/application/modules/users/views/profile.phtml:19
 msgid "Status"
@@ -499,11 +546,11 @@ msgstr "новый пароль"
 msgid "repeat password"
 msgstr "ещё раз"
 
-#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:7
+#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:10
 msgid "Edit user"
 msgstr "Редактирование пользователя"
 
-#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:11
+#: d:/projects/bluz/skeleton/application/modules/users/views/crud.phtml:14
 #: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:28
 #: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:49
 #: d:/projects/bluz/skeleton/application/modules/users/views/profile.phtml:15
@@ -565,6 +612,151 @@ msgstr "Регистрация"
 #~ msgid "You don't have permissions, please sign in"
 #~ msgstr "У вас нет прав доступа, пожалуйста авторизируйтесь"
 
+#~ msgid "Sorry, I can't receive file"
+#~ msgstr "Файл не получен"
+
+#~ msgid "Please choose file for upload"
+#~ msgstr "Выберите файл для загрузки"
+
+#~ msgid "Title can't be empty"
+#~ msgstr "Заголовок не может быть пустым"
+
+#~ msgid "Title should contains only Latin characters"
+#~ msgstr "Заголовок должен содержать только буквы латинского алфавита"
+
+#~ msgid "Key name can't be empty"
+#~ msgstr "Имя ключа не может быть пустым"
+
+#~ msgid "Key name should contains only Latin characters"
+#~ msgstr "Имя ключа должно содержать только буквы латинского алфавита"
+
+#~ msgid "Name can't be empty"
+#~ msgstr "Имя не может быть пустым"
+
+#~ msgid "Alias can't be empty"
+#~ msgstr "Сокращение для короткой ссылки не может быть пустым"
+
+#~ msgid "Alias should contains only Latin characters, dots and dashes"
+#~ msgstr ""
+#~ "Сокращение для короткой ссылки должно содержать только буквы латинского "
+#~ "алфавита, точку и дефис"
+
+#, fuzzy
+#~ msgid "Alias \""
+#~ msgstr "Прямая ссылка"
+
+#~ msgid "Content can't be empty"
+#~ msgstr "Содержимое не может быть пустым"
+
+#~ msgid "Email can't be empty"
+#~ msgstr "Email не может быть пустым"
+
+#~ msgid "Email has invalid format"
+#~ msgstr "Email указан в неправильном формате"
+
+#~ msgid ""
+#~ "Your account has been created and an activation link hasbeen sent to the "
+#~ "e-mail address you entered.<br/>Note that you must activate the account "
+#~ "by clicking on the activation linkwhen you get the e-mail before you can "
+#~ "login."
+#~ msgstr ""
+#~ "Ваша учётная запись создана в системе. На ваш email была отправлена "
+#~ "ссылка, пройдя по которой вы активируете учётную запись"
+
+#~ msgid "Password can't be empty"
+#~ msgstr "Пароль пуст"
+
+#~ msgid "Password is not equal"
+#~ msgstr "Пароль не верен"
+
+#~ msgid "Login can't be empty"
+#~ msgstr "Логин не может быть пустым"
+
+#~ msgid "Login can't be bigger than 255 symbols"
+#~ msgstr "Логин не может быть больше 255 символов"
+
+#~ msgid "Email can't be bigger than 255 symbols"
+#~ msgstr "Email не может быть больше 255 символов"
+
+#~ msgid "Email has invalid domain name"
+#~ msgstr "Указана неверный домен для email "
+
+#~ msgid "Email is invalid"
+#~ msgstr "Email неверен"
+
+#~ msgid "All data was saved"
+#~ msgstr "Все данные сохранены"
+
+#~ msgid "Internal server error"
+#~ msgstr "Внутрення ошибка сервера"
+
+#~ msgid "User roles was updated"
+#~ msgstr "Роли пользователя были обновлены"
+
+#~ msgid "Cache is cleaned"
+#~ msgstr "Кеш очищен"
+
+#~ msgid "Cache is disabled"
+#~ msgstr "Кеш отключён"
+
+#~ msgid "Cache is flushed"
+#~ msgstr "Кеш сброшен"
+
+#~ msgid "User is not active"
+#~ msgstr "Пользователь не активен"
+
+#~ msgid "Method "
+#~ msgstr "Метод"
+
+#~ msgid "Row was removed"
+#~ msgstr "Запись удалена"
+
+#~ msgid "Email was send"
+#~ msgstr "Email отправлен"
+
+#~ msgid "You are signed"
+#~ msgstr "Вы вошли"
+
+#~ msgid "Invalid activation code"
+#~ msgstr "Неверный активационный код"
+
+#~ msgid "The activation code has expired"
+#~ msgstr "Активационный код просрочен"
+
+#~ msgid ""
+#~ "Your Account has been successfully activated. <br/>You can now log in "
+#~ "using the username and password you chose during the registration."
+#~ msgstr ""
+#~ "Ваш акаунт активирован. Теперь вы можете войти в систему используя ваш "
+#~ "логин и пароль"
+
+#~ msgid "Check your email and follow instructions in letter."
+#~ msgstr "Проверьте ваш почтовый ящик, и проследуйте инструкциям из письма"
+
+#~ msgid "Email was updated"
+#~ msgstr "Email обновлён"
+
+#~ msgid "The password was updated successfully"
+#~ msgstr "Пароль был обновлён"
+
+#~ msgid "Invalid code"
+#~ msgstr "Неверный код"
+
+#~ msgid "Your password has been updated"
+#~ msgstr "Ваш пароль был обновлён"
+
+#~ msgid "Reset password instructions has been sent to your email address"
+#~ msgstr "Инструкция по восстановлению пароля отправлены на ваш email адрес"
+
+#~ msgid "Already signed"
+#~ msgstr "Вы уже авторизированы"
+
+#~ msgid "You are signout"
+#~ msgstr "Вы вышли"
+
+#~ msgid "Changelog"
+#~ msgstr "Список изменения"
+
 #~ msgid "Thumbnail image can't be save. Parent directory is not writable"
 #~ msgstr ""
 #~ "Не получается создать превью для картинки, родительская директория не "
@@ -583,20 +775,8 @@ msgstr "Регистрация"
 #~ msgstr ""
 #~ "Неполучилось отправить email, пожалуйста сообщите об этом администратору"
 
-#~ msgid ""
-#~ "Your account has been created and an activation link hasbeen sent to the "
-#~ "e-mail address you entered.<br/>Note that you must activate the account "
-#~ "by clicking on the activation linkwhen you get the e-mail before you can "
-#~ "login."
-#~ msgstr ""
-#~ "Ваша учётная запись создана в системе. На ваш email была отправлена "
-#~ "ссылка, пройдя по которой вы активируете учётную запись"
-
 #~ msgid "Password has been changed"
 #~ msgstr "Ваш пароль был изменён"
-
-#~ msgid "Check your email and follow instructions in letter."
-#~ msgstr "Проверьте ваш почтовый ящик, и проследуйте инструкциям из письма"
 
 #~ msgid "User status is undefined in system"
 #~ msgstr "Статус пользователя не определён в системе"
@@ -604,23 +784,8 @@ msgstr "Регистрация"
 #~ msgid "User ID is incorrect"
 #~ msgstr "Пользователь не найден"
 
-#~ msgid "All data was saved"
-#~ msgstr "Все данные сохранены"
-
-#~ msgid "Cache is cleaned"
-#~ msgstr "Кеш очищен"
-
-#~ msgid "Cache is disabled"
-#~ msgstr "Кеш отключён"
-
-#~ msgid "Cache is flushed"
-#~ msgstr "Кеш сброшен"
-
 #~ msgid "Facebook authorization is not configured"
 #~ msgstr "Авторизация через Facebook не настроена"
-
-#~ msgid "User is not active"
-#~ msgstr "Пользователь не активен"
 
 #~ msgid "Use your facebook account!"
 #~ msgstr "Используйте вашу учётную запись из Facebook"
@@ -631,9 +796,6 @@ msgstr "Регистрация"
 #~ msgid "Wrong file type"
 #~ msgstr "Неправильный тип файлов"
 
-#~ msgid "Method "
-#~ msgstr "Метод"
-
 #~ msgid "User not found"
 #~ msgstr "Пользователь не найден"
 
@@ -643,14 +805,8 @@ msgstr "Регистрация"
 #~ msgid "Test record was save"
 #~ msgstr "Тестовая запись создана"
 
-#~ msgid "Row was removed"
-#~ msgstr "Запись удалена"
-
 #~ msgid "Record not found"
 #~ msgstr "Запись не найдена"
-
-#~ msgid "Email was send"
-#~ msgstr "Email отправлен"
 
 #~ msgid "Twitter authorization is not configured"
 #~ msgstr "Авторизация через Twitter не настроена"
@@ -664,29 +820,10 @@ msgstr "Регистрация"
 #~ msgid "Invalid Twitter token"
 #~ msgstr "Неверный код"
 
-#~ msgid "You are signed"
-#~ msgstr "Вы вошли"
-
-#~ msgid "Invalid activation code"
-#~ msgstr "Неверный активационный код"
-
-#~ msgid "The activation code has expired"
-#~ msgstr "Активационный код просрочен"
-
-#~ msgid ""
-#~ "Your Account has been successfully activated. <br/>You can now log in "
-#~ "using the username and password you chose during the registration."
-#~ msgstr ""
-#~ "Ваш акаунт активирован. Теперь вы можете войти в систему используя ваш "
-#~ "логин и пароль"
-
 #~ msgid "Your email has been changed"
 #~ msgstr "Ваш email был обновлён"
 
 #~ msgid "Invalid token"
-#~ msgstr "Неверный код"
-
-#~ msgid "Invalid code"
 #~ msgstr "Неверный код"
 
 #~ msgid "Please enter your new password"
@@ -695,35 +832,14 @@ msgstr "Регистрация"
 #~ msgid "Please repeat your new password"
 #~ msgstr "Повторите новый пароль"
 
-#~ msgid "Your password has been updated"
-#~ msgstr "Ваш пароль был обновлён"
-
-#~ msgid "Email has invalid domain name"
-#~ msgstr "Указана неверный домен для email "
-
-#~ msgid "Email is invalid"
-#~ msgstr "Email неверен"
-
 #~ msgid "Email not found"
 #~ msgstr "Email не найден"
 
 #~ msgid "User is inactive"
 #~ msgstr "Пользователь не активен"
 
-#~ msgid "Reset password instructions has been sent to your email address"
-#~ msgstr "Инструкция по восстановлению пароля отправлены на ваш email адрес"
-
-#~ msgid "Already signed"
-#~ msgstr "Вы уже авторизированы"
-
 #~ msgid "Login is empty"
 #~ msgstr "Логин пуст"
-
-#~ msgid "Password is empty"
-#~ msgstr "Пароль пуст"
-
-#~ msgid "You are signout"
-#~ msgstr "Вы вышли"
 
 #~ msgid "Users Roles"
 #~ msgstr "Роли пользователей"

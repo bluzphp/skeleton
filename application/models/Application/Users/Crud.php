@@ -26,11 +26,11 @@
  */
 namespace Application\Users;
 
-use \Bluz\Crud\ValidationException;
-
 use Application\Auth;
 use Application\Exception;
+
 use Application\UsersActions;
+use Bluz\Crud\ValidationException;
 
 /**
  * Crud
@@ -57,7 +57,7 @@ class Crud extends \Bluz\Crud\Table
         /** @var $row Row */
         $row = $this->getTable()->create();
         $row->setFromArray($data);
-        $row->status = Row::STATUS_PENDING;
+        $row->status = Table::STATUS_PENDING;
         $row->save();
 
         $userId = $row->id;
@@ -68,7 +68,7 @@ class Crud extends \Bluz\Crud\Table
 
         // create activation token
         // valid for 5 days
-        $actionRow = UsersActions\Table::getInstance()->generate($userId, UsersActions\Row::ACTION_ACTIVATION, 5);
+        $actionRow = UsersActions\Table::getInstance()->generate($userId, UsersActions\Table::ACTION_ACTIVATION, 5);
 
         // send activation email
         // generate activation URL
@@ -133,7 +133,10 @@ class Crud extends \Bluz\Crud\Table
         $login = isset($data['login'])?$data['login']:null;
         // check unique
         if ($this->getTable()->findRowWhere(['login' => $login])) {
-            $this->addError('login', 'User with login "'.htmlentities($login).'" already exists');
+            $this->addError(
+                __('User with login "%s" already exists', esc($login)),
+                'login'
+            );
         }
 
         // email
@@ -143,18 +146,21 @@ class Crud extends \Bluz\Crud\Table
         // TODO: add solution for check gmail accounts (because a.s.d@gmail.com === asd@gmail.com)
         // check unique
         if ($this->getTable()->findRowWhere(['email' => $email])) {
-            $this->addError('email', 'User with email "'.htmlentities($email).'" already exists');
+            $this->addError(
+                __('User with email "%s" already exists', esc($email)),
+                'email'
+            );
         }
 
         // password
         $password = isset($data['password'])?$data['password']:null;
         $password2 = isset($data['password2'])?$data['password2']:null;
         if (empty($password)) {
-            $this->addError('password', 'Password can\'t be empty');
+            $this->addError('Password can\'t be empty', 'password');
         }
 
         if ($password !== $password2) {
-            $this->addError('password2', 'Password is not equal');
+            $this->addError('Password is not equal', 'password2');
         }
     }
 
@@ -180,10 +186,10 @@ class Crud extends \Bluz\Crud\Table
     {
         $login = isset($data['login'])?$data['login']:null;
         if (empty($login)) {
-            $this->addError('login', 'Login can\'t be empty');
+            $this->addError('Login can\'t be empty', 'login');
         }
         if (strlen($login) > 255) {
-            $this->addError('login', 'Login can\'t be bigger than 255 symbols');
+            $this->addError('Login can\'t be bigger than 255 symbols', 'login');
         }
     }
 
@@ -198,23 +204,23 @@ class Crud extends \Bluz\Crud\Table
         $email = isset($data['email'])?$data['email']:null;
 
         if (empty($email)) {
-            $this->addError('email', 'Email can\'t be empty');
+            $this->addError('Email can\'t be empty', 'email');
             return false;
         }
 
         if (strlen($email) > 255) {
-            $this->addError('email', 'Email can\'t be bigger than 255 symbols');
+            $this->addError('Email can\'t be bigger than 255 symbols', 'email');
             return false;
         }
 
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             list($user, $domain) = explode("@", $email, 2);
             if (!checkdnsrr($domain, "MX") && !checkdnsrr($domain, "A")) {
-                $this->addError('email', 'Email has invalid domain name');
+                $this->addError('Email has invalid domain name', 'email');
                 return false;
             }
         } else {
-            $this->addError('email', 'Email is invalid');
+            $this->addError('Email is invalid', 'email');
             return false;
         }
         return true;

@@ -26,8 +26,6 @@
  */
 namespace Application\Roles;
 
-use \Bluz\Crud\ValidationException;
-
 /**
  * Crud
  *
@@ -48,15 +46,15 @@ class Crud extends \Bluz\Crud\Table
     public function checkName($name)
     {
         if (empty($name)) {
-            $this->addError('name', __('Role name can\'t be empty'));
+            $this->addError(__('Role name can\'t be empty'), 'name');
         }
         if (!preg_match('/^[a-zA-Z0-9-_ ]+$/', $name)) {
-            $this->addError('name', __('Name should contains only Latin characters'));
+            $this->addError(__('Name should contains only Latin characters'), 'name');
         }
     }
 
     /**
-     * @throws ValidationException
+     * {@inheritdoc}
      */
     public function validateCreate($data)
     {
@@ -66,12 +64,12 @@ class Crud extends \Bluz\Crud\Table
         $this->checkName($name);
 
         if (Table::getInstance()->findRowWhere(['name'=>$name])) {
-            $this->addError('name', __('Role name "%s" already exists', $name));
+            $this->addError(__('Role name "%s" already exists', $name), 'name');
         }
     }
 
     /**
-     * @throws ValidationException
+     * {@inheritdoc}
      */
     public function validateUpdate($id, $data)
     {
@@ -81,15 +79,15 @@ class Crud extends \Bluz\Crud\Table
         $this->checkName($name);
 
         if (in_array(strtolower($name), Table::getInstance()->getBasicRoles())) {
-            $this->addError('name', __('Role name "%s" is basic and can\'t be editable', $name));
+            $this->addError(__('Role name "%s" is basic and can\'t be editable', $name), 'name');
         };
 
         $originalRow = $this->readOne($id);
 
         if ($originalRow->name == $name) {
-            $this->addError('name', __('Role name "%s" the same as original', $name));
+            $this->addError(__('Role name "%s" the same as original', $name), 'name');
         } elseif (Table::getInstance()->findRowWhere(['name'=>$name])) {
-            $this->addError('name', __('Role name "%s" already exists', $name));
+            $this->addError(__('Role name "%s" already exists', $name), 'name');
         }
     }
 }

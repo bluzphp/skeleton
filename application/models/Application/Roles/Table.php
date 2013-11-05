@@ -9,10 +9,12 @@ namespace Application\Roles;
 
 use Bluz\Cache\Cache;
 use Bluz\Db\Db;
-use Bluz\Exception;
 
 class Table extends \Bluz\Db\Table
 {
+    const BASIC_GUEST = 'guest';
+    const BASIC_MEMBER = 'member';
+    const BASIC_ADMIN = 'admin';
     /**
      * Table
      *

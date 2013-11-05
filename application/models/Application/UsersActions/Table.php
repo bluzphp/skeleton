@@ -37,6 +37,11 @@ namespace Application\UsersActions;
  */
 class Table extends \Bluz\Db\Table
 {
+    const ACTION_ACTIVATION = 'activation';
+    const ACTION_CHANGE_EMAIL = 'email';
+    const ACTION_RECOVERY = 'recovery';
+    const ACTION_REMOVE = 'remove';
+
     /**
      * Table
      *

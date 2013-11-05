@@ -26,11 +26,11 @@
  */
 namespace Application\Auth;
 
-use Bluz\Application;
-use Bluz\Auth\AuthException;
-
 use Application\Exception;
 use Application\Users;
+use Bluz\Application;
+
+use Bluz\Auth\AuthException;
 
 /**
  * Auth Table
@@ -43,6 +43,15 @@ use Application\Users;
  */
 class Table extends \Bluz\Db\Table
 {
+
+    const TYPE_REQUEST = 'request';
+    const TYPE_ACCESS = 'access';
+
+    const PROVIDER_EQUALS = 'equals';
+    const PROVIDER_LDAP = 'ldap';
+    const PROVIDER_TWITTER = 'twitter';
+    const PROVIDER_FACEBOOK = 'facebook';
+
     /**
      * Table
      *
@@ -80,7 +89,7 @@ class Table extends \Bluz\Db\Table
      */
     public function checkEquals($username, $password)
     {
-        $authRow = $this->getAuthRow(Row::PROVIDER_EQUALS, $username);
+        $authRow = $this->getAuthRow(self::PROVIDER_EQUALS, $username);
 
         if (!$authRow) {
             throw new AuthException("User not found");
@@ -88,7 +97,7 @@ class Table extends \Bluz\Db\Table
 
         /** @var \Bluz\Auth\Auth $auth */
         $auth = app()->getAuth();
-        $options = $auth->getOption(Row::PROVIDER_EQUALS);
+        $options = $auth->getOption(self::PROVIDER_EQUALS);
 
         if (!isset($options['encryptFunction']) or
             !is_callable($options['encryptFunction'])
@@ -143,7 +152,7 @@ class Table extends \Bluz\Db\Table
     {
         /** @var \Bluz\Auth\Auth $auth */
         $auth = app()->getAuth();
-        $options = $auth->getOption(Row::PROVIDER_EQUALS);
+        $options = $auth->getOption(self::PROVIDER_EQUALS);
 
         if (!isset($options['encryptFunction']) or
             !is_callable($options['encryptFunction'])
@@ -157,8 +166,8 @@ class Table extends \Bluz\Db\Table
             [
                 'userId' => $user->id,
                 'foreignKey' => $user->login,
-                'provider' => Row::PROVIDER_EQUALS,
-                'tokenType' => Row::TYPE_ACCESS
+                'provider' => self::PROVIDER_EQUALS,
+                'tokenType' => self::TYPE_ACCESS
             ]
         );
 
@@ -166,8 +175,8 @@ class Table extends \Bluz\Db\Table
         $row = new Row();
         $row->userId = $user->id;
         $row->foreignKey = $user->login;
-        $row->provider = Row::PROVIDER_EQUALS;
-        $row->tokenType = Row::TYPE_ACCESS;
+        $row->provider = self::PROVIDER_EQUALS;
+        $row->tokenType = self::TYPE_ACCESS;
 
         // generate secret
         $alpha = range('a', 'z');

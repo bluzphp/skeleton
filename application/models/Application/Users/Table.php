@@ -38,6 +38,27 @@ namespace Application\Users;
 class Table extends \Bluz\Db\Table
 {
     /**
+     * Pending email verification
+     */
+    const STATUS_PENDING = 'pending';
+    /**
+     * Active user
+     */
+    const STATUS_ACTIVE = 'active';
+    /**
+     * Disabled by administrator
+     */
+    const STATUS_DISABLED = 'disabled';
+    /**
+     * Removed account
+     */
+    const STATUS_DELETED = 'deleted';
+    /**
+     * system user with ID=0
+     */
+    const SYSTEM_USER = 0;
+
+    /**
      * Table
      *
      * @var string

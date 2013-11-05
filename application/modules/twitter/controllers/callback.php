@@ -7,8 +7,10 @@
  */
 namespace Application;
 
-use Bluz;
+use Application\Auth\Table;
 use Application\Users;
+use Application\Users\Table as Table1;
+use Bluz;
 
 return
 /**
@@ -86,7 +88,7 @@ function () {
 
     // try to load previous information
     /* @var /Application/Auth/Row $row */
-    $row = $authTable->getAuthRow(Auth\Row::PROVIDER_TWITTER, $result['user_id']);
+    $row = $authTable->getAuthRow(Table::PROVIDER_TWITTER, $result['user_id']);
 
 
     if ($row) {
@@ -94,7 +96,7 @@ function () {
         /** @var Users\Row $user */
         $user = Users\Table::findRow($row->userId);
 
-        if ($user->status != Users\Row::STATUS_ACTIVE) {
+        if ($user->status != Table1::STATUS_ACTIVE) {
             $this->getMessages()->addError('User is not active');
             $this->redirectTo('index', 'index');
         }
@@ -102,7 +104,7 @@ function () {
         // update tokens
         $row->token = $result['oauth_token'];
         $row->tokenSecret = $result['oauth_token_secret'];
-        $row->tokenType = Auth\Row::TYPE_ACCESS;
+        $row->tokenType = Table::TYPE_ACCESS;
         $row->save();
 
 
@@ -117,7 +119,7 @@ function () {
             // create new user
             $user = new Users\Row();
             $user->login = $result['screen_name'];
-            $user->status = Users\Row::STATUS_ACTIVE;
+            $user->status = Table1::STATUS_ACTIVE;
             $user->save();
 
             // set default role
@@ -132,11 +134,11 @@ function () {
 
         $row = new Auth\Row();
         $row->userId = $user->id;
-        $row->provider = Auth\Row::PROVIDER_TWITTER;
+        $row->provider = Table::PROVIDER_TWITTER;
         $row->foreignKey = $result['user_id'];
         $row->token = $result['oauth_token'];
         $row->tokenSecret = $result['oauth_token_secret'];
-        $row->tokenType = Auth\Row::TYPE_ACCESS;
+        $row->tokenType = Table::TYPE_ACCESS;
         $row->save();
     }
 

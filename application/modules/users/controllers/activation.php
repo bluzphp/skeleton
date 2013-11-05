@@ -10,6 +10,7 @@
 namespace Application;
 
 use Application\Roles;
+use Application\Roles\Table;
 use Application\Users;
 use Application\UsersActions;
 use Application\UsersRoles;
@@ -38,7 +39,7 @@ function ($id, $code) {
     $datetime2 = new \DateTime($actionRow->expired);
     $interval = $datetime1->diff($datetime2);
 
-    if ($actionRow->action !== UsersActions\Row::ACTION_ACTIVATION) {
+    if ($actionRow->action !== UsersActions\Table::ACTION_ACTIVATION) {
         $this->getMessages()->addError('Invalid activation code');
     } elseif ($interval->invert) {
         $this->getMessages()->addError('The activation code has expired');
@@ -46,12 +47,12 @@ function ($id, $code) {
     } else {
         // change user status
         $userRow = Users\Table::findRow($id);
-        $userRow -> status = Users\Row::STATUS_ACTIVE;
+        $userRow -> status = Users\Table::STATUS_ACTIVE;
         $userRow -> save();
 
         // create user role
         // get member role
-        $roleRow = Roles\Table::findRowWhere(['name' => Roles\Row::BASIC_MEMBER]);
+        $roleRow = Roles\Table::findRowWhere(['name' => Table::BASIC_MEMBER]);
         // create relation user to role
         $usersRoleRow = new UsersRoles\Row();
         $usersRoleRow->roleId = $roleRow->id;

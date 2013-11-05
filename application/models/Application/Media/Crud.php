@@ -113,17 +113,17 @@ class Crud extends Table
         try {
             $file = app()->getRequest()->getFileUpload()->getFile('file');
         } catch (\Bluz\Common\Exception $e) {
-            $this->addError('file', $e->getMessage());
+            $this->addError($e->getMessage(), 'file');
             return;
         }
 
         if (!$file) {
-            $this->addError('file', "Sorry, I can't receive file");
+            $this->addError("Sorry, I can't receive file", 'file');
             return;
         } elseif ($file->getErrorCode() != UPLOAD_ERR_OK) {
             switch ($file->getErrorCode()) {
                 case UPLOAD_ERR_NO_FILE:
-                    $this->addError('file', 'Please choose file for upload');
+                    $this->addError('Please choose file for upload', 'file');
                     break;
             }
             return;
@@ -160,9 +160,9 @@ class Crud extends Table
         $title = isset($data['title'])?$data['title']:null;
 
         if (empty($title)) {
-            $this->addError('title', 'Title can\'t be empty');
+            $this->addError('Title can\'t be empty', 'title');
         } elseif (!preg_match('/^[a-z0-9 .-]+$/i', $title)) {
-            $this->addError('title', 'Title should contains only Latin characters');
+            $this->addError('Title should contains only Latin characters', 'title');
         }
     }
 }

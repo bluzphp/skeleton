@@ -44,13 +44,13 @@ function ($email = null) use ($view) {
                 throw new Exception('Email not found');
             }
             // check status, only for active users
-            if ($user->status != Users\Row::STATUS_ACTIVE) {
+            if ($user->status != Users\Table::STATUS_ACTIVE) {
                 throw new Exception('User is inactive');
             }
 
             // create activation token
             // valid for 5 days
-            $actionRow = UsersActions\Table::getInstance()->generate($user->id, UsersActions\Row::ACTION_RECOVERY, 5);
+            $actionRow = UsersActions\Table::getInstance()->generate($user->id, UsersActions\Table::ACTION_RECOVERY, 5);
 
             // send activation email
             // generate restore URL

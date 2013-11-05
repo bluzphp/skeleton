@@ -35,7 +35,7 @@ function ($id, $code, $password = null, $password2 = null) use ($view) {
     $datetime2 = new \DateTime($actionRow->expired);
     $interval = $datetime1->diff($datetime2);
 
-    if (!$actionRow or $actionRow->action !== UsersActions\Row::ACTION_RECOVERY) {
+    if (!$actionRow or $actionRow->action !== UsersActions\Table::ACTION_RECOVERY) {
         $this->getMessages()->addError('Invalid code');
         $this->redirectTo('index', 'index');
     } elseif ($interval->invert) {
@@ -60,7 +60,7 @@ function ($id, $code, $password = null, $password2 = null) use ($view) {
                 }
 
                 // remove old auth record
-                if ($oldAuth = Auth\Table::getInstance()->getAuthRow(Auth\Row::PROVIDER_EQUALS, $user->login)) {
+                if ($oldAuth = Auth\Table::getInstance()->getAuthRow(Auth\Table::PROVIDER_EQUALS, $user->login)) {
                     $oldAuth -> delete();
                 }
 

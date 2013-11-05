@@ -16,10 +16,6 @@ namespace Application\Roles;
  */
 class Row extends \Bluz\Db\Row
 {
-    const BASIC_GUEST = 'guest';
-    const BASIC_MEMBER = 'member';
-    const BASIC_ADMIN = 'admin';
-
     /**
      * isBasic
      *

@@ -7,9 +7,11 @@
  */
 namespace Application;
 
-use Bluz;
+use Application\Auth\Table;
 use Application\Facebook;
 use Application\Users;
+use Application\Users\Table as Table1;
+use Bluz;
 
 return
 /**
@@ -52,13 +54,13 @@ function () {
          * @var Auth\Table $authTable
          */
         $authTable = Auth\Table::getInstance();
-        $row = $authTable->getAuthRow(Auth\Row::PROVIDER_FACEBOOK, $user_profile['id']);
+        $row = $authTable->getAuthRow(Table::PROVIDER_FACEBOOK, $user_profile['id']);
 
         if ($row) {
             // if user has been registered
             $user = Users\Table::findRow($row->userId);
 
-            if ($user->status != Users\Row::STATUS_ACTIVE) {
+            if ($user->status != Table1::STATUS_ACTIVE) {
                 $this->getMessages()->addError('User is not active');
                 $this->redirectTo('index', 'index');
             }
@@ -73,7 +75,7 @@ function () {
                     ? $user_profile['username']
                     : $user_profile['first_name'] . $user_profile['last_name'];
                 $user->login = $login;
-                $user->status = Users\Row::STATUS_ACTIVE;
+                $user->status = Table1::STATUS_ACTIVE;
                 $user->save();
 
                 $user2role = new UsersRoles\Row();
@@ -83,11 +85,11 @@ function () {
 
                 $row = new Auth\Row();
                 $row->userId = $user->id;
-                $row->provider = Auth\Row::PROVIDER_FACEBOOK;
+                $row->provider = Table::PROVIDER_FACEBOOK;
                 $row->foreignKey = $user_profile['id'];
                 $row->token = 0;
                 $row->tokenSecret = 0;
-                $row->tokenType = Auth\Row::TYPE_ACCESS;
+                $row->tokenType = Table::TYPE_ACCESS;
                 $row->save();
 
                 // sign in

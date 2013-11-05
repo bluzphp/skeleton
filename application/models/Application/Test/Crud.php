@@ -112,9 +112,9 @@ class Crud extends Table
     protected function checkName($name)
     {
         if (empty($name)) {
-            $this->addError('name', 'Name can\'t be empty');
+            $this->addError('Name can\'t be empty', 'name');
         } elseif (!preg_match('/^[a-zA-Z .-]+$/i', $name)) {
-            $this->addError('name', 'Name should contains only Latin characters');
+            $this->addError('Name should contains only Latin characters', 'name');
         }
     }
 
@@ -127,9 +127,9 @@ class Crud extends Table
     protected function checkEmail($email)
     {
         if (empty($email)) {
-            $this->addError('email', 'Email can\'t be empty');
+            $this->addError('Email can\'t be empty', 'email');
         } elseif (!$email = filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->addError('email', 'Email has invalid format');
+            $this->addError('Email has invalid format', 'email');
         }
     }
 }
