@@ -22,7 +22,16 @@ function () use ($view) {
      */
     Relations::addClassMap('pages', '\\Application\\Pages\\Table');
     Relations::addClassMap('users', '\\Application\\Users\\Table');
+
     Relations::setRelation('pages', 'userId', 'users', 'id');
+
+    Relations::addClassMap('acl_roles', '\\Application\\Roles\\Table');
+    Relations::addClassMap('acl_users_roles', '\\Application\\UsersRoles\\Table');
+
+    Relations::setRelation('acl_users_roles', 'roleId', 'acl_roles', 'id');
+    Relations::setRelation('acl_users_roles', 'userId', 'users', 'id');
+
+    Relations::setRelations('acl_roles', 'users', ['acl_users_roles']);
 
     /* @var Pages\Row */
     $page = Pages\Table::findRow(5);
@@ -49,5 +58,15 @@ function () use ($view) {
 
     var_dump($result);
 
+    $relationTable = Relations::getRelations('users', 'acl_roles');
+    $relations = Relations::getRelations('users', current($relationTable));
+
+    $field = $relations['users'];
+
+    $key = $user->{$field};
+
+    $result = Relations::findRelations('users', 'acl_roles', [$key]);
+
+    var_dump($result);
     return false;
 };
