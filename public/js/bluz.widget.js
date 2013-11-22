@@ -1,7 +1,7 @@
 /**
  * Widget behaviour
  *
- * @author   Anton Shevchuk
+ * @author Anton Shevchuk
  */
 /*global define,require*/
 define(['jquery', 'bluz', 'bluz.storage'], function ($, bluz, storage) {
@@ -24,10 +24,14 @@ define(['jquery', 'bluz', 'bluz.storage'], function ($, bluz, storage) {
 			if (control === 'collapse') {
 				$content.slideToggle(function () {
 					if (key) {
-						storage.setItem(key + '-collapse', $content.is(':hidden') + 0);
+                        if ($content.is(':hidden')) {
+                            storage.setItem(key + '-collapse', 1);
+                        } else {
+                            storage.removeItem(key + '-collapse');
+                        }
 					}
 				});
-				$this.find('i').toggleClass('icon-chevron-up icon-chevron-down');
+				$this.find('i').toggleClass('fa-chevron-up fa-chevron-down');
 			}
 		});
 
@@ -39,10 +43,10 @@ define(['jquery', 'bluz', 'bluz.storage'], function ($, bluz, storage) {
 
 			if (key) {
 				// try to check collapse
-				if (storage.getItem(key + '-collapse') == 1) {
+				if (storage.getItem(key + '-collapse')) {
 					$content.hide();
 //					$widget.addClass('collapsed');
-					$widget.find('.widget-control i').toggleClass('icon-chevron-up icon-chevron-down');
+					$widget.find('.widget-control i').toggleClass('fa-chevron-up fa-chevron-down');
 				}
 			}
 		});
