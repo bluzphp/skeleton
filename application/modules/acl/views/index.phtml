@@ -12,9 +12,9 @@
             <th width="180px">
                 <?=$role->name?>
                 <?php if (!$role->isBasic()) : ?>
-                <a href="<?=$this->url('acl', 'roles', ['id' => $role->id]);?>" class="confirm btn btn-xs btn-danger ajax pull-right" data-ajax-method="delete"><i class="icon-remove glyphicon"></i></a>
+                <a href="<?=$this->url('acl', 'roles', ['id' => $role->id]);?>" class="confirm btn btn-xs btn-danger ajax pull-right" data-ajax-method="delete"><i class="fa fa-times"></i></a>
                 <span class="pull-right">&nbsp;</span>
-                <a href="<?=$this->url('acl', 'roles', ['id' => $role->id]);?>" class="btn btn-xs btn-default dialog pull-right" data-ajax-method="get" title="Edit"><i class="icon-edit"></i></a>
+                <a href="<?=$this->url('acl', 'roles', ['id' => $role->id]);?>" class="btn btn-xs btn-default dialog pull-right" data-ajax-method="get" title="Edit"><i class="fa fa-edit"></i></a>
                 <?php endif; ?>
             </th>
             <?php endforeach; ?>

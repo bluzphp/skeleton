@@ -24,7 +24,7 @@ function () use ($view) {
         [
             $view->ahref('Dashboard', ['dashboard', 'index']),
             $view->ahref('Cache', ['cache', 'index']),
-            'Statistics',
+            __('Statistics'),
         ]
     );
 

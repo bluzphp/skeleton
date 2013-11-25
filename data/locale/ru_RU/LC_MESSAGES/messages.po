@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluz\n"
-"POT-Creation-Date: 2013-11-05 12:59+0200\n"
-"PO-Revision-Date: 2013-11-05 13:07+0200\n"
+"POT-Creation-Date: 2013-11-22 09:44+0200\n"
+"PO-Revision-Date: 2013-11-22 09:47+0200\n"
 "Last-Translator: Anton Shevchuk <Anton.Shevchuk@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -17,39 +17,107 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: d:/projects/bluz/skeleton/application\n"
 
+#: d:/projects/bluz/skeleton/application/Bootstrap.php:141
+msgid "You don't have permissions, please sign in"
+msgstr "У вас нет прав доступа, пожалуйста авторизируйтесь"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Media/Crud.php:121
+msgid "Sorry, I can't receive file"
+msgstr "Файл не получен"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Media/Crud.php:126
+msgid "Please choose file for upload"
+msgstr "Выберите файл для загрузки"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Media/Crud.php:163
+#: d:/projects/bluz/skeleton/application/models/Application/Pages/Crud.php:48
+msgid "Title can't be empty"
+msgstr "Заголовок не может быть пустым"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Media/Crud.php:165
+msgid "Title should contains only Latin characters"
+msgstr "Заголовок должен содержать только буквы латинского алфавита"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Options/Crud.php:47
+msgid "Key name can't be empty"
+msgstr "Имя ключа не может быть пустым"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Options/Crud.php:49
+msgid "Key name should contains only Latin characters"
+msgstr "Имя ключа должно содержать только буквы латинского алфавита"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Options/Crud.php:55
+#: d:/projects/bluz/skeleton/application/models/Application/Test/Crud.php:115
+msgid "Name can't be empty"
+msgstr "Имя не может быть пустым"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Options/Crud.php:57
+#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:52
+#: d:/projects/bluz/skeleton/application/models/Application/Test/Crud.php:117
+msgid "Name should contains only Latin characters"
+msgstr "Имя должно содержать только буквы латинского алфавита"
+
 #: d:/projects/bluz/skeleton/application/models/Application/Options/Crud.php:71
 #, php-format
 msgid "Key name \"%s\" already exists in namespace \"%s\""
 msgstr "Ключ \"%s\" уже существует в области \"%s\""
+
+#: d:/projects/bluz/skeleton/application/models/Application/Pages/Crud.php:54
+msgid "Alias can't be empty"
+msgstr "Сокращение для короткой ссылки не может быть пустым"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Pages/Crud.php:56
+msgid "Alias should contains only Latin characters, dots and dashes"
+msgstr ""
+"Сокращение для короткой ссылки должно содержать только буквы латинского "
+"алфавита, точку и дефис"
 
 #: d:/projects/bluz/skeleton/application/models/Application/Pages/Crud.php:60
 #, php-format
 msgid "Alias \"%s\" already exists"
 msgstr "Сокращение \"%s\" уже существует"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:51
+#: d:/projects/bluz/skeleton/application/models/Application/Pages/Crud.php:69
+msgid "Content can't be empty"
+msgstr "Содержимое не может быть пустым"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:49
 msgid "Role name can't be empty"
 msgstr "Название роли не может быть пустым"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:54
-msgid "Name should contains only Latin characters"
-msgstr "Имя должно содержать только буквы латинского алфавита"
-
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:69
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:92
+#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:67
+#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:90
 #, php-format
 msgid "Role name \"%s\" already exists"
 msgstr "Роль \"%s\" уже существует"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:84
+#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:82
 #, php-format
 msgid "Role name \"%s\" is basic and can't be editable"
 msgstr "Роль \"%s\" является основной, и не может быть изменена"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:90
+#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:88
 #, php-format
 msgid "Role name \"%s\" the same as original"
 msgstr "Имя роли \"%s\" не было изменено"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Test/Crud.php:130
+#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:207
+msgid "Email can't be empty"
+msgstr "Email не может быть пустым"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Test/Crud.php:132
+msgid "Email has invalid format"
+msgstr "Email указан в неправильном формате"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:115
+msgid ""
+"Your account has been created and an activation link hasbeen sent to the e-"
+"mail address you entered.<br/>Note that you must activate the account by "
+"clicking on the activation linkwhen you get the e-mail before you can login."
+msgstr ""
+"Ваша учётная запись создана в системе. На ваш email была отправлена ссылка, "
+"пройдя по которой вы активируете учётную запись"
 
 #: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:137
 #, php-format
@@ -61,14 +129,76 @@ msgstr "Пользователь с логином \"%s\" уже существ�
 msgid "User with email \"%s\" already exists"
 msgstr "Пользователь с адресом \"%s\" уже существует"
 
+#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:159
+msgid "Password can't be empty"
+msgstr "Пароль пуст"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:163
+msgid "Password is not equal"
+msgstr "Пароль не верен"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:189
+msgid "Login can't be empty"
+msgstr "Логин не может быть пустым"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:192
+msgid "Login can't be bigger than 255 symbols"
+msgstr "Логин не может быть больше 255 символов"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:212
+msgid "Email can't be bigger than 255 symbols"
+msgstr "Email не может быть больше 255 символов"
+
+#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:219
+msgid "Email has invalid domain name"
+msgstr "Указана неверный домен для email "
+
+#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:223
+msgid "Email is invalid"
+msgstr "Email неверен"
+
 #: d:/projects/bluz/skeleton/application/modules/acl/controllers/index.php:23
 msgid "ACL"
 msgstr "Права доступа"
+
+#: d:/projects/bluz/skeleton/application/modules/acl/controllers/save.php:39
+msgid "All data was saved"
+msgstr "Все данные сохранены"
+
+#: d:/projects/bluz/skeleton/application/modules/acl/controllers/save.php:41
+msgid "Internal server error"
+msgstr "Внутрення ошибка сервера"
+
+#: d:/projects/bluz/skeleton/application/modules/acl/controllers/user.php:44
+msgid "User roles was updated"
+msgstr "Роли пользователя были обновлены"
+
+#: d:/projects/bluz/skeleton/application/modules/cache/controllers/clean.php:35
+msgid "Cache is cleaned"
+msgstr "Кеш очищен"
+
+#: d:/projects/bluz/skeleton/application/modules/cache/controllers/clean.php:37
+#: d:/projects/bluz/skeleton/application/modules/cache/controllers/flush.php:27
+#: d:/projects/bluz/skeleton/application/modules/cache/controllers/flush2.php:24
+#: d:/projects/bluz/skeleton/application/modules/cache/controllers/index.php:35
+#: d:/projects/bluz/skeleton/application/modules/cache/controllers/stats.php:35
+msgid "Cache is disabled"
+msgstr "Кеш отключён"
+
+#: d:/projects/bluz/skeleton/application/modules/cache/controllers/flush.php:25
+#: d:/projects/bluz/skeleton/application/modules/cache/controllers/flush2.php:22
+msgid "Cache is flushed"
+msgstr "Кеш сброшен"
 
 #: d:/projects/bluz/skeleton/application/modules/cache/controllers/index.php:27
 #: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:16
 msgid "Cache"
 msgstr "Кеш"
+
+#: d:/projects/bluz/skeleton/application/modules/cache/controllers/stats.php:27
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:6
+msgid "Statistics"
+msgstr "Статистика"
 
 #: d:/projects/bluz/skeleton/application/modules/error/controllers/index.php:31
 msgid "Bad Request"
@@ -142,6 +272,11 @@ msgstr ""
 msgid "An unexpected error occurred with your request. Please try again later"
 msgstr "При обработке вашего запроса произошла ошибка. Поробуйте ещё раз"
 
+#: d:/projects/bluz/skeleton/application/modules/facebook/controllers/auth.php:64
+#: d:/projects/bluz/skeleton/application/modules/twitter/controllers/callback.php:100
+msgid "User is not active"
+msgstr "Пользователь не активен"
+
 #: d:/projects/bluz/skeleton/application/modules/media/controllers/crud.php:28
 msgid "Upload"
 msgstr "Загрузка"
@@ -181,16 +316,98 @@ msgstr "PHP info"
 msgid "Routers Map"
 msgstr "Карта маршрутов ЧПУ"
 
+#: d:/projects/bluz/skeleton/application/modules/test/controllers/ajax.php:25
+#: d:/projects/bluz/skeleton/application/modules/test/controllers/cli.php:23
+msgid "Notice Text"
+msgstr "Текст оповещения"
+
+#: d:/projects/bluz/skeleton/application/modules/test/controllers/ajax.php:26
+#: d:/projects/bluz/skeleton/application/modules/test/controllers/cli.php:24
+msgid "Success Text"
+msgstr "Текст уведомления"
+
+#: d:/projects/bluz/skeleton/application/modules/test/controllers/ajax.php:27
+#: d:/projects/bluz/skeleton/application/modules/test/controllers/cli.php:25
+msgid "Error Text"
+msgstr "Текст ошибки"
+
+#: d:/projects/bluz/skeleton/application/modules/test/controllers/ajax.php:29
+msgid "Method "
+msgstr "Метод"
+
+#: d:/projects/bluz/skeleton/application/modules/test/controllers/delete.php:25
+msgid "Row was removed"
+msgstr "Запись удалена"
+
+#: d:/projects/bluz/skeleton/application/modules/test/controllers/mailer.php:27
+msgid "Email was send"
+msgstr "Email отправлен"
+
+#: d:/projects/bluz/skeleton/application/modules/twitter/controllers/callback.php:145
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/signin.php:41
+msgid "You are signed"
+msgstr "Вы вошли в систему"
+
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/activation.php:33
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/activation.php:43
+msgid "Invalid activation code"
+msgstr "Неверный активационный код"
+
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/activation.php:45
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery-reset.php:42
+msgid "The activation code has expired"
+msgstr "Активационный код просрочен"
+
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/activation.php:65
+msgid ""
+"Your Account has been successfully activated. <br/>You can now log in using "
+"the username and password you chose during the registration."
+msgstr ""
+"Ваш акаунт активирован. Теперь вы можете войти в систему используя ваш логин "
+"и пароль"
+
 #: d:/projects/bluz/skeleton/application/modules/users/controllers/change-email.php:73
 #: d:/projects/bluz/skeleton/application/modules/users/views/change-email.phtml:2
 #: d:/projects/bluz/skeleton/application/modules/users/views/profile.phtml:10
 msgid "Change email"
 msgstr "Изменить email"
 
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/change-email.php:100
+msgid "Check your email and follow instructions in letter."
+msgstr "Проверьте ваш почтовый ящик, и проследуйте инструкциям из письма"
+
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/change-email.php:135
+msgid "Email was updated"
+msgstr "Email обновлён"
+
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/change-password.php:62
+msgid "The password was updated successfully"
+msgstr "Пароль был обновлён"
+
 #: d:/projects/bluz/skeleton/application/modules/users/controllers/grid.php:29
 #: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:11
 msgid "Users"
 msgstr "Пользователи"
+
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery-reset.php:39
+msgid "Invalid code"
+msgstr "Неверный код"
+
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery-reset.php:72
+msgid "Your password has been updated"
+msgstr "Ваш пароль был обновлён"
+
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/recovery.php:97
+msgid "Reset password instructions has been sent to your email address"
+msgstr "Инструкция по восстановлению пароля отправлены на ваш email адрес"
+
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/signin.php:26
+msgid "Already signed"
+msgstr "Вы уже авторизированы"
+
+#: d:/projects/bluz/skeleton/application/modules/users/controllers/signout.php:23
+msgid "You are signout"
+msgstr "Вы вышли из системы"
 
 #: d:/projects/bluz/skeleton/application/modules/users/widgets/stats.php:39
 msgid "Total Users"
@@ -310,10 +527,6 @@ msgstr "Изменить роль для %s"
 #: d:/projects/bluz/skeleton/application/modules/acl/views/user.phtml:22
 msgid "Save changes"
 msgstr "Сохранить изменения"
-
-#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:6
-msgid "Statistics"
-msgstr "Статистика"
 
 #: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:11
 msgid "Clean"
@@ -609,150 +822,9 @@ msgstr "Забыли пароль?"
 msgid "Registration"
 msgstr "Регистрация"
 
-#~ msgid "You don't have permissions, please sign in"
-#~ msgstr "У вас нет прав доступа, пожалуйста авторизируйтесь"
-
-#~ msgid "Sorry, I can't receive file"
-#~ msgstr "Файл не получен"
-
-#~ msgid "Please choose file for upload"
-#~ msgstr "Выберите файл для загрузки"
-
-#~ msgid "Title can't be empty"
-#~ msgstr "Заголовок не может быть пустым"
-
-#~ msgid "Title should contains only Latin characters"
-#~ msgstr "Заголовок должен содержать только буквы латинского алфавита"
-
-#~ msgid "Key name can't be empty"
-#~ msgstr "Имя ключа не может быть пустым"
-
-#~ msgid "Key name should contains only Latin characters"
-#~ msgstr "Имя ключа должно содержать только буквы латинского алфавита"
-
-#~ msgid "Name can't be empty"
-#~ msgstr "Имя не может быть пустым"
-
-#~ msgid "Alias can't be empty"
-#~ msgstr "Сокращение для короткой ссылки не может быть пустым"
-
-#~ msgid "Alias should contains only Latin characters, dots and dashes"
-#~ msgstr ""
-#~ "Сокращение для короткой ссылки должно содержать только буквы латинского "
-#~ "алфавита, точку и дефис"
-
 #, fuzzy
 #~ msgid "Alias \""
 #~ msgstr "Прямая ссылка"
-
-#~ msgid "Content can't be empty"
-#~ msgstr "Содержимое не может быть пустым"
-
-#~ msgid "Email can't be empty"
-#~ msgstr "Email не может быть пустым"
-
-#~ msgid "Email has invalid format"
-#~ msgstr "Email указан в неправильном формате"
-
-#~ msgid ""
-#~ "Your account has been created and an activation link hasbeen sent to the "
-#~ "e-mail address you entered.<br/>Note that you must activate the account "
-#~ "by clicking on the activation linkwhen you get the e-mail before you can "
-#~ "login."
-#~ msgstr ""
-#~ "Ваша учётная запись создана в системе. На ваш email была отправлена "
-#~ "ссылка, пройдя по которой вы активируете учётную запись"
-
-#~ msgid "Password can't be empty"
-#~ msgstr "Пароль пуст"
-
-#~ msgid "Password is not equal"
-#~ msgstr "Пароль не верен"
-
-#~ msgid "Login can't be empty"
-#~ msgstr "Логин не может быть пустым"
-
-#~ msgid "Login can't be bigger than 255 symbols"
-#~ msgstr "Логин не может быть больше 255 символов"
-
-#~ msgid "Email can't be bigger than 255 symbols"
-#~ msgstr "Email не может быть больше 255 символов"
-
-#~ msgid "Email has invalid domain name"
-#~ msgstr "Указана неверный домен для email "
-
-#~ msgid "Email is invalid"
-#~ msgstr "Email неверен"
-
-#~ msgid "All data was saved"
-#~ msgstr "Все данные сохранены"
-
-#~ msgid "Internal server error"
-#~ msgstr "Внутрення ошибка сервера"
-
-#~ msgid "User roles was updated"
-#~ msgstr "Роли пользователя были обновлены"
-
-#~ msgid "Cache is cleaned"
-#~ msgstr "Кеш очищен"
-
-#~ msgid "Cache is disabled"
-#~ msgstr "Кеш отключён"
-
-#~ msgid "Cache is flushed"
-#~ msgstr "Кеш сброшен"
-
-#~ msgid "User is not active"
-#~ msgstr "Пользователь не активен"
-
-#~ msgid "Method "
-#~ msgstr "Метод"
-
-#~ msgid "Row was removed"
-#~ msgstr "Запись удалена"
-
-#~ msgid "Email was send"
-#~ msgstr "Email отправлен"
-
-#~ msgid "You are signed"
-#~ msgstr "Вы вошли"
-
-#~ msgid "Invalid activation code"
-#~ msgstr "Неверный активационный код"
-
-#~ msgid "The activation code has expired"
-#~ msgstr "Активационный код просрочен"
-
-#~ msgid ""
-#~ "Your Account has been successfully activated. <br/>You can now log in "
-#~ "using the username and password you chose during the registration."
-#~ msgstr ""
-#~ "Ваш акаунт активирован. Теперь вы можете войти в систему используя ваш "
-#~ "логин и пароль"
-
-#~ msgid "Check your email and follow instructions in letter."
-#~ msgstr "Проверьте ваш почтовый ящик, и проследуйте инструкциям из письма"
-
-#~ msgid "Email was updated"
-#~ msgstr "Email обновлён"
-
-#~ msgid "The password was updated successfully"
-#~ msgstr "Пароль был обновлён"
-
-#~ msgid "Invalid code"
-#~ msgstr "Неверный код"
-
-#~ msgid "Your password has been updated"
-#~ msgstr "Ваш пароль был обновлён"
-
-#~ msgid "Reset password instructions has been sent to your email address"
-#~ msgstr "Инструкция по восстановлению пароля отправлены на ваш email адрес"
-
-#~ msgid "Already signed"
-#~ msgstr "Вы уже авторизированы"
-
-#~ msgid "You are signout"
-#~ msgstr "Вы вышли"
 
 #~ msgid "Changelog"
 #~ msgstr "Список изменения"
