@@ -60,9 +60,6 @@ class Bootstrap extends Application
                     /* @var \Bluz\EventManager\Event $event */
                     $layout = $event->getParam('layout');
 
-                    // add debug.css
-                    echo $layout->style('/css/debug.css');
-
                     /* @var \Bluz\EventManager\Event $event */
                     $this->log('layout:header');
                 }
@@ -79,24 +76,6 @@ class Bootstrap extends Application
                 function ($event) {
                     /* @var \Bluz\EventManager\Event $event */
                     $this->log('layout:footer');
-                    ?>
-                        <section class="debug-panel">
-                            <section class="debug-panel-header">
-                                <h3 class="debug-panel-title">
-                                    Debug Panel
-                                    <span class="badge pull-right"><?php
-                                        printf(
-                                            "%f :: %s kb",
-                                            microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
-                                            ceil((memory_get_usage()/1024))
-                                        ) ?></span>
-                                </h3>
-                            </section>
-                            <section class="debug-panel-content">
-                                <pre><?php print_r($this->getLogger()->get('info'));?></pre>
-                            </section>
-                        </section>
-                    <?php
                 }
             );
         }
