@@ -12,137 +12,147 @@ use Application\Users;
 use Application\Users\Table as Table1;
 use Bluz;
 
+use Application\Auth\Twitter;
+use Guzzle\Plugin\Oauth\OauthPlugin;
+use Guzzle\Common\Exception\GuzzleException;
+
 return
 /**
  * @return \closure
  */
-function () {
+function () use ($view) {
     /**
      * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    // process "denied" response
-    if ($this->getRequest()->getParam('denied')) {
-        $this->redirectTo('index', 'index');
-    }
 
-    $options = $this->getConfigData('auth', 'twitter');
-
-    // random string
-    $oauth_nonce = md5(uniqid(rand(), true));
-
-    // timestamp
-    $oauth_timestamp = time(); // 1310727371
+    /*
+     * Get config params.
+     */
+    $twitter = $this->getConfigData('auth', 'twitter');
     $oauth_token = $this->getRequest()->getParam('oauth_token');
     $oauth_verifier = $this->getRequest()->getParam('oauth_verifier');
-
     $oauthTokenSecret = $this->getSession()->oauthTokenSecret;
 
-    // build base text
-    $oauth_base_text = "GET&"
-        . urlencode('https://api.twitter.com/oauth/access_token')."&"
-        . urlencode("oauth_consumer_key=".$options['consumerKey']."&")
-        . urlencode("oauth_nonce=".$oauth_nonce."&")
-        . urlencode("oauth_signature_method=HMAC-SHA1&")
-        . urlencode("oauth_token=".$oauth_token."&")
-        . urlencode("oauth_timestamp=".$oauth_timestamp."&")
-        . urlencode("oauth_verifier=".$oauth_verifier."&")
-        . urlencode("oauth_version=1.0");
-
-    // create key (Consumer secret + '&' + oauth_token_secret)
-    $key = $options['consumerSecret']."&".$oauthTokenSecret;
-
-    // build auth_signature
-    $signature = base64_encode(hash_hmac("sha1", $oauth_base_text, $key, true));
-
-    // build URL
-    $url = 'https://api.twitter.com/oauth/access_token'
-        . '?oauth_nonce='.$oauth_nonce
-        . '&oauth_signature_method=HMAC-SHA1'
-        . '&oauth_timestamp='.$oauth_timestamp
-        . '&oauth_consumer_key='.$options['consumerKey']
-        . '&oauth_token='.urlencode($oauth_token)
-        . '&oauth_verifier='.urlencode($oauth_verifier)
-        . '&oauth_signature='.urlencode($signature)
-        . '&oauth_version=1.0';
-
-    // send request
-    if (!$response = @file_get_contents($url)) {
-        throw new Exception("Invalid Twitter token", 401);
-    }
-
-    // parse result
-    parse_str($response, $result);
     /*
-        array (size=4)
-          'oauth_token' => string '****' (length=49)
-          'oauth_token_secret' => string '****' (length=42)
-          'user_id' => string '********' (length=8)
-          'screen_name' => string '*****' (length=13)
-    */
-
-    /**
-     * @var Auth\Table $authTable
+     * @var Twitter $twitterAuth
      */
-    $authTable = Auth\Table::getInstance();
+    $twitterAuth = new Twitter($twitter);
 
-    // try to load previous information
-    /* @var /Application/Auth/Row $row */
-    $row = $authTable->getAuthRow(Table::PROVIDER_TWITTER, $result['user_id']);
+    /*
+     * Get url - For me information on the token.
+     * @return string $url
+     */
+    $url = $twitterAuth->getUrlToken($oauth_token, $oauth_verifier, $oauthTokenSecret);
 
+    /*
+     * Try get information on the token.
+     */
 
-    if ($row) {
-        // try to sign in
-        /** @var Users\Row $user */
-        $user = Users\Table::findRow($row->userId);
+    try {
+        $request = $twitterAuth->get($url)->send();
+        parse_str($request->getBody(), $result);
 
-        if ($user->status != Table1::STATUS_ACTIVE) {
-            $this->getMessages()->addError('User is not active');
-            $this->redirectTo('index', 'index');
+        if (!$result || !isset($result['user_id']) || empty($result['user_id']))
+        {
+             throw new \Exception('Twitter authorization is not configured');
         }
 
-        // update tokens
-        $row->token = $result['oauth_token'];
-        $row->tokenSecret = $result['oauth_token_secret'];
-        $row->tokenType = Table::TYPE_ACCESS;
-        $row->save();
+        /*
+         * if the information is obtained.
+         */
 
+        /*
+         * @var Auth\Table $authTable
+         */
+        $authTable = Auth\Table::getInstance();
 
+        /*
+         * Try to load previous information
+         * @var /Application/Auth/Row $row
+         */
+        $row = $authTable->getAuthRow(Table::PROVIDER_TWITTER, $result['user_id']);
 
-        // sign in
-        $user->login();
-    } else {
+        if ($row)
+        {
+            /*
+             * Try to sign in
+             * @var Users\Row $user
+             */
+            $user = Users\Table::findRow($row->userId);
 
-        // if user already signed - link new auth provider to account
-        // another - create new user
-        if (!$user = $this->getAuth()->getIdentity()) {
-            // create new user
-            $user = new Users\Row();
-            $user->login = $result['screen_name'];
-            $user->status = Table1::STATUS_ACTIVE;
-            $user->save();
+            /*
+             * Check the status of the user
+             */
+            if ($user->status != Table1::STATUS_ACTIVE) {
+                $this->getMessages()->addError('User is not active');
+                $this->redirectTo('index', 'index');
+            }
 
-            // set default role
-            $user2role = new UsersRoles\Row();
-            $user2role -> userId = $user->id;
-            $user2role -> roleId = 2;
-            $user2role -> save();
+            /*
+             * Update tokens
+             */
+            $row->token = $result['oauth_token'];
+            $row->tokenSecret = $result['oauth_token_secret'];
+            $row->tokenType = Table::TYPE_ACCESS;
+            $row->save();
 
-            // sign in
+            /*
+             * sign in.
+             */
             $user->login();
+        } else {
+
+            /*
+             * if user already signed - link new auth provider to account
+             * another - create new user
+             */
+            if (!$user = $this->getAuth()->getIdentity())
+            {
+                /*
+                 * Create new user
+                 * @var Users\Row $user
+                 */
+                $user = new Users\Row();
+                $user->login = $result['screen_name'];
+                $user->status = Table1::STATUS_ACTIVE;
+                $user->save();
+
+                /*
+                 * Set default role
+                 * @var UsersRoles\Row $user2role
+                 */
+                $user2role = new UsersRoles\Row();
+                $user2role -> userId = $user->id;
+                $user2role -> roleId = 2;
+                $user2role -> save();
+
+                /*
+                 * sign in.
+                 */
+                $user->login();
+            }
+
+            /*
+             * @var Auth\Table $row
+             * save user info.
+             */
+            $row = new Auth\Row();
+            $row->userId = $user->id;
+            $row->provider = Table::PROVIDER_TWITTER;
+            $row->foreignKey = $result['user_id'];
+            $row->token = $result['oauth_token'];
+            $row->tokenSecret = $result['oauth_token_secret'];
+            $row->tokenType = Table::TYPE_ACCESS;
+            $row->save();
         }
 
-        $row = new Auth\Row();
-        $row->userId = $user->id;
-        $row->provider = Table::PROVIDER_TWITTER;
-        $row->foreignKey = $result['user_id'];
-        $row->token = $result['oauth_token'];
-        $row->tokenSecret = $result['oauth_token_secret'];
-        $row->tokenType = Table::TYPE_ACCESS;
-        $row->save();
+        $this->getMessages()->addNotice('You are signed');
+        $this->redirectTo('index', 'index');
+
+    } catch (GuzzleException $e) {
+        $this->getMessages()->addError($e->getMessage());
     }
 
-    $this->getMessages()->addNotice('You are signed');
-    $this->redirectTo('index', 'index');
     return false;
 };
