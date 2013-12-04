@@ -16,7 +16,11 @@
            data-original-title="Flash all servers"><i class="fa fa-fire"></i> <?=__('Flush')?></a>
     </div>
 </nav>
+<?php if ($adapter) : ?>
 <p class="text-info"><?=__('Current cache adapter is "%s"', $adapter)?></p>
+<?php else: ?>
+<p class="text-warning"><?=__('Cache is disabled')?></p>
+<?php endif; ?>
 <?php if (isset($servers) && sizeof($servers)): ?>
 <hr/>
 <div>
