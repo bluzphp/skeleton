@@ -53,8 +53,7 @@ function () use ($view) {
         $request = $twitterAuth->get($url)->send();
         parse_str($request->getBody(), $result);
 
-        if (!$result || !isset($result['user_id']) || empty($result['user_id']))
-        {
+        if (!$result || !isset($result['user_id']) || empty($result['user_id'])) {
              throw new \Exception('Twitter authorization is not configured');
         }
 
@@ -73,8 +72,7 @@ function () use ($view) {
          */
         $row = $authTable->getAuthRow(Table::PROVIDER_TWITTER, $result['user_id']);
 
-        if ($row)
-        {
+        if ($row) {
             /*
              * Try to sign in
              * @var Users\Row $user
@@ -107,8 +105,7 @@ function () use ($view) {
              * if user already signed - link new auth provider to account
              * another - create new user
              */
-            if (!$user = $this->getAuth()->getIdentity())
-            {
+            if (!$user = $this->getAuth()->getIdentity()) {
                 /*
                  * Create new user
                  * @var Users\Row $user

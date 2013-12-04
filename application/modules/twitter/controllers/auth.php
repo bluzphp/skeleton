@@ -40,8 +40,7 @@ function () {
         $request = $twitterAuth->get($url)->send();
         parse_str($request->getBody(), $result);
 
-        if (!$result || !isset($result['oauth_token']) || empty($result['oauth_token']))
-        {
+        if (!$result || !isset($result['oauth_token']) || empty($result['oauth_token'])) {
              throw new \Exception('Twitter authorization is not configured');
         }
 

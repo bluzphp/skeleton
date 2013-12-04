@@ -89,7 +89,8 @@ class Twitter extends Client
      * @return array
      */
 
-    public function getData(){
+    public function getData()
+    {
         return $this->data;
     }
 
@@ -158,6 +159,5 @@ class Twitter extends Client
             . '&oauth_version=1.1';
 
         return $url;
-
     }
 }
