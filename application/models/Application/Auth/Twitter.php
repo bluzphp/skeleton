@@ -88,7 +88,6 @@ class Twitter extends Client
      * getData
      * @return array
      */
-
     public function getData()
     {
         return $this->data;
