@@ -28,6 +28,8 @@ function () use ($view, $module, $controller) {
     $grid = new Test\SqlGrid();
     $grid->setModule($module);
     $grid->setController($controller);
+    // just example of same custom param for build URL
+    $grid->setParams(['id'=>5]);
 
     $view->grid = $grid;
 };
