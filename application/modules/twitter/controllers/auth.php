@@ -9,78 +9,46 @@ namespace Application;
 
 use Bluz;
 use Application\Users;
+use Application\Auth\Twitter;
+use Guzzle\Common\Exception\GuzzleException;
 
 return
 /**
  * @return \closure
  */
 function () {
-    /**
-     * @var \Application\Bootstrap $this
-     * @var \Bluz\View\View $view
-     */
-    $options = $this->getConfigData('auth', 'twitter');
-    // check configuration
-    if (!$options || !isset($options['consumerKey']) || empty($options['consumerKey'])
-        || !isset($options['consumerSecret']) || empty($options['consumerSecret'])) {
-        throw new Exception('Twitter authorization is not configured');
-    }
 
-    // callback
+    /*
+     * Get config params
+     * @var array $twitter
+     */
+    $twitter = $this->getConfigData('auth', 'twitter');
     $callbackUrl = $this->getRouter()->getFullUrl('twitter', 'callback');
 
-    // random string
-    $oauth_nonce = md5(uniqid(rand(), true));
-
-    // timestamp
-    $oauth_timestamp = time();
-
-    /**
-     * Build base text
+    $twitterAuth = new Twitter($twitter);
+    /*
+     * Get url.
+     * @return string $url
      */
-    $oauth_base_text = "GET&"
-                     . urlencode("https://api.twitter.com/oauth/request_token")."&"
-                     . urlencode("oauth_callback=".urlencode($callbackUrl)."&")
-                     . urlencode("oauth_consumer_key=".$options['consumerKey']."&")
-                     . urlencode("oauth_nonce=".$oauth_nonce."&")
-                     . urlencode("oauth_signature_method=HMAC-SHA1&")
-                     . urlencode("oauth_timestamp=".$oauth_timestamp."&")
-                     . urlencode("oauth_version=1.0");
+    $url = $twitterAuth->getUrlOauth($callbackUrl);
 
-    $key = $options['consumerSecret']."&";
+    /*
+     * Try get oauth_token in Twitter.
+     * If the attempt is successful, redirect to twitter authenticate.
+     */
+    try {
+        $request = $twitterAuth->get($url)->send();
+        parse_str($request->getBody(), $result);
 
-    $oauth_signature = base64_encode(hash_hmac("sha1", $oauth_base_text, $key, true));
+        if (!$result || !isset($result['oauth_token']) || empty($result['oauth_token'])) {
+             throw new \Exception('Twitter authorization is not configured');
+        }
 
-    $url = 'https://api.twitter.com/oauth/request_token'
-         . '?oauth_callback='.urlencode($callbackUrl)
-         . '&oauth_consumer_key='.$options['consumerKey']
-         . '&oauth_nonce='.$oauth_nonce
-         . '&oauth_signature='.urlencode($oauth_signature)
-         . '&oauth_signature_method=HMAC-SHA1'
-         . '&oauth_timestamp='.$oauth_timestamp
-         . '&oauth_version=1.0';
-
-    // get response from Twitter service
-    if (!$response = @file_get_contents($url)) {
-        throw new Exception("Invalid settings for Twitter Auth Provider", 500);
-    }
-    // we should retrieve
-    // oauth_token=DZmWEaKh7EqOJKScI48IgYMxYyFF2riTyD5N9wqTA
-    //   &oauth_token_secret=NuAL0AvzocI9zxO7VnVPrNEcb9EW8kwpwJmcqg5pMWg
-    //   &oauth_callback_confirmed=true
-
-    // parse response to array
-    parse_str($response, $result);
-
-    // check response
-    if (isset($result['oauth_token'])) {
-        // save secret token to session
-        $this->getSession()->oauthTokenSecret = $result['oauth_token_secret'];
         $this->redirect('https://api.twitter.com/oauth/authenticate?oauth_token='.$result['oauth_token']);
-    } else {
-        throw new Exception("Invalid response", 500);
+
+    } catch (GuzzleException $e) {
+        $this->getMessages()->addError($e->getMessage());
     }
 
-    // disable view
     return false;
 };
