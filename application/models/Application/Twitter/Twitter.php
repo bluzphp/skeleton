@@ -31,7 +31,7 @@ class Twitter extends Client
      * __construct
      *
      * @param array $config
-     * @return Application\Auth\Twitter
+     * @return Twitter
      */
     public function __construct($config)
     {
