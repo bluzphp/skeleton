@@ -9,7 +9,7 @@ namespace Application;
 
 use Application\Auth\Table;
 use Application\Users;
-use Application\Users\Table as Table1;
+use Application\Users\Table as UsersTable;
 use Bluz;
 
 use Application\Library\Twitter;
@@ -34,8 +34,8 @@ function () use ($view) {
     $oauthTokenSecret = $this->getSession()->oauthTokenSecret;
 
     /**
-     * Create new Object Application\Auth\Twitter
-     * @param array $twitter.
+     * Create new Object Application\Library\Twitter
+     * @param array $twitter - setting Twitter API.
      */
     $twitterAuth = new Twitter($twitter);
 
@@ -45,7 +45,7 @@ function () use ($view) {
      * @param string $oauthToken
      * @param string $oauthVerifier
      * @param string $oauthTokenSecret
-     * @return Client - Create a GET request: $client->get($uri, array $headers, $options)
+     * @return Guzzle\Http\Client
      */
     $oauthRequestToken = $twitterAuth->getOauthAccessToken($oauth_token, $oauth_verifier, $oauthTokenSecret);
 
@@ -88,7 +88,7 @@ function () use ($view) {
             /**
              * Check the status of the user
              */
-            if ($user->status != Table1::STATUS_ACTIVE) {
+            if ($user->status != UsersTable::STATUS_ACTIVE) {
                 $this->getMessages()->addError('User is not active');
                 $this->redirectTo('index', 'index');
             }
@@ -118,17 +118,17 @@ function () use ($view) {
                  */
                 $user = new Users\Row();
                 $user->login = $result['screen_name'];
-                $user->status = Table1::STATUS_ACTIVE;
+                $user->status = UsersTable::STATUS_ACTIVE;
                 $user->save();
 
                 /**
                  * Set default role
-                 * @var UsersRoles\Row $user2role
+                 * @var UsersRoles\Row $userRole
                  */
-                $user2role = new UsersRoles\Row();
-                $user2role -> userId = $user->id;
-                $user2role -> roleId = 2;
-                $user2role -> save();
+                $userRole = new UsersRoles\Row();
+                $userRole -> userId = $user->id;
+                $userRole -> roleId = 2;
+                $userRole -> save();
 
                 /**
                  * sign in.

@@ -13,9 +13,6 @@ use Guzzle\Plugin\Oauth\OauthPlugin;
  * @category Application
  * @package  Library
  *
- * @author   Petr Marchenko
- * @created  10.12.13
- *
  * @private string $domain
  * @private string $requestToken
  * @private string $accessToken
@@ -64,8 +61,11 @@ class Twitter extends Client
     /**
      * getOauthRequestToken
      *
+     * $callbackUrl = $this->getRouter()->getFullUrl('twitter', 'callback');
+     * $oauthRequestToken = $twitterAuth->getOauthRequestToken($callbackUrl);     *
+     *
      * @param string $callbackUrl
-     * @return Client - Create a GET request: $client->get($uri, array $headers, $options)
+     * @return Guzzle\Http\Client
      */
     public function getOauthRequestToken($callbackUrl)
     {
@@ -85,10 +85,15 @@ class Twitter extends Client
     /**
      * getOauthAccessToken
      *
+     * $oauth_token = $this->getRequest()->getParam('oauth_token');
+     * $oauth_verifier = $this->getRequest()->getParam('oauth_verifier');
+     * $oauthTokenSecret = $this->getSession()->oauthTokenSecret;
+     * $oauthRequestToken = $twitterAuth->getOauthAccessToken($oauth_token, $oauth_verifier, $oauthTokenSecret);
+     *
      * @param string $oauthToken
      * @param string $oauthVerifier
      * @param string $oauthTokenSecret
-     * @return Client - Create a GET request: $client->get($uri, array $headers, $options)
+     * @return Guzzle\Http\Client
      */
     public function getOauthAccessToken($oauthToken, $oauthVerifier, $oauthTokenSecret)
     {

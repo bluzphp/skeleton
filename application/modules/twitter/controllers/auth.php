@@ -27,8 +27,8 @@ function () {
     $callbackUrl = $this->getRouter()->getFullUrl('twitter', 'callback');
 
     /**
-     * Create new Object Application\Auth\Twitter
-     * @param array $twitter.
+     * Create new Object Application\Library\Twitter
+     * @param array $twitter - setting Twitter API.
      */
     $twitterAuth = new Twitter($twitter);
 
@@ -36,7 +36,7 @@ function () {
      * getOauthRequestToken
      *
      * @param string $callbackUrl
-     * @return Client - Create a GET request: $client->get($uri, array $headers, $options)
+     * @return Guzzle\Http\Client
      */
     $oauthRequestToken = $twitterAuth->getOauthRequestToken($callbackUrl);
 
