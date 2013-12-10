@@ -106,5 +106,4 @@ class Twitter extends Client
 
         return $response;
     }
-
 }

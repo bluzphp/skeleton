@@ -47,7 +47,7 @@ function () {
     try {
         $response = $oauthRequestToken->send();
         parse_str($response->getBody(), $result);
-        if (!$result || !isset($result['oauth_token']) || empty($result['oauth_token'])){
+        if (!$result || !isset($result['oauth_token']) || empty($result['oauth_token'])) {
             throw new \Exception('Twitter authorization is not configured');
         }
         $this->redirect('https://api.twitter.com/oauth/authenticate?oauth_token='.$result['oauth_token']);
@@ -55,4 +55,5 @@ function () {
     } catch (GuzzleException $e) {
         $this->getMessages()->addError($e->getMessage());
     }
+    
 };
