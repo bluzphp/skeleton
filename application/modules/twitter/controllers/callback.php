@@ -78,8 +78,7 @@ function () use ($view) {
          */
         $row = $authTable->getAuthRow(Table::PROVIDER_TWITTER, $result['user_id']);
 
-        if ($row)
-        {
+        if ($row) {
             /**
              * Try to sign in
              * @var Users\Row $user

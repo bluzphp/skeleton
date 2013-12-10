@@ -55,5 +55,5 @@ function () {
     } catch (GuzzleException $e) {
         $this->getMessages()->addError($e->getMessage());
     }
-    
+
 };
