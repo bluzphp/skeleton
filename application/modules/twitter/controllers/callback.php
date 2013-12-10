@@ -12,7 +12,7 @@ use Application\Users;
 use Application\Users\Table as Table1;
 use Bluz;
 
-use Application\Auth\Twitter;
+use Application\Library\Twitter;
 use Guzzle\Common\Exception\GuzzleException;
 
 return
@@ -25,7 +25,7 @@ function () use ($view) {
      * @var \Bluz\View\View $view
      */
 
-    /*
+    /**
      * Get config params.
      */
     $twitter = $this->getConfigData('auth', 'twitter');
@@ -33,13 +33,13 @@ function () use ($view) {
     $oauth_verifier = $this->getRequest()->getParam('oauth_verifier');
     $oauthTokenSecret = $this->getSession()->oauthTokenSecret;
 
-    /*
+    /**
      * Create new Object Application\Auth\Twitter
      * @param array $twitter.
      */
     $twitterAuth = new Twitter($twitter);
 
-    /*
+    /**
      * getOauthAccessToken
      *
      * @param string $oauthToken
@@ -49,7 +49,7 @@ function () use ($view) {
      */
     $oauthRequestToken = $twitterAuth->getOauthAccessToken($oauth_token, $oauth_verifier, $oauthTokenSecret);
 
-    /*
+    /**
      * Try send request.
      * Get user info.
      * array(
@@ -63,29 +63,30 @@ function () use ($view) {
     try {
         $response = $oauthRequestToken->send();
         parse_str($response->getBody(), $result);
-        if (!$result || !isset($result['user_id']) || empty($result['user_id'])) {
+        if (!$result || !isset($result['user_id']) || empty($result['user_id'])){
             throw new \Exception('User data is not received');
         }
 
-        /*
+        /**
          * @var Auth\Table $authTable
          */
         $authTable = Auth\Table::getInstance();
 
-        /*
+        /**
          * Try to load previous information
          * @var /Application/Auth/Row $row
          */
         $row = $authTable->getAuthRow(Table::PROVIDER_TWITTER, $result['user_id']);
 
-        if ($row) {
-            /*
+        if ($row)
+        {
+            /**
              * Try to sign in
              * @var Users\Row $user
              */
             $user = Users\Table::findRow($row->userId);
 
-            /*
+            /**
              * Check the status of the user
              */
             if ($user->status != Table1::STATUS_ACTIVE) {
@@ -93,7 +94,7 @@ function () use ($view) {
                 $this->redirectTo('index', 'index');
             }
 
-            /*
+            /**
              * Update tokens
              */
             $row->token = $result['oauth_token'];
@@ -101,18 +102,19 @@ function () use ($view) {
             $row->tokenType = Table::TYPE_ACCESS;
             $row->save();
 
-            /*
+            /**
              * sign in.
              */
             $user->login();
         } else {
 
-            /*
+            /**
              * if user already signed - link new auth provider to account
              * another - create new user
              */
-            if (!$user = $this->getAuth()->getIdentity()) {
-                /*
+            if (!$user = $this->getAuth()->getIdentity())
+            {
+                /**
                  * Create new user
                  * @var Users\Row $user
                  */
@@ -121,7 +123,7 @@ function () use ($view) {
                 $user->status = Table1::STATUS_ACTIVE;
                 $user->save();
 
-                /*
+                /**
                  * Set default role
                  * @var UsersRoles\Row $user2role
                  */
@@ -130,13 +132,13 @@ function () use ($view) {
                 $user2role -> roleId = 2;
                 $user2role -> save();
 
-                /*
+                /**
                  * sign in.
                  */
                 $user->login();
             }
 
-            /*
+            /**
              * @var Auth\Table $row
              * save user info.
              */
