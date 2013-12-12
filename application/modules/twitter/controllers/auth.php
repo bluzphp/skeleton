@@ -9,7 +9,7 @@ namespace Application;
 
 use Bluz;
 use Application\Users;
-use Application\Library\Twitter;
+use Application\Library\Twitter\Client;
 use Guzzle\Common\Exception\GuzzleException;
 
 return
@@ -27,10 +27,10 @@ function () {
     $callbackUrl = $this->getRouter()->getFullUrl('twitter', 'callback');
 
     /**
-     * Create new Object Application\Library\Twitter
+     * Create new Object Application\Library\Twitter\Client
      * @param array $twitter - setting Twitter API.
      */
-    $twitterAuth = new Twitter($twitter);
+    $twitterAuth = new Client($twitter);
 
     /**
      * getOauthRequestToken
