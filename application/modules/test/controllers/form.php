@@ -25,6 +25,10 @@ function ($int, $string, $array, $optional = 0) use ($view) {
         ]
     );
     if ($this->getRequest()->isPost()) {
+        ob_start();
+        var_dump($int, $string, $array, $optional);
+        $view->inside = ob_get_contents();
+        ob_end_clean();
         $view->params = $this->getRequest()->getAllParams();
     }
 };
