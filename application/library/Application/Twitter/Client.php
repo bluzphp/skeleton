@@ -4,7 +4,7 @@
  */
 namespace Application\Twitter;
 
-use Guzzle\Http\Client as GuzzleClient;;
+use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Plugin\Oauth\OauthPlugin;
 
 /**
