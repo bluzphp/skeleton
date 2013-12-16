@@ -26,7 +26,7 @@
  */
 namespace Application\Media;
 
-use Application\Library\Image;
+use Application\Image\Thumbnail;
 use Application\Users;
 
 /**
@@ -70,11 +70,11 @@ class Row extends \Bluz\Db\Row
         }
 
         // create preview
-        $image = new Image($this->file);
+        $image = new Thumbnail($this->file);
         $image->setHeight(self::THUMB_HEIGHT);
         $image->setWidth(self::THUMB_WIDTH);
 
-        $this->preview = $image->generateThumbnail();
+        $this->preview = $image->generate();
     }
 
     /**
