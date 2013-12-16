@@ -2,9 +2,9 @@
 /**
  * @namespace
  */
-namespace Application\Library;
+namespace Application\Twitter;
 
-use Guzzle\Http\Client;
+use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Plugin\Oauth\OauthPlugin;
 
 /**
@@ -19,7 +19,7 @@ use Guzzle\Plugin\Oauth\OauthPlugin;
  * @private string $oauthPlugin
  *
  */
-class Twitter extends Client
+class Client extends GuzzleClient
 {
 
     private $domain = 'https://api.twitter.com/';

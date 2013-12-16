@@ -18,8 +18,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Application": "application/models",
-            "Application\\Library": "application/library",
+            "Application": ["application/models", "application/library"],
             "Application\\Tests": "tests",
             "": "vendor"
         }
