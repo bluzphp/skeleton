@@ -12,7 +12,7 @@ use Application\Users;
 use Application\Users\Table as UsersTable;
 use Bluz;
 
-use Application\Library\Twitter\Client;
+use Application\Twitter\Client;
 use Guzzle\Common\Exception\GuzzleException;
 
 return
@@ -34,7 +34,7 @@ function () use ($view) {
     $oauthTokenSecret = $this->getSession()->oauthTokenSecret;
 
     /**
-     * Create new Object Application\Library\Twitter\Client
+     * Create new Object Application\Twitter\Client
      * @param array $twitter - setting Twitter API.
      */
     $twitterAuth = new Client($twitter);
