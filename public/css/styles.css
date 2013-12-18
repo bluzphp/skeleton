@@ -7,15 +7,18 @@
     margin-left: auto;
     margin-right: auto;
 }
+
 .center:after {
-    clear:both
+    clear: both
 }
+
 /*/Main*/
 /*Theme*/
 body {
     padding-top: 70px;
     position: relative;
 }
+
 footer {
     padding-top: 40px;
     padding-bottom: 30px;
@@ -23,6 +26,7 @@ footer {
     text-align: center;
     border-top: 1px solid #e5e5e5;
 }
+
 /*/Theme*/
 /*Buttons*/
 .btn.icon-twitter, .btn.icon-facebook {
@@ -33,58 +37,69 @@ footer {
     text-align: center;
     padding: 8px;
     border-radius: 50%;
-    margin:0 2px
+    margin: 0 2px
 }
+
 .btn.icon-twitter {
     background: #0088CC;
 }
+
 .btn.icon-facebook {
     background: #1155cc;
 }
+
 /*/Buttons*/
 /*Notify*/
 #notify {
-    z-index:1100;
+    z-index: 1100;
     position: fixed;
     left: 10px;
     top: 55px;
 }
-    /* Notification BS Element */
-    #notify > div {
-        position: relative;
-        z-index: 9999;
-        margin: 5px 0;
-        min-width: 640px;
-    }
+
+/* Notification BS Element */
+#notify > div {
+    position: relative;
+    z-index: 9999;
+    margin: 5px 0;
+    min-width: 640px;
+}
+
 /*/Notify*/
 /*Loading*/
 #loading {
-    z-index:1100;
-	width: 180px;
-	height: 50px;
-	float:right;
-	background: url("../img/loading.gif") 50% 50% no-repeat;
-	display: none;
+    z-index: 1100;
+    width: 180px;
+    height: 50px;
+    float: right;
+    background: url("../img/loading.gif") 50% 50% no-repeat;
+    display: none;
 }
+
 /*/Loading*/
 /*Small Layout*/
 .layout-small .container {
     width: 360px;
 }
+
 /*/Small Layout*/
 /*Bootstrap fix*/
 .modal form {
-	margin: 0;
+    margin: 0;
 }
+
 .table.grid+.table {
-	margin-top: -20px;
+    margin-top: -20px;
 }
+
 .table.grid .controls {
-	padding: 2px 8px;
+    padding: 2px 8px;
 }
+
 .breadcrumb a:hover {
-	text-decoration: none;
+    text-decoration: none;
 }
+
 .nav-dashboard {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -94,11 +109,12 @@ footer {
     background-color: #f7f5fa;
     border-radius: 5px;
 }
+
 .nav-tabs.nav-stacked > .active > a,
 .nav-tabs.nav-stacked > .active > a:hover {
-	color: white;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-	background-color: #08C;
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+    background-color: #08C;
 }
 
 @media (max-width: 979px) {
@@ -106,11 +122,16 @@ footer {
         padding-top: 0;
     }
 }
+
 @media screen and (min-width: 1200px) {
     /* Widen the fixed sidebar again */
     .nav-dashboard.affix {
         width: 263px;
     }
 }
+
 /*/Bootstrap fix*/
 
+.select-tree {
+    padding-top: 6px;
+}

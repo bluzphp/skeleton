@@ -11,6 +11,7 @@
                         <li <?=($this->module('users')?'class="active"':'')?>><?= $this->ahref('<i class="icon-user"></i> '.__('Users'), ['users', 'grid', [], true]) ?></li>
                         <li <?=($this->module('media')?'class="active"':'')?>><?= $this->ahref('<i class="icon-picture"></i> '.__('Media'), ['media', 'grid', [], true]) ?></li>
                         <li <?=($this->module('options')?'class="active"':'')?>><?= $this->ahref('<i class="icon-th-list"></i> '.__('Options'), ['options', 'grid', [], true]) ?></li>
+                        <li <?=($this->module('categories')?'class="active"':'')?>><?= $this->ahref('<i class="icon-book"></i> '.__('Categories'), ['categories', 'grid', [], true]) ?></li>
                     </ul>
                     <ul class="nav nav-tabs nav-stacked">
                         <li <?=($this->module('cache')?'class="active"':'')?>><?= $this->ahref('<i class="icon-hdd"></i> '.__('Cache'), ['cache', 'index', [], true]) ?></li>

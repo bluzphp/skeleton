@@ -104,6 +104,21 @@ CREATE TABLE users_actions
   expired TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
   PRIMARY KEY ( userId, code )
 );
+
+CREATE TABLE categories (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  parent_id int(11) DEFAULT NULL,
+  level int(11) DEFAULT '0',
+  name varchar(128) DEFAULT NULL,
+  alias varchar(64) DEFAULT NULL,
+  created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  ordering int(11) DEFAULT '0',
+  PRIMARY KEY (id),
+  UNIQUE KEY id (id),
+  UNIQUE KEY alias (alias)
+)
+
 ALTER TABLE acl_privileges ADD FOREIGN KEY ( roleId ) REFERENCES acl_roles ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 CREATE UNIQUE INDEX role_privilege ON acl_privileges ( roleId, module, privilege );
 CREATE UNIQUE INDEX unique_name ON acl_roles ( name );

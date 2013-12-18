@@ -36,7 +36,7 @@ class Grid extends \Bluz\Grid\Grid
 
     /**
      * init
-     * 
+     *
      * @return self
      */
     public function init()
@@ -47,11 +47,12 @@ class Grid extends \Bluz\Grid\Grid
 
         $select = new \Bluz\Db\Query\Select();
         $select->select('u.*, GROUP_CONCAT( ar.`name` SEPARATOR ", " ) AS rolesList')
-            ->from('users', 'u')
-            ->leftJoin('u', 'acl_users_roles', 'aur', 'u.`id` = aur.`userId`')
-            ->leftJoin('aur', 'acl_roles', 'ar', 'ar.`id` = aur.`roleId`')
-            ->groupBy('u.id');
+                ->from('users', 'u')
+                ->leftJoin('u', 'acl_users_roles', 'aur', 'u.`id` = aur.`userId`')
+                ->leftJoin('aur', 'acl_roles', 'ar', 'ar.`id` = aur.`roleId`')
+                ->groupBy('u.id');
 
+       
 
         $adapter->setSource($select);
 

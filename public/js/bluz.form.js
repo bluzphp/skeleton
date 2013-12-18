@@ -50,6 +50,8 @@ define(["jquery", "bootstrap"], function ($) {
             }
 
             // remove previously generated tooltips
+
+
             $field.tooltip({
                 html: true,
                 title: messages,
@@ -70,12 +72,14 @@ define(["jquery", "bootstrap"], function ($) {
          * @param data
          */
         notices: function ($form, data) {
+            console.log($form, data);
             // clear previously generated classes
             $form.find(settings.container).removeClass(settings.errorClass);
 
             if (data !== undefined && data.errors !== undefined) {
                 $.each(data.errors, function(field, notices) {
                     if (settings.inputCollection) {
+
                         form.notice($form, '[name^="data['+field+']"]:first', notices);
                     } else {
                         form.notice($form, '[name^="'+field+'"]:first', notices);
