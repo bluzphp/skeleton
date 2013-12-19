@@ -112,9 +112,9 @@ CREATE TABLE categories (
   alias VARCHAR(64) DEFAULT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP NOT NULL,
   updated TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
-  order int(11) DEFAULT '0',
-  PRIMARY KEY (id),
-)
+  order INT(11) DEFAULT 0,
+  PRIMARY KEY (id)
+);
 
 ALTER TABLE acl_privileges ADD FOREIGN KEY ( roleId ) REFERENCES acl_roles ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 CREATE UNIQUE INDEX role_privilege ON acl_privileges ( roleId, module, privilege );
