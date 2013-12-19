@@ -18,6 +18,8 @@ return
          */
         function ($id = null) use ($view) {
 
+            $view->headStyle($view->baseUrl('css/nestedSorteble.css'));
+
             $categoriesTable = Table::getInstance();
 
             try {
@@ -37,7 +39,7 @@ return
 
                 $view->allTree = $allTrees;
                 if (!$id) {
-                   $id = $categoriesTable->findRowWhere(['parent_id' => 0])->id;
+                    $id = $categoriesTable->findRowWhere(['parent_id' => 0])->id;
                 }
 
 

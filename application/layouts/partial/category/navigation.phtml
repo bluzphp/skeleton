@@ -1,16 +1,16 @@
 <div class="tree-node-wrapper"> <?= esc($node['name']) ?>
     <a style="margin-right: 2px" href="<?= $this->url("categories", "crud", ["id" => $node['id']]) ?>"
        class="confirm btn btn-xs btn-danger ajax remove" data-ajax-method="delete">
-        <i class="icon-trash"></i>
+        <i class="fa fa-trash-o"></i>
     </a>
 
     <a style="margin-right: 2px" href="<?= $this->url("categories", "crud", ["id" => $node['id']]) ?>" class="btn btn-primary btn-xs dialog"
        data-ajax-method="get">
-        <i class="icon-pencil"></i>
+        <i class="fa fa-pencil"></i>
     </a>
 
     <a style="margin-right: 2px" href="<?= $this->url("categories", "crud", ["parentId" => $node['id']]) ?>"
        class="btn btn-xs btn-success dialog" data-ajax-method="get">
-        <i class="icon-plus"></i>
+        <i class="fa fa-plus"></i>
     </a>
 </div>

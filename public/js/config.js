@@ -11,7 +11,7 @@ require.config({
     paths: {
         bootstrap: './vendor/bootstrap',
         jquery: './vendor/jquery',
-        "jquery-ui": './vendor/jquery-ui-1.10.3.custom.min',
+        "jquery-ui": './vendor/jquery-ui-1.10.3.custom',
         redactor: './../redactor/redactor',
         // cdnjs settings
         underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min',

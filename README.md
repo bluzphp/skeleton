@@ -115,11 +115,12 @@ class Row extends \Bluz\Db\Row {
 
 ## License
 
-Read [LICENSE](https://raw.github.com/bluzphp/skeleton/master/LICENSE) file
+Read [MIT LICENSE](https://raw.github.com/bluzphp/skeleton/master/LICENSE) file
 
 ## Vendors
 
 * [Bluz](https://github.com/bluzphp/framework/)
 * [jQuery](https://github.com/jquery/jquery/)
 * [RequireJS](http://requirejs.org/)
-* [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
+* [Twitter Bootstrap](http://getbootstrap.com/)
+* [Font Awesome](http://fontawesome.io/)

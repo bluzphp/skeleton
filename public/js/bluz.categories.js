@@ -1,5 +1,5 @@
 /**
- * Grid Spy Handler ^_^
+ *
  *
  * @author   Viacheslav Nogin
  * @created  11.09.12 10:30
@@ -106,6 +106,7 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.ajax', 'vendor/jquery.mjs.nestedS
                         $('.not-one-category').remove();
                     }
 
+                    $('.root-category-list').trigger('change');
                     sortableInit();
                 }
             });

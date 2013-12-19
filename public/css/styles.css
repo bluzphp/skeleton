@@ -130,8 +130,9 @@ footer {
     }
 }
 
+.root-category-list {
+    margin-top: 7px;
+}
+
 /*/Bootstrap fix*/
 
-.select-tree {
-    padding-top: 6px;
-}

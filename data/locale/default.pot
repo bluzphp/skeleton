@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluz\n"
-"POT-Creation-Date: 2013-11-05 12:58+0200\n"
-"PO-Revision-Date: 2013-11-05 12:59+0200\n"
+"POT-Creation-Date: 2013-11-22 09:44+0200\n"
+"PO-Revision-Date: 2013-11-22 09:44+0200\n"
 "Last-Translator: Anton Shevchuk <Anton.Shevchuk@gmail.com>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -51,7 +51,7 @@ msgid "Name can't be empty"
 msgstr ""
 
 #: d:/projects/bluz/skeleton/application/models/Application/Options/Crud.php:57
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:54
+#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:52
 #: d:/projects/bluz/skeleton/application/models/Application/Test/Crud.php:117
 msgid "Name should contains only Latin characters"
 msgstr ""
@@ -78,22 +78,22 @@ msgstr ""
 msgid "Content can't be empty"
 msgstr ""
 
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:51
+#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:49
 msgid "Role name can't be empty"
 msgstr ""
 
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:69
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:92
+#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:67
+#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:90
 #, php-format
 msgid "Role name \"%s\" already exists"
 msgstr ""
 
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:84
+#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:82
 #, php-format
 msgid "Role name \"%s\" is basic and can't be editable"
 msgstr ""
 
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:90
+#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:88
 #, php-format
 msgid "Role name \"%s\" the same as original"
 msgstr ""
@@ -188,6 +188,11 @@ msgstr ""
 #: d:/projects/bluz/skeleton/application/modules/cache/controllers/index.php:27
 #: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:16
 msgid "Cache"
+msgstr ""
+
+#: d:/projects/bluz/skeleton/application/modules/cache/controllers/stats.php:27
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:6
+msgid "Statistics"
 msgstr ""
 
 #: d:/projects/bluz/skeleton/application/modules/error/controllers/index.php:31
@@ -511,10 +516,6 @@ msgstr ""
 
 #: d:/projects/bluz/skeleton/application/modules/acl/views/user.phtml:22
 msgid "Save changes"
-msgstr ""
-
-#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:6
-msgid "Statistics"
 msgstr ""
 
 #: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:11

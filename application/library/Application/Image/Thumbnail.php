@@ -24,7 +24,7 @@
 /**
  * @namespace
  */
-namespace Application\Library;
+namespace Application\Image;
 
 use Application\Exception;
 
@@ -37,7 +37,7 @@ use Application\Exception;
  * @author   Anton Shevchuk
  * @created  21.06.13 11:29
  */
-class Image
+class Thumbnail
 {
     /**
      * Full path to file
@@ -106,7 +106,7 @@ class Image
      * @throws \Application\Exception
      * @return string Path to new file
      */
-    public function generateThumbnail()
+    public function generate()
     {
         $dir = $this->path .'/.thumb/'.$this->width.'x'.$this->height;
 
