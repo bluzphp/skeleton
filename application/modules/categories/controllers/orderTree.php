@@ -28,13 +28,13 @@ return
                             $node->parent_id = $treeParent;
                         }
 
-                        if ($dbNode->parent_id != $node->parent_id && $node->parent_id) {
-                            $dbNode->parent_id = $node->parent_id;
+                        if ($dbNode->parentId != $node->parent_id && $node->parent_id) {
+                            $dbNode->parentId = $node->parent_id;
                             $dbNode->save();
                         }
 
-                        if ($dbNode->ordering != $node->ordering && $node->ordering) {
-                            $dbNode->ordering = $node->ordering;
+                        if ($dbNode->order != $node->order && $node->order) {
+                            $dbNode->order = $node->order;
                             $dbNode->save();
                         }
                     }

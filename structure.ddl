@@ -107,16 +107,13 @@ CREATE TABLE users_actions
 
 CREATE TABLE categories (
   id int(11) NOT NULL AUTO_INCREMENT,
-  parent_id int(11) DEFAULT NULL,
-  level int(11) DEFAULT '0',
-  name varchar(128) DEFAULT NULL,
-  alias varchar(64) DEFAULT NULL,
-  created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  ordering int(11) DEFAULT '0',
+  parentId INT(11) DEFAULT NULL,
+  name VARCHAR(128) DEFAULT NULL,
+  alias VARCHAR(64) DEFAULT NULL,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  order int(11) DEFAULT '0',
   PRIMARY KEY (id),
-  UNIQUE KEY id (id),
-  UNIQUE KEY alias (alias)
 )
 
 ALTER TABLE acl_privileges ADD FOREIGN KEY ( roleId ) REFERENCES acl_roles ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -138,3 +135,5 @@ CREATE INDEX FK_pages_to_users ON pages ( userId );
 CREATE UNIQUE INDEX UNIQUE_login ON users ( login );
 ALTER TABLE users_actions ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 CREATE UNIQUE INDEX UNIQUE_userId_action ON users_actions ( userId, action );
+CREATE UNIQUE INDEX `unique` ON categories ( alias );
+CREATE UNIQUE INDEX `unique` ON categories ( id );

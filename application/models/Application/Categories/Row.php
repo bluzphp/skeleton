@@ -7,12 +7,6 @@ namespace Application\Categories;
 class Row extends \Bluz\Db\Row
 {
     /**
-     * Small cache of user privileges
-     * @var array
-     */
-    protected $privileges;
-
-    /**
      * @return void
      */
     public function beforeInsert()

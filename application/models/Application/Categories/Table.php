@@ -65,7 +65,7 @@ class Table extends \Bluz\Db\Table
         $result = [];
 
         $select = $this->select()
-                ->orderBy('ordering', 'ASC');
+                ->orderBy('`order`', 'ASC');
 
         foreach ($select->execute() as $category) {
             $result[$category->id] = $category->toArray();
@@ -82,8 +82,8 @@ class Table extends \Bluz\Db\Table
     public function generateTree($categoryList, $id)
     {
         foreach ($categoryList as $categoryId => $category) {
-            if ($category['parent_id']) {
-                $categoryList[$category['parent_id']]['children'][$categoryId] =& $categoryList[$categoryId];
+            if ($category['parentId']) {
+                $categoryList[$category['parentId']]['children'][$categoryId] =& $categoryList[$categoryId];
             }
         }
 
@@ -94,7 +94,7 @@ class Table extends \Bluz\Db\Table
      * @param array $data
      * @return bool
      */
-    public function isDublicateAlias($data)
+    public function  isAliasDuplicated($data)
     {
         $alias = $data['alias'];
 
@@ -103,5 +103,13 @@ class Table extends \Bluz\Db\Table
                 ->andWhere('id != ?', $data['id']);
 
         return (bool)count($select->execute());
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function getAllRootCategory()
+    {
+        return $this->select()->where('parentId = ?', 0)->orderBy('created', 'DESC')->execute();
     }
 }

@@ -3,7 +3,7 @@
 $uid = uniqid('form_'); ?>
 
     <form id="<?= $uid ?>" action="<?= $this->url('categories', 'crud') ?>"
-          class="form-horizontal ajax category-form <?php echo $row ? 'category-edit' : '' ?>""
+          class="form-horizontal ajax <?= !$this->parentId ? 'category-form' : '' ?><?= $row->id ? 'category-edit' : '' ?><?= $this->parentId ? 'add-child' : '' ?>"
           method="<?= $method ?>">
         <input type="hidden" name="id" value="<?= $row->id ?>"/>
 
@@ -33,9 +33,9 @@ $uid = uniqid('form_'); ?>
                 <div class="col-lg-10">
                     <?php if (!$this->parentId) { ?>
 
-                        <input type="hidden" value="<?= $row->parent_id ?>" name="parent_id">
+                        <input type="hidden" value="<?= $row->parentId ?>" name="parentId">
                     <?php } else { ?>
-                        <input type="hidden" value="<?= $this->parentId ?>" name="parent_id">
+                        <input type="hidden" value="<?= $this->parentId ?>" name="parentId">
                     <?php } ?>
                 </div>
             </div>

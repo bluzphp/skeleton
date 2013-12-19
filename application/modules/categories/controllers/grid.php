@@ -27,19 +27,20 @@ return
                 $this->getLayout()->setTemplate('dashboard.phtml');
                 $this->getLayout()->breadCrumbs(
                     [
-                        $view->ahref('Dashboard', ['dashboard', 'tree']),
+                        $view->ahref('Dashboard', ['dashboard', 'grid']),
                         __('Categories')
                     ]
                 );
-                $allTrees = $categoriesTable->findWhere(['parent_id' => 0]);
+                $allTrees = $categoriesTable->getAllRootCategory();
 
                 if (count($allTrees) == 0) {
                     throw new Exception('There are no categories');
                 }
 
+
                 $view->allTree = $allTrees;
                 if (!$id) {
-                    $id = $categoriesTable->findRowWhere(['parent_id' => 0])->id;
+                    $id = $allTrees[0]->id;
                 }
 
 

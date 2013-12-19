@@ -5,11 +5,9 @@
  */
 namespace Application\Categories;
 
-use Application\Categories;
-
 class Crud extends \Bluz\Crud\Table
 {
-    private $_arrayWithTree = [];
+    private $arrayWithTree = [];
 
     /**
      * @param array $data
@@ -20,7 +18,7 @@ class Crud extends \Bluz\Crud\Table
         $row = parent::createOne($data);
 
         app()->getMessages()->addSuccess(
-            "Your category has been created"
+            "The category has been created"
         );
 
         return $row;
@@ -28,7 +26,7 @@ class Crud extends \Bluz\Crud\Table
 
     /**
      * @param array $data
-     * @return bool|void
+     * @return void
      */
     public function validateCreate($data)
     {
@@ -38,11 +36,7 @@ class Crud extends \Bluz\Crud\Table
         $alias = isset($data['alias']) ? $data['alias'] : null;
 
         if ($this->getTable()->findRowWhere(['alias' => $alias])) {
-            $this->addError(
-                __('Category with alias "%s" already exists', esc($alias)),
-                'alias'
-            );
-
+            $this->addError("Category with alias " . esc($alias) . " already exists", 'alias');
         }
 
     }
@@ -50,18 +44,15 @@ class Crud extends \Bluz\Crud\Table
     /**
      * @param mixed $id
      * @param array $data
-     * @return bool|void
+     * @return void
      */
     public function validateUpdate($id, $data)
     {
         $this->checkName($data);
         $this->checkAlias($data);
 
-        if ($this->getTable()->isDublicateAlias($data)) {
-            $this->addError(
-                __('Category with alias "%s" already exists', esc($data['alias'])),
-                'alias'
-            );
+        if ($this->getTable()->isAliasDuplicated($data)) {
+            $this->addError("Category with alias " . esc($data['alias']) . " already exists", 'alias');
         }
 
     }
@@ -69,11 +60,10 @@ class Crud extends \Bluz\Crud\Table
     /**
      * checkName
      *
-     * @param $data
+     * @param array $data
      * @return void
      */
-    protected
-    function checkName($data)
+    protected function checkName($data)
     {
         $name = isset($data['name']) ? $data['name'] : null;
         if (empty($name)) {
@@ -85,10 +75,9 @@ class Crud extends \Bluz\Crud\Table
     }
 
     /**
-     * @param $data
+     * @param array $data
      */
-    protected
-    function checkAlias($data)
+    protected function checkAlias($data)
     {
         $alias = isset($data['alias']) ? $data['alias'] : null;
         if (empty($alias)) {
@@ -98,16 +87,18 @@ class Crud extends \Bluz\Crud\Table
             $this->addError('Alias can\'t be bigger than 64 symbols', 'alias');
         }
 
+        if (!preg_match('/^[a-zA-Z0-9-]+$/', $alias)) {
+            $this->addError('Alias should contains only Latin characters, dots and dashes', 'alias');
+        }
     }
 
     /**
      * @param mixed $data
      * @return int|void
      */
-    public
-    function deleteOne($data)
+    public function deleteOne($data)
     {
-        $table = Categories\Table::getInstance();
+        $table = Table::getInstance();
         $tree = $table->buildTree($data['id']);
 
 
@@ -128,15 +119,14 @@ class Crud extends \Bluz\Crud\Table
      * @param array $tree
      * @return array
      */
-    private
-    function _treeToArray($tree)
+    private function _treeToArray($tree)
     {
         foreach ($tree as $node) {
 
             if (empty($node['children'])) {
-                $this->_arrayWithTree[] = $node['id'];
+                $this->arrayWithTree[] = $node['id'];
             } else {
-                $this->_arrayWithTree[] = $node['id'];
+                $this->arrayWithTree[] = $node['id'];
                 $this->_treeToArray($node['children']);
             }
         }

@@ -21,7 +21,7 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.ajax', 'vendor/jquery.mjs.nestedS
 
         sortableInit();
 
-        $('.select-tree select').on('change', function () {
+        $('.category-page-wrapper').on('change', '.select-tree select', function () {
 
             var self = this;
             $.ajax({
@@ -39,10 +39,10 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.ajax', 'vendor/jquery.mjs.nestedS
 
         });
 
-        $('#save').on('click', function (e) {
+        $('.category-page-wrapper').on('click', '#save', function (e) {
 
             $('.sortable li').each(function (key, value) {
-                $(this).attr('data-ordering', key);
+                $(this).attr('data-order', key);
             });
 
 
@@ -92,25 +92,34 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.ajax', 'vendor/jquery.mjs.nestedS
         });
 
 
-        $('body').on('form.bluz.success', '.category-form', function () {
+        $('body').on('form.bluz.success', '.category-form', function (e) {
+
+            $.ajax({
+                url: '/categories/grid',
+                success: function (resp) {
+                    console.log('resp', resp);
+                    $('.category-page-wrapper').html($(resp).children().unwrap())
+                    sortableInit();
+
+                }
+            });
+        });
+
+        $('body').on('form.bluz.success', '.add-child', function () {
             $.ajax({
                 url: '/categories/grid',
                 data: {
                     id: $('.select-tree select').val()
                 },
-                success: function (resp) {
-                    $('.root-category-list').children().remove();
-                    $('.root-category-list').append($(resp).find('.root-category-list').children());
-
-                    if ($('.root-category-list').children().length !== 0) {
-                        $('.not-one-category').remove();
-                    }
-
+                success: function () {
                     $('.root-category-list').trigger('change');
                     sortableInit();
+
                 }
             });
-        });
+
+            return false;
+        })
 
         $('body').on('blur', '#name', function () {
             var $alias = $("#alias");
@@ -135,7 +144,7 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.ajax', 'vendor/jquery.mjs.nestedS
                         'П': 'P', 'п': 'p', 'Р': 'R', 'р': 'r', 'С': 'S', 'с': 's', 'Т': 'T', 'т': 't',
                         'У': 'U', 'у': 'u', 'Ф': 'F', 'ф': 'f', 'Х': 'Kh', 'х': 'kh', 'Ц': 'Ts', 'ц': 'ts',
                         'Ч': 'Ch', 'ч': 'ch', 'Ш': 'Sh', 'ш': 'sh', 'Щ': 'Sch', 'щ': 'sch', 'Ъ': '"', 'ъ': '"',
-                        'Ы': 'Y', 'ы': 'y', 'Ь': "'", 'ь': "'", 'Э': 'E', 'э': 'e', 'Ю': 'Yu', 'ю': 'yu',
+                        'Ы': 'Y', 'ы': 'y', 'Ь': "", 'ь': "", 'Э': 'E', 'э': 'e', 'Ю': 'Yu', 'ю': 'yu',
                         'Я': 'Ya', 'я': 'ya'
                     },
                     r = '',

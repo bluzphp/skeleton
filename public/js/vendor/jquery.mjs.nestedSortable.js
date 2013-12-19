@@ -335,7 +335,7 @@ define(['jquery', 'jquery-ui'], function ($) {
                     var right = left + 1,
                             id,
                             pid,
-                            ordering;
+                            order;
 
                     if ($(item).children(o.listType).children(o.items).length > 0) {
                         depth++;
@@ -346,7 +346,7 @@ define(['jquery', 'jquery-ui'], function ($) {
                     }
 
                     id = ($(item).attr(o.attribute || 'id')).match(o.expression || (/(.+)[-=_](.+)/));
-                    ordering = $(item).attr('data-ordering');
+                    order = $(item).attr('data-order');
 
 
                     if (depth === sDepth + 1) {
@@ -360,7 +360,7 @@ define(['jquery', 'jquery-ui'], function ($) {
                     }
 
                     if (id) {
-                        ret.push({"item_id": id[2], "parent_id": pid, "depth": depth, "left": left, "right": right, "ordering": ordering});
+                        ret.push({"item_id": id[2], "parent_id": pid, "depth": depth, "left": left, "right": right, "order": order});
                     }
 
                     left = right + 1;
