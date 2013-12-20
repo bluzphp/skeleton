@@ -1,11 +1,11 @@
-<p>Send &laquo;Hello!&raquo; e-mail message to</p>
-<form action="/test/mailer/" method="POST">
-    <div class="form-group">
-        <label class="input-prepend">
-            <span class="add-on"><i class="fa fa-envelope"></i></span>
-            <input type="text" class="input-large" name="email" value="<?=$email?>" placeholder="<?=__('email')?>"/>
+<p>Send &laquo;Hello!&raquo; e-mail message to:</p>
+
+<form action="<?=$this->url('test', 'mailer')?>"  method="POST">
+    <div class="form-group col-sm-3">
+        <label class="input-group">
+            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+            <input type="email" class="form-control" name="email" value="<?=$email?>" placeholder="<?=__('email')?>"/>
         </label>
     </div>
-
     <button type="submit" class="btn btn-primary"><?=__('Send')?></button>
 </form>

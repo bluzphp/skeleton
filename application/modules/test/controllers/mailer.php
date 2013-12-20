@@ -16,6 +16,12 @@ function ($email = "no-reply@nixsolutions.com") use ($view) {
     /**
      * @var \Application\Bootstrap $this
      */
+    $this->getLayout()->breadCrumbs(
+        [
+            $view->ahref('Test', ['test', 'index']),
+            'Mailer Example',
+        ]
+    );
     if ($this->getRequest()->isPost()) {
         try {
             $mail = $this->getMailer()->create();

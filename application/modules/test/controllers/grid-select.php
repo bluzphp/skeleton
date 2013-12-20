@@ -1,20 +1,20 @@
 <?php
 /**
- * Test of partial methods of View
- * 
+ * Example of grid
+ *
  * @author   Anton Shevchuk
- * @created  13.10.11 12:39
- * @return closure
+ * @created  27.08.12 10:08
  */
 namespace Application;
 
 use Bluz;
+use Application\Test;
 
 return
 /**
  * @return \closure
  */
-function () use ($view) {
+function () use ($view, $module, $controller) {
     /**
      * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
@@ -22,11 +22,14 @@ function () use ($view) {
     $this->getLayout()->breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
-            'Partial',
+            'Grid with Select',
         ]
     );
-    $view->data = array(
-        'first'=> array(2,3,4,5),
-        'second'=> array(9,8,7,6),
-    );
+    $grid = new Test\SelectGrid();
+    $grid->setModule($module);
+    $grid->setController($controller);
+
+    $view->grid = $grid;
+
+    return 'grid-sql.phtml';
 };

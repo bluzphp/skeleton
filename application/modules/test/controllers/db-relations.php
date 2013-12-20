@@ -20,6 +20,13 @@ function () use ($view) {
      * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
      */
+    $this->getLayout()->breadCrumbs(
+        [
+            $view->ahref('Test', ['test', 'index']),
+            'DB Relations',
+        ]
+    );
+
     Relations::addClassMap('pages', '\\Application\\Pages\\Table');
     Relations::addClassMap('users', '\\Application\\Users\\Table');
 

@@ -19,8 +19,22 @@ return
 function ($sex = false, $car = 'none', $remember = false) use ($view) {
     /**
      * @var \Application\Bootstrap $this
+     * @var \Bluz\View\View $view
+     */
+    $this->getLayout()->breadCrumbs(
+        [
+            $view->ahref('Test', ['test', 'index']),
+            'View Form Helpers',
+        ]
+    );
+    /**
+     * @var \Application\Bootstrap $this
      */
     $view->sex = $sex;
     $view->car = $car;
     $view->remember = $remember;
+
+    if ($this->getRequest()->isPost()) {
+        $view->params = $this->getRequest()->getAllParams();
+    }
 };

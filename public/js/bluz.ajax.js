@@ -150,10 +150,10 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 						$this.addClass('disabled');
 					},
                     success: function(data, textStatus, jqXHR) {
-                        $this.trigger('ajax.bluz.success', arguments);
+                        $this.trigger('success.ajax.bluz', arguments);
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        $this.trigger('ajax.bluz.error', arguments);
+                        $this.trigger('error.ajax.bluz', arguments);
                     },
 					complete: function () {
 						$this.removeClass('disabled');
@@ -190,7 +190,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 						$this.addClass('disabled');
 					},
 					success: function (data) {
-                        $this.trigger('ajax.bluz.success', arguments);
+                        $this.trigger('success.ajax.bluz', arguments);
 						var $target = $(target);
 						if ($target.length === 0) {
 							throw "Element defined by 'data-ajax-target' not found";
@@ -198,7 +198,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 						$target.html(data);
 					},
                     error: function(jqXHR, textStatus, errorThrown) {
-                        $this.trigger('ajax.bluz.error', arguments);
+                        $this.trigger('error.ajax.bluz', arguments);
                     },
 					complete: function () {
 						$this.removeClass('disabled');
@@ -225,7 +225,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                         $this.addClass('disabled');
                     },
                     success: function(content) {
-                        $this.trigger('ajax.bluz.success', arguments);
+                        $this.trigger('success.ajax.bluz', arguments);
                         var $div = createModal(content, style);
                         $div.on('shown.bs.modal', function () {
                             // you can handle event "shown.bluz.modal" on button
@@ -236,14 +236,14 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                             // you can handle event "hidden.bluz.modal" on button
                             $this.trigger('hidden.bluz.modal');
                         })
-                        .on('form.bluz.success', function () {
-                            $this.trigger('ajax.bluz.complete', arguments);
+                        .on('success.form.bluz', function () {
+                            $this.trigger('complete.ajax.bluz', arguments);
                         })
                         ;
                         $div.modal('show');
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        $this.trigger('ajax.bluz.error', arguments);
+                        $this.trigger('error.ajax.bluz', arguments);
                     },
                     complete: function () {
                         $this.removeClass('disabled');
@@ -299,23 +299,22 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 						$this.addClass('disabled');
 					},
                     success: function(data, textStatus, jqXHR) {
-                        $this.trigger('ajax.bluz.success', arguments);
+                        $this.trigger('success.ajax.bluz', arguments);
 
                         // data can be "undefined" if server return
                         // 204 header without content
-                        if (data !== undefined
-                            && data.errors !== undefined) {
-                            $this.trigger('form.bluz.error', arguments);
+                        if (data !== undefined && data.errors !== undefined) {
+                            $this.trigger('error.form.bluz', arguments);
                             require(['bluz.form'], function(form) {
                                 form.notices($this, data);
                             });
                         } else {
-                            $this.trigger('form.bluz.success', arguments);
+                            $this.trigger('success.form.bluz', arguments);
                             closeModals();
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        $this.trigger('ajax.bluz.error', arguments);
+                        $this.trigger('error.ajax.bluz', arguments);
                     },
 					complete: function () {
 						$this.removeClass('disabled');

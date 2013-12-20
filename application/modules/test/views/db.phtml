@@ -1,0 +1,67 @@
+<?php
+use \Application\Test;
+?>
+<h3>Example of usage DB methods</h3>
+<p class="text-warning">Please, never use <code>DB</code> adapter inside <code>View</code></p>
+
+<h4><code>app()->getDb()->fetchOne("SELECT count(*) FROM test LIMIT 1")</code></h4>
+<?php
+$res = app()->getDb()->fetchOne("SELECT count(*) FROM test LIMIT 1");
+var_dump($res);
+?>
+
+<h4><code>app()->getDb()->fetchRow("SELECT * FROM test WHERE name LIKE ?", ["al%"])</code></h4>
+<?php
+$res = app()->getDb()->fetchRow("SELECT * FROM test WHERE name LIKE ?", ["al%"]);
+var_dump($res);
+?>
+
+<h4><code>app()->getDb()->fetchAll("SELECT * FROM test WHERE name LIKE ? LIMIT 10", ["al%"])</code></h4>
+<?php
+$res = app()->getDb()->fetchAll("SELECT * FROM test WHERE name LIKE ? LIMIT 10", ["al%"]);
+var_dump($res);
+?>
+
+<h4><code>app()->getDb()->fetchColumn("SELECT name FROM test WHERE name LIKE ? LIMIT 10", ["al%"])</code></h4>
+<?php
+$res = app()->getDb()->fetchColumn("SELECT name FROM test WHERE name LIKE ? LIMIT 10", ["al%"]);
+var_dump($res);
+
+?>
+
+<h4><code>app()->getDb()->fetchPairs("SELECT name, id FROM test LIMIT 10")</code></h4>
+<?php
+$res = app()->getDb()->fetchPairs("SELECT name, id FROM test LIMIT 10");
+var_dump($res);
+
+?>
+
+<h4><code>app()->getDb()->fetchGroup("SELECT name, id FROM test LIMIT 10")</code></h4>
+<?php
+$res = app()->getDb()->fetchGroup("SELECT name, id FROM test LIMIT 10");
+var_dump($res);
+?>
+
+<h4><code>app()->getDb()->fetchColumnGroup("SELECT name, id FROM test LIMIT 10")</code></h4>
+<?php
+$res = app()->getDb()->fetchColumnGroup("SELECT name, id FROM test LIMIT 10");
+var_dump($res);
+?>
+
+<h4><code>app()->getDb()->fetchObject("SELECT * FROM test LIMIT 1")</code></h4>
+<?php
+$res = app()->getDb()->fetchObject("SELECT * FROM test LIMIT 1");
+var_dump($res);
+?>
+
+<h4><code>app()->getDb()->fetchObject("SELECT * FROM test LIMIT 1", [], "\\Application\\Test\\Row")</code></h4>
+<?php
+$res = app()->getDb()->fetchObject("SELECT * FROM test LIMIT 1", [], "\\Application\\Test\\Row");
+var_dump($res);
+?>
+
+<h4><code>app()->getDb()->fetchObject("SELECT * FROM test LIMIT 1", [], new Test\Row())</code></h4>
+<?php
+$res = app()->getDb()->fetchObject("SELECT * FROM test LIMIT 1", [], new Test\Row());
+var_dump($res);
+?>

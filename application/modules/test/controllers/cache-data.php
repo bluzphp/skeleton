@@ -31,8 +31,6 @@ function ($id = null) use ($bootstrap, $view) {
     /* @var \Application\Bootstrap $this */
     $this->getLayout()->title('Check cache');
 
-    $view->title = "Index/Test";
-
     // try to load profile of current user
     if (!$id && $this->getAuth()->getIdentity()) {
         $id = $this->getAuth()->getIdentity()->id;

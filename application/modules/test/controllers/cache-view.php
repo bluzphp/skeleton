@@ -21,5 +21,5 @@ function ($a = 0) use ($view) {
      * @var \Application\Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $view->current = date('y-m-d H:i:s') . ' # '. $a;
+    $view->current = 'Time is '. date('H:i:s') . ' and $a = `'. $a .'`';
 };

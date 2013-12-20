@@ -1,58 +1,83 @@
 <h3>Hello, <?=$this->username()?></h3>
-<p>This is many-in-one example</p>
+<p>This is page consist many examples, all of them you can find in test module</p>
+<h3>Controller features</h3>
 <ul>
-    <li><?= $this->ahref('Bootstrap Controls', ['test', 'controls']) ?></li>
-    <li><?= $this->ahref('Bootstrap Markup', ['test', 'markup']);?></li>
-    <li><?= $this->ahref('Cache View', ['test', 'cache-view']);?></li>
-    <li><?= $this->ahref('Cache Data', ['test', 'cache-data', ['id'=>1]]);?></li>
     <li><?= $this->ahref('Controller &rarr; Closure', ['test', 'closure']);?></li>
-    <li><?= $this->ahref('Controller &rarr; No View', ['test', 'no-view']);?></li>
-    <li><?= $this->ahref('Events', ['test', 'events']);?></li>
-    <li><?= $this->ahref('Routers', ['test', 'route']);?></li>
+    <li><?= $this->ahref('Controller &rarr; Disable View', ['test', 'no-view']);?></li>
     <li><?= $this->ahref('Reflection Data', ['test', 'reflection']);?></li>
-    <li><?= $this->ahref('Session', ['test', 'session']);?></li>
-    <li><?= $this->ahref('Grid [Array]', ['test', 'array-grid']);?></li>
-    <li><?= $this->ahref('Grid [Select]', ['test', 'select-grid']);?></li>
-    <li><?= $this->ahref('Grid [SQL]', ['test', 'sql-grid']);?></li>
-    <li><?= $this->ahref('Mailer', ['test', 'mailer']);?></li>
-    <li><?= $this->ahref('Partial', ['test', 'partial']);?></li>
-    <li><?= $this->ahref('View Form Helpers', ['test', 'view-helpers']);?></li>
 </ul>
 <hr/>
 <ul>
-    <li><?= $this->ahref('CRUD', ['test', 'sql-grid']) ?> &mdash; Create, Read, Update and Delete examples</li>
+    <li><?= $this->ahref('CRUD', ['test', 'grid-sql']) ?> &mdash; Create, Read, Update and Delete examples</li>
     <li><?= $this->ahref('Backbone', ['test', 'backbone']) ?> &mdash; working too</li>
+</ul>
+
+<h3>CLI</h3>
+<p>
+For test CLI you can run <code>`php ./bin/cli.php --uri 'test/cli' --env='dev'`</code>.
+You can find source code at <code>`application/modules/test/controllers/cli.php`</code>
+</p>
+
+<h3>Packages</h3>
+<ul>
+    <li><?= $this->ahref('Cache View', ['test', 'cache-view']);?></li>
+    <li><?= $this->ahref('Cache Data', ['test', 'cache-data', ['id'=>1]]);?></li>
+    <li><?= $this->ahref('DB Operations', ['test', 'db']);?></li>
+    <li><?= $this->ahref('DB Query Builders', ['test', 'db-query']);?></li>
+    <li><?= $this->ahref('DB Relations', ['test', 'db-relations']);?></li>
+    <li><?= $this->ahref('DB Table', ['test', 'db-table']);?></li>
+    <li><?= $this->ahref('Events', ['test', 'events']);?></li>
+    <li><?= $this->ahref('Routers', ['test', 'route']);?></li>
+    <li><?= $this->ahref('Session', ['test', 'session']);?></li>
+    <li><?= $this->ahref('Grid with Array source', ['test', 'grid-array']);?></li>
+    <li><?= $this->ahref('Grid with Select source', ['test', 'grid-select']);?></li>
+    <li><?= $this->ahref('Grid with SQL source', ['test', 'grid-sql']);?></li>
+    <li><?= $this->ahref('Mailer', ['test', 'mailer']);?></li>
+    <li><?= $this->ahref('View Partials', ['test', 'view-partial']);?></li>
+    <li><?= $this->ahref('View Form Helpers', ['test', 'view-helpers']);?></li>
 </ul>
 <hr/>
 <ul>
     <li><?= $this->ahref('Options', ['test', 'options']) ?> &mdash; example of usage module Options from another module</li>
 </ul>
 <hr/>
+
+<h3>Magic AJAX calls</h3>
+<p>Try AJAX calls over GET/POST/PUT/DELTE HTTPs methods</p>
 <div class="btn-group">
-    <?= $this->ahref('Ajax GET', ['test', 'ajax'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'GET']);?>
-    <?= $this->ahref('Ajax POST', ['test', 'ajax'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'POST']);?>
-    <?= $this->ahref('Ajax PUT', ['test', 'ajax'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'PUT']);?>
-    <?= $this->ahref('Ajax DELETE', ['test', 'ajax'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'DELETE']);?>
-</div>
-<hr/>
-<div class="btn-group">
-    <a href="/test/privilege" class="btn btn-default bluz-tooltip ajax" data-toggle="tooltip" title="Return error message">Denied page, AJAX call</a>
-    <a href="/test/privilege" class="btn btn-default bluz-tooltip dialog" data-toggle="tooltip" title="Return error dialog">Denied page, dialog</a>
+    <?= $this->ahref('GET', ['test', 'ajax'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'GET']);?>
+    <?= $this->ahref('POST', ['test', 'ajax'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'POST']);?>
+    <?= $this->ahref('PUT', ['test', 'ajax'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'PUT']);?>
+    <?= $this->ahref('DELETE', ['test', 'ajax'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'DELETE']);?>
 </div>
 <hr/>
 <div class="btn-group">
     <a href="/test/ajax" id="ajax-callback" class="btn btn-default ajax">AJAX call with fired trigger</a>
 </div>
-<script>
-    require(["jquery"], function($) {
+<hr/>
+<p>Example of JavaScript:</p>
+<pre>
+    require(["jquery", "bluz.notify"], function($, notify) {
         $(function(){
             $('#ajax-callback')
-                .on('ajax.success', function(event, data, textStatus, jqXHR){
-                    console.log(event);
-                    console.log(data)
+                .on('success.ajax.bluz', function(event, data, textStatus, jqXHR){
+                    notify.addSuccess("Event `success.ajax.bluz` is fired")
                 })
-                .on('ajax.error', function(event, jqXHR, textStatus, errorThrown){
-                    console.log(event);
+                .on('error.ajax.bluz', function(event, jqXHR, textStatus, errorThrown){
+                    notify.addSuccess("Event `error.ajax.bluz` is fired")
+                });
+        });
+    });
+</pre>
+<script>
+    require(["jquery", "bluz.notify"], function($, notify) {
+        $(function(){
+            $('#ajax-callback')
+                .on('success.ajax.bluz', function(event, data, textStatus, jqXHR){
+                    notify.addSuccess("Event `success.ajax.bluz` is fired")
+                })
+                .on('error.ajax.bluz', function(event, jqXHR, textStatus, errorThrown){
+                    notify.addSuccess("Event `error.ajax.bluz` is fired")
                 });
         });
     });
@@ -65,47 +90,82 @@
     <?= $this->ahref('Confirm', ['index', 'index'], ['class'=>'confirm btn btn-default', 'data-confirm'=>'Confirm?']);?>
 </div>
 <hr/>
+
+<h3>Access denied</h3>
+<div class="btn-group">
+    <a href="/test/privilege" class="btn btn-default bluz-tooltip ajax" data-toggle="tooltip" title="Return error message">Denied page, AJAX call</a>
+    <a href="/test/privilege" class="btn btn-default bluz-tooltip dialog" data-toggle="tooltip" title="Return error dialog">Denied page, dialog</a>
+</div>
+<hr/>
+
 <h3>Dispatch controller</h3>
+<pre>
+$this->dispatch('test', 'closure')
+</pre>
 <div id="load">
     <?= $this->dispatch('test', 'closure') ?>
 </div>
 
 <h3>Call widget</h3>
+<pre>
+$this->widget('test', 'lorem')
+</pre>
 <div>
     <?= $this->widget('test', 'lorem') ?>
 </div>
 
 <h3>Call API method</h3>
+<pre>
+$this->api('test', 'example', [2])
+</pre>
 <div>
     <?= $this->api('test', 'example', [2]) ?>
 </div>
 
 <h3>Wrong controller</h3>
+<pre>
+$this->dispatch('test', 'not-found')
+</pre>
 <div>
     <?= $this->dispatch('test', 'not-found') ?>
 </div>
 
 <h3>Wrong widget</h3>
+<pre>
+$this->widget('test', 'not-found')
+</pre>
 <div>
     <?= $this->widget('test', 'not-found') ?>
 </div>
 
 <h3>Wrong without priveleges</h3>
+<pre>
+$this->widget('test', 'acl-denied')
+</pre>
 <div>
     <?= $this->widget('test', 'acl-denied') ?>
 </div>
 
 <h3>Wrong API method</h3>
+<pre>
+$this->api('test', 'not-found')
+</pre>
 <div>
     <?= $this->api('test', 'not-found') ?>
 </div>
 
-<h3>Dispatch grid based on array </h3>
+<h3>Dispatch grid based on array</h3>
+<pre>
+$this->dispatch('test', 'grid-array')
+</pre>
 <div>
-    <?= $this->dispatch('test', 'array-grid') ?>
+    <?= $this->dispatch('test', 'grid-array') ?>
 </div>
 
 <h3>Dispatch grid based on SQL</h3>
+<pre>
+$this->dispatch('test', 'grid-sql')
+</pre>
 <div>
-    <?= $this->dispatch('test', 'sql-grid') ?>
+    <?= $this->dispatch('test', 'grid-sql') ?>
 </div>
