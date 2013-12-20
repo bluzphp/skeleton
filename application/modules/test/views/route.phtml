@@ -4,4 +4,5 @@
 <li><?= $this->ahref('With one param, but it missed', ['test', 'route-with-param'], ['class'=>'dialog']);?></li>
 <li><?= $this->ahref('The same route with one optional param', ['test', 'route-with-param'], ['class'=>'dialog']);?></li>
 <li><?= $this->ahref('With many params', ['test', 'route-with-params', array('a'=>123, 'b'=>3.14, 'c'=>'bar')], ['class'=>'dialog']);?></li>
+<li><?= $this->ahref('With other params', ['test', 'route-with-other-params', array('id'=>123, 'alias'=>'bar')], ['class'=>'dialog']);?></li>
 </ul>

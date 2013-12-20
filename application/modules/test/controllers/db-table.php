@@ -29,5 +29,7 @@ function () {
     debug($table->deleteTestRows());
     debug($table->deleteTestRows());
 
+    $table = Users\Table::getInstance();
+    var_dump($table->getColumns());
     return false;
 };

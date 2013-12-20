@@ -41,5 +41,6 @@ function ($a = 42) {
 </pre>
 CODE;
     var_dump($a);
+    var_dump($this->getRequest()->getParams());
     return false;
 };

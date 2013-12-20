@@ -1,0 +1,90 @@
+<?php
+use \Application\Test;
+?>
+<h3>Example of usage Db Query Builders</h3>
+<p class="text-warning">Please, never use <code>Db</code> or <code>Query</code> inside <code>View</code></p>
+
+<h4>Select</h4>
+<pre>
+$selectBuilder = app()->getDb()
+    ->select('u.*', 'ua.*')
+    ->from('users', 'u')
+    ->leftJoin('u', 'users_actions', 'ua', 'ua.userId = u.id')
+    ->where('u.id = ? OR u.id = ?', 4, 5)
+    ->orWhere('u.id IN (?)', [4, 5])
+    ->andWhere('u.status = ? OR u.status = ?', 'active', 'pending')
+    ->orWhere('u.login LIKE (?)', 'A%')
+    ->limit(5);
+echo $selectBuilder->getQuery();
+</pre>
+<pre><?php
+$selectBuilder = app()->getDb()
+    ->select('u.*', 'ua.*')
+    ->from('users', 'u')
+    ->leftJoin('u', 'users_actions', 'ua', 'ua.userId = u.id')
+    ->where('u.id = ? OR u.id = ?', 4, 5)
+    ->orWhere('u.id IN (?)', [4, 5])
+    ->andWhere('u.status = ? OR u.status = ?', 'active', 'pending')
+    ->orWhere('u.login LIKE (?)', 'A%')
+    ->limit(5);
+echo $selectBuilder->getQuery();
+?></pre>
+
+<h4>Insert</h4>
+<pre>
+$insertBuilder = app()->getDb()
+        ->insert('users`')
+        ->set('login', 'example')
+        ->set('email', 'example@domain.com');
+echo $insertBuilder->getQuery()
+</pre>
+<pre><?php
+$insertBuilder = app()->getDb()
+    ->insert('users`')
+    ->set('login', 'example')
+    ->set('email', 'example@domain.com');
+echo $insertBuilder->getQuery();
+?></pre>
+
+<h4>Update</h4>
+<pre>
+$updateBuilder = app()->getDb()
+    ->update('users')
+    ->setArray(
+        [
+            'status' => 'active',
+            'updated' => date('Y-m-d H:i:s')
+        ]
+    )
+    ->where('id = ?', 30);
+echo $updateBuilder->getQuery();
+</pre>
+<pre><?php
+$updateBuilder = app()->getDb()
+    ->update('users')
+    ->setArray(
+        [
+            'status' => 'active',
+            'updated' => date('Y-m-d H:i:s')
+        ]
+    )
+    ->where('id = ?', 30);
+echo $updateBuilder->getQuery();
+?></pre>
+
+
+<h4>Delete</h4>
+<pre>
+$deleteBuilder = app()->getDb()
+    ->delete('users')
+    ->where('id = ?', 5)
+    ->limit(1);
+echo $deleteBuilder->getQuery()
+</pre>
+<pre><?php
+$deleteBuilder = app()->getDb()
+    ->delete('users')
+    ->where('id = ?', 5)
+    ->limit(1);
+echo $deleteBuilder->getQuery();
+?></pre>

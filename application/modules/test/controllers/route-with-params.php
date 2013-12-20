@@ -43,5 +43,6 @@ function ($a, $b, $c) {
 </pre>
 CODE;
     var_dump(['$a'=>$a, '$b'=>$b, '$c'=>$c]);
+    var_dump($this->getRequest()->getParams());
     return false;
 };

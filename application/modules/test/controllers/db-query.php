@@ -1,20 +1,17 @@
 <?php
 /**
- * Test of markup
- * 
+ * Example of DB Query builder usage
+ *
  * @author   Anton Shevchuk
- * @created  13.10.11 12:39
- * @return closure
+ * @created  07.06.13 18:28
  */
 namespace Application;
-
-use Bluz;
 
 return
 /**
  * @return \closure
  */
-function () use ($bootstrap, $view) {
+function () use ($view) {
     /**
      * @var \Application\Bootstrap $this
      * @var \closure $bootstrap
@@ -23,7 +20,8 @@ function () use ($bootstrap, $view) {
     $this->getLayout()->breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
-            'Markup',
+            'DB Query Builders',
         ]
     );
+    // all examples inside view
 };
