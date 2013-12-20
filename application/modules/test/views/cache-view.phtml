@@ -4,5 +4,8 @@ $this->breadCrumbs([
     $this->ahref('Test', ['test', 'index']),
     'Cache View',
 ]);
+$url = $this->url('test', 'cache-view', ['a' => rand(1,5)]);
 ?>
 <h3><?=$current?></h3>
+<p>Try to reload this page (page cache is 2 minutes)</p>
+<p>Cache is dependency to controller arguments, try it <a href="<?=$url?>"><?=$url?></a> </p>

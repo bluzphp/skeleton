@@ -25,6 +25,9 @@ function () use ($view) {
         ]
     );
     return function () {
-        echo "Closure is back";
+        echo "<div class='jumbotron'><div class='container'>";
+        echo "<h3>Closure is back</h3>";
+        echo "<p class='text-warning text-primary'>Executed before render layout</p>";
+        echo "</div></div>";
     };
 };

@@ -14,6 +14,12 @@ return
  * @return \closure
  */
 function () {
+    $this->getLayout()->breadCrumbs(
+        [
+            $this->getLayout()->ahref('Test', ['test', 'index']),
+            'Without view',
+        ]
+    );
     return function () {
     };
 };
