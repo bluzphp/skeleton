@@ -135,5 +135,5 @@ CREATE INDEX FK_pages_to_users ON pages ( userId );
 CREATE UNIQUE INDEX UNIQUE_login ON users ( login );
 ALTER TABLE users_actions ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 CREATE UNIQUE INDEX UNIQUE_userId_action ON users_actions ( userId, action );
-CREATE UNIQUE INDEX `unique` ON categories ( alias );
-CREATE UNIQUE INDEX `unique` ON categories ( id );
+CREATE UNIQUE INDEX `uniqueCategoryAlias` ON categories ( alias );
+CREATE UNIQUE INDEX `uniqueCategoryId` ON categories ( id );
