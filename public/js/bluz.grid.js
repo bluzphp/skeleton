@@ -47,7 +47,7 @@ define(['jquery', 'bluz'], function ($, bluz) {
 				return false;
 			});
             // refresh grid if form was success sent
-            $grid.on('ajax.bluz.complete', 'a.dialog', function() {
+            $grid.on('complete.ajax.bluz', 'a.dialog', function() {
                 $.ajax({
                     url: $grid.data('url'),
                     type: 'get',
@@ -61,7 +61,7 @@ define(['jquery', 'bluz'], function ($, bluz) {
                 });
             });
             // refresh grid if confirmed ajax button (e.g. delete record)
-            $grid.on('ajax.bluz.success', 'a.ajax.confirm', function() {
+            $grid.on('success.ajax.bluz', 'a.ajax.confirm', function() {
                 $.ajax({
                     url: $grid.data('url'),
                     type: 'get',
