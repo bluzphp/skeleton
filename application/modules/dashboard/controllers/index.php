@@ -20,5 +20,10 @@ function () {
     /**
      * @var \Application\Bootstrap $this
      */
+    $this->getLayout()->breadCrumbs(
+        [
+            __('Dashboard'),
+        ]
+    );
     $this->getLayout()->setTemplate('dashboard.phtml');
 };
