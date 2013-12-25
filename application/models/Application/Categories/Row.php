@@ -22,5 +22,4 @@ class Row extends \Bluz\Db\Row
     {
         $this->updated = gmdate('Y-m-d H:i:s');
     }
-
 }

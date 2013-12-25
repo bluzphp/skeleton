@@ -17,23 +17,23 @@ return
             /**
              * @var \Application\Bootstrap $this
              */
-            try {
+    try {
                 $crudController = new Controller\Crud();
                 $crudController->setCrud(Categories\Crud::getInstance());
 
                 $categoriesTable = Categories\Table::getInstance();
                 $view->allCategories = $categoriesTable->getAllCategories($id);
 
-                if ($newbranch) {
-                    $view->newBranch = !!$newbranch;
-                }
+        if ($newbranch) {
+            $view->newBranch = !!$newbranch;
+        }
 
-                if ($parentId) {
-                    $view->parentId = $parentId;
-                }
-            } catch (\Exception $e) {
-                $view->error = $e;
-            }
+        if ($parentId) {
+            $view->parentId = $parentId;
+        }
+    } catch (\Exception $e) {
+        $view->error = $e;
+    }
 
 
             return $crudController();

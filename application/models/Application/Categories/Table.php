@@ -94,7 +94,7 @@ class Table extends \Bluz\Db\Table
      * @param array $data
      * @return bool
      */
-    public function  isAliasDuplicated($data)
+    public function isAliasDuplicated($data)
     {
         $alias = $data['alias'];
 

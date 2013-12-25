@@ -44,4 +44,5 @@ return
         $view->error = $e;
     }
     $this->useJSON();
-};
+
+        };
