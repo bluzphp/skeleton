@@ -17,33 +17,31 @@ return
 
             $categoriesTable = Categories\Table::getInstance();
 
-            try {
+    try {
                 $categoris = json_decode($tree);
 
-                foreach ($categoris as $node) {
-                    if (isset($node->item_id)) {
+        foreach ($categoris as $node) {
+            if (isset($node->item_id)) {
                         $dbNode = $categoriesTable->findRow($node->item_id);
 
-                        if (!$node->parent_id) {
-                            $node->parent_id = $treeParent;
-                        }
-
-                        if ($dbNode->parentId != $node->parent_id && $node->parent_id) {
-                            $dbNode->parentId = $node->parent_id;
-                            $dbNode->save();
-                        }
-
-                        if ($dbNode->order != $node->order && $node->order) {
-                            $dbNode->order = $node->order;
-                            $dbNode->save();
-                        }
-                    }
-
+                if (!$node->parent_id) {
+                    $node->parent_id = $treeParent;
                 }
-            } catch (\Exception $e) {
-                $view->error = $e;
+
+                if ($dbNode->parentId != $node->parent_id && $node->parent_id) {
+                    $dbNode->parentId = $node->parent_id;
+                    $dbNode->save();
+                }
+
+                if ($dbNode->order != $node->order && $node->order) {
+                    $dbNode->order = $node->order;
+                    $dbNode->save();
+                }
             }
 
-
-            $this->useJSON();
-        };
+        }
+    } catch (\Exception $e) {
+        $view->error = $e;
+    }
+    $this->useJSON();
+};
