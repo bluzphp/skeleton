@@ -1,0 +1,74 @@
+<script>
+    // use data-spy="grid" for use AJAX for reload grid
+    require(['bluz.categories']);
+    require(['bluz.grid']);
+
+</script>
+<div class="category-page-wrapper">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="form-group">
+            <div class="col-lg-1">
+                <a href="<?= $this->url('categories', 'crud', array('newbranch' => '1')) ?>"
+                   class="btn btn-primary navbar-btn dialog"
+                   data-ajax-method="get"><?=__('Create')?></a>
+            </div>
+            <div class="col-lg-5">
+                <a href="<?= $this->url('categories', 'crud', array('category' => $this->branch)) ?>"
+                   class="btn btn-primary navbar-btn dialog hidden create-child"
+                   data-ajax-method="get"><?=__('Add child')?></a>
+            </div>
+            <div class="col-lg-6 select-tree">
+                <select class="form-control root-category-list">
+                    <?php foreach ($this->allTree as $tree) { ?>
+                        <option value="<?php echo $tree->id ?>"><?php echo $tree->name ?></option>
+                    <?php }?>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tree-container">
+        <div class="tree-wrapper">
+            <?php if (isset($this->tree[0])) { ?>
+                <div class="tree-node-wrapper tree-header"
+                     data-parent-id="<?= $this->tree[0]['id'] ?>"> <?= esc($this->tree[0]['name']) ?>
+                    <a href="<?= $this->url("categories", "crud", ["id" => $this->tree[0]['id']]) ?>"
+                       class="confirm btn btn-xs btn-danger ajax remove-root" data-ajax-method="delete">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                    <a style="margin-right: 2px"
+                       href="<?= $this->url("categories", "crud", ["id" => $this->tree[0]['id']]) ?>"
+                       class="btn btn-primary btn-xs dialog"
+                       data-ajax-method="get">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+
+                    <a style="margin-right: 2px"
+                       href="<?= $this->url("categories", "crud", ["parentId" => $this->tree[0]['id']]) ?>"
+                       class="btn btn-xs btn-success dialog" data-ajax-method="get">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+            <?php } ?>
+
+            <div class="sortable-wrapper">
+                <ol class="sortable">
+
+                    <?php if (isset($this->tree[0]['children'])) {
+                        echo $this->treeBuild($this->tree[0]['children']);
+                    }?>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div align="center" class="message-wrapper">
+        <?php if ($this->error) { ?>
+            <h3 class="not-one-category"> <?= $this->error; ?> </h3>
+        <?php
+        } else {
+            ?>
+            <button align="center" href="javascript:;" id="save" class="btn ajax">Save</button>
+        <?php } ?>
+    </div>
+</div>

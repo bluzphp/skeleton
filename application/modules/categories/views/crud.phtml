@@ -1,0 +1,56 @@
+<?php
+
+$uid = uniqid('form_'); ?>
+
+    <form id="<?= $uid ?>" action="<?= $this->url('categories', 'crud') ?>"
+          class="form-horizontal ajax <?= !$this->parentId ? 'category-form' : '' ?><?= $row->id ? 'category-edit' : '' ?><?= $this->parentId ? 'add-child' : '' ?>"
+          method="<?= $method ?>">
+        <input type="hidden" name="id" value="<?= $row->id ?>"/>
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"><?=__('Category')?></h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="control-label col-lg-2" for="name"><?=__('Name')?></label>
+
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="name" name="name" value="<?= esc($row->name) ?>"
+                           maxlength="255" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2" for="email"><?=__('Alias')?></label>
+
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="alias" name="alias" value="<?= esc($row->alias) ?>"
+                           maxlength="255" required/>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-lg-10">
+                    <?php if (!$this->parentId) { ?>
+
+                        <input type="hidden" value="<?= $row->parentId ?>" name="parentId">
+                    <?php } else { ?>
+                        <input type="hidden" value="<?= $this->parentId ?>" name="parentId">
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"><?=__('Save')?></button>
+            <a href="#" class="btn btn-default" data-dismiss="modal"><?=__('Close')?></a>
+        </div>
+    </form>
+<?php
+// need for plain request
+if (isset($errors)) :
+    $data = json_encode(['errors' => $errors]);
+    $this->headScript('require(["bluz.form"], function(form) {
+        form.notices($("#' . $uid . '"), ' . $data . ');
+    });');
+endif;
+?>

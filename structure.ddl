@@ -104,6 +104,18 @@ CREATE TABLE users_actions
   expired TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
   PRIMARY KEY ( userId, code )
 );
+
+CREATE TABLE categories (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  parentId INT(11) DEFAULT NULL,
+  name VARCHAR(128) DEFAULT NULL,
+  alias VARCHAR(64) DEFAULT NULL,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `order` INT(11) DEFAULT 0,
+  PRIMARY KEY (id)
+);
+
 ALTER TABLE acl_privileges ADD FOREIGN KEY ( roleId ) REFERENCES acl_roles ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 CREATE UNIQUE INDEX role_privilege ON acl_privileges ( roleId, module, privilege );
 CREATE UNIQUE INDEX unique_name ON acl_roles ( name );
@@ -123,3 +135,5 @@ CREATE INDEX FK_pages_to_users ON pages ( userId );
 CREATE UNIQUE INDEX UNIQUE_login ON users ( login );
 ALTER TABLE users_actions ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 CREATE UNIQUE INDEX UNIQUE_userId_action ON users_actions ( userId, action );
+CREATE UNIQUE INDEX `uniqueCategoryAlias` ON categories ( alias );
+CREATE UNIQUE INDEX `uniqueCategoryId` ON categories ( id );
