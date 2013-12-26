@@ -44,8 +44,8 @@ return
         }
 
 
-                $view->branch = $id;
-                $view->tree = $categoriesTable->buildTree($id);
+        $view->branch = $id;
+        $view->tree = $categoriesTable->buildTree($id);
     } catch (\Exception $e) {
         $view->error = $e->getMessage();
     }
