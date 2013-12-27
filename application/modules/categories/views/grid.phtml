@@ -62,13 +62,11 @@
         </div>
     </div>
 
-    <div align="center" class="message-wrapper">
-        <?php if ($this->error) { ?>
+    <div class="message-wrapper">
+        <?php if ($this->error) : ?>
             <h3 class="not-one-category"> <?= $this->error; ?> </h3>
-        <?php
-        } else {
-            ?>
-            <button align="center" href="javascript:;" id="save" class="btn ajax">Save</button>
-        <?php } ?>
+        <?php else: ?>
+            <button id="save" class="btn btn-primary ajax">Save</button>
+        <?php endif; ?>
     </div>
 </div>

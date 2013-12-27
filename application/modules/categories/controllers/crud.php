@@ -10,19 +10,19 @@ use Bluz\Controller;
 use Application\Categories\Table;
 
 return
-        /**
-         *
-         */
-        function ($id = null, $newbranch = null, $parentId = null) use ($view) {
-            /**
-             * @var \Application\Bootstrap $this
-             */
+/**
+ * @privilege Management
+ */
+function ($id = null, $newbranch = null, $parentId = null) use ($view) {
+    /**
+     * @var \Application\Bootstrap $this
+     */
     try {
-                $crudController = new Controller\Crud();
-                $crudController->setCrud(Categories\Crud::getInstance());
+        $crudController = new Controller\Crud();
+        $crudController->setCrud(Categories\Crud::getInstance());
 
-                $categoriesTable = Categories\Table::getInstance();
-                $view->allCategories = $categoriesTable->getAllCategories($id);
+        $categoriesTable = Categories\Table::getInstance();
+        $view->allCategories = $categoriesTable->getAllCategories($id);
 
         if ($newbranch) {
             $view->newBranch = !!$newbranch;
@@ -35,6 +35,6 @@ return
         $view->error = $e;
     }
 
+    return $crudController();
 
-            return $crudController();
-        };
+};

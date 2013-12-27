@@ -1,7 +1,4 @@
-<?php
-
-$uid = uniqid('form_'); ?>
-
+<?php $uid = uniqid('form_'); ?>
     <form id="<?= $uid ?>" action="<?= $this->url('categories', 'crud') ?>"
           class="form-horizontal ajax <?= !$this->parentId ? 'category-form' : '' ?><?= $row->id ? 'category-edit' : '' ?><?= $this->parentId ? 'add-child' : '' ?>"
           method="<?= $method ?>">

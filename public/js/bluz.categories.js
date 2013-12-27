@@ -8,7 +8,7 @@
 define(['jquery', 'bluz', 'bluz.notify', 'bluz.ajax', 'vendor/jquery.mjs.nestedSortable'], function ($, bluz, notify) {
     "use strict";
 
-    $(document).ready(function () {
+    $(function () {
 
         function sortableInit() {
             $('.sortable').nestedSortable({
@@ -59,13 +59,13 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.ajax', 'vendor/jquery.mjs.nestedS
                     notify.addSuccess('Tree has been saved');
                 }
             });
-        })
+        });
 
-        $('.tree-container').on('ajax.bluz.success', '.remove', function () {
+        $('.tree-container').on('success.ajax.bluz', '.remove', function () {
             $(this).parent().parent().remove();
         });
 
-        $('.tree-container').on('ajax.bluz.success', '.remove-root', function () {
+        $('.tree-container').on('success.ajax.bluz', '.remove-root', function () {
             $('.root-category-list').find('[value=' + $('.root-category-list').val() + ']').remove();
 
             if ($('.root-category-list').children().length === 0) {
@@ -76,7 +76,7 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.ajax', 'vendor/jquery.mjs.nestedS
             $('.root-category-list').trigger('change');
         });
 
-        $('body').on('form.bluz.success', '.category-edit', function () {
+        $('body').on('success.form.bluz', '.category-edit', function () {
             $.ajax({
                 url: '/categories/grid',
                 data: {
@@ -92,20 +92,18 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.ajax', 'vendor/jquery.mjs.nestedS
         });
 
 
-        $('body').on('form.bluz.success', '.category-form', function (e) {
-
+        $('body').on('success.form.bluz', '.category-form', function (e) {
             $.ajax({
                 url: '/categories/grid',
                 success: function (resp) {
-                    console.log('resp', resp);
-                    $('.category-page-wrapper').html($(resp).children().unwrap())
+                    $('.category-page-wrapper').html($(resp).children().unwrap());
                     sortableInit();
 
                 }
             });
         });
 
-        $('body').on('form.bluz.success', '.add-child', function () {
+        $('body').on('success.form.bluz', '.add-child', function () {
             $.ajax({
                 url: '/categories/grid',
                 data: {
@@ -119,7 +117,7 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.ajax', 'vendor/jquery.mjs.nestedS
             });
 
             return false;
-        })
+        });
 
         $('body').on('blur', '#name', function () {
             var $alias = $("#alias");
@@ -149,7 +147,9 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.ajax', 'vendor/jquery.mjs.nestedS
                     },
                     r = '',
                     k;
-            for (k in L) r += k;
+            for (k in L) {
+                r += k;
+            }
             r = new RegExp('[' + r + ']', 'g');
             k = function (a) {
                 return a in L ? L[a] : '';
