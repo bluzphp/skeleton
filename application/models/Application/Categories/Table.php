@@ -63,7 +63,7 @@ class Table extends \Bluz\Db\Table
      */
     public function buildTree($id = null)
     {
-        return $this->generateTree($this->prepeadTree(), $id);
+        return $this->generateTree($this->prepareTree(), $id);
     }
 
     /**
@@ -74,22 +74,16 @@ class Table extends \Bluz\Db\Table
     {
         $current = $this->findRow(['alias' => $alias]);
 
-        return $this->generateTree($this->prepeadTree(), $current['id']);
+        return $this->generateTree($this->prepareTree(), $current['id']);
     }
 
     /**
      * @return array
      */
-    public function prepeadTree()
+    public function prepareTree()
     {
-        $result = [];
-
-        $select = $this->select()
-                ->orderBy('`order`', 'ASC');
-
-        foreach ($select->execute() as $category) {
-            $result[$category->id] = $category->toArray();
-        }
+        $result = app()->getDb()->fetchGroup('SELECT id, categories.* FROM categories ORDER BY `order`');
+        $result = array_map('reset', $result);
 
         return $result;
     }

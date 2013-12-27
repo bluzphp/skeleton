@@ -22,7 +22,7 @@ function ($tree, $treeParent) use ($view) {
 
         foreach ($categoris as $node) {
             if (isset($node->item_id)) {
-                        $dbNode = $categoriesTable->findRow($node->item_id);
+                $dbNode = $categoriesTable->findRow($node->item_id);
 
                 if (!$node->parent_id) {
                     $node->parent_id = $treeParent;
@@ -38,7 +38,6 @@ function ($tree, $treeParent) use ($view) {
                     $dbNode->save();
                 }
             }
-
         }
     } catch (\Exception $e) {
         $view->error = $e;

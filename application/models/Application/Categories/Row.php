@@ -47,7 +47,7 @@ class Row extends \Bluz\Db\Row
     public function beforeInsert()
     {
         $this->created = gmdate('Y-m-d H:i:s');
-        if (empty($this->parentId)) {
+        if ($this->parentId == '') {
             $this->parentId = null;
         }
     }

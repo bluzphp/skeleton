@@ -13,28 +13,14 @@ return
 /**
  * @privilege Management
  */
-function ($id = null, $newbranch = null, $parentId = null) use ($view) {
+function ($parentId = null) use ($view) {
     /**
      * @var \Application\Bootstrap $this
      */
-    try {
-        $crudController = new Controller\Crud();
-        $crudController->setCrud(Categories\Crud::getInstance());
+    $view->parentId = $parentId;
 
-        $categoriesTable = Categories\Table::getInstance();
-        $view->allCategories = $categoriesTable->getAllCategories($id);
-
-        if ($newbranch) {
-            $view->newBranch = !!$newbranch;
-        }
-
-        if ($parentId) {
-            $view->parentId = $parentId;
-        }
-    } catch (\Exception $e) {
-        $view->error = $e;
-    }
+    $crudController = new Controller\Crud();
+    $crudController->setCrud(Categories\Crud::getInstance());
 
     return $crudController();
-
 };
