@@ -125,12 +125,11 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `login`, `email`, `created`, `updated`, `status`)
 VALUES
-	(0,'system',NULL,'2012-11-09 07:37:58','0000-00-00 00:00:00','disabled'),
-	(1,'admin',NULL,'2012-11-09 07:38:41','0000-00-00 00:00:00','active');
+	(0,'system',NULL,'2012-11-09 07:37:58',NULL,'disabled'),
+	(1,'admin',NULL,'2012-11-09 07:38:41',NULL,'active');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
-
 
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

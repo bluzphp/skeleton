@@ -16,7 +16,7 @@
         <div class="col-lg-6">
             <form action="<?=$this->url('media', 'grid')?>" class="navbar-form filter-form pull-right">
                 <div class="input-group">
-                    <?php
+                    <?php echo
                     $this->partial(
                         'grid/filter-search.phtml',
                         [
@@ -36,16 +36,14 @@
         </div>
     </nav>
 
-    <div class="row">
-    <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
-    <?php $this->partial('grid/limit.phtml', ['grid'=>$grid]) ?>
+    <?=$this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
+    <?=$this->partial('grid/limit.phtml', ['grid'=>$grid]) ?>
 
     <ul class="pagination pagination-small pull-right">
         <li class="disabled"><a href="#"><?=__('Image quantity')?></a></li>
         <li <?=(($countCol==2)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 2]);?>">2</a></li>
         <li <?=(($countCol==4)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 4]);?>">4</a></li>
     </ul>
-    </div>
 
     <div class="row clearfix">
         <div class="col-lg-12">
@@ -92,8 +90,8 @@
         </div>
     </div>
 
-    <?php $this->partial('grid/empty-rows.phtml', ['grid'=>$grid]) ?>
-    <?php $this->partial('grid/pagination.phtml', ['grid'=>$grid]) ?>
-    <?php $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
+    <?=$this->partial('grid/empty-rows.phtml', ['grid'=>$grid]) ?>
+    <?=$this->partial('grid/pagination.phtml', ['grid'=>$grid]) ?>
+    <?=$this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
 
 </div>

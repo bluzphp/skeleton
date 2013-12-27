@@ -1,4 +1,25 @@
 <?php
+/**
+ * Copyright (c) 2013 by Bluz PHP Team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 
 /**
  * @namespace
@@ -8,21 +29,6 @@ namespace Application\Categories;
 class Crud extends \Bluz\Crud\Table
 {
     private $arrayWithTree = [];
-
-    /**
-     * @param array $data
-     * @return int
-     */
-    public function createOne($data)
-    {
-        $row = parent::createOne($data);
-
-        app()->getMessages()->addSuccess(
-            "The category has been created"
-        );
-
-        return $row;
-    }
 
     /**
      * @param array $data
@@ -86,7 +92,6 @@ class Crud extends \Bluz\Crud\Table
         if (strlen($alias) > 64) {
             $this->addError('Alias can\'t be bigger than 64 symbols', 'alias');
         }
-
         if (!preg_match('/^[a-zA-Z0-9-]+$/', $alias)) {
             $this->addError('Alias should contains only Latin characters, dots and dashes', 'alias');
         }
@@ -101,18 +106,15 @@ class Crud extends \Bluz\Crud\Table
         $table = Table::getInstance();
         $tree = $table->buildTree($data['id']);
 
-
         if (!isset($tree[0]['children'])) {
             parent::deleteOne($data);
         } else {
             $allSubCategories = $this->treeToArray($tree);
 
-            foreach ($allSubCategories as $categoryid) {
-                parent::deleteOne(['id' => $categoryid]);
+            foreach ($allSubCategories as $categoryId) {
+                parent::deleteOne(['id' => $categoryId]);
             }
-
         }
-
     }
 
     /**
@@ -122,7 +124,6 @@ class Crud extends \Bluz\Crud\Table
     private function treeToArray($tree)
     {
         foreach ($tree as $node) {
-
             if (empty($node['children'])) {
                 $this->arrayWithTree[] = $node['id'];
             } else {

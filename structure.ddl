@@ -26,8 +26,18 @@ CREATE TABLE auth
   tokenSecret VARCHAR(64) NOT NULL,
   tokenType CHAR(8) NOT NULL,
   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  updated TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  updated TIMESTAMP,
   PRIMARY KEY ( userId, provider )
+);
+CREATE TABLE categories
+(
+  id BIGINT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  parentId BIGINT UNSIGNED,
+  name VARCHAR(255) NOT NULL,
+  alias VARCHAR(255) NOT NULL,
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  updated TIMESTAMP,
+  `order` BIGINT UNSIGNED DEFAULT 0 NOT NULL
 );
 CREATE TABLE com_content
 (
@@ -38,7 +48,7 @@ CREATE TABLE com_content
   parentId BIGINT UNSIGNED,
   content LONGTEXT,
   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  updated TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  updated TIMESTAMP,
   status CHAR(7) DEFAULT 'active' NOT NULL
 );
 CREATE TABLE com_settings
@@ -47,7 +57,7 @@ CREATE TABLE com_settings
   alias VARCHAR(255) NOT NULL,
   options LONGTEXT,
   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  updated TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  updated TIMESTAMP,
   countPerPage SMALLINT DEFAULT 10 NOT NULL,
   relatedTable VARCHAR(64)
 );
@@ -61,7 +71,7 @@ CREATE TABLE media
   file VARCHAR(255),
   preview VARCHAR(255),
   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  updated TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL
+  updated TIMESTAMP
 );
 CREATE TABLE options
 (
@@ -70,7 +80,7 @@ CREATE TABLE options
   value LONGTEXT NOT NULL,
   description LONGTEXT,
   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  updated TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  updated TIMESTAMP,
   PRIMARY KEY ( `key`, namespace )
 );
 CREATE TABLE pages
@@ -82,7 +92,7 @@ CREATE TABLE pages
   keywords LONGTEXT,
   description LONGTEXT,
   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  updated TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  updated TIMESTAMP,
   userId BIGINT UNSIGNED
 );
 CREATE TABLE users
@@ -91,7 +101,7 @@ CREATE TABLE users
   login VARCHAR(255),
   email VARCHAR(255),
   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  updated TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  updated TIMESTAMP,
   status CHAR(8) DEFAULT 'disabled' NOT NULL
 );
 CREATE TABLE users_actions
@@ -104,36 +114,32 @@ CREATE TABLE users_actions
   expired TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
   PRIMARY KEY ( userId, code )
 );
-
-CREATE TABLE categories (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  parentId INT(11) DEFAULT NULL,
-  name VARCHAR(128) DEFAULT NULL,
-  alias VARCHAR(64) DEFAULT NULL,
-  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  updated TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `order` INT(11) DEFAULT 0,
-  PRIMARY KEY (id)
-);
-
 ALTER TABLE acl_privileges ADD FOREIGN KEY ( roleId ) REFERENCES acl_roles ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
-CREATE UNIQUE INDEX role_privilege ON acl_privileges ( roleId, module, privilege );
-CREATE UNIQUE INDEX unique_name ON acl_roles ( name );
+CREATE UNIQUE INDEX UNIQUE_access ON acl_privileges ( roleId, module, privilege );
+CREATE INDEX FK_roles ON acl_privileges ( roleId );
+CREATE UNIQUE INDEX UNIQUE_role ON acl_roles ( name );
 ALTER TABLE acl_users_roles ADD FOREIGN KEY ( roleId ) REFERENCES acl_roles ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE acl_users_roles ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
+CREATE INDEX FK_users ON acl_users_roles ( userId );
+CREATE INDEX FK_roles ON acl_users_roles ( roleId );
 ALTER TABLE auth ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
+CREATE INDEX FK_users ON auth ( userId );
+ALTER TABLE categories ADD FOREIGN KEY ( parentId ) REFERENCES categories ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
+CREATE UNIQUE INDEX UNIQUE_alias ON categories ( parentId, alias );
+CREATE INDEX FK_parentId ON categories ( parentId );
 ALTER TABLE com_content ADD FOREIGN KEY ( parentId ) REFERENCES com_content ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE com_content ADD FOREIGN KEY ( settingsId ) REFERENCES com_settings ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE com_content ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
 CREATE INDEX comments_target ON com_content ( settingsId, foreignKey );
-CREATE INDEX FK_comments_to_users ON com_content ( userId );
-CREATE UNIQUE INDEX com_aliases_unique ON com_settings ( alias );
+CREATE INDEX FK_users ON com_content ( userId );
+CREATE INDEX FK_parentId ON com_content ( parentId );
+CREATE UNIQUE INDEX UNIQUE_alias ON com_settings ( alias );
 ALTER TABLE media ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
+CREATE INDEX FK_users ON media ( userId );
 ALTER TABLE pages ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
-CREATE UNIQUE INDEX `unique` ON pages ( alias );
-CREATE INDEX FK_pages_to_users ON pages ( userId );
+CREATE UNIQUE INDEX UNIQUE_alias ON pages ( alias );
+CREATE INDEX FK_users ON pages ( userId );
 CREATE UNIQUE INDEX UNIQUE_login ON users ( login );
 ALTER TABLE users_actions ADD FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE ON UPDATE CASCADE;
-CREATE UNIQUE INDEX UNIQUE_userId_action ON users_actions ( userId, action );
-CREATE UNIQUE INDEX `uniqueCategoryAlias` ON categories ( alias );
-CREATE UNIQUE INDEX `uniqueCategoryId` ON categories ( id );
+CREATE UNIQUE INDEX UNIQUE_action ON users_actions ( userId, action );
+CREATE INDEX FK_users ON users_actions ( userId );

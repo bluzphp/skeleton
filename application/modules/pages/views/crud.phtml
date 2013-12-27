@@ -61,15 +61,12 @@
 //*/
 ?>
 <script>
-    require(['jquery'], function($) {
+    require(['jquery', 'bluz.tools'], function($, tools) {
         $("#title").blur(function() {
             var $alias = $("#alias");
             if ($alias.val() == "") {
                 var title = $(this).val();
-                title = title.toLowerCase();
-                title = title.replace(/[ :;]+/gi, "-");
-                title = title.replace(/[-]+/gi, "-");
-                title = title.replace(/[^a-z0-9.-]/gi, "");
+                title = tools.alias(title);
                 $alias.val(title);
             }
         });

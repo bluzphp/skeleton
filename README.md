@@ -45,16 +45,23 @@ php composer.phar install
 
 ### Last step
 
-Create symlink to public directory (required FollowSymlinks option):
+Restore database structure from `structure.ddl` file (use InnoDB as the Default MySQL Storage Engine for avoid "Error Code: 1071"!).
+Restore default database data from `dump.sql`
+
+Edit your own configuration file `/path/to/application/configs/app.dev.php` (configuration for development environment)
+
+Run internal PHP web-server with simple console tool:
+
+```
+/path/to/bin/server.sh -e dev
+```
+
+Or create symlink to Apache document root (required FollowSymlinks option):
 
 ```
 ln -s /path/to/public /var/www/htdocs
 ```
 
-Restore database structure from `structure.ddl` file (use InnoDB as the Default MySQL Storage Engine for avoid "Error Code: 1071"!).
-Restore default database data from `dump.sql`
-
-Edit your own configuration file `/path/to/application/configs/app.dev.php`
 
 ## Usage
 
