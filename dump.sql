@@ -37,6 +37,7 @@ VALUES
   (1,'dashboard','Dashboard'),
   (1,'media','Management'),
   (1,'media','Upload'),
+  (1,'categories','Management'),
   (1,'options','Management'),
   (1,'pages','Management'),
   (1,'system','Info'),
