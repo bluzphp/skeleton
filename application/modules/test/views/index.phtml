@@ -32,6 +32,7 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
     <li><?= $this->ahref('Grid with Array source', ['test', 'grid-array']);?></li>
     <li><?= $this->ahref('Grid with Select source', ['test', 'grid-select']);?></li>
     <li><?= $this->ahref('Grid with SQL source', ['test', 'grid-sql']);?></li>
+    <li><?= $this->ahref('Grid with custom route', ['test', 'grid-route', ['alias'=>'example']]);?></li>
     <li><?= $this->ahref('Mailer', ['test', 'mailer']);?></li>
     <li><?= $this->ahref('View Partials', ['test', 'view-partial']);?></li>
     <li><?= $this->ahref('View Form Helpers', ['test', 'view-helpers']);?></li>
@@ -96,6 +97,13 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
     <a href="/test/privilege" class="btn btn-default bluz-tooltip ajax" data-toggle="tooltip" title="Return error message">Denied page, AJAX call</a>
     <a href="/test/privilege" class="btn btn-default bluz-tooltip dialog" data-toggle="tooltip" title="Return error dialog">Denied page, dialog</a>
 </div>
+<hr/>
+
+<h3>Exceptions</h3>
+<ul>
+    <li><?= $this->ahref('Throw exception from controller', ['test', 'exception']) ?></li>
+    <li><?= $this->ahref('Throw exception from view', ['test', 'exception-view']) ?></li>
+</ul>
 <hr/>
 
 <h3>Dispatch controller</h3>
