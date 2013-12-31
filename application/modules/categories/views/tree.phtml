@@ -21,19 +21,20 @@
                    data-ajax-method="get"><?=__('Add child')?></a>
             </div>
             <div class="col-lg-6 select-tree">
+                <form action="" class="form-horizontal">
                 <select class="form-control root-category-list">
                     <?php foreach ($this->rootTree as $tree) { ?>
                         <option value="<?php echo $tree->id ?>"><?php echo $tree->name ?></option>
                     <?php }?>
                 </select>
+                </form>
             </div>
         </div>
     </nav>
 
     <div class="tree-container">
         <div class="tree-wrapper">
-            <?php
-            if (isset($this->tree[0])) { ?>
+            <?php if (isset($this->tree[0])) : ?>
                 <div class="tree-header well well-sm"
                      data-parent-id="<?= $this->tree[0]['id'] ?>"> <?= esc($this->tree[0]['name']) ?>
                     <div class="pull-right">
@@ -52,24 +53,17 @@
                         </a>
                     </div>
                 </div>
-            <?php } ?>
+            <?php endif; ?>
 
+            <?php if (isset($this->tree[0]['children'])) : ?>
             <div class="sortable-wrapper">
                 <ol class="sortable">
-                    <?php if (isset($this->tree[0]['children'])) {
-                        echo $this->treeBuild($this->tree[0]['children']);
-                    }?>
+                    <?= $this->treeBuild($this->tree[0]['children']); ?>
                 </ol>
             </div>
-        </div>
-    </div>
-
-    <hr/>
-    <div class="message-wrapper">
-        <?php if ($this->error) : ?>
-            <h3 class="not-one-category"> <?= $this->error; ?> </h3>
-        <?php else: ?>
+            <hr/>
             <button id="save" class="btn btn-primary ajax"><?=__('Save')?></button>
-        <?php endif; ?>
+            <?php endif; ?>
+        </div>
     </div>
 </div>
