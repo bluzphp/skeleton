@@ -13,7 +13,7 @@ return
 /**
  * @return \closure
  */
-function() {
+function () {
     /**
      * @var \Application\Bootstrap $this
      */
