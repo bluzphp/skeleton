@@ -2,7 +2,7 @@
 /**
  * @namespace
  */
-namespace Application\Twitter;
+namespace Twitter;
 
 use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Plugin\Oauth\OauthPlugin;
@@ -21,24 +21,23 @@ use Guzzle\Plugin\Oauth\OauthPlugin;
  */
 class Client extends GuzzleClient
 {
-
     private $domain = 'https://api.twitter.com/';
     private $requestToken = 'oauth/request_token';
     private $accessToken = 'oauth/access_token';
+    private $authorize = 'oauth/authorize';
     private $oauthPlugin = null;
 
     /**
      * __construct
      *
      * @param array $config
-     * @return Twitter
+     * @throws \Exception
      */
     public function __construct($config)
     {
         /**
-         * verification setting.
+         * verification setting
          */
-
         if (!$config || !isset($config['consumer_key']) || empty($config['consumer_key'])
              || !isset($config['consumer_secret']) || empty($config['consumer_secret'])) {
              throw new \Exception('Twitter authorization is not configured');
@@ -54,22 +53,21 @@ class Client extends GuzzleClient
          */
         $this->oauthPlugin = new OauthPlugin($config);
         $this->addSubscriber($this->oauthPlugin);
-
-
     }
 
     /**
-     * getOauthRequestToken
+     * Get request token from API
      *
      * $callbackUrl = $this->getRouter()->getFullUrl('twitter', 'callback');
      * $oauthRequestToken = $twitterAuth->getOauthRequestToken($callbackUrl);     *
      *
      * @param string $callbackUrl
-     * @return Guzzle\Http\Client
+     * @throws \Exception
+     * @return array
      */
     public function getOauthRequestToken($callbackUrl)
     {
-        $response = $this->get(
+        $request = $this->get(
             $this->requestToken,
             null,
             array(
@@ -79,7 +77,15 @@ class Client extends GuzzleClient
             )
         );
 
-        return $response;
+
+        $response = $request->send();
+        parse_str($response->getBody(), $result);
+
+        if (!$result || !isset($result['oauth_token']) || empty($result['oauth_token'])) {
+            throw new \Exception("System can't retrieve token. Please check configuration of Twitter authorization");
+        }
+
+        return $result['oauth_token'];
     }
 
     /**
@@ -93,11 +99,12 @@ class Client extends GuzzleClient
      * @param string $oauthToken
      * @param string $oauthVerifier
      * @param string $oauthTokenSecret
-     * @return Guzzle\Http\Client
+     * @throws \Exception
+     * @return array
      */
     public function getOauthAccessToken($oauthToken, $oauthVerifier, $oauthTokenSecret)
     {
-        $response = $this->get(
+        $request = $this->get(
             $this->accessToken,
             null,
             array(
@@ -109,6 +116,12 @@ class Client extends GuzzleClient
             )
         );
 
-        return $response;
+        $response = $request->send();
+        parse_str($response->getBody(), $result);
+        if (!$result || !isset($result['user_id']) || empty($result['user_id'])) {
+            throw new \Exception('User data is not received');
+        }
+
+        return $result;
     }
 }

@@ -7,12 +7,10 @@
  */
 namespace Application;
 
-use Application\Auth\Table;
+use Application\Auth;
 use Application\Users;
-use Application\Users\Table as UsersTable;
-use Bluz;
-
-use Application\Twitter\Client;
+use Application\UsersRoles;
+use Twitter\Client;
 use Guzzle\Common\Exception\GuzzleException;
 
 return
@@ -28,26 +26,15 @@ function () use ($view) {
     /**
      * Get config params.
      */
-    $twitter = $this->getConfigData('auth', 'twitter');
-    $oauth_token = $this->getRequest()->getParam('oauth_token');
-    $oauth_verifier = $this->getRequest()->getParam('oauth_verifier');
+    $config = $this->getConfigData('auth', 'twitter');
+    $oauthToken = $this->getRequest()->getParam('oauth_token');
+    $oauthVerifier = $this->getRequest()->getParam('oauth_verifier');
     $oauthTokenSecret = $this->getSession()->oauthTokenSecret;
 
     /**
-     * Create new Object Application\Twitter\Client
-     * @param array $twitter - setting Twitter API.
+     * Create new Twitter\Client
      */
-    $twitterAuth = new Client($twitter);
-
-    /**
-     * getOauthAccessToken
-     *
-     * @param string $oauthToken
-     * @param string $oauthVerifier
-     * @param string $oauthTokenSecret
-     * @return Guzzle\Http\Client
-     */
-    $oauthRequestToken = $twitterAuth->getOauthAccessToken($oauth_token, $oauth_verifier, $oauthTokenSecret);
+    $twitterAuth = new Client($config);
 
     /**
      * Try send request.
@@ -61,11 +48,7 @@ function () use ($view) {
      * Try to sign in
      */
     try {
-        $response = $oauthRequestToken->send();
-        parse_str($response->getBody(), $result);
-        if (!$result || !isset($result['user_id']) || empty($result['user_id'])) {
-            throw new \Exception('User data is not received');
-        }
+        $result = $twitterAuth->getOauthAccessToken($oauthToken, $oauthVerifier, $oauthTokenSecret);
 
         /**
          * @var Auth\Table $authTable
@@ -76,7 +59,7 @@ function () use ($view) {
          * Try to load previous information
          * @var /Application/Auth/Row $row
          */
-        $row = $authTable->getAuthRow(Table::PROVIDER_TWITTER, $result['user_id']);
+        $row = $authTable->getAuthRow(Auth\Table::PROVIDER_TWITTER, $result['user_id']);
 
         if ($row) {
             /**
@@ -88,7 +71,7 @@ function () use ($view) {
             /**
              * Check the status of the user
              */
-            if ($user->status != UsersTable::STATUS_ACTIVE) {
+            if ($user->status != Users\Table::STATUS_ACTIVE) {
                 $this->getMessages()->addError('User is not active');
                 $this->redirectTo('index', 'index');
             }
@@ -127,6 +110,7 @@ function () use ($view) {
                  */
                 $userRole = new UsersRoles\Row();
                 $userRole -> userId = $user->id;
+                // FIXME: hardcoded role Id (2 = Member)
                 $userRole -> roleId = 2;
                 $userRole -> save();
 
@@ -152,12 +136,9 @@ function () use ($view) {
 
         $this->getMessages()->addNotice('You are signed');
         $this->redirectTo('index', 'index');
-
-
-
-
     } catch (GuzzleException $e) {
         $this->getMessages()->addError($e->getMessage());
+        $this->redirectTo('index', 'index');
     }
 
     return false;
