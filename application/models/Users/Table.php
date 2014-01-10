@@ -1,0 +1,56 @@
+<?php
+/**
+ * @copyright Bluz PHP Team
+ * @link https://github.com/bluzphp/skeleton
+ */
+
+/**
+ * @namespace
+ */
+namespace Application\Users;
+
+/**
+ * Table
+ *
+ * @category Application
+ * @package  Users
+ *
+ * @author   Anton Shevchuk
+ * @created  08.07.11 17:36
+ */
+class Table extends \Bluz\Db\Table
+{
+    /**
+     * Pending email verification
+     */
+    const STATUS_PENDING = 'pending';
+    /**
+     * Active user
+     */
+    const STATUS_ACTIVE = 'active';
+    /**
+     * Disabled by administrator
+     */
+    const STATUS_DISABLED = 'disabled';
+    /**
+     * Removed account
+     */
+    const STATUS_DELETED = 'deleted';
+    /**
+     * system user with ID=0
+     */
+    const SYSTEM_USER = 0;
+
+    /**
+     * Table
+     *
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
+     * Primary key(s)
+     * @var array
+     */
+    protected $primary = array('id');
+}
