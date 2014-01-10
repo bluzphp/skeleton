@@ -122,7 +122,7 @@ class Row extends \Bluz\Db\Row {
 
 ## License
 
-Read [MIT LICENSE](https://raw.github.com/bluzphp/skeleton/master/LICENSE) file
+Read [MIT LICENSE](https://raw.github.com/bluzphp/skeleton/master/LICENSE.md) file
 
 ## Vendors
 

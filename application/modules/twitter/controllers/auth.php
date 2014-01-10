@@ -7,10 +7,8 @@
  */
 namespace Application;
 
-use Bluz;
-use Application\Users;
-use Application\Twitter\Client;
 use Guzzle\Common\Exception\GuzzleException;
+use Twitter\Client;
 
 return
 /**
@@ -20,40 +18,25 @@ function () {
 
     /**
      * Get config params
-     * @var array $twitter
+     * @var array $config
      * @var string $callbackUrl
      */
-    $twitter = $this->getConfigData('auth', 'twitter');
+    $config = $this->getConfigData('auth', 'twitter');
     $callbackUrl = $this->getRouter()->getFullUrl('twitter', 'callback');
 
     /**
-     * Create new Object Application\Twitter\Client
-     * @param array $twitter - setting Twitter API.
+     * Create new Twitter\Client
      */
-    $twitterAuth = new Client($twitter);
+    $twitterAuth = new Client($config);
 
     /**
-     * getOauthRequestToken
-     *
-     * @param string $callbackUrl
-     * @return Guzzle\Http\Client
-     */
-    $oauthRequestToken = $twitterAuth->getOauthRequestToken($callbackUrl);
-
-    /**
-     * Try send request.
-     * if received oauth_token then redirect.
+     * Try send request to API
+     * if received oauth_token then redirect
      */
     try {
-        $response = $oauthRequestToken->send();
-        parse_str($response->getBody(), $result);
-        if (!$result || !isset($result['oauth_token']) || empty($result['oauth_token'])) {
-            throw new \Exception('Twitter authorization is not configured');
-        }
-        $this->redirect('https://api.twitter.com/oauth/authenticate?oauth_token='.$result['oauth_token']);
-
+        $token = $twitterAuth->getOauthRequestToken($callbackUrl);
+        $this->redirect('https://api.twitter.com/oauth/authenticate?oauth_token='.$token);
     } catch (GuzzleException $e) {
         $this->getMessages()->addError($e->getMessage());
     }
-
 };
