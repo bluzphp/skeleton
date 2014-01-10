@@ -9,8 +9,8 @@
  */
 namespace Application\Media;
 
-use Application\Image\Thumbnail;
 use Application\Users;
+use Image\Thumbnail;
 
 /**
  * Media Row

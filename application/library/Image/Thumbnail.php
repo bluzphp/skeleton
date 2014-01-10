@@ -7,9 +7,7 @@
 /**
  * @namespace
  */
-namespace Application\Image;
-
-use Application\Exception;
+namespace Image;
 
 /**
  * Image resize and crop
@@ -86,7 +84,7 @@ class Thumbnail
     /**
      * Generate thumbnail
      *
-     * @throws \Application\Exception
+     * @throws Exception
      * @return string Path to new file
      */
     public function generate()

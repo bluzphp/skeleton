@@ -116,7 +116,7 @@ class Crud extends Table
          * @var \Bluz\Request\HttpFile $file
          */
         try {
-            app()->getRequest()->getFileUpload()->getFile('file');
+            $file = app()->getRequest()->getFileUpload()->getFile('file');
         } catch (\Bluz\Common\Exception $e) {
             $this->addError($e->getMessage(), 'file');
             return;

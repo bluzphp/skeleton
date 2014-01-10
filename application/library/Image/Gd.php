@@ -7,9 +7,7 @@
 /**
  * @namespace
  */
-namespace Application\Image;
-
-use Application\Exception;
+namespace Image;
 
 /**
  * Wrapper over Gd for support some Imagick functions
@@ -43,7 +41,7 @@ class Gd
     protected $height;
 
     /**
-     * Compression quality
+     * Compression quality for JPEG
      * @var integer
      */
     protected $quality = 86;
@@ -77,7 +75,7 @@ class Gd
     }
 
     /**
-     * @param $quality
+     * @param integer $quality
      * @return bool
      */
     public function setImageCompressionQuality($quality)
@@ -88,7 +86,11 @@ class Gd
 
     /**
      * Create a crop thumbnail image from source image
-     * cropped by smaller
+     * cropped by smaller side
+     *
+     * @param integer $width
+     * @param integer $height
+     * @return bool
      */
     public function cropThumbnailImage($width, $height)
     {
