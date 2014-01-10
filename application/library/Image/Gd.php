@@ -175,4 +175,3 @@ class Gd
         imagedestroy($this->image);
     }
 }
- 
