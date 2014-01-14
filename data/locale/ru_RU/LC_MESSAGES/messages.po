@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluz\n"
-"POT-Creation-Date: 2013-11-22 09:44+0200\n"
-"PO-Revision-Date: 2013-11-22 09:47+0200\n"
+"POT-Creation-Date: 2014-01-14 13:03+0200\n"
+"PO-Revision-Date: 2014-01-14 13:06+0200\n"
 "Last-Translator: Anton Shevchuk <Anton.Shevchuk@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -17,100 +17,116 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: d:/projects/bluz/skeleton/application\n"
 
-#: d:/projects/bluz/skeleton/application/Bootstrap.php:141
+#: d:/projects/bluz/skeleton/application/Bootstrap.php:120
 msgid "You don't have permissions, please sign in"
 msgstr "У вас нет прав доступа, пожалуйста авторизируйтесь"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Media/Crud.php:121
-msgid "Sorry, I can't receive file"
-msgstr "Файл не получен"
+#: d:/projects/bluz/skeleton/application/models/Categories/Crud.php:28
+#: d:/projects/bluz/skeleton/application/models/Categories/Crud.php:44
+msgid "Category with alias "
+msgstr "Категория с сокращением"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Media/Crud.php:126
-msgid "Please choose file for upload"
-msgstr "Выберите файл для загрузки"
-
-#: d:/projects/bluz/skeleton/application/models/Application/Media/Crud.php:163
-#: d:/projects/bluz/skeleton/application/models/Application/Pages/Crud.php:48
-msgid "Title can't be empty"
-msgstr "Заголовок не может быть пустым"
-
-#: d:/projects/bluz/skeleton/application/models/Application/Media/Crud.php:165
-msgid "Title should contains only Latin characters"
-msgstr "Заголовок должен содержать только буквы латинского алфавита"
-
-#: d:/projects/bluz/skeleton/application/models/Application/Options/Crud.php:47
-msgid "Key name can't be empty"
-msgstr "Имя ключа не может быть пустым"
-
-#: d:/projects/bluz/skeleton/application/models/Application/Options/Crud.php:49
-msgid "Key name should contains only Latin characters"
-msgstr "Имя ключа должно содержать только буквы латинского алфавита"
-
-#: d:/projects/bluz/skeleton/application/models/Application/Options/Crud.php:55
-#: d:/projects/bluz/skeleton/application/models/Application/Test/Crud.php:115
+#: d:/projects/bluz/skeleton/application/models/Categories/Crud.php:59
+#: d:/projects/bluz/skeleton/application/models/Options/Crud.php:38
+#: d:/projects/bluz/skeleton/application/models/Test/Crud.php:98
 msgid "Name can't be empty"
 msgstr "Имя не может быть пустым"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Options/Crud.php:57
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:52
-#: d:/projects/bluz/skeleton/application/models/Application/Test/Crud.php:117
-msgid "Name should contains only Latin characters"
-msgstr "Имя должно содержать только буквы латинского алфавита"
+#: d:/projects/bluz/skeleton/application/models/Categories/Crud.php:62
+msgid "Name can't be bigger than 128 symbols"
+msgstr "Имя не может быть больше 128 символов"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Options/Crud.php:71
-#, php-format
-msgid "Key name \"%s\" already exists in namespace \"%s\""
-msgstr "Ключ \"%s\" уже существует в области \"%s\""
-
-#: d:/projects/bluz/skeleton/application/models/Application/Pages/Crud.php:54
+#: d:/projects/bluz/skeleton/application/models/Categories/Crud.php:73
+#: d:/projects/bluz/skeleton/application/models/Pages/Crud.php:37
 msgid "Alias can't be empty"
 msgstr "Сокращение для короткой ссылки не может быть пустым"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Pages/Crud.php:56
+#: d:/projects/bluz/skeleton/application/models/Categories/Crud.php:76
+msgid "Alias can't be bigger than 64 symbols"
+msgstr "Сокращение не может быть больше 64 символов"
+
+#: d:/projects/bluz/skeleton/application/models/Categories/Crud.php:79
+#: d:/projects/bluz/skeleton/application/models/Pages/Crud.php:39
 msgid "Alias should contains only Latin characters, dots and dashes"
 msgstr ""
 "Сокращение для короткой ссылки должно содержать только буквы латинского "
 "алфавита, точку и дефис"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Pages/Crud.php:60
+#: d:/projects/bluz/skeleton/application/models/Media/Crud.php:126
+msgid "Sorry, I can't receive file"
+msgstr "Файл не получен"
+
+#: d:/projects/bluz/skeleton/application/models/Media/Crud.php:131
+msgid "Please choose file for upload"
+msgstr "Выберите файл для загрузки"
+
+#: d:/projects/bluz/skeleton/application/models/Media/Crud.php:158
+#: d:/projects/bluz/skeleton/application/models/Pages/Crud.php:31
+msgid "Title can't be empty"
+msgstr "Заголовок не может быть пустым"
+
+#: d:/projects/bluz/skeleton/application/models/Media/Crud.php:160
+msgid "Title should contains only Latin characters"
+msgstr "Заголовок должен содержать только буквы латинского алфавита"
+
+#: d:/projects/bluz/skeleton/application/models/Options/Crud.php:30
+msgid "Key name can't be empty"
+msgstr "Имя ключа не может быть пустым"
+
+#: d:/projects/bluz/skeleton/application/models/Options/Crud.php:32
+msgid "Key name should contains only Latin characters"
+msgstr "Имя ключа должно содержать только буквы латинского алфавита"
+
+#: d:/projects/bluz/skeleton/application/models/Options/Crud.php:40
+#: d:/projects/bluz/skeleton/application/models/Roles/Crud.php:35
+#: d:/projects/bluz/skeleton/application/models/Test/Crud.php:100
+msgid "Name should contains only Latin characters"
+msgstr "Имя должно содержать только буквы латинского алфавита"
+
+#: d:/projects/bluz/skeleton/application/models/Options/Crud.php:54
+#, php-format
+msgid "Key name \"%s\" already exists in namespace \"%s\""
+msgstr "Ключ \"%s\" уже существует в области \"%s\""
+
+#: d:/projects/bluz/skeleton/application/models/Pages/Crud.php:43
 #, php-format
 msgid "Alias \"%s\" already exists"
 msgstr "Сокращение \"%s\" уже существует"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Pages/Crud.php:69
+#: d:/projects/bluz/skeleton/application/models/Pages/Crud.php:52
 msgid "Content can't be empty"
 msgstr "Содержимое не может быть пустым"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:49
+#: d:/projects/bluz/skeleton/application/models/Roles/Crud.php:32
 msgid "Role name can't be empty"
 msgstr "Название роли не может быть пустым"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:67
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:90
+#: d:/projects/bluz/skeleton/application/models/Roles/Crud.php:50
+#: d:/projects/bluz/skeleton/application/models/Roles/Crud.php:73
 #, php-format
 msgid "Role name \"%s\" already exists"
 msgstr "Роль \"%s\" уже существует"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:82
+#: d:/projects/bluz/skeleton/application/models/Roles/Crud.php:65
 #, php-format
 msgid "Role name \"%s\" is basic and can't be editable"
 msgstr "Роль \"%s\" является основной, и не может быть изменена"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Roles/Crud.php:88
+#: d:/projects/bluz/skeleton/application/models/Roles/Crud.php:71
 #, php-format
 msgid "Role name \"%s\" the same as original"
 msgstr "Имя роли \"%s\" не было изменено"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Test/Crud.php:130
-#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:207
+#: d:/projects/bluz/skeleton/application/models/Test/Crud.php:113
+#: d:/projects/bluz/skeleton/application/models/Users/Crud.php:190
 msgid "Email can't be empty"
 msgstr "Email не может быть пустым"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Test/Crud.php:132
+#: d:/projects/bluz/skeleton/application/models/Test/Crud.php:115
 msgid "Email has invalid format"
 msgstr "Email указан в неправильном формате"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:115
+#: d:/projects/bluz/skeleton/application/models/Users/Crud.php:98
 msgid ""
 "Your account has been created and an activation link hasbeen sent to the e-"
 "mail address you entered.<br/>Note that you must activate the account by "
@@ -119,41 +135,41 @@ msgstr ""
 "Ваша учётная запись создана в системе. На ваш email была отправлена ссылка, "
 "пройдя по которой вы активируете учётную запись"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:137
+#: d:/projects/bluz/skeleton/application/models/Users/Crud.php:120
 #, php-format
 msgid "User with login \"%s\" already exists"
 msgstr "Пользователь с логином \"%s\" уже существует"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:150
+#: d:/projects/bluz/skeleton/application/models/Users/Crud.php:133
 #, php-format
 msgid "User with email \"%s\" already exists"
 msgstr "Пользователь с адресом \"%s\" уже существует"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:159
+#: d:/projects/bluz/skeleton/application/models/Users/Crud.php:142
 msgid "Password can't be empty"
 msgstr "Пароль пуст"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:163
+#: d:/projects/bluz/skeleton/application/models/Users/Crud.php:146
 msgid "Password is not equal"
 msgstr "Пароль не верен"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:189
+#: d:/projects/bluz/skeleton/application/models/Users/Crud.php:172
 msgid "Login can't be empty"
 msgstr "Логин не может быть пустым"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:192
+#: d:/projects/bluz/skeleton/application/models/Users/Crud.php:175
 msgid "Login can't be bigger than 255 symbols"
 msgstr "Логин не может быть больше 255 символов"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:212
+#: d:/projects/bluz/skeleton/application/models/Users/Crud.php:195
 msgid "Email can't be bigger than 255 symbols"
 msgstr "Email не может быть больше 255 символов"
 
-#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:219
+#: d:/projects/bluz/skeleton/application/models/Users/Crud.php:202
 msgid "Email has invalid domain name"
 msgstr "Указана неверный домен для email "
 
-#: d:/projects/bluz/skeleton/application/models/Application/Users/Crud.php:223
+#: d:/projects/bluz/skeleton/application/models/Users/Crud.php:206
 msgid "Email is invalid"
 msgstr "Email неверен"
 
@@ -182,6 +198,7 @@ msgstr "Кеш очищен"
 #: d:/projects/bluz/skeleton/application/modules/cache/controllers/flush2.php:24
 #: d:/projects/bluz/skeleton/application/modules/cache/controllers/index.php:35
 #: d:/projects/bluz/skeleton/application/modules/cache/controllers/stats.php:35
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:22
 msgid "Cache is disabled"
 msgstr "Кеш отключён"
 
@@ -191,7 +208,7 @@ msgid "Cache is flushed"
 msgstr "Кеш сброшен"
 
 #: d:/projects/bluz/skeleton/application/modules/cache/controllers/index.php:27
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:16
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:17
 msgid "Cache"
 msgstr "Кеш"
 
@@ -199,6 +216,20 @@ msgstr "Кеш"
 #: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:6
 msgid "Statistics"
 msgstr "Статистика"
+
+#: d:/projects/bluz/skeleton/application/modules/categories/controllers/tree.php:27
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:13
+msgid "Categories"
+msgstr "Категории"
+
+#: d:/projects/bluz/skeleton/application/modules/categories/controllers/tree.php:35
+msgid "There are no categories"
+msgstr "Категории не заданы"
+
+#: d:/projects/bluz/skeleton/application/modules/dashboard/controllers/index.php:25
+#: d:/projects/bluz/skeleton/application/modules/dashboard/views/index.phtml:1
+msgid "Dashboard"
+msgstr "Панель управления"
 
 #: d:/projects/bluz/skeleton/application/modules/error/controllers/index.php:31
 msgid "Bad Request"
@@ -273,7 +304,7 @@ msgid "An unexpected error occurred with your request. Please try again later"
 msgstr "При обработке вашего запроса произошла ошибка. Поробуйте ещё раз"
 
 #: d:/projects/bluz/skeleton/application/modules/facebook/controllers/auth.php:64
-#: d:/projects/bluz/skeleton/application/modules/twitter/controllers/callback.php:100
+#: d:/projects/bluz/skeleton/application/modules/twitter/controllers/callback.php:75
 msgid "User is not active"
 msgstr "Пользователь не активен"
 
@@ -288,12 +319,12 @@ msgid "Media"
 msgstr "Медиа"
 
 #: d:/projects/bluz/skeleton/application/modules/options/controllers/grid.php:21
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:13
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:14
 #: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:6
 msgid "Options"
 msgstr "Настройки"
 
-#: d:/projects/bluz/skeleton/application/modules/pages/controllers/grid.php:26
+#: d:/projects/bluz/skeleton/application/modules/pages/controllers/grid.php:24
 #: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:10
 msgid "Pages"
 msgstr "Страницы"
@@ -303,7 +334,7 @@ msgid "Bookmarklets"
 msgstr "Генератор закладок"
 
 #: d:/projects/bluz/skeleton/application/modules/system/controllers/index.php:26
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:18
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:19
 msgid "System"
 msgstr "Система"
 
@@ -335,15 +366,15 @@ msgstr "Текст ошибки"
 msgid "Method "
 msgstr "Метод"
 
-#: d:/projects/bluz/skeleton/application/modules/test/controllers/delete.php:25
+#: d:/projects/bluz/skeleton/application/modules/test/controllers/crud-delete.php:25
 msgid "Row was removed"
 msgstr "Запись удалена"
 
-#: d:/projects/bluz/skeleton/application/modules/test/controllers/mailer.php:27
+#: d:/projects/bluz/skeleton/application/modules/test/controllers/mailer.php:33
 msgid "Email was send"
 msgstr "Email отправлен"
 
-#: d:/projects/bluz/skeleton/application/modules/twitter/controllers/callback.php:145
+#: d:/projects/bluz/skeleton/application/modules/twitter/controllers/callback.php:137
 #: d:/projects/bluz/skeleton/application/modules/users/controllers/signin.php:41
 msgid "You are signed"
 msgstr "Вы вошли в систему"
@@ -421,16 +452,16 @@ msgstr "Активных"
 msgid "Last Registers"
 msgstr "Последний"
 
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:17
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:18
 msgid "Permissions"
 msgstr "Права доступа"
 
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:25
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:26
 #: d:/projects/bluz/skeleton/application/layouts/index.phtml:9
 msgid "Back to homepage"
 msgstr "Вернуться на главную"
 
-#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:27
+#: d:/projects/bluz/skeleton/application/layouts/dashboard.phtml:28
 #: d:/projects/bluz/skeleton/application/layouts/index.phtml:11
 msgid "Home"
 msgstr "Главная"
@@ -486,10 +517,12 @@ msgstr "Привелегия/Роль"
 
 #: d:/projects/bluz/skeleton/application/modules/acl/views/index.phtml:41
 #: d:/projects/bluz/skeleton/application/modules/acl/views/roles.phtml:19
+#: d:/projects/bluz/skeleton/application/modules/categories/views/crud.phtml:36
+#: d:/projects/bluz/skeleton/application/modules/categories/views/tree.phtml:65
 #: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:64
 #: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:40
 #: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:50
-#: d:/projects/bluz/skeleton/application/modules/test/views/create.phtml:35
+#: d:/projects/bluz/skeleton/application/modules/test/views/crud-create.phtml:35
 #: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:34
 #: d:/projects/bluz/skeleton/application/modules/users/views/change-email.phtml:14
 #: d:/projects/bluz/skeleton/application/modules/users/views/change-password.phtml:21
@@ -506,12 +539,14 @@ msgid "Edit Role"
 msgstr "Редактирование роли"
 
 #: d:/projects/bluz/skeleton/application/modules/acl/views/roles.phtml:12
+#: d:/projects/bluz/skeleton/application/modules/categories/views/crud.phtml:20
 #: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:11
 msgid "Name"
 msgstr "Имя"
 
 #: d:/projects/bluz/skeleton/application/modules/acl/views/roles.phtml:20
 #: d:/projects/bluz/skeleton/application/modules/acl/views/user.phtml:23
+#: d:/projects/bluz/skeleton/application/modules/categories/views/crud.phtml:37
 #: d:/projects/bluz/skeleton/application/modules/options/views/crud.phtml:41
 #: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:51
 #: d:/projects/bluz/skeleton/application/modules/test/views/crud.phtml:35
@@ -536,16 +571,16 @@ msgstr "Очистка"
 msgid "Flush"
 msgstr "Сброс"
 
-#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:19
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:20
 #, php-format
 msgid "Current cache adapter is \"%s\""
 msgstr "Текущий кеширующий адаптер - \"%s\""
 
-#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:25
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:29
 msgid "Server"
 msgstr "Сервер"
 
-#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:26
+#: d:/projects/bluz/skeleton/application/modules/cache/views/index.phtml:30
 msgid "Weight"
 msgstr "Приоритет"
 
@@ -553,9 +588,26 @@ msgstr "Приоритет"
 msgid "Cache statistics"
 msgstr "Статистика кеша"
 
-#: d:/projects/bluz/skeleton/application/modules/dashboard/views/index.phtml:1
-msgid "Dashboard"
-msgstr "Панель управления"
+#: d:/projects/bluz/skeleton/application/modules/categories/views/crud.phtml:16
+msgid "Category"
+msgstr "Категория"
+
+#: d:/projects/bluz/skeleton/application/modules/categories/views/crud.phtml:27
+#: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:23
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:26
+msgid "Alias"
+msgstr "Прямая ссылка"
+
+#: d:/projects/bluz/skeleton/application/modules/categories/views/tree.phtml:16
+#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:14
+#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:14
+#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:14
+msgid "Create"
+msgstr "Создать"
+
+#: d:/projects/bluz/skeleton/application/modules/categories/views/tree.phtml:21
+msgid "Add child"
+msgstr "Добавить элемент"
 
 #: d:/projects/bluz/skeleton/application/modules/media/views/crud.phtml:16
 #: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:25
@@ -579,19 +631,13 @@ msgstr "Тип"
 msgid "Link"
 msgstr "Ссылка"
 
-#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:14
-#: d:/projects/bluz/skeleton/application/modules/options/views/grid.phtml:14
-#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:14
-msgid "Create"
-msgstr "Создать"
-
 #: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:32
 #: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:34
 #: d:/projects/bluz/skeleton/application/modules/users/views/grid.phtml:35
 msgid "Search"
 msgstr "Поиск"
 
-#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:44
+#: d:/projects/bluz/skeleton/application/modules/media/views/grid.phtml:43
 msgid "Image quantity"
 msgstr "Количество изображений"
 
@@ -651,11 +697,6 @@ msgstr "Дата изменения"
 #: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:13
 msgid "Edit page"
 msgstr "Редактирование страницы"
-
-#: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:23
-#: d:/projects/bluz/skeleton/application/modules/pages/views/grid.phtml:26
-msgid "Alias"
-msgstr "Прямая ссылка"
 
 #: d:/projects/bluz/skeleton/application/modules/pages/views/crud.phtml:26
 msgid "Alias for build permalink to this page"
@@ -722,14 +763,14 @@ msgstr "Email"
 msgid "Status"
 msgstr "Статус"
 
-#: d:/projects/bluz/skeleton/application/modules/test/views/mailer.phtml:6
+#: d:/projects/bluz/skeleton/application/modules/test/views/mailer.phtml:7
 #: d:/projects/bluz/skeleton/application/modules/users/views/recovery.phtml:12
 #: d:/projects/bluz/skeleton/application/modules/users/views/signup.phtml:16
 msgid "email"
 msgstr "email"
 
 #: d:/projects/bluz/skeleton/application/modules/test/views/mailer.phtml:10
-#: d:/projects/bluz/skeleton/application/modules/test/views/view-helpers.phtml:31
+#: d:/projects/bluz/skeleton/application/modules/test/views/view-helpers.phtml:45
 msgid "Send"
 msgstr "Отправить"
 
