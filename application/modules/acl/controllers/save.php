@@ -38,7 +38,7 @@ function ($acl) use ($view) {
         $this->getCache()->deleteByTag('privileges');
         $this->getMessages()->addSuccess('All data was saved');
     } else {
-        $this->getMessages()->addError('Internal server error');
+        $this->getMessages()->addError('Internal Server Error');
     }
 
     $this->redirectTo('acl', 'index');
