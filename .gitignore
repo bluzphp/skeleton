@@ -4,6 +4,7 @@ nbproject
 !/application/configs/app.*.sample.php
 /data/
 !/data/locale
+/data/locale/default.mo
 /public/.htaccess
 !.stub
 composer.lock
