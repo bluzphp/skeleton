@@ -67,7 +67,8 @@ function ($code, $message = '') use ($view) {
     }
 
     // send headers, if possible
-    if (!headers_sent()) {
+    if ('cli' == PHP_SAPI or !headers_sent()) {
+        // it's works for CLI too
         http_response_code($code);
         switch ($code) {
             case 405:
