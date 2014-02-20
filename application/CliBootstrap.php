@@ -27,7 +27,7 @@
 namespace Application;
 
 use Bluz\Application\Application;
-use Bluz\Request;
+use Bluz\Cli;
 
 /**
  * Bootstrap for CLI
@@ -41,16 +41,35 @@ use Bluz\Request;
 class CliBootstrap extends Application
 {
     /**
-     * getRequest
+     * get CLI Request
      *
-     * @return Request\CliRequest
+     * @return Cli\Request
      */
     public function getRequest()
     {
         if (!$this->request) {
-            $this->request = new Request\CliRequest($this->getConfigData('request'));
+            $this->request = new Cli\Request();
+            if ($config = $this->getConfigData('request')) {
+                $this->request->setOptions($config);
+            }
         }
         return $this->request;
+    }
+
+    /**
+     * get CLI Response
+     *
+     * @return Cli\Response
+     */
+    public function getResponse()
+    {
+        if (!$this->response) {
+            $this->response = new Cli\Response();
+            if ($config = $this->getConfigData('response')) {
+                $this->response->setOptions($config);
+            }
+        }
+        return $this->response;
     }
 
     /**

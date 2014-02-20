@@ -16,8 +16,8 @@ class ErrorTest extends TestCase
      */
     public function testError403()
     {
-        $this->app->dispatch('error', 'index', ['message'=>'Error', 'code'=>403]);
-        $this->assertEquals($this->app->getLayout()->title(), 'Forbidden');
+        $response = $this->app->dispatch('error', 'index', ['message'=>'Error', 'code'=>403]);
+        $this->assertEquals($response->title, 'Forbidden');
     }
 
     /**
@@ -27,7 +27,7 @@ class ErrorTest extends TestCase
      */
     public function testError404()
     {
-        $this->app->dispatch('error', 'index', ['message'=>'Error', 'code'=>404]);
-        $this->assertEquals($this->app->getLayout()->title(), 'Not Found');
+        $response = $this->app->dispatch('error', 'index', ['message'=>'Error', 'code'=>404]);
+        $this->assertEquals($response->title, 'Not Found');
     }
 }
