@@ -20,7 +20,6 @@ define('PATH_ROOT', $root);
 define('PATH_APPLICATION', $root . '/application');
 define('PATH_DATA', $root . '/data');
 define('PATH_VENDOR', $root . '/vendor');
-define('PATH_BLUZ', $root . '/vendor/bluzphp/framework/src/Bluz');
 define('PATH_PUBLIC', $root . '/public');
 
 // Debug mode for development environment only

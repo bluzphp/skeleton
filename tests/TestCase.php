@@ -10,7 +10,7 @@
  */
 namespace Application\Tests;
 
-use Bluz\Request;
+use Bluz\Http;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -39,7 +39,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
     {
         $this->app->resetLayout();
 
-        $this->app->setRequest(new \Bluz\Request\HttpRequest());
+        $this->app->setRequest(new Http\Request());
     }
 
     /**
@@ -50,7 +50,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function dispatchUri($uri, array $params = null)
     {
-        $this->app->setRequest(new Request\HttpRequest());
+        $this->app->setRequest(new Http\Request());
         $this->app->getRequest()->setOptions($this->app->getConfigData('request'));
         $this->app->getRequest()->setMethod('GET');
         $this->app->getRequest()->setRequestUri($uri);

@@ -46,6 +46,7 @@ function ($code, $message = '') use ($view) {
         case 405:
             $title = __("Method Not Allowed");
             $description = __("The server is not support method");
+            $this->getResponse()->setHeader('Allow', $message);
             break;
         case 500:
             $title = __("Internal Server Error");
@@ -58,6 +59,7 @@ function ($code, $message = '') use ($view) {
         case 503:
             $title = __("Service Unavailable");
             $description = __("The server is currently unable to handle the request due to a temporary overloading");
+            $this->getResponse()->setHeader('Retry-After', '600');
             break;
         default:
             $code = 500;
@@ -66,28 +68,11 @@ function ($code, $message = '') use ($view) {
             break;
     }
 
-    // send headers, if possible
-    if ('cli' == PHP_SAPI or !headers_sent()) {
-        // it's works for CLI too
-        http_response_code($code);
-        switch ($code) {
-            case 405:
-                header('Allow: '. $message);
-                break;
-            case 503:
-                header('Retry-After: 600');
-                break;
-        }
-    }
-
     // check CLI or HTTP request
-    if (!$this->getRequest()->isCli()) {
-        $accept = $this->getRequest()->getHeader('accept');
-        $accept = substr($accept, 0, strpos($accept, ','));
+    if ($this->getRequest()->isHttp()) {
 
         // simple AJAX call
-        if ($this->getRequest()->isXmlHttpRequest()
-            && $accept == "application/json") {
+        if ($this->isJson()) {
             $this->getMessages()->addError($message);
             return $view;
         }
