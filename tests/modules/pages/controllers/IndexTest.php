@@ -1,19 +1,29 @@
 <?php
 /**
- * Error controller test
- * 
+ * @copyright Bluz PHP Team
+ * @link https://github.com/bluzphp/skeleton
+ */
+
+/**
+ * @namespace
+ */
+namespace Application\Tests\Pages;
+
+use Application\Tests\TestCase;
+
+/**
+ * @package Application\Tests\Pages
  * @author   Anton Shevchuk
  * @created  04.08.11 19:52
  */
-namespace Application\Tests;
-
 class IndexTest extends TestCase
 {
     /**
+     * Dispatch controller only, w/out application
      * @expectedException \Bluz\Application\Exception\NotFoundException
      */
-    public function testError404()
+    public function testNotFoundPage()
     {
-        $this->app->dispatch('pages', 'index', ['alias' => uniqid('random_name_')]);
+        $this->app->dispatch('pages','index', ['alias' => uniqid('random_name_')]);
     }
 }

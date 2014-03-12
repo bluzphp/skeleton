@@ -15,5 +15,3 @@ require_once PATH_VENDOR . '/autoload.php';
 require_once PATH_APPLICATION . '/Bootstrap.php';
 require_once PATH_APPLICATION . '/Exception.php';
 
-$app = \Application\Tests\BootstrapTest::getInstance();
-$app->init('testing');

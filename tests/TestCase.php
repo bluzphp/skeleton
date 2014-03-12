@@ -1,6 +1,6 @@
 <?php
 /**
- * ControllerTestCase
+ * Controller TestCase
  *
  * @category Tests
  * @package  Application
@@ -11,6 +11,8 @@
 namespace Application\Tests;
 
 use Bluz\Http;
+use Bluz\Request\AbstractRequest;
+use Bluz\Response\AbstractResponse;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -44,27 +46,40 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * dispatch URI
-     * @param string $uri
-     * @param array $params
-     * @return mixed
+     *
+     * @param string $uri in format "module/controller"
+     * @param array $params of request
+     * @param string $method HTTP
+     *
+     * @return AbstractResponse
      */
-    protected function dispatchUri($uri, array $params = null)
+    protected function dispatchUri($uri, array $params = null, $method = Http\Request::METHOD_GET)
     {
         $this->app->setRequest(new Http\Request());
         $this->app->getRequest()->setOptions($this->app->getConfigData('request'));
-        $this->app->getRequest()->setMethod('GET');
-        $this->app->getRequest()->setRequestUri($uri);
+        $this->app->getRequest()->setMethod($method);
+
+        $uri = trim($uri, '/ ');
+        list($module, $controller) = explode('/', $uri);
+
+        $this->app->getRequest()
+            ->setModule($module)
+            ->setController($controller)
+            ->setRequestUri($uri);
+
         if ($params) {
             $this->app->getRequest()->setParams($params);
         }
         return $this->app->process();
     }
 
-    /*
+    /**
      * dispatch Request
-     * @param object $request
      *
-     * */
+     * @param AbstractRequest $request
+     *
+     * @return AbstractResponse
+     */
     protected function dispatchRequest($request)
     {
         $this->app->setRequest($request);
