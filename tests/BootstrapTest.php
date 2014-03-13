@@ -16,16 +16,4 @@ use Application\Bootstrap;
 
 class BootstrapTest extends Bootstrap
 {
-    /**
-     * getRequest
-     *
-     * @return \Bluz\Request\HttpRequest
-     */
-    public function getRequest()
-    {
-        if (!$this->request) {
-            $this->request = new Request\HttpRequest($this->getConfigData('request'));
-        }
-        return $this->request;
-    }
 }
