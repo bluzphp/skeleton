@@ -2,7 +2,6 @@ Bluz, a lightweight PHP Framework
 =================================
 Easy to setup, easy to use. Example application
 
-
 ## Achievements
 
 [![Build Status](https://secure.travis-ci.org/bluzphp/skeleton.png?branch=master)](https://travis-ci.org/bluzphp/skeleton)
@@ -61,7 +60,6 @@ Or create symlink to Apache document root (required FollowSymlinks option):
 ```
 ln -s /path/to/public /var/www/htdocs
 ```
-
 
 ## Usage
 

@@ -1,12 +1,11 @@
 <?php
 /**
- * Controller TestCase
- *
- * @category Tests
- * @package  Application
- *
- * @author   Anton Shevchuk
- * @created  04.08.11 20:01
+ * @copyright Bluz PHP Team
+ * @link https://github.com/bluzphp/skeleton
+ */
+
+/**
+ * @namespace
  */
 namespace Application\Tests;
 
@@ -14,6 +13,14 @@ use Bluz\Http;
 use Bluz\Request\AbstractRequest;
 use Bluz\Response\AbstractResponse;
 
+/**
+ * Controller TestCase
+ *
+ * @package Application\Tests
+ *
+ * @author   Anton Shevchuk
+ * @created  04.08.11 20:01
+ */
 class TestCase extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -41,7 +48,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
     {
         $this->app->resetLayout();
 
+        $this->app->getAuth()->clearIdentity();
         $this->app->setRequest(new Http\Request());
+        $this->app->setResponse(new Http\Response());
     }
 
     /**
@@ -55,12 +64,19 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function dispatchUri($uri, array $params = null, $method = Http\Request::METHOD_GET)
     {
-        $this->app->setRequest(new Http\Request());
+        $request = new Http\Request();
+
+        $this->app->setRequest($request);
         $this->app->getRequest()->setOptions($this->app->getConfigData('request'));
         $this->app->getRequest()->setMethod($method);
 
         $uri = trim($uri, '/ ');
         list($module, $controller) = explode('/', $uri);
+
+        // set default controller
+        if (!$controller) {
+            $controller = $request->getController();
+        }
 
         $this->app->getRequest()
             ->setModule($module)
