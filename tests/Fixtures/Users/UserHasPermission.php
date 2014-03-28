@@ -39,4 +39,3 @@ class UserHasPermission extends Row
         return true;
     }
 }
- 
