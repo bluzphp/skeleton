@@ -1,9 +1,22 @@
 <?php
 /**
- * Custom listener
+ * @copyright Bluz PHP Team
+ * @link https://github.com/bluzphp/skeleton
+ */
+
+/**
+ * @namespace
  */
 namespace Application\Tests;
 
+/**
+ * Custom listener
+ *
+ * @package Application\Tests
+ *
+ * @author   Anton Shevchuk
+ * @created  04.08.11 20:08
+ */
 class TestListener implements \PHPUnit_Framework_TestListener
 {
     /**
