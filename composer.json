@@ -26,9 +26,7 @@
         }
     },
     "scripts": {
-        "post-install-cmd": [
-            "sh ./bin/install.sh"
-        ]
+        "post-install-cmd": "php bin/install.php"
     },
     "authors": [
         {
