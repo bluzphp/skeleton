@@ -42,6 +42,18 @@ Install composer dependencies with the following command:
 php composer.phar install
 ```
 
+### With PhpStorm
+
+For install you need any web-server (for Windows) and PhpStorm. dows) и PhpStorm.
+
+Create project in PhpStorm:
+
+1. File -> New project;
+2. Set the project name and location;
+3. In a Project type field choose Composer project;
+4. Check that radiobutton is set opposite "Download composer.phar from getcomposer.org", type in a search field "bluzphp/skeleton", select this package in Available packages window and click OK.
+5. After that file composer.phar and all dependencies will be loaded. 
+
 ### Last step
 
 Restore database structure from `structure.ddl` file (use InnoDB as the Default MySQL Storage Engine for avoid "Error Code: 1071"!).
@@ -49,17 +61,22 @@ Restore default database data from `dump.sql`
 
 Edit your own configuration file `/path/to/application/configs/app.dev.php` (configuration for development environment)
 
-Run internal PHP web-server with simple console tool:
+Run internal PHP web-server with simple console tool (for Linux):
 
 ```
 /path/to/bin/server.sh -e dev
 ```
 
 Or create symlink to Apache document root (required FollowSymlinks option):
+* Linux
+```
+ln -s /path/to/public /path/to/web
+```
+* Win
+```
+mklink /D /path/to/web path/to/public
+```
 
-```
-ln -s /path/to/public /var/www/htdocs
-```
 
 ## Usage
 
