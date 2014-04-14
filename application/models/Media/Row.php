@@ -53,11 +53,14 @@ class Row extends \Bluz\Db\Row
         }
 
         // create preview
-        $image = new Thumbnail($this->file);
+        // set full path
+        $image = new Thumbnail(PATH_PUBLIC .'/'. $this->file);
         $image->setHeight(self::THUMB_HEIGHT);
         $image->setWidth(self::THUMB_WIDTH);
-
-        $this->preview = $image->generate();
+        $preview = $image->generate();
+        // crop full path
+        $preview = substr($preview, strlen(PATH_PUBLIC) + 1);
+        $this->preview = $preview;
     }
 
     /**
