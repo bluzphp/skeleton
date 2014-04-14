@@ -9,6 +9,7 @@
  */
 namespace Application;
 
+use Bluz\Http\File;
 use Bluz\Request\HttpFile;
 use Bluz\Request\HttpFileUpload;
 
@@ -20,12 +21,12 @@ return
 function () {
     /**
      * @var \Application\Bootstrap $this
-     * @var \Bluz\Request\HttpFileUpload $fileUpload
+     * @var \Bluz\Http\FileUpload $fileUpload
      */
     $fileUpload = $this->getRequest()->getFileUpload();
     $file = $fileUpload->getFile('file');
 
-    if ($file && $file->getType() == HttpFile::TYPE_IMAGE) {
+    if ($file && $file->getType() == File::TYPE_IMAGE) {
         // save original name
         $original = $file->getName();
         // rename file to date/time stamp

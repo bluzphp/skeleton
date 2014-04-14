@@ -39,7 +39,7 @@ class Crud extends Table
         $this->validateCreate($data);
         $this->checkErrors();
 
-        // Proccess image
+        // Process image
         $file = app()->getRequest()->getFileUpload()->getFile('file');
 
         $fileName = strtolower(isset($data['title'])?$data['title']:$file->getName());
@@ -113,7 +113,7 @@ class Crud extends Table
     public function validateCreate($data)
     {
         /**
-         * @var \Bluz\Request\HttpFile $file
+         * @var \Bluz\Http\File $file
          */
         try {
             $file = app()->getRequest()->getFileUpload()->getFile('file');
