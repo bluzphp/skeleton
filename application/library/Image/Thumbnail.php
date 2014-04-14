@@ -101,9 +101,9 @@ class Thumbnail
             unlink($dir.'/'.$this->file);
         }
 
-        /*if (class_exists('\\Imagick')) {
+        if (class_exists('\\Imagick')) {
             $image = new \Imagick($this->path.'/'.$this->file);
-        } else*/if (function_exists('gd_info')) {
+        } elseif (function_exists('gd_info')) {
             $image = new Gd($this->path.'/'.$this->file);
         } else {
             // return original file
