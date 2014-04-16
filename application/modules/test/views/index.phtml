@@ -91,6 +91,11 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
     <?= $this->ahref('Loading', ['test', 'ajax-html'], ['class'=>'load btn btn-default', 'data-ajax-target'=>'#load']);?>
     <?= $this->ahref('Confirm', ['index', 'index'], ['class'=>'confirm btn btn-default', 'data-confirm'=>'Confirm?']);?>
 </div>
+
+<div id="load">
+    <h3>Loading to this container</h3>
+</div>
+
 <hr/>
 
 <h3>Access denied</h3>
@@ -111,7 +116,7 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
 <pre>
 $this->dispatch('test', 'closure')
 </pre>
-<div id="load">
+<div>
     <?= $this->dispatch('test', 'closure') ?>
 </div>
 
