@@ -51,35 +51,6 @@ class Bootstrap extends Application
     {
         $res = parent::init($environment);
 
-        // Profiler hooks
-        if ($this->debugFlag) {
-            $this->getEventManager()->attach(
-                'layout:header',
-                function ($event) {
-                    /* @var \Bluz\View\Layout $layout */
-                    /* @var \Bluz\EventManager\Event $event */
-                    $layout = $event->getParam('layout');
-
-                    /* @var \Bluz\EventManager\Event $event */
-                    $this->log('layout:header');
-                }
-            );
-            $this->getEventManager()->attach(
-                'layout:content',
-                function ($event) {
-                    /* @var \Bluz\EventManager\Event $event */
-                    $this->log('layout:content');
-                }
-            );
-            $this->getEventManager()->attach(
-                'layout:footer',
-                function ($event) {
-                    /* @var \Bluz\EventManager\Event $event */
-                    $this->log('layout:footer');
-                }
-            );
-        }
-
         // dispatch hook for acl realization
         $this->getEventManager()->attach(
             'dispatch',
@@ -136,17 +107,18 @@ class Bootstrap extends Application
     public function render()
     {
         if ($this->debugFlag && !headers_sent()) {
-            $debug = sprintf(
+            $debugString = sprintf(
                 "%f; %skb",
                 microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
                 ceil((memory_get_usage()/1024))
             );
-            header(
-                'Bluz-Debug: '. $debug .'; '.
-                $this->getRequest()->getModule() .'/'. $this->getRequest()->getController()
-            );
-            $bar = json_encode($this->getLogger()->get('info'));
-            header('Bluz-Bar: '. $bar);
+            $debugString .= '; '.$this->getRequest()->getModule() .'/'. $this->getRequest()->getController();
+
+            $this->getResponse()->setHeader('Bluz-Debug', $debugString);
+
+            $debugBar = json_encode($this->getLogger()->get('info'));
+
+            $this->getResponse()->setHeader('Bluz-Bar', $debugBar);
         }
         parent::render();
     }
