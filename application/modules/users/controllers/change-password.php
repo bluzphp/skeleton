@@ -16,7 +16,7 @@ use Bluz\Request\AbstractRequest;
 
 return
 /**
- * @privilege EditEmail
+ * @privilege EditPassword
  * @return \closure
  */
 function ($password, $new_password, $new_password2) use ($view) {
