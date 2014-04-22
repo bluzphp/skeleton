@@ -87,7 +87,7 @@ LOCK TABLES `auth` WRITE;
 
 INSERT INTO `auth` (`userId`, `provider`, `foreignKey`, `token`, `tokenSecret`, `tokenType`, `created`)
 VALUES
-	(1,'equals','admin','f9705d72d58b2a305ab6f5913ba60a61','secretsalt','','2012-11-09 07:40:46');
+	(1,'equals','admin','f9705d72d58b2a305ab6f5913ba60a61','secretsalt','access','2012-11-09 07:40:46');
 
 /*!40000 ALTER TABLE `auth` ENABLE KEYS */;
 UNLOCK TABLES;
