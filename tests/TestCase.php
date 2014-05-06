@@ -14,7 +14,7 @@ use Bluz\Request\AbstractRequest;
 use Bluz\Response\AbstractResponse;
 
 /**
- * Controller TestCase
+ * Skeleton TestCase
  *
  * @package Application\Tests
  *
@@ -26,7 +26,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
     /**
      * Application entity
      *
-     * @var \Application\Bootstrap
+     * @var \Application\Tests\BootstrapTest
      */
     protected $app;
 
