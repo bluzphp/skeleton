@@ -9,14 +9,14 @@
  */
 namespace Application\Tests\Pages;
 
-use Application\Tests\TestCase;
+use Application\Tests\ControllerTestCase;
 
 /**
  * @package Application\Tests\Pages
  * @author   Anton Shevchuk
  * @created  04.08.11 19:52
  */
-class IndexTest extends TestCase
+class IndexTest extends ControllerTestCase
 {
     /**
      * Dispatch controller only, w/out application

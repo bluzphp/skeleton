@@ -23,4 +23,23 @@ use Application\Bootstrap;
  */
 class BootstrapTest extends Bootstrap
 {
+    /**
+     * Get dispatched module name
+     *
+     * @return string
+     */
+    public function getModule()
+    {
+        return $this->dispatchModule;
+    }
+
+    /**
+     * Get dispatched controller name
+     *
+     * @return string
+     */
+    public function getController()
+    {
+        return $this->dispatchController;
+    }
 }

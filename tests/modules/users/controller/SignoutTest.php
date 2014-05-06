@@ -9,7 +9,7 @@
  */
 namespace Application\Tests\Users;
 
-use Application\Tests\TestCase;
+use Application\Tests\ControllerTestCase;
 use Application\Users\Row;
 
 /**
@@ -17,7 +17,7 @@ use Application\Users\Row;
  * @author   Anton Shevchuk
  * @created  04.08.11 19:40
  */
-class SignoutTest extends TestCase
+class SignoutTest extends ControllerTestCase
 {
     /**
      * setUp
@@ -40,6 +40,8 @@ class SignoutTest extends TestCase
 
         $this->dispatchUri('users/signout');
 
+        $this->assertModule('users');
+        $this->assertController('signout');
         $this->assertNull($this->app->getAuth()->getIdentity());
     }
 }

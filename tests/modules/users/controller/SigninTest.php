@@ -9,14 +9,14 @@
  */
 namespace Application\Tests\Users;
 
-use Application\Tests\TestCase;
+use Application\Tests\ControllerTestCase;
 
 /**
  * @package Application\Tests\Users
  * @author   Anton Shevchuk
  * @created  04.08.11 19:40
  */
-class SigninTest extends TestCase
+class SigninTest extends ControllerTestCase
 {
     /**
      * Test user with wrong password
@@ -29,6 +29,8 @@ class SigninTest extends TestCase
             'POST'
         );
 
+        $this->assertModule('users');
+        $this->assertController('signin');
         $this->assertNull($this->app->getAuth()->getIdentity());
     }
 
@@ -43,6 +45,8 @@ class SigninTest extends TestCase
             'POST'
         );
 
+        $this->assertModule('users');
+        $this->assertController('signin');
         $this->assertNotNull($this->app->getAuth()->getIdentity());
     }
 }

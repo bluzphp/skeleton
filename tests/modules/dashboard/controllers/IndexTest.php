@@ -9,8 +9,7 @@
  */
 namespace Application\Tests\Dashboard;
 
-use Application\Tests\Fixtures\Users\UserHasPermission;
-use Application\Tests\TestCase;
+use Application\Tests\ControllerTestCase;
 use Application\Users;
 
 /**
@@ -18,7 +17,7 @@ use Application\Users;
  * @author   Anton Shevchuk
  * @created  28.03.14 17:08
  */
-class IndexTest extends TestCase
+class IndexTest extends ControllerTestCase
 {
     /**
      * Dispatch controller w/out application:
@@ -32,6 +31,15 @@ class IndexTest extends TestCase
     }
 
     /**
+     * Dispatch controller as guest w/out permissions
+     */
+    public function testRedirectByUri()
+    {
+        $this->dispatchUri('dashboard/index');
+        $this->assertRedirect('users', 'signin');
+    }
+
+    /**
      * Dispatch controller w/out application:
      *  - as user
      *  - w/out permission
@@ -39,8 +47,18 @@ class IndexTest extends TestCase
      */
     public function testForbidden()
     {
-        $this->app->getAuth()->setIdentity(new Users\Row());
+        $this->setupGuestIdentity();
         $this->app->dispatch('dashboard', 'index');
+    }
+
+    /**
+     * Dispatch controller w/out application as user w/out permission
+     */
+    public function testForbiddenByUri()
+    {
+        $this->setupGuestIdentity();
+        $this->dispatchUri('dashboard/index');
+        $this->assertForbidden();
     }
 
     /**
@@ -50,7 +68,7 @@ class IndexTest extends TestCase
      */
     public function testError()
     {
-        $this->app->getAuth()->setIdentity(new Users\Row());
+        $this->setupGuestIdentity();
         $result = $this->dispatchUri('dashboard/index');
 
         $this->assertEquals(403, $result->getCode());
@@ -63,7 +81,7 @@ class IndexTest extends TestCase
      */
     public function testIndex()
     {
-        $this->app->getAuth()->setIdentity(new UserHasPermission());
+        $this->setupSuperUserIdentity();
         $result = $this->dispatchUri('dashboard/index');
 
         $this->assertEquals(200, $result->getCode());
