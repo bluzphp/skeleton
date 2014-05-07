@@ -7,7 +7,6 @@ namespace Application;
 
 use Application\Categories;
 use Bluz\Controller;
-use Application\Categories\Table;
 
 return
 /**

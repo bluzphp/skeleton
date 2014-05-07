@@ -36,7 +36,7 @@ class Table extends \Bluz\Db\Table
     /**
      * save test row
      *
-     * @return boolean
+     * @return null|string
      */
     public function saveTestRow()
     {
@@ -46,7 +46,7 @@ class Table extends \Bluz\Db\Table
     /**
      * update test row
      *
-     * @return boolean
+     * @return integer
      */
     public function updateTestRows()
     {
@@ -56,7 +56,7 @@ class Table extends \Bluz\Db\Table
     /**
      * delete test row
      *
-     * @return boolean
+     * @return integer
      */
     public function deleteTestRows()
     {

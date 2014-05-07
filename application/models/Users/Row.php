@@ -62,7 +62,7 @@ class Row extends AbstractRowEntity
      *
      * @throws Exception
      * @throws AuthException
-     * @return boolean
+     * @return boolean|null
      */
     public function tryLogin()
     {

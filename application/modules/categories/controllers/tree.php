@@ -8,7 +8,6 @@
  */
 namespace Application;
 
-use Bluz;
 use Application\Categories;
 
 return

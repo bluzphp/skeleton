@@ -8,11 +8,8 @@
 namespace Application;
 
 use Application\Users;
-use Application\UsersActions;
 use Bluz\Application\Exception\NotFoundException;
 use Bluz\Auth\AuthException;
-use Bluz\Controller;
-use Bluz\Request\AbstractRequest;
 
 return
 /**

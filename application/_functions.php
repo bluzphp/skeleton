@@ -8,6 +8,10 @@
 
 // Write message to log file
 if (!function_exists('errorLog')) {
+
+    /**
+     * @param string $message
+     */
     function errorLog($message)
     {
         if (getenv('BLUZ_LOG')
