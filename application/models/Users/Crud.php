@@ -11,7 +11,6 @@ namespace Application\Users;
 
 use Application\Auth;
 use Application\Exception;
-
 use Application\UsersActions;
 use Bluz\Crud\ValidationException;
 
@@ -29,7 +28,7 @@ class Crud extends \Bluz\Crud\Table
     /**
      * @param $data
      * @throws \Application\Exception
-     * @return boolean
+     * @return integer
      */
     public function createOne($data)
     {

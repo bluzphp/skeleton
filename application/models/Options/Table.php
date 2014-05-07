@@ -82,7 +82,7 @@ class Table extends \Bluz\Db\Table
      *
      * @param string $key
      * @param string $namespace
-     * @return boolean
+     * @return integer
      */
     public static function remove($key, $namespace = self::NAMESPACE_DEFAULT)
     {

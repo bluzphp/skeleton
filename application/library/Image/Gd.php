@@ -50,6 +50,7 @@ class Gd
      * Constructor of Gd
      *
      * @access  public
+     * @param string $file
      */
     public function __construct($file)
     {
@@ -138,7 +139,7 @@ class Gd
      * Save the image to a file. Type is determined from the extension
      *
      * @param string $fileName
-     * @return bool
+     * @return boolean|null
      */
     public function writeImage($fileName)
     {

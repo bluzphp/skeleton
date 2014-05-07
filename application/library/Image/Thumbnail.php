@@ -50,6 +50,7 @@ class Thumbnail
      * Constructor of Image Tool
      *
      * @access  public
+     * @param string $file
      */
     public function __construct($file)
     {

@@ -274,7 +274,7 @@ abstract class BaseFacebook
      * have been generated via client-side flow. Thanks to http://bit.ly/b0Pt0H
      * for the workaround.
      *
-     * @return void
+     * @return false|null
      */
     public function setExtendedAccessToken()
     {
@@ -439,7 +439,7 @@ abstract class BaseFacebook
      * Get the UID of the connected user, or 0
      * if the Facebook user is not connected.
      *
-     * @return string the UID if available.
+     * @return integer the UID if available.
      */
     public function getUser()
     {
@@ -717,7 +717,7 @@ abstract class BaseFacebook
      * either logged in to Facebook or has granted an offline access permission.
      *
      * @param string $code An authorization code.
-     * @param null $redirect_uri
+     * @param string $redirect_uri
      * @return mixed An access token exchanged for the authorization code, or
      *               false if an access token could not be generated.
      */
@@ -1055,7 +1055,7 @@ abstract class BaseFacebook
     /**
      * Build the URL for api given parameters.
      *
-     * @param $method String the method name.
+     * @param string $method String the method name.
      * @return string The URL for the given parameters
      */
     protected function getApiUrl($method)
@@ -1135,7 +1135,7 @@ abstract class BaseFacebook
     /**
      * Build the URL for given domain alias, path and parameters.
      *
-     * @param $name string The name of the domain
+     * @param string $name string The name of the domain
      * @param $path string Optional path (without a leading slash)
      * @param $params array Optional query parameters
      *
@@ -1419,6 +1419,9 @@ abstract class BaseFacebook
         return self::endsWith($big, '.' . $small);
     }
 
+    /**
+     * @param string $small
+     */
     protected static function endsWith($big, $small)
     {
         $len = strlen($small);

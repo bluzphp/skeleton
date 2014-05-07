@@ -12,7 +12,6 @@ namespace Application\Auth;
 use Application\Exception;
 use Application\Users;
 use Bluz\Application;
-
 use Bluz\Auth\AuthException;
 
 /**
@@ -52,8 +51,8 @@ class Table extends \Bluz\Db\Table
      * getAuthRow
      *
      * @todo foreign key for equals provider is equal to user login -_- ?
-     * @param $provider
-     * @param $foreignKey
+     * @param string $provider
+     * @param string $foreignKey
      * @return Row
      */
     public function getAuthRow($provider, $foreignKey)
@@ -129,7 +128,7 @@ class Table extends \Bluz\Db\Table
      * @param string $password
      * @throws Exception
      * @throws AuthException
-     * @return boolean
+     * @return Row
      */
     public function generateEquals($user, $password)
     {

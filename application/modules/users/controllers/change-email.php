@@ -12,7 +12,6 @@ use Application\UsersActions;
 use Application\UsersActions\Table;
 use Bluz\Application\Exception\NotFoundException;
 use Bluz\Auth\AuthException;
-use Bluz\Controller;
 
 return
 /**

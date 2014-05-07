@@ -159,6 +159,9 @@ class Facebook extends BaseFacebook
         return self::FBSS_COOKIE_NAME . '_' . $this->getAppId();
     }
 
+    /**
+     * @param string $key
+     */
     protected function constructSessionVariableName($key)
     {
         $parts = array('fb', $this->getAppId(), $key);

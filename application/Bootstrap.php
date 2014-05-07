@@ -28,7 +28,6 @@ namespace Application;
 
 use Bluz\Application\Application;
 use Bluz\Application\Exception\ForbiddenException;
-use Bluz\EventManager\Event;
 
 /**
  * Bootstrap
