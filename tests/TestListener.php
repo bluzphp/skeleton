@@ -9,30 +9,21 @@
  */
 namespace Application\Tests;
 
+use Bluz\Cli\Colorize;
+
 /**
- * Custom listener
- *
- * @package Application\Tests
- *
- * @author   Anton Shevchuk
- * @created  04.08.11 20:08
+ * @category Bluz
+ * @package  Tests
  */
 class TestListener implements \PHPUnit_Framework_TestListener
 {
-    /**
-     * time of test
-     *
-     * @var integer
-     */
-    protected $timeTest = 0;
-    
     /**
      * time of suite
      *
      * @var integer
      */
     protected $timeSuite = 0;
-    
+
     /**
      * @param \PHPUnit_Framework_Test $test
      * @param \Exception $e
@@ -42,8 +33,8 @@ class TestListener implements \PHPUnit_Framework_TestListener
     public function addError(\PHPUnit_Framework_Test $test, \Exception $e, $time)
     {
         echo "\t[";
-        echo $this->colorize("error", "red");
-        echo "]-";
+        echo Colorize::text($e->getMessage(), "red", null, true);
+        echo "] ";
     }
 
     /**
@@ -55,8 +46,8 @@ class TestListener implements \PHPUnit_Framework_TestListener
     public function addFailure(\PHPUnit_Framework_Test $test, \PHPUnit_Framework_AssertionFailedError $e, $time)
     {
         echo "\t[";
-        echo $this->colorize("failed", "red");
-        echo "]-";
+        echo Colorize::text($e->getMessage(), "white", "red", true);
+        echo "] ";
     }
 
     /**
@@ -67,9 +58,7 @@ class TestListener implements \PHPUnit_Framework_TestListener
      */
     public function addIncompleteTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
     {
-        echo "\t\t[";
-        echo $this->colorize("incomplete");
-        echo "]-";
+        // incomplete additional text
     }
 
     /**
@@ -80,9 +69,9 @@ class TestListener implements \PHPUnit_Framework_TestListener
      */
     public function addRiskyTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
     {
-        echo "\t\t[";
-        echo $this->colorize("is risky");
-        echo "]-";
+        echo "\t[";
+        echo Colorize::text($e->getMessage(), 'yellow', null, true);
+        echo "] ";
     }
 
     /**
@@ -93,9 +82,10 @@ class TestListener implements \PHPUnit_Framework_TestListener
      */
     public function addSkippedTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
     {
+        // skipped additional text
         echo "\t[";
-        echo $this->colorize("skipped");
-        echo "]-";
+        echo Colorize::text($e->getMessage(), 'cyan', null, true);
+        echo "] ";
     }
 
     /**
@@ -104,10 +94,9 @@ class TestListener implements \PHPUnit_Framework_TestListener
      */
     public function startTest(\PHPUnit_Framework_Test $test)
     {
-        $this->timeTest = microtime(1);
-        $method = $this->colorize($test->getName(), 'green');
+        $name = sprintf('%-30.30s', $test->getName());
 
-        echo "\n\t-> " . $method;
+        echo "\n\t-> " . Colorize::text($name, 'green', null, true);
     }
 
     /**
@@ -117,10 +106,10 @@ class TestListener implements \PHPUnit_Framework_TestListener
      */
     public function endTest(\PHPUnit_Framework_Test $test, $time)
     {
-        $time = sprintf('%0.3f sec', microtime(1) - $this->timeTest);
-        
-        echo "\t\t" . $test->getCount() . '(Assertions)';
-        echo $this->colorize("\t" . $time, 'green');
+        $time = sprintf('%0.3f sec', $time);
+
+        echo Colorize::text("\t[" . $test->getCount() . ']', 'white', null, true);
+        echo Colorize::text("\t" . $time, 'green', null, true);
     }
 
     /**
@@ -130,7 +119,8 @@ class TestListener implements \PHPUnit_Framework_TestListener
     public function startTestSuite(\PHPUnit_Framework_TestSuite $suite)
     {
         $this->timeSuite = microtime(1);
-        echo "\n\n".$this->colorize($suite->getName(), 'blue');
+        echo "\n\n";
+        echo Colorize::text($suite->getName(), 'white', null, true);
     }
 
     /**
@@ -140,34 +130,8 @@ class TestListener implements \PHPUnit_Framework_TestListener
     public function endTestSuite(\PHPUnit_Framework_TestSuite $suite)
     {
         $time = sprintf('%0.3f sec', microtime(1) - $this->timeSuite);
-
-        echo $this->colorize("\nTime: ".$time, 'green');
-    }
-
-    /**
-     * @param $text
-     * @param string $color
-     * @return string
-     */
-    private function colorize($text, $color = 'yellow')
-    {
-        switch ($color) {
-            case 'red':
-                $color = "1;31";
-                break;
-            case 'green':
-                $color = "1;32";
-                break;
-            case 'blue':
-                $color = "1;34";
-                break;
-            case 'white':
-                $color = "1;37";
-                break;
-            default:
-                $color = "1;33";
-                break;
-        }
-        return "\033[" . $color .'m'. $text . "\033[0m";
+        echo "\n";
+        echo Colorize::text("Suite Time: ".$time, 'white', null, true);
+        echo "\n";
     }
 }
