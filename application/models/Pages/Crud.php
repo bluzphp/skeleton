@@ -9,8 +9,6 @@
  */
 namespace Application\Pages;
 
-use \Bluz\Crud\Table;
-
 /**
  * @category Application
  * @package  Pages
@@ -18,7 +16,7 @@ use \Bluz\Crud\Table;
  * @author   Anton Shevchuk
  * @created  03.09.12 13:11
  */
-class Crud extends Table
+class Crud extends \Bluz\Crud\Table
 {
     /**
      * {@inheritdoc}

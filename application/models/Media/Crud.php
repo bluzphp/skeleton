@@ -10,7 +10,6 @@
 namespace Application\Media;
 
 use Application\Exception;
-use \Bluz\Crud\Table;
 
 /**
  * Media Crud
@@ -18,7 +17,7 @@ use \Bluz\Crud\Table;
  * @category Application
  * @package  Media
  */
-class Crud extends Table
+class Crud extends \Bluz\Crud\Table
 {
     /**
      * @var string

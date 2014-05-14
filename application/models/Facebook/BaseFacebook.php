@@ -97,6 +97,8 @@ abstract class BaseFacebook
 
     /**
      * The data from the signed_request token.
+     *
+     * @var array
      */
     protected $signedRequest;
 
@@ -415,7 +417,7 @@ abstract class BaseFacebook
      * Retrieve the signed request, either from a request parameter or,
      * if not present, from a cookie.
      *
-     * @return string the signed request, if available, or null otherwise.
+     * @return array the signed request, if available, or null otherwise.
      */
     public function getSignedRequest()
     {
@@ -910,7 +912,7 @@ abstract class BaseFacebook
      *
      * @param string $url The URL to make the request to
      * @param array $params The parameters to use for the POST body
-     * @param \CurlHandler $ch Initialized curl handle
+     * @param resource $ch Initialized curl handle
      *
      * @throws FacebookApiException
      * @return string The response text
@@ -1033,7 +1035,7 @@ abstract class BaseFacebook
     /**
      * Makes a signed_request blob using the given data.
      *
-     * @param array The data array.
+     * @param array $data The data array.
      * @return string The signed request.
      */
     protected function makeSignedRequest($data)
@@ -1382,7 +1384,7 @@ abstract class BaseFacebook
     /**
      * Parses the metadata cookie that our Javascript API set
      *
-     * @return  an array mapping key to value
+     * @return array mapping key to value
      */
     protected function getMetadataCookie()
     {
@@ -1420,7 +1422,9 @@ abstract class BaseFacebook
     }
 
     /**
+     * @param string $big
      * @param string $small
+     * @return bool
      */
     protected static function endsWith($big, $small)
     {

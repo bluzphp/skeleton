@@ -15,6 +15,8 @@ namespace Application\Users;
  * @category Application
  * @package  Users
  *
+ * @method   static Row findRow($primaryKey)
+ *
  * @author   Anton Shevchuk
  * @created  08.07.11 17:36
  */

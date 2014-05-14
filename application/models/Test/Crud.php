@@ -9,8 +9,6 @@
  */
 namespace Application\Test;
 
-use Bluz\Crud\Table;
-
 /**
  * Crud based on Db\Table
  *
@@ -20,7 +18,7 @@ use Bluz\Crud\Table;
  * @author   Anton Shevchuk
  * @created  03.09.12 13:11
  */
-class Crud extends Table
+class Crud extends \Bluz\Crud\Table
 {
     /**
      * {@inheritdoc}

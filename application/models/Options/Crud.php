@@ -9,15 +9,13 @@
  */
 namespace Application\Options;
 
-use \Bluz\Crud\Table;
-
 /**
  * Crud
  *
  * @category Application
  * @package  Options
  */
-class Crud extends Table
+class Crud extends \Bluz\Crud\Table
 {
     /**
      * {@inheritdoc}

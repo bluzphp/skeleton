@@ -49,8 +49,8 @@ class Gd
     /**
      * Constructor of Gd
      *
-     * @access  public
      * @param string $file
+     * @throws Exception
      */
     public function __construct($file)
     {
@@ -152,17 +152,17 @@ class Gd
         switch ($ext) {
             case '.gif':
                 return imagegif($this->image, $fileName);
-                break;
+                // break
             case '.jpg':
             case '.jpeg':
                 return imagejpeg($this->image, $fileName, $this->quality);
-                break;
+                // break
             case '.png':
                 return imagepng($this->image, $fileName);
-                break;
+                // break
             case '.bmp':
                 return imagewbmp($this->image, $fileName);
-                break;
+                // break
             default:
                 return false;
         }

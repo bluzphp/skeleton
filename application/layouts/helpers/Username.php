@@ -6,18 +6,16 @@
 
 return
 /**
- * get current user name
+ * Get current user name
  *
- * this is example of custom layout helper
- *
+ * @var \Application\Users\Row $user
  * @return string
  */
 function () {
-    /* @var \Application\Users\Row $user */
     $user = app()->getAuth() ? app()->getAuth()->getIdentity() : null;
     if ($user) {
         return $user->login;
     } else {
-        return 'Guest';
+        return __('Guest');
     }
 };
