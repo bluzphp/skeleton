@@ -12,8 +12,10 @@ namespace Application\Media;
 /**
  * Table
  *
- * @category Application
- * @package  Media
+ * @package  Application\Media
+ *
+ * @method   static Row findRow($primaryKey)
+ * @method   static Row findRowWhere($whereList)
  */
 class Table extends \Bluz\Db\Table
 {

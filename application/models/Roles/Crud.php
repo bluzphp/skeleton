@@ -12,8 +12,9 @@ namespace Application\Roles;
 /**
  * Crud
  *
- * @category Application
- * @package  Test
+ * @package  Application\Test
+ *
+ * @method   Table getTable()
  *
  * @author   Anton Shevchuk
  * @created  03.09.12 13:11

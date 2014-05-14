@@ -17,8 +17,10 @@ use Bluz\Auth\AuthException;
 /**
  * Auth Table
  *
- * @category Application
- * @package  Auth
+ * @package  Application\Auth
+ *
+ * @method   static Row findRow($primaryKey)
+ * @method   static Row findRowWhere($whereList)
  *
  * @author   Anton Shevchuk
  * @created  12.07.11 15:28

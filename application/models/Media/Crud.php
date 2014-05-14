@@ -12,10 +12,10 @@ namespace Application\Media;
 use Application\Exception;
 
 /**
- * Media Crud
+ * Class Crud of Media
+ * @package Application\Media
  *
- * @category Application
- * @package  Media
+ * @method Table getTable()
  */
 class Crud extends \Bluz\Crud\Table
 {

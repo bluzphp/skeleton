@@ -12,8 +12,10 @@ namespace Application\Pages;
 /**
  * Pages Table
  *
- * @category Application
- * @package  Pages
+ * @package  Application\Pages
+ *
+ * @method   static Row findRow($primaryKey)
+ * @method   static Row findRowWhere($whereList)
  */
 class Table extends \Bluz\Db\Table
 {

@@ -12,8 +12,10 @@ namespace Application\Test;
 /**
  * Table
  *
- * @category Application
- * @package  Test
+ * @package  Application\Test
+ *
+ * @method   static Row findRow($primaryKey)
+ * @method   static Row findRowWhere($whereList)
  *
  * @author   Anton Shevchuk
  * @created  08.07.11 17:36

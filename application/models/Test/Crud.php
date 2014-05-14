@@ -12,8 +12,9 @@ namespace Application\Test;
 /**
  * Crud based on Db\Table
  *
- * @category Application
- * @package  Test
+ * @package  Application\Test
+ *
+ * @method   Table getTable()
  *
  * @author   Anton Shevchuk
  * @created  03.09.12 13:11

@@ -9,7 +9,14 @@
  */
 namespace Application\Categories;
 
-
+/**
+ * Class Table
+ *
+ * @package Application\Categories
+ *
+ * @method  static Row findRow($primaryKey)
+ * @method  static Row findRowWhere($whereList)
+ */
 class Table extends \Bluz\Db\Table
 {
     /**

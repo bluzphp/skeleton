@@ -17,8 +17,9 @@ use Bluz\Crud\ValidationException;
 /**
  * Crud
  *
- * @category Application
- * @package  Users
+ * @package  Application\Users
+ *
+ * @method   Table getTable()
  *
  * @author   Anton Shevchuk
  * @created  30.10.12 16:11

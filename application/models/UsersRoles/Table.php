@@ -12,8 +12,10 @@ namespace Application\UsersRoles;
 /**
  * Table
  *
- * @category Application
- * @package  Roles
+ * @package  Application\Roles
+ *
+ * @method   static Row findRow($primaryKey)
+ * @method   static Row findRowWhere($whereList)
  */
 class Table extends \Bluz\Db\Table
 {
