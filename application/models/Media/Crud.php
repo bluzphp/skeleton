@@ -25,6 +25,11 @@ class Crud extends \Bluz\Crud\Table
     protected $uploadDir;
 
     /**
+     * @var \Bluz\Http\File
+     */
+    protected $file;
+
+    /**
      * createOne
      *
      * @param array $data
