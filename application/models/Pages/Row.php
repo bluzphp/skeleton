@@ -38,7 +38,7 @@ class Row extends \Bluz\Db\Row
     {
         $this->created = gmdate('Y-m-d H:i:s');
         /* @var \Application\Users\Row $user */
-        if ($user = app()->getAuth()->getIdentity()) {
+        if ($user = app()->user()) {
             $this->userId = $user->id;
         } else {
             $this->userId = Users\Table::SYSTEM_USER;

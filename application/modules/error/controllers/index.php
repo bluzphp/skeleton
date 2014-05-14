@@ -6,6 +6,10 @@
  * @author   Anton Shevchuk
  * @created  11.07.11 15:32
  */
+
+/**
+ * @namespace
+ */
 namespace Application;
 
 use Bluz;
@@ -16,12 +20,10 @@ return
  * @route  /error/{$code}
  * @param  int $code
  * @param  string $message
- *
- * @return \closure
  */
 function ($code, $message = '') use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLogger()->error($message);
@@ -86,4 +88,5 @@ function ($code, $message = '') use ($view) {
     $view->description = $description;
     $view->message = $message;
     $this->getLayout()->title($title);
+    return $view;
 };

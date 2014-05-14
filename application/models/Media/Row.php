@@ -46,7 +46,7 @@ class Row extends \Bluz\Db\Row
             $this->module = 'users';
         }
         // set user ID
-        if ($user = app()->getAuth()->getIdentity()) {
+        if ($user = app()->user()) {
             $this->userId = $user->id;
         } else {
             $this->userId = Users\Table::SYSTEM_USER;

@@ -20,7 +20,7 @@ return
  */
 function ($alias) use ($view, $module, $controller) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->breadCrumbs(

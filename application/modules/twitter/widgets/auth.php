@@ -11,7 +11,7 @@ return
  */
 function () {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     ?>
     <a href="<?=$this->getRouter()->url('twitter', 'auth')?>" class="btn fa fa-twitter-square fa-2x"></a>

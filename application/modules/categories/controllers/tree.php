@@ -4,7 +4,11 @@
  *
  * @author   Viacheslav Nogin
  * @created  25.11.12 18:39
- * @return closure
+ * @return   \Closure
+ */
+
+/**
+ * @namespace
  */
 namespace Application;
 
@@ -16,7 +20,7 @@ return
  */
 function ($id = null) use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->headStyle($view->baseUrl('css/categories.css'));
@@ -42,5 +46,5 @@ function ($id = null) use ($view) {
 
     $view->branch = $id;
     $view->tree = $categoriesTable->buildTree($id);
-
+    return $view;
 };

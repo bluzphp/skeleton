@@ -11,7 +11,7 @@ return
  */
 function () {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     echo <<<LOREM
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus rutrum,

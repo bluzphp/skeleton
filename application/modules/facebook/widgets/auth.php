@@ -11,7 +11,7 @@ return
  */
 function () {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     ?>
     <a href="<?=$this->getRouter()->url('facebook', 'auth')?>" class="btn fa fa-facebook-square fa-2x"></a>

@@ -15,7 +15,7 @@ return
  */
 function () {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     throw new \Exception("Example of exception");
 };

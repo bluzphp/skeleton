@@ -17,7 +17,7 @@ return
  */
 function () use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->breadCrumbs(
@@ -66,7 +66,7 @@ function () use ($view) {
     $this->getEventManager()->attach(
         'testspace:event2',
         function (Event $event) {
-            echo "Never run";
+            echo "Never run". $event->getName();
         }
     );
 

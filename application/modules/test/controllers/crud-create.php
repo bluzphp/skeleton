@@ -16,7 +16,7 @@ return
  */
 function () use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     $this->getLayout()->setTemplate('small.phtml');
 

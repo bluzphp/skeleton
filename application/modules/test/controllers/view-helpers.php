@@ -18,7 +18,7 @@ return
  */
 function ($sex = false, $car = 'none', $remember = false) use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->breadCrumbs(
@@ -28,7 +28,7 @@ function ($sex = false, $car = 'none', $remember = false) use ($view) {
         ]
     );
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     $view->sex = $sex;
     $view->car = $car;

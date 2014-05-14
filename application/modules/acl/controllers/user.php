@@ -3,18 +3,22 @@
  * @author   Anton Shevchuk
  * @created  10.10.11 16:48
  */
+
+/**
+ * @namespace
+ */
 namespace Application;
 
 return
 /**
- * @param int $id
  * @privilege Edit
  *
- * @return \closure
+ * @param int $id
+ * @return void
  */
 function ($id) use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     $request = $this->getRequest();
     $user = Users\Table::findRow($id);

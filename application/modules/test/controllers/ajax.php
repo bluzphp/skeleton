@@ -18,7 +18,7 @@ return
  */
 function ($messages = false) use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     if ($messages) {

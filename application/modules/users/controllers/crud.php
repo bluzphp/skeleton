@@ -15,7 +15,7 @@ return
  */
 function () {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     $crudController = new Controller\Crud();
     $crudController->setCrud(Users\Crud::getInstance());

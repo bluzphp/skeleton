@@ -15,7 +15,7 @@ return
  */
 function ($alias) use ($module, $controller, $view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     var_dump($alias);

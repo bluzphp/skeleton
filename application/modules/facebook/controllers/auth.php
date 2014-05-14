@@ -15,12 +15,10 @@ use Bluz;
 
 return
 /**
- * @return \closure
+ * @var $this Bootstrap
+ * @return void
  */
 function () {
-    /**
-     * @var $this \Bluz\Application
-     */
 
     $options = $this->getConfigData('auth', 'facebook');
     if (!$options || !isset($options['appId']) || empty($options['secret'])
@@ -29,7 +27,7 @@ function () {
     }
 
     // redirect signin user to index page and init session
-    if ($this->getAuth()->getIdentity()) {
+    if ($this->user()) {
         $this->redirectTo('index', 'index');
     }
 
@@ -68,7 +66,7 @@ function () {
             $user->login();
         } else {
             // signup user
-            if (!$user = $this->getAuth()->getIdentity()) {
+            if (!$user = $this->user()) {
                 $user = new Users\Row();
                 // if username doesn't exist, concat first and last name for site's login
                 $login = (isset($user_profile['username']))

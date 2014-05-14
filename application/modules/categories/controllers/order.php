@@ -2,7 +2,11 @@
 /**
  * @author   Viacheslav Nogin
  * @created  25.11.12 18:39 18:39
- * @return closure
+ * @return   \Closure
+ */
+
+/**
+ * @namespace
  */
 namespace Application;
 
@@ -13,7 +17,9 @@ return
  * @privilege Management
  */
 function ($tree, $treeParent) use ($view) {
-
+    /**
+     * @var Bootstrap $this
+     */
     $categoriesTable = Categories\Table::getInstance();
 
     try {
@@ -41,5 +47,5 @@ function ($tree, $treeParent) use ($view) {
     } catch (\Exception $e) {
         $view->error = $e;
     }
-    $this->useJSON();
+    $this->useJson();
 };

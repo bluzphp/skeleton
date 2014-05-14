@@ -23,7 +23,7 @@ return
  */
 function ($id, $code, $password = null, $password2 = null) use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     // change layout

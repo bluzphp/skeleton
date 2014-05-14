@@ -69,16 +69,13 @@ class Row extends AbstractRowEntity
         switch ($this->status) {
             case (Table::STATUS_PENDING):
                 throw new AuthException("Your account is pending activation");
-                break;
             case (Table::STATUS_DISABLED):
                 throw new AuthException("Your account is disabled by administrator");
-                break;
             case (Table::STATUS_ACTIVE):
                 // all ok
                 break;
             default:
                 throw new Exception("User status is undefined in system");
-                break;
         }
     }
 

@@ -17,7 +17,7 @@ return
  */
 function () use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->breadCrumbs(
@@ -33,7 +33,7 @@ function () use ($view) {
     $view->title = $this->getLayout()->title();
     $view->session = $this->getSession()->test;
 
-    //    if ($identity = $app->getAuth()->getIdentity()) {
+    //    if ($identity = $app->user()) {
     //        var_dump($acl->isAllowed('index/index', $identity['sid']));
     //        var_dump($acl->isAllowed('index/test', $identity['sid']));
     //        var_dump($acl->isAllowed('index/error', $identity['sid']));

@@ -197,7 +197,7 @@ class Crud extends \Bluz\Crud\Table
         }
 
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            list($user, $domain) = explode("@", $email, 2);
+            list(, $domain) = explode("@", $email, 2);
             if (!checkdnsrr($domain, "MX") && !checkdnsrr($domain, "A")) {
                 $this->addError('Email has invalid domain name', 'email');
                 return false;

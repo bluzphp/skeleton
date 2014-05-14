@@ -1,9 +1,11 @@
 <?php
 /**
- * Example of Crud
- *
  * @author   Anton Shevchuk
  * @created  04.09.12 11:21
+ */
+
+/**
+ * @namespace
  */
 namespace Application;
 
@@ -13,11 +15,12 @@ use Bluz\Controller;
 return
 /**
  * @privilege Management
- * @return \closure
+ *
+ * @return mixed
  */
 function () {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     $crudController = new Controller\Crud();
     $crudController->setCrud(Roles\Crud::getInstance());

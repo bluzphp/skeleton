@@ -19,10 +19,10 @@ return
  */
 function ($login, $password) use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    if ($this->getAuth()->getIdentity()) {
+    if ($this->user()) {
         $this->getMessages()->addNotice('Already signed');
         $this->redirectTo('index', 'index');
     } elseif ($this->getRequest()->isPost()) {

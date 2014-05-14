@@ -4,7 +4,11 @@
  *
  * @author   Anton Shevchuk
  * @created  06.07.11 18:39
- * @return closure
+ * @return   \Closure
+ */
+
+/**
+ * @namespace
  */
 namespace Application;
 
@@ -16,7 +20,7 @@ return
  */
 function () {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     $this->getLayout()->breadCrumbs(
         [

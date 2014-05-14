@@ -18,12 +18,12 @@ return
  */
 function ($password, $new_password, $new_password2) use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     // change layout
     $this->useLayout('small.phtml');
 
-    $userId = $this->getAuth()->getIdentity()->id;
+    $userId = $this->user()->id;
 
     /**
      * @var Users\Row $user

@@ -17,7 +17,7 @@ return
  */
 function ($id) use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     if ($row = Test\Table::findRow($id)) {
         $row->delete();

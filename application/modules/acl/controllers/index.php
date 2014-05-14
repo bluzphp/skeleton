@@ -3,6 +3,10 @@
  * @author   Anton Shevchuk
  * @created  10.10.11 16:48
  */
+
+/**
+ * @namespace
+ */
 namespace Application;
 
 return
@@ -13,7 +17,7 @@ return
  */
 function () use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->setTemplate('dashboard.phtml');

@@ -12,8 +12,7 @@ return
  * @return string
  */
 function () {
-    $user = app()->getAuth() ? app()->getAuth()->getIdentity() : null;
-    if ($user) {
+    if ($user = app()->user()) {
         return $user->login;
     } else {
         return __('Guest');

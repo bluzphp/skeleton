@@ -15,7 +15,7 @@ return
  */
 function () use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getSession()->getStore()->start();
@@ -28,7 +28,11 @@ function () use ($view) {
             __('Upload')
         ]
     );
-    $userId = $this->getAuth()->getIdentity()->id;
+    if (!$this->user()) {
+        throw new Exception('User not found');
+    }
+
+    $userId = $this->user()->id;
 
     $crud = Media\Crud::getInstance();
     $crud->setUploadDir('uploads/'.$userId.'/media');

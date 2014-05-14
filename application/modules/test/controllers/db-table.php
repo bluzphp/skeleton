@@ -16,7 +16,7 @@ return
  */
 function () {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     $table = Test\Table::getInstance();
 

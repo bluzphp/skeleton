@@ -11,25 +11,28 @@ namespace Application;
 
 return
 /**
- * @return \closure
+ * @var Bootstrap $this
+ * @return void
  */
 function ($path) {
     /**
-     * @var \Application\Bootstrap $this
-     * @var Media\Table $mediaTable
      */
     $this->useJson();
 
     /**
      * @var Users\Row $user
      */
-    $user = $this->getAuth()->getIdentity();
+    if (!$this->user()) {
+        throw new Exception('User not found');
+    }
+
+    $userId = $this->user()->id;
 
     $result = $this->getDb()
         ->delete('media')
         ->where('type LIKE (?)', 'image/%')
         ->andWhere('file = ?', $path)
-        ->andWhere('userId = ?', $user->id)
+        ->andWhere('userId = ?', $userId)
         ->execute();
 
     return $result;

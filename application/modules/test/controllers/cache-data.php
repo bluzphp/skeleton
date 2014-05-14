@@ -19,7 +19,7 @@ return
  */
 function ($id = null) use ($bootstrap, $view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->breadCrumbs(
@@ -28,12 +28,12 @@ function ($id = null) use ($bootstrap, $view) {
             'Cache Data',
         ]
     );
-    /* @var \Application\Bootstrap $this */
+    /* @var Bootstrap $this */
     $this->getLayout()->title('Check cache');
 
     // try to load profile of current user
-    if (!$id && $this->getAuth()->getIdentity()) {
-        $id = $this->getAuth()->getIdentity()->id;
+    if (!$id && $this->user()) {
+        $id = $this->user()->id;
     }
 
     if (!$id) {
