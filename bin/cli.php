@@ -50,9 +50,6 @@ if (array_key_exists('debug', $arguments)) {
     putenv('BLUZ_DEBUG=1');
 }
 
-// Require loader
-require_once dirname(dirname(__FILE__)) . '/application/_loader.php';
-
 // Display error
 function errorDisplay() {
     $e = error_get_last();
@@ -76,8 +73,7 @@ try {
      * @var \Composer\Autoload\ClassLoader $loader
      * @see http://getcomposer.org/apidoc/master/Composer/Autoload/ClassLoader.html
      */
-    require_once PATH_VENDOR . '/autoload.php';
-
+    require_once dirname(__DIR__) . '/vendor/autoload.php';
     require_once PATH_APPLICATION . '/CliBootstrap.php';
     require_once PATH_APPLICATION . '/Exception.php';
 

@@ -55,7 +55,7 @@ class Table extends \Bluz\Db\Table
     }
 
     /**
-     * getBasicRoles
+     * Get all basic roles
      * 
      * @return array
      */

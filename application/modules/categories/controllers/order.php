@@ -20,14 +20,12 @@ function ($tree, $treeParent) use ($view) {
     /**
      * @var Bootstrap $this
      */
-    $categoriesTable = Categories\Table::getInstance();
-
     try {
-        $categoris = json_decode($tree);
+        $categories = json_decode($tree);
 
-        foreach ($categoris as $node) {
+        foreach ($categories as $node) {
             if (isset($node->item_id)) {
-                $dbNode = $categoriesTable->findRow($node->item_id);
+                $dbNode = Categories\Table::findRow($node->item_id);
 
                 if (!$node->parent_id) {
                     $node->parent_id = $treeParent;
@@ -44,8 +42,8 @@ function ($tree, $treeParent) use ($view) {
                 }
             }
         }
+        $this->getMessages()->addSuccess('Tree has been saved');
     } catch (\Exception $e) {
-        $view->error = $e;
+        $this->getMessages()->addError($e->getMessage());
     }
-    $this->useJson();
 };
