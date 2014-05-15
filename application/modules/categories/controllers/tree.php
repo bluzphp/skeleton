@@ -21,6 +21,7 @@ return
 function ($id = null) use ($view) {
     /**
      * @var Bootstrap $this
+     * @var \Bluz\View\View $view
      */
     $this->getLayout()->setTemplate('dashboard.phtml');
     $this->getLayout()->headStyle($view->baseUrl('css/categories.css'));

@@ -16,7 +16,7 @@ return
 /**
  * @privilege Dashboard
  *
- * @return \closure
+ * @return void
  */
 function () {
     /**
