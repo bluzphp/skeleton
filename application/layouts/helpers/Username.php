@@ -4,6 +4,11 @@
  * @link https://github.com/bluzphp/skeleton
  */
 
+/**
+ * @namespace
+ */
+namespace Application\Layout\Helper;
+
 return
 /**
  * Get current user name
