@@ -20,7 +20,7 @@ script:
   - php vendor/bin/phpcs ./application --standard=PSR1 --encoding=utf-8 --ignore=./application/_loader.php
   - php vendor/bin/phpcs ./application --standard=PSR2 --encoding=utf-8 --ignore=./application/_loader.php
   # PHPUnit tests
-  - php vendor/bin/phpunit --configuration tests/phpunit.xml.dist --coverage-clover=.reports/clover.xml
+  - php vendor/bin/phpunit --configuration ./phpunit.xml.dist --coverage-clover=.reports/clover.xml
 after_script:
   - php vendor/bin/coveralls -v
   - wget https://scrutinizer-ci.com/ocular.phar

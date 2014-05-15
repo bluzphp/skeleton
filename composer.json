@@ -25,7 +25,11 @@
         "psr-4": {
             "Application\\": "application/models",
             "Application\\Tests\\": "tests"
-        }
+        },
+        "files": [
+            "application/_functions.php",
+            "application/_loader.php"
+        ]
     },
     "scripts": {
         "post-install-cmd": "php bin/install.php"
