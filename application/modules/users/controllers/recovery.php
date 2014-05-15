@@ -31,7 +31,7 @@ function ($email = null) use ($view) {
                 throw new Exception('Email can\'t be empty');
             }
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                list($user, $domain) = explode("@", $email, 2);
+                list(, $domain) = explode("@", $email, 2);
                 if (!checkdnsrr($domain, "MX") && !checkdnsrr($domain, "A")) {
                     throw new Exception('Email has invalid domain name');
                 }

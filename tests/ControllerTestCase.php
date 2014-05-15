@@ -9,6 +9,7 @@
  */
 namespace Application\Tests;
 
+use Bluz\Messages\Messages;
 use Bluz\Router\Router;
 use Application\Users;
 use Application\Tests\Fixtures\Users\UserHasPermission;
@@ -42,6 +43,27 @@ class ControllerTestCase extends TestCase
     protected function setupSuperUserIdentity()
     {
         $this->app->getAuth()->setIdentity(new UserHasPermission());
+    }
+
+    /**
+     * Assert Response code is 200
+     *
+     * @return void
+     */
+    protected function assertOk()
+    {
+        $this->assertResponseCode(200);
+    }
+
+    /**
+     * Assert Response code
+     *
+     * @param int $code
+     * @return void
+     */
+    protected function assertResponseCode($code)
+    {
+        $this->assertEquals($code, $this->app->getResponse()->getCode());
     }
 
     /**
@@ -111,6 +133,63 @@ class ControllerTestCase extends TestCase
         $this->assertModule(Router::ERROR_MODULE);
         $this->assertController(Router::ERROR_CONTROLLER);
     }
+
+    /**
+     * Check Messages
+     *
+     * @param string $type
+     * @param string $text
+     * @return void
+     */
+    private function checkMessage($type, $text = null)
+    {
+        $message = $this->app->getMessages()->pop($type);
+
+        $this->assertNotNull($message);
+
+        if ($text) {
+            $this->assertEquals($text, $message->text);
+        }
+    }
+
+    /**
+     * Assert Message with type Error
+     *
+     * @param string $text
+     * @return void
+     */
+    protected function assertErrorMessage($text = null)
+    {
+        $this->checkMessage(Messages::TYPE_ERROR, $text);
+    }
+
+    /**
+     * Assert Message with type Notice
+     *
+     * @param string $text
+     * @return void
+     */
+    protected function assertNoticeMessage($text = null)
+    {
+        $this->checkMessage(Messages::TYPE_NOTICE, $text);
+    }
+
+    /**
+     * Assert Message with type Success
+     *
+     * @param string $text
+     * @return void
+     */
+    protected function assertSuccessMessage($text = null)
+    {
+        $this->checkMessage(Messages::TYPE_SUCCESS, $text);
+    }
+
+    /**
+     * Asserts for HTML Dom elements
+     * @see http://framework.zend.com/manual/2.2/en/modules/zend.dom.query.html
+     * @see http://framework.zend.com/manual/2.2/en/modules/zend.test.phpunit.html#css-selector-assertions
+     */
 
     /**
      * Execute a DOM query

@@ -26,6 +26,7 @@ function ($acl) use ($view) {
          * @var Bootstrap $this
          */
         $this->getDb()->query('DELETE FROM acl_privileges');
+
         foreach ($acl as $roleId => $modules) {
             foreach ($modules as $module => $privileges) {
                 foreach ($privileges as $privilege => $flag) {
@@ -38,7 +39,9 @@ function ($acl) use ($view) {
         }
     };
 
-    if ($this->getDb()->transaction($callback)) {
+    if (empty($acl)) {
+        $this->getMessages()->addError('Privileges set is empty. You can\'t remove all of them');
+    } elseif ($this->getDb()->transaction($callback)) {
         $this->getCache()->deleteByTag('privileges');
         $this->getMessages()->addSuccess('All data was saved');
     } else {

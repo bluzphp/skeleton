@@ -13,7 +13,7 @@ return
 /**
  * @privilege View
  *
- * @return \closure
+ * @return void
  */
 function () use ($view) {
     /**
