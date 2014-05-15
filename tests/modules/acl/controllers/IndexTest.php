@@ -19,7 +19,7 @@ use Application\Tests\ControllerTestCase;
 class IndexTest extends ControllerTestCase
 {
     /**
-     * Dispatch default module/controller
+     * Dispatch module/controller
      *
      * @todo test functionality
      */
@@ -29,7 +29,5 @@ class IndexTest extends ControllerTestCase
 
         $this->dispatchRouter('/acl/');
         $this->assertOk();
-
-        $this->markTestIncomplete();
     }
 }

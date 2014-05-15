@@ -7,16 +7,16 @@
 /**
  * @namespace
  */
-namespace Application\Tests\Acl;
+namespace Application\Tests\Cache;
 
 use Application\Tests\ControllerTestCase;
 
 /**
- * @package  Application\Tests\Acl
+ * @package  Application\Tests\Cache
  * @author   Anton Shevchuk
- * @created  04.08.11 19:52
+ * @created  15.05.14 12:24
  */
-class RolesTest extends ControllerTestCase
+class FlushTest extends ControllerTestCase
 {
     /**
      * Dispatch module/controller
@@ -27,7 +27,8 @@ class RolesTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/acl/roles/');
+        $this->dispatchRouter('/cache/flush/');
         $this->assertOk();
+        $this->assertNoticeMessage();
     }
 }

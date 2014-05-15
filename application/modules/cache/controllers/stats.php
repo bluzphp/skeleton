@@ -15,6 +15,8 @@ use Bluz;
 
 return
 /**
+ * Statistics
+ *
  * @privilege Management
  * @return void
  */

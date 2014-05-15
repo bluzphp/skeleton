@@ -19,7 +19,7 @@ use Application\Tests\ControllerTestCase;
 class UserTest extends ControllerTestCase
 {
     /**
-     * Dispatch default module/controller
+     * Dispatch module/controller
      *
      * @todo test functionality
      */
@@ -29,7 +29,5 @@ class UserTest extends ControllerTestCase
 
         $this->dispatchRouter('/acl/user/');
         $this->assertResponseCode(500);
-
-        $this->markTestIncomplete();
     }
 }

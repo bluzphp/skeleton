@@ -16,6 +16,7 @@ use Bluz;
 return
 /**
  * Flush cache servers
+ *
  * @privilege Management
  * @return void
  */

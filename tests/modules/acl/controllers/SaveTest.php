@@ -19,7 +19,7 @@ use Application\Tests\ControllerTestCase;
 class SaveTest extends ControllerTestCase
 {
     /**
-     * Dispatch default module/controller
+     * Dispatch module/controller
      *
      * @todo test functionality
      */
@@ -34,7 +34,5 @@ class SaveTest extends ControllerTestCase
         // and set error message
         $this->assertRedirect('acl', 'index');
         $this->assertErrorMessage();
-
-        $this->markTestIncomplete();
     }
 }
