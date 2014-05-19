@@ -1,18 +1,19 @@
 <?php
 /**
- * 
+ * @category Application\Test
  *
- * @category Application
- *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  20.05.13 17:07
+ */
+/**
+ * @namespace
  */
 namespace Application;
 
 return
 /**
  * @privilege Another
- * @return \closure
+ * @return void
  */
 function () {
     /**

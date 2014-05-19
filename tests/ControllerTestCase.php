@@ -151,6 +151,23 @@ class ControllerTestCase extends TestCase
     }
 
     /**
+     * Assert assigned variable
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return void
+     */
+    protected function assertResponseVariable($key, $value)
+    {
+        if ($this->app->hasLayout()) {
+            $this->fail("Method `assertResponseVariable` required to disable Layout, please update test");
+        }
+
+        $variable = $this->app->getResponse()->getBody()->__get($key);
+        $this->assertEquals($variable, $value);
+    }
+
+    /**
      * Check Messages
      *
      * @param string $type

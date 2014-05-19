@@ -52,6 +52,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $this->app->getAuth()->clearIdentity();
         $this->app->setRequest(new Http\Request());
         $this->app->setResponse(new Http\Response());
+        $this->app->useJson(false);
         $this->app->useLayout(true);
     }
 
@@ -97,15 +98,21 @@ class TestCase extends \PHPUnit_Framework_TestCase
      * @param string $uri in format "module/controller"
      * @param array $params of request
      * @param string $method HTTP
-     *
+     * @param bool $ajax
      * @return AbstractResponse
      */
-    protected function dispatchRouter($uri, array $params = null, $method = Http\Request::METHOD_GET)
+    protected function dispatchRouter($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
     {
         $request = new Http\Request();
         $request->setRequestUri($uri);
         $request->setOptions($this->app->getConfigData('request'));
         $request->setMethod($method);
+
+        if ($ajax) {
+            $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
+            $this->app->useLayout(false);
+            $this->app->useJson(true);
+        }
 
         $this->app->setRequest($request);
 
