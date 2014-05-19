@@ -62,16 +62,21 @@ class TestCase extends \PHPUnit_Framework_TestCase
      * @param string $uri in format "module/controller"
      * @param array $params of request
      * @param string $method HTTP
-     *
+     * @param bool $ajax
      * @return AbstractResponse
      */
-    protected function dispatchUri($uri, array $params = null, $method = Http\Request::METHOD_GET)
+    protected function dispatchUri($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
     {
         $request = new Http\Request();
         $request->setOptions($this->app->getConfigData('request'));
         $request->setMethod($method);
 
         $this->app->setRequest($request);
+
+        if ($ajax) {
+            $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
+            $this->app->useLayout(false);
+        }
 
         $uri = trim($uri, '/ ');
         list($module, $controller) = explode('/', $uri);
@@ -108,13 +113,12 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $request->setOptions($this->app->getConfigData('request'));
         $request->setMethod($method);
 
+        $this->app->setRequest($request);
+
         if ($ajax) {
             $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
             $this->app->useLayout(false);
-            $this->app->useJson(true);
         }
-
-        $this->app->setRequest($request);
 
         $router = $this->app->getRouter();
 
