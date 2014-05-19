@@ -27,7 +27,22 @@ class UserTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
+        // user id is empty
         $this->dispatchRouter('/acl/user/');
         $this->assertResponseCode(500);
+    }
+
+    /**
+     * Dispatch module/controller
+     *
+     * @todo test functionality
+     */
+    public function testUserPage()
+    {
+        $this->setupSuperUserIdentity();
+
+        // user id is admin
+        $this->dispatchRouter('/acl/user/', ['id' => 1]);
+        $this->assertOk();
     }
 }

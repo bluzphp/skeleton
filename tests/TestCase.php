@@ -52,6 +52,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $this->app->getAuth()->clearIdentity();
         $this->app->setRequest(new Http\Request());
         $this->app->setResponse(new Http\Response());
+        $this->app->useLayout(true);
     }
 
     /**
