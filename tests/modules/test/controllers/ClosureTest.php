@@ -17,7 +17,7 @@ use Bluz\Http\Request;
  * @author   Anton Shevchuk
  * @created  19.05.14 12:33
  */
-class BootstrapTest extends ControllerTestCase
+class ClosureTest extends ControllerTestCase
 {
     /**
      * Dispatch module/controller
@@ -25,8 +25,13 @@ class BootstrapTest extends ControllerTestCase
     public function testControllerPage()
     {
         $this->app->useLayout(false);
-        $this->dispatchRouter('/test/bootstrap/');
+        $this->dispatchRouter('/test/closure/');
         $this->assertOk();
-        $this->assertResponseVariable('result', 4);
+
+        $closure = $this->app->getResponse()->getBody();
+
+        $this->assertInstanceOf('\Closure', $closure);
+        $this->expectOutputRegex('/Closure is back/');
+        $closure();
     }
 }

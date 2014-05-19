@@ -13,7 +13,7 @@ use Application\Tests\ControllerTestCase;
 use Bluz\Http\Request;
 
 /**
- * @package  Application\Tests\Cache
+ * @package  Application\Tests\Test
  * @author   Anton Shevchuk
  * @created  19.05.14 12:33
  */
