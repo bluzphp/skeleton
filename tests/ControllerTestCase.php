@@ -26,6 +26,22 @@ use Zend\Dom\Document;
 class ControllerTestCase extends TestCase
 {
     /**
+     * @var Document
+     */
+    protected $document;
+
+    /**
+     * setUp
+     *
+     * @return void
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->document = null;
+    }
+
+    /**
      * Setup Guest
      *
      * @return void
@@ -135,6 +151,23 @@ class ControllerTestCase extends TestCase
     }
 
     /**
+     * Assert assigned variable
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return void
+     */
+    protected function assertResponseVariable($key, $value)
+    {
+        if ($this->app->hasLayout()) {
+            $this->fail("Method `assertResponseVariable` required to disable Layout, please update test");
+        }
+
+        $variable = $this->app->getResponse()->getBody()->__get($key);
+        $this->assertEquals($variable, $value);
+    }
+
+    /**
      * Check Messages
      *
      * @param string $type
@@ -200,9 +233,11 @@ class ControllerTestCase extends TestCase
     private function query($path)
     {
         $response = $this->app->getResponse();
-        $document = new Document($response->getBody());
 
-        return Document\Query::execute($path, $document, Document\Query::TYPE_CSS);
+        if (!$this->document) {
+            $this->document = new Document($response->getBody());
+        }
+        return Document\Query::execute($path, $this->document, Document\Query::TYPE_CSS);
     }
 
     /**
@@ -226,7 +261,7 @@ class ControllerTestCase extends TestCase
     {
         $match = $this->queryCount($path);
         if (!$match > 0) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s EXISTS',
                     $path
                 ));
@@ -243,7 +278,7 @@ class ControllerTestCase extends TestCase
     {
         $match  = $this->queryCount($path);
         if ($match != 0) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s DOES NOT EXIST',
                     $path
                 ));
@@ -261,7 +296,7 @@ class ControllerTestCase extends TestCase
     {
         $match = $this->queryCount($path);
         if ($match != $count) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s OCCURS EXACTLY %d times, actually occurs %d times',
                     $path,
                     $count,
@@ -282,7 +317,7 @@ class ControllerTestCase extends TestCase
     {
         $match = $this->queryCount($path);
         if ($match == $count) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new\ PHPUnit_Framework_ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s DOES NOT OCCUR EXACTLY %d times',
                     $path,
                     $count
@@ -301,7 +336,7 @@ class ControllerTestCase extends TestCase
     {
         $result = $this->query($path);
         if ($result->count() == 0) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s EXISTS',
                     $path
                 ));
@@ -312,7 +347,7 @@ class ControllerTestCase extends TestCase
                 return;
             }
         }
-        throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+        throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
                 'Failed asserting node denoted by %s CONTAINS content "%s"',
                 $path,
                 $match
@@ -331,13 +366,13 @@ class ControllerTestCase extends TestCase
         $result = $this->query($path);
 
         if ($result->count() == 0) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s EXISTS',
                     $path
                 ));
         }
         if (!preg_match($pattern, $result->current()->nodeValue)) {
-            throw new PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
                     'Failed asserting node denoted by %s CONTAINS content MATCHING "%s", actual content is "%s"',
                     $path,
                     $pattern,

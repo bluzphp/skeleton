@@ -1,6 +1,6 @@
 <?php /** @var \Bluz\View\Layout $this */ ?>
-<?php require_once 'partial/header.phtml'; ?>
-<?php require_once 'partial/nav-bar.phtml'; ?>
+<?php require 'partial/header.phtml'; ?>
+<?php require 'partial/nav-bar.phtml'; ?>
     <div class="container">
         <div class="row">
             <?php if ($this->breadCrumbs()) : ?>
@@ -24,4 +24,4 @@
         echo $this->getContent();
         ?>
     </div>
-<?php require_once 'partial/footer.phtml'; ?>
+<?php require 'partial/footer.phtml'; ?>

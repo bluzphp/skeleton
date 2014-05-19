@@ -12,9 +12,8 @@ use Bluz;
 
 return
 /**
- * @param sd
  * @param bool $messages
- * @return \closure
+ * @return void
  */
 function ($messages = false) use ($view) {
     /**
@@ -25,6 +24,8 @@ function ($messages = false) use ($view) {
         $this->getMessages()->addNotice('Notice Text');
         $this->getMessages()->addSuccess('Success Text');
         $this->getMessages()->addError('Error Text');
+
+        $view->baz = 'qux';
     }
     $this->getMessages()->addNotice('Method '. $this->getRequest()->getMethod());
 
@@ -32,6 +33,4 @@ function ($messages = false) use ($view) {
     //$this->reload();
     //$this->redirect('http://google.com');
     //$this->redirectTo('test', 'index');
-
-    sleep(2);
 };
