@@ -90,7 +90,7 @@ class Bootstrap extends Application
             $this->getMessages()->addError('You don\'t have permissions, please sign in');
         }
         // redirect to login page
-        if (!$this->getAuth()->getIdentity()) {
+        if (!$this->user()) {
             // save URL to session
             $this->getSession()->rollback = $this->getRequest()->getRequestUri();
             $this->redirectTo('users', 'signin');

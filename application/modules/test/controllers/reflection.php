@@ -18,7 +18,7 @@ return
  */
 function ($id = 0, $other = "default value") use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->breadCrumbs(
@@ -29,4 +29,6 @@ function ($id = 0, $other = "default value") use ($view) {
     );
     $view->functionData = file_get_contents(__FILE__);
     $view->reflectionData = $this->reflection(__FILE__);
+    $view->id = $id;
+    $view->other = $other;
 };

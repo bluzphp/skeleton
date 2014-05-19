@@ -17,7 +17,7 @@ return
  */
 function ($id = null) use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      * @var Test\Row $row
      */

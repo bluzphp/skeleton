@@ -105,6 +105,7 @@ UNLOCK TABLES;
 
 # Dump of table pages
 # ------------------------------------------------------------
+insert into `pages` (`id`, `title`, `alias`, `content`, `keywords`, `description`, `created`, `updated`, `userId`) values('1','About Bluz Framework','about','<p>Bluz Lightweight PHP Framework!</p>','about bluz framework','About Bluz','2012-04-09 18:34:03','2014-05-12 11:01:03','0');
 
 
 

@@ -22,9 +22,6 @@ if (isset($_COOKIE[DEBUG_KEY])) {
     putenv('BLUZ_DEBUG=1');
 }
 
-// Require loader
-require_once dirname(dirname(__FILE__)) . '/application/_loader.php';
-
 /**
  * Block iframe embedding for prevent security issues
  * @link https://developer.mozilla.org/en-US/docs/HTTP/X-Frame-Options
@@ -43,20 +40,22 @@ function errorDisplay() {
         || !in_array($e['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR))) {
         return;
     }
+    // clean all buffers
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
     require_once 'error.php';
 }
 
 // Shutdown function for handle critical and other errors
 register_shutdown_function('errorDisplay');
-
 // Try to run application
 try {
     /**
      * @var \Composer\Autoload\ClassLoader $loader
      * @see http://getcomposer.org/apidoc/master/Composer/Autoload/ClassLoader.html
      */
-    require PATH_VENDOR . '/autoload.php';
-
+    require_once dirname(__DIR__) . '/vendor/autoload.php';
     require_once PATH_APPLICATION . '/Bootstrap.php';
     require_once PATH_APPLICATION . '/Exception.php';
 

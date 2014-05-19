@@ -5,6 +5,10 @@
  * @author   Anton Shevchuk
  * @created  12.06.12 12:27
  */
+
+/**
+ * @namespace
+ */
 namespace Application;
 
 use Bluz;
@@ -14,11 +18,11 @@ return
  * Clean data
  *
  * @privilege Management
- * @return \closure
+ * @return void
  */
 function () {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     if ($handler = $this->getCache()->getAdapter()) {
         // routers

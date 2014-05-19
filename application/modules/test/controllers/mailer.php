@@ -14,7 +14,7 @@ return
  */
 function ($email = "no-reply@nixsolutions.com") use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     $this->getLayout()->breadCrumbs(
         [

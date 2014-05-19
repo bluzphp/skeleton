@@ -15,7 +15,7 @@ return
  */
 function ($file) use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     // used native session settings without rewrite save path

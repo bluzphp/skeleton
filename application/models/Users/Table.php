@@ -15,6 +15,9 @@ namespace Application\Users;
  * @category Application
  * @package  Users
  *
+ * @method   static Row findRow($primaryKey)
+ * @method   static Row findRowWhere($whereList)
+ *
  * @author   Anton Shevchuk
  * @created  08.07.11 17:36
  */

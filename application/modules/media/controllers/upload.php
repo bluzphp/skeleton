@@ -14,11 +14,10 @@ use Bluz\Http\File;
 return
 /**
  * @privilege Upload
- * @return \closure
  */
 function () {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\Http\FileUpload $fileUpload
      */
     $fileUpload = $this->getRequest()->getFileUpload();
@@ -33,7 +32,11 @@ function () {
         // switch to JSON response
         $this->useJson();
 
-        $userId = $this->getAuth()->getIdentity()->id;
+        if (!$this->user()) {
+            throw new Exception('User not found');
+        }
+
+        $userId = $this->user()->id;
 
         // directory structure:
         //   uploads/

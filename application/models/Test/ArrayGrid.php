@@ -9,7 +9,6 @@
  */
 namespace Application\Test;
 
-
 /**
  * Test Grid based on Array
  *

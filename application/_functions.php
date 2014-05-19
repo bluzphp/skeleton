@@ -8,7 +8,6 @@
 
 // Write message to log file
 if (!function_exists('errorLog')) {
-
     /**
      * @param string $message
      */
@@ -28,6 +27,9 @@ if (!function_exists('errorLog')) {
 
 // Error Handler
 if (!function_exists('errorHandler')) {
+    /**
+     * Custom error handler
+     */
     function errorHandler()
     {
         $e = error_get_last();
@@ -35,10 +37,6 @@ if (!function_exists('errorHandler')) {
         if (!is_array($e)
             || !in_array($e['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR))) {
             return;
-        }
-        // clean all buffers
-        while (ob_get_level()) {
-            ob_end_clean();
         }
         // try to write log
         errorLog($e['message'] ."\n". $e['file'] ."#". $e['line'] ."\n");

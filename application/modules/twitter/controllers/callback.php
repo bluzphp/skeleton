@@ -19,7 +19,7 @@ return
  */
 function () use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
 
@@ -81,7 +81,7 @@ function () use ($view) {
              */
             $row->token = $result['oauth_token'];
             $row->tokenSecret = $result['oauth_token_secret'];
-            $row->tokenType = Table::TYPE_ACCESS;
+            $row->tokenType = Auth\Table::TYPE_ACCESS;
             $row->save();
 
             /**
@@ -94,14 +94,14 @@ function () use ($view) {
              * if user already signed - link new auth provider to account
              * another - create new user
              */
-            if (!$user = $this->getAuth()->getIdentity()) {
+            if (!$user = $this->user()) {
                 /**
                  * Create new user
                  * @var Users\Row $user
                  */
                 $user = new Users\Row();
                 $user->login = $result['screen_name'];
-                $user->status = UsersTable::STATUS_ACTIVE;
+                $user->status = Users\Table::STATUS_ACTIVE;
                 $user->save();
 
                 /**
@@ -126,11 +126,11 @@ function () use ($view) {
              */
             $row = new Auth\Row();
             $row->userId = $user->id;
-            $row->provider = Table::PROVIDER_TWITTER;
+            $row->provider = Auth\Table::PROVIDER_TWITTER;
             $row->foreignKey = $result['user_id'];
             $row->token = $result['oauth_token'];
             $row->tokenSecret = $result['oauth_token_secret'];
-            $row->tokenType = Table::TYPE_ACCESS;
+            $row->tokenType = Auth\Table::TYPE_ACCESS;
             $row->save();
         }
 

@@ -1,15 +1,26 @@
 <?php
 /**
- * Table
- *
- * @category Application
- * @package  Roles
+ * @copyright Bluz PHP Team
+ * @link https://github.com/bluzphp/skeleton
+ */
+
+/**
+ * @namespace
  */
 namespace Application\Roles;
 
 use Bluz\Cache\Cache;
 use Bluz\Db\Db;
 
+/**
+ * Class Table
+ *
+ * @package  Application\Roles
+ *
+ *
+ * @method   static Row findRow($primaryKey)
+ * @method   static Row findRowWhere($whereList)
+ */
 class Table extends \Bluz\Db\Table
 {
     const BASIC_GUEST = 'guest';
@@ -44,7 +55,7 @@ class Table extends \Bluz\Db\Table
     }
 
     /**
-     * getBasicRoles
+     * Get all basic roles
      * 
      * @return array
      */

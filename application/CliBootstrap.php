@@ -41,6 +41,12 @@ use Bluz\Cli;
 class CliBootstrap extends Application
 {
     /**
+     * Layout flag
+     * @var boolean
+     */
+    protected $layoutFlag = false;
+
+    /**
      * get CLI Request
      *
      * @return Cli\Request

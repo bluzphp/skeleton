@@ -10,20 +10,24 @@
 namespace Application\Media;
 
 use Application\Exception;
-use \Bluz\Crud\Table;
 
 /**
- * Media Crud
+ * Class Crud of Media
+ * @package Application\Media
  *
- * @category Application
- * @package  Media
+ * @method Table getTable()
  */
-class Crud extends Table
+class Crud extends \Bluz\Crud\Table
 {
     /**
      * @var string
      */
     protected $uploadDir;
+
+    /**
+     * @var \Bluz\Http\File
+     */
+    protected $file;
 
     /**
      * createOne

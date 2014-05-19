@@ -16,13 +16,14 @@ return
  */
 function ($flag = false) use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     if ($flag) {
         $this->getMessages()->addNotice('Notice Text');
         $this->getMessages()->addSuccess('Success Text');
         $this->getMessages()->addError('Error Text');
+        $this->getMessages()->addError('Another Error Text');
     }
     $view->string = 'bar';
     $view->array = ['some', 'array'];

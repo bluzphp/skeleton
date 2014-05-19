@@ -13,7 +13,7 @@ return
  */
 function () use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \closure $bootstrap
      * @var \Bluz\View\View $view
      */

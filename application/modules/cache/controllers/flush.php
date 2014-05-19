@@ -5,6 +5,10 @@
  * @author   Anton Shevchuk
  * @created  12.06.12 12:27
  */
+
+/**
+ * @namespace
+ */
 namespace Application;
 
 use Bluz;
@@ -12,12 +16,13 @@ use Bluz;
 return
 /**
  * Flush cache servers
+ *
  * @privilege Management
- * @return \closure
+ * @return void
  */
 function () {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      */
     if ($handler = $this->getCache()->getAdapter()) {
         $this->getCache()->getAdapter()->flush();

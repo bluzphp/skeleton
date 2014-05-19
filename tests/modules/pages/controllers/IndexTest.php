@@ -26,4 +26,15 @@ class IndexTest extends ControllerTestCase
     {
         $this->app->dispatch('pages','index', ['alias' => uniqid('random_name_')]);
     }
+
+    /**
+     * Dispatch "About" page
+     */
+    public function testIndexPage()
+    {
+        $this->dispatchRouter('/about.html');
+        $this->assertModule('pages');
+        $this->assertController('index');
+        $this->assertQueryContentContains('h2.page-header', 'About Bluz Framework');
+    }
 }

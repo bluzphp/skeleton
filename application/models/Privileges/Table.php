@@ -15,8 +15,10 @@ use Application\Roles;
 /**
  * Table
  *
- * @category Application
- * @package  Privileges
+ * @package  Application\Privileges
+ *
+ * @method   static Row findRow($primaryKey)
+ * @method   static Row findRowWhere($whereList)
  */
 class Table extends \Bluz\Db\Table
 {

@@ -9,6 +9,12 @@
  */
 namespace Application\Categories;
 
+/**
+ * Class Crud
+ * @package Application\Categories
+ *
+ * @method Table getTable()
+ */
 class Crud extends \Bluz\Crud\Table
 {
     private $arrayWithTree = [];

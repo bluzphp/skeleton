@@ -9,15 +9,13 @@
  */
 namespace Application\Options;
 
-use \Bluz\Crud\Table;
-
 /**
- * Crud
+ * Class Crud of Options
+ * @package Application\Options
  *
- * @category Application
- * @package  Options
+ * @method Table getTable()
  */
-class Crud extends Table
+class Crud extends \Bluz\Crud\Table
 {
     /**
      * {@inheritdoc}
@@ -49,7 +47,7 @@ class Crud extends Table
         $key = isset($data['key'])?$data['key']:null;
         $namespace = isset($data['namespace'])?$data['namespace']:null;
         // unique validator
-        if ($row = $this->getTable()->findRowWhere(['key' => $key, 'namespace' => $namespace])) {
+        if ($this->getTable()->findRowWhere(['key' => $key, 'namespace' => $namespace])) {
             $this->addError(
                 __('Key name "%s" already exists in namespace "%s"', esc($key), esc($namespace)),
                 'key'

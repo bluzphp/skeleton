@@ -20,14 +20,14 @@ return
  */
 function ($id = null) use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->title('User Profile');
 
     // try to load profile of current user
-    if (!$id && $this->getAuth()->getIdentity()) {
-        $id = $this->getAuth()->getIdentity()->id;
+    if (!$id && $this->user()) {
+        $id = $this->user()->id;
     }
 
     /**

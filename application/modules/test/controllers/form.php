@@ -15,7 +15,7 @@ return
  */
 function ($int, $string, $array, $optional = 0) use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->breadCrumbs(

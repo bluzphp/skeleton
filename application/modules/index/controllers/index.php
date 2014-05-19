@@ -4,16 +4,19 @@
  *
  * @author   Anton Shevchuk
  * @created  06.07.11 18:39
- * @return closure
+ * @return   \Closure
+ */
+
+/**
+ * @namespace
  */
 namespace Application;
 
 return
 /**
- * @return \closure
+ * @var Bootstrap $this
+ * @return void
  */
 function () {
-    /**
-     * @var \Application\Bootstrap $this
-     */
+
 };

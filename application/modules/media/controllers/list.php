@@ -11,25 +11,24 @@ namespace Application;
 
 return
 /**
+ * @var Bootstrap $this
+ * @var Users\Row $user
  * @return \closure
  */
 function () {
-    /**
-     * @var \Application\Bootstrap $this
-     * @var Media\Table $mediaTable
-     */
     $this->useJson();
 
-    /**
-     * @var Users\Row $user
-     */
-    $user = $this->getAuth()->getIdentity();
+    if (!$this->user()) {
+        throw new Exception('User not found');
+    }
+
+    $userId = $this->user()->id;
 
     $images = $this->getDb()
         ->select('*')
         ->from('media', 'm')
         ->where('type LIKE (?)', 'image/%')
-        ->andWhere('userId = ?', $user->id)
+        ->andWhere('userId = ?', $userId)
         ->execute('Application\\Media\\Row');
 
     $result = array();

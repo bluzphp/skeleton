@@ -9,16 +9,16 @@
  */
 namespace Application\Pages;
 
-use \Bluz\Crud\Table;
-
 /**
- * @category Application
- * @package  Pages
+ * Class Crud of Pages
+ * @package  Application\Pages
+ **
+ * @method   Table getTable()
  *
  * @author   Anton Shevchuk
  * @created  03.09.12 13:11
  */
-class Crud extends Table
+class Crud extends \Bluz\Crud\Table
 {
     /**
      * {@inheritdoc}

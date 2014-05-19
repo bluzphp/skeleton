@@ -44,12 +44,10 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.tools', 'bluz.ajax', 'vendor/jque
             $.ajax({
                 url: 'categories/order',
                 type: 'post',
+                dataType: 'json',
                 data: {
                     tree: JSON.stringify(arraied),
                     treeParent: $('.tree-header').attr('data-parent-id')
-                },
-                success: function (responce) {
-                    notify.addSuccess('Tree has been saved');
                 }
             });
         });

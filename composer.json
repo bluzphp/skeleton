@@ -5,14 +5,15 @@
     "type": "library",
     "require": {
         "php": ">=5.4",
-        "bluzphp/framework": "0.3.5",
+        "bluzphp/framework": "0.3.6",
         "phpmailer/phpmailer": "dev-master",
         "guzzle/guzzle": "~3.7"
     },
     "require-dev": {
         "phpunit/phpunit": "4.1.*",
         "satooshi/php-coveralls": "dev-master",
-        "squizlabs/php_codesniffer": "1.*"
+        "squizlabs/php_codesniffer": "1.*",
+        "zendframework/zend-dom": "2.3.*"
     },
     "config": {
         "vendor-dir": "vendor"
@@ -24,7 +25,11 @@
         "psr-4": {
             "Application\\": "application/models",
             "Application\\Tests\\": "tests"
-        }
+        },
+        "files": [
+            "application/_functions.php",
+            "application/_loader.php"
+        ]
     },
     "scripts": {
         "post-install-cmd": "php bin/install.php"

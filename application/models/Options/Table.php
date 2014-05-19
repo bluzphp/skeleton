@@ -10,10 +10,13 @@
 namespace Application\Options;
 
 /**
- * Table
+ * Class Table
  *
- * @category Application
- * @package  Options
+ * @package Application\Options
+ *
+ * @method static Row create(array $data = [])
+ * @method static Row findRow($primaryKey)
+ * @method static Row findRowWhere($whereList)
  */
 class Table extends \Bluz\Db\Table
 {

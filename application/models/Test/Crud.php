@@ -9,18 +9,17 @@
  */
 namespace Application\Test;
 
-use Bluz\Crud\Table;
-
 /**
  * Crud based on Db\Table
  *
- * @category Application
- * @package  Test
+ * @package  Application\Test
+ *
+ * @method   Table getTable()
  *
  * @author   Anton Shevchuk
  * @created  03.09.12 13:11
  */
-class Crud extends Table
+class Crud extends \Bluz\Crud\Table
 {
     /**
      * {@inheritdoc}

@@ -5,18 +5,24 @@
  * @author   Anton Shevchuk
  * @created  12.06.12 12:27
  */
+
+/**
+ * @namespace
+ */
 namespace Application;
 
 use Bluz;
 
 return
 /**
+ * Statistics
+ *
  * @privilege Management
- * @return \closure
+ * @return void
  */
 function () use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->setTemplate('dashboard.phtml');

@@ -2,16 +2,20 @@
 /**
  * Grid of Options
  */
+
+/**
+ * @namespace
+ */
 namespace Application;
 
 return
 /**
  * @privilege Management
- * @return \closure
+ * @return void
  */
 function () use ($view) {
     /**
-     * @var \Application\Bootstrap $this
+     * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     $this->getLayout()->setTemplate('dashboard.phtml');

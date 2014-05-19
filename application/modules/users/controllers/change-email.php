@@ -15,18 +15,15 @@ use Bluz\Auth\AuthException;
 
 return
 /**
+ * @var Bootstrap $this
  * @privilege EditEmail
- * @return \closure
+ * @return void
  */
 function ($email = null, $password = null, $token = null) use ($view) {
-    /**
-     * @var \Application\Bootstrap $this
-     */
-
     // change layout
     $this->useLayout('small.phtml');
 
-    $userId = $this->getAuth()->getIdentity()->id;
+    $userId = $this->user() ? $this->user()->id : null;
 
     /**
      * @var Users\Row $user
@@ -50,7 +47,7 @@ function ($email = null, $password = null, $token = null) use ($view) {
             Auth\Table::getInstance()->checkEquals($user->login, $password);
 
             // check email for unique
-            $emailUnique = Users\Table::getInstance()->findRowWhere(['email' => $email]);
+            $emailUnique = Users\Table::findRowWhere(['email' => $email]);
             if ($emailUnique && $emailUnique->id != $userId) {
                 throw new Exception('User with email "'.htmlentities($email).'" already exists');
             }
