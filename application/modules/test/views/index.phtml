@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var \Application\Users\Row $user
+ * @var \Bluz\View\View $this
+ */
+?>
+
 <h3>Hello, <?=$this->username()?></h3>
 <p>This is page consist many examples, all of them you can find in test module</p>
 <h3>Controller features</h3>
@@ -54,7 +61,7 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
 </div>
 <hr/>
 <div class="btn-group">
-    <a href="/test/ajax" id="ajax-callback" class="btn btn-default ajax">AJAX call with fired trigger</a>
+    <a href="<?= $this->url('test', 'ajax') ?>" id="ajax-callback" class="btn btn-default ajax">AJAX call with fired trigger</a>
 </div>
 <hr/>
 <p>Example of JavaScript:</p>
@@ -100,8 +107,8 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
 
 <h3>Access denied</h3>
 <div class="btn-group">
-    <a href="/test/privilege" class="btn btn-default bluz-tooltip ajax" data-toggle="tooltip" title="Return error message">Denied page, AJAX call</a>
-    <a href="/test/privilege" class="btn btn-default bluz-tooltip dialog" data-toggle="tooltip" title="Return error dialog">Denied page, dialog</a>
+    <a href="<?= $this->url('test', 'privilege') ?>" class="btn btn-default bluz-tooltip ajax" data-toggle="tooltip" title="Return error message">Denied page, AJAX call</a>
+    <a href="<?= $this->url('test', 'privilege') ?>/test/privilege" class="btn btn-default bluz-tooltip dialog" data-toggle="tooltip" title="Return error dialog">Denied page, dialog</a>
 </div>
 <hr/>
 

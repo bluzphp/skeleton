@@ -14,6 +14,8 @@ $selectBuilder = app()->getDb()
     ->orWhere('u.id IN (?)', [4, 5])
     ->andWhere('u.status = ? OR u.status = ?', 'active', 'pending')
     ->orWhere('u.login LIKE (?)', 'A%')
+    ->orderBy('u.id')
+    ->addOrderBy('u.login')
     ->limit(5);
 echo $selectBuilder->getQuery();
 </pre>
@@ -26,6 +28,8 @@ $selectBuilder = app()->getDb()
     ->orWhere('u.id IN (?)', [4, 5])
     ->andWhere('u.status = ? OR u.status = ?', 'active', 'pending')
     ->orWhere('u.login LIKE (?)', 'A%')
+    ->orderBy('u.id')
+    ->addOrderBy('u.login')
     ->limit(5);
 echo $selectBuilder->getQuery();
 ?></pre>

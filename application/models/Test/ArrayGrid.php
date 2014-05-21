@@ -9,13 +9,15 @@
  */
 namespace Application\Test;
 
+use Bluz\Grid\Grid;
+
 /**
  * Test Grid based on Array
  *
  * @category Application
  * @package  Test
  */
-class ArrayGrid extends \Bluz\Grid\Grid
+class ArrayGrid extends Grid
 {
     protected $uid = 'arr';
     /**

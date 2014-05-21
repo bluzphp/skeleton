@@ -10,7 +10,6 @@
 namespace Application\Tests\Test;
 
 use Application\Tests\ControllerTestCase;
-use Bluz\Http\Request;
 
 /**
  * @package  Application\Tests\Test

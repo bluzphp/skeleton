@@ -23,6 +23,11 @@ class Crud extends \Bluz\Crud\Table
 {
     /**
      * {@inheritdoc}
+     *
+     * @param int $offset
+     * @param int $limit
+     * @param array $params
+     * @return array|int|mixed
      */
     public function readSet($offset = 0, $limit = 10, $params = array())
     {
@@ -48,8 +53,9 @@ class Crud extends \Bluz\Crud\Table
         }
 
         if (sizeof($result) < $total) {
-            http_response_code(206);
-            header('Content-Range: items '.$offset.'-'.($offset+sizeof($result)).'/'. $total);
+            app()->getResponse()
+                ->setCode(206)
+                ->setHeader('Content-Range', 'items '.$offset.'-'.($offset+sizeof($result)).'/'. $total);
         }
 
         return $result;
@@ -57,6 +63,9 @@ class Crud extends \Bluz\Crud\Table
 
     /**
      * {@inheritdoc}
+     *
+     * @param array $data
+     * @return void
      */
     public function validateCreate($data)
     {
@@ -71,6 +80,10 @@ class Crud extends \Bluz\Crud\Table
 
     /**
      * {@inheritdoc}
+     *
+     * @param mixed $id
+     * @param array $data
+     * @return bool
      */
     public function validateUpdate($id, $data)
     {
@@ -86,7 +99,7 @@ class Crud extends \Bluz\Crud\Table
     }
 
     /**
-     * checkName
+     * Check name format
      *
      * @param $name
      * @return void
@@ -101,7 +114,7 @@ class Crud extends \Bluz\Crud\Table
     }
 
     /**
-     * checkEmail
+     * Check email format
      *
      * @param $email
      * @return void

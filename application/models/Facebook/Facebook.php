@@ -161,6 +161,7 @@ class Facebook extends BaseFacebook
 
     /**
      * @param string $key
+     * @return string
      */
     protected function constructSessionVariableName($key)
     {
