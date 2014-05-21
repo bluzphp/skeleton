@@ -142,7 +142,7 @@ class CrudTest extends ControllerTestCase
     }
 
     /**
-     * POST request with invalid data should return ERROR and information
+     * POST request with empty data should return ERROR and information
      */
     public function testCreateValidationErrors()
     {
@@ -184,12 +184,12 @@ class CrudTest extends ControllerTestCase
     {
         $result = $this->dispatchRouter(
             '/test/crud/',
-            ['id' => 2, 'name' => '', 'email' => 'leonardo@turtles.ua'],
+            ['id' => 2, 'name' => '123456', 'email' => 'leonardo[at]turtles.ua'],
             Http\Request::METHOD_PUT
         );
         ;
         $this->assertNotNull($result->getBody()->errors);
-        $this->assertEquals(sizeof($result->getBody()->errors), 1);
+        $this->assertEquals(sizeof($result->getBody()->errors), 2);
         $this->assertOk();
     }
 
