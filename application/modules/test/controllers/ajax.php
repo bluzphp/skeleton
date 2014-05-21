@@ -21,16 +21,13 @@ function ($messages = false) use ($view) {
      * @var \Bluz\View\View $view
      */
     if ($messages) {
-        $this->getMessages()->addNotice('Notice Text');
-        $this->getMessages()->addSuccess('Success Text');
-        $this->getMessages()->addError('Error Text');
+        $this->getMessages()->addNotice('Notice for AJAX call');
+        $this->getMessages()->addSuccess('Success for AJAX call');
+        $this->getMessages()->addError('Error for AJAX call');
 
         $view->baz = 'qux';
     }
     $this->getMessages()->addNotice('Method '. $this->getRequest()->getMethod());
 
     $view->foo = 'bar';
-    //$this->reload();
-    //$this->redirect('http://google.com');
-    //$this->redirectTo('test', 'index');
 };

@@ -276,7 +276,7 @@ abstract class BaseFacebook
      * have been generated via client-side flow. Thanks to http://bit.ly/b0Pt0H
      * for the workaround.
      *
-     * @return false|null
+     * @return bool
      */
     public function setExtendedAccessToken()
     {
@@ -315,6 +315,7 @@ abstract class BaseFacebook
             'access_token',
             $response_params['access_token']
         );
+        return true;
     }
 
     /**
@@ -1450,7 +1451,7 @@ abstract class BaseFacebook
      * getPersistentData($key) return $value. This call may be in another request.
      *
      * @param string $key
-     * @param array $value
+     * @param mixed $value
      *
      * @return void
      */

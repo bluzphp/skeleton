@@ -1,5 +1,4 @@
 <?php $uid = uniqid('form_'); ?>
-
 <form id="<?=$uid?>" action="<?=$this->url('test', 'crud')?>" class="form-horizontal ajax" method="<?=$method?>">
     <input type="hidden" name="id" value="<?=$row->id?>"/>
     <div class="modal-header">
@@ -39,7 +38,7 @@
 <?php
 if (isset($errors)) :
     $data = json_encode(['errors'=>$errors]);
-    echo $this->headScript('require(["bluz.form"], function(form) {
+    $this->headScript('require(["bluz.form"], function(form) {
         form.notices($("#'.$uid.'"), '.$data.');
     });');
 endif;

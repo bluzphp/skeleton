@@ -28,10 +28,10 @@
     </div>
     <div class="panel-footer clearfix">
         <div class="pull-left">
-            <?=$this->widget('twitter', 'auth')?>
+            <?php $this->widget('twitter', 'auth')?>
         </div>
         <div class="pull-left">
-            <?=$this->widget('facebook', 'auth')?>
+            <?php $this->widget('facebook', 'auth')?>
         </div>
         <a href="<?=$this->url('users', 'recovery')?>" class="pull-right"><?=__('Forgot your password?')?></a>
     </div>

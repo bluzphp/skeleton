@@ -9,13 +9,15 @@
  */
 namespace Application\Test;
 
+use Bluz\Grid\Grid;
+
 /**
  * Test Grid based on SQL
  *
  * @category Application
  * @package  Test
  */
-class SqlGrid extends \Bluz\Grid\Grid
+class SqlGrid extends Grid
 {
     protected $uid = 'sql';
 
