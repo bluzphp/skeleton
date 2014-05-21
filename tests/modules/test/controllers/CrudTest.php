@@ -32,7 +32,7 @@ class CrudTest extends ControllerTestCase
               `email` varchar(512) DEFAULT NULL,
               `status` enum('active','disable','delete') DEFAULT NULL,
               PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8
+            ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
             "
         );
 
@@ -146,14 +146,14 @@ class CrudTest extends ControllerTestCase
      */
     public function testCreateValidationErrors()
     {
-        $result = $this->dispatchRouter(
+        $response = $this->dispatchRouter(
             '/test/crud/',
             ['name' => '', 'email' => ''],
             Http\Request::METHOD_POST
         );
 
-        $this->assertNotNull($result->getBody()->errors);
-        $this->assertEquals(sizeof($result->getBody()->errors), 2);
+        $this->assertNotNull($response->getBody()->errors);
+        $this->assertEquals(sizeof($response->getBody()->errors), 2);
         $this->assertOk();
     }
 
@@ -182,14 +182,14 @@ class CrudTest extends ControllerTestCase
      */
     public function testUpdateValidationErrors()
     {
-        $result = $this->dispatchRouter(
+        $response = $this->dispatchRouter(
             '/test/crud/',
             ['id' => 2, 'name' => '123456', 'email' => 'leonardo[at]turtles.ua'],
             Http\Request::METHOD_PUT
         );
         ;
-        $this->assertNotNull($result->getBody()->errors);
-        $this->assertEquals(sizeof($result->getBody()->errors), 2);
+        $this->assertNotNull($response->getBody()->errors);
+        $this->assertEquals(sizeof($response->getBody()->errors), 2);
         $this->assertOk();
     }
 

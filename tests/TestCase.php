@@ -58,20 +58,28 @@ class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * dispatch URI
+     * prepareRequest
      *
      * @param string $uri in format "module/controller"
      * @param array $params of request
      * @param string $method HTTP
      * @param bool $ajax
-     * @return AbstractResponse
+     * @return Http\Request
      */
-    protected function dispatchUri($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
+    private function prepareRequest($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
     {
-        $request = new Http\Request();
+        $request = $this->app->getRequest();
+        $request->setRequestUri($uri);
         $request->setOptions($this->app->getConfigData('request'));
         $request->setMethod($method);
 
+        // process $_GET params
+        if ($query = stristr($uri, '?')) {
+            $query = substr($query, 1); // remove `?` sign
+            parse_str($query, $_GET);   // fill $_GET
+        }
+
+        // process custom params
         if ($params) {
             $request->setParams($params);
         }
@@ -82,6 +90,20 @@ class TestCase extends \PHPUnit_Framework_TestCase
             $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
             $this->app->useLayout(false);
         }
+    }
+
+    /**
+     * dispatch URI
+     *
+     * @param string $uri in format "module/controller"
+     * @param array $params of request
+     * @param string $method HTTP
+     * @param bool $ajax
+     * @return AbstractResponse
+     */
+    protected function dispatchUri($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
+    {
+        $request = $this->prepareRequest($uri, $params, $method, $ajax);
 
         $uri = trim($uri, '/ ');
         list($module, $controller) = explode('/', $uri);
@@ -110,21 +132,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function dispatchRouter($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
     {
-        $request = new Http\Request();
-        $request->setRequestUri($uri);
-        $request->setOptions($this->app->getConfigData('request'));
-        $request->setMethod($method);
-
-        if ($params) {
-            $request->setParams($params);
-        }
-
-        $this->app->setRequest($request);
-
-        if ($ajax) {
-            $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
-            $this->app->useLayout(false);
-        }
+        $this->prepareRequest($uri, $params, $method, $ajax);
 
         $router = $this->app->getRouter();
 
