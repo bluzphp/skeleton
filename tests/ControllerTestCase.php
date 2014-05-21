@@ -178,7 +178,9 @@ class ControllerTestCase extends TestCase
     {
         $message = $this->app->getMessages()->pop($type);
 
-        $this->assertNotNull($message);
+        if (!$message) {
+            $this->fail("System should be generated `$type` message");
+        }
 
         if ($text) {
             $this->assertEquals($text, $message->text);
@@ -255,7 +257,7 @@ class ControllerTestCase extends TestCase
      * Assert against DOM/XPath selection
      *
      * @param string $path
-     * @param bool $useXpath
+     * @throws \PHPUnit_Framework_ExpectationFailedException
      */
     public function assertQuery($path)
     {
@@ -273,6 +275,7 @@ class ControllerTestCase extends TestCase
      * Assert against DOM/XPath selection
      *
      * @param string $path CSS selector path
+     * @throws \PHPUnit_Framework_ExpectationFailedException
      */
     public function assertNotQuery($path)
     {
@@ -291,6 +294,7 @@ class ControllerTestCase extends TestCase
      *
      * @param string $path CSS selector path
      * @param string $count Number of nodes that should match
+     * @throws \PHPUnit_Framework_ExpectationFailedException
      */
     public function assertQueryCount($path, $count)
     {
@@ -311,7 +315,7 @@ class ControllerTestCase extends TestCase
      *
      * @param  string $path CSS selector path
      * @param  string $count Number of nodes that should NOT match
-     * @param bool $useXpath
+     * @throws \PHPUnit_Framework_ExpectationFailedException
      */
     public function assertNotQueryCount($path, $count)
     {
@@ -331,6 +335,7 @@ class ControllerTestCase extends TestCase
      *
      * @param  string $path CSS selector path
      * @param  string $match content that should be contained in matched nodes
+     * @throws \PHPUnit_Framework_ExpectationFailedException
      */
     public function assertQueryContentContains($path, $match)
     {
@@ -355,11 +360,12 @@ class ControllerTestCase extends TestCase
     }
 
     /**
-    /**
+     * /**
      * Assert against DOM/XPath selection; node should match content
      *
      * @param  string $path CSS selector path
      * @param  string $pattern Pattern that should be contained in matched nodes
+     * @throws \PHPUnit_Framework_ExpectationFailedException
      */
     public function assertQueryContentRegex($path, $pattern)
     {

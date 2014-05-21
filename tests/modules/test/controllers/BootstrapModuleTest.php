@@ -17,7 +17,7 @@ use Bluz\Http\Request;
  * @author   Anton Shevchuk
  * @created  19.05.14 12:33
  */
-class BootstrapTest extends ControllerTestCase
+class BootstrapModuleTest extends ControllerTestCase
 {
     /**
      * Dispatch module/controller

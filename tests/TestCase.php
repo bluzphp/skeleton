@@ -54,6 +54,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $this->app->setResponse(new Http\Response());
         $this->app->useJson(false);
         $this->app->useLayout(true);
+        $this->app->getMessages()->popAll();
     }
 
     /**
@@ -70,6 +71,10 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $request = new Http\Request();
         $request->setOptions($this->app->getConfigData('request'));
         $request->setMethod($method);
+
+        if ($params) {
+            $request->setParams($params);
+        }
 
         $this->app->setRequest($request);
 
@@ -91,9 +96,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
             ->setController($controller)
             ->setRequestUri($uri);
 
-        if ($params) {
-            $this->app->getRequest()->setParams($params);
-        }
         return $this->app->process();
     }
 
@@ -113,6 +115,10 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $request->setOptions($this->app->getConfigData('request'));
         $request->setMethod($method);
 
+        if ($params) {
+            $request->setParams($params);
+        }
+
         $this->app->setRequest($request);
 
         if ($ajax) {
@@ -124,9 +130,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
         $router->process();
 
-        if ($params) {
-            $this->app->getRequest()->setParams($params);
-        }
         return $this->app->process();
     }
 
