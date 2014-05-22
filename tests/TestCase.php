@@ -12,7 +12,6 @@ namespace Application\Tests;
 use Bluz\Http;
 use Bluz\Request\AbstractRequest;
 use Bluz\Response\AbstractResponse;
-use Bluz\Router\Router;
 
 /**
  * Skeleton TestCase
@@ -36,16 +35,31 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->app = BootstrapTest::getInstance();
-        $this->app->init('testing');
+        $this->getApp();
+        $this->resetApp();
+    }
 
-        $this->reset();
+    /**
+     * Get Application instance
+     *
+     * @return BootstrapTest
+     */
+    protected function getApp()
+    {
+        if (!$this->app) {
+            $env = getenv('BLUZ_ENV') ?: 'testing';
+
+            $this->app = BootstrapTest::getInstance();
+            $this->app->init($env);
+        }
+
+        return $this->app;
     }
 
     /**
      * Reset layout and Request
      */
-    private function reset()
+    private function resetApp()
     {
         $this->app->resetLayout();
 

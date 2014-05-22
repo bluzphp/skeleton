@@ -139,7 +139,7 @@ class Gd
      * Save the image to a file. Type is determined from the extension
      *
      * @param string $fileName
-     * @return boolean|null
+     * @return bool
      */
     public function writeImage($fileName)
     {
