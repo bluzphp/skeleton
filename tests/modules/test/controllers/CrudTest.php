@@ -25,17 +25,6 @@ class CrudTest extends ControllerTestCase
      */
     public static function setUpBeforeClass()
     {
-        BootstrapTest::getInstance()->getDb()->query(
-            "CREATE TABLE `test` (
-              `id` bigint(20) NOT NULL AUTO_INCREMENT,
-              `name` varchar(255) DEFAULT NULL,
-              `email` varchar(512) DEFAULT NULL,
-              `status` enum('active','disable','delete') DEFAULT NULL,
-              PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
-            "
-        );
-
         BootstrapTest::getInstance()->getDb()->insert('test')->setArray(
             [
                 'id' => 1,
@@ -74,9 +63,8 @@ class CrudTest extends ControllerTestCase
      */
     public static function tearDownAfterClass()
     {
-        BootstrapTest::getInstance()->getDb()->query(
-            "DROP TABLE `test`;"
-        );
+        BootstrapTest::getInstance()->getDb()->delete('test')->where('id IN (?)', [1,2,3,4])->execute();
+        BootstrapTest::getInstance()->getDb()->delete('test')->where('email = ?', 'splinter@turtles.org')->execute();
     }
 
     /**
@@ -118,7 +106,7 @@ class CrudTest extends ControllerTestCase
      */
     public function testEditFormError()
     {
-        $this->dispatchRouter('/test/crud/', ['id' => 42]);
+        $this->dispatchRouter('/test/crud/', ['id' => 100042]);
         $this->assertResponseCode(404);
     }
 
@@ -219,7 +207,7 @@ class CrudTest extends ControllerTestCase
     {
         $this->dispatchRouter(
             '/test/crud/',
-            ['id' => 42],
+            ['id' => 100042],
             Http\Request::METHOD_DELETE
         );
 

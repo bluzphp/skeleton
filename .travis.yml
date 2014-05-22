@@ -14,6 +14,7 @@ before_script:
   - mysql -e 'CREATE DATABASE bluz;'
   - mysql -uroot bluz < structure.ddl
   - mysql -uroot bluz < dump.sql
+  - mysql -uroot bluz < tests/dump.sql
 script:
   - mkdir .reports
   # Code style

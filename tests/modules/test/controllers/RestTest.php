@@ -25,17 +25,6 @@ class RestTest extends ControllerTestCase
      */
     public static function setUpBeforeClass()
     {
-        BootstrapTest::getInstance()->getDb()->query(
-            "CREATE TABLE `test` (
-              `id` bigint(20) NOT NULL AUTO_INCREMENT,
-              `name` varchar(255) DEFAULT NULL,
-              `email` varchar(512) DEFAULT NULL,
-              `status` enum('active','disable','delete') DEFAULT NULL,
-              PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
-            "
-        );
-
         BootstrapTest::getInstance()->getDb()->insert('test')->setArray(
             [
                 'id' => 1,
@@ -74,9 +63,8 @@ class RestTest extends ControllerTestCase
      */
     public static function tearDownAfterClass()
     {
-        BootstrapTest::getInstance()->getDb()->query(
-            "DROP TABLE `test`;"
-        );
+        BootstrapTest::getInstance()->getDb()->delete('test')->where('id IN (?)', [1,2,3,4])->execute();
+        BootstrapTest::getInstance()->getDb()->delete('test')->where('email = ?', 'splinter@turtles.org')->execute();
     }
 
     /**
@@ -113,7 +101,7 @@ class RestTest extends ControllerTestCase
 
         $this->assertResponseCode(206);
         $this->assertEquals(sizeof($response->getBody()->getData()), 3);
-        $this->assertEquals($response->getHeader('Content-Range'), 'items 0-3/4');
+        $this->assertEquals($response->getHeader('Content-Range'), 'items 0-3/44');
     }
 
     /**
@@ -265,7 +253,7 @@ class RestTest extends ControllerTestCase
      */
     public function testDeleteWithInvalidPrimary()
     {
-        $this->dispatchRouter('/test/rest/42', null, Http\Request::METHOD_DELETE);
+        $this->dispatchRouter('/test/rest/100042', null, Http\Request::METHOD_DELETE);
         $this->assertResponseCode(404);
     }
 
