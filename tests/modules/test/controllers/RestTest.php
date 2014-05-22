@@ -101,7 +101,7 @@ class RestTest extends ControllerTestCase
 
         $this->assertResponseCode(206);
         $this->assertEquals(sizeof($response->getBody()->getData()), 3);
-        $this->assertEquals($response->getHeader('Content-Range'), 'items 0-3/44');
+        $this->assertEquals($response->getHeader('Content-Range'), 'items 0-3/45');
     }
 
     /**
@@ -220,7 +220,7 @@ class RestTest extends ControllerTestCase
      */
     public function testUpdateWithInvalidPrimary()
     {
-        $this->dispatchRouter('/test/rest/42', ['name' => 'Raphael'], Http\Request::METHOD_PUT);
+        $this->dispatchRouter('/test/rest/100042', ['name' => 'Raphael'], Http\Request::METHOD_PUT);
         $this->assertResponseCode(404);
     }
 

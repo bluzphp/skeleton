@@ -18,7 +18,6 @@ CREATE TABLE `test` (
 /*Data for the table `test` */
 
 insert  into `test`(`id`,`name`,`email`,`status`) values
-
   (10,'Jonah','dictum@pharetra.ca','disable'),
   (11,'Connor','congue.In.scelerisque@Integervulputaterisus.ca','disable'),
   (12,'Jessica','imperdiet.ornare@iaculisnec.com','delete'),
