@@ -23,11 +23,11 @@ class ClosureTest extends ControllerTestCase
      */
     public function testControllerPage()
     {
-        $this->app->useLayout(false);
+        $this->getApp()->useLayout(false);
         $this->dispatchRouter('/test/closure/');
         $this->assertOk();
 
-        $closure = $this->app->getResponse()->getBody();
+        $closure = $this->getApp()->getResponse()->getBody();
 
         $this->assertInstanceOf('\Closure', $closure);
         $this->expectOutputRegex('/Closure is back/');

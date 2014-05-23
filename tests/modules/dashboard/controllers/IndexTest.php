@@ -27,7 +27,7 @@ class IndexTest extends ControllerTestCase
      */
     public function testRedirect()
     {
-        $this->app->dispatch('dashboard', 'index');
+        $this->getApp()->dispatch('dashboard', 'index');
     }
 
     /**
@@ -48,7 +48,7 @@ class IndexTest extends ControllerTestCase
     public function testForbidden()
     {
         $this->setupGuestIdentity();
-        $this->app->dispatch('dashboard', 'index');
+        $this->getApp()->dispatch('dashboard', 'index');
     }
 
     /**

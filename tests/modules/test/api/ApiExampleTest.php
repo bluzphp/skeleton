@@ -25,7 +25,7 @@ class ExampleTest extends TestCase
      */
     public function testExample()
     {
-        $closure = $this->app->api('test', 'example');
+        $closure = $this->getApp()->api('test', 'example');
         $this->assertEquals(4, $closure(2));
     }
 }

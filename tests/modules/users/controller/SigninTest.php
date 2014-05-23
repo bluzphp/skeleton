@@ -31,7 +31,7 @@ class SigninTest extends ControllerTestCase
 
         $this->assertModule('users');
         $this->assertController('signin');
-        $this->assertNull($this->app->getAuth()->getIdentity());
+        $this->assertNull($this->getApp()->getAuth()->getIdentity());
     }
 
     /**
@@ -47,6 +47,6 @@ class SigninTest extends ControllerTestCase
 
         $this->assertModule('users');
         $this->assertController('signin');
-        $this->assertNotNull($this->app->getAuth()->getIdentity());
+        $this->assertNotNull($this->getApp()->getAuth()->getIdentity());
     }
 }

@@ -48,7 +48,7 @@ class ControllerTestCase extends TestCase
      */
     protected function setupGuestIdentity()
     {
-        $this->app->getAuth()->setIdentity(new Users\Row());
+        $this->getApp()->getAuth()->setIdentity(new Users\Row());
     }
 
     /**
@@ -58,7 +58,7 @@ class ControllerTestCase extends TestCase
      */
     protected function setupSuperUserIdentity()
     {
-        $this->app->getAuth()->setIdentity(new UserHasPermission());
+        $this->getApp()->getAuth()->setIdentity(new UserHasPermission());
     }
 
     /**
@@ -79,7 +79,7 @@ class ControllerTestCase extends TestCase
      */
     protected function assertResponseCode($code)
     {
-        $this->assertEquals($code, $this->app->getResponse()->getCode());
+        $this->assertEquals($code, $this->getApp()->getResponse()->getCode());
     }
 
     /**
@@ -90,7 +90,7 @@ class ControllerTestCase extends TestCase
      */
     protected function assertModule($module)
     {
-        $this->assertEquals($module, $this->app->getModule());
+        $this->assertEquals($module, $this->getApp()->getModule());
     }
 
     /**
@@ -101,7 +101,7 @@ class ControllerTestCase extends TestCase
      */
     protected function assertController($controller)
     {
-        $this->assertEquals($controller, $this->app->getController());
+        $this->assertEquals($controller, $this->getApp()->getController());
     }
 
     /**
@@ -115,8 +115,8 @@ class ControllerTestCase extends TestCase
      */
     protected function assertRedirect($module, $controller, $params = array(), $code = 302)
     {
-        $url = $this->app->getRouter()->url($module, $controller, $params);
-        $exception = $this->app->getResponse()->getException();
+        $url = $this->getApp()->getRouter()->url($module, $controller, $params);
+        $exception = $this->getApp()->getResponse()->getException();
 
         $this->assertInstanceOf('\Bluz\Application\Exception\RedirectException', $exception);
         $this->assertEquals($exception->getCode(), $code);
@@ -130,7 +130,7 @@ class ControllerTestCase extends TestCase
      */
     protected function assertReload()
     {
-        $exception = $this->app->getResponse()->getException();
+        $exception = $this->getApp()->getResponse()->getException();
 
         $this->assertInstanceOf('\Bluz\Application\Exception\ReloadException', $exception);
     }
@@ -142,10 +142,10 @@ class ControllerTestCase extends TestCase
      */
     protected function assertForbidden()
     {
-        $exception = $this->app->getResponse()->getException();
+        $exception = $this->getApp()->getResponse()->getException();
 
         $this->assertInstanceOf('\Bluz\Application\Exception\ForbiddenException', $exception);
-        $this->assertEquals(403, $this->app->getResponse()->getCode());
+        $this->assertEquals(403, $this->getApp()->getResponse()->getCode());
         $this->assertModule(Router::ERROR_MODULE);
         $this->assertController(Router::ERROR_CONTROLLER);
     }
@@ -159,11 +159,11 @@ class ControllerTestCase extends TestCase
      */
     protected function assertResponseVariable($key, $value)
     {
-        if ($this->app->hasLayout()) {
+        if ($this->getApp()->hasLayout()) {
             $this->fail("Method `assertResponseVariable` required to disable Layout, please update test");
         }
 
-        $variable = $this->app->getResponse()->getBody()->__get($key);
+        $variable = $this->getApp()->getResponse()->getBody()->__get($key);
         $this->assertEquals($variable, $value);
     }
 
@@ -176,7 +176,7 @@ class ControllerTestCase extends TestCase
      */
     private function checkMessage($type, $text = null)
     {
-        $message = $this->app->getMessages()->pop($type);
+        $message = $this->getApp()->getMessages()->pop($type);
 
         if (!$message) {
             $this->fail("System should be generated `$type` message");
@@ -234,7 +234,7 @@ class ControllerTestCase extends TestCase
      */
     private function query($path)
     {
-        $response = $this->app->getResponse();
+        $response = $this->getApp()->getResponse();
 
         if (!$this->document) {
             $this->document = new Document($response->getBody());
