@@ -1,0 +1,56 @@
+<?php
+/**
+ * This partial allow to use any filters, defined in \Bluz\Grid\Grid
+ * You should to send data as: [filterName => [filterType => fieldName]]
+ * <code>
+ *  [
+ *      __('Login') => [
+ *          \Bluz\Grid\Grid::FILTER_EQ  =>  'login'
+ *      ]
+ *  ]
+ * </code>
+ *
+ * @var \Bluz\Grid\Grid $grid
+ * @var array $filters
+ *
+ * @author  Volkov Sergey
+ * @email   sergey.volkov.kh@yandex.ua
+ */
+$field = key($filters);
+$value = '';
+$type = key($filters[$field]);
+
+$gridFilters = $grid->getFilters();
+foreach ($filters as $filterTitle => $filter) {
+    $filterName = current($filter);
+    $filterType = key($filter);
+    if (isset($gridFilters[$filterName][$filterType])) {
+        $field = $filterTitle;
+        $value = $gridFilters[$filterName][$filterType];
+        $type = $filterType;
+        break;
+    }
+}
+?>
+<div class="input-group-btn grid-filter-search">
+    <button type="button"
+            class="btn btn-default dropdown-toggle"
+            data-toggle="dropdown">
+        <?= $field ?>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <?php foreach($filters as $fieldTitle => $filter) : ?>
+            <li>
+                <a href="#"
+                   data-filter="<?=$grid->getUid() .'-filter-'. current($filter) ?>"
+                   data-filter-type="<?=key($filter)?>"><?= $fieldTitle ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+
+<input name="<?=$grid->getUid() .'-filter-'. current($filters[$field]) ?>"
+       class="grid-filter-search-input"
+       value="<?=$type.'-'.esc($value)?>" type="hidden"/>
+<input name="search" type="search" class="form-control" value="<?=esc($value)?>" required />

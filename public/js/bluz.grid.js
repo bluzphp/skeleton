@@ -77,11 +77,15 @@ define(['jquery', 'bluz'], function ($, bluz) {
 
             // apply filter form
             $grid.on('submit.bluz.ajax', 'form.filter-form', function () {
-                var $form = $(this);
+                var $form = $(this),
+                    $searchInput = $form.find('.grid-filter-search-input');
 
                 // magic like
-                if ($form.find('[name=search-like]').length) {
-                    $form.find('.grid-filter-search-input').val('like-' + $form.find('[name=search-like]').val());
+                if ($form.find('[type=search]').length) {
+                    // erase old filter and create new
+                    $searchInput.val(
+                        $searchInput.val().replace(/-\w*/g, '') + '-' + $form.find('[type=search]').val()
+                    );
                 }
 
                 $.ajax({
@@ -103,7 +107,8 @@ define(['jquery', 'bluz'], function ($, bluz) {
             $grid.on('click.bluz.grid', '.grid-filter-search a', function(e){
                 var $a = $(this);
                 $grid.find('.grid-filter-search .dropdown-toggle').html($a.text() + ' <span class="caret"></span>');
-                $grid.find('.grid-filter-search-input').attr('name', $a.data('filter'));
+                $grid.find('.grid-filter-search-input').attr('name', $a.data('filter'))
+                    .val($a.data('filter-type') + '-');
 
                 e.preventDefault();
             });
