@@ -13,10 +13,9 @@ return
      */
     function () use ($view, $module, $controller) {
         /**
-         * @var Bootstrap $this
          * @var \Bluz\View\View $view
          */
-        $this->getLayout()->breadCrumbs(
+        app()->getLayout()->breadCrumbs(
             [
                 $view->ahref('Test', ['test', 'index']),
                 'Grid with Filter',
