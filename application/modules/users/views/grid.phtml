@@ -21,12 +21,12 @@
                 <div class="input-group">
                     <?php echo
                     $this->partial(
-                        'grid/filter-search.phtml',
+                        'grid/filter-search-external.phtml',
                         [
                             'grid' => $grid,
                             'filters' => [
-                                'login' => __('Login'),
-                                'email' => __('Email'),
+                                __('Login') =>  [$grid::FILTER_EQ   =>  'login'],
+                                __('Email') =>  [$grid::FILTER_EQ   =>  'id'],
                             ]
                         ]
                     )
