@@ -14,23 +14,16 @@ use Application\Tests\ControllerTestCase;
 /**
  * @package  Application\Tests\Test
  * @author   Anton Shevchuk
- * @created  19.05.14 12:33
+ * @created  26.05.14 12:36
  */
-class ClosureTest extends ControllerTestCase
+class DbTest extends ControllerTestCase
 {
     /**
      * Dispatch module/controller
      */
     public function testControllerPage()
     {
-        $this->getApp()->useLayout(false);
-        $this->dispatchRouter('/test/closure/');
+        $this->dispatchRouter('/test/db/');
         $this->assertOk();
-
-        $closure = $this->getApp()->getResponse()->getBody();
-
-        $this->assertInstanceOf('\Closure', $closure);
-        $this->expectOutputRegex('/Closure is back/');
-        $closure();
     }
 }

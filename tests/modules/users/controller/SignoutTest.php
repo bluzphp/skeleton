@@ -28,7 +28,7 @@ class SignoutTest extends ControllerTestCase
     {
         parent::setUp();
 
-        $this->app->getAuth()->setIdentity(new Row());
+        $this->getApp()->getAuth()->setIdentity(new Row());
     }
 
     /**
@@ -36,12 +36,12 @@ class SignoutTest extends ControllerTestCase
      */
     public function testSignOut()
     {
-        $this->assertNotNull($this->app->getAuth()->getIdentity());
+        $this->assertNotNull($this->getApp()->getAuth()->getIdentity());
 
         $this->dispatchUri('users/signout');
 
         $this->assertModule('users');
         $this->assertController('signout');
-        $this->assertNull($this->app->getAuth()->getIdentity());
+        $this->assertNull($this->getApp()->getAuth()->getIdentity());
     }
 }

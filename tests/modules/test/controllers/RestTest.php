@@ -75,7 +75,7 @@ class RestTest extends ControllerTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->app->useJson(true);
+        $this->getApp()->useJson(true);
     }
 
     /**
@@ -115,7 +115,7 @@ class RestTest extends ControllerTestCase
             Http\Request::METHOD_POST
         );
 
-        $primary = $this->app->getDb()->fetchOne(
+        $primary = $this->getApp()->getDb()->fetchOne(
             'SELECT id FROM `test` WHERE `name` = ?',
             ['Splinter']
         );
@@ -171,7 +171,7 @@ class RestTest extends ControllerTestCase
         ;
         $this->assertOk();
 
-        $id = $this->app->getDb()->fetchOne(
+        $id = $this->getApp()->getDb()->fetchOne(
             'SELECT `id` FROM `test` WHERE `email` = ?',
             ['leonardo@turtles.ua']
         );
@@ -198,7 +198,7 @@ class RestTest extends ControllerTestCase
         /*
         $this->assertOk();
 
-        $count = $this->app->getDb()->fetchOne(
+        $count = $this->getApp()->getDb()->fetchOne(
             'SELECT count(*) FROM `test` WHERE `email` LIKE(?)',
             ['%turtles.org.ua']
         );
@@ -241,7 +241,7 @@ class RestTest extends ControllerTestCase
         $this->dispatchRouter('/test/rest/1', null, Http\Request::METHOD_DELETE);
         $this->assertResponseCode(204);
 
-        $count = $this->app->getDb()->fetchOne(
+        $count = $this->getApp()->getDb()->fetchOne(
             'SELECT count(*) FROM `test` WHERE `id` = ?',
             [1]
         );
@@ -277,7 +277,7 @@ class RestTest extends ControllerTestCase
         /*
         $this->assertOk();
 
-        $count = $this->app->getDb()->fetchOne(
+        $count = $this->getApp()->getDb()->fetchOne(
             'SELECT count(*) FROM `test` WHERE `id` IN (3,4)'
         );
         $this->assertEquals($count, 0);

@@ -75,7 +75,7 @@ class CrudTest extends ControllerTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->app->useLayout(false);
+        $this->getApp()->useLayout(false);
     }
 
     /**
@@ -122,7 +122,7 @@ class CrudTest extends ControllerTestCase
         );
         $this->assertOk();
 
-        $count = $this->app->getDb()->fetchOne(
+        $count = $this->getApp()->getDb()->fetchOne(
             'SELECT count(*) FROM `test` WHERE `name` = ?',
             ['Splinter']
         );
@@ -158,7 +158,7 @@ class CrudTest extends ControllerTestCase
         ;
         $this->assertOk();
 
-        $id = $this->app->getDb()->fetchOne(
+        $id = $this->getApp()->getDb()->fetchOne(
             'SELECT `id` FROM `test` WHERE `email` = ?',
             ['leonardo@turtles.ua']
         );
@@ -193,7 +193,7 @@ class CrudTest extends ControllerTestCase
         );
         $this->assertOk();
 
-        $count = $this->app->getDb()->fetchOne(
+        $count = $this->getApp()->getDb()->fetchOne(
             'SELECT count(*) FROM `test` WHERE `email` = ?',
             ['michelangelo@turtles.org']
         );

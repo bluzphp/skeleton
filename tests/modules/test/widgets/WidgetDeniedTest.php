@@ -24,8 +24,8 @@ class WidgetDeniedTest extends TestCase
      */
     public function testAllow()
     {
-        $this->app->getAuth()->setIdentity(new UserHasPermission());
-        $this->app->widget('test', 'acl-denied');
+        $this->getApp()->getAuth()->setIdentity(new UserHasPermission());
+        $this->getApp()->widget('test', 'acl-denied');
     }
 
     /**
@@ -33,6 +33,6 @@ class WidgetDeniedTest extends TestCase
      */
     public function testDenied()
     {
-        $this->app->widget('test', 'acl-denied');
+        $this->getApp()->widget('test', 'acl-denied');
     }
 }

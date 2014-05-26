@@ -24,7 +24,7 @@ class LoremTest extends TestCase
     public function testLorem()
     {
         $this->expectOutputRegex('/^Lorem ipsum dolor sit amet/');
-        $widget = $this->app->widget('test', 'lorem');
+        $widget = $this->getApp()->widget('test', 'lorem');
         $widget();
     }
 }
