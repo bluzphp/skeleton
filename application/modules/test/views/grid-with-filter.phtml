@@ -1,0 +1,68 @@
+<?php
+/**
+ * @var \Bluz\Grid\Grid $grid
+ */
+?>
+<script>
+    // use data-spy="grid" for use AJAX for reload grid
+    require(['bluz.grid']);
+</script>
+
+<div class="clearfix" data-spy="grid" data-grid="<?=$grid->getUid()?>">
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="col-lg-6">
+        </div>
+        <div class="col-lg-6">
+            <form action="<?=$this->url('test', 'grid-with-filter')?>" class="navbar-form filter-form pull-right">
+                <div class="input-group">
+                    <?php echo
+                    $this->partial(
+                        'grid/filter-search-advanced.phtml',
+                        [
+                            'grid' => $grid,
+                            'filters' => [
+                                __('Name (not strict)') =>  [$grid::FILTER_LIKE =>  'name'],
+                                __('Name (strict)')     =>  [$grid::FILTER_EQ   =>  'name'],
+                                __('Name (exclude)')    =>  [$grid::FILTER_NE   =>  'name'],
+                                __('Id &gt;')           =>  [$grid::FILTER_GT   =>  'id'],
+                                __('Id &lt;')           =>  [$grid::FILTER_LT   =>  'id'],
+                            ]
+                        ]
+                    )
+                    ?>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><?=__("Search")?></button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+    <?= $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
+    <?= $this->partial('grid/limit.phtml', ['grid'=>$grid]) ?>
+
+    <table class="table grid">
+        <thead>
+            <tr>
+                <th width="40px"><a href="<?=$grid->order('id', null, 'desc', false)?>">Id</a></th>
+                <th><a href="<?=$grid->order('name')?>">Name</a></th>
+                <th><a href="<?=$grid->order('email')?>">Email</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($grid->getData() as $row) : ?>
+            <tr>
+                <td><?=$row['id']?></td>
+                <td><?=$row['name']?></td>
+                <td><?=$row['email']?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <?= $this->partial('grid/empty-rows.phtml', ['grid'=>$grid]) ?>
+    <?= $this->partial('grid/pagination.phtml', ['grid'=>$grid]) ?>
+    <?= $this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
+
+</div>
