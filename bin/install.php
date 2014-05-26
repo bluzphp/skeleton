@@ -15,7 +15,7 @@ if (chmod($root . '/data/logs', 0777)) {
     echo ' ./data/logs' . PHP_EOL;
 }
 if (chmod($root . '/data/sessions', 0777)) {
-    echo ' ./data/session' . PHP_EOL;
+    echo ' ./data/sessions' . PHP_EOL;
 }
 if (chmod($root . '/data/uploads', 0777)) {
     echo ' ./data/uploads' . PHP_EOL;
