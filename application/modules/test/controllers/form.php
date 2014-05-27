@@ -11,7 +11,7 @@ namespace Application;
 
 return
 /**
- * @return \closure
+ * @return void
  */
 function ($int, $string, $array, $optional = 0) use ($view) {
     /**

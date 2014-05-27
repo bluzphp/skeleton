@@ -9,7 +9,7 @@ namespace Application;
 
 return
 /**
- * @return \closure
+ * @return void
  */
 function () use ($view) {
     /**

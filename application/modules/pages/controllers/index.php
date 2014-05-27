@@ -13,7 +13,7 @@ return
 /**
  * @route /{$alias}.html
  * @param string $alias
- * @return \closure
+ * @return void
  */
 function ($alias) use ($view) {
     /**

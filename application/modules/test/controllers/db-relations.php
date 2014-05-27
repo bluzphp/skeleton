@@ -13,7 +13,7 @@ use Bluz\Db\Relations;
 
 return
 /**
- * @return \closure
+ * @return bool
  */
 function () use ($view) {
     /**

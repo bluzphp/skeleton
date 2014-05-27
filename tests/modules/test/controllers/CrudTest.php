@@ -85,7 +85,6 @@ class CrudTest extends ControllerTestCase
     {
         $this->dispatchRouter('/test/crud/');
         $this->assertOk();
-
         $this->assertQueryCount('form[method="POST"]', 1);
     }
 

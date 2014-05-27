@@ -12,7 +12,7 @@ use Application\Test;
 return
 /**
  * @TODO: need more informative example
- * @return \closure
+ * @return bool
  */
 function () {
     /**
