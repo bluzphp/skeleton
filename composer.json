@@ -7,7 +7,8 @@
         "php": ">=5.4",
         "bluzphp/framework": "0.3.7",
         "phpmailer/phpmailer": "dev-master",
-        "guzzle/guzzle": "~3.7"
+        "guzzle/guzzle": "~3.7",
+        "respect/validation": "0.5.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.1.*",
@@ -36,15 +37,8 @@
     },
     "authors": [
         {
-            "name": "Anton Shevchuk",
-            "email": "AntonShevchuk@gmail.com"
-        },
-        {
-            "name": "Eugene Zabolotniy",
-            "email": "realbaziak@gmail.com"
-        },
-        {
-            "name": "Maks Slesarenko"
+            "name": "Bluz Skeleton Contributors",
+            "homepage": "https://github.com/bluzphp/skeleton/graphs/contributors"
         }
     ],
     "support": {
