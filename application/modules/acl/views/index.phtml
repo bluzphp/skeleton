@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-collapse">
-        <a href="<?=$this->url('acl', 'roles')?>" id="create-role" class="btn btn-primary navbar-btn dialog" data-ajax-method="get"><?=__('Create Role')?></a>
+        <a href="<?=$this->url('acl', 'roles')?>" id="create-role" class="btn btn-primary navbar-btn dialog" data-ajax-method="get"><?=__('Create role')?></a>
     </div>
 </nav>
 <form action="<?=$this->url('acl', 'save')?>" method="POST">
@@ -14,7 +14,7 @@
                 <?php if (!$role->isBasic()) : ?>
                 <a href="<?=$this->url('acl', 'roles', ['id' => $role->id]);?>" class="confirm btn btn-xs btn-danger ajax pull-right" data-ajax-method="delete"><i class="fa fa-times"></i></a>
                 <span class="pull-right">&nbsp;</span>
-                <a href="<?=$this->url('acl', 'roles', ['id' => $role->id]);?>" class="btn btn-xs btn-default dialog pull-right" data-ajax-method="get" title="Edit"><i class="fa fa-edit"></i></a>
+                <a href="<?=$this->url('acl', 'roles', ['id' => $role->id]);?>" class="btn btn-xs btn-default dialog pull-right" data-ajax-method="get" title="<?=__("Edit role")?>"><i class="fa fa-edit"></i></a>
                 <?php endif; ?>
             </th>
             <?php endforeach; ?>
