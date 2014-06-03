@@ -1,120 +1,126 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluz\n"
-"POT-Creation-Date: 2014-01-17 16:53+0200\n"
-"PO-Revision-Date: 2014-01-17 16:53+0200\n"
+"POT-Creation-Date: 2014-06-03 14:30+0200\n"
+"PO-Revision-Date: 2014-06-03 14:30+0200\n"
 "Last-Translator: Anton Shevchuk <Anton.Shevchuk@gmail.com>\n"
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.6.5\n"
 "X-Poedit-KeywordsList: __;_n:1,2;addError;addNotice;addSuccess\n"
 "X-Poedit-Basepath: ./../../\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: application\n"
+"X-Poedit-SearchPath-1: ../framework/src\n"
 
-#: application/Bootstrap.php:120
+#: ../framework/src/Controller/Crud.php:132
+msgid "Record was created"
+msgstr ""
+
+#: ../framework/src/Controller/Crud.php:150
+msgid "Record was updated"
+msgstr ""
+
+#: ../framework/src/Controller/Crud.php:167
+msgid "Record was deleted"
+msgstr ""
+
+#: application/Bootstrap.php:90
 msgid "You don't have permissions, please sign in"
 msgstr ""
 
-#: application/models/Categories/Crud.php:28
-#: application/models/Categories/Crud.php:44
+#: application/layouts/helpers/Username.php:23
+msgid "Guest"
+msgstr ""
+
+#: application/models/Categories/Crud.php:34
+#: application/models/Categories/Crud.php:50
 msgid "Category with alias "
 msgstr ""
 
-#: application/models/Categories/Crud.php:59
-#: application/models/Options/Crud.php:38 application/models/Test/Crud.php:98
+#: application/models/Categories/Crud.php:65
+#: application/models/Options/Crud.php:36 application/models/Test/Crud.php:110
 msgid "Name can't be empty"
 msgstr ""
 
-#: application/models/Categories/Crud.php:62
+#: application/models/Categories/Crud.php:68
 msgid "Name can't be bigger than 128 symbols"
 msgstr ""
 
-#: application/models/Categories/Crud.php:73
-#: application/models/Pages/Crud.php:37
+#: application/models/Categories/Crud.php:79
 msgid "Alias can't be empty"
 msgstr ""
 
-#: application/models/Categories/Crud.php:76
+#: application/models/Categories/Crud.php:82
 msgid "Alias can't be bigger than 64 symbols"
 msgstr ""
 
-#: application/models/Categories/Crud.php:79
-#: application/models/Pages/Crud.php:39
+#: application/models/Categories/Crud.php:85
 msgid "Alias should contains only Latin characters, dots and dashes"
 msgstr ""
 
-#: application/models/Media/Crud.php:126
+#: application/models/Media/Crud.php:130
 msgid "Sorry, I can't receive file"
 msgstr ""
 
-#: application/models/Media/Crud.php:131
+#: application/models/Media/Crud.php:135
 msgid "Please choose file for upload"
 msgstr ""
 
-#: application/models/Media/Crud.php:158 application/models/Pages/Crud.php:31
+#: application/models/Media/Crud.php:162
 msgid "Title can't be empty"
 msgstr ""
 
-#: application/models/Media/Crud.php:160
+#: application/models/Media/Crud.php:164
 msgid "Title should contains only Latin characters"
 msgstr ""
 
-#: application/models/Options/Crud.php:30
+#: application/models/Options/Crud.php:28
 msgid "Key name can't be empty"
 msgstr ""
 
-#: application/models/Options/Crud.php:32
+#: application/models/Options/Crud.php:30
 msgid "Key name should contains only Latin characters"
 msgstr ""
 
-#: application/models/Options/Crud.php:40 application/models/Roles/Crud.php:35
-#: application/models/Test/Crud.php:100
+#: application/models/Options/Crud.php:38 application/models/Roles/Crud.php:36
+#: application/models/Test/Crud.php:112
 msgid "Name should contains only Latin characters"
 msgstr ""
 
-#: application/models/Options/Crud.php:54
+#: application/models/Options/Crud.php:52
 #, php-format
 msgid "Key name \"%s\" already exists in namespace \"%s\""
 msgstr ""
 
-#: application/models/Pages/Crud.php:43
-#, php-format
-msgid "Alias \"%s\" already exists"
-msgstr ""
-
-#: application/models/Pages/Crud.php:52
-msgid "Content can't be empty"
-msgstr ""
-
-#: application/models/Roles/Crud.php:32
+#: application/models/Roles/Crud.php:33
 msgid "Role name can't be empty"
 msgstr ""
 
-#: application/models/Roles/Crud.php:50 application/models/Roles/Crud.php:73
+#: application/models/Roles/Crud.php:51 application/models/Roles/Crud.php:74
 #, php-format
 msgid "Role name \"%s\" already exists"
 msgstr ""
 
-#: application/models/Roles/Crud.php:65
+#: application/models/Roles/Crud.php:66
 #, php-format
 msgid "Role name \"%s\" is basic and can't be editable"
 msgstr ""
 
-#: application/models/Roles/Crud.php:71
+#: application/models/Roles/Crud.php:72
 #, php-format
 msgid "Role name \"%s\" the same as original"
 msgstr ""
 
-#: application/models/Test/Crud.php:113 application/models/Users/Crud.php:190
+#: application/models/Test/Crud.php:125 application/models/Users/Crud.php:190
 msgid "Email can't be empty"
 msgstr ""
 
-#: application/models/Test/Crud.php:115
+#: application/models/Test/Crud.php:127
 msgid "Email has invalid format"
 msgstr ""
 
@@ -163,133 +169,141 @@ msgstr ""
 msgid "Email is invalid"
 msgstr ""
 
-#: application/modules/acl/controllers/index.php:23
+#: application/modules/acl/controllers/index.php:27
 msgid "ACL"
 msgstr ""
 
-#: application/modules/acl/controllers/save.php:39
+#: application/modules/acl/controllers/save.php:43
+msgid "Privileges set is empty. You can't remove all of them"
+msgstr ""
+
+#: application/modules/acl/controllers/save.php:46
 msgid "All data was saved"
 msgstr ""
 
-#: application/modules/acl/controllers/save.php:41
-#: application/modules/error/controllers/index.php:51
-#: application/modules/error/controllers/index.php:64
+#: application/modules/acl/controllers/save.php:48
+#: application/modules/error/controllers/index.php:54
+#: application/modules/error/controllers/index.php:67
 msgid "Internal Server Error"
 msgstr ""
 
-#: application/modules/acl/controllers/user.php:44
+#: application/modules/acl/controllers/user.php:48
 msgid "User roles was updated"
 msgstr ""
 
-#: application/modules/cache/controllers/clean.php:35
+#: application/modules/cache/controllers/clean.php:39
 msgid "Cache is cleaned"
 msgstr ""
 
-#: application/modules/cache/controllers/clean.php:37
-#: application/modules/cache/controllers/flush.php:27
+#: application/modules/cache/controllers/clean.php:41
+#: application/modules/cache/controllers/flush.php:32
 #: application/modules/cache/controllers/flush2.php:24
-#: application/modules/cache/controllers/index.php:35
-#: application/modules/cache/controllers/stats.php:35
+#: application/modules/cache/controllers/index.php:40
+#: application/modules/cache/controllers/stats.php:41
 #: application/modules/cache/views/index.phtml:22
 msgid "Cache is disabled"
 msgstr ""
 
-#: application/modules/cache/controllers/flush.php:25
+#: application/modules/cache/controllers/flush.php:30
 #: application/modules/cache/controllers/flush2.php:22
 msgid "Cache is flushed"
 msgstr ""
 
-#: application/modules/cache/controllers/index.php:27
+#: application/modules/cache/controllers/index.php:32
 #: application/layouts/dashboard.phtml:17
 msgid "Cache"
 msgstr ""
 
-#: application/modules/cache/controllers/stats.php:27
+#: application/modules/cache/controllers/stats.php:33
 #: application/modules/cache/views/index.phtml:6
 msgid "Statistics"
 msgstr ""
 
-#: application/modules/categories/controllers/tree.php:27
+#: application/modules/categories/controllers/order.php:45
+msgid "Tree has been saved"
+msgstr ""
+
+#: application/modules/categories/controllers/tree.php:31
 #: application/layouts/dashboard.phtml:13
 msgid "Categories"
 msgstr ""
 
-#: application/modules/categories/controllers/tree.php:35
+#: application/modules/categories/controllers/tree.php:39
 msgid "There are no categories"
 msgstr ""
 
-#: application/modules/dashboard/controllers/index.php:25
+#: application/modules/dashboard/controllers/index.php:27
 #: application/modules/dashboard/views/index.phtml:1
 msgid "Dashboard"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:31
+#: application/modules/error/controllers/index.php:33
 msgid "Bad Request"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:32
+#: application/modules/error/controllers/index.php:34
 msgid "The server didn't understand the syntax of the request"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:35
+#: application/modules/error/controllers/index.php:37
 msgid "Unauthorized"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:36
+#: application/modules/error/controllers/index.php:38
 msgid "You are not authorized to view this page, please sign in"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:39
+#: application/modules/error/controllers/index.php:41
 msgid "Forbidden"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:40
+#: application/modules/error/controllers/index.php:42
 msgid "You don't have permissions to access this page"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:43
+#: application/modules/error/controllers/index.php:45
 msgid "Not Found"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:44
+#: application/modules/error/controllers/index.php:46
 msgid "The page you requested was not found"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:47
+#: application/modules/error/controllers/index.php:49
 msgid "Method Not Allowed"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:48
+#: application/modules/error/controllers/index.php:50
 msgid "The server is not support method"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:52
+#: application/modules/error/controllers/index.php:55
 msgid "The server encountered an unexpected condition"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:55
+#: application/modules/error/controllers/index.php:58
 msgid "Not Implemented"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:56
+#: application/modules/error/controllers/index.php:59
 msgid "The server does not understand or does not support the HTTP method"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:59
+#: application/modules/error/controllers/index.php:62
 msgid "Service Unavailable"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:60
+#: application/modules/error/controllers/index.php:63
 msgid ""
 "The server is currently unable to handle the request due to a temporary "
 "overloading"
 msgstr ""
 
-#: application/modules/error/controllers/index.php:65
+#: application/modules/error/controllers/index.php:68
 msgid "An unexpected error occurred with your request. Please try again later"
 msgstr ""
 
-#: application/modules/facebook/controllers/auth.php:64
+#: application/modules/facebook/controllers/auth.php:60
 #: application/modules/twitter/controllers/callback.php:75
 msgid "User is not active"
 msgstr ""
@@ -304,7 +318,7 @@ msgstr ""
 msgid "Media"
 msgstr ""
 
-#: application/modules/options/controllers/grid.php:21
+#: application/modules/options/controllers/grid.php:25
 #: application/layouts/dashboard.phtml:14
 #: application/modules/options/views/crud.phtml:6
 msgid "Options"
@@ -334,23 +348,36 @@ msgstr ""
 msgid "Routers Map"
 msgstr ""
 
+#: application/modules/test/controllers/ajax.php:24
+msgid "Notice for AJAX call"
+msgstr ""
+
 #: application/modules/test/controllers/ajax.php:25
+msgid "Success for AJAX call"
+msgstr ""
+
+#: application/modules/test/controllers/ajax.php:26
+msgid "Error for AJAX call"
+msgstr ""
+
+#: application/modules/test/controllers/ajax.php:30
+msgid "Method "
+msgstr ""
+
 #: application/modules/test/controllers/cli.php:23
 msgid "Notice Text"
 msgstr ""
 
-#: application/modules/test/controllers/ajax.php:26
 #: application/modules/test/controllers/cli.php:24
 msgid "Success Text"
 msgstr ""
 
-#: application/modules/test/controllers/ajax.php:27
 #: application/modules/test/controllers/cli.php:25
 msgid "Error Text"
 msgstr ""
 
-#: application/modules/test/controllers/ajax.php:29
-msgid "Method "
+#: application/modules/test/controllers/cli.php:26
+msgid "Another Error Text"
 msgstr ""
 
 #: application/modules/test/controllers/crud-delete.php:25
@@ -382,21 +409,21 @@ msgid ""
 "the username and password you chose during the registration."
 msgstr ""
 
-#: application/modules/users/controllers/change-email.php:73
+#: application/modules/users/controllers/change-email.php:69
 #: application/modules/users/views/change-email.phtml:2
 #: application/modules/users/views/profile.phtml:10
 msgid "Change email"
 msgstr ""
 
-#: application/modules/users/controllers/change-email.php:100
+#: application/modules/users/controllers/change-email.php:96
 msgid "Check your email and follow instructions in letter."
 msgstr ""
 
-#: application/modules/users/controllers/change-email.php:135
+#: application/modules/users/controllers/change-email.php:131
 msgid "Email was updated"
 msgstr ""
 
-#: application/modules/users/controllers/change-password.php:62
+#: application/modules/users/controllers/change-password.php:59
 msgid "The password was updated successfully"
 msgstr ""
 
@@ -449,24 +476,6 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: application/layouts/partial/nav-bar.phtml:6
-msgid "Bluz"
-msgstr ""
-
-#: application/layouts/partial/nav-bar.phtml:21
-#, php-format
-msgid "Logged in as %s"
-msgstr ""
-
-#: application/layouts/partial/nav-bar.phtml:22
-msgid "Sign Out"
-msgstr ""
-
-#: application/layouts/partial/nav-bar.phtml:26
-#: application/modules/users/views/signin.phtml:23
-msgid "Sign In"
-msgstr ""
-
 #: application/layouts/partial/grid/limit.phtml:7
 msgid "Limit"
 msgstr ""
@@ -488,13 +497,36 @@ msgid_plural "on %s pages"
 msgstr[0] ""
 msgstr[1] ""
 
+#: application/layouts/partial/nav-bar.phtml:6
+msgid "Bluz"
+msgstr ""
+
+#: application/layouts/partial/nav-bar.phtml:21
+#, php-format
+msgid "Logged in as %s"
+msgstr ""
+
+#: application/layouts/partial/nav-bar.phtml:22
+msgid "Sign Out"
+msgstr ""
+
+#: application/layouts/partial/nav-bar.phtml:26
+#: application/modules/users/views/signin.phtml:23
+msgid "Sign In"
+msgstr ""
+
 #: application/modules/acl/views/index.phtml:3
 #: application/modules/acl/views/roles.phtml:7
-msgid "Create Role"
+msgid "Create role"
 msgstr ""
 
 #: application/modules/acl/views/index.phtml:10
 msgid "Privilege/Role"
+msgstr ""
+
+#: application/modules/acl/views/index.phtml:17
+#: application/modules/acl/views/roles.phtml:7
+msgid "Edit role"
 msgstr ""
 
 #: application/modules/acl/views/index.phtml:41
@@ -505,20 +537,16 @@ msgstr ""
 #: application/modules/options/views/crud.phtml:40
 #: application/modules/pages/views/crud.phtml:50
 #: application/modules/test/views/crud-create.phtml:35
-#: application/modules/test/views/crud.phtml:34
+#: application/modules/test/views/crud.phtml:33
 #: application/modules/users/views/change-email.phtml:14
 #: application/modules/users/views/change-password.phtml:21
 #: application/modules/users/views/crud.phtml:37
 msgid "Save"
 msgstr ""
 
-#: application/modules/acl/views/roles.phtml:7
-msgid "Edit Role"
-msgstr ""
-
 #: application/modules/acl/views/roles.phtml:12
 #: application/modules/categories/views/crud.phtml:20
-#: application/modules/test/views/crud.phtml:11
+#: application/modules/test/views/crud.phtml:10
 msgid "Name"
 msgstr ""
 
@@ -527,7 +555,7 @@ msgstr ""
 #: application/modules/categories/views/crud.phtml:37
 #: application/modules/options/views/crud.phtml:41
 #: application/modules/pages/views/crud.phtml:51
-#: application/modules/test/views/crud.phtml:35
+#: application/modules/test/views/crud.phtml:34
 #: application/modules/users/views/crud.phtml:38
 msgid "Close"
 msgstr ""
@@ -611,6 +639,7 @@ msgstr ""
 
 #: application/modules/media/views/grid.phtml:32
 #: application/modules/pages/views/grid.phtml:34
+#: application/modules/test/views/grid-with-filter.phtml:35
 #: application/modules/users/views/grid.phtml:35
 msgid "Search"
 msgstr ""
@@ -706,6 +735,10 @@ msgstr ""
 msgid "Example"
 msgstr ""
 
+#: application/modules/system/views/bookmarks.phtml:36
+msgid "Result"
+msgstr ""
+
 #: application/modules/system/views/index.phtml:2
 msgid "Bookmarklets generator"
 msgstr ""
@@ -722,7 +755,7 @@ msgstr ""
 msgid "Route"
 msgstr ""
 
-#: application/modules/test/views/crud.phtml:17
+#: application/modules/test/views/crud.phtml:16
 #: application/modules/users/views/crud.phtml:20
 #: application/modules/users/views/grid.phtml:29
 #: application/modules/users/views/grid.phtml:50
@@ -730,11 +763,31 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: application/modules/test/views/crud.phtml:23
+#: application/modules/test/views/crud.phtml:22
 #: application/modules/users/views/crud.phtml:26
 #: application/modules/users/views/grid.phtml:52
 #: application/modules/users/views/profile.phtml:19
 msgid "Status"
+msgstr ""
+
+#: application/modules/test/views/grid-with-filter.phtml:25
+msgid "Name (not strict)"
+msgstr ""
+
+#: application/modules/test/views/grid-with-filter.phtml:26
+msgid "Name (strict)"
+msgstr ""
+
+#: application/modules/test/views/grid-with-filter.phtml:27
+msgid "Name (exclude)"
+msgstr ""
+
+#: application/modules/test/views/grid-with-filter.phtml:28
+msgid "Id &gt;"
+msgstr ""
+
+#: application/modules/test/views/grid-with-filter.phtml:29
+msgid "Id &lt;"
 msgstr ""
 
 #: application/modules/test/views/mailer.phtml:7

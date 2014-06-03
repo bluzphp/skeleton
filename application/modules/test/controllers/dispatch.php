@@ -11,7 +11,7 @@ use Bluz;
 
 return
 /**
- * @return \closure
+ * @return void
  */
 function () {
     /**

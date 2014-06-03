@@ -88,6 +88,10 @@ footer {
     margin: 0;
 }
 
+.tooltip-inner {
+    min-width: 160px;
+}
+
 .table.grid+.table {
     margin-top: -20px;
 }

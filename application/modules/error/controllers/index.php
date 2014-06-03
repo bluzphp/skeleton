@@ -72,13 +72,13 @@ function ($code, $message = '') use ($view) {
     // check CLI or HTTP request
     if ($this->getRequest()->isHttp()) {
 
-        // simple AJAX call
+        // simple AJAX call, accept JSON
         if ($this->isJson()) {
             $this->getMessages()->addError($message);
             return $view;
         }
 
-        // dialog AJAX call
+        // dialog AJAX call, accept HTML
         if (!$this->getRequest()->isXmlHttpRequest()) {
             $this->useLayout('small.phtml');
         }

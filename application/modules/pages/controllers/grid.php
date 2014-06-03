@@ -10,7 +10,7 @@ namespace Application;
 return
 /**
  * @privilege Management
- * @return \closure
+ * @return void
  */
 function () use ($view, $module, $controller) {
     /**
