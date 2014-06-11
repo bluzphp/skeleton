@@ -34,9 +34,9 @@ class Crud extends \Bluz\Crud\Table
         $validator->add(
             'name',
             v::required()->latin(),
-            v::callback(function($name) {
-                    return !Table::getInstance()->findRowWhere(['name'=>$name]);
-                })->setError('Role name "{{input}}" already exists')
+            v::callback(function ($name) {
+                return !Table::getInstance()->findRowWhere(['name'=>$name]);
+            })->setError('Role name "{{input}}" already exists')
         );
 
         if (!$validator->validate($data)) {
@@ -54,16 +54,16 @@ class Crud extends \Bluz\Crud\Table
         $validator->add(
             'name',
             v::required()->latin(),
-            v::callback(function($name) {
-                    return !in_array(strtolower($name), Table::getInstance()->getBasicRoles());
-                })->setError('Role "{{input}}" is basic and can\'t be editable'),
-            v::callback(function($name) use ($id) {
-                    $originalRow = $this->readOne($id);
-                    return $originalRow->name != $name;
-                })->setError('Role name "{{input}}" the same as original'),
-            v::callback(function($name) use ($id) {
-                    return !Table::getInstance()->findRowWhere(['name'=>$name]);
-                })->setError('Role name "{{input}}" already exists')
+            v::callback(function ($name) {
+                return !in_array(strtolower($name), Table::getInstance()->getBasicRoles());
+            })->setError('Role "{{input}}" is basic and can\'t be editable'),
+            v::callback(function ($name) use ($id) {
+                $originalRow = $this->readOne($id);
+                return $originalRow->name != $name;
+            })->setError('Role name "{{input}}" the same as original'),
+            v::callback(function ($name) use ($id) {
+                return !Table::getInstance()->findRowWhere(['name'=>$name]);
+            })->setError('Role name "{{input}}" already exists')
         );
 
         if (!$validator->validate($data)) {

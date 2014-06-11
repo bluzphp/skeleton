@@ -42,25 +42,25 @@ class Crud extends \Bluz\Crud\Table
             v::required()->string()->notEmpty(),
             v::regexp('/^[a-zA-Z0-9_\.\-]+$/i')
                 ->setError('Alias should contains only Latin characters, dots and dashes'),
-            v::callback(function($input) use ($data) {
-                    if ($row = $this->getTable()->findRowWhere(['alias' => $input])) {
-                        if ($row->id != $data['id']) {
-                            return false;
-                        }
+            v::callback(function ($input) use ($data) {
+                if ($row = $this->getTable()->findRowWhere(['alias' => $input])) {
+                    if ($row->id != $data['id']) {
+                        return false;
                     }
-                    return true;
-                })->setError('Alias "{{input}}" already exists')
+                }
+                return true;
+            })->setError('Alias "{{input}}" already exists')
         );
 
         // content validator
         $validator->add(
             'content',
-            v::callback(function($input) {
-                    if (empty($input) or trim(strip_tags($input, '<img>')) == '') {
-                        return false;
-                    }
-                    return true;
-                })->setError('Content can\'t be empty')
+            v::callback(function ($input) {
+                if (empty($input) or trim(strip_tags($input, '<img>')) == '') {
+                    return false;
+                }
+                return true;
+            })->setError('Content can\'t be empty')
         );
 
         if (!$validator->validate($data)) {
