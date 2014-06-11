@@ -9,6 +9,9 @@
  */
 namespace Application\Pages;
 
+use Bluz\Validator\Validator as v;
+use Bluz\Validator\ValidatorBuilder;
+
 /**
  * Class Crud of Pages
  * @package  Application\Pages
@@ -25,31 +28,43 @@ class Crud extends \Bluz\Crud\Table
      */
     public function validate($primary, $data)
     {
-        // name validator
-        $title = isset($data['title'])?$data['title']:null;
-        if (empty($title)) {
-            $this->addError('Title can\'t be empty', 'title');
-        }
+        $validator = new ValidatorBuilder();
 
-        // alias update
-        $alias = isset($data['alias'])?$data['alias']:null;
-        if (empty($alias)) {
-            $this->addError('Alias can\'t be empty', 'alias');
-        } elseif (!preg_match('/^[a-zA-Z0-9_\.\-]+$/i', $alias)) {
-            $this->addError('Alias should contains only Latin characters, dots and dashes', 'alias');
-        } elseif ($row = $this->getTable()->findRowWhere(['alias' => $alias])) {
-            if ($row->id != $data['id']) {
-                $this->addError(
-                    __('Alias "%s" already exists', esc($alias)),
-                    'alias'
-                );
-            }
-        }
+        // title validator
+        $validator->add(
+            'title',
+            v::required()->string()->notEmpty()
+        );
+
+        // alias validator
+        $validator->add(
+            'alias',
+            v::required()->string()->notEmpty(),
+            v::regexp('/^[a-zA-Z0-9_\.\-]+$/i')
+                ->setError('Alias should contains only Latin characters, dots and dashes'),
+            v::callback(function($input) use ($data) {
+                    if ($row = $this->getTable()->findRowWhere(['alias' => $input])) {
+                        if ($row->id != $data['id']) {
+                            return false;
+                        }
+                    }
+                    return true;
+                })->setError('Alias "{{input}}" already exists')
+        );
 
         // content validator
-        $content = isset($data['content'])?$data['content']:null;
-        if (empty($content) or trim(strip_tags($content, '<img>')) == '') {
-            $this->addError('Content can\'t be empty', 'content');
+        $validator->add(
+            'content',
+            v::callback(function($input) {
+                    if (empty($input) or trim(strip_tags($input, '<img>')) == '') {
+                        return false;
+                    }
+                    return true;
+                })->setError('Content can\'t be empty')
+        );
+
+        if (!$validator->validate($data)) {
+            $this->setErrors($validator->getErrors());
         }
     }
 }

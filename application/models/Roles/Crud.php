@@ -9,6 +9,9 @@
  */
 namespace Application\Roles;
 
+use Bluz\Validator\Validator as v;
+use Bluz\Validator\ValidatorBuilder;
+
 /**
  * Crud
  *
@@ -22,33 +25,22 @@ namespace Application\Roles;
 class Crud extends \Bluz\Crud\Table
 {
     /**
-     * validate Name
-     *
-     * @param string $name
-     * @return void
-     */
-    public function checkName($name)
-    {
-        if (empty($name)) {
-            $this->addError(__('Role name can\'t be empty'), 'name');
-        }
-        if (!preg_match('/^[a-zA-Z0-9-_ ]+$/', $name)) {
-            $this->addError(__('Name should contains only Latin characters'), 'name');
-        }
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function validateCreate($data)
     {
         // role name validator
-        $name = isset($data['name'])?$data['name']:null;
+        $validator = new ValidatorBuilder();
+        $validator->add(
+            'name',
+            v::required()->latin(),
+            v::callback(function($name) {
+                    return !Table::getInstance()->findRowWhere(['name'=>$name]);
+                })->setError('Role name "{{input}}" already exists')
+        );
 
-        $this->checkName($name);
-
-        if (Table::getInstance()->findRowWhere(['name'=>$name])) {
-            $this->addError(__('Role name "%s" already exists', $name), 'name');
+        if (!$validator->validate($data)) {
+            $this->setErrors($validator->getErrors());
         }
     }
 
@@ -58,20 +50,24 @@ class Crud extends \Bluz\Crud\Table
     public function validateUpdate($id, $data)
     {
         // role name validator
-        $name = isset($data['name'])?$data['name']:null;
+        $validator = new ValidatorBuilder();
+        $validator->add(
+            'name',
+            v::required()->latin(),
+            v::callback(function($name) {
+                    return !in_array(strtolower($name), Table::getInstance()->getBasicRoles());
+                })->setError('Role "{{input}}" is basic and can\'t be editable'),
+            v::callback(function($name) use ($id) {
+                    $originalRow = $this->readOne($id);
+                    return $originalRow->name != $name;
+                })->setError('Role name "{{input}}" the same as original'),
+            v::callback(function($name) use ($id) {
+                    return !Table::getInstance()->findRowWhere(['name'=>$name]);
+                })->setError('Role name "{{input}}" already exists')
+        );
 
-        $this->checkName($name);
-
-        if (in_array(strtolower($name), Table::getInstance()->getBasicRoles())) {
-            $this->addError(__('Role name "%s" is basic and can\'t be editable', $name), 'name');
-        };
-
-        $originalRow = $this->readOne($id);
-
-        if ($originalRow->name == $name) {
-            $this->addError(__('Role name "%s" the same as original', $name), 'name');
-        } elseif (Table::getInstance()->findRowWhere(['name'=>$name])) {
-            $this->addError(__('Role name "%s" already exists', $name), 'name');
+        if (!$validator->validate($data)) {
+            $this->setErrors($validator->getErrors());
         }
     }
 }

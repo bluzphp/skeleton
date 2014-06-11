@@ -50,6 +50,9 @@ define(["jquery", "bootstrap"], function ($) {
             }
 
             // remove previously generated tooltips
+            $field.tooltip('destroy');
+
+            // generate new
             $field.tooltip({
                 html: true,
                 title: messages,
