@@ -9,6 +9,7 @@
  */
 namespace Application\Tests\Media;
 
+use Application\Exception;
 use Application\Tests\ControllerTestCase;
 use Application\Tests\Fixtures\Users\User;
 use Application\Tests\Fixtures\Users\UserHasPermission;
@@ -66,9 +67,16 @@ class CrudTest extends ControllerTestCase
      */
     public function testUploadFile()
     {
-        //get path from config
+        // get path from config
+        // Example
+        // "tmp_name" => array(
+        //      "path" => "/home/dev/bluz/tests/Fixtures/Media/test.jpg"
+        //  )
         $this->getApp()->getConfig('testing')->load('testing');
         $path = $this->getApp()->getConfigData('tmp_name', 'path');
+        if (empty($path)) {
+            throw new Exception('Temporary path is not configured');
+        }
 
         $_FILES = array(
             'file' => array(
