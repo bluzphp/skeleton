@@ -67,11 +67,10 @@ class Crud extends \Bluz\Crud\Table
     /**
      * {@inheritdoc}
      *
-     * @param mixed $id
      * @param array $data
      * @return bool
      */
-    public function validate($id, $data)
+    public function validateCreate($data)
     {
         $validator = new ValidatorBuilder();
 
@@ -85,6 +84,34 @@ class Crud extends \Bluz\Crud\Table
         $validator->add(
             'email',
             v::required()->email()
+        );
+
+        if (!$validator->validate($data)) {
+            $this->setErrors($validator->getErrors());
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param mixed $id
+     * @param array $data
+     * @return bool
+     */
+    public function validateUpdate($id, $data)
+    {
+        $validator = new ValidatorBuilder();
+
+        // name validator
+        $validator->add(
+            'name',
+            v::notEmpty()->latin()
+        );
+
+        // email validator
+        $validator->add(
+            'email',
+            v::notEmpty()->email()
         );
 
         if (!$validator->validate($data)) {
