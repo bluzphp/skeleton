@@ -7,6 +7,27 @@
 // Root path, one level up
 $root = dirname(__DIR__);
 
+echo "Create folders if they don't exist" .  PHP_EOL;
+if (!is_dir($root . '/data/cache')
+    && mkdir($root . '/data/cache', 0777, true)) {
+    echo 'Created ./data/cache' . PHP_EOL;
+}
+if (!is_dir($root . '/data/logs')
+    && mkdir($root . '/data/logs', 0777, true)) {
+    echo 'Created ./data/logs' . PHP_EOL;
+}
+if (!is_dir($root . '/data/sessions')
+    && mkdir($root . '/data/sessions', 0777, true)) {
+    echo 'Created ./data/sessions' . PHP_EOL;
+}
+if (!is_dir($root . '/data/uploads')
+    && mkdir($root . '/data/uploads', 0777, true)) {
+    echo 'Created ./data/uploads' . PHP_EOL;
+}
+if (!is_dir($root . '/public/uploads')
+    && mkdir($root . '/public/uploads', 0777, true)) {
+    echo 'Created ./public/uploads' . PHP_EOL;
+
 echo 'Set permissions' . PHP_EOL;
 if (chmod($root . '/data/cache', 0777)) {
     echo ' ./data/cache' . PHP_EOL;
