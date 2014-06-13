@@ -117,25 +117,25 @@ class Crud extends \Bluz\Crud\Table
             'login',
             v::required()->latin()->length(3, 255),
             v::callback(function ($login) use ($id) {
-                    $user = $this->getTable()
-                        ->select()
-                        ->where('login = ?', $login)
-                        ->andWhere('id != ?', $id)
-                        ->execute();
-                    return !$user;
-                })->setError('User with login "{{input}}" already exists')
+                $user = $this->getTable()
+                    ->select()
+                    ->where('login = ?', $login)
+                    ->andWhere('id != ?', $id)
+                    ->execute();
+                return !$user;
+            })->setError('User with login "{{input}}" already exists')
         );
         $validator->add(
             'email',
             v::required()->email(true),
             v::callback(function ($email) use ($id) {
-                    $user = $this->getTable()
-                        ->select()
-                        ->where('email = ?', $email)
-                        ->andWhere('id != ?', $id)
-                        ->execute();
-                    return !$user;
-                })->setError('User with email "{{input}}" already exists')
+                $user = $this->getTable()
+                    ->select()
+                    ->where('email = ?', $email)
+                    ->andWhere('id != ?', $id)
+                    ->execute();
+                return !$user;
+            })->setError('User with email "{{input}}" already exists')
         );
 
         if (!$validator->validate($data)) {
