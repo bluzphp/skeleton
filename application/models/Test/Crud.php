@@ -9,6 +9,9 @@
  */
 namespace Application\Test;
 
+use Bluz\Validator\Validator as v;
+use Bluz\Validator\ValidatorBuilder;
+
 /**
  * Crud based on Db\Table
  *
@@ -64,67 +67,28 @@ class Crud extends \Bluz\Crud\Table
     /**
      * {@inheritdoc}
      *
-     * @param array $data
-     * @return void
-     */
-    public function validateCreate($data)
-    {
-        // name validator
-        $name = isset($data['name'])?$data['name']:null;
-        $this->checkName($name);
-
-        // email validator
-        $email = isset($data['email'])?$data['email']:null;
-        $this->checkEmail($email);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
      * @param mixed $id
      * @param array $data
      * @return bool
      */
-    public function validateUpdate($id, $data)
+    public function validate($id, $data)
     {
+        $validator = new ValidatorBuilder();
+
         // name validator
-        if (isset($data['name'])) {
-            $this->checkName($data['name']);
-        }
+        $validator->add(
+            'name',
+            v::required()->latin()
+        );
 
         // email validator
-        if (isset($data['email'])) {
-            $this->checkEmail($data['email']);
-        }
-    }
+        $validator->add(
+            'email',
+            v::required()->email()
+        );
 
-    /**
-     * Check name format
-     *
-     * @param $name
-     * @return void
-     */
-    protected function checkName($name)
-    {
-        if (empty($name)) {
-            $this->addError('Name can\'t be empty', 'name');
-        } elseif (!preg_match('/^[a-zA-Z .-]+$/i', $name)) {
-            $this->addError('Name should contains only Latin characters', 'name');
-        }
-    }
-
-    /**
-     * Check email format
-     *
-     * @param $email
-     * @return void
-     */
-    protected function checkEmail($email)
-    {
-        if (empty($email)) {
-            $this->addError('Email can\'t be empty', 'email');
-        } elseif (!$email = filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->addError('Email has invalid format', 'email');
+        if (!$validator->validate($data)) {
+            $this->setErrors($validator->getErrors());
         }
     }
 }

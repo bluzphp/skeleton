@@ -8,8 +8,9 @@
 namespace Application;
 
 use Application\Users;
-use Bluz\Application\Exception\NotFoundException;
 use Bluz\Auth\AuthException;
+use Bluz\Application\Exception\BadRequestException;
+use Bluz\Application\Exception\NotFoundException;
 
 return
 /**
@@ -38,15 +39,15 @@ function ($password, $new_password, $new_password2) use ($view) {
         // process form
         try {
             if (empty($password)) {
-                throw new Exception('Please input current password');
+                throw new BadRequestException('Please input current password');
             }
 
             if (empty($new_password)) {
-                throw new Exception('Please input new password');
+                throw new BadRequestException('Please input new password');
             }
 
             if (empty($new_password2)) {
-                throw new Exception('Please repeat new password');
+                throw new BadRequestException('Please repeat new password');
             }
 
             $authTable = Auth\Table::getInstance();
@@ -60,7 +61,7 @@ function ($password, $new_password, $new_password2) use ($view) {
 
             // try back to index
             $this->redirectTo('users', 'profile');
-        } catch (Exception $e) {
+        } catch (BadRequestException $e) {
             $this->getMessages()->addError($e->getMessage());
         } catch (AuthException $e) {
             $this->getMessages()->addError($e->getMessage());

@@ -13,6 +13,8 @@ use Application\Auth;
 use Application\Exception;
 use Application\UsersActions;
 use Bluz\Crud\ValidationException;
+use Bluz\Validator\Validator as v;
+use Bluz\Validator\ValidatorBuilder;
 
 /**
  * Crud
@@ -108,33 +110,44 @@ class Crud extends \Bluz\Crud\Table
     /**
      * @throws ValidationException
      */
+    public function validate($id, $data)
+    {
+        $validator = new ValidatorBuilder();
+        $validator->add(
+            'login',
+            v::required()->latin()->length(3, 255),
+            v::callback(function ($login) use ($id) {
+                    $user = $this->getTable()
+                        ->select()
+                        ->where('login = ?', $login)
+                        ->andWhere('id != ?', $id)
+                        ->execute();
+                    return !$user;
+                })->setError('User with login "{{input}}" already exists')
+        );
+        $validator->add(
+            'email',
+            v::required()->email(true),
+            v::callback(function ($email) use ($id) {
+                    $user = $this->getTable()
+                        ->select()
+                        ->where('email = ?', $email)
+                        ->andWhere('id != ?', $id)
+                        ->execute();
+                    return !$user;
+                })->setError('User with email "{{input}}" already exists')
+        );
+
+        if (!$validator->validate($data)) {
+            $this->setErrors($validator->getErrors());
+        }
+    }
+
+    /**
+     * @throws ValidationException
+     */
     public function validateCreate($data)
     {
-        // login
-        $this->checkLogin($data);
-
-        $login = isset($data['login'])?$data['login']:null;
-        // check unique
-        if ($this->getTable()->findRowWhere(['login' => $login])) {
-            $this->addError(
-                __('User with login "%s" already exists', esc($login)),
-                'login'
-            );
-        }
-
-        // email
-        $this->checkEmail($data);
-
-        $email = isset($data['email'])?$data['email']:null;
-        // TODO: add solution for check gmail accounts (because a.s.d@gmail.com === asd@gmail.com)
-        // check unique
-        if ($this->getTable()->findRowWhere(['email' => $email])) {
-            $this->addError(
-                __('User with email "%s" already exists', esc($email)),
-                'email'
-            );
-        }
-
         // password
         $password = isset($data['password'])?$data['password']:null;
         $password2 = isset($data['password2'])?$data['password2']:null;
@@ -145,67 +158,5 @@ class Crud extends \Bluz\Crud\Table
         if ($password !== $password2) {
             $this->addError('Password is not equal', 'password2');
         }
-    }
-
-    /**
-     * @throws ValidationException
-     */
-    public function validateUpdate($id, $data)
-    {
-        // name validator
-        $this->checkLogin($data);
-
-        // email validator
-        $this->checkEmail($data);
-    }
-
-    /**
-     * checkLogin
-     *
-     * @param $data
-     * @return void
-     */
-    protected function checkLogin($data)
-    {
-        $login = isset($data['login'])?$data['login']:null;
-        if (empty($login)) {
-            $this->addError('Login can\'t be empty', 'login');
-        }
-        if (strlen($login) > 255) {
-            $this->addError('Login can\'t be bigger than 255 symbols', 'login');
-        }
-    }
-
-    /**
-     * checkEmail
-     *
-     * @param array $data
-     * @return boolean
-     */
-    public function checkEmail($data)
-    {
-        $email = isset($data['email'])?$data['email']:null;
-
-        if (empty($email)) {
-            $this->addError('Email can\'t be empty', 'email');
-            return false;
-        }
-
-        if (strlen($email) > 255) {
-            $this->addError('Email can\'t be bigger than 255 symbols', 'email');
-            return false;
-        }
-
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            list(, $domain) = explode("@", $email, 2);
-            if (!checkdnsrr($domain, "MX") && !checkdnsrr($domain, "A")) {
-                $this->addError('Email has invalid domain name', 'email');
-                return false;
-            }
-        } else {
-            $this->addError('Email is invalid', 'email');
-            return false;
-        }
-        return true;
     }
 }

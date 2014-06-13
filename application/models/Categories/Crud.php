@@ -9,6 +9,9 @@
  */
 namespace Application\Categories;
 
+use Bluz\Validator\Validator as v;
+use Bluz\Validator\ValidatorBuilder;
+
 /**
  * Class Crud
  * @package Application\Categories
@@ -17,72 +20,49 @@ namespace Application\Categories;
  */
 class Crud extends \Bluz\Crud\Table
 {
-    private $arrayWithTree = [];
-
     /**
-     * @param array $data
-     * @return void
+     * @var array
      */
-    public function validateCreate($data)
-    {
-        $this->checkName($data);
-        $this->checkAlias($data);
-
-        $alias = isset($data['alias']) ? $data['alias'] : null;
-
-        if ($this->getTable()->findRowWhere(['alias' => $alias])) {
-            $this->addError("Category with alias " . esc($alias) . " already exists", 'alias');
-        }
-
-    }
+    private $arrayWithTree = [];
 
     /**
      * @param mixed $id
      * @param array $data
      * @return void
      */
-    public function validateUpdate($id, $data)
+    public function validate($id, $data)
     {
-        $this->checkName($data);
-        $this->checkAlias($data);
+        $validator = new ValidatorBuilder();
+        $validator->add(
+            'name',
+            v::required(),
+            v::length(2, 128)
+        );
 
-        if ($this->getTable()->isAliasDuplicated($data)) {
-            $this->addError("Category with alias " . esc($data['alias']) . " already exists", 'alias');
-        }
+        $validator->add(
+            'alias',
+            v::required(),
+            v::length(2, 64),
+            v::slug(),
+            v::callback(function ($input) use ($data) {
+                $select = $this->getTable()->select()
+                    ->where('alias = ?', $input);
 
-    }
+                if (isset($data['id'])) {
+                    $select->andWhere('id != ?', $data['id']);
+                }
 
-    /**
-     * checkName
-     *
-     * @param array $data
-     * @return void
-     */
-    protected function checkName($data)
-    {
-        $name = isset($data['name']) ? $data['name'] : null;
-        if (empty($name)) {
-            $this->addError('Name can\'t be empty', 'catalog');
-        }
-        if (strlen($name) > 128) {
-            $this->addError('Name can\'t be bigger than 128 symbols', 'catalog');
-        }
-    }
+                if (isset($data['parentId']) && !empty($data['parentId'])) {
+                    $select->andWhere('parentId = ?', $data['parentId']);
+                } else {
+                    $select->andWhere('parentId IS NULL');
+                }
 
-    /**
-     * @param array $data
-     */
-    protected function checkAlias($data)
-    {
-        $alias = isset($data['alias']) ? $data['alias'] : null;
-        if (empty($alias)) {
-            $this->addError('Alias can\'t be empty', 'alias');
-        }
-        if (strlen($alias) > 64) {
-            $this->addError('Alias can\'t be bigger than 64 symbols', 'alias');
-        }
-        if (!preg_match('/^[a-zA-Z0-9-]+$/', $alias)) {
-            $this->addError('Alias should contains only Latin characters, dots and dashes', 'alias');
+                return !sizeof($select->execute());
+            })->setError('Category with alias "{{input}}" already exists')
+        );
+        if (!$validator->validate($data)) {
+            $this->setErrors($validator->getErrors());
         }
     }
 

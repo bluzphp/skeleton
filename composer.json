@@ -5,7 +5,7 @@
     "type": "library",
     "require": {
         "php": ">=5.4",
-        "bluzphp/framework": "0.4.1",
+        "bluzphp/framework": "0.4.2",
         "phpmailer/phpmailer": "dev-master",
         "guzzle/guzzle": "~3.7"
     },

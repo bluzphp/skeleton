@@ -33,15 +33,14 @@ class Crud extends \Bluz\Crud\Table
         // title validator
         $validator->add(
             'title',
-            v::required()->string()->notEmpty()
+            v::required()
         );
 
         // alias validator
         $validator->add(
             'alias',
-            v::required()->string()->notEmpty(),
-            v::regexp('/^[a-zA-Z0-9_\.\-]+$/i')
-                ->setError('Alias should contains only Latin characters, dots and dashes'),
+            v::required(),
+            v::slug(),
             v::callback(function ($input) use ($data) {
                 if ($row = $this->getTable()->findRowWhere(['alias' => $input])) {
                     if ($row->id != $data['id']) {
