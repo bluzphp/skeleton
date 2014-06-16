@@ -9,13 +9,13 @@
         <div class="form-group">
             <label class="control-label col-lg-2" for="name"><?=__('Namespace')?></label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="namespace" name="namespace" value="<?=esc($row->namespace)?:'default'?>" required />
+                <input type="text" class="form-control" id="namespace" name="namespace" value="<?=esc($row->namespace)?:'default'?>" <?=($method!='POST')?'disabled':''?> required />
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-lg-2" for="key"><?=__('Key name')?></label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="key" name="key" value="<?=esc($row->key)?>" required />
+                <input type="text" class="form-control" id="key" name="key" value="<?=esc($row->key)?>" <?=($method!='POST')?'disabled':''?> />
             </div>
         </div>
         <div class="form-group">

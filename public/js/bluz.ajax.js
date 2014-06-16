@@ -118,22 +118,23 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 		$('body')
 			// Confirmation dialog
 			.on('click.bluz.confirm', '.confirm', function (event) {
+                event.preventDefault();
+
 				var $this = $(this);
 
 				var message = $this.data('confirm') ? $this.data('confirm') : 'Are you sure?';
 				if (!window.confirm(message)) {
 					event.stopImmediatePropagation();
-					event.preventDefault();
 				}
 			})
 			// Ajax links
 			.on('click.bluz.ajax', 'a.ajax', function (event) {
+                event.preventDefault();
+
 				var $this = $(this);
 				if ($this.hasClass('disabled')) {
 					// request in progress
-                    event.preventDefault();
-                    event.stopPropagation();
-                    return;
+                    return false;
 				}
 
 				var method = $this.data('ajax-method');
@@ -159,10 +160,11 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 						$this.removeClass('disabled');
 					}
 				});
-				event.preventDefault();
 			})
 			// Ajax load
-			.on('click.bluz.ajax', '.load', function () {
+			.on('click.bluz.ajax', '.load', function (event) {
+                event.preventDefault();
+
 				var $this = $(this);
 				if ($this.hasClass('disabled')) {
 					// request in progress
@@ -207,7 +209,9 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 				return false;
 			})
 			// Ajax modal dialog
-			.on('click.bluz.ajax', '.dialog', function () {
+			.on('click.bluz.ajax', '.dialog', function (event) {
+                event.preventDefault();
+
 				var $this = $(this);
 				if ($this.hasClass('disabled')) {
 					// request in progress
@@ -249,10 +253,11 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                         $this.removeClass('disabled');
                     }
                 });
-				return false;
 			})
             // Image popup preview
-            .on('click.bluz.preview', '.bluz-preview', function() {
+            .on('click.bluz.preview', '.bluz-preview', function (event) {
+                event.preventDefault();
+
                 var url, $this = $(this);
                 // get image source
                 if ($this.is('a')) {
@@ -276,10 +281,11 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 
                 var $div = createModal($span, '');
                     $div.modal('show');
-                return false;
             })
 			// Ajax form
-			.on('submit.bluz.ajax', 'form.ajax', function () {
+			.on('submit.bluz.ajax', 'form.ajax', function (event) {
+                event.preventDefault();
+
 				var $this = $(this);
 				if ($this.hasClass('disabled')) {
 					// request in progress
@@ -320,7 +326,6 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 						$this.removeClass('disabled');
 					}
 				});
-				return false;
 			});
 	});
 });

@@ -9,6 +9,9 @@
  */
 namespace Application\Options;
 
+use Bluz\Validator\Validator as v;
+use Bluz\Validator\ValidatorBuilder;
+
 /**
  * Class Crud of Options
  * @package Application\Options
@@ -22,20 +25,17 @@ class Crud extends \Bluz\Crud\Table
      */
     public function validate($id, $data)
     {
-        // key name validator
-        $key = isset($data['key'])?$data['key']:null;
-        if (empty($key)) {
-            $this->addError('Key name can\'t be empty', 'key');
-        } elseif (!preg_match('/^[a-zA-Z .-]+$/i', $key)) {
-            $this->addError('Key name should contains only Latin characters', 'key');
-        }
+        $validator = new ValidatorBuilder();
+        $validator->add(
+            'namespace',
+            v::required()->slug()
+        )->add(
+            'key',
+            v::required()->slug()
+        );
 
-        // namespace validator
-        $namespace = isset($data['namespace'])?$data['namespace']:null;
-        if (empty($namespace)) {
-            $this->addError('Name can\'t be empty', 'namespace');
-        } elseif (!preg_match('/^[a-zA-Z .-]+$/i', $namespace)) {
-            $this->addError('Name should contains only Latin characters', 'namespace');
+        if (!$validator->validate($data)) {
+            $this->setErrors($validator->getErrors());
         }
     }
 

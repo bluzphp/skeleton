@@ -9,6 +9,8 @@
  */
 namespace Application\Pages;
 
+use Bluz\Grid\Source\SqlSource;
+
 /**
  * @category Application
  * @package  Pages
@@ -25,7 +27,7 @@ class Grid extends \Bluz\Grid\Grid
     public function init()
     {
          // Array
-         $adapter = new \Bluz\Grid\Source\SqlSource();
+         $adapter = new SqlSource();
          $adapter->setSource('SELECT * FROM pages');
 
          $this->setAdapter($adapter);

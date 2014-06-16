@@ -72,7 +72,7 @@ class Table extends \Bluz\Db\Table
      */
     public function prepareTree()
     {
-        $result = app()->getDb()->fetchGroup('SELECT id, categories.* FROM categories ORDER BY `order`');
+        $result = $this->getAdapter()->fetchGroup('SELECT id, categories.* FROM categories ORDER BY `order`');
         $result = array_map('reset', $result);
 
         return $result;
@@ -92,22 +92,6 @@ class Table extends \Bluz\Db\Table
         }
 
         return array($categoryList[$id]);
-    }
-
-    /**
-     * @param array $data
-     * @return bool
-     */
-    public function isAliasDuplicated($data)
-    {
-        $alias = $data['alias'];
-
-        $select = $this->select()
-                ->where('alias = ?', $alias)
-                ->andWhere('id != ?', $data['id'])
-                ->andWhere('parentId != ?', $data['parentId']);
-
-        return (bool)count($select->execute());
     }
 
     /**
