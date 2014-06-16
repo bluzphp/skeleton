@@ -2,10 +2,12 @@
 /**
  * List of user images in JSON
  *
- * @category Application
- *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  12.02.13 14:18
+ */
+
+/**
+ * @namespace
  */
 namespace Application;
 
@@ -13,7 +15,7 @@ return
 /**
  * @var Bootstrap $this
  * @var Users\Row $user
- * @return \closure
+ * @return array
  */
 function () {
     $this->useJson();

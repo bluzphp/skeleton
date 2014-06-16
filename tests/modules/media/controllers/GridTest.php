@@ -7,12 +7,12 @@
 /**
  * @namespace
  */
-namespace Application\Tests\Pages;
+namespace Application\Tests\Media;
 
 use Application\Tests\ControllerTestCase;
 
 /**
- * @package  Application\Tests\Pages
+ * @package  Application\Tests\Media
  * @author   Anton Shevchuk
  * @created  27.05.2014 14:26
  */
@@ -21,14 +21,14 @@ class GridTest extends ControllerTestCase
     /**
      * Dispatch module/controller
      */
-    public function testGridPage()
+    public function testControllerPage()
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/pages/grid/');
-        $this->assertModule('pages');
+        $this->dispatchRouter('/media/grid/');
+        $this->assertModule('media');
         $this->assertController('grid');
         $this->assertOk();
-        $this->assertQuery('table.grid');
+        $this->assertQuery('div[data-spy="grid"]');
     }
 }

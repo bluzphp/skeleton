@@ -1,6 +1,12 @@
 <?php
 /**
- * Grid of Options
+ * Grid of Media
+ *
+ * @author   Anton Shevchuk
+ */
+
+/**
+ * @namespace
  */
 namespace Application;
 

@@ -2,10 +2,12 @@
 /**
  * Check upload progress
  *
- * @category Application
- *
  * @author   Anton Shevchuk
  * @created  29.07.13 11:48
+ */
+
+/**
+ * @namespace
  */
 namespace Application;
 
