@@ -11,7 +11,7 @@ namespace Application\Tests\Media;
 
 use Application\Exception;
 use Application\Tests\ControllerTestCase;
-use Application\Tests\Fixtures\Users\User;
+use Application\Tests\Fixtures\Users\UserFixtureContainer;
 use Application\Tests\Fixtures\Users\UserHasPermission;
 use Zend\Dom\Document;
 use Application\Tests\BootstrapTest;
@@ -31,7 +31,7 @@ class CrudTest extends ControllerTestCase
     {
         parent::setUp();
         $this->getApp()->getConfig('testing')->load('testing');
-        $this->getApp()->getAuth()->setIdentity(new UserHasPermission(User::$fixture));
+        $this->getApp()->getAuth()->setIdentity(new UserHasPermission(UserFixtureContainer::$fixture));
     }
 
     /**

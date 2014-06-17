@@ -13,7 +13,7 @@ namespace Application\Tests\Fixtures\Users;
  * @author   Taras Seryogin
  * @created  12.06.14 17.11
  */
-class User
+class UserFixtureContainer
 {
     /**
      * User fixture for test
