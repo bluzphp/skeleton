@@ -14,6 +14,7 @@ use Application\Tests\ControllerTestCase;
 use Application\Tests\Fixtures\Users\User;
 use Application\Tests\Fixtures\Users\UserHasPermission;
 use Zend\Dom\Document;
+use Application\Tests\BootstrapTest;
 
 /**
  * @package Application\Tests\Media
@@ -22,19 +23,6 @@ use Zend\Dom\Document;
 class CrudTest extends ControllerTestCase
 {
     /**
-     * Photo id
-     *
-     * @var string
-     */
-    protected $photoId;
-    /**
-     * Title photo
-     *
-     * @var string
-     */
-    protected $title;
-
-    /**
      * setUp
      *
      * @return void
@@ -42,7 +30,7 @@ class CrudTest extends ControllerTestCase
     protected function setUp()
     {
         parent::setUp();
-
+        $this->getApp()->getConfig('testing')->load('testing');
         $this->getApp()->getAuth()->setIdentity(new UserHasPermission(User::$fixture));
     }
 
@@ -55,11 +43,32 @@ class CrudTest extends ControllerTestCase
      */
     protected function tearDown()
     {
-        $this->dispatchUri(
-            'media/crud',
-            ['id' => $this->photoId],
-            'DELETE'
-        );
+        BootstrapTest::getInstance()->getDb()->delete('media')->where('userId', [1])->execute();
+        $path = $this->getApp()->getConfigData('upload_dir', 'path').'/1';
+        $this->delete($path);
+    }
+
+    /**
+     * Delete photo from file system
+     */
+    public function delete($dirPath)
+    {
+        if (!is_dir($dirPath)) {
+            throw new Exception("$dirPath must be a directory");
+        }
+
+        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+            $dirPath .= '/';
+        }
+        $files = glob($dirPath . '*', GLOB_MARK);
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                $this->delete($file);
+            } else {
+                unlink($file);
+            }
+        }
+        rmdir($dirPath);
     }
 
     /**
@@ -68,11 +77,6 @@ class CrudTest extends ControllerTestCase
     public function testUploadFile()
     {
         // get path from config
-        // Example
-        // "tmp_name" => array(
-        //      "path" => "/home/dev/bluz/tests/Fixtures/Media/test.jpg"
-        //  )
-        $this->getApp()->getConfig('testing')->load('testing');
         $path = $this->getApp()->getConfigData('tmp_name', 'path');
         if (empty($path)) {
             throw new Exception('Temporary path is not configured');
@@ -98,17 +102,7 @@ class CrudTest extends ControllerTestCase
             'POST'
         );
 
-        $node = $this->query('input[name="id"]');
-        foreach ($node as $result) {
-            $this->photoId = $result->getAttribute('value');
-        }
-
-        $node = $this->query('input[name="title"]');
-        foreach ($node as $result) {
-            $this->title = $result->getAttribute('value');
-        }
-
-        $this->assertEquals('test', $this->title);
+        $this->assertContentContains('input[name="title"]', 'test');
         $this->assertOk();
     }
 }
