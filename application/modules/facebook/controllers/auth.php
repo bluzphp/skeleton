@@ -19,12 +19,12 @@ return
 function () {
 
     $options = $this->getConfigData('auth', 'facebook');
-    if (!$options || !isset($options['appId']) || empty($options['secret'])
-    || !isset($options['appId']) || empty($options['secret'])) {
+    if (!$options || !isset($options['appId'], $options['secret'])
+        || empty($options['appId']) || empty($options['secret'])) {
         throw new Exception('Facebook authorization is not configured');
     }
 
-    // redirect signin user to index page and init session
+    // redirect sign in user to index page and init session
     if ($this->user()) {
         $this->redirectTo('index', 'index');
     }
@@ -63,7 +63,7 @@ function () {
 
             $user->login();
         } else {
-            // signup user
+            // sign up user
             if (!$user = $this->user()) {
                 $user = new Users\Row();
                 // if username doesn't exist, concat first and last name for site's login
