@@ -102,7 +102,7 @@ class CrudTest extends ControllerTestCase
             'POST'
         );
 
-        $this->assertContentContains('input[name="title"]', 'test');
+        $this->assertAttributeValueEquals('input[name="title"]', 'test');
         $this->assertOk();
     }
 }

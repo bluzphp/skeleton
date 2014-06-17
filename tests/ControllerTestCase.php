@@ -261,19 +261,18 @@ class ControllerTestCase extends TestCase
     }
 
     /**
-     * Assert that DOM/XPath selection matching value
+     * Assert attribute value matching something
      *
      * @param string $path
      * @param string $match
      */
-    public function assertContentContains($path, $match)
+    public function assertAttributeValueEquals($path, $match)
     {
         $result = $this->query($path);
         foreach ($result as $node) {
             $this->value = $node->getAttribute('value');
+            $this->assertEquals($match, $this->value);
         }
-
-        $this->assertEquals($match, $this->value);
     }
 
     /**
