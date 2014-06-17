@@ -38,8 +38,8 @@ class Client extends GuzzleClient
         /**
          * verification setting
          */
-        if (!$config || !isset($config['consumer_key']) || empty($config['consumer_key'])
-             || !isset($config['consumer_secret']) || empty($config['consumer_secret'])) {
+        if (!$config || !isset($config['consumer_key'], $config['consumer_secret'])
+            || empty($config['consumer_key']) || empty($config['consumer_secret'])) {
              throw new \Exception('Twitter authorization is not configured');
         }
 
