@@ -35,8 +35,12 @@ function () use ($view) {
     $userId = $this->user()->id;
 
     $crud = Media\Crud::getInstance();
-    $crud->setUploadDir('uploads/'.$userId.'/media');
-
+    // get path from config
+    $path = $this->getConfigData('upload_dir', 'path');
+    if (empty($path)) {
+        throw new Exception('Upload path is not configured');
+    }
+    $crud->setUploadDir($path.'/'.$userId.'/media');
 
     $crudController = new Controller\Crud();
     $crudController->setCrud($crud);
