@@ -9,12 +9,18 @@
  */
 namespace Application\Users;
 
+use Bluz\Db\Query\Select;
+use Bluz\Grid\Source\SelectSource;
+
 /**
  * @category Application
  * @package  Users
  */
 class Grid extends \Bluz\Grid\Grid
 {
+    /**
+     * @var string
+     */
     protected $uid = 'users';
 
     /**
@@ -24,11 +30,8 @@ class Grid extends \Bluz\Grid\Grid
      */
     public function init()
     {
-        // Array
-        $adapter = new \Bluz\Grid\Source\SelectSource();
-
-
-        $select = new \Bluz\Db\Query\Select();
+        // Create Select
+        $select = new Select();
         $select->select('u.*, GROUP_CONCAT( ar.`name` SEPARATOR ", " ) AS rolesList')
             ->from('users', 'u')
             ->leftJoin('u', 'acl_users_roles', 'aur', 'u.`id` = aur.`userId`')
@@ -36,6 +39,8 @@ class Grid extends \Bluz\Grid\Grid
             ->groupBy('u.id');
 
 
+        // Setup adapter
+        $adapter = new SelectSource();
         $adapter->setSource($select);
 
         $this->setAdapter($adapter);

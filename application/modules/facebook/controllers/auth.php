@@ -5,6 +5,10 @@
  * @author  Sergey Volkov <volkov.sergey@nixsolutions.com>
  * @created 22.05.2013 13:12
  */
+
+/**
+ * @namespace
+ */
 namespace Application;
 
 use Application\Auth;
@@ -14,17 +18,18 @@ use Application\Users;
 return
 /**
  * @var $this Bootstrap
+ * @throws Exception
  * @return void
  */
 function () {
 
     $options = $this->getConfigData('auth', 'facebook');
-    if (!$options || !isset($options['appId']) || empty($options['secret'])
-    || !isset($options['appId']) || empty($options['secret'])) {
+    if (!$options || !isset($options['appId'], $options['secret'])
+        || empty($options['appId']) || empty($options['secret'])) {
         throw new Exception('Facebook authorization is not configured');
     }
 
-    // redirect signin user to index page and init session
+    // redirect sign in user to index page and init session
     if ($this->user()) {
         $this->redirectTo('index', 'index');
     }
@@ -44,13 +49,13 @@ function () {
 
     if ($user) {
         // Proceed knowing you have a logged in user who's authenticated.
-        $user_profile = $facebook->api('/me');
+        $profile = $facebook->api('/me');
 
         /**
          * @var Auth\Table $authTable
          */
         $authTable = Auth\Table::getInstance();
-        $row = $authTable->getAuthRow(Auth\Table::PROVIDER_FACEBOOK, $user_profile['id']);
+        $row = $authTable->getAuthRow(Auth\Table::PROVIDER_FACEBOOK, $profile['id']);
 
         if ($row) {
             // if user has been registered
@@ -63,13 +68,13 @@ function () {
 
             $user->login();
         } else {
-            // signup user
+            // sign up user
             if (!$user = $this->user()) {
                 $user = new Users\Row();
                 // if username doesn't exist, concat first and last name for site's login
-                $login = (isset($user_profile['username']))
-                    ? $user_profile['username']
-                    : $user_profile['first_name'] . $user_profile['last_name'];
+                $login = (isset($profile['username']))
+                    ? $profile['username']
+                    : $profile['first_name'] . $profile['last_name'];
                 $user->login = $login;
                 $user->status = Users\Table::STATUS_ACTIVE;
                 $user->save();
@@ -82,7 +87,7 @@ function () {
                 $row = new Auth\Row();
                 $row->userId = $user->id;
                 $row->provider = Auth\Table::PROVIDER_FACEBOOK;
-                $row->foreignKey = $user_profile['id'];
+                $row->foreignKey = $profile['id'];
                 $row->token = 0;
                 $row->tokenSecret = 0;
                 $row->tokenType = Auth\Table::TYPE_ACCESS;

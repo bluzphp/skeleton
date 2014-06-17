@@ -2,10 +2,12 @@
 /**
  * Upload media content to server
  *
- * @category Application
- *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  06.02.13 18:16
+ */
+
+/**
+ * @namespace
  */
 namespace Application;
 
@@ -14,6 +16,7 @@ use Bluz\Http\File;
 return
 /**
  * @privilege Upload
+ * @return array
  */
 function () {
     /**

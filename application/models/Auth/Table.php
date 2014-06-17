@@ -63,44 +63,6 @@ class Table extends \Bluz\Db\Table
     }
 
     /**
-     * check user by login/pass
-     *
-     * @param string $username
-     * @param string $password
-     * @throws Exception
-     * @throws AuthException
-     * @return Row
-     */
-    public function checkEquals($username, $password)
-    {
-        $authRow = $this->getAuthRow(self::PROVIDER_EQUALS, $username);
-
-        if (!$authRow) {
-            throw new AuthException("User not found");
-        }
-
-        /** @var \Bluz\Auth\Auth $auth */
-        $auth = app()->getAuth();
-        $options = $auth->getOption(self::PROVIDER_EQUALS);
-
-        if (!isset($options['encryptFunction']) or
-            !is_callable($options['encryptFunction'])
-        ) {
-            throw new Exception("Encryption function for 'equals' adapter is not callable");
-        }
-
-        // encrypt password
-        $password = call_user_func($options['encryptFunction'], $password, $authRow->tokenSecret);
-
-        if ($password != $authRow->token) {
-            throw new AuthException("Wrong password");
-        }
-
-        // get auth row
-        return $authRow;
-    }
-
-    /**
      * authenticate user by login/pass
      *
      * @param string $username
@@ -124,6 +86,34 @@ class Table extends \Bluz\Db\Table
     }
 
     /**
+     * check user by login/pass
+     *
+     * @param string $username
+     * @param string $password
+     * @throws Exception
+     * @throws AuthException
+     * @return Row
+     */
+    public function checkEquals($username, $password)
+    {
+        $authRow = $this->getAuthRow(self::PROVIDER_EQUALS, $username);
+
+        if (!$authRow) {
+            throw new AuthException("User not found");
+        }
+
+        // encrypt password
+        $encrypt = $this->callEncryptFunction($password, $authRow->tokenSecret);
+
+        if ($encrypt != $authRow->token) {
+            throw new AuthException("Wrong password");
+        }
+
+        // get auth row
+        return $authRow;
+    }
+
+    /**
      * authenticate user by login/pass
      *
      * @param Users\Row $user
@@ -134,16 +124,6 @@ class Table extends \Bluz\Db\Table
      */
     public function generateEquals($user, $password)
     {
-        /** @var \Bluz\Auth\Auth $auth */
-        $auth = app()->getAuth();
-        $options = $auth->getOption(self::PROVIDER_EQUALS);
-
-        if (!isset($options['encryptFunction']) or
-            !is_callable($options['encryptFunction'])
-        ) {
-            throw new Exception("Encryption function for 'equals' adapter is not callable");
-        }
-
         // clear previous generated Auth record
         // works with change password
         $this->delete(
@@ -170,10 +150,34 @@ class Table extends \Bluz\Db\Table
         $row->tokenSecret = $secret;
 
         // encrypt password and save as token
-        $row->token = call_user_func($options['encryptFunction'], $password, $secret);
+        $row->token = $this->callEncryptFunction($password, $secret);
 
         $row->save();
 
         return $row;
+    }
+
+    /**
+     * callEncryptFunction
+     *
+     * @param string $password
+     * @param string $secret
+     * @throws \Application\Exception
+     * @return string
+     */
+    protected function callEncryptFunction($password, $secret)
+    {
+        /** @var \Bluz\Auth\Auth $auth */
+        $auth = app()->getAuth();
+        $options = $auth->getOption(self::PROVIDER_EQUALS);
+
+        if (!isset($options['encryptFunction']) or
+            !is_callable($options['encryptFunction'])
+        ) {
+            throw new Exception("Encryption function for 'equals' adapter is not callable");
+        }
+
+        // encrypt password with secret
+        return call_user_func($options['encryptFunction'], $password, $secret);
     }
 }

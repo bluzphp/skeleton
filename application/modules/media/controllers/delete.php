@@ -2,21 +2,22 @@
 /**
  * Delete image from redactor
  *
- * @category Application
- *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  19.06.13 18:18
+ */
+
+/**
+ * @namespace
  */
 namespace Application;
 
 return
 /**
  * @var Bootstrap $this
- * @return void
+ * @return int
  */
 function ($path) {
-    /**
-     */
+
     $this->useJson();
 
     /**

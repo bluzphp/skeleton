@@ -13,10 +13,12 @@ return
 /**
  * Get current user name
  *
- * @var \Application\Users\Row $user
  * @return string
  */
 function () {
+    /**
+     * @var \Application\Users\Row $user
+     */
     if ($user = app()->user()) {
         return $user->login;
     } else {

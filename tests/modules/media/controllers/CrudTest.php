@@ -7,13 +7,13 @@
 /**
  * @namespace
  */
-namespace Application\Tests\Pages;
+namespace Application\Tests\Media;
 
 use Application\Tests\ControllerTestCase;
 use Bluz\Http;
 
 /**
- * @package  Application\Tests\Pages
+ * @package  Application\Tests\Media
  * @author   Anton Shevchuk
  * @created  21.05.14 11:28
  */
@@ -52,7 +52,7 @@ class CrudTest extends ControllerTestCase
      */
     public function testCreateForm()
     {
-        $this->dispatchRouter('/pages/crud/');
+        $this->dispatchRouter('/media/crud/');
         $this->assertOk();
 
         $this->assertQueryCount('form[method="POST"]', 1);
@@ -63,11 +63,19 @@ class CrudTest extends ControllerTestCase
      */
     public function testEditForm()
     {
-        $this->dispatchRouter('/pages/crud/', ['id' => 1]);
+        /*
+        $this->dispatchRouter('/media/crud/', ['id' => 1]);
         $this->assertOk();
 
         $this->assertQueryCount('form[method="PUT"]', 1);
         $this->assertQueryCount('input[name="id"][value="1"]', 1);
+        */
+
+        // Remove the following lines when you implement this test.
+        // Need to create element with ID
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 
     /**
@@ -75,7 +83,7 @@ class CrudTest extends ControllerTestCase
      */
     public function testEditFormError()
     {
-        $this->dispatchRouter('/pages/crud/', ['id' => 100042]);
+        $this->dispatchRouter('/media/crud/', ['id' => 100042]);
         $this->assertResponseCode(404);
     }
 }

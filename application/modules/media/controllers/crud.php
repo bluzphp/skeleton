@@ -1,6 +1,12 @@
 <?php
 /**
  * CRUD for media
+ *
+ * @author   Anton Shevchuk
+ */
+
+/**
+ * @namespace
  */
 namespace Application;
 
@@ -11,7 +17,7 @@ use Bluz\Request\AbstractRequest;
 return
 /**
  * @privilege Management
- * @return \closure
+ * @return mixed
  */
 function () use ($view) {
     /**
