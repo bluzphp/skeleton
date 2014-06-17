@@ -40,10 +40,6 @@ class TestFile extends File
      */
     public function moveTo($path)
     {
-        if (!is_dir($path)) {
-            // try to create new folders
-            @mkdir($path, 0755, true);
-        }
         $path = rtrim($path, '/');
         $path = $path . '/' . $this->getFullName();
         return copy($this->tmp, $path);
