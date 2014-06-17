@@ -21,7 +21,7 @@ return
  * @throws Exception
  * @return void
  */
-    function () {
+function () {
 
     $options = $this->getConfigData('auth', 'facebook');
     if (!$options || !isset($options['appId'], $options['secret'])
