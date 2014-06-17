@@ -6,6 +6,16 @@
  * @created  08.07.11 12:14
  */
 return array(
+    "auth" => array(
+        "facebook" => array(
+            "appId" => "%%appId%%",
+            "secret" => "%%secret%%",
+        ),
+        "twitter" => array(
+            "consumerKey" => "%%consumerKey%%",
+            "consumerSecret" => "%%consumerSecret%%"
+        )
+    ),
     "cache" => array(
         "enabled" => false
     ),
