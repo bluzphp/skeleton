@@ -17,6 +17,9 @@ use Bluz\Grid\Source\SqlSource;
  */
 class Grid extends \Bluz\Grid\Grid
 {
+    /**
+     * @var string
+     */
     protected $uid = 'pages';
 
     /**
@@ -26,7 +29,7 @@ class Grid extends \Bluz\Grid\Grid
      */
     public function init()
     {
-         // Array
+         // Setup source
          $adapter = new SqlSource();
          $adapter->setSource('SELECT * FROM pages');
 

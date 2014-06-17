@@ -11,13 +11,14 @@ namespace Application\Layout\Helper;
 
 return
 /**
- * @var $this \Bluz\View\Layout
  * @param array $tree
  * @return string
  */
 function ($tree) {
+    /**
+     * @var \Bluz\View\Layout $this
+     */
     $str = '';
-
     foreach ($tree as $node) {
 
         if (empty($node['children'])) {

@@ -17,6 +17,9 @@ namespace Application\Options;
  */
 class Grid extends \Bluz\Grid\Grid
 {
+    /**
+     * @var string
+     */
     protected $uid = 'options';
 
     /**
