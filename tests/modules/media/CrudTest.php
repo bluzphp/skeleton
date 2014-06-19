@@ -92,9 +92,9 @@ class CrudTest extends ControllerTestCase
             )
         );
 
-        $className = 'Application\Tests\Fixtures\Media\TestFileUpload';
+        $fileUpload = 'Application\Tests\Fixtures\Media\TestFileUpload';
         $request = $this->getApp()->getRequest();
-        $request->setUploadClassName($className);
+        $request->setFileUpload(new $fileUpload());
 
         $this->dispatchUri(
             'media/crud',

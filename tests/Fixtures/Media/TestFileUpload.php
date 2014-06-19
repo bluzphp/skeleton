@@ -22,12 +22,6 @@ use Bluz\Http\FileUpload;
 class TestFileUpload extends FileUpload
 {
     /**
-     * Class that will be used to work with a downloadable file
-     * @var string
-     */
-    protected $className = 'Application\Tests\Fixtures\Media\TestFile';
-
-    /**
      * __construct
      *
      * @param array $array The array of $_FILES
@@ -38,5 +32,28 @@ class TestFileUpload extends FileUpload
         foreach ($rawFiles as $key => $file) {
             $this->processFileArray($key, $file);
         }
+    }
+
+    /**
+     * createFile
+     *
+     * @param string $name
+     * @param int $error
+     * @param string $tmpName
+     * @param string $type
+     * @param int $size
+     * @return TestFile instance
+     */
+    public function createFile($name, $error, $tmpName, $type, $size)
+    {
+        return new TestFile(
+            [
+                'name' => $name,
+                'error' => $error,
+                'tmp_name' => $tmpName,
+                'type' => $type,
+                'size' => $size
+            ]
+        );
     }
 }
