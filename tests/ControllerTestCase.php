@@ -31,6 +31,13 @@ class ControllerTestCase extends TestCase
     protected $document;
 
     /**
+     * Value
+     *
+     * @var string
+     */
+    protected $value;
+
+    /**
      * setUp
      *
      * @return void
@@ -251,6 +258,21 @@ class ControllerTestCase extends TestCase
     private function queryCount($path)
     {
         return count($this->query($path));
+    }
+
+    /**
+     * Assert attribute value matching something
+     *
+     * @param string $path
+     * @param string $match
+     */
+    public function assertAttributeValueEquals($path, $match)
+    {
+        $result = $this->query($path);
+        foreach ($result as $node) {
+            $this->value = $node->getAttribute('value');
+            $this->assertEquals($match, $this->value);
+        }
     }
 
     /**

@@ -30,5 +30,11 @@ return array(
     ),
     "session" => array(
         "store" => "array"
-    )
+    ),
+    "upload_dir" => array(
+        "path" => PATH_PUBLIC."/tests/uploads"
+    ),
+    "tmp_name" => array(
+        "path" => PATH_ROOT."/tests/Fixtures/Media/test.jpg"
+    ),
 );
