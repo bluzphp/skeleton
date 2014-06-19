@@ -11,6 +11,7 @@ namespace Application\Tests\Media;
 
 use Application\Exception;
 use Application\Tests\ControllerTestCase;
+use Application\Tests\Fixtures\Media\TestFileUpload;
 use Application\Tests\Fixtures\Users\UserFixtureContainer;
 use Application\Tests\Fixtures\Users\UserHasPermission;
 use Zend\Dom\Document;
@@ -92,9 +93,8 @@ class CrudTest extends ControllerTestCase
             )
         );
 
-        $fileUpload = 'Application\Tests\Fixtures\Media\TestFileUpload';
         $request = $this->getApp()->getRequest();
-        $request->setFileUpload(new $fileUpload());
+        $request->setFileUpload(new TestFileUpload());
 
         $this->dispatchUri(
             'media/crud',
