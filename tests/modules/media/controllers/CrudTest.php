@@ -35,11 +35,13 @@ class CrudTest extends ControllerTestCase
     }
 
     /**
-     * Drop `test` table after the last test
+     * Drop photo after the test
      */
     public static function tearDownAfterClass()
     {
-
+        BootstrapTest::getInstance()->getDb()->delete('media')->where('userId', [1])->execute();
+        $path = app()->getConfigData('upload_dir', 'path').'/1';
+        Utils\Cleaner::delete($path);
     }
 
     /**
@@ -53,20 +55,6 @@ class CrudTest extends ControllerTestCase
         $this->getApp()->useLayout(false);
         $this->getApp()->getConfig('testing')->load('testing');
         $this->getApp()->getAuth()->setIdentity(new UserHasPermission(UserFixtureContainer::$fixture));
-    }
-
-    /**
-     * TearDown
-     *
-     * Drop photo after the test
-     *
-     * @return void
-     */
-    protected function tearDown()
-    {
-        BootstrapTest::getInstance()->getDb()->delete('media')->where('userId', [1])->execute();
-        $path = $this->getApp()->getConfigData('upload_dir', 'path').'/1';
-        Utils\Cleaner::delete($path);
     }
 
     /**

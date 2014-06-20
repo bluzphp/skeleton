@@ -9,8 +9,6 @@
  */
 namespace Application\Tests\Utils;
 
-use Application\Exception;
-
 /**
  * Utils
  *
@@ -24,23 +22,9 @@ class Cleaner
     /**
      * Delete photo from file system
      */
-    public static function delete($dirPath)
+    public static function delete($dir)
     {
-        if (!is_dir($dirPath)) {
-            throw new Exception("$dirPath must be a directory");
-        }
-
-        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
-            $dirPath .= '/';
-        }
-        $files = glob($dirPath . '*', GLOB_MARK);
-        foreach ($files as $file) {
-            if (is_dir($file)) {
-                self::delete($file);
-            } else {
-                unlink($file);
-            }
-        }
-        rmdir($dirPath);
+        system('rm -rf ' . escapeshellarg($dir), $retval);
+        return $retval == 0; // UNIX commands return zero on success
     }
 }
