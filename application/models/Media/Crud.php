@@ -62,15 +62,16 @@ class Crud extends \Bluz\Crud\Table
         $originFileName = $fileName;
         $counter = 0;
 
-        while (file_exists(PATH_PUBLIC .'/'. $this->uploadDir .'/'. $fileName .'.'. $file->getExtension())) {
+        while (file_exists($this->uploadDir .'/'. $fileName .'.'. $file->getExtension())) {
             $counter++;
             $fileName = $originFileName .'-'. $counter;
         }
 
         // Setup new name and move to user directory
         $file->setName($fileName);
-        $file->moveTo(PATH_PUBLIC .'/'. $this->uploadDir);
+        $file->moveTo($this->uploadDir);
 
+        $this->uploadDir = substr($this->uploadDir, strlen(PATH_PUBLIC) + 1);
         $data['file'] = $this->uploadDir .'/'. $file->getFullName();
         $data['type'] = $file->getMimeType();
 
