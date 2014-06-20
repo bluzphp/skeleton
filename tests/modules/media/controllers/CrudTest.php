@@ -83,7 +83,7 @@ class CrudTest extends ControllerTestCase
         $_FILES = array(
             'file' => array(
                 'name' => 'test.jpg',
-                'size' => filesize(PATH_ROOT.'/tests/Fixtures/Utils/test.jpg'),
+                'size' => filesize(PATH_ROOT.'/tests/Fixtures/Media/test.jpg'),
                 'type' => 'image/jpeg',
                 'tmp_name' => $path,
                 'error' => 0
