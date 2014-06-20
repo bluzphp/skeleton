@@ -31,13 +31,6 @@ class ControllerTestCase extends TestCase
     protected $document;
 
     /**
-     * Value
-     *
-     * @var string
-     */
-    protected $value;
-
-    /**
      * setUp
      *
      * @return void
@@ -261,21 +254,6 @@ class ControllerTestCase extends TestCase
     }
 
     /**
-     * Assert attribute value matching something
-     *
-     * @param string $path
-     * @param string $match
-     */
-    public function assertAttributeValueEquals($path, $match)
-    {
-        $result = $this->query($path);
-        foreach ($result as $node) {
-            $this->value = $node->getAttribute('value');
-            $this->assertEquals($match, $this->value);
-        }
-    }
-
-    /**
      * Assert against DOM/XPath selection
      *
      * @param string $path
@@ -286,9 +264,9 @@ class ControllerTestCase extends TestCase
         $match = $this->queryCount($path);
         if (!$match > 0) {
             throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
-                    'Failed asserting node DENOTED BY %s EXISTS',
-                    $path
-                ));
+                'Failed asserting node DENOTED BY %s EXISTS',
+                $path
+            ));
         }
         $this->assertTrue($match > 0);
     }
@@ -304,9 +282,9 @@ class ControllerTestCase extends TestCase
         $match  = $this->queryCount($path);
         if ($match != 0) {
             throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
-                    'Failed asserting node DENOTED BY %s DOES NOT EXIST',
-                    $path
-                ));
+                'Failed asserting node DENOTED BY %s DOES NOT EXIST',
+                $path
+            ));
         }
         $this->assertEquals(0, $match);
     }
@@ -323,11 +301,11 @@ class ControllerTestCase extends TestCase
         $match = $this->queryCount($path);
         if ($match != $count) {
             throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
-                    'Failed asserting node DENOTED BY %s OCCURS EXACTLY %d times, actually occurs %d times',
-                    $path,
-                    $count,
-                    $match
-                ));
+                'Failed asserting node DENOTED BY %s OCCURS EXACTLY %d times, actually occurs %d times',
+                $path,
+                $count,
+                $match
+            ));
         }
         $this->assertEquals($match, $count);
     }
@@ -344,10 +322,10 @@ class ControllerTestCase extends TestCase
         $match = $this->queryCount($path);
         if ($match == $count) {
             throw new\ PHPUnit_Framework_ExpectationFailedException(sprintf(
-                    'Failed asserting node DENOTED BY %s DOES NOT OCCUR EXACTLY %d times',
-                    $path,
-                    $count
-                ));
+                'Failed asserting node DENOTED BY %s DOES NOT OCCUR EXACTLY %d times',
+                $path,
+                $count
+            ));
         }
         $this->assertNotEquals($match, $count);
     }
@@ -364,9 +342,9 @@ class ControllerTestCase extends TestCase
         $result = $this->query($path);
         if ($result->count() == 0) {
             throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
-                    'Failed asserting node DENOTED BY %s EXISTS',
-                    $path
-                ));
+                'Failed asserting node DENOTED BY %s EXISTS',
+                $path
+            ));
         }
         foreach ($result as $node) {
             if ($node->nodeValue == $match) {
@@ -375,10 +353,10 @@ class ControllerTestCase extends TestCase
             }
         }
         throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
-                'Failed asserting node denoted by %s CONTAINS content "%s"',
-                $path,
-                $match
-            ));
+            'Failed asserting node denoted by %s CONTAINS content "%s"',
+            $path,
+            $match
+        ));
     }
 
     /**
@@ -395,17 +373,17 @@ class ControllerTestCase extends TestCase
 
         if ($result->count() == 0) {
             throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
-                    'Failed asserting node DENOTED BY %s EXISTS',
-                    $path
-                ));
+                'Failed asserting node DENOTED BY %s EXISTS',
+                $path
+            ));
         }
         if (!preg_match($pattern, $result->current()->nodeValue)) {
             throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
-                    'Failed asserting node denoted by %s CONTAINS content MATCHING "%s", actual content is "%s"',
-                    $path,
-                    $pattern,
-                    $result->current()->nodeValue
-                ));
+                'Failed asserting node denoted by %s CONTAINS content MATCHING "%s", actual content is "%s"',
+                $path,
+                $pattern,
+                $result->current()->nodeValue
+            ));
         }
         $this->assertTrue((bool) preg_match($pattern, $result->current()->nodeValue));
     }
