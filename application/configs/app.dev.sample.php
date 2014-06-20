@@ -39,5 +39,8 @@ return array(
             "Username" => "",
             "Password" => "",
         ],
+    ),
+    "upload_dir" => array(
+        "path" => PATH_PUBLIC."/uploads"
     )
 );
