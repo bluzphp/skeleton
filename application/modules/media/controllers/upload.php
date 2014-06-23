@@ -46,7 +46,11 @@ function () {
         //     %userId%/
         //       %module%/
         //         filename.ext
-        $file->moveTo(PATH_PUBLIC .'/uploads/'.$userId.'/media');
+        $path = $this->getConfigData('upload_dir', 'path');
+        if (empty($path)) {
+            throw new Exception('Upload path is not configured');
+        }
+        $file->moveTo($path.'/'.$userId.'/media');
 
         // save media data
         $media = new Media\Row();
