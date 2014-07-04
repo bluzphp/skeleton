@@ -4,7 +4,7 @@
  */
 ?>
 <?php $uid = uniqid('form_'); ?>
-<form id="<?=$uid?>" action="<?=$this->url('media', 'crud')?>" class="form-horizontal" method="<?=$method?>" enctype="multipart/form-data">
+<form id="<?=$uid?>" action="<?=$this->url('media', 'crud')?>" class="form-horizontal" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="<?=$method?>"/>
     <input type="hidden" name="id" value="<?=$row->id?>"/>
     <div>
