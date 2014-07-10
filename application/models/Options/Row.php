@@ -9,6 +9,9 @@
  */
 namespace Application\Options;
 
+use Bluz\Validator\Traits\Validator;
+use Bluz\Validator\Validator as v;
+
 /**
  * Options Row
  *
@@ -24,6 +27,8 @@ namespace Application\Options;
  */
 class Row extends \Bluz\Db\Row
 {
+    use Validator;
+
     /**
      * {@inheritdoc}
      */
@@ -38,6 +43,29 @@ class Row extends \Bluz\Db\Row
     protected function beforeSave()
     {
         $this->value = serialize($this->value);
+
+        $this->addValidator(
+            'namespace',
+            v::required()->slug()
+        );
+        $this->addValidator(
+            'key',
+            v::required()->slug()
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function beforeInsert()
+    {
+        // unique validator
+        $this->addValidator(
+            'key',
+            v::callback(function ($input) {
+                    return !$this->getTable()->findRowWhere(['key' => $this->key, 'namespace' => $this->namespace]);
+                })->setError('Key name "{{input}}" already exists')
+        );
     }
 
     /**

@@ -25,30 +25,34 @@ class Crud extends \Bluz\Crud\Table
     protected $uploadDir;
 
     /**
-     * @var \Bluz\Http\File
-     */
-    protected $file;
-
-    /**
      * createOne
      *
      * @param array $data
+     * @throws \Application\Exception
+     * @throws \Bluz\Request\RequestException
      * @return integer
      */
     public function createOne($data)
     {
-        $this->file = null;
-
-        $this->validate(null, $data);
-        $this->validateCreate($data);
-        $this->checkErrors();
-
-        // Process image
+        /**
+         * Process HTTP File
+         * @var \Bluz\Http\File $file
+         */
         $file = app()->getRequest()->getFileUpload()->getFile('file');
 
+        if (!$file or $file->getErrorCode() != UPLOAD_ERR_OK) {
+            if ($file->getErrorCode() == UPLOAD_ERR_NO_FILE) {
+                throw new Exception("Please choose file for upload");
+            }
+            throw new Exception("Sorry, I can't receive file");
+        }
+
+        /**
+         * Generate image name
+         */
         $fileName = strtolower(isset($data['title'])?$data['title']:$file->getName());
 
-        // Generate image name
+        // Prepare filename
         $fileName = preg_replace('/[ _;:]+/i', '-', $fileName);
         $fileName = preg_replace('/[-]+/i', '-', $fileName);
         $fileName = preg_replace('/[^a-z0-9.-]+/i', '', $fileName);
@@ -72,6 +76,7 @@ class Crud extends \Bluz\Crud\Table
         $file->moveTo($this->uploadDir);
 
         $this->uploadDir = substr($this->uploadDir, strlen(PATH_PUBLIC) + 1);
+
         $data['file'] = $this->uploadDir .'/'. $file->getFullName();
         $data['type'] = $file->getMimeType();
 
@@ -101,68 +106,5 @@ class Crud extends \Bluz\Crud\Table
         $this->uploadDir = $directory;
 
         return $this;
-    }
-
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validate($primary, $data)
-    {
-        $this->checkTitle($data);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateCreate($data)
-    {
-        /**
-         * @var \Bluz\Http\File $file
-         */
-        try {
-            $file = app()->getRequest()->getFileUpload()->getFile('file');
-        } catch (\Bluz\Common\Exception $e) {
-            $this->addError($e->getMessage(), 'file');
-            return;
-        }
-
-        if (!$file) {
-            $this->addError("Sorry, I can't receive file", 'file');
-            return;
-        } elseif ($file->getErrorCode() != UPLOAD_ERR_OK) {
-            switch ($file->getErrorCode()) {
-                case UPLOAD_ERR_NO_FILE:
-                    $this->addError('Please choose file for upload', 'file');
-                    break;
-            }
-            return;
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateUpdate($id, $data)
-    {
-        // check and replace original file and preview
-    }
-
-    /**
-     * check title
-     *
-     * @param array $data
-     * @return void
-     */
-    public function checkTitle($data)
-    {
-        // name validator
-        $title = isset($data['title'])?$data['title']:null;
-
-        if (empty($title)) {
-            $this->addError('Title can\'t be empty', 'title');
-        } elseif (!preg_match('/^[a-z0-9 .-]+$/i', $title)) {
-            $this->addError('Title should contains only Latin characters', 'title');
-        }
     }
 }

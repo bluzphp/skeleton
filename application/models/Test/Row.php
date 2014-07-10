@@ -9,6 +9,9 @@
  */
 namespace Application\Test;
 
+use Bluz\Validator\Traits\Validator;
+use Bluz\Validator\Validator as v;
+
 /**
  * Test Row
  *
@@ -22,4 +25,24 @@ namespace Application\Test;
  */
 class Row extends \Bluz\Db\Row
 {
+    use Validator;
+
+    /**
+     * Before Insert/Update
+     * @return void
+     */
+    protected function beforeSave()
+    {
+        // name validator
+        $this->addValidator(
+            'name',
+            v::required()->latin()
+        );
+
+        // email validator
+        $this->addValidator(
+            'email',
+            v::required()->email()
+        );
+    }
 }

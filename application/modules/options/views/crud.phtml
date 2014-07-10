@@ -1,6 +1,11 @@
+<?php /** @var \Application\Options\Row $row */ ?>
 <?php $uid = uniqid('form_'); ?>
-<form id="<?=$uid?>" action="<?=$this->url('options', 'crud')?>" class="form-horizontal ajax" method="post">
+<form id="<?=$uid?>" action="<?=$this->url('options', 'crud')?>" class="form-horizontal ajax" method="POST">
     <input type="hidden" name="_method" value="<?=$method?>"/>
+    <?php if ($method != 'POST') : ?>
+        <input type="hidden" name="namespace" value="<?=esc($row->namespace)?:'default'?>"/>
+        <input type="hidden" name="key" value="<?=esc($row->key)?>"/>
+    <?php endif; ?>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title"><?=__('Options')?></h4>
@@ -9,7 +14,7 @@
         <div class="form-group">
             <label class="control-label col-lg-2" for="name"><?=__('Namespace')?></label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="namespace" name="namespace" value="<?=esc($row->namespace)?:'default'?>" <?=($method!='POST')?'disabled':''?> required />
+                <input type="text" class="form-control" id="namespace" name="namespace" value="<?=esc($row->namespace)?:'default'?>" <?=($method != 'POST')?'disabled':''?> required />
             </div>
         </div>
         <div class="form-group">
