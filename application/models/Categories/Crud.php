@@ -9,9 +9,6 @@
  */
 namespace Application\Categories;
 
-use Bluz\Validator\Validator as v;
-use Bluz\Validator\ValidatorBuilder;
-
 /**
  * Class Crud
  * @package Application\Categories
@@ -24,47 +21,6 @@ class Crud extends \Bluz\Crud\Table
      * @var array
      */
     private $arrayWithTree = [];
-
-    /**
-     * @param mixed $id
-     * @param array $data
-     * @return void
-     */
-    public function validate($id, $data)
-    {
-        $validator = new ValidatorBuilder();
-        $validator->add(
-            'name',
-            v::required(),
-            v::length(2, 128)
-        );
-
-        $validator->add(
-            'alias',
-            v::required(),
-            v::length(2, 64),
-            v::slug(),
-            v::callback(function ($input) use ($data) {
-                $select = $this->getTable()->select()
-                    ->where('alias = ?', $input);
-
-                if (isset($data['id'])) {
-                    $select->andWhere('id != ?', $data['id']);
-                }
-
-                if (isset($data['parentId']) && !empty($data['parentId'])) {
-                    $select->andWhere('parentId = ?', $data['parentId']);
-                } else {
-                    $select->andWhere('parentId IS NULL');
-                }
-
-                return !sizeof($select->execute());
-            })->setError('Category with alias "{{input}}" already exists')
-        );
-        if (!$validator->validate($data)) {
-            $this->setErrors($validator->getErrors());
-        }
-    }
 
     /**
      * @param mixed $data

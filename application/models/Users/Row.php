@@ -14,6 +14,8 @@ use Application\Privileges;
 use Application\Roles;
 use Bluz\Auth\AbstractRowEntity;
 use Bluz\Auth\AuthException;
+use Bluz\Validator\Traits\Validator;
+use Bluz\Validator\Validator as v;
 
 /**
  * User
@@ -33,6 +35,8 @@ use Bluz\Auth\AuthException;
  */
 class Row extends AbstractRowEntity
 {
+    use Validator;
+
     /**
      * Small cache of user privileges
      * @var array
@@ -42,9 +46,42 @@ class Row extends AbstractRowEntity
     /**
      * @return void
      */
-    public function beforeInsert()
+    public function beforeSave()
     {
         $this->email = strtolower($this->email);
+
+        $this->addValidator(
+            'login',
+            v::required()->latin()->length(3, 255),
+            v::callback(function ($login) {
+                $user = $this->getTable()
+                    ->select()
+                    ->where('login = ?', $login)
+                    ->andWhere('id != ?', $this->id)
+                    ->execute();
+                return !$user;
+            })->setError('User with login "{{input}}" already exists')
+        );
+
+        $this->addValidator(
+            'email',
+            v::required()->email(true),
+            v::callback(function ($email) {
+                $user = $this->getTable()
+                    ->select()
+                    ->where('email = ?', $email)
+                    ->andWhere('id != ?', $this->id)
+                    ->execute();
+                return !$user;
+            })->setError('User with email "{{input}}" already exists')
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function beforeInsert()
+    {
         $this->created = gmdate('Y-m-d H:i:s');
     }
 
@@ -53,7 +90,6 @@ class Row extends AbstractRowEntity
      */
     public function beforeUpdate()
     {
-        $this->email = strtolower($this->email);
         $this->updated = gmdate('Y-m-d H:i:s');
     }
 

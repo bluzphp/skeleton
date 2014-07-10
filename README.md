@@ -8,7 +8,7 @@ Easy to setup, easy to use. Example application
 [![Dependency Status](https://www.versioneye.com/php/bluzphp:skeleton/badge.png)](https://www.versioneye.com/php/bluzphp:skeleton)
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bluzphp/skeleton/badges/quality-score.png?s=5751f605c8db43a14bef3626d2c33749614d188a)](https://scrutinizer-ci.com/g/bluzphp/skeleton/)
-[![Coverage Status](https://coveralls.io/repos/bluzphp/skeleton/badge.png)](https://coveralls.io/r/bluzphp/skeleton)
+[![Coverage Status](https://coveralls.io/repos/bluzphp/skeleton/badge.png?branch=master)](https://coveralls.io/r/bluzphp/skeleton?branch=master)
 
 [![Latest Stable Version](https://poser.pugx.org/bluzphp/skeleton/v/stable.png)](https://packagist.org/packages/bluzphp/skeleton)
 [![Total Downloads](https://poser.pugx.org/bluzphp/skeleton/downloads.png)](https://packagist.org/packages/bluzphp/skeleton)

@@ -9,9 +9,6 @@
  */
 namespace Application\Test;
 
-use Bluz\Validator\Validator as v;
-use Bluz\Validator\ValidatorBuilder;
-
 /**
  * Crud based on Db\Table
  *
@@ -62,60 +59,5 @@ class Crud extends \Bluz\Crud\Table
         }
 
         return $result;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param array $data
-     * @return bool
-     */
-    public function validateCreate($data)
-    {
-        $validator = new ValidatorBuilder();
-
-        // name validator
-        $validator->add(
-            'name',
-            v::required()->latin()
-        );
-
-        // email validator
-        $validator->add(
-            'email',
-            v::required()->email()
-        );
-
-        if (!$validator->validate($data)) {
-            $this->setErrors($validator->getErrors());
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param mixed $id
-     * @param array $data
-     * @return bool
-     */
-    public function validateUpdate($id, $data)
-    {
-        $validator = new ValidatorBuilder();
-
-        // name validator
-        $validator->add(
-            'name',
-            v::notEmpty()->latin()
-        );
-
-        // email validator
-        $validator->add(
-            'email',
-            v::notEmpty()->email()
-        );
-
-        if (!$validator->validate($data)) {
-            $this->setErrors($validator->getErrors());
-        }
     }
 }

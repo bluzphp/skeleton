@@ -21,10 +21,12 @@ class Cleaner
 {
     /**
      * Delete photo from file system
+     * @param string $dir
+     * @return bool
      */
     public static function delete($dir)
     {
-        system('rm -rf ' . escapeshellarg($dir), $retval);
-        return $retval == 0; // UNIX commands return zero on success
+        system('rm -rf ' . escapeshellarg($dir), $result);
+        return $result == 0; // UNIX commands return zero on success
     }
 }

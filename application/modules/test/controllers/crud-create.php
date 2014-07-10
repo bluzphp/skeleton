@@ -9,6 +9,9 @@
  */
 namespace Application;
 
+use Bluz\Http\Request;
+use Bluz\Validator\Exception\ValidatorException;
+
 return
 /**
  * @method GET, POST
@@ -25,6 +28,20 @@ function () use ($view) {
 
 
     if ($this->getRequest()->isPost()) {
+        $crud = Test\Crud::getInstance();
+        try {
+            $crud->createOne($this->getRequest()->getPost());
+        } catch (ValidatorException $e) {
+            $row = $crud->readOne(null);
+            $row->setFromArray($this->getRequest()->getPost());
+            $result = [
+                'row'    => $row,
+                'errors' => $e->getErrors(),
+                'method' => Request::METHOD_POST
+            ];
+        }
+
+
         // TODO: example without AJAX calls
     }
 };

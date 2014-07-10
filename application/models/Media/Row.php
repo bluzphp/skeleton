@@ -10,6 +10,8 @@
 namespace Application\Media;
 
 use Application\Users;
+use Bluz\Validator\Traits\Validator;
+use Bluz\Validator\Validator as v;
 use Image\Thumbnail;
 
 /**
@@ -30,8 +32,21 @@ use Image\Thumbnail;
  */
 class Row extends \Bluz\Db\Row
 {
+    use Validator;
+
     const THUMB_HEIGHT = 120;
     const THUMB_WIDTH = 120;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function beforeSave()
+    {
+        $this->addValidator(
+            'title',
+            v::required()->latinNumeric(' -_')
+        );
+    }
 
     /**
      * __insert
@@ -41,6 +56,7 @@ class Row extends \Bluz\Db\Row
     protected function beforeInsert()
     {
         $this->created = gmdate('Y-m-d H:i:s');
+
         // set default module
         if (!$this->module) {
             $this->module = 'users';
