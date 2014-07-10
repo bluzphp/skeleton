@@ -62,7 +62,7 @@ class Row extends \Bluz\Db\Row
         // unique validator
         $this->addValidator(
             'key',
-            v::callback(function ($input) {
+            v::callback(function () {
                 return !$this->getTable()->findRowWhere(['key' => $this->key, 'namespace' => $this->namespace]);
             })->setError('Key name "{{input}}" already exists')
         );

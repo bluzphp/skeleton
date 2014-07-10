@@ -9,7 +9,6 @@
  */
 namespace Application;
 
-use Bluz\Crud\ValidationException;
 use Bluz\Http\Request;
 use Bluz\Validator\Exception\ValidatorException;
 

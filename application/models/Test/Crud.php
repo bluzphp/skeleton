@@ -9,9 +9,6 @@
  */
 namespace Application\Test;
 
-use Bluz\Validator\Validator as v;
-use Bluz\Validator\ValidatorBuilder;
-
 /**
  * Crud based on Db\Table
  *

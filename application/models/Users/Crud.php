@@ -12,10 +12,7 @@ namespace Application\Users;
 use Application\Auth;
 use Application\Exception;
 use Application\UsersActions;
-use Bluz\Crud\ValidationException;
 use Bluz\Validator\Exception\ValidatorException;
-use Bluz\Validator\Validator as v;
-use Bluz\Validator\ValidatorBuilder;
 
 /**
  * Crud
