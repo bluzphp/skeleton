@@ -52,24 +52,24 @@ class Row extends \Bluz\Db\Row
             v::required(),
             v::slug(),
             v::callback(function ($input) {
-                    if ($row = $this->getTable()->findRowWhere(['alias' => $input])) {
-                        if ($row->id != $this->id) {
-                            return false;
-                        }
+                if ($row = $this->getTable()->findRowWhere(['alias' => $input])) {
+                    if ($row->id != $this->id) {
+                        return false;
                     }
-                    return true;
-                })->setError('Alias "{{input}}" already exists')
+                }
+                return true;
+            })->setError('Alias "{{input}}" already exists')
         );
 
         // content validator
         $this->addValidator(
             'content',
             v::callback(function ($input) {
-                    if (empty($input) or trim(strip_tags($input, '<img>')) == '') {
-                        return false;
-                    }
-                    return true;
-                })->setError('Content can\'t be empty')
+                if (empty($input) or trim(strip_tags($input, '<img>')) == '') {
+                    return false;
+                }
+                return true;
+            })->setError('Content can\'t be empty')
         );
     }
 

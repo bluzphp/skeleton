@@ -54,26 +54,26 @@ class Row extends AbstractRowEntity
             'login',
             v::required()->latin()->length(3, 255),
             v::callback(function ($login) {
-                    $user = $this->getTable()
-                        ->select()
-                        ->where('login = ?', $login)
-                        ->andWhere('id != ?', $this->id)
-                        ->execute();
-                    return !$user;
-                })->setError('User with login "{{input}}" already exists')
+                $user = $this->getTable()
+                    ->select()
+                    ->where('login = ?', $login)
+                    ->andWhere('id != ?', $this->id)
+                    ->execute();
+                return !$user;
+            })->setError('User with login "{{input}}" already exists')
         );
 
         $this->addValidator(
             'email',
             v::required()->email(true),
             v::callback(function ($email) {
-                    $user = $this->getTable()
-                        ->select()
-                        ->where('email = ?', $email)
-                        ->andWhere('id != ?', $this->id)
-                        ->execute();
-                    return !$user;
-                })->setError('User with email "{{input}}" already exists')
+                $user = $this->getTable()
+                    ->select()
+                    ->where('email = ?', $email)
+                    ->andWhere('id != ?', $this->id)
+                    ->execute();
+                return !$user;
+            })->setError('User with email "{{input}}" already exists')
         );
     }
 

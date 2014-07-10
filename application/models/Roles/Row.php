@@ -31,8 +31,8 @@ class Row extends \Bluz\Db\Row
             'name',
             v::required()->latin(),
             v::callback(function ($name) {
-                    return !Table::getInstance()->findRowWhere(['name'=>$name]);
-                })->setError('Role name "{{input}}" already exists')
+                return !Table::getInstance()->findRowWhere(['name'=>$name]);
+            })->setError('Role name "{{input}}" already exists')
         );
     }
 
@@ -46,14 +46,14 @@ class Row extends \Bluz\Db\Row
             'name',
             v::required()->latin(),
             v::callback(function ($name) {
-                    return !in_array(strtolower($name), Table::getInstance()->getBasicRoles());
-                })->setError('Role "{{input}}" is basic and can\'t be editable'),
+                return !in_array(strtolower($name), Table::getInstance()->getBasicRoles());
+            })->setError('Role "{{input}}" is basic and can\'t be editable'),
             v::callback(function ($name) {
-                    return $this->clean['name'] != $name;
-                })->setError('Role name "{{input}}" the same as original'),
+                return $this->clean['name'] != $name;
+            })->setError('Role name "{{input}}" the same as original'),
             v::callback(function ($name) {
-                    return !Table::getInstance()->findRowWhere(['name'=>$name]);
-                })->setError('Role name "{{input}}" already exists')
+                return !Table::getInstance()->findRowWhere(['name'=>$name]);
+            })->setError('Role name "{{input}}" already exists')
         );
     }
 

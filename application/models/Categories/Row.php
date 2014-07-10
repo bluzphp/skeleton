@@ -45,21 +45,21 @@ class Row extends \Bluz\Db\Row
             v::length(2, 64),
             v::slug(),
             v::callback(function ($input) {
-                    $select = $this->getTable()->select()
-                        ->where('alias = ?', $input);
+                $select = $this->getTable()->select()
+                    ->where('alias = ?', $input);
 
-                    if ($this->id) {
-                        $select->andWhere('id != ?', $this->id);
-                    }
+                if ($this->id) {
+                    $select->andWhere('id != ?', $this->id);
+                }
 
-                    if ($this->parentId) {
-                        $select->andWhere('parentId = ?', $this->parentId);
-                    } else {
-                        $select->andWhere('parentId IS NULL');
-                    }
+                if ($this->parentId) {
+                    $select->andWhere('parentId = ?', $this->parentId);
+                } else {
+                    $select->andWhere('parentId IS NULL');
+                }
 
-                    return !sizeof($select->execute());
-                })->setError('Category with alias "{{input}}" already exists')
+                return !sizeof($select->execute());
+            })->setError('Category with alias "{{input}}" already exists')
         );
     }
 
