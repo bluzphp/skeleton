@@ -9,7 +9,7 @@ require.config({
     // if you need disable JS cache
     urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
-        bootstrap: './vendor/bootstrap',
+        bootstrap: './bootstrap',
         jquery: './vendor/jquery',
         "jquery-ui": './vendor/jquery-ui',
         redactor: './../redactor/redactor',
