@@ -36,6 +36,7 @@ class SqlGrid extends Grid
          $this->setDefaultLimit(15);
          $this->setAllowOrders(['name', 'id', 'status']);
          $this->setAllowFilters(['status', 'id']);
+         $this->setDefaultOrder('name', Grid::ORDER_DESC);
 
          return $this;
     }
