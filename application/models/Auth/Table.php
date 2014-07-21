@@ -12,6 +12,7 @@ namespace Application\Auth;
 use Application\Exception;
 use Application\Users;
 use Bluz\Application;
+use Bluz\Auth\AbstractTable;
 use Bluz\Auth\AuthException;
 
 /**
@@ -25,55 +26,18 @@ use Bluz\Auth\AuthException;
  * @author   Anton Shevchuk
  * @created  12.07.11 15:28
  */
-class Table extends \Bluz\Db\Table
+class Table extends AbstractTable
 {
-
-    const TYPE_REQUEST = 'request';
-    const TYPE_ACCESS = 'access';
-
-    const PROVIDER_EQUALS = 'equals';
-    const PROVIDER_LDAP = 'ldap';
-    const PROVIDER_TWITTER = 'twitter';
-    const PROVIDER_FACEBOOK = 'facebook';
-
-    /**
-     * Table
-     *
-     * @var string
-     */
-    protected $table = 'auth';
-
-    /**
-     * Primary key(s)
-     * @var array
-     */
-    protected $primary = array('provider', 'foreignKey');
-
-    /**
-     * getAuthRow
-     *
-     * @todo foreign key for equals provider is equal to user login -_- ?
-     * @param string $provider
-     * @param string $foreignKey
-     * @return Row
-     */
-    public function getAuthRow($provider, $foreignKey)
-    {
-        return self::findRow(['provider' => $provider, 'foreignKey' => $foreignKey]);
-    }
-
     /**
      * authenticate user by login/pass
      *
      * @param string $username
      * @param string $password
-     * @throws Exception
      * @throws AuthException
-     * @return boolean
+     * @return void
      */
     public function authenticateEquals($username, $password)
     {
-        /** @var $user Users\Row */
         $authRow = $this->checkEquals($username, $password);
 
         // get user profile
@@ -81,8 +45,6 @@ class Table extends \Bluz\Db\Table
 
         // try to login
         $user->login();
-
-        return true;
     }
 
     /**
@@ -90,7 +52,6 @@ class Table extends \Bluz\Db\Table
      *
      * @param string $username
      * @param string $password
-     * @throws Exception
      * @throws AuthException
      * @return Row
      */
@@ -118,7 +79,6 @@ class Table extends \Bluz\Db\Table
      *
      * @param Users\Row $user
      * @param string $password
-     * @throws Exception
      * @throws AuthException
      * @return Row
      */
@@ -179,5 +139,48 @@ class Table extends \Bluz\Db\Table
 
         // encrypt password with secret
         return call_user_func($options['encryptFunction'], $password, $secret);
+    }
+
+    /**
+     * authenticate user by token
+     *
+     * @param string $username
+     * @param string $token
+     * @throws \Bluz\Auth\AuthException
+     * @return void
+     */
+    public function authenticateToken($username, $token)
+    {
+        $authRow = $this->checkToken($username, $token);
+
+        // get user profile
+        $user = Users\Table::findRow($authRow->userId);
+
+        // try to login
+        $user->login();
+    }
+
+    /**
+     * authenticate user by token
+     *
+     * @param string $username
+     * @param string $token
+     * @throws \Bluz\Auth\AuthException
+     * @return Row
+     */
+    public function checkToken($username, $token)
+    {
+        $authRow = $this->getAuthRow(self::PROVIDER_TOKEN, $username);
+
+        if (!$authRow) {
+            throw new AuthException("User not found");
+        }
+
+        // check token
+        if ($token != $authRow->token) {
+            throw new AuthException("Wrong token");
+        }
+
+        return $authRow;
     }
 }

@@ -100,15 +100,16 @@ class Row extends AbstractRowEntity
      * @throws AuthException
      * @return boolean|null
      */
-    public function tryLogin()
+    public function login()
     {
         switch ($this->status) {
             case (Table::STATUS_PENDING):
-                throw new AuthException("Your account is pending activation");
+                throw new AuthException("Your account is pending activation", 403);
             case (Table::STATUS_DISABLED):
-                throw new AuthException("Your account is disabled by administrator");
+                throw new AuthException("Your account is disabled by administrator", 403);
             case (Table::STATUS_ACTIVE):
                 // all ok
+                app()->getAuth()->setIdentity($this);
                 break;
             default:
                 throw new Exception("User status is undefined in system");

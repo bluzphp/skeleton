@@ -36,6 +36,7 @@ function ($login, $password) use ($view) {
             }
 
             // login/password
+            // throw AuthException
             Auth\Table::getInstance()->authenticateEquals($login, $password);
 
             $this->getMessages()->addNotice('You are signed');
