@@ -9,25 +9,20 @@
  */
 namespace Application\Auth;
 
+use Bluz\Auth\AbstractRow;
+
 /**
  * Auth Row
  *
- * @category Application
- * @package  Auth
+ * @package  Application\Auth
  *
- * @property integer $userId
- * @property string $provider
- * @property string $foreignKey
- * @property string $token
- * @property string $tokenSecret
- * @property string $tokenType
  * @property string $created
  * @property string $updated
  *
  * @author   Anton Shevchuk
  * @created  24.10.12 11:57
  */
-class Row extends \Bluz\Db\Row
+class Row extends AbstractRow
 {
     /**
      * __insert
