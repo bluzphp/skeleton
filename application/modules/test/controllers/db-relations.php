@@ -42,13 +42,23 @@ function () use ($view) {
     /* @var Pages\Row */
     $page = Pages\Table::findRow(5);
     $result = $page->getRelation('users');
-    var_dump("Page owner:", $result);
+    echo "<h2>Page Owner</h2>";
+    var_dump(current($result));
 
     $user = Users\Table::findRow(1);
     $result = $user->getRelation('pages');
-    var_dump("User pages:", $result);
+    echo "<h2>User pages</h2>";
+    var_dump($result);
 
     $result = $user->getRelation('acl_roles');
-    var_dump("User roles:", $result);
+    echo "<h2>User roles</h2>";
+    var_dump($result);
+
+
+    $result = app()->getDb()->fetchRelations(
+        "SELECT '__users', u.*, '__pages', p.* FROM users u LEFT JOIN pages p ON p.userId = u.id"
+    );
+    echo "<h2>User - Page relation</h2>";
+    var_dump($result);
     return false;
 };
