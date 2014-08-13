@@ -23,7 +23,6 @@ use Bluz\Validator\Validator as v;
  * @category Application
  * @package  Users
  *
- * @property integer $id
  * @property string $login
  * @property string $email
  * @property string $created
