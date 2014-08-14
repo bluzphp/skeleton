@@ -95,7 +95,7 @@ class Table extends \Bluz\Db\Table
     }
 
     /**
-     * @return array|mixed
+     * @return array
      */
     public function getAllRootCategory()
     {
