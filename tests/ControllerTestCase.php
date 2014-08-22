@@ -79,7 +79,7 @@ class ControllerTestCase extends TestCase
      */
     protected function assertResponseCode($code)
     {
-        $this->assertEquals($code, $this->getApp()->getResponse()->getCode());
+        $this->assertEquals($code, $this->getApp()->getResponse()->getStatusCode());
     }
 
     /**
@@ -145,7 +145,7 @@ class ControllerTestCase extends TestCase
         $exception = $this->getApp()->getResponse()->getException();
 
         $this->assertInstanceOf('\Bluz\Application\Exception\ForbiddenException', $exception);
-        $this->assertEquals(403, $this->getApp()->getResponse()->getCode());
+        $this->assertEquals(403, $this->getApp()->getResponse()->getStatusCode());
         $this->assertModule(Router::ERROR_MODULE);
         $this->assertController(Router::ERROR_CONTROLLER);
     }

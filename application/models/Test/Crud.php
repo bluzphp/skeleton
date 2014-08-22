@@ -54,7 +54,7 @@ class Crud extends \Bluz\Crud\Table
 
         if (sizeof($result) < $total) {
             app()->getResponse()
-                ->setCode(206)
+                ->setStatusCode(206)
                 ->setHeader('Content-Range', 'items '.$offset.'-'.($offset+sizeof($result)).'/'. $total);
         }
 

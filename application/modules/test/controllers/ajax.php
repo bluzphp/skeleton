@@ -30,4 +30,6 @@ function ($messages = false) use ($view) {
     $this->getMessages()->addNotice('Method '. $this->getRequest()->getMethod());
 
     $view->foo = 'bar';
+
+    return false;
 };

@@ -71,7 +71,7 @@ class IndexTest extends ControllerTestCase
         $this->setupGuestIdentity();
         $result = $this->dispatchUri('dashboard/index');
 
-        $this->assertEquals(403, $result->getCode());
+        $this->assertEquals(403, $result->getStatusCode());
     }
 
     /**
@@ -84,6 +84,6 @@ class IndexTest extends ControllerTestCase
         $this->setupSuperUserIdentity();
         $result = $this->dispatchUri('dashboard/index');
 
-        $this->assertEquals(200, $result->getCode());
+        $this->assertEquals(200, $result->getStatusCode());
     }
 }
