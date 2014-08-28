@@ -29,6 +29,6 @@ class IndexTest extends ControllerTestCase
 
         $this->assertModule('error');
         $this->assertController('index');
-        $this->assertEquals($response->getCode(), 404);
+        $this->assertEquals($response->getStatusCode(), 404);
     }
 }

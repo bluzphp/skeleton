@@ -78,6 +78,25 @@ class CliBootstrap extends Application
         return $this->response;
     }
 
+
+    /**
+     * Render, is send Response
+     *
+     * @return void
+     */
+    public function render()
+    {
+        $this->log('app:render');
+
+        // setup messages
+        if ($this->hasMessages()) {
+            $messages = (array) app()->getMessages()->popAll();
+            $this->getResponse()->addHeaders($messages);
+        }
+
+        $this->getResponse()->send();
+    }
+
     /**
      * @return Application
      */

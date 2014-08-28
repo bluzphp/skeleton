@@ -21,8 +21,11 @@ function () {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
+
     // change layout
-    $this->useLayout('small.phtml');
+    if (!$this->getRequest()->isXmlHttpRequest()) {
+        $this->useLayout('small.phtml');
+    }
 
     $crudController = new Controller\Crud();
     $crudController->setCrud(Users\Crud::getInstance());
