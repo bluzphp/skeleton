@@ -24,8 +24,8 @@ foreach ($folders as $folder) {
     if (chmod($root . $folder, 0777)) {
         echo 'Set permissions on .' . $folder . PHP_EOL;
     }
-
 }
+
 unset($folder);
 echo 'Copy configuration' . PHP_EOL;
 if (copy($root . '/application/configs/app.dev.sample.php', $root . '/application/configs/app.dev.php')) {

@@ -12,41 +12,48 @@ if (PHP_SAPI !== 'cli') {
 
 // Get CLI arguments
 $arguments = getopt(
-    "",
+    "u:e::dlh",
     [
         "uri:",  // required
         "env::", // optional
         "debug", // just flag
-        "log",   // just flag too
         "help"   // display help
     ]
 );
 
 // Check help
-if (array_key_exists('help', $arguments)) {
+if (array_key_exists('h', $arguments) || array_key_exists('help', $arguments)) {
     echo "Option `--uri` is required, it's similar to browser query\n";
-    echo "Use `--env` option for setup applicaiton environment\n";
+    echo "Use `--env` option for setup application environment\n";
     echo "Use `--debug` flag for receive more information\n";
-    echo "Use `--log` flag for save information about errors in files\n";
+    echo "Example:\n";
+    echo "\tphp ./bin/cli.php --uri '/index/index/?foo=bar'\n";
+    echo "\tphp ./bin/cli.php --uri '/index/index/?foo=bar' --env='dev' --debug\n";
+    echo "Example of short syntax:\n";
+    echo "\tphp ./bin/cli.php -u '/index/index/?foo=bar'\n";
+    echo "\tphp ./bin/cli.php -u '/index/index/?foo=bar' -e='dev' -d\n";
     exit();
 }
+
 // Check URI option
-if (!array_key_exists('uri', $arguments)) {
-    echo "\033[41m\033[1;37mOption `--uri` is required\033[m\033m\n";
+if (!array_key_exists('u', $arguments) && !array_key_exists('uri', $arguments)) {
+    echo "Option `--uri` is required\n";
+    echo "Use `--help` flag for show help notices\n";
     exit();
 }
 
 // Check and setup environment
-if (array_key_exists('env', $arguments)) {
-    putenv('BLUZ_ENV='.$arguments['env']);
+if (array_key_exists('e', $arguments) || array_key_exists('env', $arguments)) {
+    putenv('BLUZ_ENV='. (isset($arguments['e'])?$arguments['e']:$arguments['env']));
 }
+
 // Check and setup log save
-if (array_key_exists('log', $arguments)) {
+if (array_key_exists('l', $arguments) || array_key_exists('log', $arguments)) {
     putenv('BLUZ_LOG=1');
 }
 
 // Debug mode for development environment only
-if (array_key_exists('debug', $arguments)) {
+if (array_key_exists('d', $arguments) || array_key_exists('debug', $arguments)) {
     putenv('BLUZ_DEBUG=1');
 }
 
@@ -57,9 +64,9 @@ function errorDisplay() {
         || !in_array($e['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR))) {
         return;
     }
-    echo "\033[41m\033[1;37mApplication Error\033[m\033m\n";
+    echo "Application Error\n";
     if (defined('DEBUG') && DEBUG && isset($e)) {
-        echo "\033[1;37m".$e['message']."\033[m\n";
+        echo $e['message']."\n";
         echo $e['file'] ."#". $e['line'] ."\n";
     }
 }
@@ -89,9 +96,9 @@ try {
     $app->render();
     $app->finish();
 } catch (Exception $e) {
-    echo "\033[41m\033[1;37mApplication Exception\033[m\033m\n";
+    echo "Application Exception\n";
     if (defined('DEBUG') && DEBUG && isset($e)) {
-        echo "\033[1;37m".strip_tags($e->getMessage())."\033[m\n\n";
+        echo strip_tags($e->getMessage())."\n\n";
         echo "# --- \n";
         echo $e->getTraceAsString()."\n";
         echo "# --- \n";
