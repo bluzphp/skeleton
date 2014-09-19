@@ -49,7 +49,7 @@ if (!headers_sent()) {
 <section>
     <h1>Error 503</h1>
     <h2>Server Temporarily Unavailable</h2>
-    <?php if (defined('DEBUG') && DEBUG && isset($e)) : ?>
+    <?php if (getenv('BLUZ_DEBUG') && isset($e)) : ?>
         <?php if (is_array($e)) : ?>
             <p><?=$e['message']?></p>
             <pre><?=$e['file'].'#'.$e['line']?></pre>

@@ -11,6 +11,7 @@
  */
 namespace Application;
 
+use Bluz\Config\ConfigException;
 use Bluz\Http\File;
 
 return
@@ -46,10 +47,11 @@ function () {
         //     %userId%/
         //       %module%/
         //         filename.ext
-        $path = $this->getConfigData('upload_dir', 'path');
+        $path = $this->getConfig()->getModuleData('media', 'upload_path');
         if (empty($path)) {
-            throw new Exception('Upload path is not configured');
+            throw new ConfigException('Upload path is not configured');
         }
+
         $file->moveTo($path.'/'.$userId.'/media');
 
         // save media data

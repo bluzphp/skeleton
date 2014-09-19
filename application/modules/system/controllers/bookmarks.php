@@ -30,6 +30,6 @@ function () use ($view) {
         ]
     );
 
-    $key = defined('DEBUG_KEY') ? DEBUG_KEY : 'BLUZ_DEBUG';
+    $key = getenv('BLUZ_DEBUG_KEY') ?: 'BLUZ_DEBUG';
     return ['key' => $key];
 };
