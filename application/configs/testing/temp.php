@@ -5,5 +5,5 @@
  * @return array
  */
 return array(
-    "path" => PATH_ROOT."/tests/Fixtures/Media/test.jpg"
+    "path" => PATH_ROOT."/tests/files/test.jpg"
 );

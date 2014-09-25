@@ -10,7 +10,7 @@
 namespace Application\Tests\Media;
 
 use Application\Tests\ControllerTestCase;
-use Application\Tests\Utils;
+use Application\Tests\Tools;
 use Bluz\Http;
 use Application\Exception;
 use Application\Tests\Fixtures\Media\TestFileUpload;
@@ -41,7 +41,7 @@ class CrudTest extends ControllerTestCase
     {
         BootstrapTest::getInstance()->getDb()->delete('media')->where('userId', [1])->execute();
         $path = app()->getConfig()->getModuleData('media', 'upload_path').'/1';
-        Utils\Cleaner::delete($path);
+        Tools\Cleaner::delete($path);
     }
 
     /**
@@ -71,7 +71,7 @@ class CrudTest extends ControllerTestCase
         $_FILES = array(
             'file' => array(
                 'name' => 'test.jpg',
-                'size' => filesize(PATH_ROOT.'/tests/Fixtures/Media/test.jpg'),
+                'size' => filesize($path),
                 'type' => 'image/jpeg',
                 'tmp_name' => $path,
                 'error' => 0

@@ -7,7 +7,7 @@
 /**
  * @namespace
  */
-namespace Application\Tests\Utils;
+namespace Application\Tests\Tools;
 
 /**
  * Utils

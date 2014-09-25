@@ -108,7 +108,12 @@ class Row extends AbstractRowEntity
                 throw new AuthException("Your account is disabled by administrator", 403);
             case (Table::STATUS_ACTIVE):
                 // all ok
+                // regenerate session
+                app()->getSession()->regenerateId();
+                // save user to new session
                 app()->getAuth()->setIdentity($this);
+                // generate form token
+                app()->getSession()->token = md5(uniqid(mt_rand(), true));
                 break;
             default:
                 throw new Exception("User status is undefined in system");

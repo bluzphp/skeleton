@@ -9,7 +9,7 @@ return array(
     "enabled" => false,
     "adapter" => "memcached",
     "prefix" => "bluz:",
-    "tagPrefix" => "bluz:",
+    "tagPrefix" => "bluz:@:",
     "settings" => array(
         "apc" => array(),
         /**

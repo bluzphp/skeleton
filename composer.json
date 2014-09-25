@@ -25,7 +25,7 @@
         },
         "psr-4": {
             "Application\\": "application/models",
-            "Application\\Tests\\": "tests"
+            "Application\\Tests\\": "tests/library"
         },
         "files": [
             "application/_functions.php",

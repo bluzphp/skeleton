@@ -9,8 +9,8 @@
  * @author   Anton Shevchuk
  * @created  19.09.2014 12:45
  *
- * @link     https://github.com/bluzphp/skeleton/wiki/Module-Media
  * @readonly
+ * @link     https://github.com/bluzphp/skeleton/wiki/Module-Media
  * @return   array
  */
 return array(
