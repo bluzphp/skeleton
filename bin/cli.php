@@ -65,7 +65,7 @@ function errorDisplay() {
         return;
     }
     echo "Application Error\n";
-    if (defined('DEBUG') && DEBUG && isset($e)) {
+    if (getenv('BLUZ_DEBUG') && isset($e)) {
         echo $e['message']."\n";
         echo $e['file'] ."#". $e['line'] ."\n";
     }
@@ -97,7 +97,7 @@ try {
     $app->finish();
 } catch (Exception $e) {
     echo "Application Exception\n";
-    if (defined('DEBUG') && DEBUG && isset($e)) {
+    if (getenv('BLUZ_DEBUG')) {
         echo strip_tags($e->getMessage())."\n\n";
         echo "# --- \n";
         echo $e->getTraceAsString()."\n";

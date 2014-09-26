@@ -108,6 +108,9 @@ class Row extends AbstractRowEntity
                 throw new AuthException("Your account is disabled by administrator", 403);
             case (Table::STATUS_ACTIVE):
                 // all ok
+                // regenerate session
+                app()->getSession()->regenerateId();
+                // save user to new session
                 app()->getAuth()->setIdentity($this);
                 break;
             default:

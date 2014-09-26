@@ -17,8 +17,8 @@ if (PHP_SAPI === 'cli') {
  * use bookmarklets for enable it
  * @link https://github.com/bluzphp/skeleton/wiki/Module-System
  */
-define('DEBUG_KEY', getenv('BLUZ_DEBUG_KEY') ?: 'BLUZ_DEBUG');
-if (isset($_COOKIE[DEBUG_KEY])) {
+$debugKey = getenv('BLUZ_DEBUG_KEY') ?: 'BLUZ_DEBUG';
+if (isset($_COOKIE[$debugKey])) {
     putenv('BLUZ_DEBUG=1');
 }
 

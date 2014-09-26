@@ -10,7 +10,7 @@
 namespace Application\Tests\Media;
 
 use Application\Tests\ControllerTestCase;
-use Application\Tests\Utils;
+use Application\Tests\Tools;
 use Bluz\Http;
 use Application\Exception;
 use Application\Tests\Fixtures\Media\TestFileUpload;
@@ -40,8 +40,8 @@ class CrudTest extends ControllerTestCase
     public static function tearDownAfterClass()
     {
         BootstrapTest::getInstance()->getDb()->delete('media')->where('userId', [1])->execute();
-        $path = app()->getConfigData('upload_dir', 'path').'/1';
-        Utils\Cleaner::delete($path);
+        $path = app()->getConfig()->getModuleData('media', 'upload_path').'/1';
+        Tools\Cleaner::delete($path);
     }
 
     /**
@@ -53,7 +53,7 @@ class CrudTest extends ControllerTestCase
     {
         parent::setUp();
         $this->getApp()->useLayout(false);
-        $this->getApp()->getConfig('testing')->load('testing');
+        $this->getApp()->getConfig('testing')->init('testing');
         $this->getApp()->getAuth()->setIdentity(new UserHasPermission(UserFixtureContainer::$fixture));
     }
 
@@ -63,7 +63,7 @@ class CrudTest extends ControllerTestCase
     public function testUploadFile()
     {
         // get path from config
-        $path = $this->getApp()->getConfigData('tmp_name', 'path');
+        $path = $this->getApp()->getConfigData('temp', 'path');
         if (empty($path)) {
             throw new Exception('Temporary path is not configured');
         }
@@ -71,7 +71,7 @@ class CrudTest extends ControllerTestCase
         $_FILES = array(
             'file' => array(
                 'name' => 'test.jpg',
-                'size' => filesize(PATH_ROOT.'/tests/Fixtures/Media/test.jpg'),
+                'size' => filesize($path),
                 'type' => 'image/jpeg',
                 'tmp_name' => $path,
                 'error' => 0

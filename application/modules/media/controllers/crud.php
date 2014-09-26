@@ -24,7 +24,7 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getSession()->getStore()->start();
+    $this->getSession()->start();
 
     $this->useLayout('dashboard.phtml');
     $this->getLayout()->breadCrumbs(
@@ -42,7 +42,7 @@ function () use ($view) {
 
     $crud = Media\Crud::getInstance();
     // get path from config
-    $path = $this->getConfigData('upload_dir', 'path');
+    $path = $this->getConfig()->getModuleData('media', 'upload_path');
     if (empty($path)) {
         throw new Exception('Upload path is not configured');
     }
