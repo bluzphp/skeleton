@@ -112,8 +112,6 @@ class Row extends AbstractRowEntity
                 app()->getSession()->regenerateId();
                 // save user to new session
                 app()->getAuth()->setIdentity($this);
-                // generate form token
-                app()->getSession()->token = md5(uniqid(mt_rand(), true));
                 break;
             default:
                 throw new Exception("User status is undefined in system");
