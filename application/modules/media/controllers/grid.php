@@ -10,6 +10,9 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Layout;
+use Bluz\Proxy\Request;
+
 return
 /**
  * @privilege Management
@@ -20,8 +23,8 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs(
+    Layout::setTemplate('dashboard.phtml');
+    Layout::breadCrumbs(
         [
             $view->ahref('Dashboard', ['dashboard', 'index']),
             __('Media')
@@ -29,13 +32,12 @@ function () use ($view) {
     );
     $grid = new Media\Grid();
 
-    $request = $this->getRequest();
-    $countCol = $request->getParam('countCol');
+    $countCol = Request::getParam('countCol');
 
     if ($countCol <> null) {
         setcookie("countCol", $countCol, time() + 3600, '/');
     } else {
-        $countCol = $request->getCookie('countCol', 4);
+        $countCol = Request::getCookie('countCol', 4);
     }
 
     $lnCol = (integer)(12 / $countCol);

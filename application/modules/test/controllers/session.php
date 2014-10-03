@@ -8,7 +8,8 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Proxy\Layout;
+use Bluz\Proxy\Session;
 
 return
 /**
@@ -20,24 +21,24 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
             'Session',
         ]
     );
-    $this->getLayout()->title("Test/Index");
+    Layout::title("Test/Index");
 
-    $this->getSession()->test = $this->getSession()->test ?: 'Session time: '.date("H:i:s");
+    Session::set('test', Session::get('test') ?: 'Session time: '.date("H:i:s"));
 
-    $view->title = $this->getLayout()->title();
-    $view->session = $this->getSession()->test;
+    $view->title = Layout::title();
+    $view->session = Session::get('test');
 
     //    if ($identity = $app->user()) {
     //        var_dump($acl->isAllowed('index/index', $identity['sid']));
     //        var_dump($acl->isAllowed('index/test', $identity['sid']));
     //        var_dump($acl->isAllowed('index/error', $identity['sid']));
     //    } else {
-    //        $app->getAuth()->authenticate('admin', '123456');
+    //        Auth::authenticate('admin', '123456');
     //    }
 };

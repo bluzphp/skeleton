@@ -7,8 +7,8 @@
  */
 namespace Application;
 
-use Bluz;
 use Application\Options;
+use Bluz\Proxy\Layout;
 
 return
 /**
@@ -19,7 +19,7 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
             'Options',

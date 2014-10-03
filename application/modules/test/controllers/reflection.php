@@ -9,6 +9,8 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Layout;
+
 return
 /**
  * @key Example of custom key-value
@@ -21,7 +23,7 @@ function ($id = 0, $other = "default value") use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
             'Reflection of this controller',

@@ -91,8 +91,8 @@ try {
      * @var \Application\CliBootstrap $app
      */
     $app = \Application\CliBootstrap::getInstance();
-    $app->init($env)
-        ->process();
+    $app->init($env);
+    $app->process();
     $app->render();
     $app->finish();
 } catch (Exception $e) {

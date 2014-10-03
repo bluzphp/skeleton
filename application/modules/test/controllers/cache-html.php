@@ -1,21 +1,23 @@
 <?php
 /**
- * Test AJAX
+ * Test Cache
  *
  * @author   Anton Shevchuk
- * @created  26.09.11 17:41
+ * @created  08.06.12 12:21
  * @return closure
  */
 namespace Application;
 
 return
 /**
+ * @cache-html 2
+ * @param int $a
  * @return \closure
  */
-function () use ($view) {
+function ($a = 0) use ($view) {
     /**
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $view->time = date('H:i:s');
+    $view->current = 'Time is '. date('H:i:s') . ' and $a = `'. $a .'`';
 };

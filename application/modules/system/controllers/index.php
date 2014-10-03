@@ -5,7 +5,7 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Proxy\Layout;
 
 return
 /**
@@ -18,9 +18,9 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $view->title('System Module');
-    $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs(
+    Layout::title('System Module');
+    Layout::setTemplate('dashboard.phtml');
+    Layout::breadCrumbs(
         [
             $view->ahref('Dashboard', ['dashboard', 'index']),
             __('System'),

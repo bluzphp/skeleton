@@ -9,8 +9,9 @@
  */
 namespace Application\Privileges;
 
-use Bluz\Cache\Cache;
 use Application\Roles;
+use Bluz\Proxy\Cache;
+use Bluz\Proxy\Db;
 
 /**
  * Table
@@ -72,7 +73,7 @@ class Table extends \Bluz\Db\Table
         // for update
         /*
         $cacheKey = 'privileges:user:'.$userId;
-        if (!$data = app()->getCache()->get($cacheKey)) {
+        if (!$data = Cache::get($cacheKey)) {
             $data = Db::getDefaultAdapter()->fetchColumn(
                 "SELECT DISTINCT r.id, CONCAT(p.module, ':', p.privilege)
                 FROM acl_privileges AS p, acl_roles AS r, acl_users_roles AS u2r
@@ -81,9 +82,9 @@ class Table extends \Bluz\Db\Table
                 array((int) $userId)
             );
 
-            app()->getCache()->set($cacheKey, $data, Cache::TTL_NO_EXPIRY);
-            app()->getCache()->addTag($cacheKey, 'privileges');
-            app()->getCache()->addTag($cacheKey, 'user:'.$userId);
+            Cache::set($cacheKey, $data, Cache::TTL_NO_EXPIRY);
+            Cache::addTag($cacheKey, 'privileges');
+            Cache::addTag($cacheKey, 'user:'.$userId);
         }
         return $data;
         */
@@ -99,8 +100,8 @@ class Table extends \Bluz\Db\Table
     {
         $cacheKey = 'privileges:role:'.$roleId;
 
-        if (!$data = app()->getCache()->get($cacheKey)) {
-            $data = app()->getDb()->fetchColumn(
+        if (!$data = Cache::get($cacheKey)) {
+            $data = Db::fetchColumn(
                 "SELECT DISTINCT CONCAT(p.module, ':', p.privilege)
                 FROM acl_privileges AS p, acl_roles AS r
                 WHERE p.roleId = r.id AND r.id = ?
@@ -108,8 +109,8 @@ class Table extends \Bluz\Db\Table
                 array((int) $roleId)
             );
 
-            app()->getCache()->set($cacheKey, $data, Cache::TTL_NO_EXPIRY);
-            app()->getCache()->addTag($cacheKey, 'privileges');
+            Cache::set($cacheKey, $data, Cache::TTL_NO_EXPIRY);
+            Cache::addTag($cacheKey, 'privileges');
         }
         return $data;
     }

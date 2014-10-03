@@ -10,6 +10,7 @@
 namespace Application\Tests\Users;
 
 use Application\Tests\ControllerTestCase;
+use Bluz\Proxy\Auth;
 
 /**
  * @package Application\Tests\Users
@@ -31,7 +32,7 @@ class SigninTest extends ControllerTestCase
 
         $this->assertModule('users');
         $this->assertController('signin');
-        $this->assertNull($this->getApp()->getAuth()->getIdentity());
+        $this->assertNull(Auth::getIdentity());
     }
 
     /**
@@ -47,6 +48,6 @@ class SigninTest extends ControllerTestCase
 
         $this->assertModule('users');
         $this->assertController('signin');
-        $this->assertNotNull($this->getApp()->getAuth()->getIdentity());
+        $this->assertNotNull(Auth::getIdentity());
     }
 }

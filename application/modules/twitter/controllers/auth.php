@@ -7,6 +7,8 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Router;
 use Guzzle\Common\Exception\GuzzleException;
 use Twitter\Client;
 
@@ -22,7 +24,7 @@ function () {
      * @var string $callbackUrl
      */
     $config = $this->getConfigData('auth', 'twitter');
-    $callbackUrl = $this->getRouter()->getFullUrl('twitter', 'callback');
+    $callbackUrl = Router::getFullUrl('twitter', 'callback');
 
     /**
      * Create new Twitter\Client
@@ -37,6 +39,6 @@ function () {
         $token = $twitterAuth->getOauthRequestToken($callbackUrl);
         $this->redirect('https://api.twitter.com/oauth/authenticate?oauth_token='.$token);
     } catch (GuzzleException $e) {
-        $this->getMessages()->addError($e->getMessage());
+        Messages::addError($e->getMessage());
     }
 };

@@ -5,6 +5,8 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Router;
+
 return
 /**
  * @return \closure
@@ -14,6 +16,6 @@ function () {
      * @var Bootstrap $this
      */
     ?>
-    <a href="<?=$this->getRouter()->url('twitter', 'auth')?>" class="btn fa fa-twitter-square fa-2x"></a>
+    <a href="<?=Router::getUrl('twitter', 'auth')?>" class="btn fa fa-twitter-square fa-2x"></a>
     <?php
 };

@@ -28,6 +28,13 @@ namespace Application;
 
 use Bluz\Application\Application;
 use Bluz\Application\Exception\ForbiddenException;
+use Bluz\Proxy\EventManager;
+use Bluz\Proxy\Layout;
+use Bluz\Proxy\Logger;
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Response;
+use Bluz\Proxy\Request;
+use Bluz\Proxy\Session;
 
 /**
  * Bootstrap
@@ -44,37 +51,34 @@ class Bootstrap extends Application
      * initial environment
      *
      * @param string $environment
-     * @return self
+     * @return void
      */
     public function init($environment = 'production')
     {
-        $res = parent::init($environment);
+        parent::init($environment);
 
         // dispatch hook for acl realization
-        $this->getEventManager()->attach(
+        EventManager::attach(
             'dispatch',
             function ($event) {
                 /* @var \Bluz\EventManager\Event $event */
                 $eventParams = $event->getParams();
-                $this->log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['controller']);
+                Logger::info('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['controller']);
             }
         );
 
         // widget hook for acl realization
-        $this->getEventManager()->attach(
+        EventManager::attach(
             'widget',
             function ($event) {
                 /* @var \Bluz\EventManager\Event $event */
                 $eventParams = $event->getParams();
-                $this->log('bootstrap:widget: '.$eventParams['module'].'/'.$eventParams['widget']);
+                Logger::info('bootstrap:widget: '.$eventParams['module'].'/'.$eventParams['widget']);
             }
         );
 
-
         // example of setup Layout
-        $this->getLayout()->title("Bluz Skeleton");
-
-        return $res;
+        Layout::title("Bluz Skeleton");
     }
 
     /**
@@ -86,13 +90,13 @@ class Bootstrap extends Application
     public function denied()
     {
         // process AJAX request
-        if (!$this->getRequest()->isXmlHttpRequest()) {
-            $this->getMessages()->addError('You don\'t have permissions, please sign in');
+        if (!Request::isXmlHttpRequest()) {
+            Messages::addError('You don\'t have permissions, please sign in');
         }
         // redirect to login page
         if (!$this->user()) {
             // save URL to session
-            $this->getSession()->rollback = $this->getRequest()->getRequestUri();
+            Session::set('rollback', Request::getRequestUri());
             $this->redirectTo('users', 'signin');
         }
         throw new ForbiddenException();
@@ -111,13 +115,13 @@ class Bootstrap extends Application
                 microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
                 ceil((memory_get_usage()/1024))
             );
-            $debugString .= '; '.$this->getRequest()->getModule() .'/'. $this->getRequest()->getController();
+            $debugString .= '; '.Request::getModule() .'/'. Request::getController();
 
-            $this->getResponse()->setHeader('Bluz-Debug', $debugString);
+            Response::setHeader('Bluz-Debug', $debugString);
 
-            $debugBar = json_encode($this->getLogger()->get('info'));
+            $debugBar = json_encode(Logger::get('info'));
 
-            $this->getResponse()->setHeader('Bluz-Bar', $debugBar);
+            Response::setHeader('Bluz-Bar', $debugBar);
         }
         parent::render();
     }
@@ -127,7 +131,7 @@ class Bootstrap extends Application
      */
     public function finish()
     {
-        if ($messages = $this->getLogger()->get('error')) {
+        if ($messages = Logger::get('error')) {
             errorLog(join("\n", $messages)."\n");
         }
         return $this;

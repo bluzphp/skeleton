@@ -10,6 +10,7 @@
 namespace Application\Tests\Error;
 
 use Application\Tests\ControllerTestCase;
+use Bluz\Proxy\Response;
 
 /**
  * @package Application\Tests\Error
@@ -25,10 +26,10 @@ class IndexTest extends ControllerTestCase
      */
     public function testNotFoundError404()
     {
-        $response = $this->dispatchUri(uniqid('module'). '/'. uniqid('controller'));
+        $this->dispatchUri(uniqid('module'). '/'. uniqid('controller'));
 
         $this->assertModule('error');
         $this->assertController('index');
-        $this->assertEquals($response->getStatusCode(), 404);
+        $this->assertEquals(Response::getStatusCode(), 404);
     }
 }

@@ -7,25 +7,23 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Proxy\Layout;
 
-/**
- * @privilege Info
- *
- * @return \closure
- */
 return
 /**
  * List of custom routers
+ * @privilege Info
+ *
+ * @return \closure
  */
 function () use ($view) {
     /**
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $view->title('Routers Map');
-    $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs(
+    Layout::title('Routers Map');
+    Layout::setTemplate('dashboard.phtml');
+    Layout::breadCrumbs(
         [
             $view->ahref('Dashboard', ['dashboard', 'index']),
             $view->ahref('System', ['system', 'index']),

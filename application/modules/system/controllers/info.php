@@ -7,7 +7,7 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Proxy\Layout;
 
 return
 /**
@@ -20,9 +20,9 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $view->title('PHP Info');
-    $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs(
+    Layout::title('PHP Info');
+    Layout::setTemplate('dashboard.phtml');
+    Layout::breadCrumbs(
         [
             $view->ahref('Dashboard', ['dashboard', 'index']),
             $view->ahref('System', ['system', 'index']),

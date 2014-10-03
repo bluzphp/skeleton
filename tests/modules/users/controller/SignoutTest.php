@@ -11,6 +11,7 @@ namespace Application\Tests\Users;
 
 use Application\Tests\ControllerTestCase;
 use Application\Users\Row;
+use Bluz\Proxy\Auth;
 
 /**
  * @package Application\Tests\Users
@@ -28,7 +29,7 @@ class SignoutTest extends ControllerTestCase
     {
         parent::setUp();
 
-        $this->getApp()->getAuth()->setIdentity(new Row());
+        Auth::setIdentity(new Row());
     }
 
     /**
@@ -36,12 +37,12 @@ class SignoutTest extends ControllerTestCase
      */
     public function testSignOut()
     {
-        $this->assertNotNull($this->getApp()->getAuth()->getIdentity());
+        $this->assertNotNull(Auth::getIdentity());
 
         $this->dispatchUri('users/signout');
 
         $this->assertModule('users');
         $this->assertController('signout');
-        $this->assertNull($this->getApp()->getAuth()->getIdentity());
+        $this->assertNull(Auth::getIdentity());
     }
 }

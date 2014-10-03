@@ -14,6 +14,7 @@ use Application\Users;
 use Bluz\Application;
 use Bluz\Auth\AbstractTable;
 use Bluz\Auth\AuthException;
+use Bluz\Proxy\Auth;
 
 /**
  * Auth Table
@@ -128,7 +129,7 @@ class Table extends AbstractTable
     protected function callEncryptFunction($password, $secret)
     {
         /** @var \Bluz\Auth\Auth $auth */
-        $auth = app()->getAuth();
+        $auth = Auth::getInstance();
         $options = $auth->getOption(self::PROVIDER_EQUALS);
 
         if (!isset($options['encryptFunction']) or

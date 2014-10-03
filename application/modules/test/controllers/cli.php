@@ -7,7 +7,7 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Proxy\Messages;
 
 return
 /**
@@ -20,10 +20,10 @@ function ($flag = false) use ($view) {
      * @var \Bluz\View\View $view
      */
     if ($flag) {
-        $this->getMessages()->addNotice('Notice Text');
-        $this->getMessages()->addSuccess('Success Text');
-        $this->getMessages()->addError('Error Text');
-        $this->getMessages()->addError('Another Error Text');
+        Messages::addNotice('Notice Text');
+        Messages::addSuccess('Success Text');
+        Messages::addError('Error Text');
+        Messages::addError('Another Error Text');
     }
     $view->string = 'bar';
     $view->array = ['some', 'array'];

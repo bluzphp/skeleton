@@ -9,8 +9,7 @@
  */
 namespace Application\Roles;
 
-use Bluz\Cache\Cache;
-use Bluz\Db\Db;
+use Bluz\Proxy\Cache;
 
 /**
  * Class Table
@@ -26,6 +25,7 @@ class Table extends \Bluz\Db\Table
     const BASIC_GUEST = 'guest';
     const BASIC_MEMBER = 'member';
     const BASIC_ADMIN = 'admin';
+
     /**
      * Table
      *
@@ -90,17 +90,17 @@ class Table extends \Bluz\Db\Table
     public function getUserRolesIdentity($userId)
     {
         $cacheKey = 'roles:user:'.$userId;
-        if (!$data = app()->getCache()->get($cacheKey)) {
-            $data = Db::getDefaultAdapter()->fetchColumn(
+        if (!$data = Cache::get($cacheKey)) {
+            $data = $this->getAdapter()->fetchColumn(
                 "SELECT r.id
                 FROM acl_roles AS r, acl_users_roles AS u2r
                 WHERE r.id = u2r.roleId AND u2r.userId = ?
                 ORDER BY r.id ASC",
                 array($userId)
             );
-            app()->getCache()->set($cacheKey, $data, Cache::TTL_NO_EXPIRY);
-            app()->getCache()->addTag($cacheKey, 'roles');
-            app()->getCache()->addTag($cacheKey, 'user:'.$userId);
+            Cache::set($cacheKey, $data, Cache::TTL_NO_EXPIRY);
+            Cache::addTag($cacheKey, 'roles');
+            Cache::addTag($cacheKey, 'user:'.$userId);
         }
         return $data;
     }

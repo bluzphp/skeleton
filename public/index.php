@@ -66,8 +66,8 @@ try {
      * @var \Application\Bootstrap $app
      */
     $app = \Application\Bootstrap::getInstance();
-    $app->init($env)
-        ->process();
+    $app->init($env);
+    $app->process();
     $app->render();
     $app->finish();
 } catch (Exception $e) {

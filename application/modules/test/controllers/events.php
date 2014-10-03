@@ -8,8 +8,9 @@
  */
 namespace Application;
 
-use Bluz;
 use Bluz\EventManager\Event;
+use Bluz\Proxy\EventManager;
+use Bluz\Proxy\Layout;
 
 return
 /**
@@ -20,42 +21,42 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
             'Events',
         ]
     );
 
-    $this->getEventManager()
-        ->attach(
-            'testevent',
-            function (Event $event) {
-                return $event->getTarget()*2;
-            }
-        )
-        ->attach(
+    EventManager::attach(
             'testevent',
             function (Event $event) {
                 return $event->getTarget()*2;
             }
         );
 
-    $this->getEventManager()->attach(
+    EventManager::attach(
+            'testevent',
+            function (Event $event) {
+                return $event->getTarget()*2;
+            }
+        );
+
+    EventManager::attach(
         'testspace:event',
         function (Event $event) {
             return $event->getTarget()+4;
         }
     );
 
-    $this->getEventManager()->attach(
+    EventManager::attach(
         'testspace:event',
         function (Event $event) {
             return $event->getTarget()+2;
         }
     );
 
-    $this->getEventManager()->attach(
+    EventManager::attach(
         'testspace:event2',
         function (Event $event) {
             $event->setTarget($event->getTarget()+5);
@@ -63,21 +64,21 @@ function () use ($view) {
         }
     );
 
-    $this->getEventManager()->attach(
+    EventManager::attach(
         'testspace:event2',
         function (Event $event) {
             echo "Never run". $event->getName();
         }
     );
 
-    $this->getEventManager()->attach(
+    EventManager::attach(
         'testspace',
         function (Event $event) {
             return $event->getTarget()+1;
         }
     );
 
-    $view->res1 = $this->getEventManager()->trigger('testevent', 1);
-    $view->res2 = $this->getEventManager()->trigger('testspace:event', 1);
-    $view->res3 = $this->getEventManager()->trigger('testspace:event2', 1);
+    $view->res1 = EventManager::trigger('testevent', 1);
+    $view->res2 = EventManager::trigger('testspace:event', 1);
+    $view->res3 = EventManager::trigger('testspace:event2', 1);
 };

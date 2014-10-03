@@ -10,6 +10,7 @@
 namespace Application\Media;
 
 use Application\Exception;
+use Bluz\Proxy\Request;
 
 /**
  * Class Crud of Media
@@ -38,7 +39,7 @@ class Crud extends \Bluz\Crud\Table
          * Process HTTP File
          * @var \Bluz\Http\File $file
          */
-        $file = app()->getRequest()->getFileUpload()->getFile('file');
+        $file = Request::getFileUpload()->getFile('file');
 
         if (!$file or $file->getErrorCode() != UPLOAD_ERR_OK) {
             if ($file->getErrorCode() == UPLOAD_ERR_NO_FILE) {

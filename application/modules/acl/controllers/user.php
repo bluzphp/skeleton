@@ -9,6 +9,11 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Cache;
+use Bluz\Proxy\Db;
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Request;
+
 return
 /**
  * @privilege Edit
@@ -20,32 +25,30 @@ function ($id) use ($view) {
     /**
      * @var Bootstrap $this
      */
-    $request = $this->getRequest();
     $user = Users\Table::findRow($id);
 
     if (!$user) {
         throw new Exception('User ID is incorrect');
     }
 
-    if ($request->isPost()) {
-        $roles = $request->getParam('roles');
+    if (Request::isPost()) {
+        $roles = Request::getParam('roles');
 
         // update roles
-        $this->getDb()->delete('acl_users_roles')
+        Db::delete('acl_users_roles')
             ->where('userId = ?', $user->id)
             ->execute();
 
         foreach ($roles as $role) {
-            $this->getDb()->insert('acl_users_roles')
+            Db::insert('acl_users_roles')
                 ->set('userId', $user->id)
                 ->set('roleId', $role)
                 ->execute();
         }
 
         // clean cache
-        $this->getCache()->delete('user:'.$user->id);
-
-        $this->getMessages()->addSuccess('User roles was updated');
+        Cache::delete('user:'.$user->id);
+        Messages::addSuccess('User roles was updated');
     }
 
     /* @var $view \Bluz\View\View */

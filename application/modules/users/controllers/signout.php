@@ -8,7 +8,8 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Proxy\Auth;
+use Bluz\Proxy\Messages;
 
 return
 /**
@@ -19,7 +20,7 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getAuth()->clearIdentity();
-    $this->getMessages()->addNotice('You are signout');
+    Auth::clearIdentity();
+    Messages::addNotice('You are signout');
     $this->redirectTo('index', 'index');
 };

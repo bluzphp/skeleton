@@ -9,9 +9,10 @@
  */
 namespace Application\Tests\Test;
 
-use Application\Tests\BootstrapTest;
 use Application\Tests\ControllerTestCase;
 use Bluz\Http;
+use Bluz\Proxy\Db;
+use Bluz\Proxy\Response;
 
 /**
  * @package  Application\Tests\Test
@@ -25,7 +26,7 @@ class CrudTest extends ControllerTestCase
      */
     public static function setUpBeforeClass()
     {
-        BootstrapTest::getInstance()->getDb()->insert('test')->setArray(
+        Db::insert('test')->setArray(
             [
                 'id' => 1,
                 'name' => 'Donatello',
@@ -33,7 +34,7 @@ class CrudTest extends ControllerTestCase
             ]
         )->execute();
 
-        BootstrapTest::getInstance()->getDb()->insert('test')->setArray(
+        Db::insert('test')->setArray(
             [
                 'id' => 2,
                 'name' => 'Leonardo',
@@ -41,7 +42,7 @@ class CrudTest extends ControllerTestCase
             ]
         )->execute();
 
-        BootstrapTest::getInstance()->getDb()->insert('test')->setArray(
+        Db::insert('test')->setArray(
             [
                 'id' => 3,
                 'name' => 'Michelangelo',
@@ -49,7 +50,7 @@ class CrudTest extends ControllerTestCase
             ]
         )->execute();
 
-        BootstrapTest::getInstance()->getDb()->insert('test')->setArray(
+        Db::insert('test')->setArray(
             [
                 'id' => 4,
                 'name' => 'Raphael',
@@ -63,8 +64,8 @@ class CrudTest extends ControllerTestCase
      */
     public static function tearDownAfterClass()
     {
-        BootstrapTest::getInstance()->getDb()->delete('test')->where('id IN (?)', [1,2,3,4])->execute();
-        BootstrapTest::getInstance()->getDb()->delete('test')->where('email = ?', 'splinter@turtles.org')->execute();
+        Db::delete('test')->where('id IN (?)', [1,2,3,4])->execute();
+        Db::delete('test')->where('email = ?', 'splinter@turtles.org')->execute();
     }
 
     /**
@@ -121,7 +122,7 @@ class CrudTest extends ControllerTestCase
         );
         $this->assertOk();
 
-        $count = $this->getApp()->getDb()->fetchOne(
+        $count = Db::fetchOne(
             'SELECT count(*) FROM `test` WHERE `name` = ?',
             ['Splinter']
         );
@@ -133,14 +134,14 @@ class CrudTest extends ControllerTestCase
      */
     public function testCreateValidationErrors()
     {
-        $response = $this->dispatchRouter(
+        $this->dispatchRouter(
             '/test/crud/',
             ['name' => '', 'email' => ''],
             Http\Request::METHOD_POST
         );
 
-        $this->assertNotNull($response->getBody()->errors);
-        $this->assertEquals(sizeof($response->getBody()->errors), 2);
+        $this->assertNotNull(Response::getBody()->errors);
+        $this->assertEquals(sizeof(Response::getBody()->errors), 2);
         $this->assertOk();
     }
 
@@ -157,7 +158,7 @@ class CrudTest extends ControllerTestCase
         ;
         $this->assertOk();
 
-        $id = $this->getApp()->getDb()->fetchOne(
+        $id = Db::fetchOne(
             'SELECT `id` FROM `test` WHERE `email` = ?',
             ['leonardo@turtles.ua']
         );
@@ -169,14 +170,14 @@ class CrudTest extends ControllerTestCase
      */
     public function testUpdateValidationErrors()
     {
-        $response = $this->dispatchRouter(
+        $this->dispatchRouter(
             '/test/crud/',
             ['id' => 2, 'name' => '123456', 'email' => 'leonardo[at]turtles.ua'],
             Http\Request::METHOD_PUT
         );
         ;
-        $this->assertNotNull($response->getBody()->errors);
-        $this->assertEquals(sizeof($response->getBody()->errors), 2);
+        $this->assertNotNull(Response::getBody()->errors);
+        $this->assertEquals(sizeof(Response::getBody()->errors), 2);
         $this->assertOk();
     }
 
@@ -192,7 +193,7 @@ class CrudTest extends ControllerTestCase
         );
         $this->assertOk();
 
-        $count = $this->getApp()->getDb()->fetchOne(
+        $count = Db::fetchOne(
             'SELECT count(*) FROM `test` WHERE `email` = ?',
             ['michelangelo@turtles.org']
         );

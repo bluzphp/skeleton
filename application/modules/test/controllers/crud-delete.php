@@ -9,6 +9,8 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Messages;
+
 return
 /**
  * @method DELETE
@@ -22,7 +24,7 @@ function ($id) use ($view) {
     if ($row = Test\Table::findRow($id)) {
         $row->delete();
         $this->redirectTo('test', 'index');
-        $this->getMessages()->addSuccess("Row was removed");
+        Messages::addSuccess("Row was removed");
     } else {
         throw new Exception('Record not found');
     }

@@ -9,6 +9,8 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Layout;
+
 return
 /**
  * @privilege View
@@ -20,8 +22,8 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs(
+    Layout::setTemplate('dashboard.phtml');
+    Layout::breadCrumbs(
         [
             $view->ahref('Dashboard', ['dashboard', 'index']),
             __('ACL')

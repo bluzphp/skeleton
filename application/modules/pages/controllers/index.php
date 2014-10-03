@@ -8,6 +8,8 @@
 namespace Application;
 
 use Bluz\Application\Exception\NotFoundException;
+use Bluz\Proxy\Layout;
+use Bluz\View\View;
 
 return
 /**
@@ -18,7 +20,7 @@ return
 function ($alias) use ($view) {
     /**
      * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var View $view
      * @var Pages\Row $page
      */
     $page = Pages\Table::getInstance()->getByAlias($alias);
@@ -26,9 +28,9 @@ function ($alias) use ($view) {
     if (!$page) {
         throw new NotFoundException();
     } else {
-        $view->title(esc($page->title), \Bluz\View\View::POS_PREPEND);
-        $view->meta('keywords', esc($page->keywords));
-        $view->meta('description', esc($page->description));
+        Layout::title(esc($page->title), View::POS_PREPEND);
+        Layout::meta('keywords', esc($page->keywords));
+        Layout::meta('description', esc($page->description));
         $view->page = $page;
     }
 };

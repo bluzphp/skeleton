@@ -13,6 +13,8 @@
 namespace Application;
 
 use Application\Categories;
+use Bluz\Proxy\Layout;
+use Bluz\Proxy\Messages;
 
 return
 /**
@@ -23,9 +25,9 @@ function ($id = null) use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->headStyle($view->baseUrl('css/categories.css'));
-    $this->getLayout()->breadCrumbs(
+    Layout::setTemplate('dashboard.phtml');
+    Layout::headStyle($view->baseUrl('css/categories.css'));
+    Layout::breadCrumbs(
         [
             $view->ahref('Dashboard', ['dashboard', 'grid']),
             __('Categories')
@@ -36,7 +38,7 @@ function ($id = null) use ($view) {
     $rootTree = $categoriesTable->getAllRootCategory();
 
     if (count($rootTree) == 0) {
-        $this->getMessages()->addNotice('There are no categories');
+        Messages::addNotice('There are no categories');
         return $view;
     }
 

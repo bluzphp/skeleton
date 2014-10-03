@@ -11,6 +11,8 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Db;
+
 return
 /**
  * @var Bootstrap $this
@@ -26,8 +28,7 @@ function () {
 
     $userId = $this->user()->id;
 
-    $images = $this->getDb()
-        ->select('*')
+    $images = Db::select('*')
         ->from('media', 'm')
         ->where('type LIKE (?)', 'image/%')
         ->andWhere('userId = ?', $userId)

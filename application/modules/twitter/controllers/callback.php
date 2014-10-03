@@ -12,6 +12,10 @@ use Application\Users;
 use Application\UsersRoles;
 use Twitter\Client;
 use Guzzle\Common\Exception\GuzzleException;
+use Bluz\Proxy\Config;
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Request;
+use Bluz\Proxy\Session;
 
 return
 /**
@@ -26,10 +30,10 @@ function () use ($view) {
     /**
      * Get config params.
      */
-    $config = $this->getConfigData('auth', 'twitter');
-    $oauthToken = $this->getRequest()->getParam('oauth_token');
-    $oauthVerifier = $this->getRequest()->getParam('oauth_verifier');
-    $oauthTokenSecret = $this->getSession()->oauthTokenSecret;
+    $config = Config::getData('auth', 'twitter');
+    $oauthToken = Request::getParam('oauth_token');
+    $oauthVerifier = Request::getParam('oauth_verifier');
+    $oauthTokenSecret = Session::get('oauthTokenSecret');
 
     /**
      * Create new Twitter\Client
@@ -72,7 +76,7 @@ function () use ($view) {
              * Check the status of the user
              */
             if ($user->status != Users\Table::STATUS_ACTIVE) {
-                $this->getMessages()->addError('User is not active');
+                Messages::addError('User is not active');
                 $this->redirectTo('index', 'index');
             }
 
@@ -121,7 +125,7 @@ function () use ($view) {
             }
 
             /**
-             * @var Auth\Table $row
+             * @var Auth\Row $row
              * save user info.
              */
             $row = new Auth\Row();
@@ -134,10 +138,10 @@ function () use ($view) {
             $row->save();
         }
 
-        $this->getMessages()->addNotice('You are signed');
+        Messages::addNotice('You are signed');
         $this->redirectTo('index', 'index');
     } catch (GuzzleException $e) {
-        $this->getMessages()->addError($e->getMessage());
+        Messages::addError($e->getMessage());
         $this->redirectTo('index', 'index');
     }
 

@@ -11,7 +11,9 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Common\Nil;
+use Bluz\Proxy\Cache;
+use Bluz\Proxy\Messages;
 
 return
 /**
@@ -24,20 +26,20 @@ function () {
     /**
      * @var Bootstrap $this
      */
-    if ($handler = $this->getCache()->getAdapter()) {
+    if (!Cache::getInstance() instanceof Nil) {
         // routers
-        $this->getCache()->delete('router:routers');
-        $this->getCache()->delete('router:reverse');
+        Cache::delete('router:routers');
+        Cache::delete('router:reverse');
         // roles
-        $this->getCache()->deleteByTag('roles');
-        $this->getCache()->deleteByTag('privileges');
+        Cache::deleteByTag('roles');
+        Cache::deleteByTag('privileges');
         // reflection data
-        $this->getCache()->deleteByTag('reflection');
+        Cache::deleteByTag('reflection');
         // db metadata
-        $this->getCache()->deleteByTag('db');
+        Cache::deleteByTag('db');
 
-        $this->getMessages()->addSuccess("Cache is cleaned");
+        Messages::addSuccess("Cache is cleaned");
     } else {
-        $this->getMessages()->addNotice("Cache is disabled");
+        Messages::addNotice("Cache is disabled");
     }
 };

@@ -13,6 +13,8 @@ namespace Application;
 
 use Bluz\Config\ConfigException;
 use Bluz\Http\File;
+use Bluz\Proxy\Config;
+use Bluz\Proxy\Request;
 
 return
 /**
@@ -24,7 +26,7 @@ function () {
      * @var Bootstrap $this
      * @var \Bluz\Http\FileUpload $fileUpload
      */
-    $fileUpload = $this->getRequest()->getFileUpload();
+    $fileUpload = Request::getFileUpload();
     $file = $fileUpload->getFile('file');
 
     if ($file && $file->getType() == File::TYPE_IMAGE) {
@@ -47,7 +49,7 @@ function () {
         //     %userId%/
         //       %module%/
         //         filename.ext
-        $path = $this->getConfig()->getModuleData('media', 'upload_path');
+        $path = Config::getModuleData('media', 'upload_path');
         if (empty($path)) {
             throw new ConfigException('Upload path is not configured');
         }

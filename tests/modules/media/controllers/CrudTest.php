@@ -11,13 +11,16 @@ namespace Application\Tests\Media;
 
 use Application\Tests\ControllerTestCase;
 use Application\Tests\Tools;
-use Bluz\Http;
 use Application\Exception;
 use Application\Tests\Fixtures\Media\TestFileUpload;
 use Application\Tests\Fixtures\Users\UserFixtureContainer;
 use Application\Tests\Fixtures\Users\UserHasPermission;
+use Bluz\Http;
+use Bluz\Proxy\Auth;
+use Bluz\Proxy\Config;
+use Bluz\Proxy\Db;
+use Bluz\Proxy\Request;
 use Zend\Dom\Document;
-use Application\Tests\BootstrapTest;
 
 /**
  * @package  Application\Tests\Media
@@ -27,20 +30,12 @@ use Application\Tests\BootstrapTest;
 class CrudTest extends ControllerTestCase
 {
     /**
-     * Setup `test` table before the first test
-     */
-    public static function setUpBeforeClass()
-    {
-
-    }
-
-    /**
      * Drop photo after the test
      */
     public static function tearDownAfterClass()
     {
-        BootstrapTest::getInstance()->getDb()->delete('media')->where('userId', [1])->execute();
-        $path = app()->getConfig()->getModuleData('media', 'upload_path').'/1';
+        Db::delete('media')->where('userId', [1])->execute();
+        $path = Config::getModuleData('media', 'upload_path').'/1';
         Tools\Cleaner::delete($path);
     }
 
@@ -53,8 +48,8 @@ class CrudTest extends ControllerTestCase
     {
         parent::setUp();
         $this->getApp()->useLayout(false);
-        $this->getApp()->getConfig('testing')->init('testing');
-        $this->getApp()->getAuth()->setIdentity(new UserHasPermission(UserFixtureContainer::$fixture));
+
+        Auth::setIdentity(new UserHasPermission(UserFixtureContainer::$fixture));
     }
 
     /**
@@ -63,7 +58,7 @@ class CrudTest extends ControllerTestCase
     public function testUploadFile()
     {
         // get path from config
-        $path = $this->getApp()->getConfigData('temp', 'path');
+        $path = Config::getData('temp', 'path');
         if (empty($path)) {
             throw new Exception('Temporary path is not configured');
         }
@@ -78,8 +73,7 @@ class CrudTest extends ControllerTestCase
             )
         );
 
-        $request = $this->getApp()->getRequest();
-        $request->setFileUpload(new TestFileUpload());
+        Request::setFileUpload(new TestFileUpload());
 
         $this->dispatchUri(
             'media/crud',

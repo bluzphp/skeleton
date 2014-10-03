@@ -11,6 +11,8 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Db;
+
 return
 /**
  * @var Bootstrap $this
@@ -29,8 +31,7 @@ function ($path) {
 
     $userId = $this->user()->id;
 
-    $result = $this->getDb()
-        ->delete('media')
+    $result = Db::delete('media')
         ->where('type LIKE (?)', 'image/%')
         ->andWhere('file = ?', $path)
         ->andWhere('userId = ?', $userId)

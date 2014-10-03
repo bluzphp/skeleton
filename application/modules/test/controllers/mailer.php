@@ -7,6 +7,11 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Layout;
+use Bluz\Proxy\Mailer;
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Request;
+
 return
 /**
  * @param string $email
@@ -15,24 +20,25 @@ return
 function ($email = "no-reply@nixsolutions.com") use ($view) {
     /**
      * @var Bootstrap $this
+     * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
             'Mailer Example',
         ]
     );
-    if ($this->getRequest()->isPost()) {
+    if (Request::isPost()) {
         try {
-            $mail = $this->getMailer()->create();
+            $mail = Mailer::create();
             // subject
             $mail->Subject = "Example of Bluz Mailer";
             $mail->MsgHTML("Hello!<br/>How are you?");
             $mail->AddAddress($email);
-            $this->getMailer()->send($mail);
-            $this->getMessages()->addSuccess("Email was send");
+            Mailer::send($mail);
+            Messages::addSuccess("Email was send");
         } catch (\Exception $e) {
-            $this->getMessages()->addError($e->getMessage());
+            Messages::addError($e->getMessage());
         }
     }
     $view->email = $email;

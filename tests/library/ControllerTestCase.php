@@ -9,8 +9,11 @@
  */
 namespace Application\Tests;
 
-use Bluz\Messages\Messages;
-use Bluz\Router\Router;
+use Bluz\Messages\Messages as MessagesInstance;
+use Bluz\Proxy\Auth;
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Response;
+use Bluz\Proxy\Router;
 use Application\Users;
 use Application\Tests\Fixtures\Users\UserHasPermission;
 use Zend\Dom\Document;
@@ -48,7 +51,7 @@ class ControllerTestCase extends TestCase
      */
     protected function setupGuestIdentity()
     {
-        $this->getApp()->getAuth()->setIdentity(new Users\Row());
+        Auth::setIdentity(new Users\Row());
     }
 
     /**
@@ -58,7 +61,7 @@ class ControllerTestCase extends TestCase
      */
     protected function setupSuperUserIdentity()
     {
-        $this->getApp()->getAuth()->setIdentity(new UserHasPermission());
+        Auth::setIdentity(new UserHasPermission());
     }
 
     /**
@@ -79,7 +82,7 @@ class ControllerTestCase extends TestCase
      */
     protected function assertResponseCode($code)
     {
-        $this->assertEquals($code, $this->getApp()->getResponse()->getStatusCode());
+        $this->assertEquals($code, Response::getStatusCode());
     }
 
     /**
@@ -115,8 +118,8 @@ class ControllerTestCase extends TestCase
      */
     protected function assertRedirect($module, $controller, $params = array(), $code = 302)
     {
-        $url = $this->getApp()->getRouter()->url($module, $controller, $params);
-        $exception = $this->getApp()->getResponse()->getException();
+        $url = Router::getUrl($module, $controller, $params);
+        $exception = Response::getException();
 
         $this->assertInstanceOf('\Bluz\Application\Exception\RedirectException', $exception);
         $this->assertEquals($exception->getCode(), $code);
@@ -130,7 +133,7 @@ class ControllerTestCase extends TestCase
      */
     protected function assertReload()
     {
-        $exception = $this->getApp()->getResponse()->getException();
+        $exception = Response::getException();
 
         $this->assertInstanceOf('\Bluz\Application\Exception\ReloadException', $exception);
     }
@@ -142,12 +145,12 @@ class ControllerTestCase extends TestCase
      */
     protected function assertForbidden()
     {
-        $exception = $this->getApp()->getResponse()->getException();
+        $exception = Response::getException();
 
         $this->assertInstanceOf('\Bluz\Application\Exception\ForbiddenException', $exception);
-        $this->assertEquals(403, $this->getApp()->getResponse()->getStatusCode());
-        $this->assertModule(Router::ERROR_MODULE);
-        $this->assertController(Router::ERROR_CONTROLLER);
+        $this->assertEquals(403, Response::getStatusCode());
+        $this->assertModule(Router::getErrorModule());
+        $this->assertController(Router::getErrorController());
     }
 
     /**
@@ -163,7 +166,7 @@ class ControllerTestCase extends TestCase
             $this->fail("Method `assertResponseVariable` required to disable Layout, please update test");
         }
 
-        $variable = $this->getApp()->getResponse()->getBody()->__get($key);
+        $variable = Response::getBody()->__get($key);
         $this->assertEquals($variable, $value);
     }
 
@@ -176,7 +179,7 @@ class ControllerTestCase extends TestCase
      */
     private function checkMessage($type, $text = null)
     {
-        $message = $this->getApp()->getMessages()->pop($type);
+        $message = Messages::pop($type);
 
         if (!$message) {
             $this->fail("System should be generated `$type` message");
@@ -195,7 +198,7 @@ class ControllerTestCase extends TestCase
      */
     protected function assertErrorMessage($text = null)
     {
-        $this->checkMessage(Messages::TYPE_ERROR, $text);
+        $this->checkMessage(MessagesInstance::TYPE_ERROR, $text);
     }
 
     /**
@@ -206,7 +209,7 @@ class ControllerTestCase extends TestCase
      */
     protected function assertNoticeMessage($text = null)
     {
-        $this->checkMessage(Messages::TYPE_NOTICE, $text);
+        $this->checkMessage(MessagesInstance::TYPE_NOTICE, $text);
     }
 
     /**
@@ -217,7 +220,7 @@ class ControllerTestCase extends TestCase
      */
     protected function assertSuccessMessage($text = null)
     {
-        $this->checkMessage(Messages::TYPE_SUCCESS, $text);
+        $this->checkMessage(MessagesInstance::TYPE_SUCCESS, $text);
     }
 
     /**
@@ -234,10 +237,8 @@ class ControllerTestCase extends TestCase
      */
     private function query($path)
     {
-        $response = $this->getApp()->getResponse();
-
         if (!$this->document) {
-            $this->document = new Document($response->getBody());
+            $this->document = new Document(Response::getBody());
         }
         return Document\Query::execute($path, $this->document, Document\Query::TYPE_CSS);
     }
