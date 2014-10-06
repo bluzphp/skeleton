@@ -26,6 +26,7 @@ class Table extends \Bluz\Db\Table
     const BASIC_GUEST = 'guest';
     const BASIC_MEMBER = 'member';
     const BASIC_ADMIN = 'admin';
+    const BASIC_SOCIAL = 'social';
     /**
      * Table
      *
@@ -42,7 +43,7 @@ class Table extends \Bluz\Db\Table
     /**
      * @var array
      */
-    protected $basicRoles = ['guest', 'member', 'admin'];
+    protected $basicRoles = ['guest', 'member', 'admin', 'social'];
 
     /**
      * Get all roles in system

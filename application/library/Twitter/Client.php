@@ -59,7 +59,7 @@ class Client extends GuzzleClient
      * Get request token from API
      *
      * $callbackUrl = $this->getRouter()->getFullUrl('twitter', 'callback');
-     * $oauthRequestToken = $twitterAuth->getOauthRequestToken($callbackUrl);     *
+     * $oauthRequestToken = $twitterAuth->getOauthRequestToken($callbackUrl);
      *
      * @param string $callbackUrl
      * @throws \Exception

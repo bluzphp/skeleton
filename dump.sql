@@ -28,9 +28,14 @@ LOCK TABLES `acl_privileges` WRITE;
 
 INSERT INTO `acl_privileges` (`roleId`, `module`, `privilege`)
 VALUES
+  (4,'users','EditCredentials'),
   (3,'users','ViewProfile'),
   (2,'media','Upload'),
   (2,'users','ViewProfile'),
+  (2,'users','EditPassword'),
+  (2,'users','EditEmail'),
+  (1,'users','EditPassword'),
+  (1,'users','EditEmail'),
   (1,'acl','Edit'),
   (1,'acl','View'),
   (1,'cache','Management'),
@@ -42,8 +47,7 @@ VALUES
   (1,'pages','Management'),
   (1,'system','Info'),
   (1,'users','Management'),
-  (1,'users','ViewProfile')
-;
+  (1,'users','ViewProfile');
 
 /*!40000 ALTER TABLE `acl_privileges` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -59,7 +63,8 @@ INSERT INTO `acl_roles` (`id`, `name`, `created`)
 VALUES
 	(1,'admin','2012-11-09 07:37:31'),
 	(2,'member','2012-11-09 07:37:37'),
-	(3,'guest','2012-11-09 07:37:44');
+	(3,'guest','2012-11-09 07:37:44'),
+	(4,'social','2014-10-02 18:39:15');
 
 /*!40000 ALTER TABLE `acl_roles` ENABLE KEYS */;
 UNLOCK TABLES;

@@ -43,9 +43,11 @@ class Row extends AbstractRowEntity
     protected $privileges;
 
     /**
+     * Adds validators for creation via the web form
+     *
      * @return void
      */
-    public function beforeSave()
+    public function addValidation()
     {
         $this->email = strtolower($this->email);
 
