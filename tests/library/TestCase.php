@@ -156,9 +156,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected function dispatchRouter($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
     {
         $this->prepareRequest($uri, $params, $method, $ajax);
-
-        Proxy\Router::process();
-
         $this->app->process();
     }
 }

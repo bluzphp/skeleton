@@ -12,11 +12,18 @@
             <tr>
                 <th colspan="3"><?=$module?></th>
             </tr>
-        <?php foreach ($controllers as $controller => $data) : ?>
+        <?php foreach ($controllers as $controller => $data) :
+                foreach ($data['route'] as &$route) {
+                    $route = stripslashes($route);
+                    $route = ltrim($route, '/^');
+                    $route = rtrim($route, '/i');
+                    $route = esc($route);
+                }
+        ?>
             <tr>
                 <td>&mdash;</td>
                 <td><?=$controller?></td>
-                <td><?=join('<br/>', $data['route'])?></td>
+                <td><code><?=join("<br/>", $data['route'])?></code></td>
             </tr>
         <?php endforeach; ?>
         <?php endforeach; ?>

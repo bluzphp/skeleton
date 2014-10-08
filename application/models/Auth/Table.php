@@ -109,14 +109,10 @@ class Table extends AbstractTable
         $row->tokenType = self::TYPE_ACCESS;
 
         // generate secret
-        $alpha = range('a', 'z');
-        shuffle($alpha);
-        $secret = array_slice($alpha, 0, rand(5, 15));
-        $secret = md5($user->id . join('', $secret));
-        $row->tokenSecret = $secret;
+        $row->tokenSecret = $this->generateSecret($user->id);
 
         // encrypt password and save as token
-        $row->token = $this->callEncryptFunction($password, $secret);
+        $row->token = $this->callEncryptFunction($password, $row->tokenSecret);
 
         $row->save();
 
@@ -212,14 +208,10 @@ class Table extends AbstractTable
         $row->tokenType = self::TYPE_ACCESS;
 
         // generate secret
-        $alpha = range('a', 'z');
-        shuffle($alpha);
-        $secret = array_slice($alpha, 0, rand(5, 15));
-        $secret = md5($equalAuth->userId . join('', $secret));
-        $row->tokenSecret = $secret;
+        $row->tokenSecret = $this->generateSecret($equalAuth->userId);
 
         // encrypt password and save as token
-        $row->token = $this->callEncryptFunction($equalAuth->token, $secret);
+        $row->token = $this->callEncryptFunction($equalAuth->token, $row->tokenSecret);
 
         $row->save();
 

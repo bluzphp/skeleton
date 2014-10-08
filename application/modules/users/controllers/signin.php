@@ -45,6 +45,7 @@ function ($login, $password, $rememberMe = false) use ($view) {
 
             if ($rememberMe) {
                 $ttl = Config::getModuleData('users', 'rememberMe');
+                // TODO: remember me
                 Session::setSessionCookieLifetime($ttl);
             }
 

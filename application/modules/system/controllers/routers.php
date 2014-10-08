@@ -34,13 +34,13 @@ function () use ($view) {
     foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {
         $module = pathinfo(dirname(dirname($file->getPathname())), PATHINFO_FILENAME);
         $controller = pathinfo($file->getPathname(), PATHINFO_FILENAME);
-        $data = $this->reflection($file->getPathname());
-        if (isset($data['route'])) {
+        $reflection = $this->reflection($file->getPathname());
+        if ($route = $reflection->getRoute()) {
             if (!isset($routers[$module])) {
                 $routers[$module] = array();
             }
 
-            $routers[$module][$controller] = ['route' => $data['route'], 'params' => $data['params']];
+            $routers[$module][$controller] = ['route' => $route, 'params' => $reflection->getParams()];
         }
     }
     $view->routers = $routers;

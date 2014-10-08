@@ -24,6 +24,10 @@ function ($tree, $treeParent) use ($view) {
     try {
         $categories = json_decode($tree);
 
+        if (!$categories) {
+            throw new Exception('Categories tree is broken');
+        }
+
         foreach ($categories as $node) {
             if (isset($node->item_id)) {
                 $dbNode = Categories\Table::findRow($node->item_id);
