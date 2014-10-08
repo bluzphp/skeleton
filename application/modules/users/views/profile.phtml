@@ -7,8 +7,9 @@
 <h3 class="page-header">
     <?=__('Profile')?>
     <?php if ($this->user()->id == $user->id) : ?>
-        <?=$this->ahref(__('Change email'), ['users', 'change-email'], ['class'=>'btn btn-mini pull-right'])?>
-        <?=$this->ahref(__('Change password'), ['users', 'change-password'], ['class'=>'btn btn-mini pull-right'])?>
+        <?=$this->ahref(__('Set credentials'), ['users', 'change-credentials', [], true], ['class'=>'btn btn-mini pull-right'])?>
+        <?=$this->ahref(__('Change email'), ['users', 'change-email', [], true], ['class'=>'btn btn-mini pull-right'])?>
+        <?=$this->ahref(__('Change password'), ['users', 'change-password', [], true], ['class'=>'btn btn-mini pull-right'])?>
     <?php endif; ?>
 </h3>
 <dl class="dl-horizontal">

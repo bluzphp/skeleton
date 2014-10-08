@@ -50,6 +50,7 @@ class Crud extends \Bluz\Crud\Table
         $row = $this->getTable()->create();
         $row->setFromArray($data);
         $row->status = Table::STATUS_PENDING;
+        $row->addValidation();
         $row->save();
 
         $userId = $row->id;

@@ -46,7 +46,7 @@ function () {
      */
     $facebook->destroySession();
     $user = $facebook->getUser();
-
+    $isNew = false;
     if ($user) {
         // Proceed knowing you have a logged in user who's authenticated.
         $profile = $facebook->api('/me');
@@ -70,18 +70,20 @@ function () {
         } else {
             // sign up user
             if (!$user = $this->user()) {
+                $isNew = true;
                 $user = new Users\Row();
                 // if username doesn't exist, concat first and last name for site's login
                 $login = (isset($profile['username']))
                     ? $profile['username']
                     : $profile['first_name'] . $profile['last_name'];
-                $user->login = $login;
+                $user->login = uniqid('facebook_');
                 $user->status = Users\Table::STATUS_ACTIVE;
                 $user->save();
 
+                $roleRow = Roles\Table::findRowWhere(['name' => Roles\Table::BASIC_SOCIAL]);
                 $user2role = new UsersRoles\Row();
                 $user2role->userId = $user->id;
-                $user2role->roleId = 2;
+                $user2role->roleId = $roleRow->id;
                 $user2role->save();
 
                 $row = new Auth\Row();
@@ -112,6 +114,14 @@ function () {
         $login_url = $facebook->getLoginUrl(array('scope' => 'email'));
         $this->redirect($login_url);
     }
+    if ($isNew) {
+        $this->getMessages()->addNotice(
+            'Please set your credentials.<br/> You can access this page anytime from your profile.'
+        );
+        $this->redirectTo('users', 'change-credentials');
+    } else {
+        $this->getMessages()->addNotice('You are signed');
+        $this->redirectTo('index', 'index');
+    }
 
-    $this->redirectTo('index', 'index');
 };

@@ -60,7 +60,7 @@ function () use ($view) {
          * @var /Application/Auth/Row $row
          */
         $row = $authTable->getAuthRow(Auth\Table::PROVIDER_TWITTER, $result['user_id']);
-
+        $isNew = false;
         if ($row) {
             /**
              * Try to sign in
@@ -95,12 +95,13 @@ function () use ($view) {
              * another - create new user
              */
             if (!$user = $this->user()) {
+                $isNew = true;
                 /**
                  * Create new user
                  * @var Users\Row $user
                  */
                 $user = new Users\Row();
-                $user->login = $result['screen_name'];
+                $user->login = uniqid('twitter_');
                 $user->status = Users\Table::STATUS_ACTIVE;
                 $user->save();
 
@@ -108,10 +109,10 @@ function () use ($view) {
                  * Set default role
                  * @var UsersRoles\Row $userRole
                  */
+                $roleRow = Roles\Table::findRowWhere(['name' => Roles\Table::BASIC_SOCIAL]);
                 $userRole = new UsersRoles\Row();
                 $userRole -> userId = $user->id;
-                // FIXME: hardcoded role Id (2 = Member)
-                $userRole -> roleId = 2;
+                $userRole -> roleId = $roleRow->id;
                 $userRole -> save();
 
                 /**
@@ -134,8 +135,17 @@ function () use ($view) {
             $row->save();
         }
 
-        $this->getMessages()->addNotice('You are signed');
-        $this->redirectTo('index', 'index');
+
+        if ($isNew) {
+            $this->getMessages()->addNotice(
+                'Please set your credentials.<br/> You can access this page anytime from your profile.'
+            );
+            $this->redirectTo('users', 'change-credentials');
+        } else {
+            $this->getMessages()->addNotice('You are signed');
+            $this->redirectTo('index', 'index');
+        }
+
     } catch (GuzzleException $e) {
         $this->getMessages()->addError($e->getMessage());
         $this->redirectTo('index', 'index');
