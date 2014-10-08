@@ -30,6 +30,11 @@ use Bluz\Proxy\Auth;
 class Table extends AbstractTable
 {
     /**
+     * Time that the token remains valid
+     */
+    const TOKEN_EXPIRATION_TIME = 1800;
+
+    /**
      * authenticate user by login/pass
      *
      * @param string $username
@@ -145,14 +150,13 @@ class Table extends AbstractTable
     /**
      * authenticate user by token
      *
-     * @param string $username
      * @param string $token
      * @throws \Bluz\Auth\AuthException
      * @return void
      */
-    public function authenticateToken($username, $token)
+    public function authenticateToken($token)
     {
-        $authRow = $this->checkToken($username, $token);
+        $authRow = $this->checkToken($token);
 
         // get user profile
         $user = Users\Table::findRow($authRow->userId);
@@ -164,24 +168,61 @@ class Table extends AbstractTable
     /**
      * authenticate user by token
      *
-     * @param string $username
      * @param string $token
      * @throws \Bluz\Auth\AuthException
      * @return Row
      */
-    public function checkToken($username, $token)
+    public function checkToken($token)
     {
-        $authRow = $this->getAuthRow(self::PROVIDER_TOKEN, $username);
-
-        if (!$authRow) {
-            throw new AuthException("User not found");
+        if (!$authRow = $this->findRowWhere(['token' =>  $token])) {
+            throw new AuthException('Invalid token');
         }
 
-        // check token
-        if ($token != $authRow->token) {
-            throw new AuthException("Wrong token");
+        if (strtotime($authRow->created) + self::TOKEN_EXPIRATION_TIME < time()) {
+            throw new AuthException('Token has expired');
         }
 
         return $authRow;
+    }
+
+    /**
+     * @param $equalAuth
+     * @return Row
+     * @throws Exception
+     * @throws \Bluz\Db\Exception\DbException
+     */
+    public function generateToken($equalAuth)
+    {
+        // clear previous generated Auth record
+        // works with change password
+        $this->delete(
+            [
+                'userId' => $equalAuth->userId,
+                'foreignKey' => $equalAuth->foreignKey,
+                'provider' => self::PROVIDER_TOKEN,
+                'tokenType' => self::TYPE_ACCESS
+            ]
+        );
+
+        // new auth row
+        $row = new Row();
+        $row->userId = $equalAuth->userId;
+        $row->foreignKey = $equalAuth->foreignKey;
+        $row->provider = self::PROVIDER_TOKEN;
+        $row->tokenType = self::TYPE_ACCESS;
+
+        // generate secret
+        $alpha = range('a', 'z');
+        shuffle($alpha);
+        $secret = array_slice($alpha, 0, rand(5, 15));
+        $secret = md5($equalAuth->userId . join('', $secret));
+        $row->tokenSecret = $secret;
+
+        // encrypt password and save as token
+        $row->token = $this->callEncryptFunction($equalAuth->token, $secret);
+
+        $row->save();
+
+        return $row;
     }
 }
