@@ -28,7 +28,6 @@ namespace Application;
 
 use Bluz\Application\Application;
 use Bluz\Application\Exception\ForbiddenException;
-use Bluz\Proxy\EventManager;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Logger;
 use Bluz\Proxy\Messages;
@@ -48,37 +47,30 @@ use Bluz\Proxy\Session;
 class Bootstrap extends Application
 {
     /**
-     * initial environment
+     * {@inheritdoc}
      *
-     * @param string $environment
+     * @param string $module
+     * @param string $controller
+     * @param array $params
      * @return void
      */
-    public function init($environment = 'production')
+    protected function preDispatch($module, $controller, $params = array())
     {
-        parent::init($environment);
-
-        // dispatch hook for acl realization
-        EventManager::attach(
-            'dispatch',
-            function ($event) {
-                /* @var \Bluz\EventManager\Event $event */
-                $eventParams = $event->getParams();
-                Logger::info('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['controller']);
-            }
-        );
-
-        // widget hook for acl realization
-        EventManager::attach(
-            'widget',
-            function ($event) {
-                /* @var \Bluz\EventManager\Event $event */
-                $eventParams = $event->getParams();
-                Logger::info('bootstrap:widget: '.$eventParams['module'].'/'.$eventParams['widget']);
-            }
-        );
-
-        // example of setup Layout
+        // example of setup default title
         Layout::title("Bluz Skeleton");
+        parent::preDispatch($module, $controller, $params);
+    }
+    /**
+     * {@inheritdoc}
+     *
+     * @param string $module
+     * @param string $controller
+     * @param array $params
+     * @return void
+     */
+    protected function postDispatch($module, $controller, $params = array())
+    {
+        parent::postDispatch($module, $controller, $params);
     }
 
     /**
@@ -109,6 +101,7 @@ class Bootstrap extends Application
      */
     public function render()
     {
+
         if ($this->debugFlag && !headers_sent()) {
             $debugString = sprintf(
                 "%f; %skb",

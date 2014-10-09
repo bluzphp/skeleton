@@ -16,9 +16,10 @@ if (!function_exists('errorLog')) {
         if (getenv('BLUZ_LOG')
             && is_dir(PATH_DATA .'/logs')
             && is_writable(PATH_DATA .'/logs')) {
+            $message = str_replace("\n", "\n\t\t", $message);
             file_put_contents(
                 PATH_DATA .'/logs/'.(date('Y-m-d')).'.log',
-                "\t[".date("H:i:s")."]\t".$message,
+                "[".date("H:i:s")."]\t". trim($message) . "\n",
                 FILE_APPEND | LOCK_EX
             );
         }

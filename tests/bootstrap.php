@@ -9,9 +9,6 @@ $_COOKIE[session_name()] = uniqid();
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-require_once PATH_APPLICATION . '/Bootstrap.php';
-require_once PATH_APPLICATION . '/Exception.php';
-
 $env = getenv('BLUZ_ENV') ?: 'testing';
 
 $app = \Application\Tests\BootstrapTest::getInstance();
