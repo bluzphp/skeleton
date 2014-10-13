@@ -50,6 +50,9 @@ function errorDisplay() {
     while (ob_get_level()) {
         ob_end_clean();
     }
+    // try to write log
+    errorLog($e['message'], $e['file'] ."#". $e['line']);
+    // display error page
     require_once 'error.php';
 }
 
@@ -71,6 +74,8 @@ try {
     $app->render();
     $app->finish();
 } catch (Exception $e) {
-    errorLog($e->getMessage() ."\n". $e->getTraceAsString() ."\n");
+    // try to write log
+    errorLog($e->getMessage(), $e->getTraceAsString());
+    // display error page
     require_once 'error.php';
 }

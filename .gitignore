@@ -1,10 +1,8 @@
 .idea
 nbproject
-/application/configs/app.*.php
-!/application/configs/app.*.sample.php
+/application/configs/dev/*.php
 /data/
 !/data/locale
-/data/locale/default.mo
 /public/.htaccess
 !.stub
 composer.lock

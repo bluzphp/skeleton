@@ -101,7 +101,6 @@ class Bootstrap extends Application
      */
     public function render()
     {
-
         if ($this->debugFlag && !headers_sent()) {
             $debugString = sprintf(
                 "%f; %skb",
@@ -120,13 +119,14 @@ class Bootstrap extends Application
     }
 
     /**
-     * @return Application
+     * @return void
      */
     public function finish()
     {
         if ($messages = Logger::get('error')) {
-            errorLog(join("\n", $messages)."\n");
+            foreach ($messages as $message) {
+                errorLog($message);
+            }
         }
-        return $this;
     }
 }

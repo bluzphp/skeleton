@@ -71,10 +71,13 @@ function errorDisplay() {
         return;
     }
     echo "Application Error\n";
-    if (getenv('BLUZ_DEBUG') && isset($e)) {
+    if (getenv('BLUZ_DEBUG')) {
         echo $e['message']."\n";
         echo $e['file'] ."#". $e['line'] ."\n";
     }
+    // try to write log
+    errorLog($e['message'], $e['file'] ."#". $e['line']);
+    exit(1);
 }
 
 // Shutdown function for handle critical and other errors
@@ -107,4 +110,7 @@ try {
         echo "Use `--help` flag for show help notices\n";
         echo "Use `--debug` flag for receive more information\n";
     }
+    // try to write log
+    errorLog($e->getMessage(), $e->getTraceAsString());
+    exit(1);
 }

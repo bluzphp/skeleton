@@ -10,36 +10,25 @@
 if (!function_exists('errorLog')) {
     /**
      * @param string $message
+     * @param string $description
      */
-    function errorLog($message)
+    function errorLog($message, $description = null)
     {
         if (getenv('BLUZ_LOG')
             && is_dir(PATH_DATA .'/logs')
             && is_writable(PATH_DATA .'/logs')) {
-            $message = str_replace("\n", "\n\t\t", $message);
+
+            // TODO: need default log format
+            // [Wed Oct 11 14:32:52 2000] [error] [client 127.0.0.1] client denied by server configuration: /var/www/...
+            $message = "[".date("H:i:s")."]\t"
+                . trim($message)
+                . ($description?"\n\t\t".$description:"")
+                . "\n";
             file_put_contents(
                 PATH_DATA .'/logs/'.(date('Y-m-d')).'.log',
-                "[".date("H:i:s")."]\t". trim($message) . "\n",
+                $message,
                 FILE_APPEND | LOCK_EX
             );
         }
-    }
-}
-
-// Error Handler
-if (!function_exists('errorHandler')) {
-    /**
-     * Custom error handler
-     */
-    function errorHandler()
-    {
-        $e = error_get_last();
-        // check error type
-        if (!is_array($e)
-            || !in_array($e['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR))) {
-            return;
-        }
-        // try to write log
-        errorLog($e['message'] ."\n". $e['file'] ."#". $e['line'] ."\n");
     }
 }

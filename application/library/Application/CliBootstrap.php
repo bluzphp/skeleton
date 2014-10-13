@@ -72,24 +72,18 @@ class CliBootstrap extends Application
     public function render()
     {
         Logger::info('app:render');
-
-        // setup messages
-        if (Messages::count()) {
-            $messages = (array) Messages::popAll();
-            Response::addHeaders($messages);
-        }
-
         Response::send();
     }
 
     /**
-     * @return Application
+     * @return void
      */
     public function finish()
     {
         if ($messages = Logger::get('error')) {
-            echo join("\n", $messages)."\n";
+            foreach ($messages as $message) {
+                errorLog($message);
+            }
         }
-        return $this;
     }
 }

@@ -16,7 +16,7 @@ return
  */
 function ($tree) {
     /**
-     * @var \Bluz\View\Layout $this
+     * @var \Bluz\Layout\Layout $this
      */
     $str = '';
     foreach ($tree as $node) {
