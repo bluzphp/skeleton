@@ -10,6 +10,8 @@
 namespace Application;
 
 use Bluz\Db\Relations;
+use Bluz\Proxy\Db;
+use Bluz\Proxy\Layout;
 
 return
 /**
@@ -20,7 +22,7 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
             'DB Relations',
@@ -61,7 +63,7 @@ function () use ($view) {
     var_dump($result);
 
 
-    $result = app()->getDb()->fetchRelations(
+    $result = Db::fetchRelations(
         "SELECT '__users', u.*, '__pages', p.* FROM users u LEFT JOIN pages p ON p.userId = u.id"
     );
 

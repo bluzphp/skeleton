@@ -10,6 +10,7 @@
 namespace Application\Tests\Test;
 
 use Application\Tests\ControllerTestCase;
+use Bluz\Proxy\Response;
 
 /**
  * @package  Application\Tests\Test
@@ -27,7 +28,7 @@ class ClosureTest extends ControllerTestCase
         $this->dispatchRouter('/test/closure/');
         $this->assertOk();
 
-        $closure = $this->getApp()->getResponse()->getBody();
+        $closure = Response::getBody();
 
         $this->assertInstanceOf('\Closure', $closure);
         $this->expectOutputRegex('/Closure is back/');

@@ -9,29 +9,34 @@
  */
 namespace Application;
 
+use Application\Auth\Table;
+use Bluz\Proxy\Auth;
+
 return
-    /**
-     * @route /api/{$resource}
-     *
-     * @param string $resource
-     *
-     * @return \closure
-     */
+/**
+ * @route /api/{$resource}
+ *
+ * @param string $resource
+ *
+ * @return \closure
+ */
 function ($resource) {
     /**
      * @var Bootstrap $this
      */
     $this->useJson();
-    $this->getAuth()->clearIdentity();
+
+    Auth::clearIdentity();
+
     try {
-        //authentication
+        // authentication
         if ($token = $this->getRequest()->getParam('token')) {
-            Auth\Table::getInstance()->authenticateToken($token);
+            Table::getInstance()->authenticateToken($token);
         }
 
         return $this->dispatch('api', $resource);
     } catch (\Exception $e) {
-        //process exceptions here
+        // process exceptions here
         $this->getResponse()->setStatusCode($e->getCode());
         return (object)['error' => $e->getMessage()];
     }

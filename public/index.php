@@ -5,6 +5,12 @@
  * @author   C.O.
  * @created  06.07.11 16:20
  */
+
+/**
+ * @namespace
+ */
+namespace Application;
+
 // Check CLI
 if (PHP_SAPI === 'cli') {
     echo "Use `bin/cli.php` instead of `index.php`\n";
@@ -44,11 +50,14 @@ function errorDisplay() {
     while (ob_get_level()) {
         ob_end_clean();
     }
+    // try to write log
+    errorLog($e['message'], $e['file'] ."#". $e['line']);
+    // display error page
     require_once 'error.php';
 }
 
 // Shutdown function for handle critical and other errors
-register_shutdown_function('errorDisplay');
+register_shutdown_function('\\Application\\errorDisplay');
 // Try to run application
 try {
     /**
@@ -56,21 +65,17 @@ try {
      * @see http://getcomposer.org/apidoc/master/Composer/Autoload/ClassLoader.html
      */
     require_once dirname(__DIR__) . '/vendor/autoload.php';
-    require_once PATH_APPLICATION . '/Bootstrap.php';
-    require_once PATH_APPLICATION . '/Exception.php';
-
     // Environment
     $env = getenv('BLUZ_ENV') ?: 'production';
 
-    /**
-     * @var \Application\Bootstrap $app
-     */
-    $app = \Application\Bootstrap::getInstance();
-    $app->init($env)
-        ->process();
+    $app = Bootstrap::getInstance();
+    $app->init($env);
+    $app->process();
     $app->render();
     $app->finish();
 } catch (Exception $e) {
-    errorLog($e->getMessage() ."\n". $e->getTraceAsString() ."\n");
+    // try to write log
+    errorLog($e->getMessage(), $e->getTraceAsString());
+    // display error page
     require_once 'error.php';
 }

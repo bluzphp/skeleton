@@ -14,16 +14,20 @@ namespace Application;
 use Application\Auth;
 use Application\Facebook;
 use Application\Users;
+use Bluz\Proxy\Config;
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Request;
 
 return
 /**
- * @var $this Bootstrap
  * @throws Exception
  * @return void
  */
 function () {
-
-    $options = $this->getConfigData('auth', 'facebook');
+    /**
+     * @var Bootstrap $this
+     */
+    $options = Config::getData('auth', 'facebook');
     if (!$options || !isset($options['appId'], $options['secret'])
         || empty($options['appId']) || empty($options['secret'])) {
         throw new Exception('Facebook authorization is not configured');
@@ -62,7 +66,7 @@ function () {
             $user = Users\Table::findRow($row->userId);
 
             if ($user->status != Users\Table::STATUS_ACTIVE) {
-                $this->getMessages()->addError('User is not active');
+                Messages::addError('User is not active');
                 $this->redirectTo('index', 'index');
             }
 
@@ -105,7 +109,7 @@ function () {
          */
 
         // if user declined
-        if ('access_denied' == $this->getRequest()->getParam('error', null)) {
+        if ('access_denied' == Request::getParam('error', null)) {
             $this->redirectTo('users', 'signin');
         }
 

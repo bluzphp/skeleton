@@ -8,7 +8,8 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Request;
 
 return
 /**
@@ -21,13 +22,13 @@ function ($messages = false) use ($view) {
      * @var \Bluz\View\View $view
      */
     if ($messages) {
-        $this->getMessages()->addNotice('Notice for AJAX call');
-        $this->getMessages()->addSuccess('Success for AJAX call');
-        $this->getMessages()->addError('Error for AJAX call');
+        Messages::addNotice('Notice for AJAX call');
+        Messages::addSuccess('Success for AJAX call');
+        Messages::addError('Error for AJAX call');
 
         $view->baz = 'qux';
     }
-    $this->getMessages()->addNotice('Method '. $this->getRequest()->getMethod());
+    Messages::addNotice('Method '. Request::getMethod());
 
     $view->foo = 'bar';
 };

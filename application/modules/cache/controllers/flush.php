@@ -11,7 +11,9 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Common\Nil;
+use Bluz\Proxy\Cache;
+use Bluz\Proxy\Messages;
 
 return
 /**
@@ -24,11 +26,10 @@ function () {
     /**
      * @var Bootstrap $this
      */
-    if ($handler = $this->getCache()->getAdapter()) {
-        $this->getCache()->getAdapter()->flush();
-        $this->getCache()->getTagAdapter()->flush();
-        $this->getMessages()->addSuccess("Cache is flushed");
+    if (!Cache::getInstance() instanceof Nil) {
+        Cache::flush();
+        Messages::addSuccess("Cache is flushed");
     } else {
-        $this->getMessages()->addNotice("Cache is disabled");
+        Messages::addNotice("Cache is disabled");
     }
 };

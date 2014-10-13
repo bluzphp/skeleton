@@ -14,6 +14,7 @@ use Application\Roles\Table;
 use Application\Users;
 use Application\UsersActions;
 use Application\UsersRoles;
+use Bluz\Proxy\Messages;
 
 return
 /**
@@ -30,7 +31,7 @@ function ($id, $code) {
     $actionRow = UsersActions\Table::findRow(['userId' => $id, 'code' => $code]);
 
     if (!$actionRow) {
-        $this->getMessages()->addError('Invalid activation code');
+        Messages::addError('Invalid activation code');
         $this->redirectTo('index', 'index');
         return false;
     }
@@ -40,9 +41,9 @@ function ($id, $code) {
     $interval = $datetime1->diff($datetime2);
 
     if ($actionRow->action !== UsersActions\Table::ACTION_ACTIVATION) {
-        $this->getMessages()->addError('Invalid activation code');
+        Messages::addError('Invalid activation code');
     } elseif ($interval->invert) {
-        $this->getMessages()->addError('The activation code has expired');
+        Messages::addError('The activation code has expired');
         $actionRow->delete();
     } else {
         // change user status
@@ -61,7 +62,7 @@ function ($id, $code) {
 
         // remove old code
         $actionRow->delete();
-        $this->getMessages()->addSuccess(
+        Messages::addSuccess(
             'Your Account has been successfully activated. <br/>'.
             'You can now log in using the username and password you chose during the registration.'
         );

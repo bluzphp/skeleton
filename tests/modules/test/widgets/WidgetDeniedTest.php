@@ -11,6 +11,7 @@ namespace Application\Tests\Test;
 
 use Application\Tests\TestCase;
 use Application\Tests\Fixtures\Users\UserHasPermission;
+use Bluz\Proxy\Auth;
 
 /**
  * @package Application\Tests\Test
@@ -24,12 +25,12 @@ class WidgetDeniedTest extends TestCase
      */
     public function testAllow()
     {
-        $this->getApp()->getAuth()->setIdentity(new UserHasPermission());
+        Auth::setIdentity(new UserHasPermission());
         $this->getApp()->widget('test', 'acl-denied');
     }
 
     /**
-     * @expectedException \Bluz\Acl\AclException
+     * @expectedException \Bluz\Application\Exception\ForbiddenException
      */
     public function testDenied()
     {

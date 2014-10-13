@@ -7,14 +7,16 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Layout;
+
 return
 /**
  * @return \closure
  */
 function () {
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
-            $this->getLayout()->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Without view',
         ]
     );

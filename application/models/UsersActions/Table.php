@@ -9,6 +9,8 @@
  */
 namespace Application\UsersActions;
 
+use Bluz\Proxy\Db;
+
 /**
  * Table
  *
@@ -52,7 +54,7 @@ class Table extends \Bluz\Db\Table
     public function generate($userId, $action, $expired = 5, $params = [])
     {
         // remove previously generated tokens
-        $this->getAdapter()->delete($this->table)
+        Db::delete($this->table)
             ->where('userId = ?', $userId)
             ->andWhere('action = ?', $action)
             ->execute();

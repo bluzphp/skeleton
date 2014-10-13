@@ -10,6 +10,11 @@
 namespace Application;
 
 use Application\Users;
+use Bluz\Proxy\Logger;
+use Bluz\Proxy\Mailer;
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Request;
+use Bluz\Proxy\Router;
 
 return
 /**
@@ -24,7 +29,7 @@ function ($email = null) use ($view) {
     // change layout
     $this->useLayout('small.phtml');
 
-    if ($this->getRequest()->isPost()) {
+    if (Request::isPost()) {
         try {
             // check email
             if (empty($email)) {
@@ -54,7 +59,7 @@ function ($email = null) use ($view) {
 
             // send activation email
             // generate restore URL
-            $resetUrl = $this->getRouter()->getFullUrl(
+            $resetUrl = Router::getFullUrl(
                 'users',
                 'recovery-reset',
                 ['code' => $actionRow->code, 'id' => $user->id]
@@ -72,7 +77,7 @@ function ($email = null) use ($view) {
             )->render();
 
             try {
-                $mail = $this->getMailer()->create();
+                $mail = Mailer::create();
 
                 // subject
                 $mail->Subject = $subject;
@@ -80,11 +85,11 @@ function ($email = null) use ($view) {
 
                 $mail->AddAddress($user->email);
 
-                $this->getMailer()->send($mail);
+                Mailer::send($mail);
 
             } catch (\Exception $e) {
                 // log it
-                app()->getLogger()->log(
+                Logger::log(
                     'error',
                     $e->getMessage(),
                     ['module' => 'users', 'controller' => 'recovery', 'email' => $email]
@@ -93,13 +98,13 @@ function ($email = null) use ($view) {
             }
 
             // show notification and redirect
-            $this->getMessages()->addSuccess(
+            Messages::addSuccess(
                 "Reset password instructions has been sent to your email address"
             );
             $this->redirectTo('index', 'index');
 
         } catch (Exception $e) {
-            $this->getMessages()->addError($e->getMessage());
+            Messages::addError($e->getMessage());
         }
         $view->email = $email;
     }

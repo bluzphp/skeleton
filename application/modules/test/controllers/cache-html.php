@@ -10,7 +10,7 @@ namespace Application;
 
 return
 /**
- * @cache 2
+ * @cache-html 2
  * @param int $a
  * @var \Bluz\View\View $view
  * @return \closure

@@ -21,22 +21,6 @@ use Bluz\Http;
 class CrudTest extends ControllerTestCase
 {
     /**
-     * Setup `test` table before the first test
-     */
-    public static function setUpBeforeClass()
-    {
-
-    }
-
-    /**
-     * Drop `test` table after the last test
-     */
-    public static function tearDownAfterClass()
-    {
-
-    }
-
-    /**
      * setUp
      *
      * @return void

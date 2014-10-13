@@ -7,8 +7,8 @@
  */
 namespace Application;
 
-use Bluz;
 use Application\Users;
+use Bluz\Proxy\Layout;
 
 return
 /**
@@ -23,7 +23,7 @@ function ($id = null) use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->title('User Profile');
+    Layout::title('User Profile');
 
     // try to load profile of current user
     if (!$id && $this->user()) {

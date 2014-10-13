@@ -9,6 +9,8 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Layout;
+
 return
 /**
  * @privilege View
@@ -20,8 +22,8 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs(
+    Layout::setTemplate('dashboard.phtml');
+    Layout::breadCrumbs(
         [
             $view->ahref('Dashboard', ['dashboard', 'index']),
             __('ACL')
@@ -31,14 +33,14 @@ function () use ($view) {
     $set = array();
     foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {
         $module = pathinfo(dirname(dirname($file->getPathname())), PATHINFO_FILENAME);
-        $data = $this->reflection($file->getPathname());
-        if (isset($data['privilege'])) {
+        $reflection = $this->reflection($file->getPathname());
+        if ($privilege = $reflection->getPrivilege()) {
             if (!isset($set[$module])) {
                 $set[$module] = array();
             }
 
-            if (!in_array($data['privilege'], $set[$module])) {
-                $set[$module][] = $data['privilege'];
+            if (!in_array($privilege, $set[$module])) {
+                $set[$module][] = $privilege;
             }
         }
     }

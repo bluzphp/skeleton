@@ -11,6 +11,7 @@ namespace Application\Tests\Dashboard;
 
 use Application\Tests\ControllerTestCase;
 use Application\Users;
+use Bluz\Proxy\Response;
 
 /**
  * @package Application\Tests\Dashboard
@@ -69,9 +70,9 @@ class IndexTest extends ControllerTestCase
     public function testError()
     {
         $this->setupGuestIdentity();
-        $result = $this->dispatchUri('dashboard/index');
+        $this->dispatchUri('dashboard/index');
 
-        $this->assertEquals(403, $result->getStatusCode());
+        $this->assertEquals(403, Response::getStatusCode());
     }
 
     /**
@@ -82,8 +83,8 @@ class IndexTest extends ControllerTestCase
     public function testIndex()
     {
         $this->setupSuperUserIdentity();
-        $result = $this->dispatchUri('dashboard/index');
+        $this->dispatchUri('dashboard/index');
 
-        $this->assertEquals(200, $result->getStatusCode());
+        $this->assertEquals(200, Response::getStatusCode());
     }
 }

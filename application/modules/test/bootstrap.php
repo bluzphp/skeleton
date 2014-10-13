@@ -8,14 +8,13 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Proxy\Layout;
 
 return
 /**
  * @return \closure
  */
 function ($a) {
-    /* @var Bluz\Application $this */
-    $this->getLayout()->title("Test", \Bluz\View\View::POS_APPEND);
+    Layout::title("Test", Layout::POS_APPEND);
     return $a*2;
 };

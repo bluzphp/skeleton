@@ -16,6 +16,8 @@ use Bluz\Auth\AbstractRowEntity;
 use Bluz\Auth\AuthException;
 use Bluz\Validator\Traits\Validator;
 use Bluz\Validator\Validator as v;
+use Bluz\Proxy\Auth;
+use Bluz\Proxy\Session;
 
 /**
  * User
@@ -109,9 +111,9 @@ class Row extends AbstractRowEntity
             case (Table::STATUS_ACTIVE):
                 // all ok
                 // regenerate session
-                app()->getSession()->regenerateId();
+                Session::regenerateId();
                 // save user to new session
-                app()->getAuth()->setIdentity($this);
+                Auth::setIdentity($this);
                 break;
             default:
                 throw new Exception("User status is undefined in system");

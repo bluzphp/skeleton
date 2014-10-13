@@ -7,20 +7,18 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Proxy\Layout;
 
 return
 /**
  * @return \closure
  */
-function () use ($bootstrap, $view) {
+function () {
     /**
      * @var Bootstrap $this
-     * @var \closure $bootstrap
-     * @var Bluz\View\View $view
      */
-    $view->title('Test Module');
-    $view->title('Append', $view::POS_APPEND);
-    $view->title('Prepend', $view::POS_PREPEND);
-    $this->getLayout()->breadCrumbs(['Test']);
+    Layout::title('Test Module');
+    Layout::title('Append', Layout::POS_APPEND);
+    Layout::title('Prepend', Layout::POS_PREPEND);
+    Layout::breadCrumbs(['Test']);
 };

@@ -12,6 +12,10 @@ namespace Application\Users;
 use Application\Auth;
 use Application\Exception;
 use Application\UsersActions;
+use Bluz\Proxy\Logger;
+use Bluz\Proxy\Mailer;
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Router;
 use Bluz\Validator\Exception\ValidatorException;
 
 /**
@@ -27,8 +31,9 @@ use Bluz\Validator\Exception\ValidatorException;
 class Crud extends \Bluz\Crud\Table
 {
     /**
-     * @param $data
-     * @throws \Application\Exception
+     * @param array $data
+     * @throws Exception
+     * @throws ValidatorException
      * @return integer
      */
     public function createOne($data)
@@ -63,7 +68,7 @@ class Crud extends \Bluz\Crud\Table
 
         // send activation email
         // generate activation URL
-        $activationUrl = app()->getRouter()->getFullUrl(
+        $activationUrl = Router::getFullUrl(
             'users',
             'activation',
             ['code' => $actionRow->code, 'id' => $userId]
@@ -81,7 +86,7 @@ class Crud extends \Bluz\Crud\Table
         )->render();
 
         try {
-            $mail = app()->getMailer()->create();
+            $mail = Mailer::create();
 
             // subject
             $mail->Subject = $subject;
@@ -89,10 +94,10 @@ class Crud extends \Bluz\Crud\Table
 
             $mail->AddAddress($data['email']);
 
-            app()->getMailer()->send($mail);
+            Mailer::send($mail);
 
         } catch (\Exception $e) {
-            app()->getLogger()->log(
+            Logger::log(
                 'error',
                 $e->getMessage(),
                 ['module' => 'users', 'controller' => 'change-email', 'userId' => $userId]
@@ -102,7 +107,7 @@ class Crud extends \Bluz\Crud\Table
         }
 
         // show notification and redirect
-        app()->getMessages()->addSuccess(
+        Messages::addSuccess(
             "Your account has been created and an activation link has".
             "been sent to the e-mail address you entered.<br/>".
             "Note that you must activate the account by clicking on the activation link".

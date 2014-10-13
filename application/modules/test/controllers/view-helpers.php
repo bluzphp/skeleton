@@ -9,6 +9,9 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Layout;
+use Bluz\Proxy\Request;
+
 return
 /**
  * @param bool $sex
@@ -21,7 +24,7 @@ function ($sex = false, $car = 'none', $remember = false) use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
             'View Form Helpers',
@@ -34,7 +37,7 @@ function ($sex = false, $car = 'none', $remember = false) use ($view) {
     $view->car = $car;
     $view->remember = $remember;
 
-    if ($this->getRequest()->isPost()) {
-        $view->params = $this->getRequest()->getAllParams();
+    if (Request::isPost()) {
+        $view->params = Request::getAllParams();
     }
 };

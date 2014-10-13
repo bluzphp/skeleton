@@ -11,6 +11,7 @@
 namespace Application;
 
 use Application\Categories;
+use Bluz\Proxy\Messages;
 
 return
 /**
@@ -22,6 +23,10 @@ function ($tree, $treeParent) use ($view) {
      */
     try {
         $categories = json_decode($tree);
+
+        if (!$categories) {
+            throw new Exception('Categories tree is broken');
+        }
 
         foreach ($categories as $node) {
             if (isset($node->item_id)) {
@@ -42,8 +47,8 @@ function ($tree, $treeParent) use ($view) {
                 }
             }
         }
-        $this->getMessages()->addSuccess('Tree has been saved');
+        Messages::addSuccess('Tree has been saved');
     } catch (\Exception $e) {
-        $this->getMessages()->addError($e->getMessage());
+        Messages::addError($e->getMessage());
     }
 };

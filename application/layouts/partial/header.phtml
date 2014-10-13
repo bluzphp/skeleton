@@ -1,4 +1,4 @@
-<?php /** @var \Bluz\View\Layout $this */ ?>
+<?php /** @var \Bluz\Layout\Layout $this */ ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
@@ -28,12 +28,12 @@
 <?=$this->meta();?>
 </head>
 <body data-spy="scroll" data-bluz-module="<?=$this->module()?>" data-bluz-controller="<?=$this->controller()?>">
-<?php if (app()->hasMessages()):
+<?php if (\Bluz\Proxy\Messages::count()):
     // JS not allow read headers of current request, only for XMLHTTPRequests :(
     ?>
     <script>
         require(['bluz.notify'], function(notify) {
-            notify.set(<?=json_encode(app()->getMessages()->popAll())?>);
+            notify.set(<?=json_encode(\Bluz\Proxy\Messages::popAll())?>);
         });
     </script>
 <?php endif; ?>

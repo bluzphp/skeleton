@@ -9,7 +9,8 @@
  */
 namespace Application;
 
-use Bluz\Http\Request;
+use Bluz\Proxy\Layout;
+use Bluz\Proxy\Request;
 use Bluz\Validator\Exception\ValidatorException;
 
 return
@@ -21,19 +22,19 @@ function () use ($view) {
     /**
      * @var Bootstrap $this
      */
-    $this->getLayout()->setTemplate('small.phtml');
+    Layout::setTemplate('small.phtml');
 
     $row = new Test\Row();
     $view->row = $row;
 
 
-    if ($this->getRequest()->isPost()) {
+    if (Request::isPost()) {
         $crud = Test\Crud::getInstance();
         try {
-            $crud->createOne($this->getRequest()->getPost());
+            $crud->createOne(Request::getPost());
         } catch (ValidatorException $e) {
             $row = $crud->readOne(null);
-            $row->setFromArray($this->getRequest()->getPost());
+            $row->setFromArray(Request::getPost());
             $result = [
                 'row'    => $row,
                 'errors' => $e->getErrors(),

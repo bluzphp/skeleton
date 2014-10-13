@@ -11,6 +11,7 @@
 <ul>
     <li><?= $this->ahref('Controller &rarr; Closure', ['test', 'closure']);?></li>
     <li><?= $this->ahref('Controller &rarr; Disable View', ['test', 'no-view']);?></li>
+    <li><?= $this->ahref('Controller &rarr; Disable Output', ['test', 'no-output']);?></li>
     <li><?= $this->ahref('Reflection Data', ['test', 'reflection']);?></li>
 </ul>
 <hr/>
@@ -28,6 +29,7 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
 <h3>Packages</h3>
 <ul>
     <li><?= $this->ahref('Cache View', ['test', 'cache-view']);?></li>
+    <li><?= $this->ahref('Cache HTML', ['test', 'cache-html']);?></li>
     <li><?= $this->ahref('Cache Data', ['test', 'cache-data', ['id'=>1]]);?></li>
     <li><?= $this->ahref('DB Operations', ['test', 'db']);?></li>
     <li><?= $this->ahref('DB Query Builders', ['test', 'db-query']);?></li>

@@ -30,6 +30,3 @@ if (getenv('BLUZ_DEBUG')) {
     error_reporting(0);
     ini_set('display_errors', 0);
 }
-
-// Shutdown function for handle critical and other errors
-register_shutdown_function('errorHandler');

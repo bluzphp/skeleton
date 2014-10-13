@@ -7,8 +7,8 @@
  */
 namespace Application;
 
-use Bluz;
 use Application\Test;
+use Bluz\Proxy\Layout;
 
 return
 /**
@@ -23,7 +23,7 @@ function ($alias) use ($view, $module, $controller) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
             'Grid with Select',

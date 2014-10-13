@@ -11,7 +11,10 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Common\Nil;
+use Bluz\Proxy\Cache;
+use Bluz\Proxy\Layout;
+use Bluz\Proxy\Messages;
 
 return
 /**
@@ -25,8 +28,8 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs(
+    Layout::setTemplate('dashboard.phtml');
+    Layout::breadCrumbs(
         [
             $view->ahref('Dashboard', ['dashboard', 'index']),
             $view->ahref('Cache', ['cache', 'index']),
@@ -34,11 +37,10 @@ function () use ($view) {
         ]
     );
 
-    if ($handler = $this->getCache()->getAdapter()) {
-        // TODO: code for inject stats of memcached/apc/etc
-        $view->adapter = $handler;
+    if (!Cache::getInstance() instanceof Nil) {
+        $view->adapter = Cache::getInstance()->getAdapter();
     } else {
-        $this->getMessages()->addNotice("Cache is disabled");
+        Messages::addNotice("Cache is disabled");
         $this->redirectTo('cache', 'index');
     }
 };

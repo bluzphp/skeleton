@@ -9,6 +9,10 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Cache;
+use Bluz\Proxy\Db;
+use Bluz\Proxy\Messages;
+
 return
 /**
  * @privilege Edit
@@ -25,12 +29,12 @@ function ($acl) use ($view) {
         /**
          * @var Bootstrap $this
          */
-        $this->getDb()->query('DELETE FROM acl_privileges');
+        Db::query('DELETE FROM acl_privileges');
 
         foreach ($acl as $roleId => $modules) {
             foreach ($modules as $module => $privileges) {
                 foreach ($privileges as $privilege => $flag) {
-                    $this->getDb()->query(
+                    Db::query(
                         'INSERT INTO acl_privileges SET roleId = ?, module = ?, privilege = ?',
                         array($roleId, $module, $privilege)
                     );
@@ -40,12 +44,12 @@ function ($acl) use ($view) {
     };
 
     if (empty($acl)) {
-        $this->getMessages()->addError('Privileges set is empty. You can\'t remove all of them');
-    } elseif ($this->getDb()->transaction($callback)) {
-        $this->getCache()->deleteByTag('privileges');
-        $this->getMessages()->addSuccess('All data was saved');
+        Messages::addError('Privileges set is empty. You can\'t remove all of them');
+    } elseif (Db::transaction($callback)) {
+        Cache::deleteByTag('privileges');
+        Messages::addSuccess('All data was saved');
     } else {
-        $this->getMessages()->addError('Internal Server Error');
+        Messages::addError('Internal Server Error');
     }
 
     $this->redirectTo('acl', 'index');

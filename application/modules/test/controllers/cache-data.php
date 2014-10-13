@@ -7,7 +7,8 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Proxy\Cache;
+use Bluz\Proxy\Layout;
 
 return
 /**
@@ -22,14 +23,14 @@ function ($id = null) use ($bootstrap, $view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
             'Cache Data',
         ]
     );
     /* @var Bootstrap $this */
-    $this->getLayout()->title('Check cache');
+    Layout::title('Check cache');
 
     // try to load profile of current user
     if (!$id && $this->user()) {
@@ -40,13 +41,12 @@ function ($id = null) use ($bootstrap, $view) {
         throw new \Exception('User not found', 404);
     }
 
-    $cache = $this->getCache();
     /**
      * @var Users\Row $userRow
      */
-    if (!$userRow = $cache->get('user:'.$id)) {
+    if (!$userRow = Cache::get('user:'.$id)) {
         $userRow = Users\Table::findRow($id);
-        $cache->set('user:'.$id, $userRow, 30);
+        Cache::set('user:'.$id, $userRow, 30);
     };
 
     if (!$userRow) {

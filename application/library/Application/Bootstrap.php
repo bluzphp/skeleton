@@ -28,6 +28,12 @@ namespace Application;
 
 use Bluz\Application\Application;
 use Bluz\Application\Exception\ForbiddenException;
+use Bluz\Proxy\Layout;
+use Bluz\Proxy\Logger;
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Response;
+use Bluz\Proxy\Request;
+use Bluz\Proxy\Session;
 
 /**
  * Bootstrap
@@ -41,40 +47,30 @@ use Bluz\Application\Exception\ForbiddenException;
 class Bootstrap extends Application
 {
     /**
-     * initial environment
+     * {@inheritdoc}
      *
-     * @param string $environment
-     * @return self
+     * @param string $module
+     * @param string $controller
+     * @param array $params
+     * @return void
      */
-    public function init($environment = 'production')
+    protected function preDispatch($module, $controller, $params = array())
     {
-        $res = parent::init($environment);
-
-        // dispatch hook for acl realization
-        $this->getEventManager()->attach(
-            'dispatch',
-            function ($event) {
-                /* @var \Bluz\EventManager\Event $event */
-                $eventParams = $event->getParams();
-                $this->log('bootstrap:dispatch: '.$eventParams['module'].'/'.$eventParams['controller']);
-            }
-        );
-
-        // widget hook for acl realization
-        $this->getEventManager()->attach(
-            'widget',
-            function ($event) {
-                /* @var \Bluz\EventManager\Event $event */
-                $eventParams = $event->getParams();
-                $this->log('bootstrap:widget: '.$eventParams['module'].'/'.$eventParams['widget']);
-            }
-        );
-
-
-        // example of setup Layout
-        $this->getLayout()->title("Bluz Skeleton");
-
-        return $res;
+        // example of setup default title
+        Layout::title("Bluz Skeleton");
+        parent::preDispatch($module, $controller, $params);
+    }
+    /**
+     * {@inheritdoc}
+     *
+     * @param string $module
+     * @param string $controller
+     * @param array $params
+     * @return void
+     */
+    protected function postDispatch($module, $controller, $params = array())
+    {
+        parent::postDispatch($module, $controller, $params);
     }
 
     /**
@@ -86,13 +82,13 @@ class Bootstrap extends Application
     public function denied()
     {
         // process AJAX request
-        if (!$this->getRequest()->isXmlHttpRequest()) {
-            $this->getMessages()->addError('You don\'t have permissions, please sign in');
+        if (!Request::isXmlHttpRequest()) {
+            Messages::addError('You don\'t have permissions, please sign in');
         }
         // redirect to login page
         if (!$this->user()) {
             // save URL to session
-            $this->getSession()->rollback = $this->getRequest()->getRequestUri();
+            Session::set('rollback', Request::getRequestUri());
             $this->redirectTo('users', 'signin');
         }
         throw new ForbiddenException();
@@ -111,25 +107,26 @@ class Bootstrap extends Application
                 microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
                 ceil((memory_get_usage()/1024))
             );
-            $debugString .= '; '.$this->getRequest()->getModule() .'/'. $this->getRequest()->getController();
+            $debugString .= '; '.Request::getModule() .'/'. Request::getController();
 
-            $this->getResponse()->setHeader('Bluz-Debug', $debugString);
+            Response::setHeader('Bluz-Debug', $debugString);
 
-            $debugBar = json_encode($this->getLogger()->get('info'));
+            $debugBar = json_encode(Logger::get('info'));
 
-            $this->getResponse()->setHeader('Bluz-Bar', $debugBar);
+            Response::setHeader('Bluz-Bar', $debugBar);
         }
         parent::render();
     }
 
     /**
-     * @return Application
+     * @return void
      */
     public function finish()
     {
-        if ($messages = $this->getLogger()->get('error')) {
-            errorLog(join("\n", $messages)."\n");
+        if ($messages = Logger::get('error')) {
+            foreach ($messages as $message) {
+                errorLog($message);
+            }
         }
-        return $this;
     }
 }

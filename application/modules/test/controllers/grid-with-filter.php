@@ -4,8 +4,8 @@
  */
 namespace Application;
 
-use Bluz;
 use Application\Test;
+use Bluz\Proxy\Layout;
 
 return
     /**
@@ -15,7 +15,7 @@ return
         /**
          * @var \Bluz\View\View $view
          */
-        app()->getLayout()->breadCrumbs(
+        Layout::breadCrumbs(
             [
                 $view->ahref('Test', ['test', 'index']),
                 'Grid with Filter',

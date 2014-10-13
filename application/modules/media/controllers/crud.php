@@ -12,6 +12,9 @@ namespace Application;
 
 use Application\Media;
 use Bluz\Controller;
+use Bluz\Proxy\Config;
+use Bluz\Proxy\Layout;
+use Bluz\Proxy\Session;
 use Bluz\Request\AbstractRequest;
 
 return
@@ -24,10 +27,10 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getSession()->start();
+    Session::start();
 
     $this->useLayout('dashboard.phtml');
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             $view->ahref('Dashboard', ['dashboard', 'index']),
             $view->ahref('Media', ['media', 'grid']),
@@ -42,7 +45,7 @@ function () use ($view) {
 
     $crud = Media\Crud::getInstance();
     // get path from config
-    $path = $this->getConfig()->getModuleData('media', 'upload_path');
+    $path = Config::getModuleData('media', 'upload_path');
     if (empty($path)) {
         throw new Exception('Upload path is not configured');
     }

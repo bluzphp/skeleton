@@ -8,8 +8,6 @@
  */
 namespace Application;
 
-use Bluz;
-
 return
 /**
  * @return \closure

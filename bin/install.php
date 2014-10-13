@@ -27,13 +27,7 @@ foreach ($folders as $folder) {
 }
 
 unset($folder);
-echo 'Copy configuration' . PHP_EOL;
-if (copy($root . '/application/configs/app.dev.sample.php', $root . '/application/configs/app.dev.php')) {
-    echo ' ./configs/app.dev.php' . PHP_EOL;
-}
-if (copy($root . '/application/configs/app.testing.sample.php', $root . '/application/configs/app.testing.php')) {
-    echo ' ./configs/app.testing.php' . PHP_EOL;
-}
+echo 'Copy .htaccess file' . PHP_EOL;
 if (copy($root . '/public/.htaccess.dev.sample', $root . '/public/.htaccess')) {
     echo ' ./public/.htaccess' . PHP_EOL;
 }

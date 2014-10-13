@@ -9,6 +9,9 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Layout;
+use Bluz\Proxy\Request;
+
 return
 /**
  * @return void
@@ -18,17 +21,17 @@ function ($int, $string, $array, $optional = 0) use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
             'Form Example',
         ]
     );
-    if ($this->getRequest()->isPost()) {
+    if (Request::isPost()) {
         ob_start();
         var_dump($int, $string, $array, $optional);
         $view->inside = ob_get_contents();
         ob_end_clean();
-        $view->params = $this->getRequest()->getAllParams();
+        $view->params = Request::getAllParams();
     }
 };

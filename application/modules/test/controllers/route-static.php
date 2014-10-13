@@ -7,7 +7,8 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Proxy\Layout;
+use Bluz\Proxy\Request;
 
 return
 /**
@@ -20,17 +21,19 @@ function () use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
-            $this->getLayout()->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Routers Examples',
         ]
     );
 
-    $uri = $this->getRequest()->getRequestUri();
+    $uri = Request::getRequestUri();
+    $module = Request::getModule();
+    $controller = Request::getController();
     echo <<<CODE
 <h4>URL: $uri</h4>
-<h4>Route: {$this->getRequest()->getModule()}/{$this->getRequest()->getController()}</h4>
+<h4>Route: $module/$controller</h4>
 <pre>
 /**
  * @route /static-route/

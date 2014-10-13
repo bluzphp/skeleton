@@ -8,9 +8,9 @@
  */
 namespace Application;
 
-use Bluz;
 use Application\Users;
-use Application\Users\Grid;
+use Bluz\Proxy\Db;
+use Bluz\Proxy\Layout;
 
 return
 /**
@@ -22,8 +22,8 @@ function () use ($view, $module, $controller) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs(
+    Layout::setTemplate('dashboard.phtml');
+    Layout::breadCrumbs(
         [
             $view->ahref('Dashboard', ['dashboard', 'index']),
             __('Users')
@@ -34,7 +34,7 @@ function () use ($view, $module, $controller) {
     $grid->setModule($module);
     $grid->setController($controller);
 
-    $view->roles = $this->getDb()->fetchAll('SELECT * FROM acl_roles');
+    $view->roles = Db::fetchAll('SELECT * FROM acl_roles');
 
     $view->grid = $grid;
 };

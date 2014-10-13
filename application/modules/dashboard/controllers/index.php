@@ -12,6 +12,8 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Layout;
+
 return
 /**
  * @privilege Dashboard
@@ -22,10 +24,10 @@ function () {
     /**
      * @var Bootstrap $this
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             __('Dashboard'),
         ]
     );
-    $this->getLayout()->setTemplate('dashboard.phtml');
+    Layout::setTemplate('dashboard.phtml');
 };

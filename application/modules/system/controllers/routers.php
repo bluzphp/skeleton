@@ -7,25 +7,23 @@
  */
 namespace Application;
 
-use Bluz;
+use Bluz\Proxy\Layout;
 
-/**
- * @privilege Info
- *
- * @return \closure
- */
 return
 /**
  * List of custom routers
+ * @privilege Info
+ *
+ * @return \closure
  */
 function () use ($view) {
     /**
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $view->title('Routers Map');
-    $this->getLayout()->setTemplate('dashboard.phtml');
-    $this->getLayout()->breadCrumbs(
+    Layout::title('Routers Map');
+    Layout::setTemplate('dashboard.phtml');
+    Layout::breadCrumbs(
         [
             $view->ahref('Dashboard', ['dashboard', 'index']),
             $view->ahref('System', ['system', 'index']),
@@ -36,13 +34,13 @@ function () use ($view) {
     foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {
         $module = pathinfo(dirname(dirname($file->getPathname())), PATHINFO_FILENAME);
         $controller = pathinfo($file->getPathname(), PATHINFO_FILENAME);
-        $data = $this->reflection($file->getPathname());
-        if (isset($data['route'])) {
+        $reflection = $this->reflection($file->getPathname());
+        if ($route = $reflection->getRoute()) {
             if (!isset($routers[$module])) {
                 $routers[$module] = array();
             }
 
-            $routers[$module][$controller] = ['route' => $data['route'], 'params' => $data['params']];
+            $routers[$module][$controller] = ['route' => $route, 'params' => $reflection->getParams()];
         }
     }
     $view->routers = $routers;

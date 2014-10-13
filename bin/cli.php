@@ -5,6 +5,12 @@
  * @author   C.O.
  * @created  14.11.12 13:20
  */
+
+/**
+ * @namespace
+ */
+namespace Application;
+
 // Check CLI
 if (PHP_SAPI !== 'cli') {
     exit;
@@ -65,14 +71,17 @@ function errorDisplay() {
         return;
     }
     echo "Application Error\n";
-    if (getenv('BLUZ_DEBUG') && isset($e)) {
+    if (getenv('BLUZ_DEBUG')) {
         echo $e['message']."\n";
         echo $e['file'] ."#". $e['line'] ."\n";
     }
+    // try to write log
+    errorLog($e['message'], $e['file'] ."#". $e['line']);
+    exit(1);
 }
 
 // Shutdown function for handle critical and other errors
-register_shutdown_function('errorDisplay');
+register_shutdown_function('\\Application\\errorDisplay');
 
 // Try to run application
 try {
@@ -81,18 +90,13 @@ try {
      * @see http://getcomposer.org/apidoc/master/Composer/Autoload/ClassLoader.html
      */
     require_once dirname(__DIR__) . '/vendor/autoload.php';
-    require_once PATH_APPLICATION . '/CliBootstrap.php';
-    require_once PATH_APPLICATION . '/Exception.php';
 
     // Environment
     $env = getenv('BLUZ_ENV')?:'production';
 
-    /**
-     * @var \Application\CliBootstrap $app
-     */
-    $app = \Application\CliBootstrap::getInstance();
-    $app->init($env)
-        ->process();
+    $app = CliBootstrap::getInstance();
+    $app->init($env);
+    $app->process();
     $app->render();
     $app->finish();
 } catch (Exception $e) {
@@ -106,4 +110,7 @@ try {
         echo "Use `--help` flag for show help notices\n";
         echo "Use `--debug` flag for receive more information\n";
     }
+    // try to write log
+    errorLog($e->getMessage(), $e->getTraceAsString());
+    exit(1);
 }

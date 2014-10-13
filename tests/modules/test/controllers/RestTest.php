@@ -9,9 +9,10 @@
  */
 namespace Application\Tests\Test;
 
-use Application\Tests\BootstrapTest;
 use Application\Tests\ControllerTestCase;
 use Bluz\Http;
+use Bluz\Proxy\Db;
+use Bluz\Proxy\Response;
 
 /**
  * @package  Application\Tests\Test
@@ -25,7 +26,7 @@ class RestTest extends ControllerTestCase
      */
     public static function setUpBeforeClass()
     {
-        BootstrapTest::getInstance()->getDb()->insert('test')->setArray(
+        Db::insert('test')->setArray(
             [
                 'id' => 1,
                 'name' => 'Donatello',
@@ -33,7 +34,7 @@ class RestTest extends ControllerTestCase
             ]
         )->execute();
 
-        BootstrapTest::getInstance()->getDb()->insert('test')->setArray(
+        Db::insert('test')->setArray(
             [
                 'id' => 2,
                 'name' => 'Leonardo',
@@ -41,7 +42,7 @@ class RestTest extends ControllerTestCase
             ]
         )->execute();
 
-        BootstrapTest::getInstance()->getDb()->insert('test')->setArray(
+        Db::insert('test')->setArray(
             [
                 'id' => 3,
                 'name' => 'Michelangelo',
@@ -49,7 +50,7 @@ class RestTest extends ControllerTestCase
             ]
         )->execute();
 
-        BootstrapTest::getInstance()->getDb()->insert('test')->setArray(
+        Db::insert('test')->setArray(
             [
                 'id' => 4,
                 'name' => 'Raphael',
@@ -63,8 +64,8 @@ class RestTest extends ControllerTestCase
      */
     public static function tearDownAfterClass()
     {
-        BootstrapTest::getInstance()->getDb()->delete('test')->where('id IN (?)', [1,2,3,4])->execute();
-        BootstrapTest::getInstance()->getDb()->delete('test')->where('email = ?', 'splinter@turtles.org')->execute();
+        Db::delete('test')->where('id IN (?)', [1,2,3,4])->execute();
+        Db::delete('test')->where('email = ?', 'splinter@turtles.org')->execute();
     }
 
     /**
@@ -83,12 +84,12 @@ class RestTest extends ControllerTestCase
      */
     public function testReadOne()
     {
-        $response = $this->dispatchRouter('/test/rest/1');
+        $this->dispatchRouter('/test/rest/1');
 
         $this->assertOk();
 
         /** @var \Application\Test\Row $row */
-        $row = current($response->getBody()->getData());
+        $row = current(Response::getBody()->toArray());
         $this->assertEquals($row->id, 1);
     }
 
@@ -97,11 +98,11 @@ class RestTest extends ControllerTestCase
      */
     public function testReadSet()
     {
-        $response = $this->dispatchRouter('/test/rest/?offset=0&limit=3');
+        $this->dispatchRouter('/test/rest/?offset=0&limit=3');
 
         $this->assertResponseCode(206);
-        $this->assertEquals(sizeof($response->getBody()->getData()), 3);
-        $this->assertEquals($response->getHeader('Content-Range'), 'items 0-3/45');
+        $this->assertEquals(sizeof(Response::getBody()->toArray()), 3);
+        $this->assertEquals(Response::getHeader('Content-Range'), 'items 0-3/45');
     }
 
     /**
@@ -109,19 +110,19 @@ class RestTest extends ControllerTestCase
      */
     public function testCreate()
     {
-        $response = $this->dispatchRouter(
+        $this->dispatchRouter(
             '/test/rest/',
             ['name' => 'Splinter', 'email' => 'splinter@turtles.org'],
             Http\Request::METHOD_POST
         );
 
-        $primary = $this->getApp()->getDb()->fetchOne(
+        $primary = Db::fetchOne(
             'SELECT id FROM `test` WHERE `name` = ?',
             ['Splinter']
         );
 
         $this->assertResponseCode(201);
-        $this->assertEquals($response->getHeader('Location'), '/test/rest/'.$primary);
+        $this->assertEquals(Response::getHeader('Location'), '/test/rest/'.$primary);
     }
 
     /**
@@ -147,14 +148,14 @@ class RestTest extends ControllerTestCase
      */
     public function testCreateValidationErrors()
     {
-        $response = $this->dispatchRouter(
+        $this->dispatchRouter(
             '/test/rest/',
             ['name' => '', 'email' => ''],
             Http\Request::METHOD_POST
         );
 
-        $this->assertNotNull($response->getBody()->errors);
-        $this->assertEquals(sizeof($response->getBody()->errors), 2);
+        $this->assertNotNull(Response::getBody()->errors);
+        $this->assertEquals(sizeof(Response::getBody()->errors), 2);
         $this->assertResponseCode(400);
     }
 
@@ -171,7 +172,7 @@ class RestTest extends ControllerTestCase
         ;
         $this->assertOk();
 
-        $id = $this->getApp()->getDb()->fetchOne(
+        $id = Db::fetchOne(
             'SELECT `id` FROM `test` WHERE `email` = ?',
             ['leonardo@turtles.ua']
         );
@@ -198,7 +199,7 @@ class RestTest extends ControllerTestCase
         /*
         $this->assertOk();
 
-        $count = $this->getApp()->getDb()->fetchOne(
+        $count = Db::fetchOne(
             'SELECT count(*) FROM `test` WHERE `email` LIKE(?)',
             ['%turtles.org.ua']
         );
@@ -241,7 +242,7 @@ class RestTest extends ControllerTestCase
         $this->dispatchRouter('/test/rest/1', null, Http\Request::METHOD_DELETE);
         $this->assertResponseCode(204);
 
-        $count = $this->getApp()->getDb()->fetchOne(
+        $count = Db::fetchOne(
             'SELECT count(*) FROM `test` WHERE `id` = ?',
             [1]
         );
@@ -277,7 +278,7 @@ class RestTest extends ControllerTestCase
         /*
         $this->assertOk();
 
-        $count = $this->getApp()->getDb()->fetchOne(
+        $count = Db::fetchOne(
             'SELECT count(*) FROM `test` WHERE `id` IN (3,4)'
         );
         $this->assertEquals($count, 0);

@@ -9,11 +9,17 @@
  */
 namespace Application;
 
+use Bluz\Controller\Reflection;
+use Bluz\Proxy\Layout;
+
 return
 /**
  * @key Example of custom key-value
  * @key Array also supported
  * @param int $id
+ * @param string $other
+ * @route /test-reflection.html
+ * @route /test-reflection-{$id}.html
  * @return \closure
  */
 function ($id = 0, $other = "default value") use ($view) {
@@ -21,12 +27,16 @@ function ($id = 0, $other = "default value") use ($view) {
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
             'Reflection of this controller',
         ]
     );
+
+    $reflection = new Reflection(__FILE__);
+    $reflection->process();
+
     $view->functionData = file_get_contents(__FILE__);
     $view->reflectionData = $this->reflection(__FILE__);
     $view->id = $id;

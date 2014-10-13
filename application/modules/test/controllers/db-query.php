@@ -7,6 +7,8 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Layout;
+
 return
 /**
  * @return void
@@ -17,7 +19,7 @@ function () use ($view) {
      * @var \closure $bootstrap
      * @var \Bluz\View\View $view
      */
-    $this->getLayout()->breadCrumbs(
+    Layout::breadCrumbs(
         [
             $view->ahref('Test', ['test', 'index']),
             'DB Query Builders',

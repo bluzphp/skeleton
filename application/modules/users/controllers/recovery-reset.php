@@ -11,6 +11,8 @@ namespace Application;
 
 use Application\Auth;
 use Application\Users;
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Request;
 
 return
 /**
@@ -36,10 +38,10 @@ function ($id, $code, $password = null, $password2 = null) use ($view) {
     $interval = $datetime1->diff($datetime2);
 
     if (!$actionRow or $actionRow->action !== UsersActions\Table::ACTION_RECOVERY) {
-        $this->getMessages()->addError('Invalid code');
+        Messages::addError('Invalid code');
         $this->redirectTo('index', 'index');
     } elseif ($interval->invert) {
-        $this->getMessages()->addError('The activation code has expired');
+        Messages::addError('The activation code has expired');
         $actionRow->delete();
         $this->redirectTo('index', 'index');
     } else {
@@ -48,7 +50,7 @@ function ($id, $code, $password = null, $password2 = null) use ($view) {
         $view->user = $user;
         $view->code = $code;
 
-        if ($this->getRequest()->isPost()) {
+        if (Request::isPost()) {
             try {
 
                 if (empty($password) or empty($password2)) {
@@ -68,12 +70,12 @@ function ($id, $code, $password = null, $password2 = null) use ($view) {
                 Auth\Table::getInstance()->generateEquals($user, $password);
 
                 // show notification and redirect
-                $this->getMessages()->addSuccess(
+                Messages::addSuccess(
                     "Your password has been updated"
                 );
                 $this->redirectTo('users', 'signin');
             } catch (Exception $e) {
-                $this->getMessages()->addError($e->getMessage());
+                Messages::addError($e->getMessage());
             }
         }
     }

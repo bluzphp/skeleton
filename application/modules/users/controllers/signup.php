@@ -11,6 +11,7 @@ namespace Application;
 
 use Application\Users;
 use Bluz\Controller;
+use Bluz\Proxy\Request;
 
 return
 /**
@@ -23,7 +24,7 @@ function () {
      */
 
     // change layout
-    if (!$this->getRequest()->isXmlHttpRequest()) {
+    if (!Request::isXmlHttpRequest()) {
         $this->useLayout('small.phtml');
     }
 

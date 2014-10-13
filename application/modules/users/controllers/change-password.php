@@ -11,6 +11,8 @@ use Application\Users;
 use Bluz\Auth\AuthException;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotFoundException;
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Request;
 
 return
 /**
@@ -35,7 +37,7 @@ function ($password, $new_password, $new_password2) use ($view) {
         throw new NotFoundException('User not found');
     }
 
-    if ($this->getRequest()->isPost()) {
+    if (Request::isPost()) {
         // process form
         try {
             if (empty($password)) {
@@ -57,14 +59,14 @@ function ($password, $new_password, $new_password2) use ($view) {
             // create new Auth record
             $authTable->generateEquals($user, $new_password);
 
-            $this->getMessages()->addSuccess("The password was updated successfully");
+            Messages::addSuccess("The password was updated successfully");
 
             // try back to index
             $this->redirectTo('users', 'profile');
         } catch (BadRequestException $e) {
-            $this->getMessages()->addError($e->getMessage());
+            Messages::addError($e->getMessage());
         } catch (AuthException $e) {
-            $this->getMessages()->addError($e->getMessage());
+            Messages::addError($e->getMessage());
         }
     }
 };

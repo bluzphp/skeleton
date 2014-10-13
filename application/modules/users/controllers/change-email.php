@@ -12,6 +12,10 @@ use Application\UsersActions;
 use Application\UsersActions\Table;
 use Bluz\Application\Exception\NotFoundException;
 use Bluz\Auth\AuthException;
+use Bluz\Proxy\Mailer;
+use Bluz\Proxy\Messages;
+use Bluz\Proxy\Request;
+use Bluz\Proxy\Router;
 
 return
 /**
@@ -36,7 +40,7 @@ function ($email = null, $password = null, $token = null) use ($view) {
 
     $view->email = $user->email;
 
-    if ($this->getRequest()->isPost()) {
+    if (Request::isPost()) {
         // process form
         try {
             if (empty($password)) {
@@ -60,7 +64,7 @@ function ($email = null, $password = null, $token = null) use ($view) {
                 ['email' => $email]
             );
 
-            $changeUrl = $this->getRouter()->getFullUrl(
+            $changeUrl = Router::getFullUrl(
                 'users',
                 'change-email',
                 ['token' => $actionRow->code]
@@ -77,24 +81,19 @@ function ($email = null, $password = null, $token = null) use ($view) {
                         'user' => $user,
                         'email' => $email,
                         'changeUrl' => $changeUrl,
-                        'profileUrl' => $this->getRouter()->getFullUrl('users', 'profile')
+                        'profileUrl' => Router::getFullUrl('users', 'profile')
                     ]
                 ]
             )->render();
 
             try {
-                $mail = $this->getMailer()->create();
-
-                // subject
+                $mail = Mailer::create();
                 $mail->Subject = $subject;
                 $mail->MsgHTML(nl2br($body));
-
                 $mail->AddAddress($email);
+                Mailer::send($mail);
 
-                $this->getMailer()->send($mail);
-
-                $this->getMessages()->addNotice('Check your email and follow instructions in letter.');
-
+                Messages::addNotice('Check your email and follow instructions in letter.');
             } catch (\Exception $e) {
                 $this->getLogger()->log(
                     'error',
@@ -107,10 +106,10 @@ function ($email = null, $password = null, $token = null) use ($view) {
             // try back to index
             $this->redirectTo('users', 'profile');
         } catch (Exception $e) {
-            $this->getMessages()->addError($e->getMessage());
+            Messages::addError($e->getMessage());
             $view->email = $email;
         } catch (AuthException $e) {
-            $this->getMessages()->addError($e->getMessage());
+            Messages::addError($e->getMessage());
             $view->email = $email;
         }
     } elseif ($token) {
@@ -128,7 +127,7 @@ function ($email = null, $password = null, $token = null) use ($view) {
 
         $actionRow->delete();
 
-        $this->getMessages()->addSuccess('Email was updated');
+        Messages::addSuccess('Email was updated');
         $this->redirectTo('users', 'profile');
     }
 };

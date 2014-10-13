@@ -10,6 +10,9 @@
 namespace Application\Tests;
 
 use Bluz\Http;
+use Bluz\Proxy;
+use Bluz\Proxy\Config;
+use Bluz\Proxy\Request;
 use Bluz\Request\AbstractRequest;
 use Bluz\Response\AbstractResponse;
 
@@ -71,14 +74,14 @@ class TestCase extends \PHPUnit_Framework_TestCase
     private function resetApp()
     {
         if ($this->app) {
-            $this->app->resetLayout();
-            $this->app->getAuth()->clearIdentity();
-            $this->app->setRequest(new Http\Request());
-            $this->app->setResponse(new Http\Response());
             $this->app->useJson(false);
             $this->app->useLayout(true);
-            $this->app->getMessages()->popAll();
         }
+
+        Proxy\Auth::clearIdentity();
+        Proxy\Messages::popAll();
+        Proxy\Request::setInstance(new Http\Request());
+        Proxy\Response::setInstance(new Http\Response());
     }
 
     /**
@@ -92,10 +95,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     private function prepareRequest($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
     {
-        $request = $this->app->getRequest();
-        $request->setRequestUri($uri);
-        $request->setOptions($this->app->getConfigData('request'));
-        $request->setMethod($method);
+        Request::setRequestUri($uri);
+        Request::setOptions(Config::getData('request'));
+        Request::setMethod($method);
 
         // process $_GET params
         if ($query = stristr($uri, '?')) {
@@ -105,10 +107,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
         // process custom params
         if ($params) {
-            $request->setParams($params);
+            Request::setParams($params);
         }
-
-        $this->app->setRequest($request);
 
         if ($ajax) {
             $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
@@ -123,26 +123,25 @@ class TestCase extends \PHPUnit_Framework_TestCase
      * @param array $params of request
      * @param string $method HTTP
      * @param bool $ajax
-     * @return AbstractResponse
+     * @return void
      */
     protected function dispatchUri($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
     {
-        $request = $this->prepareRequest($uri, $params, $method, $ajax);
+        $this->prepareRequest($uri, $params, $method, $ajax);
 
         $uri = trim($uri, '/ ');
         list($module, $controller) = explode('/', $uri);
 
         // set default controller
         if (!$controller) {
-            $controller = $request->getController();
+            $controller = Request::getController();
         }
 
-        $this->app->getRequest()
-            ->setModule($module)
-            ->setController($controller)
-            ->setRequestUri($uri);
+        Request::setModule($module);
+        Request::setController($controller);
+        Request::setRequestUri($uri);
 
-        return $this->app->process();
+        $this->app->process();
     }
 
     /**
@@ -152,29 +151,11 @@ class TestCase extends \PHPUnit_Framework_TestCase
      * @param array $params of request
      * @param string $method HTTP
      * @param bool $ajax
-     * @return AbstractResponse
+     * @return void
      */
     protected function dispatchRouter($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
     {
         $this->prepareRequest($uri, $params, $method, $ajax);
-
-        $router = $this->app->getRouter();
-
-        $router->process();
-
-        return $this->app->process();
-    }
-
-    /**
-     * dispatch Request
-     *
-     * @param AbstractRequest $request
-     *
-     * @return AbstractResponse
-     */
-    protected function dispatchRequest($request)
-    {
-        $this->app->setRequest($request);
-        return $this->app->process();
+        $this->app->process();
     }
 }

@@ -58,7 +58,7 @@ class Client extends GuzzleClient
     /**
      * Get request token from API
      *
-     * $callbackUrl = $this->getRouter()->getFullUrl('twitter', 'callback');
+     * $callbackUrl = Router::getFullUrl('twitter', 'callback');
      * $oauthRequestToken = $twitterAuth->getOauthRequestToken($callbackUrl);     *
      *
      * @param string $callbackUrl
@@ -91,10 +91,10 @@ class Client extends GuzzleClient
     /**
      * getOauthAccessToken
      *
-     * $oauth_token = $this->getRequest()->getParam('oauth_token');
-     * $oauth_verifier = $this->getRequest()->getParam('oauth_verifier');
-     * $oauthTokenSecret = $this->getSession()->oauthTokenSecret;
-     * $oauthRequestToken = $twitterAuth->getOauthAccessToken($oauth_token, $oauth_verifier, $oauthTokenSecret);
+     * $oauthToken = Request::getParam('oauth_token');
+     * $oauthVerifier = Request::getParam('oauth_verifier');
+     * $oauthTokenSecret = Session::get('oauthTokenSecret');
+     * $oauthRequestToken = $twitterAuth->getOauthAccessToken($oauthToken, $oauthVerifier, $oauthTokenSecret);
      *
      * @param string $oauthToken
      * @param string $oauthVerifier
