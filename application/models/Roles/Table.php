@@ -10,6 +10,7 @@
 namespace Application\Roles;
 
 use Bluz\Proxy\Cache;
+use Bluz\Proxy\Db;
 
 /**
  * Class Table
@@ -91,7 +92,7 @@ class Table extends \Bluz\Db\Table
     {
         $cacheKey = 'roles:user:'.$userId;
         if (!$data = Cache::get($cacheKey)) {
-            $data = $this->getAdapter()->fetchColumn(
+            $data = Db::fetchColumn(
                 "SELECT r.id
                 FROM acl_roles AS r, acl_users_roles AS u2r
                 WHERE r.id = u2r.roleId AND u2r.userId = ?

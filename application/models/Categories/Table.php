@@ -9,6 +9,8 @@
  */
 namespace Application\Categories;
 
+use Bluz\Proxy\Db;
+
 /**
  * Class Table
  *
@@ -72,7 +74,7 @@ class Table extends \Bluz\Db\Table
      */
     public function prepareTree()
     {
-        $result = $this->getAdapter()->fetchGroup('SELECT id, categories.* FROM categories ORDER BY `order`');
+        $result = Db::fetchGroup('SELECT id, categories.* FROM categories ORDER BY `order`');
         $result = array_map('reset', $result);
 
         return $result;
