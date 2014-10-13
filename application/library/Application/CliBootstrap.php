@@ -85,5 +85,12 @@ class CliBootstrap extends Application
                 errorLog($message);
             }
         }
+
+        // return code 1 for invalid behaviour of application
+        if ($exception = Response::getException()) {
+            echo $exception->getMessage();
+            exit(1);
+        }
+        exit;
     }
 }

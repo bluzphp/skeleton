@@ -29,18 +29,18 @@ function () use ($view) {
     );
 
     EventManager::attach(
-            'testevent',
-            function (Event $event) {
-                return $event->getTarget()*2;
-            }
-        );
+        'testevent',
+        function (Event $event) {
+            return $event->getTarget()*2;
+        }
+    );
 
     EventManager::attach(
-            'testevent',
-            function (Event $event) {
-                return $event->getTarget()*2;
-            }
-        );
+        'testevent',
+        function (Event $event) {
+            return $event->getTarget()*2;
+        }
+    );
 
     EventManager::attach(
         'testspace:event',
