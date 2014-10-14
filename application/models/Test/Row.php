@@ -36,7 +36,7 @@ class Row extends \Bluz\Db\Row
         // name validator
         $this->addValidator(
             'name',
-            v::required()->latin()
+            v::required()->latin(' ')
         );
 
         // email validator

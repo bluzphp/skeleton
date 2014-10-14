@@ -6,6 +6,11 @@
  * @created 25.07.13 13:34
  */
 
+/**
+ * @namespace
+ */
+namespace Application;
+
 // Write message to log file
 if (!function_exists('errorLog')) {
     /**
