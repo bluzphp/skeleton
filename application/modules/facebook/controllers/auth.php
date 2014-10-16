@@ -17,6 +17,7 @@ use Application\Users;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Session;
 
 return
 /**
@@ -48,6 +49,7 @@ function () {
      * Should be return id of user, if he allows application.
      * In false returned 0.
      */
+
     $facebook->destroySession();
     $user = $facebook->getUser();
 
@@ -73,32 +75,23 @@ function () {
             $user->login();
         } else {
             // sign up user
+
             if (!$user = $this->user()) {
-                $user = new Users\Row();
-                // if username doesn't exist, concat first and last name for site's login
-                $login = (isset($profile['username']))
-                    ? $profile['username']
-                    : $profile['first_name'] . $profile['last_name'];
-                $user->login = $login;
-                $user->status = Users\Table::STATUS_ACTIVE;
-                $user->save();
-
-                $user2role = new UsersRoles\Row();
-                $user2role->userId = $user->id;
-                $user2role->roleId = 2;
-                $user2role->save();
-
+                /**
+                 * Write facebook response to session
+                 */
+                Session::set('facebook', $profile);
+                Messages::addNotice('To finish your registration fill the form');
+                $this->redirectTo('users', 'signup');
+            } else {
                 $row = new Auth\Row();
                 $row->userId = $user->id;
                 $row->provider = Auth\Table::PROVIDER_FACEBOOK;
                 $row->foreignKey = $profile['id'];
-                $row->token = 0;
+                $row->token = $facebook->getAccessToken();
                 $row->tokenSecret = 0;
                 $row->tokenType = Auth\Table::TYPE_ACCESS;
                 $row->save();
-
-                // sign in
-                $user->login();
             }
         }
     } else {

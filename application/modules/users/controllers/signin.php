@@ -18,7 +18,7 @@ return
 /**
  * @param string $login
  * @param string $password
- * @param bool $remember
+ * @param bool $rememberMe
  * @return \closure
  */
 function ($login, $password, $rememberMe = false) use ($view) {
@@ -44,9 +44,7 @@ function ($login, $password, $rememberMe = false) use ($view) {
             Auth\Table::getInstance()->authenticateEquals($login, $password);
 
             if ($rememberMe) {
-                $ttl = Config::getModuleData('users', 'rememberMe');
-                // TODO: remember me
-                Session::setSessionCookieLifetime($ttl);
+                Auth\Table::getInstance()->generateCookie();
             }
 
             Messages::addNotice('You are signed');

@@ -100,42 +100,25 @@ function () use ($view) {
              */
             if (!$user = $this->user()) {
                 /**
-                 * Create new user
-                 * @var Users\Row $user
+                 * Write twitter response to session
                  */
-                $user = new Users\Row();
-                $user->login = $result['screen_name'];
-                $user->status = Users\Table::STATUS_ACTIVE;
-                $user->save();
-
+                Session::set('twitter', $result);
+                Messages::addNotice('To finish your registration fill the form');
+                $this->redirectTo('users', 'signup');
+            } else {
                 /**
-                 * Set default role
-                 * @var UsersRoles\Row $userRole
+                 * @var Auth\Row $row
+                 * Users exists - save user info.
                  */
-                $userRole = new UsersRoles\Row();
-                $userRole -> userId = $user->id;
-                // FIXME: hardcoded role Id (2 = Member)
-                $userRole -> roleId = 2;
-                $userRole -> save();
-
-                /**
-                 * sign in.
-                 */
-                $user->login();
+                $row = new Auth\Row();
+                $row->userId = $user->id;
+                $row->provider = Auth\Table::PROVIDER_TWITTER;
+                $row->foreignKey = $result['user_id'];
+                $row->token = $result['oauth_token'];
+                $row->tokenSecret = $result['oauth_token_secret'];
+                $row->tokenType = Auth\Table::TYPE_ACCESS;
+                $row->save();
             }
-
-            /**
-             * @var Auth\Row $row
-             * save user info.
-             */
-            $row = new Auth\Row();
-            $row->userId = $user->id;
-            $row->provider = Auth\Table::PROVIDER_TWITTER;
-            $row->foreignKey = $result['user_id'];
-            $row->token = $result['oauth_token'];
-            $row->tokenSecret = $result['oauth_token_secret'];
-            $row->tokenType = Auth\Table::TYPE_ACCESS;
-            $row->save();
         }
 
         Messages::addNotice('You are signed');

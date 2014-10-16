@@ -28,6 +28,7 @@ namespace Application;
 
 use Bluz\Application\Application;
 use Bluz\Application\Exception\ForbiddenException;
+use Bluz\Auth\AuthException;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Logger;
 use Bluz\Proxy\Messages;
@@ -58,6 +59,18 @@ class Bootstrap extends Application
     {
         // example of setup default title
         Layout::title("Bluz Skeleton");
+        //remember me
+        if (!$this->user() && !empty($_COOKIE['rToken']) && !empty($_COOKIE['rId'])) {
+            //try to login
+            try {
+                Auth\Table::getInstance()->authenticateCookie($_COOKIE['rId'], $_COOKIE['rToken']);
+                Auth\Table::getInstance()->generateCookie();
+            } catch (AuthException $e) {
+                setcookie('rId', '', 1, '/');
+                setcookie('rToken', '', 1, '/');
+            }
+        }
+
         parent::preDispatch($module, $controller, $params);
     }
     /**
