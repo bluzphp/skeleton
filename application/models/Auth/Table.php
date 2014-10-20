@@ -190,7 +190,7 @@ class Table extends AbstractTable
         }
 
         if (strtotime($authRow->expired) < time()) {
-            $this->clearCookie($userId);
+            $this->removeCookieToken($userId);
             throw new AuthException('Token has expired');
         }
 
@@ -202,12 +202,12 @@ class Table extends AbstractTable
     }
 
     /**
-     * Removes a cookie
+     * Removes a cookie-token from database
      *
      * @param $userId
      * @throws \Bluz\Db\Exception\DbException
      */
-    public function clearCookie($userId)
+    public function removeCookieToken($userId)
     {
         $this->delete(
             [
