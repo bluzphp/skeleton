@@ -16,7 +16,7 @@ return array(
         "secret" => "%%secret%%",
     ),
     "twitter" => array(
-        "consumerKey" => "%%consumerKey%%",
-        "consumerSecret" => "%%consumerSecret%%"
+        "consumer_key" => "%%consumerKey%%",
+        "consumer_secret" => "%%consumerSecret%%"
     )
 );

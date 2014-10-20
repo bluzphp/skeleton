@@ -16,6 +16,7 @@ use Bluz\Proxy\Logger;
 use Bluz\Proxy\Mailer;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Router;
+use Bluz\Proxy\Session;
 use Bluz\Validator\Exception\ValidatorException;
 
 /**
@@ -61,6 +62,32 @@ class Crud extends \Bluz\Crud\Table
 
         // create auth
         Auth\Table::getInstance()->generateEquals($row, $password);
+
+        //check if user tried to sign in via oauth before
+        if ($twitter = Session::get('twitter')) {
+            Session::delete('twitter');
+
+            $twitterRow = new Auth\Row();
+            $twitterRow->userId = $userId;
+            $twitterRow->provider = Auth\Table::PROVIDER_TWITTER;
+            $twitterRow->foreignKey = $twitter['user_id'];
+            $twitterRow->token = $twitter['oauth_token'];
+            $twitterRow->tokenSecret = $twitter['oauth_token_secret'];
+            $twitterRow->tokenType = Auth\Table::TYPE_ACCESS;
+            $twitterRow->save();
+        }
+        if ($facebook = Session::get('facebook')) {
+            Session::delete('facebook');
+
+            $facebookRow = new Auth\Row();
+            $facebookRow->userId = $userId;
+            $facebookRow->provider = Auth\Table::PROVIDER_FACEBOOK;
+            $facebookRow->foreignKey = $facebook['id'];
+            $facebookRow->token = 0;
+            $facebookRow->tokenSecret = 0;
+            $facebookRow->tokenType = Auth\Table::TYPE_ACCESS;
+            $facebookRow->save();
+        }
 
         // create activation token
         // valid for 5 days

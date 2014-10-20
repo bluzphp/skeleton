@@ -7,6 +7,7 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Config;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Router;
 use Guzzle\Common\Exception\GuzzleException;
@@ -23,7 +24,7 @@ function () {
      * @var array $config
      * @var string $callbackUrl
      */
-    $config = $this->getConfigData('auth', 'twitter');
+    $config = Config::getData('auth', 'twitter');
     $callbackUrl = Router::getFullUrl('twitter', 'callback');
 
     /**

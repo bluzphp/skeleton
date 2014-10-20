@@ -15,6 +15,7 @@ use Bluz\Application;
 use Bluz\Auth\AbstractTable;
 use Bluz\Auth\AuthException;
 use Bluz\Proxy\Auth;
+use Bluz\Proxy\Config;
 
 /**
  * Auth Table
@@ -120,6 +121,103 @@ class Table extends AbstractTable
     }
 
     /**
+     * Generates cookie for authentication
+     *
+     * @throws \Bluz\Db\Exception\DbException
+     */
+    public function generateCookie()
+    {
+        $hash = hash('md5', microtime(true));
+        $ttl = Config::getModuleData('users', 'rememberMe');
+
+        $this->delete(
+            [
+                'userId' => app()->user()->id,
+                'foreignKey' => app()->user()->login,
+                'provider' => self::PROVIDER_COOKIE,
+                'tokenType' => self::TYPE_ACCESS,
+            ]
+        );
+
+        $row = new Row();
+        $row->userId = app()->user()->id;
+        $row->foreignKey = app()->user()->login;
+        $row->provider = self::PROVIDER_COOKIE;
+        $row->tokenType = self::TYPE_ACCESS;
+        $row->expired = gmdate('Y-m-d H:i:s', time() + $ttl);
+
+        $row->tokenSecret = $this->generateSecret(app()->user()->id);
+        $row->token = hash('md5', $row->tokenSecret . $hash);
+
+        $row->save();
+
+        setcookie('rToken', $hash, time() + $ttl, '/');
+        setcookie('rId', app()->user()->id, time() + $ttl, '/');
+    }
+
+    /**
+     * Authenticate via cookie
+     *
+     * @param $userId
+     * @param $token
+     * @throws AuthException
+     * @throws Exception
+     */
+    public function authenticateCookie($userId, $token)
+    {
+        $authRow = $this->checkCookie($userId, $token);
+
+        // get user row
+        $user = Users\Table::findRow($authRow->userId);
+
+        // try to login
+        $user->login();
+
+    }
+
+    /**
+     * Check if supplied cookie is valid
+     *
+     * @param $userId
+     * @param $token
+     * @return Row
+     * @throws AuthException
+     */
+    public function checkCookie($userId, $token)
+    {
+        if (!$authRow = $this->findRowWhere(['userId' => $userId, 'provider' => self::PROVIDER_COOKIE])) {
+            throw new AuthException('User not found');
+        }
+
+        if (strtotime($authRow->expired) < time()) {
+            $this->removeCookieToken($userId);
+            throw new AuthException('Token has expired');
+        }
+
+        if ($authRow->token != hash('md5', $authRow->tokenSecret . $token)) {
+            throw new AuthException('Incorrect token');
+        }
+
+        return $authRow;
+    }
+
+    /**
+     * Removes a cookie-token from database
+     *
+     * @param $userId
+     * @throws \Bluz\Db\Exception\DbException
+     */
+    public function removeCookieToken($userId)
+    {
+        $this->delete(
+            [
+                'userId' => $userId,
+                'provider' => self::PROVIDER_COOKIE
+            ]
+        );
+    }
+
+    /**
      * callEncryptFunction
      *
      * @param string $password
@@ -174,7 +272,7 @@ class Table extends AbstractTable
             throw new AuthException('Invalid token');
         }
 
-        if (strtotime($authRow->created) + self::TOKEN_EXPIRATION_TIME < time()) {
+        if (strtotime($authRow->expired) < time()) {
             throw new AuthException('Token has expired');
         }
 
@@ -196,16 +294,16 @@ class Table extends AbstractTable
                 'userId' => $equalAuth->userId,
                 'foreignKey' => $equalAuth->foreignKey,
                 'provider' => self::PROVIDER_TOKEN,
-                'tokenType' => self::TYPE_ACCESS
+                'tokenType' => self::TYPE_ACCESS,
             ]
         );
-
         // new auth row
         $row = new Row();
         $row->userId = $equalAuth->userId;
         $row->foreignKey = $equalAuth->foreignKey;
         $row->provider = self::PROVIDER_TOKEN;
         $row->tokenType = self::TYPE_ACCESS;
+        $row->expired = gmdate('Y-m-d H:i:s', time() + self::TOKEN_EXPIRATION_TIME);
 
         // generate secret
         $row->tokenSecret = $this->generateSecret($equalAuth->userId);
