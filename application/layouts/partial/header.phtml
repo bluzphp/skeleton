@@ -1,6 +1,7 @@
 <?php
 /** @var \Bluz\Layout\Layout $this */
 
+use \Bluz\Proxy\Layout;
 use \Bluz\Proxy\Messages;
 
 ?>
@@ -8,7 +9,7 @@ use \Bluz\Proxy\Messages;
 <html dir="ltr" lang="en-US">
 <head>
     <meta charset="UTF-8"/>
-    <title><?=$this->title()?></title>
+    <title><?=Layout::title()?></title>
     <base href="<?=$this->baseUrl()?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="profile" href="http://gmpg.org/xfn/11"/>
@@ -27,10 +28,10 @@ use \Bluz\Proxy\Messages;
     <script src="<?=$this->baseUrl('/js/vendor/html5shiv-printshiv.js')?>"></script>
     <![endif]-->
 
-<?=$this->headScript();?>
-<?=$this->headStyle();?>
-<?=$this->link();?>
-<?=$this->meta();?>
+<?=Layout::headScript();?>
+<?=Layout::headStyle();?>
+<?=Layout::link();?>
+<?=Layout::meta();?>
 </head>
 <body data-spy="scroll" data-bluz-module="<?=$this->module()?>" data-bluz-controller="<?=$this->controller()?>">
 <?php if (Messages::count()):
