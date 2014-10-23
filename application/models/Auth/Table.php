@@ -36,7 +36,7 @@ class Table extends AbstractTable
     const TOKEN_EXPIRATION_TIME = 1800;
 
     /**
-     * authenticate user by login/pass
+     * Authenticate user by login/pass
      *
      * @param string $username
      * @param string $password
@@ -55,7 +55,7 @@ class Table extends AbstractTable
     }
 
     /**
-     * check user by login/pass
+     * Check user by login/pass
      *
      * @param string $username
      * @param string $password
@@ -82,7 +82,7 @@ class Table extends AbstractTable
     }
 
     /**
-     * authenticate user by login/pass
+     * Authenticate user by login/pass
      *
      * @param Users\Row $user
      * @param string $password
