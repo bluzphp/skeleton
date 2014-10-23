@@ -59,12 +59,11 @@ class Bootstrap extends Application
     {
         // example of setup default title
         Layout::title("Bluz Skeleton");
-        //remember me
+        // remember me
         if (!$this->user() && !empty($_COOKIE['rToken']) && !empty($_COOKIE['rId'])) {
-            //try to login
+            // try to login
             try {
                 Auth\Table::getInstance()->authenticateCookie($_COOKIE['rId'], $_COOKIE['rToken']);
-                Auth\Table::getInstance()->generateCookie();
             } catch (AuthException $e) {
                 setcookie('rId', '', 1, '/');
                 setcookie('rToken', '', 1, '/');
@@ -87,8 +86,7 @@ class Bootstrap extends Application
     }
 
     /**
-     * denied
-     *
+     * Denied access
      * @throws ForbiddenException
      * @return void
      */
@@ -108,8 +106,7 @@ class Bootstrap extends Application
     }
 
     /**
-     * render
-     *
+     * Render with debug headers
      * @return void
      */
     public function render()
@@ -132,6 +129,7 @@ class Bootstrap extends Application
     }
 
     /**
+     * Finish it
      * @return void
      */
     public function finish()

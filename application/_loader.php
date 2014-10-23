@@ -5,12 +5,10 @@
  * @author   C.O.
  * @created  16.11.12 14:33
  */
-require_once '_functions.php';
-
 // Check PHP version
 if (version_compare(phpversion(), '5.4.3', '<')) {
     printf("PHP 5.4.3 is required, you have %s\n", phpversion());
-    exit();
+    exit(1);
 }
 
 // Root path, double level up
