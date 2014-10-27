@@ -272,7 +272,7 @@ class Table extends AbstractTable
             throw new AuthException('Invalid token');
         }
 
-        if (strtotime($authRow->expired) < time()) {
+        if ($authRow->expired < gmdate('Y-m-d H:i:s')) {
             throw new AuthException('Token has expired');
         }
 
