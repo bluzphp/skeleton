@@ -13,9 +13,9 @@ require.config({
         jquery: './vendor/jquery',
         "jquery-ui": './vendor/jquery-ui',
         redactor: './../redactor/redactor',
-        // cdnjs settings
-        underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min',
-        backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min'
+        // see more at https://cdnjs.com/
+        underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min',
+        backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min'
     },
     shim: {
         bootstrap: {
