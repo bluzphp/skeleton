@@ -268,11 +268,11 @@ class Table extends AbstractTable
      */
     public function checkToken($token)
     {
-        if (!$authRow = $this->findRowWhere(['token' =>  $token])) {
+        if (!$authRow = $this->findRowWhere(['token' =>  $token, 'provider' => self::PROVIDER_TOKEN])) {
             throw new AuthException('Invalid token');
         }
 
-        if (strtotime($authRow->expired) < time()) {
+        if ($authRow->expired < gmdate('Y-m-d H:i:s')) {
             throw new AuthException('Token has expired');
         }
 
