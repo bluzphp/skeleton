@@ -10,7 +10,7 @@ class Client extends GuzzleClient
     private $domain = 'https://accounts.google.com/';
     private $requestCode = 'o/oauth2/auth';
     private $requestAccessToken = 'o/oauth2/token';
-    public  $accessToken = null;
+    public $accessToken = null;
 
     /**
      * @param string $config
@@ -40,7 +40,8 @@ class Client extends GuzzleClient
                     'redirect_uri' => $callbackUrl,
                     'response_type' => 'code',
                     'client_id' => $this->getConfig('client_id'),
-                    'scope' => 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+                    'scope' => 'https://www.googleapis.com/auth/userinfo.email' .
+                        ' https://www.googleapis.com/auth/userinfo.profile'
                 ]
             ]
         );
