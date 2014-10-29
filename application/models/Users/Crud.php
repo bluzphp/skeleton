@@ -88,6 +88,18 @@ class Crud extends \Bluz\Crud\Table
             $facebookRow->tokenType = Auth\Table::TYPE_ACCESS;
             $facebookRow->save();
         }
+        if ($google = Session::get('google')) {
+            Session::delete('google');
+
+            $googleRow = new Auth\Row();
+            $googleRow->userId = $userId;
+            $googleRow->provider = Auth\Table::PROVIDER_GOOGLE;
+            $googleRow->foreignKey = $google['id'];
+            $googleRow->token = $google['access_token'];
+            $googleRow->tokenSecret = 0;
+            $googleRow->tokenType = Auth\Table::TYPE_ACCESS;
+            $googleRow->save();
+        }
 
         // create activation token
         // valid for 5 days

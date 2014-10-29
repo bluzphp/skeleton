@@ -18,5 +18,9 @@ return array(
     "twitter" => array(
         "consumer_key" => "%%consumerKey%%",
         "consumer_secret" => "%%consumerSecret%%"
+    ),
+    "google" => array(
+        'client_id' => "%%client_id%%",
+        'client_secret' => '%%client_secret%%'
     )
 );
