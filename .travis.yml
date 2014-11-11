@@ -3,7 +3,7 @@ php:
   - 5.4
   - 5.5
   - 5.6
-before_script:
+install:
   # ImageMagick
   - printf "\n" | pecl install imagick
   # Composer
@@ -12,11 +12,13 @@ before_script:
   - composer update --prefer-source
   # Database
   - mysql -e 'CREATE DATABASE bluz;'
+  # Newman
+  - npm install -g newman
+before_script:
+  # Database
   - mysql -uroot bluz < structure.ddl
   - mysql -uroot bluz < dump.sql
   - mysql -uroot bluz < tests/dump.sql
-  # Newman runner for Postman
-  - npm install -g newman
 script:
   - mkdir .reports
   # Code style
@@ -25,8 +27,8 @@ script:
   # PHPUnit tests
   - php vendor/bin/phpunit --configuration ./phpunit.xml.dist --coverage-clover=.reports/clover.xml
   # WebServer run
-  - bin/server.sh
-  - sleep 3
+  #- bin/server.sh
+  #- sleep 3
   # Newman run
   - newman -h
 after_script:
