@@ -10,6 +10,7 @@
 namespace Application\Test;
 
 use Bluz\Proxy\Db;
+use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 
 /**
@@ -54,7 +55,7 @@ class Crud extends \Bluz\Crud\Table
             $total = sizeof($result);
         }
 
-        if (sizeof($result) < $total) {
+        if (sizeof($result) < $total && Request::METHOD_GET == Request::getMethod()) {
             Response::setStatusCode(206);
             Response::setHeader(
                 'Content-Range',
