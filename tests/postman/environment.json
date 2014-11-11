@@ -1,0 +1,42 @@
+{
+	"id": "07d38266-b4d4-74af-f1ba-4e0260289ce8",
+	"name": "Bluz REST",
+	"values": [
+		{
+			"key": "URL",
+			"value": "http://127.0.0.1:8000",
+			"type": "text",
+			"name": "URL",
+			"enabled": true
+		},
+		{
+			"key": "PATH",
+			"value": "/test/rest/",
+			"type": "text",
+			"name": "PATH",
+			"enabled": true
+		},
+		{
+			"key": "ID",
+			"value": "4",
+			"type": "text",
+			"name": "ID",
+			"enabled": true
+		},
+		{
+			"key": "LENGTH",
+			"value": "10",
+			"type": "text",
+			"name": "LENGTH",
+			"enabled": true
+		},
+		{
+			"key": "CREATED",
+			"type": "text",
+			"value": "/test/rest/158"
+		}
+	],
+	"timestamp": 1415636377263,
+	"synced": false,
+	"syncedFilename": ""
+}
