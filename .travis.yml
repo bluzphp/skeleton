@@ -27,7 +27,7 @@ script:
   # PHPUnit tests
   - php vendor/bin/phpunit --configuration ./phpunit.xml.dist --coverage-clover=.reports/clover.xml
   # WebServer run
-  - nohup bash -c "php -S 127.0.0.1:8000 -t ./ routing.php 2>&1 &" && sleep 1; cat nohup.out
+  - nohup bash -c "php -S 127.0.0.1:8000 -t ./public/ ./public/routing.php 2>&1 &" && sleep 1; cat nohup.out
   # Newman run
   - newman -c tests/postman/collection.json -e tests/postman/environment.json -x
 after_script:
