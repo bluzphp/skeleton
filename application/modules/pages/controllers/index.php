@@ -39,7 +39,7 @@ function ($alias) use ($view) {
 
         // setup HTTP cache
         HttpCacheControl::setPublic();
-        HttpCacheControl::setLastModified(new \DateTime($page->updated));
+        HttpCacheControl::setLastModified($page->updated);
 
         // assign page to view
         $view->page = $page;

@@ -15,6 +15,8 @@ before_script:
   - mysql -uroot bluz < structure.ddl
   - mysql -uroot bluz < dump.sql
   - mysql -uroot bluz < tests/dump.sql
+  # Newman runner for Postman
+  - npm install -g newman
 script:
   - mkdir .reports
   # Code style
@@ -22,6 +24,11 @@ script:
   - php vendor/bin/phpcs ./application --standard=PSR2 --encoding=utf-8 --ignore=./application/_loader.php
   # PHPUnit tests
   - php vendor/bin/phpunit --configuration ./phpunit.xml.dist --coverage-clover=.reports/clover.xml
+  # WebServer run
+  - bin/server.sh
+  - sleep 3
+  # Newman run
+  - newman -h
 after_script:
   - php vendor/bin/coveralls -v
   - wget https://scrutinizer-ci.com/ocular.phar
