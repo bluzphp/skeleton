@@ -88,8 +88,10 @@ function ($code, $message = '') use ($view) {
     }
 
     Layout::title($title);
-    $view->title = $title;
+    $view->error = $title;
     $view->description = $description;
-    $view->message = $message;
+    if ($message != $title) {
+        $view->message = $message;
+    }
     return $view;
 };
