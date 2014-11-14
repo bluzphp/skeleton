@@ -12,7 +12,11 @@ namespace Application;
 use Application\Test;
 use Bluz\Controller;
 
-return function () {
+return
+/**
+ * @return mixed
+ */
+function () {
     $restController = new Controller\Rest();
     $restController->setCrud(Test\Crud::getInstance());
     return $restController();

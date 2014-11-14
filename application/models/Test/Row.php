@@ -15,13 +15,18 @@ use Bluz\Validator\Validator as v;
 /**
  * Test Row
  *
+ * @package  Application\Test
+ *
  * @property integer $id
  * @property string $name
  * @property string $email
  * @property string $status enum('active','disable','delete')
  *
- * @category Application
- * @package  Test
+ * @SWG\Model(id="Test")
+ * @SWG\Property(name="id", type="integer")
+ * @SWG\Property(name="name", type="string", required=true)
+ * @SWG\Property(name="email", type="string", required=true)
+ * @SWG\Property(name="status", type="string", enum="['active','disable','delete']", required=true)
  */
 class Row extends \Bluz\Db\Row
 {
