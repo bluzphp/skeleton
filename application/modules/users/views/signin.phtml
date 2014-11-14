@@ -39,6 +39,9 @@
         <div class="pull-left">
             <?php $this->widget('facebook', 'auth')?>
         </div>
+        <div class="pull-left">
+            <?php $this->widget('google', 'auth')?>
+        </div>
         <a href="<?=$this->url('users', 'recovery')?>" class="pull-right"><?=__('Forgot your password?')?></a>
     </div>
 
