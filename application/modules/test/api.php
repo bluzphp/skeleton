@@ -11,8 +11,9 @@
  * @SWG\Api(
  *   path="/test/rest/{itemId}",
  *   @SWG\Operation(
- *      method="HEAD", summary="Check item by ID", notes="Returns a overview of item based on ID",
- *      type="Test", nickname="getItemOverview",
+ *      method="HEAD", nickname="getItemOverview",
+ *      summary="Check item by ID",
+ *      notes="Returns a overview of item based on ID",
  *      @SWG\Parameter(
  *          name="itemId",
  *          description="ID of item that needs to be fetched",
@@ -28,8 +29,9 @@
  * @SWG\Api(
  *   path="/test/rest/",
  *   @SWG\Operation(
- *      method="HEAD", summary="Collection of items", notes="Returns a overview of collection",
- *      type="Test", nickname="getItemCollection",
+ *      method="HEAD", nickname="getCollectionOverview",
+ *      summary="Check collection of items",
+ *      notes="Returns a overview of collection",
  *      @SWG\Parameter(
  *          name="offset",
  *          description="Query offset",
@@ -52,8 +54,9 @@
  * @SWG\Api(
  *   path="/test/rest/{itemId}",
  *   @SWG\Operation(
- *      method="GET", summary="Find item by ID", notes="Returns a item based on ID",
- *      type="Test", nickname="getItemById",
+ *      method="GET", nickname="getItemById", type="array", items="$ref:Test",
+ *      summary="Find item by ID",
+ *      notes="Returns a item based on ID",
  *      @SWG\Parameter(
  *          name="itemId",
  *          description="ID of item that needs to be fetched",
@@ -69,8 +72,9 @@
  * @SWG\Api(
  *   path="/test/rest/",
  *   @SWG\Operation(
- *      method="GET", summary="Collection of items", notes="Returns a collection, partial",
- *      type="Test", nickname="getItemCollection",
+ *      method="GET", nickname="getItemCollection", type="array", items="$ref:Test",
+ *      summary="Collection of items",
+ *      notes="Returns a collection, partial",
  *      @SWG\Parameter(
  *          name="offset",
  *          description="Query offset",
@@ -91,10 +95,17 @@
  *   )
  * )
  * @SWG\Api(
+ *   path="/test/rest/{itemId}",
+ *   @SWG\Operation(
+ *      method="POST", nickname="createItem", summary="Try to create Item",
+ *      @SWG\ResponseMessage(code=501, message="Not Implemented", responseModel="ErrorModel")
+ *   )
+ * )
+ * @SWG\Api(
  *   path="/test/rest/",
  *   @SWG\Operation(
- *      method="POST", summary="Create Item",
- *      type="Test", nickname="createItem",
+ *      method="POST", nickname="createItem",
+ *      summary="Create Item",
  *      @SWG\Parameter(
  *          name="name",
  *          description="Name",
@@ -118,8 +129,8 @@
  * @SWG\Api(
  *   path="/test/rest/{itemId}",
  *   @SWG\Operation(
- *      method="PUT", summary="Update Item",
- *      type="Test", nickname="updateItem",
+ *      method="PUT", nickname="updateItem",
+ *      summary="Update Item",
  *      @SWG\Parameter(
  *          name="itemId",
  *          description="ID of item that needs to be updated",
@@ -153,8 +164,8 @@
  * @SWG\Api(
  *   path="/test/rest/{itemId}",
  *   @SWG\Operation(
- *      method="DELETE", summary="Delete Item",
- *      type="Test", nickname="deleteItem",
+ *      method="DELETE", nickname="deleteItem",
+ *      summary="Delete Item",
  *      @SWG\Parameter(
  *          name="itemId",
  *          description="ID of item that needs to be removed",
@@ -165,6 +176,30 @@
  *      ),
  *      @SWG\ResponseMessage(code=204, message="Item removed"),
  *      @SWG\ResponseMessage(code=404, message="Item not found")
+ *   )
+ * )
+ * @SWG\Api(
+ *   path="/test/rest/{itemId}",
+ *   @SWG\Operation(
+ *      method="OPTIONS", nickname="describeItem",
+ *      summary="Get allowed HTTP methods",
+ *      @SWG\Parameter(
+ *          name="itemId",
+ *          description="ID of item",
+ *          paramType="path",
+ *          required=true,
+ *          allowMultiple=false,
+ *          type="integer"
+ *      ),
+ *      @SWG\ResponseMessage(code=200, message="List of allowed HTTP methods")
+ *   )
+ * )
+ * @SWG\Api(
+ *   path="/test/rest/",
+ *   @SWG\Operation(
+ *      method="OPTIONS", nickname="describeCollection",
+ *      summary="Get allowed HTTP methods",
+ *      @SWG\ResponseMessage(code=200, message="List of allowed HTTP methods")
  *   )
  * )
  */

@@ -11,8 +11,10 @@
  * @SWG\Api(
  *   path="/pages/rest/{pageId}",
  *   @SWG\Operation(
- *      method="GET", summary="Find page by ID", notes="Returns a page model",
- *      type="Pages", nickname="getPageById", consumes="['application/xml','application/json']",
+ *      method="GET", nickname="getPageById",  type="array", items="$ref:Pages",
+ *      consumes="['application/xml','application/json']",
+ *      summary="Find page by ID",
+ *      notes="Returns a page model",
  *      @SWG\Parameter(
  *          name="pageId",
  *          description="ID of page that needs to be fetched",
@@ -28,7 +30,9 @@
  * @SWG\Api(
  *   path="/pages/rest/",
  *   @SWG\Operation(
- *      method="GET", summary="Collection of Pages", notes="Not Implemented", nickname="getPages",
+ *      method="GET", nickname="getPages",
+ *      summary="Collection of Pages",
+ *      notes="Not Implemented",
  *      @SWG\ResponseMessage(code=501, message="Not Implemented", responseModel="ErrorModel")
  *   )
  * )
