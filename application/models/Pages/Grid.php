@@ -12,8 +12,9 @@ namespace Application\Pages;
 use Bluz\Grid\Source\SqlSource;
 
 /**
- * @category Application
- * @package  Pages
+ * Grid of Pages
+ *
+ * @package  Application\Pages
  */
 class Grid extends \Bluz\Grid\Grid
 {
