@@ -10,9 +10,8 @@
  * @SWG\Resource(resourcePath="/pages")
  * @SWG\Api(
  *   path="/pages/rest/{pageId}",
- *   description="Pages",
  *   @SWG\Operation(
- *      method="GET", summary="Find page by ID", notes="Returns a page based on ID",
+ *      method="GET", summary="Find page by ID", notes="Returns a page model",
  *      type="Pages", nickname="getPageById", consumes="['application/xml','application/json']",
  *      @SWG\Parameter(
  *          name="pageId",
@@ -28,7 +27,6 @@
  * )
  * @SWG\Api(
  *   path="/pages/rest/",
- *   description="Pages",
  *   @SWG\Operation(
  *      method="GET", summary="Collection of Pages", notes="Not Implemented", nickname="getPages",
  *      @SWG\ResponseMessage(code=501, message="Not Implemented", responseModel="ErrorModel")
