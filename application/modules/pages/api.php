@@ -12,7 +12,6 @@
  *   path="/pages/rest/{pageId}",
  *   @SWG\Operation(
  *      method="GET", nickname="getPageById",  type="array", items="$ref:Pages",
- *      consumes="['application/xml','application/json']",
  *      summary="Find page by ID",
  *      notes="Returns a page model",
  *      @SWG\Parameter(
@@ -21,7 +20,7 @@
  *          paramType="path",
  *          required=true,
  *          allowMultiple=false,
- *          type="string"
+ *          type="integer"
  *      ),
  *      @SWG\ResponseMessage(code=200, message="Given page found", responseModel="Pages"),
  *      @SWG\ResponseMessage(code=404, message="Page not found", responseModel="ErrorModel")

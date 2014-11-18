@@ -8,28 +8,11 @@
 
 /**
  * @SWG\Resource(resourcePath="/test")
- * @SWG\Api(
- *   path="/test/rest/{itemId}",
- *   @SWG\Operation(
- *      method="HEAD", nickname="getItemOverview",
- *      summary="Check item by ID",
- *      notes="Returns a overview of item based on ID",
- *      @SWG\Parameter(
- *          name="itemId",
- *          description="ID of item that needs to be fetched",
- *          paramType="path",
- *          required=true,
- *          allowMultiple=false,
- *          type="integer"
- *      ),
- *      @SWG\ResponseMessage(code=200, message="Given item found"),
- *      @SWG\ResponseMessage(code=404, message="Item not found")
- *   )
- * )
+ *
  * @SWG\Api(
  *   path="/test/rest/",
  *   @SWG\Operation(
- *      method="HEAD", nickname="getCollectionOverview",
+ *      method="HEAD", nickname="overviewCollection",
  *      summary="Check collection of items",
  *      notes="Returns a overview of collection",
  *      @SWG\Parameter(
@@ -52,27 +35,9 @@
  *   )
  * )
  * @SWG\Api(
- *   path="/test/rest/{itemId}",
- *   @SWG\Operation(
- *      method="GET", nickname="getItemById", type="array", items="$ref:Test",
- *      summary="Find item by ID",
- *      notes="Returns a item based on ID",
- *      @SWG\Parameter(
- *          name="itemId",
- *          description="ID of item that needs to be fetched",
- *          paramType="path",
- *          required=true,
- *          allowMultiple=false,
- *          type="integer"
- *      ),
- *      @SWG\ResponseMessage(code=200, message="Given item found", responseModel="Test"),
- *      @SWG\ResponseMessage(code=404, message="Item not found", responseModel="ErrorModel")
- *   )
- * )
- * @SWG\Api(
  *   path="/test/rest/",
  *   @SWG\Operation(
- *      method="GET", nickname="getItemCollection", type="array", items="$ref:Test",
+ *      method="GET", nickname="getCollection", type="array", items="$ref:Test",
  *      summary="Collection of items",
  *      notes="Returns a collection, partial",
  *      @SWG\Parameter(
@@ -95,16 +60,9 @@
  *   )
  * )
  * @SWG\Api(
- *   path="/test/rest/{itemId}",
- *   @SWG\Operation(
- *      method="POST", nickname="createItem", summary="Try to create Item",
- *      @SWG\ResponseMessage(code=501, message="Not Implemented", responseModel="ErrorModel")
- *   )
- * )
- * @SWG\Api(
  *   path="/test/rest/",
  *   @SWG\Operation(
- *      method="POST", nickname="createItem",
+ *      method="POST", nickname="create",
  *      summary="Create Item",
  *      @SWG\Parameter(
  *          name="name",
@@ -124,6 +82,72 @@
  *      ),
  *      @SWG\ResponseMessage(code=201, message="Item created, will return Location of created item"),
  *      @SWG\ResponseMessage(code=400, message="Validation errors")
+ *   )
+ * )
+ * @SWG\Api(
+ *   path="/test/rest/",
+ *   @SWG\Operation(
+ *      method="PUT", nickname="updateCollection", summary="Try to update Collection",
+ *      @SWG\ResponseMessage(code=501, message="Not Implemented", responseModel="ErrorModel")
+ *   )
+ * )
+ * @SWG\Api(
+ *   path="/test/rest/",
+ *   @SWG\Operation(
+ *      method="DELETE", nickname="deleteCollection", summary="Try to delete Collection",
+ *      @SWG\ResponseMessage(code=501, message="Not Implemented", responseModel="ErrorModel")
+ *   )
+ * )
+ * @SWG\Api(
+ *   path="/test/rest/",
+ *   @SWG\Operation(
+ *      method="OPTIONS", nickname="describeCollection",
+ *      summary="Get allowed HTTP methods",
+ *      @SWG\ResponseMessage(code=200, message="List of allowed HTTP methods")
+ *   )
+ * )
+ *
+ * @SWG\Api(
+ *   path="/test/rest/{itemId}",
+ *   @SWG\Operation(
+ *      method="HEAD", nickname="overviewItem",
+ *      summary="Check item by ID",
+ *      notes="Returns a overview of item based on ID",
+ *      @SWG\Parameter(
+ *          name="itemId",
+ *          description="ID of item that needs to be fetched",
+ *          paramType="path",
+ *          required=true,
+ *          allowMultiple=false,
+ *          type="integer"
+ *      ),
+ *      @SWG\ResponseMessage(code=200, message="Given item found"),
+ *      @SWG\ResponseMessage(code=404, message="Item not found")
+ *   )
+ * )
+ * @SWG\Api(
+ *   path="/test/rest/{itemId}",
+ *   @SWG\Operation(
+ *      method="GET", nickname="getItem", type="array", items="$ref:Test",
+ *      summary="Find item by ID",
+ *      notes="Returns a item based on ID",
+ *      @SWG\Parameter(
+ *          name="itemId",
+ *          description="ID of item that needs to be fetched",
+ *          paramType="path",
+ *          required=true,
+ *          allowMultiple=false,
+ *          type="integer"
+ *      ),
+ *      @SWG\ResponseMessage(code=200, message="Given item found", responseModel="Test"),
+ *      @SWG\ResponseMessage(code=404, message="Item not found", responseModel="ErrorModel")
+ *   )
+ * )
+ * @SWG\Api(
+ *   path="/test/rest/{itemId}",
+ *   @SWG\Operation(
+ *      method="POST", nickname="createItem", summary="Try to create Item",
+ *      @SWG\ResponseMessage(code=501, message="Not Implemented", responseModel="ErrorModel")
  *   )
  * )
  * @SWG\Api(
@@ -191,14 +215,6 @@
  *          allowMultiple=false,
  *          type="integer"
  *      ),
- *      @SWG\ResponseMessage(code=200, message="List of allowed HTTP methods")
- *   )
- * )
- * @SWG\Api(
- *   path="/test/rest/",
- *   @SWG\Operation(
- *      method="OPTIONS", nickname="describeCollection",
- *      summary="Get allowed HTTP methods",
  *      @SWG\ResponseMessage(code=200, message="List of allowed HTTP methods")
  *   )
  * )
