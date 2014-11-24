@@ -31,6 +31,6 @@ function ($resource = null) {
     if ($resource) {
         return $swagger->getResource('/'. $resource, ['defaultBasePath' => rtrim(Router::getFullUrl(), '/')]);
     } else {
-        return $swagger->getResourceList(['basePath' => '/system/swagger/resource']);
+        return $swagger->getResourceList(['basePath' => '/system/api/resource']);
     }
 };

@@ -8,16 +8,19 @@
 namespace Application;
 
 use Application\Pages;
+use Bluz\Controller;
 
 return
 /**
+ * @method GET
+ * @method HEAD
  * @return mixed
  */
 function () {
     /**
      * @var Bootstrap $this
      */
-    $crudController = new Pages\Rest();
+    $crudController = new Controller\Rest();
     $crudController->setCrud(Pages\Crud::getInstance());
     return $crudController();
 };
