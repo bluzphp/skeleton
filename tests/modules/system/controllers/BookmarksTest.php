@@ -10,6 +10,7 @@
 namespace Application\Tests\System;
 
 use Application\Tests\ControllerTestCase;
+use Bluz\Proxy\Response;
 
 /**
  * @package  Application\Tests\System

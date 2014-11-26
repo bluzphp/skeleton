@@ -53,6 +53,10 @@ function ($code, $message = '') use ($view) {
             $description = __("The server is not support method");
             Response::setHeader('Allow', $message);
             break;
+        case 406:
+            $title = __("Not Acceptable");
+            $description = __("The server is not acceptable generating content type described at `Accept` header");
+            break;
         case 500:
             $title = __("Internal Server Error");
             $description = __("The server encountered an unexpected condition");
@@ -76,7 +80,7 @@ function ($code, $message = '') use ($view) {
     if (Request::isHttp()) {
 
         // simple AJAX call, accept JSON
-        if ($this->isJson()) {
+        if (Response::getPresentation() == 'json') {
             Messages::addError($message);
             return $view;
         }

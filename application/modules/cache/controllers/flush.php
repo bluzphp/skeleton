@@ -19,6 +19,7 @@ return
 /**
  * Flush cache servers
  *
+ * @accept JSON
  * @privilege Management
  * @return void
  */

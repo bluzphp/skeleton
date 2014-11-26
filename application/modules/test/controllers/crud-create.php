@@ -15,7 +15,8 @@ use Bluz\Validator\Exception\ValidatorException;
 
 return
 /**
- * @method GET, POST
+ * @method GET
+ * @method POST
  * @return \closure
  */
 function () use ($view) {

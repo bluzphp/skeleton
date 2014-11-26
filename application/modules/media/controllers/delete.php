@@ -15,6 +15,7 @@ use Bluz\Proxy\Db;
 
 return
 /**
+ * @accept JSON
  * @var Bootstrap $this
  * @return int
  */

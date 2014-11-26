@@ -10,6 +10,7 @@
 namespace Application\Tests\Categories;
 
 use Application\Tests\ControllerTestCase;
+use Bluz\Proxy\Request;
 
 /**
  * @package  Application\Tests\Categories
@@ -25,7 +26,7 @@ class OrderTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/categories/order/');
+        $this->dispatchRouter('/categories/order/', [], Request::METHOD_GET, true);
         $this->assertModule('categories');
         $this->assertController('order');
         $this->assertOk();

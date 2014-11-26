@@ -15,6 +15,7 @@ use Bluz\Proxy\Messages;
 
 return
 /**
+ * @accept JSON
  * @privilege Management
  */
 function ($tree, $treeParent) use ($view) {

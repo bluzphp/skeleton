@@ -14,6 +14,9 @@ use Bluz\Controller;
 
 return
 /**
+ * @accept HTML
+ * @accept JSON
+ * @accept XML
  * @return mixed
  */
 function () {
