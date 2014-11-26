@@ -12,6 +12,8 @@ use Bluz\Controller;
 
 return
 /**
+ * @accept HTML
+ * @accept JSON
  * @privilege Management
  * @return mixed
  */

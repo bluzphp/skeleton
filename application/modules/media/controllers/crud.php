@@ -19,6 +19,8 @@ use Bluz\Request\AbstractRequest;
 
 return
 /**
+ * @accept HTML
+ * @accept JSON
  * @privilege Management
  * @return mixed
  */

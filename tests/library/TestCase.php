@@ -13,8 +13,7 @@ use Bluz\Http;
 use Bluz\Proxy;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Request;
-use Bluz\Request\AbstractRequest;
-use Bluz\Response\AbstractResponse;
+use Bluz\Tests\TestCase as BluzTest;
 
 /**
  * Skeleton TestCase
@@ -24,64 +23,23 @@ use Bluz\Response\AbstractResponse;
  * @author   Anton Shevchuk
  * @created  04.08.11 20:01
  */
-class TestCase extends \PHPUnit_Framework_TestCase
+class TestCase extends BluzTest
 {
-    /**
-     * Application entity
-     *
-     * @var \Application\Tests\BootstrapTest
-     */
-    private $app;
-
     /**
      * Setup TestCase
      */
     protected function setUp()
     {
-        $this->getApp();
+        self::getApp();
     }
 
     /**
      * Tear Down
-     *
-     * @return void
      */
     protected function tearDown()
     {
-        $this->resetApp();
-    }
-
-    /**
-     * Get Application instance
-     *
-     * @return BootstrapTest
-     */
-    protected function getApp()
-    {
-        if (!$this->app) {
-            $env = getenv('BLUZ_ENV') ?: 'testing';
-
-            $this->app = BootstrapTest::getInstance();
-            $this->app->init($env);
-        }
-
-        return $this->app;
-    }
-
-    /**
-     * Reset layout and Request
-     */
-    private function resetApp()
-    {
-        if ($this->app) {
-            $this->app->useJson(false);
-            $this->app->useLayout(true);
-        }
-
-        Proxy\Auth::clearIdentity();
-        Proxy\Messages::popAll();
-        Proxy\Request::setInstance(new Http\Request());
-        Proxy\Response::setInstance(new Http\Response());
+        self::resetApp();
+        self::resetGlobals();
     }
 
     /**
@@ -99,6 +57,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         Request::setOptions(Config::getData('request'));
         Request::setMethod($method);
 
+
         // process $_GET params
         if ($query = stristr($uri, '?')) {
             $query = substr($query, 1); // remove `?` sign
@@ -111,8 +70,10 @@ class TestCase extends \PHPUnit_Framework_TestCase
         }
 
         if ($ajax) {
+            $_SERVER['HTTP_ACCEPT'] = 'application/json';
             $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
-            $this->app->useLayout(false);
+        } else {
+            $_SERVER['HTTP_ACCEPT'] = 'text/html';
         }
     }
 
@@ -141,7 +102,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         Request::setController($controller);
         Request::setRequestUri($uri);
 
-        $this->app->process();
+        $this->getApp()->process();
     }
 
     /**
@@ -156,6 +117,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected function dispatchRouter($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
     {
         $this->prepareRequest($uri, $params, $method, $ajax);
-        $this->app->process();
+        $this->getApp()->process();
     }
 }
