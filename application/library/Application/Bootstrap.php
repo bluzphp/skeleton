@@ -65,8 +65,8 @@ class Bootstrap extends Application
             try {
                 Auth\Table::getInstance()->authenticateCookie($_COOKIE['rId'], $_COOKIE['rToken']);
             } catch (AuthException $e) {
-                setcookie('rId', '', 1, '/');
-                setcookie('rToken', '', 1, '/');
+                $this->getResponse()->setCookie('rId', '', 1, '/');
+                $this->getResponse()->setCookie('rToken', '', 1, '/');
             }
         }
 

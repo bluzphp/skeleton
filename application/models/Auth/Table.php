@@ -16,6 +16,7 @@ use Bluz\Auth\AbstractTable;
 use Bluz\Auth\AuthException;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Config;
+use Bluz\Proxy\Response;
 
 /**
  * Auth Table
@@ -151,8 +152,8 @@ class Table extends AbstractTable
 
         $row->save();
 
-        setcookie('rToken', $hash, time() + $ttl, '/');
-        setcookie('rId', app()->user()->id, time() + $ttl, '/');
+        Response::setCookie('rToken', $hash, time() + $ttl, '/');
+        Response::setCookie('rId', app()->user()->id, time() + $ttl, '/');
     }
 
     /**
