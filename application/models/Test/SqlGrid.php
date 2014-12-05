@@ -23,7 +23,7 @@ class SqlGrid extends Grid
 
     /**
      * init
-     * 
+     *
      * @return self
      */
     public function init()

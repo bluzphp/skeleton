@@ -45,14 +45,12 @@ function ($id, $code, $password = null, $password2 = null) use ($view) {
         $actionRow->delete();
         $this->redirectTo('index', 'index');
     } else {
-
         $user = Users\Table::findRow($id);
         $view->user = $user;
         $view->code = $code;
 
         if (Request::isPost()) {
             try {
-
                 if (empty($password) or empty($password2)) {
                     throw new Exception('Please enter your new password');
                 }

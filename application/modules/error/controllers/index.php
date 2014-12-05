@@ -78,7 +78,6 @@ function ($code, $message = '') use ($view) {
 
     // check CLI or HTTP request
     if (Request::isHttp()) {
-
         // simple AJAX call, accept JSON
         if (Response::getPresentation() == 'json') {
             Messages::addError($message);
