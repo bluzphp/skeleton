@@ -23,9 +23,10 @@ use Bluz\Proxy\Db;
  */
 class Table extends \Bluz\Db\Table
 {
+    const BASIC_ADMIN = 'admin';
     const BASIC_GUEST = 'guest';
     const BASIC_MEMBER = 'member';
-    const BASIC_ADMIN = 'admin';
+    const BASIC_SYSTEM = 'system';
 
     /**
      * Table
@@ -43,7 +44,7 @@ class Table extends \Bluz\Db\Table
     /**
      * @var array
      */
-    protected $basicRoles = ['guest', 'member', 'admin'];
+    protected $basicRoles = ['admin', 'guest', 'member', 'system'];
 
     /**
      * Get all roles in system
