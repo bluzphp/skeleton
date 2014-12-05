@@ -16,7 +16,7 @@ use Bluz\Proxy\Request;
 
 return
 /**
- * @privilege Edit
+ * @privilege Management
  *
  * @param int $id
  * @return void

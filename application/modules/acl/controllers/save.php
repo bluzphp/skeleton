@@ -15,7 +15,7 @@ use Bluz\Proxy\Messages;
 
 return
 /**
- * @privilege Edit
+ * @privilege Management
  *
  * @param array $acl
  * @return void

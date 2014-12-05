@@ -59,7 +59,8 @@ class Bootstrap extends Application
     {
         // example of setup default title
         Layout::title("Bluz Skeleton");
-        // remember me
+
+        // apply "remember me" function
         if (!$this->user() && !empty($_COOKIE['rToken']) && !empty($_COOKIE['rId'])) {
             // try to login
             try {
@@ -72,6 +73,7 @@ class Bootstrap extends Application
 
         parent::preDispatch($module, $controller, $params);
     }
+
     /**
      * {@inheritdoc}
      *
