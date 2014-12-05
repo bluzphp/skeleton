@@ -23,7 +23,7 @@ class SelectGrid extends Grid
 
     /**
      * init
-     * 
+     *
      * @return self
      */
     public function init()

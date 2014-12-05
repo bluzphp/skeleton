@@ -652,7 +652,6 @@ abstract class BaseFacebook
                 isset($_REQUEST['state']) &&
                 $this->state === $_REQUEST['state']
             ) {
-
                 // CSRF state has done its job, so clear it
                 $this->state = null;
                 $this->clearPersistentData('state');
@@ -945,7 +944,8 @@ abstract class BaseFacebook
         curl_setopt_array($ch, $opts);
         $result = curl_exec($ch);
 
-        if (curl_errno($ch) == 60) { // CURLE_SSL_CACERT
+        if (curl_errno($ch) == 60) {
+// CURLE_SSL_CACERT
             self::errorLog(
                 'Invalid or no certificate authority found, ' .
                 'using bundled information'

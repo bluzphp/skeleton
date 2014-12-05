@@ -1,7 +1,7 @@
 <?php
 /**
  * Test of partial methods of View
- * 
+ *
  * @author   Anton Shevchuk
  * @created  13.10.11 12:39
  * @return closure

@@ -1,7 +1,7 @@
 <?php
 /**
  * Annotations for swagger
- * 
+ *
  * @author   Anton Shevchuk
  * @created  14.11.2014 18:01
  */

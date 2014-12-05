@@ -22,7 +22,6 @@ if (!function_exists('errorLog')) {
         if (getenv('BLUZ_LOG')
             && is_dir(PATH_DATA .'/logs')
             && is_writable(PATH_DATA .'/logs')) {
-
             // TODO: need default log format
             // [Wed Oct 11 14:32:52 2000] [error] [client 127.0.0.1] client denied by server configuration: /var/www/...
             $message = "[".date("H:i:s")."]\t"

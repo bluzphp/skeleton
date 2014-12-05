@@ -22,7 +22,7 @@ class ArrayGrid extends Grid
     protected $uid = 'arr';
     /**
      * init
-     * 
+     *
      * @return self
      */
     public function init()
@@ -41,7 +41,7 @@ class ArrayGrid extends Grid
                  ['id'=>8, 'name'=>'Foo 7', 'email'=>'n@ef.com', 'status'=>'disable'],
                  ['id'=>9, 'name'=>'Foo 8', 'email'=>'w@ef.com', 'status'=>'disable'],
                  ['id'=>10, 'name'=>'Foo 9', 'email'=>'l@ef.com', 'status'=>'disable'],
-            ]
+             ]
          );
 
          $this->setAdapter($adapter);

@@ -93,7 +93,6 @@ function () use ($view) {
              */
             $user->login();
         } else {
-
             /**
              * if user already signed - link new auth provider to account
              * another - create new user
