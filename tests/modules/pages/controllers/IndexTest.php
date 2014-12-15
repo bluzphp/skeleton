@@ -24,7 +24,7 @@ class IndexTest extends ControllerTestCase
      */
     public function testNotFoundPage()
     {
-        $this->getApp()->dispatch('pages','index', ['alias' => uniqid('random_name_')]);
+        $this->getApp()->dispatch('pages', 'index', ['alias' => uniqid('random_name_')]);
     }
 
     /**
