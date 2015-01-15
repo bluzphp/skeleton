@@ -9,7 +9,6 @@ namespace Application;
 
 use Application\Auth;
 use Application\Users;
-use Application\UsersRoles;
 use Twitter\Client;
 use Guzzle\Common\Exception\GuzzleException;
 use Bluz\Proxy\Config;
@@ -61,7 +60,7 @@ function () use ($view) {
 
         /**
          * Try to load previous information
-         * @var /Application/Auth/Row $row
+         * @var \Application\Auth\Row $row
          */
         $row = $authTable->getAuthRow(Auth\Table::PROVIDER_TWITTER, $result['user_id']);
 
