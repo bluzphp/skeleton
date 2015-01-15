@@ -9,7 +9,6 @@ namespace Application;
 
 use Application\Auth;
 use Bluz\Auth\AuthException;
-use Bluz\Proxy\Config;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Session;
 use Bluz\Proxy\Request;

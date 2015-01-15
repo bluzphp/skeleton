@@ -11,7 +11,6 @@ namespace Application;
 
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotImplementedException;
-use Bluz\Controller;
 
 return
 /**
