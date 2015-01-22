@@ -52,11 +52,7 @@
     </div>
     </div>
 </form>
-<?php
-/* place one asterisk for uncomment code here-> /
-    echo $this->redactor('.redactor', []);
-//*/
-?>
+<?= $this->redactor('.redactor', []) ?>
 <script>
     require(['jquery', 'bluz.tools'], function($, tools) {
         $("#title").blur(function() {

@@ -146,7 +146,11 @@ class Row extends \Bluz\Db\Row {
 
 ## License
 
-Read [MIT LICENSE](https://raw.github.com/bluzphp/skeleton/master/LICENSE.md) file
+This project developed by Bluz PHP Team of [NIX Solutions](http://nixsolutions.com)
+The project distributed under [MIT LICENSE](https://raw.github.com/bluzphp/skeleton/master/LICENSE.md)
+
+[NIX Solutions](http://nixsolutions.com) has OEM License of [Redactor](http://imperavi.com/redactor/).
+Full text of Redactor License you can read at http://imperavi.com/redactor/license/
 
 ## Vendors
 
