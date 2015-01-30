@@ -18,7 +18,6 @@ use Bluz\Proxy\Messages;
 
 return
 /**
- *
  * @param int $id User UID
  * @param string $code
  * @return \closure
