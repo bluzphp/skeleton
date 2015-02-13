@@ -94,15 +94,17 @@ class Bootstrap extends Application
      */
     public function denied()
     {
-        // process AJAX request
-        if (!Request::isXmlHttpRequest()) {
+        // add messages make sense only if presentation is not json, xml, etc
+        if (!$this->getResponse()->getPresentation()) {
             Messages::addError('You don\'t have permissions, please sign in');
         }
         // redirect to login page
         if (!$this->user()) {
-            // save URL to session
-            Session::set('rollback', Request::getRequestUri());
-            $this->redirectTo('users', 'signin');
+            // save URL to session and redirect make sense if presentation is null
+            if (!$this->getResponse()->getPresentation()) {
+                Session::set('rollback', Request::getRequestUri());
+                $this->redirectTo('users', 'signin');
+            }
         }
         throw new ForbiddenException();
     }
