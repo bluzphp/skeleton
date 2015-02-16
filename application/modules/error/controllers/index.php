@@ -75,11 +75,11 @@ function ($code, $message = '') use ($view) {
             $description = __("An unexpected error occurred with your request. Please try again later");
             break;
     }
-
     // check CLI or HTTP request
     if (Request::isHttp()) {
         // simple AJAX call, accept JSON
-        if (Response::getPresentation() == 'json') {
+        if (Request::getAccept() == Request::ACCEPT_JSON) {
+            $this->useJson();
             Messages::addError($message);
             return $view;
         }
