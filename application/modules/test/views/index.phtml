@@ -35,9 +35,9 @@
     <br/>
     <br/>
     <div class="btn-group">
-        <?= $this->ahref('<span class="badge">1</span> POST Create Record', ['test', 'rest-post'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'POST', 'data-name'=> 'Name', 'data-email'=> 'email@bluz.com']);?>
-        <?= $this->ahref('<span class="badge">2</span> PUT Edit Record', 'test/rest-put/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'PUT', 'data-name'=> 'New Name']);?>
-        <?= $this->ahref('<span class="badge">3</span> DELETE Record', 'test/rest-delete/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'DELETE']);?>
+        <?= $this->ahref('<span class="badge">1</span> POST Create Record', ['test', 'rest-post'], ['class'=>'ajax btn btn-primary', 'data-ajax-method'=>'POST', 'data-name'=> 'Name', 'data-email'=> 'email@bluz.com']);?>
+        <?= $this->ahref('<span class="badge">2</span> PUT Edit Record', 'test/rest-put/10', ['class'=>'ajax btn btn-success', 'data-ajax-method'=>'PUT', 'data-name'=> 'New Name']);?>
+        <?= $this->ahref('<span class="badge">3</span> DELETE Record', 'test/rest-delete/10', ['class'=>'ajax btn btn-danger', 'data-ajax-method'=>'DELETE']);?>
     </div>
 </div>
 <script>
@@ -54,7 +54,7 @@
                         $('#rest a[data-ajax-method=DELETE]').attr('href', 'test/rest-delete/'+partial[3]);
                     }
 
-                    notify.addSuccess("OK")
+                    notify.addSuccess("OK. Additional information in console")
                 })
                 .on('error.ajax.bluz', function(event, jqXHR, textStatus, errorThrown){
 
