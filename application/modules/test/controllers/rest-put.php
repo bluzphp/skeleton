@@ -18,7 +18,7 @@ return
  * @accept JSON
  * @accept XML
  * @method PATCH
- * @method POST
+ * @method PUT
  * @return mixed
  */
 function () {

@@ -17,8 +17,52 @@
 <hr/>
 <ul>
     <li><?= $this->ahref('CRUD', ['test', 'grid-sql']) ?> &mdash; Create, Read, Update and Delete examples</li>
-    <li><?= $this->ahref('Backbone', ['test', 'backbone']) ?> &mdash; working too</li>
+    <li><?= $this->ahref('REST + Backbone', ['test', 'backbone']) ?> &mdash; working too</li>
 </ul>
+<hr/>
+<p>Try REST methods</p>
+<div id="rest">
+    <div class="btn-group">
+        <?= $this->ahref('GET 10 Records', ['test', 'rest-get'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'GET']);?>
+        <?= $this->ahref('HEAD 10 Records', ['test', 'rest-get'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'HEAD']);?>
+    </div>
+    <br/>
+    <br/>
+    <div class="btn-group">
+        <?= $this->ahref('GET Record ID:10', 'test/rest-get/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'GET']);?>
+        <?= $this->ahref('HEAD Record ID:10', 'test/rest-get/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'HEAD']);?>
+    </div>
+    <br/>
+    <br/>
+    <div class="btn-group">
+        <?= $this->ahref('<span class="badge">1</span> POST Create Record', ['test', 'rest-post'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'POST', 'data-name'=> 'Name', 'data-email'=> 'email@bluz.com']);?>
+        <?= $this->ahref('<span class="badge">2</span> PUT Edit Record', 'test/rest-put/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'PUT', 'data-name'=> 'New Name']);?>
+        <?= $this->ahref('<span class="badge">3</span> DELETE Record', 'test/rest-delete/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'DELETE']);?>
+    </div>
+</div>
+<script>
+    require(["jquery", "bluz.notify"], function($, notify) {
+        $(function(){
+            $('#rest')
+                .on('success.ajax.bluz', function(event, data, textStatus, jqXHR){
+                    console.log(data);
+
+                    // check correct creation
+                    if (jqXHR.getResponseHeader('Location')) {
+                        var partial = jqXHR.getResponseHeader('Location').split('/');
+                        $('#rest a[data-ajax-method=PUT]').attr('href', 'test/rest-put/'+partial[3]);
+                        $('#rest a[data-ajax-method=DELETE]').attr('href', 'test/rest-delete/'+partial[3]);
+                    }
+
+                    notify.addSuccess("OK")
+                })
+                .on('error.ajax.bluz', function(event, jqXHR, textStatus, errorThrown){
+
+                });
+        });
+    });
+</script>
+
 <hr/>
 <ul>
     <li><?= $this->ahref('Download File', ['test', 'file']) ?> &mdash; Send file to browser</li>
