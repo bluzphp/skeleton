@@ -31,7 +31,7 @@ function ($id, $code, $password = null, $password2 = null) use ($view) {
     // change layout
     $this->useLayout('small.phtml');
 
-    $actionRow = UsersActions\Table::findRow(['userId' => $id, 'token' => $code]);
+    $actionRow = UsersActions\Table::findRow(['userId' => $id, 'code' => $code]);
 
     $datetime1 = new \DateTime(); // now
     $datetime2 = new \DateTime($actionRow->expired);

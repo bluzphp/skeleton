@@ -73,6 +73,7 @@ function ($code, $message = '') use ($view) {
         default:
             $title = __("Internal Server Error");
             $description = __("An unexpected error occurred with your request. Please try again later");
+            $optional = true;
             break;
     }
     // check CLI or HTTP request
@@ -93,7 +94,7 @@ function ($code, $message = '') use ($view) {
     Layout::title($title);
     $view->error = $title;
     $view->description = $description;
-    if ($message != $title) {
+    if (isset($optional) && $message != '') {
         $view->message = $message;
     }
     return $view;
