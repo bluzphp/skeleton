@@ -51,7 +51,7 @@ function ($id) use ($view) {
         // clean cache
         Cache::delete('user:'.$user->id);
         Messages::addSuccess('User roles was updated');
-//        return false;
+        return false;
     }
 
     /* @var $view \Bluz\View\View */
