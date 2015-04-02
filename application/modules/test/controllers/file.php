@@ -26,7 +26,7 @@ function () {
     Response::addHeader('Cache-Control', 'must-revalidate');
     Response::addHeader('Pragma', 'public');
 
-    return function() {
+    return function () {
         readfile(PATH_PUBLIC .'/img/loading.gif');
     };
 };
