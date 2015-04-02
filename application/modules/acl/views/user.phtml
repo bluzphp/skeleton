@@ -3,7 +3,7 @@
  * @var \Application\Users\Row $user
  */
 ?>
-<form class="form-horizontal ajax" method="post" action="<?=$this->url('acl', 'user', ['id'=>$user->id])?>" enctype="application/x-www-form-urlencoded">
+<form action="<?=$this->url('acl', 'user', ['id'=>$user->id])?>" class="form-horizontal ajax" method="post" enctype="application/x-www-form-urlencoded">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h3 class="modal-title"><?=__('Choose roles for %s', $user->login)?></h3>

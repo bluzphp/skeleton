@@ -18,6 +18,8 @@ return
 /**
  * @privilege Management
  *
+ * @accept HTML
+ * @accept JSON
  * @param int $id
  * @return void
  */
@@ -49,6 +51,7 @@ function ($id) use ($view) {
         // clean cache
         Cache::delete('user:'.$user->id);
         Messages::addSuccess('User roles was updated');
+        return false;
     }
 
     /* @var $view \Bluz\View\View */
