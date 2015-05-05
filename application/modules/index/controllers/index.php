@@ -26,12 +26,14 @@ function () {
     try{
         $hybridauth = new \Hybrid_Auth( $config );
 
-        $twitter = $hybridauth->authenticate( "Twitter" );
+        $twitter = $hybridauth->authenticate( "Facebook" );
 
         if ($twitter->isUserConnected()) {
             $user_profile = $twitter->getUserProfile();
             echo "Hi there! " . $user_profile->displayName;
+            $twitter->logout();
         }
+
 
     }
     catch( Exception $e ){
