@@ -12,8 +12,8 @@ return array(
         }
     ),
     "facebook" => array(
-        "appId" => "%%appId%%",
-        "secret" => "%%secret%%",
+        "appId" => "1413483462306154",
+        "secret" => "0911925061bdb04a3d8c41129f672065",
     ),
     "twitter" => array(
         "consumer_key" => "%%consumerKey%%",
