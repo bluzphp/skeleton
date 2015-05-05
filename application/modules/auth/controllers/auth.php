@@ -22,12 +22,7 @@ return
 
         try{
             $provider = Request::getParam('provider');
-            $auth = new AuthFactory();
-            $auth->setProvider($provider);
-            $auth->setResponse($this);
-            $auth->setService($this->getService());
-            $auth->setIdentity($this->user());
-            $auth->authProcess();
+
         }catch (Exception $e) {
             Messages::addError($e->getMessage());
         }
