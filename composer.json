@@ -1,49 +1,53 @@
 {
-    "name": "bluzphp/skeleton",
-    "description": "Skeleton application for Bluz, a lightweight PHP framework",
-    "minimum-stability": "dev",
-    "type": "library",
-    "require": {
-        "php": ">=5.4",
-        "bluzphp/framework": "~0.9",
-        "phpmailer/phpmailer": "~5.2",
-        "guzzle/guzzle": "~3.8",
-        "zircote/swagger-php": "~0.9"
+  "name": "bluzphp/skeleton",
+  "description": "Skeleton application for Bluz, a lightweight PHP framework",
+  "minimum-stability": "dev",
+  "type": "library",
+  "require": {
+    "php": ">=5.4",
+    "bluzphp/framework": "~0.9",
+    "phpmailer/phpmailer": "~5.2",
+    "guzzle/guzzle": "~3.8",
+    "zircote/swagger-php": "~0.9"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.4",
+    "satooshi/php-coveralls": "~0.6",
+    "squizlabs/php_codesniffer": "~2.0",
+    "zendframework/zend-dom": "~2.3",
+    "hybridauth/hybridauth": "dev-master",
+    "opauth/opauth": "*",
+    "opauth/facebook": "*",
+    "opauth/twitter": "*"
+  },
+  "config": {
+    "vendor-dir": "vendor"
+  },
+  "autoload": {
+    "psr-0": {
+      "": "application/library"
     },
-    "require-dev": {
-        "phpunit/phpunit": "~4.4",
-        "satooshi/php-coveralls": "~0.6",
-        "squizlabs/php_codesniffer": "~2.0",
-        "zendframework/zend-dom": "~2.3"
+    "psr-4": {
+      "Application\\": "application/models",
+      "Application\\Tests\\": "tests/library"
     },
-    "config": {
-        "vendor-dir": "vendor"
-    },
-    "autoload": {
-        "psr-0": {
-            "": "application/library"
-        },
-        "psr-4": {
-            "Application\\": "application/models",
-            "Application\\Tests\\": "tests/library"
-        },
-        "files": [
-            "application/_functions.php",
-            "application/_loader.php"
-        ]
-    },
-    "scripts": {
-        "post-install-cmd": "php bin/install.php"
-    },
-    "authors": [
-        {
-            "name": "Bluz Skeleton Contributors",
-            "homepage": "https://github.com/bluzphp/skeleton/graphs/contributors"
-        }
-    ],
-    "support": {
-        "issues": "https://github.com/bluzphp/skeleton/issues",
-        "wiki": "https://github.com/bluzphp/skeleton/wiki"
-    },
-    "license": "MIT"
+    "files": [
+      "application/_functions.php",
+      "application/_loader.php"
+    ]
+  },
+  "scripts": {
+    "post-install-cmd": "php bin/install.php"
+  },
+  "authors": [
+    {
+      "name": "Bluz Skeleton Contributors",
+      "homepage": "https://github.com/bluzphp/skeleton/graphs/contributors"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/bluzphp/skeleton/issues",
+    "wiki": "https://github.com/bluzphp/skeleton/wiki"
+  },
+  "license": "MIT"
 }

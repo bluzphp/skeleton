@@ -12,6 +12,8 @@
  */
 namespace Application;
 
+use Bluz\Proxy\Config;
+
 return
 /**
  * @var Bootstrap $this
@@ -19,4 +21,20 @@ return
  */
 function () {
 
+    $config = Config::getData('hybridauth');
+
+    try{
+        $hybridauth = new \Hybrid_Auth( $config );
+
+        $twitter = $hybridauth->authenticate( "Twitter" );
+
+        if ($twitter->isUserConnected()) {
+            $user_profile = $twitter->getUserProfile();
+            echo "Hi there! " . $user_profile->displayName;
+        }
+
+    }
+    catch( Exception $e ){
+        echo "Ooophs, we got an error: " . $e->getMessage();
+    }
 };
