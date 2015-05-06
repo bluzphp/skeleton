@@ -70,10 +70,6 @@ abstract class AbstractAuth implements AuthInterface
      */
     public function authProcess()
     {
-        if($this->hybridauth){
-            $this->hybridauth->logoutAllProviders();
-        }
-
         $providerName = $this->getProviderName();
         $profile = $this->getProfile(); //?
 
