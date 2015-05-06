@@ -24,11 +24,13 @@ class AuthFactory extends AbstractAuth
      */
     public function setProvider($provider){
 
-        $options = Config::getData('hybridauth');
-        if(empty($options['provider'])){
+        $options = Config::getData('hybridauth','providers');
+        $provider = $options[ucfirst($provider)]['provider'];
+
+        if(empty($provider)){
             throw new Exception('No provider was found !');
         }
-        $className = $options['provider'];
+        $className = $provider;
         if (!class_exists($className)) {
             throw new Exception(sprintf('Class with name %s not found !', $className));
         }

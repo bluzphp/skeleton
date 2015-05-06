@@ -37,10 +37,10 @@ return
         return
             function () {
                 return false;
-            };
+        };
 
 
-     //   $config = Config::getData('hybridauth');
+     /*   $config = Config::getData('hybridauth');
 
         try{
         $hybridauth = new \Hybrid_Auth( $config );
@@ -55,6 +55,6 @@ return
         }
         catch( Exception $e ){
         echo "Ooophs, we got an error: " . $e->getMessage();
-        }
+        }*/
 
     };

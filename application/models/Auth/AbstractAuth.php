@@ -2,38 +2,25 @@
 
 namespace Application\Auth;
 
+use Bluz\Proxy\Config;
 use Bluz\Proxy\Messages;
 use Application\Auth;
 use Application\Users;
-use Bluz\Proxy\Request;
-use Bluz\Proxy\Session;
 
-class AbstractAuth implements AuthInterface
+abstract class AbstractAuth implements AuthInterface
 {
-
     /** @var  \Bluz\Http\Response */
     protected $response;
 
-    /** @var \Application\Users\Entity\User $identity */
+    /** @var \Application\Users\Row $identity */
     protected $identity;
 
-    private $hybridauth;
+    /** @var \Hybrid_Auth $hybridauth */
+    protected $hybridauth;
 
-    /**
-     * @return \Hybrid_Auth
-     */
-    public function getHybridauth()
-    {
-        return $this->hybridauth = new \Hybrid_Auth($this->getOptions());
-    }
+    /** @var \Hybrid_Provider_Adapter $authAdapter*/
+    protected $authAdapter;
 
-    /**
-     * @param mixed $hybridauth
-     */
-    public function setHybridauth($hybridauth)
-    {
-        $this->hybridauth = $hybridauth;
-    }
 
     /**
      * @param \Bluz\Http\Response $response
@@ -52,23 +39,7 @@ class AbstractAuth implements AuthInterface
     }
 
     /**
-     * @param \Application\AbstractService $service
-     */
-    public function setService($service)
-    {
-        $this->service = $service;
-    }
-
-    /**
-     * @return \Application\AbstractService
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
-
-    /**
-     * @param \Application\Users\Entity\User $identity
+     * @param \\Application\Users\Row $user $identity
      */
     public function setIdentity($identity)
     {
@@ -76,7 +47,7 @@ class AbstractAuth implements AuthInterface
     }
 
     /**
-     * @return \Application\Users\Entity\User
+     * @return \Application\Users\Row $user
      */
     public function getIdentity()
     {
@@ -84,41 +55,8 @@ class AbstractAuth implements AuthInterface
     }
 
     /**
-     * @param \Application\Auth\AuthService $authService
-     */
-    public function setAuthService($authService)
-    {
-        $this->authService = $authService;
-    }
-
-    /**
-     * @return \Application\Auth\AuthService
-     */
-    public function getAuthService()
-    {
-        return $this->authService;
-    }
-
-    /**
-     * @param \Application\Users\UserService $userService
-     */
-    public function setUserService($userService)
-    {
-        $this->userService = $userService;
-    }
-
-    /**
-     * @return \Application\Users\UserService
-     */
-    public function getUserService()
-    {
-        return $this->userService;
-    }
-
-
-    /**
-     * @param array $data
-     * @param \Application\Users\Entity\User $user
+     * @param \Hybrid_User_Profile $data
+     * @param \Application\Users\Row $user $user
      * @return void
      */
     public function registration($data, $user)
@@ -131,83 +69,49 @@ class AbstractAuth implements AuthInterface
      */
     public function authProcess()
     {
-        $elements = explode('\\', get_class($this));
-        $providerName = end($elements);
-        $profile = $this->getProfile();
-
-        if (!$profile) {
-            /**
-             * If user doesn't allow application yet, redirect him to fb page for this.
-             * After this operation we will returned to this file.
-             * Is user declined app, we get param 'error' => 'access_denied'
-             */
-
-            // if user declined
-            if ('access_denied' == Request::getParam('error', null)) {
-                $this->response->redirectTo('users', 'signin');
-            }
-        }
-
-        /* if ( \Bluz\Proxy\Auth::getIdentity()) {
-             $this->response->redirectTo('index', 'index');
-         }*/
+        $providerName = $this->getProviderName();
+        $profile = $this->getProfile(); //?
 
         /**
          * @var Auth\Table $authTable
          */
         $authTable = Auth\Table::getInstance();
-        $auth = $authTable->getAuthRow(strtolower($providerName), $profile['id']);
+        $auth = $authTable->getAuthRow(strtolower($providerName), $profile->identifier);
+
+        if ($this->identity) {
+            if ($auth) {
+                Messages::addNotice(sprintf('You have already linked to %s', $providerName));
+                $this->response->redirectTo('users', 'profile', ['id' => $this->identity->id]);
+            } else {
+                $user = Users\Table::findRow($this->identity->id);
+                $this->registration($profile, $user);
+            }
+        }
 
         if ($auth) {
-            // if user has been registered
-            $user = Users\Table::findRow($auth->userId);
-
-            $user->login();
-
-            if ($user->status != Users\Table::STATUS_ACTIVE) {
-                Messages::addError('User is not active');
-            }
-
-            $this->response->redirectTo('index', 'index');
+            $this->alreadyRegisteredLogic($auth);
         } else {
-            // sign up user
-
-            // continue with registration
-            /**
-             * Write facebook response to session
-             */
-            Session::set('facebook', $profile);
-            Messages::addNotice('To finish your registration fill the form');
-            $this->redirectTo('users', 'signup');
-
-
+            Messages::addError('You need to sign in first');
+            $this->response->redirectTo('users', 'signin');
         }
-        /*  if ($this->identity) {
-              if ($auth) {
-                  Messages::addNotice(sprintf('You have already linked to %s', $providerName));
-                  $this->response->redirectTo('users', 'profile', ['id' => $this->identity->getId()]);
-              } else {
-                  $user = $this->userService->readOne($this->identity->getId());
-                  $this->registration($profile, $user);
-              }
-          }
+    }
 
-          if ($auth) {
-              $this->alreadyRegisteredLogic($auth); //need to be not a proxy object
-          } else {
-              Messages::addError('You need to sign up via Ldap first');
-              $this->response->redirectTo('users', 'signin');
-          }*/
+    /**
+     * @return string
+     */
+    private function getProviderName(){
 
+        $elements = explode('\\', get_class($this));
+        return end($elements);
     }
 
     /**
      * @return array
      * @throws \Application\Exception
      */
-    private function getOptions()
+    public function getOptions()
     {
-
+       return Config::getData('hybridauth');
     }
 
     /**
@@ -222,17 +126,22 @@ class AbstractAuth implements AuthInterface
      * @param Auth $auth
      * @return mixed
      */
-    public function alreadyRegisteredLogic(Auth $auth)
+    public function alreadyRegisteredLogic($auth)
     {
         // TODO: Implement alreadyRegisteredLogic() method.
     }
 
     /**
-     * @return array
+     * @return \Hybrid_User_Profile
      */
     public function getProfile()
     {
-        // TODO: Implement getProfile() method.
+        $this->hybridauth = new \Hybrid_Auth($this->getOptions());
+
+        /** @var \Hybrid_Provider_Adapter $authProvider */
+        $this->authAdapter= $this->hybridauth->authenticate($this->getProviderName());
+
+        return  $this->authAdapter->getUserProfile();
     }
 
     public function setProvider($provider)

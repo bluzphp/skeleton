@@ -5,8 +5,8 @@ namespace Application\Auth;
 interface AuthInterface{
 
     /**
-     * @param array $data
-     * @param \Application\Users\Entity\User $user
+     * @param \Hybrid_User_Profile $data
+     * @param \Application\Users\Row $user
      * @return void
      */
     public function registration($data, $user);
@@ -28,10 +28,10 @@ interface AuthInterface{
     public function redirectLogic();
 
     /**
-     * @param Auth $auth
+     * @param \Application\Auth\Row $auth
      * @return mixed
      */
-    public function alreadyRegisteredLogic(Auth $auth);
+    public function alreadyRegisteredLogic($auth);
 
     /**
      * @return array
