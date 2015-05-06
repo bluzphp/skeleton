@@ -12,8 +12,6 @@ use Application\Users;
 
 return
     /**
-     * @param int $id User UID
-     * @param string $code
      * @return \closure
      */
     function () {

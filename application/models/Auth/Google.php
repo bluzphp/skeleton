@@ -2,146 +2,53 @@
 /**
  * Created by PhpStorm.
  * User: yuklia
- * Date: 2/17/15
- * Time: 11:06 AM
+ * Date: 06.05.15
+ * Time: 11:02
  */
 
 namespace Application\Auth;
 
-use Bluz\Proxy\Config;
+use Application\Auth;
+use Application\Users;
 use Bluz\Proxy\Messages;
-use Bluz\Proxy\Request;
-use Bluz\Proxy\Router;
-use Google\Client;
 
-class Google extends AbstractAuth{
-
-    /** @var  Client/Google */
-    private $google;
-
-    /** @var   */
-    private $code;
-
+class Google extends AbstractAuth
+{
 
     /**
-     * @param mixed $code
-     */
-    public function setCode($code)
-    {
-        if (!$code) {
-            $config = Config::getData('auth', 'google');
-            $googleAuth = new Client($config);
-            //todo::need to be wrapped in plugin
-            $scheme = Request::getScheme() . '://';
-            $host = Request::getHttpHost();
-            $url = $config['redirect-uri'];
-            $redirectUri = $scheme . $host . '/' . $url;
-            $this->response->redirect($googleAuth->getAuthUrl($redirectUri));
-        }
-
-        $this->code = $code;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
-     * @param $profile
-     * @param $user
+     * @param \Hybrid_User_Profile $profile
+     * @param  \Application\Users\Row $user
      */
     public function registration($profile, $user)
     {
-        $auth = new \Application\Auth\Entity\Auth();
-        $auth->setForeignKey($profile['id']);
-        $auth->setProvider(\Application\Auth\Entity\Auth::PROVIDER_GOOGLE);
-        $auth->setToken($this->google->accessToken);
-        if($this->google->refreshToken){
-            $auth->setRefreshToken($this->google->refreshToken);
-        }
-        $auth->setTokenType('access');
-        $auth->setUser($user);
-        $auth->setTokenSecret(0);
-        $this->authService->saveObject($auth);
+        $twitterRow = new Auth\Row();
+        $twitterRow->userId = $user->id;
+        $twitterRow->provider = Auth\Table::PROVIDER_GOOGLE;
+
+        $twitterRow->foreignKey = $profile->identifier;
+        $twitterRow->token = $this->authAdapter->getAccessToken()['access_token'];
+        $twitterRow->tokenSecret = ($this->authAdapter->getAccessToken()['access_token_secret'])? $this->authAdapter->getAccessToken()['access_token_secret']: '' ;
+        $twitterRow->tokenType = Auth\Table::TYPE_ACCESS;
+        $twitterRow->save();
+
         Messages::addNotice('Your account was linked to Google successfully !');
-        $this->response->redirectTo('users', 'profile', ['id' => $user->getId()]);
-
-    }
-
-
-    /**
-     * @return array|mixed
-     * @throws \Exception
-     */
-    public function getOptions()
-    {
-        $options = Config::getData('auth', 'google');
-        if (!$options || !isset($options['client_id'], $options['client_secret'])
-            || empty($options['client_id']) || empty($options['client_secret'])
-        ) {
-            throw new \Exception('Google authorization is not configured');
-        }
-        return $options;
+        $this->response->redirectTo('users', 'profile', ['id' => $user->id]);
     }
 
     /**
-     * @return void
+     * @param \Application\Auth\Row $auth
+     * @return mixed
      */
-    public function redirectLogic()
-    {
-        $login_url = $this->google->getAuthUrl(Router::getFullUrl('google', 'redirect_uri'));
-        $this->response->redirect($login_url);
-    }
+    public function alreadyRegisteredLogic($auth){
 
-    /**
-     * @param  Auth $auth
-     * @throws \Bluz\Auth\AuthException
-     * @throws \Exception
-     */
-    public function alreadyRegisteredLogic(Auth $auth)
-    {
-        $user = $auth->getUser();
+        $user = Users\Table::findRow($auth->userId);
 
-        if ($user->getStatus() != User::STATUS_ACTIVE) {
+        if ($user->status != Users\Table::STATUS_ACTIVE) {
             Messages::addError('User is not active');
         }
 
-        $this->userService->login($user);
+        $user->login();
         $this->response->redirectTo('index', 'index');
-
     }
-
-    /**
-     * @return array
-     */
-    public function getProfile()
-    {
-        //extend access_token live or get new one
-        $options = $this->getOptions();
-        $this->google = new Client($options);
-        $config = Config::getData('auth', 'google');
-        //todo::need to be wrapped in plugin
-        $scheme = Request::getScheme() . '://';
-        $host = Request::getHttpHost();
-        $url = $config['redirect-uri'];
-        $redirectUri = $scheme . $host . '/' . $url;
-        $this->google->getOauthAccessToken($this->code, $redirectUri); //getting temporary token
-        $userGoogle = $this->google->getUserInfo();
-        if ($userGoogle) {
-            return $userGoogle;
-        }
-        /**
-         * If user doesn't allow application yet, redirect him to fb page for this.
-         * After this operation we will returned to this file.
-         * Is user declined app, we get param 'error' => 'access_denied'
-         */
-        $this->redirectLogic();
-
-    }
-
 
 }

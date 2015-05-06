@@ -23,11 +23,6 @@ interface AuthInterface{
     public function getOptions();
 
     /**
-     * @return void
-     */
-    public function redirectLogic();
-
-    /**
      * @param \Application\Auth\Row $auth
      * @return mixed
      */

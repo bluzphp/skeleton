@@ -64,11 +64,16 @@ abstract class AbstractAuth implements AuthInterface
         // TODO: Implement registration() method.
     }
 
+
     /**
      * @return void
      */
     public function authProcess()
     {
+        if($this->hybridauth){
+            $this->hybridauth->logoutAllProviders();
+        }
+
         $providerName = $this->getProviderName();
         $profile = $this->getProfile(); //?
 
@@ -115,14 +120,6 @@ abstract class AbstractAuth implements AuthInterface
     }
 
     /**
-     * @return void
-     */
-    public function redirectLogic()
-    {
-        // TODO: Implement redirectLogic() method.
-    }
-
-    /**
      * @param Auth $auth
      * @return mixed
      */
@@ -141,7 +138,7 @@ abstract class AbstractAuth implements AuthInterface
         /** @var \Hybrid_Provider_Adapter $authProvider */
         $this->authAdapter= $this->hybridauth->authenticate($this->getProviderName());
 
-        return  $this->authAdapter->getUserProfile();
+        return $this->authAdapter->getUserProfile();
     }
 
     public function setProvider($provider)
