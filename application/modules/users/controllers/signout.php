@@ -22,7 +22,6 @@ function () use ($view) {
      * @var \Bluz\View\View $view
      */
 
-    \Hybrid_Auth::logoutAllProviders();
     AppAuth\Table::getInstance()->removeCookieToken($this->user()->id);
     Auth::clearIdentity();
     Messages::addNotice('You are signout');

@@ -114,7 +114,7 @@ class AuthProvider
         if ($auth) {
             $this->alreadyRegisteredLogic($auth);
         } else {
-            Messages::addError('You need to sign in first');
+            Messages::addError(sprintf('First you need to be linked to %s', ucfirst($this->providerName)));
             $this->response->redirectTo('users', 'signin');
         }
     }
