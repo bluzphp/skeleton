@@ -7,7 +7,7 @@ use Bluz\Proxy\Messages;
 use Application\Auth;
 use Application\Users;
 
-class AuthProvider implements AuthInterface
+class AuthProvider
 {
     /** @var  \Bluz\Http\Response */
     protected $response;
@@ -21,6 +21,9 @@ class AuthProvider implements AuthInterface
     /** @var \Hybrid_Provider_Adapter $authAdapter*/
     protected $authAdapter;
 
+    /**
+     * @var string
+     */
     protected $providerName;
 
     public function __construct($providerName){
@@ -72,11 +75,12 @@ class AuthProvider implements AuthInterface
 
         $twitterRow->foreignKey = $data->identifier;
         $twitterRow->token = $this->authAdapter->getAccessToken()['access_token'];
-        $twitterRow->tokenSecret = ($this->authAdapter->getAccessToken()['access_token_secret'])? $this->authAdapter->getAccessToken()['access_token_secret']: '' ;
+        $twitterRow->tokenSecret = ($this->authAdapter->getAccessToken()['access_token_secret'])?
+            $this->authAdapter->getAccessToken()['access_token_secret']: '' ;
         $twitterRow->tokenType = Auth\Table::TYPE_ACCESS;
         $twitterRow->save();
 
-        Messages::addNotice('Your account was linked to Facebook successfully !');
+        Messages::addNotice(sprintf('Your account was linked to %s successfully !', ucfirst($this->providerName)));
         $this->response->redirectTo('users', 'profile', ['id' => $user->id]);
     }
 
@@ -86,8 +90,7 @@ class AuthProvider implements AuthInterface
      */
     public function authProcess()
     {
-        //$providerName = $this->getProviderName();
-        $profile = $this->getProfile(); //?
+        $profile = $this->getProfile();
 
         /**
          * @var Auth\Table $authTable
@@ -112,15 +115,6 @@ class AuthProvider implements AuthInterface
             $this->response->redirectTo('users', 'signin');
         }
     }
-
-    /**
-     * @return string
-     */
-   /* private function getProviderName(){
-
-        $elements = explode('\\', get_class($this));
-        return end($elements);
-    }*/
 
     /**
      * @return array
@@ -155,21 +149,9 @@ class AuthProvider implements AuthInterface
         $this->hybridauth = new \Hybrid_Auth($this->getOptions());
 
         /** @var \Hybrid_Provider_Adapter $authProvider */
-        $this->authAdapter= $this->hybridauth->authenticate($this->providerName);
+        $this->authAdapter= $this->hybridauth->authenticate(ucfirst($this->providerName));
 
         return $this->authAdapter->getUserProfile();
     }
 
-    public function setProvider($provider)
-    {
-        // TODO: Implement setProvider() method.
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getProvider()
-    {
-        // TODO: Implement getProvider() method.
-    }
 }

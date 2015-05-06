@@ -4,11 +4,6 @@
  * @var \Bluz\View\View $this
  */
 ?>
-
-<script>
-    require(['bluz.auth'], function($) {});
-</script>
-
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title"><?=__('Please sign in')?></h3>
@@ -39,13 +34,13 @@
     </div>
     <div class="panel-footer clearfix">
         <div class="pull-left">
-            <a href="<?=\Bluz\Proxy\Router::getUrl('auth', 'auth')?>" data-provider="google" class="provider btn fa fa-google-plus-square fa-2x"></a>
+            <a href="<?=\Bluz\Proxy\Router::getUrl('auth', 'auth',['provider'=> 'google'])?>" class="provider btn fa fa-google-plus-square fa-2x"></a>
         </div>
         <div class="pull-left">
-            <a href="<?=\Bluz\Proxy\Router::getUrl('auth', 'auth')?>" data-provider="facebook" class="provider btn fa fa-facebook-square fa-2x"></a>
+            <a href="<?=\Bluz\Proxy\Router::getUrl('auth', 'auth',['provider'=> 'facebook'])?>" class="provider btn fa fa-facebook-square fa-2x"></a>
         </div>
         <div class="pull-left">
-            <a href="<?=\Bluz\Proxy\Router::getUrl('auth', 'auth')?>" data-provider="twitter" class="provider btn fa fa-twitter-square fa-2x"></a>
+            <a href="<?=\Bluz\Proxy\Router::getUrl('auth', 'auth',['provider'=> 'twitter'])?>" class="provider btn fa fa-twitter-square fa-2x"></a>
         </div>
         <a href="<?=$this->url('users', 'recovery')?>" class="pull-right"><?=__('Forgot your password?')?></a>
     </div>

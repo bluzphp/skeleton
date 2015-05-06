@@ -21,22 +21,5 @@ return
  */
 function () {
 
- /*   try{
-        $hybridauth = new \Hybrid_Auth( Config::getData('hybridauth') );
-
-        $twitter = $hybridauth->authenticate( "Facebook" );
-
-        $user_profile = $twitter->getUserProfile();
-
-        echo "Hi there! " . $user_profile->displayName;
-
-        $twitter->setUserStatus( "Hello world!" );
-
-        $user_contacts = $twitter->getUserContacts();
-        $hybridauth->logoutAllProviders();
-    }
-    catch( Exception $e ){
-        echo "Ooophs, we got an error: " . $e->getMessage();
-    }*/
 
 };
