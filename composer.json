@@ -16,7 +16,6 @@
     "squizlabs/php_codesniffer": "~2.0",
     "zendframework/zend-dom": "~2.3",
     "hybridauth/hybridauth": "dev-master",
-    "opauth/opauth": "*",
     "opauth/facebook": "*",
     "opauth/twitter": "*"
   },
