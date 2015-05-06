@@ -29,6 +29,7 @@ class AuthProvider
     public function __construct($providerName){
 
         $this->providerName = $providerName;
+        $this->hybridauth = new \Hybrid_Auth($this->getOptions());
     }
     /**
      * @param \Bluz\Http\Response $response
@@ -47,7 +48,7 @@ class AuthProvider
     }
 
     /**
-     * @param \\Application\Users\Row $user $identity
+     * @param \Application\Users\Row $identity
      */
     public function setIdentity($identity)
     {
@@ -67,7 +68,7 @@ class AuthProvider
      * @param \Application\Users\Row $user $user
      * @return void
      */
-    public function registration($data, $user)
+    protected function registration($data, $user)
     {
         $twitterRow = new Auth\Row();
         $twitterRow->userId = $user->id;
@@ -90,6 +91,8 @@ class AuthProvider
      */
     public function authProcess()
     {
+        /** @var \Hybrid_Provider_Adapter $authProvider */
+        $this->authAdapter= $this->hybridauth->authenticate(ucfirst($this->providerName));
         $profile = $this->getProfile();
 
         /**
@@ -120,7 +123,7 @@ class AuthProvider
      * @return array
      * @throws \Application\Exception
      */
-    public function getOptions()
+    protected function getOptions()
     {
        return Config::getData('hybridauth');
     }
@@ -129,7 +132,7 @@ class AuthProvider
      * @param $auth
      * @return mixed
      */
-    public function alreadyRegisteredLogic($auth)
+    protected function alreadyRegisteredLogic($auth)
     {
         $user = Users\Table::findRow($auth->userId);
 
@@ -144,13 +147,8 @@ class AuthProvider
     /**
      * @return \Hybrid_User_Profile
      */
-    public function getProfile()
+    protected function getProfile()
     {
-        $this->hybridauth = new \Hybrid_Auth($this->getOptions());
-
-        /** @var \Hybrid_Provider_Adapter $authProvider */
-        $this->authAdapter= $this->hybridauth->authenticate(ucfirst($this->providerName));
-
         return $this->authAdapter->getUserProfile();
     }
 
