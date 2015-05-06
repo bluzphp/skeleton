@@ -2,12 +2,13 @@
 
 namespace Application\Auth;
 
+use Bluz\Application\Exception\ApplicationException;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Messages;
 use Application\Auth;
 use Application\Users;
 
-class AuthProvider
+class AuthProvider implements AuthInterface
 {
     /** @var  \Bluz\Http\Response */
     protected $response;
@@ -18,7 +19,7 @@ class AuthProvider
     /** @var \Hybrid_Auth $hybridauth */
     protected $hybridauth;
 
-    /** @var \Hybrid_Provider_Adapter $authAdapter*/
+    /** @var \Hybrid_Provider_Adapter $authAdapter */
     protected $authAdapter;
 
     /**
@@ -26,11 +27,17 @@ class AuthProvider
      */
     protected $providerName;
 
-    public function __construct($providerName){
+    public function __construct($providerName)
+    {
 
+        if (!in_array(ucfirst($providerName), $this->getAvailableProviders())) {
+
+            throw new ApplicationException(sprintf('Provider % is not defined in configuration file', ucfirst($providerName)));
+        }
         $this->providerName = $providerName;
         $this->hybridauth = new \Hybrid_Auth($this->getOptions());
     }
+
     /**
      * @param \Bluz\Http\Response $response
      */
@@ -65,10 +72,10 @@ class AuthProvider
 
     /**
      * @param \Hybrid_User_Profile $data
-     * @param \Application\Users\Row $user $user
+     * @param  \Application\Users\Row $user
      * @return void
      */
-    protected function registration($data, $user)
+    public function registration($data, $user)
     {
         $twitterRow = new Auth\Row();
         $twitterRow->userId = $user->id;
@@ -76,8 +83,8 @@ class AuthProvider
 
         $twitterRow->foreignKey = $data->identifier;
         $twitterRow->token = $this->authAdapter->getAccessToken()['access_token'];
-        $twitterRow->tokenSecret = ($this->authAdapter->getAccessToken()['access_token_secret'])?
-            $this->authAdapter->getAccessToken()['access_token_secret']: '' ;
+        $twitterRow->tokenSecret = ($this->authAdapter->getAccessToken()['access_token_secret']) ?
+            $this->authAdapter->getAccessToken()['access_token_secret'] : '';
         $twitterRow->tokenType = Auth\Table::TYPE_ACCESS;
         $twitterRow->save();
 
@@ -92,7 +99,7 @@ class AuthProvider
     public function authProcess()
     {
         /** @var \Hybrid_Provider_Adapter $authProvider */
-        $this->authAdapter= $this->hybridauth->authenticate(ucfirst($this->providerName));
+        $this->authAdapter = $this->hybridauth->authenticate(ucfirst($this->providerName));
         $profile = $this->getProfile();
 
         /**
@@ -123,16 +130,25 @@ class AuthProvider
      * @return array
      * @throws \Application\Exception
      */
-    protected function getOptions()
+    public function getOptions()
     {
-       return Config::getData('hybridauth');
+        return Config::getData('hybridauth');
+    }
+
+    /**
+     * @return array
+     */
+    protected function getAvailableProviders()
+    {
+
+        return array_keys(Config::getData('hybridauth')['providers']);
     }
 
     /**
      * @param $auth
      * @return mixed
      */
-    protected function alreadyRegisteredLogic($auth)
+    public function alreadyRegisteredLogic($auth)
     {
         $user = Users\Table::findRow($auth->userId);
 
@@ -147,7 +163,7 @@ class AuthProvider
     /**
      * @return \Hybrid_User_Profile
      */
-    protected function getProfile()
+    public function getProfile()
     {
         return $this->authAdapter->getUserProfile();
     }
