@@ -7,7 +7,7 @@ use Bluz\Proxy\Messages;
 use Application\Auth;
 use Application\Users;
 
-abstract class AbstractAuth implements AuthInterface
+class AuthProvider implements AuthInterface
 {
     /** @var  \Bluz\Http\Response */
     protected $response;
@@ -21,7 +21,12 @@ abstract class AbstractAuth implements AuthInterface
     /** @var \Hybrid_Provider_Adapter $authAdapter*/
     protected $authAdapter;
 
+    protected $providerName;
 
+    public function __construct($providerName){
+
+        $this->providerName = $providerName;
+    }
     /**
      * @param \Bluz\Http\Response $response
      */
@@ -61,7 +66,18 @@ abstract class AbstractAuth implements AuthInterface
      */
     public function registration($data, $user)
     {
-        // TODO: Implement registration() method.
+        $twitterRow = new Auth\Row();
+        $twitterRow->userId = $user->id;
+        $twitterRow->provider = strtolower($this->providerName);
+
+        $twitterRow->foreignKey = $data->identifier;
+        $twitterRow->token = $this->authAdapter->getAccessToken()['access_token'];
+        $twitterRow->tokenSecret = ($this->authAdapter->getAccessToken()['access_token_secret'])? $this->authAdapter->getAccessToken()['access_token_secret']: '' ;
+        $twitterRow->tokenType = Auth\Table::TYPE_ACCESS;
+        $twitterRow->save();
+
+        Messages::addNotice('Your account was linked to Facebook successfully !');
+        $this->response->redirectTo('users', 'profile', ['id' => $user->id]);
     }
 
 
@@ -70,18 +86,18 @@ abstract class AbstractAuth implements AuthInterface
      */
     public function authProcess()
     {
-        $providerName = $this->getProviderName();
+        //$providerName = $this->getProviderName();
         $profile = $this->getProfile(); //?
 
         /**
          * @var Auth\Table $authTable
          */
         $authTable = Auth\Table::getInstance();
-        $auth = $authTable->getAuthRow(strtolower($providerName), $profile->identifier);
+        $auth = $authTable->getAuthRow(strtolower($this->providerName), $profile->identifier);
 
         if ($this->identity) {
             if ($auth) {
-                Messages::addNotice(sprintf('You have already linked to %s', $providerName));
+                Messages::addNotice(sprintf('You have already linked to %s', ucfirst($this->providerName)));
                 $this->response->redirectTo('users', 'profile', ['id' => $this->identity->id]);
             } else {
                 $user = Users\Table::findRow($this->identity->id);
@@ -100,11 +116,11 @@ abstract class AbstractAuth implements AuthInterface
     /**
      * @return string
      */
-    private function getProviderName(){
+   /* private function getProviderName(){
 
         $elements = explode('\\', get_class($this));
         return end($elements);
-    }
+    }*/
 
     /**
      * @return array
@@ -116,12 +132,19 @@ abstract class AbstractAuth implements AuthInterface
     }
 
     /**
-     * @param Auth $auth
+     * @param $auth
      * @return mixed
      */
     public function alreadyRegisteredLogic($auth)
     {
-        // TODO: Implement alreadyRegisteredLogic() method.
+        $user = Users\Table::findRow($auth->userId);
+
+        if ($user->status != Users\Table::STATUS_ACTIVE) {
+            Messages::addError('User is not active');
+        }
+
+        $user->login();
+        $this->response->redirectTo('index', 'index');
     }
 
     /**
@@ -132,7 +155,7 @@ abstract class AbstractAuth implements AuthInterface
         $this->hybridauth = new \Hybrid_Auth($this->getOptions());
 
         /** @var \Hybrid_Provider_Adapter $authProvider */
-        $this->authAdapter= $this->hybridauth->authenticate($this->getProviderName());
+        $this->authAdapter= $this->hybridauth->authenticate($this->providerName);
 
         return $this->authAdapter->getUserProfile();
     }

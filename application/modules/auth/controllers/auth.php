@@ -9,6 +9,7 @@
 namespace Application;
 
 use Application\Auth\AuthFactory;
+use Application\Auth\AuthProvider;
 use Application\Users;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
@@ -26,7 +27,7 @@ return
          */
         try{
             $provider = Request::getParam('provider');
-            $auth = new AuthFactory();
+            $auth = new AuthProvider($provider);
             $auth->setProvider($provider);
             $auth->setResponse($this);
             $auth->setIdentity($this->user());
