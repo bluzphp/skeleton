@@ -8,6 +8,7 @@
 
 namespace Application;
 
+use Application\Auth\AuthFactory;
 use Application\Users;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
@@ -20,9 +21,16 @@ return
      */
     function () {
 
+        /**
+         * @var Bootstrap $this
+         */
         try{
             $provider = Request::getParam('provider');
-
+            $auth = new AuthFactory();
+            $auth->setProvider($provider);
+            $auth->setResponse($this);
+            $auth->setIdentity($this->user());
+            $auth->authProcess();
         }catch (Exception $e) {
             Messages::addError($e->getMessage());
         }
@@ -31,8 +39,8 @@ return
                 return false;
             };
 
-        /**
-         *    $config = Config::getData('hybridauth');
+
+     //   $config = Config::getData('hybridauth');
 
         try{
         $hybridauth = new \Hybrid_Auth( $config );
@@ -48,5 +56,5 @@ return
         catch( Exception $e ){
         echo "Ooophs, we got an error: " . $e->getMessage();
         }
-         */
+
     };
