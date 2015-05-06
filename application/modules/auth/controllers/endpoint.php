@@ -16,5 +16,5 @@ return
      */
     function () {
 
-        include PATH_VENDOR."/"."hybridauth/hybridauth/hybridauth/index.php";
+        \Hybrid_Endpoint::process();
     };
