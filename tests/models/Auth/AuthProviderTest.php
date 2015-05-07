@@ -20,12 +20,6 @@ class AuthProviderTest extends \PHPUnit_Framework_TestCase{
        $provider = new AuthProvider('test');
     }
 
-   public function testHybridProvider(){
-
-        $provider = new AuthProvider('Facebook');
-        $this->assertInstanceOf('\Hybrid_Provider_Adapter', $provider->authenticate('Facebook'));
-    }
-
     /**
      * @expectedException \Exception
      */

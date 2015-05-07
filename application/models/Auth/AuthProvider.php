@@ -33,8 +33,20 @@ class AuthProvider implements AuthInterface
             throw new \Exception(sprintf('Provider % is not defined in configuration file', ucfirst($providerName)));
         }
         $this->providerName = $providerName;
-        $this->hybridauth = new \Hybrid_Auth($this->getOptions());
     }
+
+
+    /**
+     * @return \Hybrid_Auth
+     */
+    public function getHybridauth()
+    {
+        if(!$this->hybridauth){
+            $this->hybridauth = new \Hybrid_Auth($this->getOptions());
+        }
+        return $this->hybridauth;
+    }
+
 
     /**
      * @param \Bluz\Http\Response $response
@@ -131,7 +143,7 @@ class AuthProvider implements AuthInterface
     public function authenticate($provider){
 
         /** @var \Hybrid_Provider_Adapter $authProvider */
-        $authAdapter = $this->hybridauth->authenticate($provider);
+        $authAdapter = $this->getHybridauth()->authenticate($provider);
 
         if (! $authAdapter->isUserConnected()) {
             throw new \Exception('Cannot connect to current provider !');

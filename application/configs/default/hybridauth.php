@@ -42,8 +42,8 @@ return array(
             )
         ),
 
-        "debug_mode" => true,
+        "debug_mode" => false,
 
         // to enable logging, set 'debug_mode' to true, then provide here a path of a writable file
-        "debug_file" => PATH_ROOT.'/data/logs/hybrid.log'
+       // "debug_file" => PATH_ROOT.'/data/logs/hybrid.log'
     );
