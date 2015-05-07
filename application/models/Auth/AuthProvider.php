@@ -161,17 +161,17 @@ class AuthProvider implements AuthInterface
         $this->authAdapter = $this->getAuthAdapter();
         $profile = $this->getProfile();
 
-        $auth = Auth\Table::findRowWhere([strtolower($this->providerName)=> $profile->identifier]);
+        //   $auth = Auth\Table::findRowWhere([strtolower($this->providerName)=> $profile->identifier]);
 
         /**
          * @var Auth\Table $authTable
          */
-       // $authTable = Auth\Table::getInstance();
-       // $auth = $authTable->getAuthRow(strtolower($this->providerName), $profile->identifier);
+        $authTable = Auth\Table::getInstance();
+        $auth = $authTable->getAuthRow(strtolower($this->providerName), $profile->identifier);
 
         if ($this->identity) {
             if ($auth) {
-                Messages::addNotice(sprintf('You have already linked to %s', ucfirst($this->providerName)));
+                Messages::addNotice(sprintf('You have already linked to %s', $this->providerName));
                 $this->response->redirectTo('users', 'profile', ['id' => $this->identity->id]);
             } else {
                 $user = Users\Table::findRow($this->identity->id);

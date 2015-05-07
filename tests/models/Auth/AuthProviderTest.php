@@ -16,17 +16,13 @@ use Bluz\Proxy\Auth;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Messages;
 
-class AuthProviderTest extends ControllerTestCase{
+class AuthProviderTest extends ControllerTestCase
+{
 
     protected function setUp()
     {
         parent::setUp();
 
-        Auth::setIdentity(new \Application\Users\Row());
-    }
-
-    public static function setUpBeforeClass()
-    {
         Db::insert('users')->setArray(
             [
                 'id' => 1,
@@ -48,21 +44,35 @@ class AuthProviderTest extends ControllerTestCase{
         Db::insert('auth')->setArray(
             [
                 'provider' => 'facebook',
-                'userId'=> 2,
-                'foreignKey'=> 112233
+                'userId' => 2,
+                'foreignKey' => 112233
             ]
         )->execute();
+
+        Auth::setIdentity(new \Application\Users\Row());
     }
+
+    protected function tearDown()
+    {
+        Db::delete('users')->where('id IN (?)', [1, 2])->execute();
+        Db::delete('auth')->where('userId IN (?)', [2])->execute();
+        Messages::popAll();
+    }
+
+    public static function setUpBeforeClass()
+    {
+    }
+
 
     public static function tearDownAfterClass()
     {
-        Db::delete('users')->where('id IN (?)', [1,2])->execute();
-        Db::delete('auth')->where('userId IN (?)', [2])->execute();
     }
+
 
     /**
      * @expectedException \Exception
      */
+
     public function testProviderNotFound()
     {
         new AuthProvider('fake_data');
@@ -71,7 +81,8 @@ class AuthProviderTest extends ControllerTestCase{
     /**
      * @expectedException \Bluz\Auth\AuthException
      */
-    public function testUserStatusNotActive(){
+    public function testUserStatusNotActive()
+    {
 
         $provider = new AuthProvider('Facebook');
         $authRow = new Row();
@@ -79,15 +90,16 @@ class AuthProviderTest extends ControllerTestCase{
         $provider->alreadyRegisteredLogic($authRow);
     }
 
-    public function testUserStatusActive(){
+    public function testUserStatusActive()
+    {
 
         $provider = new AuthProvider('Facebook');
         $provider->setResponse($this->getApp());
         $authRow = new Row();
         $authRow->userId = 2;
-        try{
+        try {
             $provider->alreadyRegisteredLogic($authRow);
-        }catch(RedirectException $e){
+        } catch (RedirectException $e) {
 
         }
         $this->assertNotNull(Auth::getIdentity());
@@ -98,26 +110,30 @@ class AuthProviderTest extends ControllerTestCase{
     /**
      * @expectedException \Exception
      */
-    public function testFailureHybridProvider(){
+    public function testFailureHybridProvider()
+    {
 
         $provider = new AuthProvider('olo');
         $this->assertInstanceOf('\Hybrid_Provider_Adapter', $provider->authenticate('olo'));
     }
 
-    public function testOptions(){
+    public function testOptions()
+    {
         $provider = new AuthProvider('Facebook');
         $this->assertNotEmpty($provider->getOptions());
 
     }
 
 
-    public function testAvailableProviders() {
+    public function testAvailableProviders()
+    {
 
         $provider = new AuthProvider('Facebook');
         $this->assertContains("Facebook", $provider->getAvailableProviders());
     }
 
-    public function testUserAlreadyLinkedTo(){
+    public function testUserAlreadyLinkedTo()
+    {
 
         $identity = new \Application\Users\Row();
         $identity->id = 2;
@@ -126,30 +142,36 @@ class AuthProviderTest extends ControllerTestCase{
         $userProfile->identifier = 112233;
 
         $hybridAuthMock = $this->getMockBuilder('\Hybrid_Auth')
+            ->setMethods(['authenticate'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $authAdapterMock = $this->getMockBuilder('\Hybrid_Provider_Adapter')
+            ->setMethods(['getUserProfile'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $authAdapterMock->method('getUserProfile')
-            ->willReturn(new \Hybrid_Provider_Adapter);
+            ->willReturn($userProfile);
 
         $hybridAuthMock->method('authenticate')
-            ->willReturn($userProfile);
+            ->willReturn(new \Hybrid_Provider_Adapter);
 
         $this->assertInstanceOf('\Hybrid_Auth', $hybridAuthMock);
 
         $provider = new AuthProvider('Facebook');
+        $provider->setResponse($this->getApp());
         $provider->setIdentity($identity);
         $provider->setHybridauth($hybridAuthMock);
         $provider->setAuthAdapter($authAdapterMock);
-        try{
+        try {
             $provider->authProcess();
-            $this->assertEquals(1, Messages::count());
-        }catch(RedirectException $red){}
+        }
+        catch (RedirectException $red) {}
+        catch (\Exception $e) {}
 
+        $message = Messages::pop();
+        $this->assertEquals("You have already linked to Facebook", $message->text );
 
     }
 
