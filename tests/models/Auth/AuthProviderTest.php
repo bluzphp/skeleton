@@ -132,7 +132,7 @@ class AuthProviderTest extends ControllerTestCase
         $this->assertContains("Facebook", $provider->getAvailableProviders());
     }
 
-    public function testUserAlreadyLinkedTo()
+  /*  public function testUserAlreadyLinkedTo()
     {
 
         $identity = new \Application\Users\Row();
@@ -172,6 +172,39 @@ class AuthProviderTest extends ControllerTestCase
 
         $message = Messages::pop();
         $this->assertEquals("You have already linked to Facebook", $message->text );
+
+    }*/
+
+    public function testUserNotLinkedTo()
+    {
+        $hybridAuthMock = $this->getMockBuilder('\Hybrid_Auth')
+            ->setMethods(['authenticate'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $authAdapterMock = $this->getMockBuilder('\Hybrid_Provider_Adapter')
+            ->setMethods(['getUserProfile'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $hybridAuthMock->method('authenticate')
+            ->willReturn(new \Hybrid_Provider_Adapter);
+
+
+        $this->assertInstanceOf('\Hybrid_Auth', $hybridAuthMock);
+
+        $provider = new AuthProvider('Facebook');
+        $provider->setResponse($this->getApp());
+        $provider->setHybridauth($hybridAuthMock);
+        $provider->setAuthAdapter($authAdapterMock);
+        try {
+            $provider->authProcess();
+        }
+        catch (RedirectException $red) {}
+        catch (\Exception $e) {}
+
+        $message = Messages::pop();
+        $this->assertEquals("First you need to be linked to Facebook", $message->text );
 
     }
 

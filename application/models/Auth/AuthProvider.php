@@ -182,7 +182,7 @@ class AuthProvider implements AuthInterface
         if ($auth) {
             $this->alreadyRegisteredLogic($auth);
         } else {
-            Messages::addError(sprintf('First you need to be linked to %s', ucfirst($this->providerName)));
+            Messages::addError(sprintf('First you need to be linked to %s', $this->providerName));
             $this->response->redirectTo('users', 'signin');
         }
     }
