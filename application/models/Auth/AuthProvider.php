@@ -2,7 +2,6 @@
 
 namespace Application\Auth;
 
-use Bluz\Application\Exception\ApplicationException;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Messages;
 use Application\Auth;
@@ -29,10 +28,9 @@ class AuthProvider implements AuthInterface
 
     public function __construct($providerName)
     {
-
         if (!in_array(ucfirst($providerName), $this->getAvailableProviders())) {
 
-            throw new ApplicationException(sprintf('Provider % is not defined in configuration file', ucfirst($providerName)));
+            throw new \Exception(sprintf('Provider % is not defined in configuration file', ucfirst($providerName)));
         }
         $this->providerName = $providerName;
         $this->hybridauth = new \Hybrid_Auth($this->getOptions());
@@ -140,7 +138,6 @@ class AuthProvider implements AuthInterface
      */
     protected function getAvailableProviders()
     {
-
         return array_keys(Config::getData('hybridauth')['providers']);
     }
 
