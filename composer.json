@@ -15,9 +15,7 @@
     "satooshi/php-coveralls": "~0.6",
     "squizlabs/php_codesniffer": "~2.0",
     "zendframework/zend-dom": "~2.3",
-    "hybridauth/hybridauth": "dev-master",
-    "opauth/facebook": "*",
-    "opauth/twitter": "*"
+    "hybridauth/hybridauth": "dev-master"
   },
   "config": {
     "vendor-dir": "vendor"
