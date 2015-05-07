@@ -2,6 +2,7 @@
 // Environment
 error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', 1);
+chdir(__DIR__);
 
 // Emulate session
 $_SESSION = array();

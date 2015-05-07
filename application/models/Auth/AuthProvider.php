@@ -96,8 +96,7 @@ class AuthProvider implements AuthInterface
      */
     public function authProcess()
     {
-        /** @var \Hybrid_Provider_Adapter $authProvider */
-        $this->authAdapter = $this->hybridauth->authenticate(ucfirst($this->providerName));
+        $this->authAdapter = $this->authenticate(ucfirst($this->providerName));
         $profile = $this->getProfile();
 
         /**
@@ -125,6 +124,23 @@ class AuthProvider implements AuthInterface
     }
 
     /**
+     * @param $provider string
+     * @return \Hybrid_Provider_Adapter
+     * @throws \Exception
+     */
+    public function authenticate($provider){
+
+        /** @var \Hybrid_Provider_Adapter $authProvider */
+        $authAdapter = $this->hybridauth->authenticate($provider);
+
+        if (! $authAdapter->isUserConnected()) {
+            throw new \Exception('Cannot connect to current provider !');
+        }
+
+        return $authAdapter;
+    }
+
+    /**
      * @return array
      * @throws \Application\Exception
      */
@@ -136,7 +152,7 @@ class AuthProvider implements AuthInterface
     /**
      * @return array
      */
-    protected function getAvailableProviders()
+    public function getAvailableProviders()
     {
         return array_keys(Config::getData('hybridauth')['providers']);
     }
