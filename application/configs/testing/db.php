@@ -9,7 +9,7 @@ return array(
     "connect" => array(
         "type" => "mysql",
         "host" => "localhost",
-        "name" => "bluz",
+        "name" => "bluz_test",
         "user" => "root",
         "pass" => "",
         "unix_socket" => "/opt/lampp/var/mysql/mysql.sock",

@@ -15,17 +15,15 @@ use Bluz\Proxy\Request;
 
 return
     /**
-     * @param int $id User UID
-     * @param string $code
+     * @param string $provider
      * @return \closure
      */
-    function () {
+    function ($provider = '') {
 
         /**
          * @var Bootstrap $this
          */
         try{
-            $provider = Request::getParam('provider');
             $auth = new AuthProvider($provider);
             $auth->setResponse($this);
             $auth->setIdentity($this->user());

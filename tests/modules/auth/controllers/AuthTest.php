@@ -8,21 +8,24 @@
 
 namespace Application\Tests\Auth;
 
+use Application\Auth\AuthProvider;
 use Application\Tests\ControllerTestCase;
 
 class AuthTest extends ControllerTestCase{
 
-    public function testPushAndPop()
+    /**
+     * Test user with correct password
+     */
+    public function testProviderLink()
     {
-        $stack = array();
-        $this->assertEquals(0, count($stack));
+        $provider = 'Facebook';
+        $mock = $this->getMockBuilder('\Hybrid_Auth')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        array_push($stack, 'foo');
-        $this->assertEquals('foo', $stack[count($stack)-1]);
-        $this->assertEquals(1, count($stack));
+        $this->assertInstanceOf('\Hybrid_Auth', $mock);
 
-        $this->assertEquals('foo', array_pop($stack));
-        $this->assertEquals(0, count($stack));
+
     }
 
 }
