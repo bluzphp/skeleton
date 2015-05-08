@@ -161,8 +161,6 @@ class AuthProvider implements AuthInterface
         $this->authAdapter = $this->getAuthAdapter();
         $profile = $this->getProfile();
 
-        //   $auth = Auth\Table::findRowWhere([strtolower($this->providerName)=> $profile->identifier]);
-
         /**
          * @var Auth\Table $authTable
          */
