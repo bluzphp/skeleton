@@ -12,7 +12,7 @@ return array(
         "name" => "bluz_test",
         "user" => "root",
         "pass" => "",
-        "unix_socket" => "/opt/lampp/var/mysql/mysql.sock",
+        "unix_socket" => "",
         "options" => array(
             \PDO::ATTR_PERSISTENT => true,
             \PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET utf8"
