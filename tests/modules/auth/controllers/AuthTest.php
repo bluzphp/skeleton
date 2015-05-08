@@ -1,11 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yuklia
- * Date: 07.05.15
- * Time: 11:37
- */
 
+/**
+ * PHP version 5
+ *
+ * @category Testing
+ * @package  Application\Tests\Auth
+ * @link https://github.com/bluzphp
+ * @created  08.05.15
+ */
 namespace Application\Tests\Auth;
 
 use Application\Auth\AuthProvider;
@@ -15,7 +17,12 @@ use Bluz\Proxy\Auth;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Messages;
 
-class AuthTest extends ControllerTestCase{
+/**
+ * Class AuthTest
+ * @package Application\Tests\Auth
+ */
+class AuthTest extends ControllerTestCase
+{
 
     protected function setUp()
     {
@@ -82,12 +89,12 @@ class AuthTest extends ControllerTestCase{
         $provider->setAuthAdapter($authAdapterMock);
         try {
             $provider->authProcess();
+        } catch (RedirectException $red) {
+        } catch (\Exception $e) {
         }
-        catch (RedirectException $red) {}
-        catch (\Exception $e) {}
 
         $message = Messages::pop();
-        $this->assertEquals("You have already linked to Facebook", $message->text );
+        $this->assertEquals("You have already linked to Facebook", $message->text);
 
     }
 
@@ -115,13 +122,12 @@ class AuthTest extends ControllerTestCase{
         $provider->setAuthAdapter($authAdapterMock);
         try {
             $provider->authProcess();
+        } catch (RedirectException $red) {
+        } catch (\Exception $e) {
         }
-        catch (RedirectException $red) {}
-        catch (\Exception $e) {}
 
         $message = Messages::pop();
-        $this->assertEquals("First you need to be linked to Facebook", $message->text );
+        $this->assertEquals("First you need to be linked to Facebook", $message->text);
 
     }
-
 }

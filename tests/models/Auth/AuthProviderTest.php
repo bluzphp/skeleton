@@ -79,7 +79,6 @@ class AuthProviderTest extends ControllerTestCase
         try {
             $provider->alreadyRegisteredLogic($authRow);
         } catch (RedirectException $e) {
-
         }
         $this->assertNotNull(Auth::getIdentity());
 
@@ -107,5 +106,4 @@ class AuthProviderTest extends ControllerTestCase
         $provider = new AuthProvider('Facebook');
         $this->assertContains("Facebook", $provider->getAvailableProviders());
     }
-
 }

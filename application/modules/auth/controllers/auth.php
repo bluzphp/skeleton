@@ -23,17 +23,18 @@ return
         /**
          * @var Bootstrap $this
          */
-        try{
+        try {
             $auth = new AuthProvider($provider);
             $auth->setResponse($this);
             $auth->setIdentity($this->user());
             $auth->authProcess();
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Messages::addError($e->getMessage());
         }
+
         return
             function () {
                 return false;
-        };
+            };
 
     };
