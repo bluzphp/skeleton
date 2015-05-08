@@ -11,7 +11,7 @@
  */
 return array(
         //"base_url" the url that point to HybridAuth Endpoint (where index.php and config.php are found)
-        "base_url" => "http://sk.com/auth/endpoint",
+        "base_url" => "[http|https][your.domain]/auth/endpoint",
 
         "providers" => array(
             // google
