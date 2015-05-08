@@ -136,18 +136,18 @@ class AuthProvider implements AuthInterface
      */
     public function registration($data, $user)
     {
-        $twitterRow = new Auth\Row();
-        $twitterRow->userId = $user->id;
-        $twitterRow->provider = strtolower($this->providerName);
+        $row = new Auth\Row();
+        $row->userId = $user->id;
+        $row->provider = strtolower($this->providerName);
 
-        $twitterRow->foreignKey = $data->identifier;
-        $twitterRow->token = $this->authAdapter->getAccessToken()['access_token'];
-        $twitterRow->tokenSecret = ($this->authAdapter->getAccessToken()['access_token_secret']) ?
+        $row->foreignKey = $data->identifier;
+        $row->token = $this->authAdapter->getAccessToken()['access_token'];
+        $row->tokenSecret = ($this->authAdapter->getAccessToken()['access_token_secret']) ?
             $this->authAdapter->getAccessToken()['access_token_secret'] : '';
-        $twitterRow->tokenType = Auth\Table::TYPE_ACCESS;
-        $twitterRow->save();
+        $row->tokenType = Auth\Table::TYPE_ACCESS;
+        $row->save();
 
-        Messages::addNotice(sprintf('Your account was linked to %s successfully !', ucfirst($this->providerName)));
+        Messages::addNotice(sprintf('Your account was linked to %s successfully !', $this->providerName));
         $this->response->redirectTo('users', 'profile', ['id' => $user->id]);
     }
 
