@@ -157,6 +157,7 @@ class AuthProvider implements AuthInterface
      */
     public function authProcess()
     {
+
         $this->authAdapter = $this->getAuthAdapter();
         $profile = $this->getProfile();
 
@@ -164,7 +165,8 @@ class AuthProvider implements AuthInterface
          * @var Auth\Table $authTable
          */
         $authTable = Auth\Table::getInstance();
-        $auth = $authTable->getAuthRow(strtolower($this->providerName), $profile->identifier);
+        $auth = $authTable->getAuthRow(strtolower($this->providerName),$profile->identifier);
+
 
         if ($this->identity) {
             if ($auth) {
@@ -179,6 +181,7 @@ class AuthProvider implements AuthInterface
         if ($auth) {
             $this->alreadyRegisteredLogic($auth);
         } else {
+
             Messages::addError(sprintf('First you need to be linked to %s', $this->providerName));
             $this->response->redirectTo('users', 'signin');
         }

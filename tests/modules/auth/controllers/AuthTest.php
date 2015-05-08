@@ -24,9 +24,29 @@ use Bluz\Proxy\Messages;
 class AuthTest extends ControllerTestCase
 {
 
+    /**
+     * @var \Hybrid_Auth
+     */
+    protected $hybridAuthMock;
+
+    /**
+     * @var \Hybrid_Provider_Adapter
+     */
+    protected  $authAdapterMock;
+
     protected function setUp()
     {
         parent::setUp();
+
+        $this->hybridAuthMock = $this->getMockBuilder('\Hybrid_Auth')
+            ->setMethods(['authenticate'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->authAdapterMock = $this->getMockBuilder('\Hybrid_Provider_Adapter')
+            ->setMethods(['getUserProfile'])
+            ->disableOriginalConstructor()
+            ->getMock();
 
         Db::insert('users')->setArray(
             [
@@ -64,29 +84,19 @@ class AuthTest extends ControllerTestCase
         $userProfile = new \Hybrid_User_Profile();
         $userProfile->identifier = 112233;
 
-        $hybridAuthMock = $this->getMockBuilder('\Hybrid_Auth')
-            ->setMethods(['authenticate'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $authAdapterMock = $this->getMockBuilder('\Hybrid_Provider_Adapter')
-            ->setMethods(['getUserProfile'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $authAdapterMock->method('getUserProfile')
+        $this->authAdapterMock->method('getUserProfile')
             ->willReturn($userProfile);
 
-        $hybridAuthMock->method('authenticate')
+        $this->hybridAuthMock->method('authenticate')
             ->willReturn(new \Hybrid_Provider_Adapter);
 
-        $this->assertInstanceOf('\Hybrid_Auth', $hybridAuthMock);
+        $this->assertInstanceOf('\Hybrid_Auth', $this->hybridAuthMock);
 
         $provider = new AuthProvider('Facebook');
         $provider->setResponse($this->getApp());
         $provider->setIdentity($identity);
-        $provider->setHybridauth($hybridAuthMock);
-        $provider->setAuthAdapter($authAdapterMock);
+        $provider->setHybridauth($this->hybridAuthMock);
+        $provider->setAuthAdapter($this->authAdapterMock);
         try {
             $provider->authProcess();
         } catch (RedirectException $red) {
@@ -100,26 +110,21 @@ class AuthTest extends ControllerTestCase
 
     public function testUserNotLinkedTo()
     {
-        $hybridAuthMock = $this->getMockBuilder('\Hybrid_Auth')
-            ->setMethods(['authenticate'])
-            ->disableOriginalConstructor()
-            ->getMock();
+        $userProfile = new \Hybrid_User_Profile();
+        $userProfile->identifier = null;
 
-        $authAdapterMock = $this->getMockBuilder('\Hybrid_Provider_Adapter')
-            ->setMethods(['getUserProfile'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $hybridAuthMock->method('authenticate')
+        $this->hybridAuthMock->method('authenticate')
             ->willReturn(new \Hybrid_Provider_Adapter);
 
+        $this->authAdapterMock->method('getUserProfile')
+            ->willReturn($userProfile);
 
-        $this->assertInstanceOf('\Hybrid_Auth', $hybridAuthMock);
+        $this->assertInstanceOf('\Hybrid_Auth', $this->hybridAuthMock);
 
         $provider = new AuthProvider('Facebook');
         $provider->setResponse($this->getApp());
-        $provider->setHybridauth($hybridAuthMock);
-        $provider->setAuthAdapter($authAdapterMock);
+        $provider->setHybridauth($this->hybridAuthMock);
+        $provider->setAuthAdapter($this->authAdapterMock);
         try {
             $provider->authProcess();
         } catch (RedirectException $red) {
