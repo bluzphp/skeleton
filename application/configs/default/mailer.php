@@ -13,16 +13,6 @@ return array(
         "name" => "Bluz"
     ],
     "settings" => [
-        "CharSet" => "UTF-8",
-        "Mailer" => "smtp", // mail, sendmail, smtp, qmail
-        "Host" => "10.10.0.114",
-        "Port" => "2525"
-    ],
-
-    // Custom Headers
-    "headers" => [
-        "PROJECT" => "Bluz",
-        'EMAILS' => 'y.kostrikova@nixsolutions.com, baziak@nixsolutions.com',
-        'EXTERNAL' => false
+        "CharSet" => "UTF-8"
     ],
 );
