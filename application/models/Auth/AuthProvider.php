@@ -165,7 +165,7 @@ class AuthProvider implements AuthInterface
          * @var Auth\Table $authTable
          */
         $authTable = Auth\Table::getInstance();
-        $auth = $authTable->getAuthRow(strtolower($this->providerName),$profile->identifier);
+        $auth = $authTable->getAuthRow(strtolower($this->providerName), $profile->identifier);
 
 
         if ($this->identity) {
@@ -181,7 +181,6 @@ class AuthProvider implements AuthInterface
         if ($auth) {
             $this->alreadyRegisteredLogic($auth);
         } else {
-
             Messages::addError(sprintf('First you need to be linked to %s', $this->providerName));
             $this->response->redirectTo('users', 'signin');
         }
