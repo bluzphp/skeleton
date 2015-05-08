@@ -30,7 +30,6 @@ class AuthProvider implements AuthInterface
     public function __construct($providerName)
     {
         if (!in_array(ucfirst($providerName), $this->getAvailableProviders())) {
-
             throw new \Exception(sprintf('Provider % is not defined in configuration file', ucfirst($providerName)));
         }
         $this->providerName = ucfirst($providerName);
@@ -45,6 +44,7 @@ class AuthProvider implements AuthInterface
         if (!$this->hybridauth) {
             $this->hybridauth = new \Hybrid_Auth($this->getOptions());
         }
+
         return $this->hybridauth;
     }
 
@@ -109,15 +109,14 @@ class AuthProvider implements AuthInterface
     public function getAuthAdapter()
     {
         if (!$this->authAdapter) {
-
             /** @var \Hybrid_Provider_Adapter $authProvider */
             $this->authAdapter = $this->getHybridauth()->authenticate($this->providerName);
 
             if (!$this->authAdapter->isUserConnected()) {
                 throw new \Exception('Cannot connect to current provider !');
             }
-
         }
+
         return $this->authAdapter;
     }
 
@@ -225,5 +224,4 @@ class AuthProvider implements AuthInterface
     {
         return $this->authAdapter->getUserProfile();
     }
-
 }

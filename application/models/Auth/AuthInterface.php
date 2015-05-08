@@ -7,8 +7,8 @@
  */
 namespace Application\Auth;
 
-interface AuthInterface{
-
+interface AuthInterface
+{
     /**
      * @param array $data
      * @param \Application\Users\Row $user
@@ -38,5 +38,4 @@ interface AuthInterface{
      * @return array
      */
     public function getProfile();
-
 }
