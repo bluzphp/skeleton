@@ -39,7 +39,8 @@ class AuthProvider implements AuthInterface
     public function __construct($providerName)
     {
         if (!in_array(ucfirst($providerName), $this->getAvailableProviders())) {
-            throw new ApplicationException(sprintf('Provider % is not defined in configuration file', ucfirst($providerName)));
+            throw new ApplicationException(sprintf('Provider % is not defined
+            in configuration file', ucfirst($providerName)));
         }
         $this->providerName = ucfirst($providerName);
     }
