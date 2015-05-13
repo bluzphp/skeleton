@@ -7,7 +7,6 @@
     "php": ">=5.4",
     "bluzphp/framework": "~0.9",
     "phpmailer/phpmailer": "~5.2",
-    "guzzle/guzzle": "~3.8",
     "zircote/swagger-php": "~0.9",
     "hybridauth/hybridauth": "dev-master"
   },

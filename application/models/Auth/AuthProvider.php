@@ -1,12 +1,21 @@
 <?php
 
+/**
+ * PHP version 5
+ * @author yuklia <yuliakostrikova@gmail.com>
+ */
 namespace Application\Auth;
 
+use Bluz\Application\Exception\ApplicationException;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Messages;
 use Application\Auth;
 use Application\Users;
 
+/**
+ * Class AuthProvider
+ * @package Application\Auth
+ */
 class AuthProvider implements AuthInterface
 {
     /** @var  \Bluz\Http\Response */
@@ -30,7 +39,7 @@ class AuthProvider implements AuthInterface
     public function __construct($providerName)
     {
         if (!in_array(ucfirst($providerName), $this->getAvailableProviders())) {
-            throw new \Exception(sprintf('Provider % is not defined in configuration file', ucfirst($providerName)));
+            throw new ApplicationException(sprintf('Provider % is not defined in configuration file', ucfirst($providerName)));
         }
         $this->providerName = ucfirst($providerName);
     }
@@ -142,8 +151,7 @@ class AuthProvider implements AuthInterface
 
         $row->foreignKey = $data->identifier;
         $row->token = $this->authAdapter->getAccessToken()['access_token'];
-        $row->tokenSecret = ($this->authAdapter->getAccessToken()['access_token_secret']) ?
-            $this->authAdapter->getAccessToken()['access_token_secret'] : '';
+        $row->tokenSecret = ($this->authAdapter->getAccessToken()['access_token_secret']) ? : '';
         $row->tokenType = Auth\Table::TYPE_ACCESS;
         $row->save();
 
@@ -157,7 +165,6 @@ class AuthProvider implements AuthInterface
      */
     public function authProcess()
     {
-
         $this->authAdapter = $this->getAuthAdapter();
         $profile = $this->getProfile();
 

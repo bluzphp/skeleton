@@ -7,6 +7,10 @@
  */
 namespace Application\Auth;
 
+/**
+ * Interface AuthInterface
+ * @package Application\Auth
+ */
 interface AuthInterface
 {
     /**
@@ -26,7 +30,6 @@ interface AuthInterface
      * @throws \Application\Exception
      */
     public function getOptions();
-
 
     /**
      * @param \Application\Auth\Row $auth
