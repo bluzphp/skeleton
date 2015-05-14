@@ -23,6 +23,7 @@ use Bluz\Tests\TestCase as BluzTest;
  * @author   Anton Shevchuk
  * @created  04.08.11 20:01
  */
+
 class TestCase extends BluzTest
 {
     /**
