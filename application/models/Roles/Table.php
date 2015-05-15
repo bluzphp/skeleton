@@ -47,6 +47,16 @@ class Table extends \Bluz\Db\Table
     protected $basicRoles = ['admin', 'guest', 'member', 'system'];
 
     /**
+     * Init table relations
+     * @return void
+     */
+    public function init()
+    {
+        $this->linkTo('id', 'UsersRoles', 'roleId');
+        $this->linkToMany('Users', 'UsersRoles');
+    }
+
+    /**
      * Get all roles in system
      *
      * @return array

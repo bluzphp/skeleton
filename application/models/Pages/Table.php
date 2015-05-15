@@ -9,6 +9,8 @@
  */
 namespace Application\Pages;
 
+use Application\Users;
+
 /**
  * Pages Table
  *
@@ -21,7 +23,6 @@ class Table extends \Bluz\Db\Table
 {
     /**
      * Table
-     *
      * @var string
      */
     protected $table = 'pages';
@@ -33,13 +34,21 @@ class Table extends \Bluz\Db\Table
     protected $primary = array('id');
 
     /**
-     * getByAlias
-     *
+     * Get page by Alias
      * @param $alias
      * @return Row
      */
     public function getByAlias($alias)
     {
         return $this->findRowWhere(['alias'=>$alias]);
+    }
+
+    /**
+     * Init table relations
+     * @return void
+     */
+    public function init()
+    {
+        $this->linkTo('userId', 'Users', 'id');
     }
 }
