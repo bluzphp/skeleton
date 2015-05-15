@@ -48,7 +48,15 @@ function ($resource, $id, $relation, $relationId) {
         if ($token = $this->getRequest()->getParam('token')) {
             Table::getInstance()->authenticateToken($token);
         }
-        Request::setRawParams([$id, $relation, $relationId]);
+
+        $params = [];
+        foreach ([$id, $relation, $relationId] as $param) {
+            if (!is_null($param)) {
+                $params[] = $param;
+            }
+        }
+        Request::setRawParams($params);
+
         return $this->dispatch('api', $resource);
     } catch (\Exception $e) {
         // process exceptions here

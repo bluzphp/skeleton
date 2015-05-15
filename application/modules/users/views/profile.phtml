@@ -4,19 +4,47 @@
  * @var \Bluz\View\View $this
  */
 ?>
+
 <h3 class="page-header">
-    <?=__('Profile')?>
+    <?= __('Profile') ?>
     <?php if ($this->user()->id == $user->id) : ?>
-        <?=$this->ahref(__('Change email'), ['users', 'change-email'], ['class'=>'btn btn-mini pull-right'])?>
-        <?=$this->ahref(__('Change password'), ['users', 'change-password'], ['class'=>'btn btn-mini pull-right'])?>
+        <?= $this->ahref(__('Change email'), ['users', 'change-email'], ['class' => 'btn btn-mini pull-right']) ?>
+        <?= $this->ahref(__('Change password'), ['users', 'change-password'], ['class' => 'btn btn-mini pull-right']) ?>
     <?php endif; ?>
 </h3>
-<dl class="dl-horizontal">
-    <dt><?=__('Login')?></dt>
-    <dd><?=$user->login?></dd>
-    <dt><?=__('Email')?></dt>
-    <dd><a href="mailto:<?=$user->email?>"><?=$user->email?></a></dd>
-    <dt><?=__('Status')?></dt>
-    <dd><?=$user->status?></dd>
-</dl>
+
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-3 col-lg-3 " align="center">
+            <a href="#" class="thumbnail">
+                <img id="avatar" src="" alt="avatar">
+            </a>
+        </div>
+        <div class=" col-md-9 col-lg-9 ">
+            <table class="table table-user-information">
+                <tbody>
+                <tr>
+                    <td><?= __('Email') ?></td>
+                    <td><a href="mailto:<?= $user->email ?>"><?= $user->email ?></a></td>
+                </tr>
+                <tr>
+                    <td><?= __('Status') ?></td>
+                    <td><?= $user->status ?></td>
+                </tr>
+                <tr>
+                    <td><?= __('Linking to social networks') ?></td>
+                    <td>
+                        <a href="<?= \Bluz\Proxy\Router::getUrl('auth', 'auth', ['provider'=> 'google']) ?>"
+                           class="provider btn fa fa-google-plus-square fa-2x"></a>
+                        <a href="<?= \Bluz\Proxy\Router::getUrl('auth', 'auth',  ['provider'=> 'facebook']) ?>"
+                           class="provider btn fa fa-facebook-square fa-2x"></a>
+                        <a href="<?= \Bluz\Proxy\Router::getUrl('auth', 'auth',  ['provider'=> 'twitter']) ?>"
+                           class="provider btn fa fa-twitter-square fa-2x"></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
