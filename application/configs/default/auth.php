@@ -8,7 +8,7 @@
 return array(
     "equals" => array(
         "encryptFunction" => function ($password, $salt) {
-            return md5(md5($password) . $salt);
+            return password_hash($password, PASSWORD_DEFAULT, ['salt' => $salt]);
         }
     )
 );
