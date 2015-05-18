@@ -16,7 +16,6 @@ use Bluz\Proxy\Logger;
 use Bluz\Proxy\Mailer;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Router;
-use Bluz\Proxy\Session;
 use Bluz\Validator\Exception\ValidatorException;
 
 /**

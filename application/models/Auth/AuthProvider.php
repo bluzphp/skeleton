@@ -1,7 +1,6 @@
 <?php
-
 /**
- * PHP version 5
+ * Hybrid Auth integration
  * @author yuklia <yuliakostrikova@gmail.com>
  */
 namespace Application\Auth;
@@ -18,7 +17,7 @@ use Application\Users;
  */
 class AuthProvider implements AuthInterface
 {
-    /** @var  \Bluz\Http\Response */
+    /** @var \Application\Bootstrap */
     protected $response;
 
     /** @var \Application\Users\Row $identity */
@@ -65,7 +64,7 @@ class AuthProvider implements AuthInterface
 
 
     /**
-     * @param \Bluz\Http\Response $response
+     * @param \Application\Bootstrap $response
      */
     public function setResponse($response)
     {
@@ -73,7 +72,7 @@ class AuthProvider implements AuthInterface
     }
 
     /**
-     * @return \Bluz\Http\Response
+     * @return \Application\Bootstrap
      */
     public function getResponse()
     {
@@ -138,7 +137,6 @@ class AuthProvider implements AuthInterface
         $this->authAdapter = $authAdapter;
     }
 
-
     /**
      * @param \Hybrid_User_Profile $data
      * @param  \Application\Users\Row $user
@@ -159,7 +157,6 @@ class AuthProvider implements AuthInterface
         Messages::addNotice(sprintf('Your account was linked to %s successfully !', $this->providerName));
         $this->response->redirectTo('users', 'profile', ['id' => $user->id]);
     }
-
 
     /**
      * @return void

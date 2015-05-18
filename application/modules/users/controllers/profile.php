@@ -8,7 +8,6 @@
 namespace Application;
 
 use Application\Users;
-use Bluz\Proxy\Config;
 use Bluz\Proxy\Layout;
 
 return

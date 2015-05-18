@@ -1,17 +1,15 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yuklia
- * Date: 05.05.15
- * Time: 17:30
+ * Auth controller
+ *
+ * @author yuklia
+ * @created  05.05.15 17:30
  */
-
 namespace Application;
 
+use Bluz\Proxy\Messages;
 use Application\Auth\AuthProvider;
 use Application\Users;
-use Bluz\Proxy\Messages;
-use Bluz\Proxy\Request;
 
 return
     /**
