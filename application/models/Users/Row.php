@@ -111,7 +111,9 @@ class Row extends AbstractRowEntity
             case (Table::STATUS_ACTIVE):
                 // all ok
                 // regenerate session
-                Session::regenerateId();
+                if (PHP_SAPI !== 'cli') {
+                    Session::regenerateId();
+                }
                 // save user to new session
                 Auth::setIdentity($this);
                 break;
