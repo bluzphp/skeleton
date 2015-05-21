@@ -19,7 +19,7 @@ Easy to setup, easy to use. Example application
 
 ## Installation
 
-Bluz works with PHP 5.4 or later and MySQL 5.4 or later (please check [requirements](https://github.com/bluzphp/skeleton/wiki/Requirements))
+Bluz works with PHP 5.6 or later and MySQL 5.4 or later (please check [requirements](https://github.com/bluzphp/skeleton/wiki/Requirements))
 
 ### From composer
 
@@ -143,6 +143,10 @@ class Row extends \Bluz\Db\Row {
 
 * [Framework wiki](https://github.com/bluzphp/framework/wiki)
 * [Skeleton wiki](https://github.com/bluzphp/skeleton/wiki)
+
+## Demo
+
+* [Bluz Demo](http://bluz.demo.php.nixsolutions.com/)
 
 ## License
 

@@ -4,15 +4,15 @@
   "minimum-stability": "dev",
   "type": "library",
   "require": {
-    "php": ">=5.4",
-    "bluzphp/framework": "~0.9",
+    "php": ">=5.6",
+    "bluzphp/framework": "~1.0",
     "phpmailer/phpmailer": "~5.2",
     "zircote/swagger-php": "~0.9",
     "hybridauth/hybridauth": "dev-master"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.4",
-    "satooshi/php-coveralls": "~0.6",
+    "phpunit/phpunit": "~4.6",
+    "satooshi/php-coveralls": "dev-master",
     "squizlabs/php_codesniffer": "~2.0",
     "zendframework/zend-dom": "~2.3"
   },

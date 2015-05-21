@@ -29,39 +29,25 @@ function () use ($view) {
         ]
     );
 
-    // Db table to class relation
-    Relations::addClassMap('pages', '\\Application\\Pages\\Table');
-    Relations::addClassMap('users', '\\Application\\Users\\Table');
-    Relations::addClassMap('acl_roles', '\\Application\\Roles\\Table');
-    Relations::addClassMap('acl_users_roles', '\\Application\\UsersRoles\\Table');
-
-    // one to many relation
-    Relations::setRelation('pages', 'userId', 'users', 'id');
-
-    // many to many relation
-    Relations::setRelation('acl_users_roles', 'roleId', 'acl_roles', 'id');
-    Relations::setRelation('acl_users_roles', 'userId', 'users', 'id');
-
-    Relations::setRelations('acl_roles', 'users', ['acl_users_roles']);
-
     /* @var Pages\Row */
     $page = Pages\Table::findRow(5);
-    $result = $page->getRelation('users');
+    $user = $page->getRelation('Users');
 
     echo "<h2>Page Owner</h2>";
-    var_dump(current($result));
+    var_dump($user);
 
-    $user = Users\Table::findRow(1);
-    $result = $user->getRelation('pages');
+    $pages = $user->getRelations('Pages');
 
     echo "<h2>User pages</h2>";
-    var_dump($result);
+    var_dump(sizeof($pages));
 
-    $result = $user->getRelation('acl_roles');
+    $roles = $user->getRelations('Roles');
 
     echo "<h2>User roles</h2>";
-    var_dump($result);
+    var_dump($roles);
 
+    echo "<h2>User with all relations</h2>";
+    var_dump($user);
 
     $result = Db::fetchRelations(
         "SELECT '__users', u.*, '__pages', p.* FROM users u LEFT JOIN pages p ON p.userId = u.id"
@@ -69,5 +55,6 @@ function () use ($view) {
 
     echo "<h2>User - Page relation</h2>";
     var_dump($result);
+
     return false;
 };

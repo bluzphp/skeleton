@@ -1,11 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yuklia
- * Date: 05.05.15
- * Time: 17:30
+ * Auth end-point controller
+ *
+ * @author yuklia
+ * @created  05.05.15 17:30
  */
-
 namespace Application;
 
 use Application\Users;

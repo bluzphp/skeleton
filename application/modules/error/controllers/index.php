@@ -73,7 +73,6 @@ function ($code, $message = '') use ($view) {
         default:
             $title = __("Internal Server Error");
             $description = __("An unexpected error occurred with your request. Please try again later");
-            $optional = true;
             break;
     }
     // check CLI or HTTP request
@@ -90,11 +89,10 @@ function ($code, $message = '') use ($view) {
             $this->useLayout('small.phtml');
         }
     }
-
     Layout::title($title);
     $view->error = $title;
     $view->description = $description;
-    if (isset($optional) && $message != '') {
+    if (getenv('BLUZ_DEBUG') && $message != '') {
         $view->message = $message;
     }
     return $view;
