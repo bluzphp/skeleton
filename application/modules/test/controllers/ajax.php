@@ -31,5 +31,4 @@ function ($messages = false) use ($view) {
     }
     Messages::addNotice('Method '. Request::getMethod());
     $view->foo = 'bar';
-    return false;
 };
