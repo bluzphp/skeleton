@@ -17,7 +17,14 @@ use Bluz\Proxy\Logger;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Request;
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Run;
 
+/**
+ * @param $code
+ * @param string $message
+ * @return \Bluz\View\View
+ */
 return
 /**
  * @route  /error/{$code}
@@ -46,7 +53,7 @@ function ($code, $message = '') use ($view) {
             break;
         case 404:
             $title = __("Not Found");
-            $description = __("The page you requested was not found");
+            $description = $message ?: __("The page you requested was not found");
             break;
         case 405:
             $title = __("Method Not Allowed");
@@ -71,29 +78,35 @@ function ($code, $message = '') use ($view) {
             Response::setHeader('Retry-After', '600');
             break;
         default:
+            $code = 500;
             $title = __("Internal Server Error");
             $description = __("An unexpected error occurred with your request. Please try again later");
             break;
     }
+
     // check CLI or HTTP request
     if (Request::isHttp()) {
         // simple AJAX call, accept JSON
         if (Request::getAccept() == Request::ACCEPT_JSON) {
             $this->useJson();
-            Messages::addError($message);
+            Messages::addError($description);
             return $view;
         }
-
         // dialog AJAX call, accept HTML
         if (!Request::isXmlHttpRequest()) {
             $this->useLayout('small.phtml');
         }
     }
+
     Layout::title($title);
     $view->error = $title;
     $view->description = $description;
-    if (getenv('BLUZ_DEBUG') && $message != '') {
-        $view->message = $message;
+
+    if ($this->isDebug() && ($e = Response::getException()) && $code >= 500) {
+        $whoops = new Run();
+        $whoops->pushHandler(new PrettyPageHandler());
+        $whoops->handleException($e);
+        return false;
     }
     return $view;
 };
