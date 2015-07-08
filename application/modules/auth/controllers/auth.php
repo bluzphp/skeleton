@@ -9,7 +9,6 @@ namespace Application;
 
 use Bluz\Proxy\Messages;
 use Application\Auth\AuthProvider;
-use Application\Users;
 
 return
     /**
