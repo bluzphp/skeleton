@@ -7,7 +7,7 @@ install:
   - printf "\n" | pecl install imagick
   # Composer
   - composer self-update
-  - COMPOSER_ROOT_VERSION=dev-master composer install --dev
+  - COMPOSER_ROOT_VERSION=dev-master composer install
   # Database
   - mysql -e 'CREATE DATABASE bluz;'
   # Newman
