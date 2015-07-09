@@ -20,8 +20,7 @@ before_script:
 script:
   - mkdir .reports
   # Code style
-  - php vendor/bin/phpcs ./application --standard=PSR1 --encoding=utf-8 --ignore=./application/_loader.php
-  - php vendor/bin/phpcs ./application --standard=PSR2 --encoding=utf-8 --ignore=./application/_loader.php
+  - php vendor/bin/phpcs ./application --standard=PSR1,PSR2 --encoding=utf-8 --ignore=./application/_loader.php
   # PHPUnit tests
   - php vendor/bin/phpunit --configuration ./phpunit.xml.dist --coverage-clover=.reports/clover.xml
   # WebServer run
