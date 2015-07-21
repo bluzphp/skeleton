@@ -791,6 +791,7 @@ body .redactor-box-fullscreen {
 .redactor-editor code,
 .redactor-editor pre {
   font-family: Menlo, Monaco, monospace, sans-serif !important;
+  cursor: text;
 }
 .redactor-editor div,
 .redactor-editor p,
