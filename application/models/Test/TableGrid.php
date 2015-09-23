@@ -17,9 +17,9 @@ use Bluz\Grid\Grid;
  * @category Application
  * @package  Test
  */
-class SelectGrid extends Grid
+class TableGrid extends Grid
 {
-    protected $uid = 'sel';
+    protected $uid = 'tbl';
 
     /**
      * init
@@ -31,8 +31,7 @@ class SelectGrid extends Grid
         // Array
         $adapter = new \Bluz\Grid\Source\SelectSource();
 
-        $select = new \Bluz\Db\Query\Select();
-        $select->select('*')->from('test', 't');
+        $select = Table::select();
 
         $adapter->setSource($select);
 

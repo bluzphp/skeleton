@@ -28,16 +28,16 @@ class SqlGrid extends Grid
      */
     public function init()
     {
-         // Array
-         $adapter = new \Bluz\Grid\Source\SqlSource();
-         $adapter->setSource('SELECT * FROM test');
+        // Array
+        $adapter = new \Bluz\Grid\Source\SqlSource();
+        $adapter->setSource('SELECT * FROM test');
 
-         $this->setAdapter($adapter);
-         $this->setDefaultLimit(15);
-         $this->setAllowOrders(['name', 'id', 'status']);
-         $this->setAllowFilters(['status', 'id']);
-         $this->setDefaultOrder('name', Grid::ORDER_DESC);
+        $this->setAdapter($adapter);
+        $this->setDefaultLimit(15);
+        $this->setAllowOrders(['name', 'id', 'status']);
+        $this->setAllowFilters(['status', 'id']);
+        $this->setDefaultOrder('name', Grid::ORDER_DESC);
 
-         return $this;
+        return $this;
     }
 }
