@@ -59,7 +59,7 @@ class Crud extends \Bluz\Crud\Table
             Response::setStatusCode(206);
             Response::setHeader(
                 'Content-Range',
-                'items '.$offset.'-'.($offset+sizeof($result)).'/'. $total
+                'items ' . $offset . '-' . ($offset + sizeof($result)) . '/' . $total
             );
         }
 
