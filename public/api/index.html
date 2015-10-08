@@ -58,7 +58,16 @@
         log("added key " + key);
         window.authorizations.add("key", new ApiKeyAuthorization("api_key", key, "query"));
       }
-    })
+    });
+
+    $('#input_token').change(function() {
+        var token = $('#input_token')[0].value;
+        log("token: " + token);
+        if(token && token.trim() != "") {
+            log("added token " + token);
+            window.authorizations.add("token", new ApiKeyAuthorization("token", token, "query"));
+        }
+    });
     window.swaggerUi.load();
   });
   </script>
@@ -76,7 +85,8 @@
         <img id="show-wordnik-dev-icon" src="images/wordnik_api.png" title="Show Wordnik Developer Apis">
       </div>
       <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
-      <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div>
+      <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text" style="width:100px"/></div>
+      <div class='input'><input placeholder="token" id="input_token" name="token" type="text" style="width:100px"/></div>
       <div class='input'><a id="explore" href="#">Explore</a></div>
     </form>
   </div>
