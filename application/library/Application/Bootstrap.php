@@ -1,24 +1,7 @@
 <?php
 /**
- * Copyright (c) 2013 by Bluz PHP Team
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * @copyright Bluz PHP Team
+ * @link https://github.com/bluzphp/skeleton
  */
 
 /**
@@ -59,19 +42,21 @@ class Bootstrap extends Application
     {
         // example of setup default title
         Layout::title("Bluz Skeleton");
-        // remember me
+
+        // apply "remember me" function
         if (!$this->user() && !empty($_COOKIE['rToken']) && !empty($_COOKIE['rId'])) {
             // try to login
             try {
                 Auth\Table::getInstance()->authenticateCookie($_COOKIE['rId'], $_COOKIE['rToken']);
             } catch (AuthException $e) {
-                setcookie('rId', '', 1, '/');
-                setcookie('rToken', '', 1, '/');
+                $this->getResponse()->setCookie('rId', '', 1, '/');
+                $this->getResponse()->setCookie('rToken', '', 1, '/');
             }
         }
 
         parent::preDispatch($module, $controller, $params);
     }
+
     /**
      * {@inheritdoc}
      *
@@ -92,15 +77,17 @@ class Bootstrap extends Application
      */
     public function denied()
     {
-        // process AJAX request
-        if (!Request::isXmlHttpRequest()) {
+        // add messages make sense only if presentation is not json, xml, etc
+        if (!$this->getResponse()->getPresentation()) {
             Messages::addError('You don\'t have permissions, please sign in');
         }
         // redirect to login page
         if (!$this->user()) {
-            // save URL to session
-            Session::set('rollback', Request::getRequestUri());
-            $this->redirectTo('users', 'signin');
+            // save URL to session and redirect make sense if presentation is null
+            if (!$this->getResponse()->getPresentation()) {
+                Session::set('rollback', Request::getRequestUri());
+                $this->redirectTo('users', 'signin');
+            }
         }
         throw new ForbiddenException();
     }
@@ -113,7 +100,7 @@ class Bootstrap extends Application
     {
         if ($this->debugFlag && !headers_sent()) {
             $debugString = sprintf(
-                "%f; %skb",
+                "%fsec; %skb",
                 microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
                 ceil((memory_get_usage()/1024))
             );
@@ -121,9 +108,11 @@ class Bootstrap extends Application
 
             Response::setHeader('Bluz-Debug', $debugString);
 
-            $debugBar = json_encode(Logger::get('info'));
-
-            Response::setHeader('Bluz-Bar', $debugBar);
+            if ($info = Logger::get('info')) {
+                Response::setHeader('Bluz-Bar', json_encode($info));
+            } else {
+                Response::setHeader('Bluz-Bar', '{"!":"Logger is disabled"}');
+            }
         }
         parent::render();
     }

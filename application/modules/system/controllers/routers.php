@@ -1,6 +1,6 @@
 <?php
 /**
- * Build list of routers
+ * Build list of custom routers
  *
  * @author   Anton Shevchuk
  * @created  12.06.12 12:27
@@ -11,7 +11,6 @@ use Bluz\Proxy\Layout;
 
 return
 /**
- * List of custom routers
  * @privilege Info
  *
  * @return \closure

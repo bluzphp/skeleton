@@ -11,13 +11,15 @@
  */
 namespace Application;
 
+use Application\Users\Table;
 use Bluz\Application\Application;
 use Bluz\Cli;
+use Bluz\Proxy\Auth;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Logger;
-use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
+use Bluz\Proxy\Router;
 
 /**
  * Bootstrap for CLI
@@ -62,6 +64,33 @@ class CliBootstrap extends Application
             $response->setOptions($config);
         }
         Response::setInstance($response);
+    }
+
+    /**
+     * Pre process
+     * @return void
+     */
+    protected function preProcess()
+    {
+        Logger::info("app:process:pre");
+        Router::process();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param string $module
+     * @param string $controller
+     * @param array $params
+     * @return void
+     */
+    protected function preDispatch($module, $controller, $params = array())
+    {
+        // auth as CLI user
+        $cliUser = Table::findRowWhere(['login' => 'system']);
+        Auth::setIdentity($cliUser);
+
+        parent::preDispatch($module, $controller, $params);
     }
 
     /**

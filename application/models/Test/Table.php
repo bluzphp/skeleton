@@ -42,7 +42,7 @@ class Table extends \Bluz\Db\Table
      */
     public function saveTestRow()
     {
-        return $this->insert(['name'=>'Example #'.rand(1, 10), 'email'=> 'example@example.com']);
+        return $this->insert(['name' => 'Example #' . rand(1, 10), 'email' => 'example@example.com']);
     }
 
     /**
@@ -52,7 +52,7 @@ class Table extends \Bluz\Db\Table
      */
     public function updateTestRows()
     {
-        return $this->update(['email'=> 'example2@example.com'], ['email'=> 'example@example.com']);
+        return $this->update(['email' => 'example2@example.com'], ['email' => 'example@example.com']);
     }
 
     /**
@@ -62,6 +62,6 @@ class Table extends \Bluz\Db\Table
      */
     public function deleteTestRows()
     {
-        return $this->delete(['email'=> 'example2@example.com']);
+        return $this->delete(['email' => 'example2@example.com']);
     }
 }

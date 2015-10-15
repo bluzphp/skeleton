@@ -13,6 +13,7 @@ use Bluz\Proxy\Request;
 
 return
 /**
+ * @accept JSON
  * @param bool $messages
  * @return void
  */
@@ -29,6 +30,5 @@ function ($messages = false) use ($view) {
         $view->baz = 'qux';
     }
     Messages::addNotice('Method '. Request::getMethod());
-
     $view->foo = 'bar';
 };

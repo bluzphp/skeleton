@@ -56,4 +56,14 @@ class Table extends \Bluz\Db\Table
      * @var array
      */
     protected $primary = array('id');
+
+    /**
+     * Init table relations
+     * @return void
+     */
+    public function init()
+    {
+        $this->linkTo('id', 'UsersRoles', 'userId');
+        $this->linkToMany('Roles', 'UsersRoles');
+    }
 }

@@ -19,6 +19,7 @@ return
 /**
  * Clean data
  *
+ * @accept JSON
  * @privilege Management
  * @return void
  */
@@ -37,6 +38,10 @@ function () {
         Cache::deleteByTag('reflection');
         // db metadata
         Cache::deleteByTag('db');
+        // view data
+        Cache::deleteByTag('view');
+        // html data
+        Cache::deleteByTag('html');
 
         Messages::addSuccess("Cache is cleaned");
     } else {

@@ -10,6 +10,7 @@
 namespace Application\Tests\Cache;
 
 use Application\Tests\ControllerTestCase;
+use Bluz\Proxy\Request;
 
 /**
  * @package  Application\Tests\Cache
@@ -27,7 +28,7 @@ class CleanTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/cache/clean/');
+        $this->dispatchRouter('/cache/clean/', [], Request::METHOD_GET, true);
         $this->assertOk();
         $this->assertNoticeMessage();
     }

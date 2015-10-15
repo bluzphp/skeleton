@@ -35,16 +35,14 @@ class TestFileUpload extends FileUpload
     }
 
     /**
-     * createFile
+     * Create File
      *
      * @param array $fileInfo
      * @param string $fileKey
-     * @param string $subKey
-     * @param string $subSubKey
-     * @param string $subSubSubKey
+     * @param string ...$keys
      * @return TestFile instance
      */
-    public function createFile($fileInfo, $fileKey, $subKey = null, $subSubKey = null, $subSubSubKey = null)
+    public function createFile($fileInfo, $fileKey, ...$keys)
     {
         $testFile = new TestFile($fileInfo);
         $this->files[$fileKey][] = $testFile;

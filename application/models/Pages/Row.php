@@ -16,6 +16,8 @@ use Bluz\Validator\Validator as v;
 /**
  * Pages Row
  *
+ * @package  Application\Pages
+ *
  * @property integer $id
  * @property string $title
  * @property string $alias
@@ -26,8 +28,16 @@ use Bluz\Validator\Validator as v;
  * @property string $updated
  * @property integer $userId
  *
- * @category Application
- * @package  Application\Pages
+ * @SWG\Model(id="Pages")
+ * @SWG\Property(name="id", type="integer")
+ * @SWG\Property(name="title", type="string", required=true)
+ * @SWG\Property(name="alias", type="string", required=true)
+ * @SWG\Property(name="content", type="string", required=true)
+ * @SWG\Property(name="keywords", type="string", description="Meta keywords")
+ * @SWG\Property(name="description", type="string", description="Meta description")
+ * @SWG\Property(name="created", type="string", format="date-time")
+ * @SWG\Property(name="updated", type="string", format="date-time")
+ * @SWG\Property(name="userId", type="integer")
  */
 class Row extends \Bluz\Db\Row
 {
@@ -62,15 +72,15 @@ class Row extends \Bluz\Db\Row
         );
 
         // content validator
-        $this->addValidator(
-            'content',
-            v::callback(function ($input) {
-                if (empty($input) or trim(strip_tags($input, '<img>')) == '') {
-                    return false;
-                }
-                return true;
-            })->setError('Content can\'t be empty')
-        );
+            $this->addValidator(
+                'content',
+                v::callback(function ($input) {
+                    if (empty($input) or trim(strip_tags($input, '<img>')) == '') {
+                        return false;
+                    }
+                    return true;
+                })->setError('Content can\'t be empty')
+            );
     }
 
     /**

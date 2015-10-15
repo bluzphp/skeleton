@@ -1,0 +1,2 @@
+For generate favicons you can use service - http://realfavicongenerator.net/
+For more information read this article - https://css-tricks.com/favicon-quiz/

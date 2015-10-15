@@ -52,14 +52,7 @@
     </div>
     </div>
 </form>
-<?php
-/* place one asterisk for uncomment code here-> /
-    echo $this->redactor('.redactor', [
-        'autoresize' => false,
-        'imageGetJson' => $this->url('media', 'list')
-    ])
-//*/
-?>
+<?= $this->redactor('.redactor', []) ?>
 <script>
     require(['jquery', 'bluz.tools'], function($, tools) {
         $("#title").blur(function() {

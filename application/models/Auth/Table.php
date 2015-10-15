@@ -16,6 +16,7 @@ use Bluz\Auth\AbstractTable;
 use Bluz\Auth\AuthException;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Config;
+use Bluz\Proxy\Response;
 
 /**
  * Auth Table
@@ -70,10 +71,8 @@ class Table extends AbstractTable
             throw new AuthException("User not found");
         }
 
-        // encrypt password
-        $encrypt = $this->callEncryptFunction($password, $authRow->tokenSecret);
-
-        if ($encrypt != $authRow->token) {
+        // verify password
+        if (!$this->callVerifyFunction($password, $authRow->token)) {
             throw new AuthException("Wrong password");
         }
 
@@ -109,11 +108,9 @@ class Table extends AbstractTable
         $row->provider = self::PROVIDER_EQUALS;
         $row->tokenType = self::TYPE_ACCESS;
 
-        // generate secret
-        $row->tokenSecret = $this->generateSecret($user->id);
-
+        // generate secret part is not required
         // encrypt password and save as token
-        $row->token = $this->callEncryptFunction($password, $row->tokenSecret);
+        $row->token = $this->callHashFunction($password);
 
         $row->save();
 
@@ -151,8 +148,8 @@ class Table extends AbstractTable
 
         $row->save();
 
-        setcookie('rToken', $hash, time() + $ttl, '/');
-        setcookie('rId', app()->user()->id, time() + $ttl, '/');
+        Response::setCookie('rToken', $hash, time() + $ttl, '/');
+        Response::setCookie('rId', app()->user()->id, time() + $ttl, '/');
     }
 
     /**
@@ -172,7 +169,6 @@ class Table extends AbstractTable
 
         // try to login
         $user->login();
-
     }
 
     /**
@@ -218,27 +214,50 @@ class Table extends AbstractTable
     }
 
     /**
-     * callEncryptFunction
+     * Call Hash Function
      *
      * @param string $password
-     * @param string $secret
      * @throws \Application\Exception
      * @return string
      */
-    protected function callEncryptFunction($password, $secret)
+    protected function callHashFunction($password)
     {
         /** @var \Bluz\Auth\Auth $auth */
         $auth = Auth::getInstance();
         $options = $auth->getOption(self::PROVIDER_EQUALS);
 
-        if (!isset($options['encryptFunction']) or
-            !is_callable($options['encryptFunction'])
+        if (!isset($options['hash']) or
+            !is_callable($options['hash'])
         ) {
-            throw new Exception("Encryption function for 'equals' adapter is not callable");
+            throw new Exception("Hash function for 'equals' adapter is not callable");
         }
 
         // encrypt password with secret
-        return call_user_func($options['encryptFunction'], $password, $secret);
+        return call_user_func($options['hash'], $password);
+    }
+
+    /**
+     * Call Verify Function
+     *
+     * @param string $password
+     * @param string $hash
+     * @throws \Application\Exception
+     * @return string
+     */
+    protected function callVerifyFunction($password, $hash)
+    {
+        /** @var \Bluz\Auth\Auth $auth */
+        $auth = Auth::getInstance();
+        $options = $auth->getOption(self::PROVIDER_EQUALS);
+
+        if (!isset($options['verify']) or
+            !is_callable($options['verify'])
+        ) {
+            throw new Exception("Verify function for 'equals' adapter is not callable");
+        }
+
+        // verify password with hash
+        return call_user_func($options['verify'], $password, $hash);
     }
 
     /**
@@ -309,7 +328,7 @@ class Table extends AbstractTable
         $row->tokenSecret = $this->generateSecret($equalAuth->userId);
 
         // encrypt password and save as token
-        $row->token = $this->callEncryptFunction($equalAuth->token, $row->tokenSecret);
+        $row->token = $this->callHashFunction($equalAuth->token);
 
         $row->save();
 

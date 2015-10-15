@@ -12,6 +12,7 @@ namespace Application;
 
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 
 return
 /**
@@ -35,7 +36,7 @@ function () use ($view) {
     $countCol = Request::getParam('countCol');
 
     if ($countCol <> null) {
-        setcookie("countCol", $countCol, time() + 3600, '/');
+        Response::setCookie("countCol", $countCol, time() + 3600, '/');
     } else {
         $countCol = Request::getCookie('countCol', 4);
     }

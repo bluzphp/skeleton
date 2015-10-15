@@ -10,7 +10,7 @@
 namespace Application\Pages;
 
 /**
- * Class Crud of Pages
+ * Crud of Pages
  *
  * @package  Application\Pages
  *

@@ -64,18 +64,18 @@ class Row extends AbstractRowEntity
             })->setError('User with login "{{input}}" already exists')
         );
 
-        $this->addValidator(
-            'email',
-            v::required()->email(true),
-            v::callback(function ($email) {
-                $user = $this->getTable()
+            $this->addValidator(
+                'email',
+                v::required()->email(true),
+                v::callback(function ($email) {
+                    $user = $this->getTable()
                     ->select()
                     ->where('email = ?', $email)
                     ->andWhere('id != ?', $this->id)
                     ->execute();
-                return !$user;
-            })->setError('User with email "{{input}}" already exists')
-        );
+                    return !$user;
+                })->setError('User with email "{{input}}" already exists')
+            );
     }
 
     /**
@@ -111,7 +111,9 @@ class Row extends AbstractRowEntity
             case (Table::STATUS_ACTIVE):
                 // all ok
                 // regenerate session
-                Session::regenerateId();
+                if (PHP_SAPI !== 'cli') {
+                    Session::regenerateId();
+                }
                 // save user to new session
                 Auth::setIdentity($this);
                 break;

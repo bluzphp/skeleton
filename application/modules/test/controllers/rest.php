@@ -12,7 +12,14 @@ namespace Application;
 use Application\Test;
 use Bluz\Controller;
 
-return function () {
+return
+/**
+ * @accept HTML
+ * @accept JSON
+ * @accept XML
+ * @return mixed
+ */
+function () {
     $restController = new Controller\Rest();
     $restController->setCrud(Test\Crud::getInstance());
     return $restController();

@@ -10,7 +10,7 @@
         </testsuite>
     </testsuites>
     <listeners>
-        <listener class="\Application\Tests\TestListener"/>
+        <listener class="\Bluz\Tests\TestListener"/>
     </listeners>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">

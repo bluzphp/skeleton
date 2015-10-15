@@ -5,7 +5,7 @@
  * For change module configuration you should create configuration file
  * inside directory of configuration of current environment,
  * i.e. `application/configs/testing/module.users.php`
- * 
+ *
  * @author   Anton Shevchuk
  * @created  25.09.2014 13:25
  *

@@ -20,7 +20,6 @@ function ($tree) {
      */
     $str = '';
     foreach ($tree as $node) {
-
         if (empty($node['children'])) {
             $str .= '<li class="mjs-nestedSortable-leaf" data-order="'
                 . $node['order'] . '" id="list_' . $node['id'] . '">'

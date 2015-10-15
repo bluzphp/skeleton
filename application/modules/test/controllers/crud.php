@@ -10,6 +10,10 @@ namespace Application;
 use Application\Test;
 use Bluz\Controller;
 
+/**
+ * @accept HTML
+ * @accept JSON
+ */
 return function () {
     $crudController = new Controller\Crud();
     $crudController->setCrud(Test\Crud::getInstance());

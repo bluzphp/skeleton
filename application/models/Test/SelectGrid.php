@@ -19,28 +19,28 @@ use Bluz\Grid\Grid;
  */
 class SelectGrid extends Grid
 {
-    protected $uid = 'sql';
+    protected $uid = 'sel';
 
     /**
      * init
-     * 
+     *
      * @return self
      */
     public function init()
     {
-         // Array
-         $adapter = new \Bluz\Grid\Source\SelectSource();
+        // Array
+        $adapter = new \Bluz\Grid\Source\SelectSource();
 
-         $select = new \Bluz\Db\Query\Select();
-         $select->select('*')->from('test', 't');
+        $select = new \Bluz\Db\Query\Select();
+        $select->select('*')->from('test', 't');
 
-         $adapter->setSource($select);
+        $adapter->setSource($select);
 
-         $this->setAdapter($adapter);
-         $this->setDefaultLimit(15);
-         $this->setAllowOrders(['name', 'id', 'status']);
-         $this->setAllowFilters(['status', 'id']);
+        $this->setAdapter($adapter);
+        $this->setDefaultLimit(15);
+        $this->setAllowOrders(['name', 'id', 'status']);
+        $this->setAllowFilters(['status', 'id']);
 
-         return $this;
+        return $this;
     }
 }

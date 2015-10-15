@@ -9,12 +9,13 @@
  */
 namespace Application;
 
+use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotImplementedException;
-use Bluz\Auth\AuthException;
-use Bluz\Controller;
 
 return
-
+/**
+ * @return array
+ */
 function () {
     /**
      * @var Bootstrap $this
@@ -23,7 +24,7 @@ function () {
         $params = $this->getRequest()->getAllParams();
 
         if (!array_key_exists('login', $params) || !array_key_exists('password', $params)) {
-            throw new AuthException('Login and password are required', 400);
+            throw new BadRequestException('Login and password are required');
         }
 
         //try to authenticate

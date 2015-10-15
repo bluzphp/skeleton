@@ -28,21 +28,26 @@ LOCK TABLES `acl_privileges` WRITE;
 
 INSERT INTO `acl_privileges` (`roleId`, `module`, `privilege`)
 VALUES
-  (3,'users','ViewProfile'),
-  (2,'media','Upload'),
-  (2,'users','ViewProfile'),
-  (1,'acl','Edit'),
+  (1,'acl','Management'),
   (1,'acl','View'),
   (1,'cache','Management'),
+  (1,'categories','Management'),
   (1,'dashboard','Dashboard'),
   (1,'media','Management'),
   (1,'media','Upload'),
-  (1,'categories','Management'),
   (1,'options','Management'),
   (1,'pages','Management'),
   (1,'system','Info'),
+  (1,'users','EditEmail'),
+  (1,'users','EditPassword'),
   (1,'users','Management'),
-  (1,'users','ViewProfile')
+  (1,'users','ViewProfile'),
+  (2,'media','Upload'),
+  (2,'users','EditEmail'),
+  (2,'users','EditPassword'),
+  (2,'users','ViewProfile'),
+  (3,'users','ViewProfile'),
+  (4,'cache','Management')
 ;
 
 /*!40000 ALTER TABLE `acl_privileges` ENABLE KEYS */;
@@ -59,7 +64,8 @@ INSERT INTO `acl_roles` (`id`, `name`, `created`)
 VALUES
 	(1,'admin','2012-11-09 07:37:31'),
 	(2,'member','2012-11-09 07:37:37'),
-	(3,'guest','2012-11-09 07:37:44');
+	(3,'guest','2012-11-09 07:37:44'),
+	(4,'system','2014-12-05 10:14:42');
 
 /*!40000 ALTER TABLE `acl_roles` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -73,6 +79,7 @@ LOCK TABLES `acl_users_roles` WRITE;
 
 INSERT INTO `acl_users_roles` (`userId`, `roleId`)
 VALUES
+	(0,4),
 	(1,1);
 
 /*!40000 ALTER TABLE `acl_users_roles` ENABLE KEYS */;
@@ -87,7 +94,7 @@ LOCK TABLES `auth` WRITE;
 
 INSERT INTO `auth` (`userId`, `provider`, `foreignKey`, `token`, `tokenSecret`, `tokenType`, `created`)
 VALUES
-	(1,'equals','admin','f9705d72d58b2a305ab6f5913ba60a61','secretsalt','access','2012-11-09 07:40:46');
+	(1,'equals','admin','$2y$10$4a454775178c3f89d510fud2T.xtw01Ir.Jo.91Dr3nL2sz3OyVpK','','access','2012-11-09 07:40:46');
 
 /*!40000 ALTER TABLE `auth` ENABLE KEYS */;
 UNLOCK TABLES;

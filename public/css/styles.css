@@ -11,14 +11,12 @@
 .center:after {
     clear: both
 }
-
 /*/Main*/
 /*Theme*/
 body {
     padding-top: 70px;
     position: relative;
 }
-
 footer {
     padding-top: 40px;
     padding-bottom: 30px;
@@ -26,8 +24,13 @@ footer {
     text-align: center;
     border-top: 1px solid #e5e5e5;
 }
-
 /*/Theme*/
+/*Code*/
+code span { color: #006400 }
+code em { color: #999 }
+code var { color: #ff7f50 }
+code strong { color: #b22222 }
+/*/Code*/
 /*Buttons*/
 .btn.icon-twitter, .btn.icon-facebook {
     color: #fff;

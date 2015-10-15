@@ -2,6 +2,8 @@ Bluz, a lightweight PHP Framework
 =================================
 Easy to setup, easy to use. Example application
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bluzphp/main)
+
 ## Achievements
 
 [![Build Status](https://secure.travis-ci.org/bluzphp/skeleton.png?branch=master)](https://travis-ci.org/bluzphp/skeleton)
@@ -17,7 +19,7 @@ Easy to setup, easy to use. Example application
 
 ## Installation
 
-Bluz works with PHP 5.4 or later and MySQL 5.4 or later (please check [requirements](https://github.com/bluzphp/skeleton/wiki/Requirements))
+Bluz works with PHP 5.6 or later and MySQL 5.4 or later (please check [requirements](https://github.com/bluzphp/skeleton/wiki/Requirements))
 
 ### From composer
 
@@ -66,7 +68,7 @@ Create project in PhpStorm:
 Restore database structure from `structure.ddl` file (use InnoDB as the Default MySQL Storage Engine for avoid "Error Code: 1071"!).
 Restore default database data from `dump.sql`
 
-Edit your own configuration file `/path/to/application/configs/app.dev.php` (configuration for development environment)
+Edit your configuration's files `/path/to/application/configs/dev/*.php` (configuration for development environment)
 
 Run internal PHP web-server with simple console tool (for Linux):
 
@@ -142,9 +144,16 @@ class Row extends \Bluz\Db\Row {
 * [Framework wiki](https://github.com/bluzphp/framework/wiki)
 * [Skeleton wiki](https://github.com/bluzphp/skeleton/wiki)
 
+## Demo
+
+* [Bluz Demo](http://bluz.demo.php.nixsolutions.com/)
+
 ## License
 
-Read [MIT LICENSE](https://raw.github.com/bluzphp/skeleton/master/LICENSE.md) file
+The project is developed by [NIX Solutions](http://nixsolutions.com) PHP team and distributed under [MIT LICENSE](https://raw.github.com/bluzphp/skeleton/master/LICENSE.md)
+
+[NIX Solutions](http://nixsolutions.com) has OEM License of [Redactor](http://imperavi.com/redactor/).
+Full text of Redactor License you can read at http://imperavi.com/redactor/license/
 
 ## Vendors
 

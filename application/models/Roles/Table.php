@@ -23,9 +23,10 @@ use Bluz\Proxy\Db;
  */
 class Table extends \Bluz\Db\Table
 {
+    const BASIC_ADMIN = 'admin';
     const BASIC_GUEST = 'guest';
     const BASIC_MEMBER = 'member';
-    const BASIC_ADMIN = 'admin';
+    const BASIC_SYSTEM = 'system';
 
     /**
      * Table
@@ -43,7 +44,17 @@ class Table extends \Bluz\Db\Table
     /**
      * @var array
      */
-    protected $basicRoles = ['guest', 'member', 'admin'];
+    protected $basicRoles = ['admin', 'guest', 'member', 'system'];
+
+    /**
+     * Init table relations
+     * @return void
+     */
+    public function init()
+    {
+        $this->linkTo('id', 'UsersRoles', 'roleId');
+        $this->linkToMany('Users', 'UsersRoles');
+    }
 
     /**
      * Get all roles in system
@@ -57,7 +68,7 @@ class Table extends \Bluz\Db\Table
 
     /**
      * Get all basic roles
-     * 
+     *
      * @return array
      */
     public function getBasicRoles()
