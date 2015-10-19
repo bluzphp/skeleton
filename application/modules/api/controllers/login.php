@@ -12,6 +12,33 @@ namespace Application;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotImplementedException;
 
+/**
+ * @SWG\Resource(resourcePath="/login")
+ * @SWG\Api(
+ *   path="/api/login",
+ *   @SWG\Operation(
+ *      method="POST", nickname="login",
+ *      summary="Get Token",
+ *      @SWG\Parameter(
+ *          name="login",
+ *          description="Login",
+ *          paramType="form",
+ *          required=true,
+ *          type="string"
+ *      ),
+ *      @SWG\Parameter(
+ *          name="password",
+ *          description="Password",
+ *          paramType="form",
+ *          required=true,
+ *          type="string"
+ *      ),
+ *      @SWG\ResponseMessage(code=200),
+ *      @SWG\ResponseMessage(code=400, message="Login and password are required"),
+ *      @SWG\ResponseMessage(code=401, message="User not found")
+ *   )
+ * )
+ */
 return
 /**
  * @return array
