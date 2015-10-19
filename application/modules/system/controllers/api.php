@@ -7,30 +7,24 @@
  */
 namespace Application;
 
-use Bluz\Proxy\Router;
-use Swagger\Swagger;
+use Swagger;
 
 return
 /**
  * @return \closure
  */
-function ($resource = null) {
+function () {
     /**
      * @var Bootstrap $this
      */
     $this->useJson();
 
     $paths = array(
+        PATH_APPLICATION . '/configs',
         PATH_APPLICATION . '/models',
-        PATH_APPLICATION . '/modules'
+        PATH_APPLICATION . '/modules',
     );
     $exclude = array();
 
-    $swagger = new Swagger($paths, $exclude);
-
-    if ($resource) {
-        return $swagger->getResource('/'. $resource, ['defaultBasePath' => rtrim(Router::getFullUrl(), '/')]);
-    } else {
-        return $swagger->getResourceList(['basePath' => '/system/api/resource']);
-    }
+    return Swagger\scan($paths, $exclude);
 };

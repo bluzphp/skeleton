@@ -9,10 +9,10 @@
     "filp/whoops": "~1.1",
     "hybridauth/hybridauth": "dev-master",
     "phpmailer/phpmailer": "~5.2",
-    "zircote/swagger-php": "~0.9"
+    "zircote/swagger-php": "2.0.3"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.7",
+    "phpunit/phpunit": "~5.0",
     "satooshi/php-coveralls": "dev-master",
     "squizlabs/php_codesniffer": "~2.3",
     "zendframework/zend-dom": "~2.3"

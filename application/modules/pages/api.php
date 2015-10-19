@@ -7,32 +7,27 @@
  */
 
 /**
- * @SWG\Resource(resourcePath="/pages")
- * @SWG\Api(
+ * @SWG\Get(
  *   path="/pages/rest/{pageId}",
- *   @SWG\Operation(
- *      method="GET", nickname="getPageById",  type="array", items="$ref:Pages",
- *      summary="Find page by ID",
- *      notes="Returns a page model",
- *      @SWG\Parameter(
- *          name="pageId",
- *          description="ID of page that needs to be fetched",
- *          paramType="path",
- *          required=true,
- *          allowMultiple=false,
- *          type="integer"
- *      ),
- *      @SWG\ResponseMessage(code=200, message="Given page found", responseModel="Pages"),
- *      @SWG\ResponseMessage(code=404, message="Page not found", responseModel="ErrorModel")
- *   )
+ *   tags={"page"},
+ *   operationId="getPageById",
+ *   summary="Find page by ID",
+ *   @SWG\Parameter(
+ *      name="pageId",
+ *      in="path",
+ *      type="integer",
+ *      required=true,
+ *      description="ID of page that needs to be fetched"
+ *    ),
+ *    @SWG\Response(response=200, description="Given page found", @SWG\Schema(ref="#/definitions/pages")),
+ *    @SWG\Response(response=404, description="Page not found", @SWG\Schema(ref="#/definitions/errorModel"))
  * )
- * @SWG\Api(
+ *
+ * @SWG\Get(
  *   path="/pages/rest/",
- *   @SWG\Operation(
- *      method="GET", nickname="getPages",
- *      summary="Collection of Pages",
- *      notes="Not Implemented",
- *      @SWG\ResponseMessage(code=501, message="Not Implemented", responseModel="ErrorModel")
- *   )
+ *   tags={"page"},
+ *   operationId="getPages",
+ *   summary="Collection of Pages",
+ *   @SWG\Response(response=501, description="Not Implemented", @SWG\Schema(ref="#/definitions/errorModel"))
  * )
  */
