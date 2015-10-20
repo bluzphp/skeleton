@@ -11,7 +11,7 @@ install:
   # Database
   - mysql -e 'CREATE DATABASE bluz;'
   # Newman
-  - npm install -g newman@1.2.21
+  - npm install -g newman
 before_script:
   # Database
   - mysql -uroot bluz < structure.ddl
