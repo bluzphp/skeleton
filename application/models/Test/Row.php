@@ -22,11 +22,11 @@ use Bluz\Validator\Validator as v;
  * @property string $email
  * @property string $status enum('active','disable','delete')
  *
- * @SWG\Model(id="Test")
- * @SWG\Property(name="id", type="integer")
- * @SWG\Property(name="name", type="string", required=true)
- * @SWG\Property(name="email", type="string", required=true)
- * @SWG\Property(name="status", type="string", enum="['active','disable','delete']", required=true)
+ * @SWG\Definition(definition="test", title="Test", required={"id", "name", "email"})
+ * @SWG\Property(property="id", type="integer")
+ * @SWG\Property(property="name", type="string")
+ * @SWG\Property(property="email", type="string")
+ * @SWG\Property(property="status", type="string", enum={"active","disable","delete"})
  */
 class Row extends \Bluz\Db\Row
 {
