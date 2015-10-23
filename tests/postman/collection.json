@@ -101,7 +101,7 @@
 			"tests": "tests[\"Status code is 501\"] = responseCode.code === 501;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
 			"time": 1416234992804,
 			"name": "overview collection",
-			"description": "SHOULD return **200**  \nSHOULD return `Content-Length`  \nSHOULD without body  ",
+			"description": "SHOULD return **501**  \nSHOULD return `Content-Length`  \nSHOULD without body  ",
 			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
 			"responses": [],
 			"synced": false
@@ -155,7 +155,7 @@
 			"tests": "tests[\"Status code is 405\"] = responseCode.code === 405;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
 			"time": 1416235001912,
 			"name": "create item",
-			"description": "SHOULD return **403**   ",
+			"description": "SHOULD return **405**   ",
 			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
 			"responses": [],
 			"synced": false
@@ -173,7 +173,7 @@
 			"tests": "tests[\"Status code is 405\"] = responseCode.code === 405;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
 			"time": 1416235010649,
 			"name": "update item",
-			"description": "SHOULD return **403**   ",
+			"description": "SHOULD return **405**",
 			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
 			"responses": [],
 			"synced": false
@@ -320,7 +320,7 @@
 			"tests": "tests[\"Status code is 405\"] = responseCode.code === 405;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
 			"time": 1416235021849,
 			"name": "update item",
-			"description": "SHOULD return **403**   ",
+			"description": "SHOULD return **405**",
 			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
 			"responses": [],
 			"synced": false
@@ -478,7 +478,7 @@
 			"tests": "tests[\"Status code is 501\"] = responseCode.code === 501;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
 			"time": 1416234952423,
 			"name": "collection",
-			"description": "SHOULD return **206**  \nSHOULD return part of collection in JSON  ",
+			"description": "SHOULD return **501**  \nSHOULD return part of collection in JSON  ",
 			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
 			"responses": [],
 			"synced": false
@@ -557,7 +557,7 @@
 			"tests": "tests[\"Status code is 405\"] = responseCode.code === 405;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
 			"time": 1416236674385,
 			"name": "item",
-			"description": "SHOULD return **403**  ",
+			"description": "SHOULD return **405**  ",
 			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
 			"responses": [],
 			"synced": false
