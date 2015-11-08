@@ -28,16 +28,16 @@ use Bluz\Validator\Validator as v;
  * @property string $updated
  * @property integer $userId
  *
- * @SWG\Model(id="Pages")
- * @SWG\Property(name="id", type="integer")
- * @SWG\Property(name="title", type="string", required=true)
- * @SWG\Property(name="alias", type="string", required=true)
- * @SWG\Property(name="content", type="string", required=true)
- * @SWG\Property(name="keywords", type="string", description="Meta keywords")
- * @SWG\Property(name="description", type="string", description="Meta description")
- * @SWG\Property(name="created", type="string", format="date-time")
- * @SWG\Property(name="updated", type="string", format="date-time")
- * @SWG\Property(name="userId", type="integer")
+ * @SWG\Definition(definition="pages", title="Pages", required={"id", "title", "alias", "content"})
+ * @SWG\Property(property="id", type="integer")
+ * @SWG\Property(property="title", type="string", description="Page title")
+ * @SWG\Property(property="alias", type="string", description="SEO URL")
+ * @SWG\Property(property="content", type="string", description="Text")
+ * @SWG\Property(property="keywords", type="string", description="Meta keywords")
+ * @SWG\Property(property="description", type="string", description="Meta description")
+ * @SWG\Property(property="created", type="string", format="date-time")
+ * @SWG\Property(property="updated", type="string", format="date-time")
+ * @SWG\Property(property="userId", type="integer", description="Author")
  */
 class Row extends \Bluz\Db\Row
 {
