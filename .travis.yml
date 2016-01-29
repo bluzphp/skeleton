@@ -4,7 +4,7 @@ php:
   - 7.0
 install:
   # ImageMagick
-  - printf "\n" | pecl install imagick
+  #- printf "\n" | pecl install imagick
   # Composer
   - composer self-update
   - COMPOSER_ROOT_VERSION=dev-master composer install
