@@ -28,7 +28,7 @@ class CleanTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/cache/clean/', [], Request::METHOD_GET, true);
+        $this->dispatch('/cache/clean/', [], Request::METHOD_GET, true);
         $this->assertOk();
         $this->assertNoticeMessage();
     }

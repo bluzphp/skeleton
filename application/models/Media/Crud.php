@@ -30,19 +30,17 @@ class Crud extends \Bluz\Crud\Table
      *
      * @param array $data
      * @throws \Application\Exception
-     * @throws \Bluz\Request\RequestException
      * @return integer
      */
     public function createOne($data)
     {
         /**
          * Process HTTP File
-         * @var \Bluz\Http\File $file
          */
-        $file = Request::getFileUpload()->getFile('file');
+        $file = Request::getFile('file');
 
-        if (!$file or $file->getErrorCode() != UPLOAD_ERR_OK) {
-            if ($file->getErrorCode() == UPLOAD_ERR_NO_FILE) {
+        if (!$file or $file->getError() != UPLOAD_ERR_OK) {
+            if ($file->getError() == UPLOAD_ERR_NO_FILE) {
                 throw new Exception("Please choose file for upload");
             }
             throw new Exception("Sorry, I can't receive file");
@@ -51,7 +49,9 @@ class Crud extends \Bluz\Crud\Table
         /**
          * Generate image name
          */
-        $fileName = strtolower(isset($data['title'])?$data['title']:$file->getName());
+        $pathinfo = pathinfo($file->getClientFilename());
+
+        $fileName = strtolower(isset($data['title'])?$data['title']:$pathinfo['filename']);
 
         // Prepare filename
         $fileName = preg_replace('/[ _;:]+/i', '-', $fileName);
@@ -67,19 +67,20 @@ class Crud extends \Bluz\Crud\Table
         $originFileName = $fileName;
         $counter = 0;
 
-        while (file_exists($this->uploadDir .'/'. $fileName .'.'. $file->getExtension())) {
+        while (file_exists($this->uploadDir .'/'. $fileName .'.'. $pathinfo['extension'])) {
             $counter++;
             $fileName = $originFileName .'-'. $counter;
         }
 
+        $filePath = $this->uploadDir .'/'. $fileName .'.'. $pathinfo['extension'];
+
         // Setup new name and move to user directory
-        $file->setName($fileName);
-        $file->moveTo($this->uploadDir);
+        $file->moveTo($filePath);
 
-        $this->uploadDir = substr($this->uploadDir, strlen(PATH_PUBLIC) + 1);
+        $publicDir = substr($this->uploadDir, strlen(PATH_PUBLIC) + 1);
 
-        $data['file'] = $this->uploadDir .'/'. $file->getFullName();
-        $data['type'] = $file->getMimeType();
+        $data['file'] = $publicDir .'/'. $fileName .'.'. $pathinfo['extension'];
+        $data['type'] = $file->getClientMediaType();
 
         $row = $this->getTable()->create();
 

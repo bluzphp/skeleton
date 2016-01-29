@@ -26,7 +26,7 @@ class BookmarksTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/system/bookmarks');
+        $this->dispatch('/system/bookmarks');
         $this->assertModule('system');
         $this->assertController('bookmarks');
         $this->assertOk();

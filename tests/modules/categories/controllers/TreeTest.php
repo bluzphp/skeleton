@@ -25,7 +25,7 @@ class TreeTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/categories/tree/');
+        $this->dispatch('/categories/tree/');
         $this->assertModule('categories');
         $this->assertController('tree');
         $this->assertOk();

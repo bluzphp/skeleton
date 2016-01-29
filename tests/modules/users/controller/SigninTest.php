@@ -24,7 +24,7 @@ class SigninTest extends ControllerTestCase
      */
     public function testSigninWithWrongPassword()
     {
-        $this->dispatchUri(
+        $this->dispatch(
             'users/signin',
             ['login' => 'admin', 'password' => 'admin123'],
             'POST'
@@ -40,7 +40,7 @@ class SigninTest extends ControllerTestCase
      */
     public function testSigninWithCorrectPassword()
     {
-        $this->dispatchUri(
+        $this->dispatch(
             'users/signin',
             ['login' => 'admin', 'password' => 'admin'],
             'POST'

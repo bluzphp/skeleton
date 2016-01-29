@@ -10,7 +10,7 @@
 namespace Application\Tests\Options;
 
 use Application\Tests\ControllerTestCase;
-use Bluz\Request\AbstractRequest;
+use Bluz\Proxy\Request;
 
 /**
  * @package  Application\Tests\Options
@@ -26,7 +26,7 @@ class CrudTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/options/crud/');
+        $this->dispatch('/options/crud/');
         $this->assertOk();
     }
 
@@ -37,7 +37,7 @@ class CrudTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/options/crud/', null, AbstractRequest::METHOD_POST);
+        $this->dispatch('/options/crud/', null, Request::METHOD_POST);
         $this->assertOk();
     }
 
@@ -48,7 +48,7 @@ class CrudTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/options/crud/', null, AbstractRequest::METHOD_PUT);
+        $this->dispatch('/options/crud/', null, Request::METHOD_PUT);
         $this->assertResponseCode(404);
     }
 
@@ -59,7 +59,7 @@ class CrudTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/options/crud/', null, AbstractRequest::METHOD_DELETE);
+        $this->dispatch('/options/crud/', null, Request::METHOD_DELETE);
         $this->assertResponseCode(404);
     }
 }

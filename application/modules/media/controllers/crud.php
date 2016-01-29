@@ -14,8 +14,8 @@ use Application\Media;
 use Bluz\Controller;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Layout;
+use Bluz\Proxy\Request;
 use Bluz\Proxy\Session;
-use Bluz\Request\AbstractRequest;
 
 return
 /**
@@ -53,14 +53,13 @@ function () use ($view) {
     }
     $crud->setUploadDir($path.'/'.$userId.'/media');
 
-
     $crudController = new Controller\Crud();
     $crudController->setCrud($crud);
     $result = $crudController();
 
     // FIXME: workaround
-    if (($crudController->getMethod() == AbstractRequest::METHOD_POST
-            or $crudController->getMethod() == AbstractRequest::METHOD_PUT )
+    if (($crudController->getMethod() == Request::METHOD_POST
+            or $crudController->getMethod() == Request::METHOD_PUT )
         && !$result /*($result instanceof Media\Row)*/) {
         // all ok, go to grid
         $this->redirectTo('media', 'grid');

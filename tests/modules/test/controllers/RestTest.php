@@ -10,9 +10,9 @@
 namespace Application\Tests\Test;
 
 use Application\Tests\ControllerTestCase;
-use Bluz\Http;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Response;
+use Bluz\Proxy\Request;
 
 /**
  * @package  Application\Tests\Test
@@ -76,7 +76,7 @@ class RestTest extends ControllerTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->getApp()->useJson(true);
+        $this->getApp()->useJson();
     }
 
     /**
@@ -84,7 +84,7 @@ class RestTest extends ControllerTestCase
      */
     public function testReadOne()
     {
-        $this->dispatchRouter('/test/rest/1');
+        $this->dispatch('/test/rest/1');
 
         $this->assertOk();
 
@@ -98,7 +98,7 @@ class RestTest extends ControllerTestCase
      */
     public function testReadSet()
     {
-        $this->dispatchRouter('/test/rest/?offset=0&limit=3');
+        $this->dispatch('/test/rest/', ['offset' => 0, 'limit' => 3]);
 
         $this->assertResponseCode(206);
         $this->assertEquals(sizeof(Response::getBody()->toArray()), 3);
@@ -110,10 +110,10 @@ class RestTest extends ControllerTestCase
      */
     public function testCreate()
     {
-        $this->dispatchRouter(
+        $this->dispatch(
             '/test/rest/',
             ['name' => 'Splinter', 'email' => 'splinter@turtles.org'],
-            Http\Request::METHOD_POST
+            Request::METHOD_POST
         );
 
         $primary = Db::fetchOne(
@@ -130,7 +130,7 @@ class RestTest extends ControllerTestCase
      */
     public function testCreateWithPrimaryError()
     {
-        $this->dispatchRouter('/test/rest/1', [], Http\Request::METHOD_POST);
+        $this->dispatch('/test/rest/1', [], Request::METHOD_POST);
         $this->assertResponseCode(501);
     }
 
@@ -139,7 +139,7 @@ class RestTest extends ControllerTestCase
      */
     public function testCreateWithoutDataError()
     {
-        $this->dispatchRouter('/test/rest/', [], Http\Request::METHOD_POST);
+        $this->dispatch('/test/rest/', [], Request::METHOD_POST);
         $this->assertResponseCode(400);
     }
 
@@ -148,10 +148,10 @@ class RestTest extends ControllerTestCase
      */
     public function testCreateValidationErrors()
     {
-        $this->dispatchRouter(
+        $this->dispatch(
             '/test/rest/',
             ['name' => '', 'email' => ''],
-            Http\Request::METHOD_POST
+            Request::METHOD_POST
         );
 
         $this->assertNotNull(Response::getBody()->errors);
@@ -164,10 +164,10 @@ class RestTest extends ControllerTestCase
      */
     public function testUpdate()
     {
-        $this->dispatchRouter(
+        $this->dispatch(
             '/test/rest/2',
             ['name' => 'Leonardo', 'email' => 'leonardo@turtles.ua'],
-            Http\Request::METHOD_PUT
+            Request::METHOD_PUT
         );
         ;
         $this->assertOk();
@@ -185,13 +185,13 @@ class RestTest extends ControllerTestCase
      */
     public function testUpdateSet()
     {
-        $this->dispatchRouter(
+        $this->dispatch(
             '/test/rest/',
             [
                 ['id' => 3, 'name' => 'Michelangelo', 'email' => 'michelangelo@turtles.org.ua'],
                 ['id' => 4, 'name' => 'Raphael', 'email' => 'Raphael@turtles.org.ua'],
             ],
-            Http\Request::METHOD_PUT
+            Request::METHOD_PUT
         );
 
         $this->assertResponseCode(501);
@@ -212,7 +212,7 @@ class RestTest extends ControllerTestCase
      */
     public function testUpdateWithSameData()
     {
-        $this->dispatchRouter('/test/rest/1', ['name' => 'Donatello'], Http\Request::METHOD_PUT);
+        $this->dispatch('/test/rest/1', ['name' => 'Donatello'], Request::METHOD_PUT);
         $this->assertResponseCode(304);
     }
 
@@ -221,7 +221,7 @@ class RestTest extends ControllerTestCase
      */
     public function testUpdateWithInvalidPrimary()
     {
-        $this->dispatchRouter('/test/rest/100042', ['name' => 'Raphael'], Http\Request::METHOD_PUT);
+        $this->dispatch('/test/rest/100042', ['name' => 'Raphael'], Request::METHOD_PUT);
         $this->assertResponseCode(404);
     }
 
@@ -230,7 +230,7 @@ class RestTest extends ControllerTestCase
      */
     public function testUpdateWithoutDataError()
     {
-        $this->dispatchRouter('/test/rest/', null, Http\Request::METHOD_PUT);
+        $this->dispatch('/test/rest/', [], Request::METHOD_PUT);
         $this->assertResponseCode(400);
     }
 
@@ -239,7 +239,7 @@ class RestTest extends ControllerTestCase
      */
     public function testDelete()
     {
-        $this->dispatchRouter('/test/rest/1', null, Http\Request::METHOD_DELETE);
+        $this->dispatch('/test/rest/1', [], Request::METHOD_DELETE);
         $this->assertResponseCode(204);
 
         $count = Db::fetchOne(
@@ -254,7 +254,7 @@ class RestTest extends ControllerTestCase
      */
     public function testDeleteWithInvalidPrimary()
     {
-        $this->dispatchRouter('/test/rest/100042', null, Http\Request::METHOD_DELETE);
+        $this->dispatch('/test/rest/100042', [], Request::METHOD_DELETE);
         $this->assertResponseCode(404);
     }
 
@@ -264,13 +264,13 @@ class RestTest extends ControllerTestCase
      */
     public function testDeleteSet()
     {
-        $this->dispatchRouter(
+        $this->dispatch(
             '/test/rest/',
             [
                 ['id' => 3],
                 ['id' => 4],
             ],
-            Http\Request::METHOD_DELETE
+            Request::METHOD_DELETE
         );
 
         $this->assertResponseCode(501);

@@ -33,7 +33,7 @@ class DeleteTest extends ControllerTestCase
      */
     public function testDeleteError()
     {
-        $this->dispatchRouter('/media/delete/');
+        $this->dispatch('/media/delete/');
         $this->assertModule('error');
         $this->assertController('index');
     }

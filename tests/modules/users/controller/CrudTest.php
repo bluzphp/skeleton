@@ -37,7 +37,7 @@ class CrudTest extends ControllerTestCase
      */
     public function testCreateForm()
     {
-        $this->dispatchRouter('/users/crud/');
+        $this->dispatch('/users/crud/');
         $this->assertOk();
 
         $this->assertQueryCount('form[method="POST"]', 1);
@@ -48,7 +48,7 @@ class CrudTest extends ControllerTestCase
      */
     public function testEditForm()
     {
-        $this->dispatchRouter('/users/crud/', ['id' => 1]);
+        $this->dispatch('/users/crud/', ['id' => 1]);
         $this->assertOk();
 
         $this->assertQueryCount('form[method="PUT"]', 1);
@@ -60,7 +60,7 @@ class CrudTest extends ControllerTestCase
      */
     public function testEditFormError()
     {
-        $this->dispatchRouter('/users/crud/', ['id' => 100042]);
+        $this->dispatch('/users/crud/', ['id' => 100042]);
         $this->assertResponseCode(404);
     }
 }

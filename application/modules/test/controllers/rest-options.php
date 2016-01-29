@@ -16,7 +16,6 @@ return
 /**
  * @accept HTML
  * @accept JSON
- * @accept XML
  * @method OPTIONS
  * @return mixed
  */

@@ -21,15 +21,14 @@ function () {
     $table = Test\Table::getInstance();
 
     debug($table->saveTestRow());
-    debug($table->saveTestRow());
-
     debug($table->updateTestRows());
-    debug($table->updateTestRows());
-
-    debug($table->deleteTestRows());
     debug($table->deleteTestRows());
 
     $table = Users\Table::getInstance();
+
     var_dump($table->getColumns());
+    var_dump($table->findRow(['1']));
+    var_dump($table->findRowWhere(['id' => '0']));
+
     return false;
 };

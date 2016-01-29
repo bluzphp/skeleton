@@ -20,16 +20,12 @@ use Bluz\Proxy\Request;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
-/**
- * @param $code
- * @param string $message
- * @return \Bluz\View\View
- */
 return
 /**
  * @route  /error/{$code}
  * @param  int $code
  * @param  string $message
+ * @return \Bluz\View\View
  */
 function ($code, $message = '') use ($view) {
     /**
@@ -57,7 +53,7 @@ function ($code, $message = '') use ($view) {
             break;
         case 405:
             $title = __("Method Not Allowed");
-            $description = __("The server is not support method");
+            $description = __("The server is not support method `%s`", Request::getMethod());
             Response::setHeader('Allow', $message);
             break;
         case 406:
@@ -87,7 +83,7 @@ function ($code, $message = '') use ($view) {
     // check CLI or HTTP request
     if (Request::isHttp()) {
         // simple AJAX call, accept JSON
-        if (Request::getAccept() == Request::ACCEPT_JSON) {
+        if (Request::getAccept(['application/json'])) {
             $this->useJson();
             Messages::addError($description);
             return $view;
@@ -102,7 +98,8 @@ function ($code, $message = '') use ($view) {
     $view->error = $title;
     $view->description = $description;
 
-    if ($this->isDebug() && ($e = Response::getException()) && $code >= 500) {
+    // for Internal Server errors only
+    if ($this->isDebug() && ($e = $this->getException()) && $code >= 500) {
         $whoops = new Run();
         $whoops->pushHandler(new PrettyPageHandler());
         $whoops->handleException($e);

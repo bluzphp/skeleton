@@ -27,7 +27,7 @@ class IndexTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/acl/');
+        $this->dispatch('/acl/');
         $this->assertOk();
     }
 }

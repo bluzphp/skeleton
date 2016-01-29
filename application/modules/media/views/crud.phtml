@@ -18,7 +18,7 @@
                     <input type="text" class="form-control" id="name" name="title" value="<?=($row->title)?>" required />
                 </div>
             </div>
-        <?php if ($method == \Bluz\Request\AbstractRequest::METHOD_POST) : ?>
+        <?php if ($method == 'POST') : ?>
             <div class="form-group">
                 <label class="control-label col-lg-2"><?=__('File')?></label>
                 <div class="col-lg-10">
@@ -42,7 +42,7 @@
                 <label class="control-label col-lg-2"><?=__('Link')?></label>
                 <div class="col-lg-10">
                     <a href="<?=$this->baseUrl($row->file)?>">
-                        <?=app()->getRequest()->getScheme().'://'.app()->getRequest()->getHttpHost().$this->baseUrl($row->file)?>
+                        <?=$this->baseUrl($row->file)?>
                     </a>
                 </div>
             </div>

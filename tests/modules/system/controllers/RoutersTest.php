@@ -25,7 +25,7 @@ class RoutersTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/system/routers/');
+        $this->dispatch('/system/routers/');
         $this->assertModule('system');
         $this->assertController('routers');
         $this->assertOk();

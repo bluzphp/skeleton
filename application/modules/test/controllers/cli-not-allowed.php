@@ -11,7 +11,7 @@ use Bluz\Proxy\Messages;
 
 return
 /**
- * @method CLI
+ * @method GET
  * @param  bool $flag
  * @return \closure
  */

@@ -17,6 +17,7 @@ use Bluz\Proxy\Logger;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Router;
 use Bluz\Proxy\Session;
 
 /**
@@ -78,13 +79,13 @@ class Bootstrap extends Application
     public function denied()
     {
         // add messages make sense only if presentation is not json, xml, etc
-        if (!$this->getResponse()->getPresentation()) {
+        if (!$this->getResponse()->getHeader('Content-Type')) {
             Messages::addError('You don\'t have permissions, please sign in');
         }
         // redirect to login page
         if (!$this->user()) {
             // save URL to session and redirect make sense if presentation is null
-            if (!$this->getResponse()->getPresentation()) {
+            if (!$this->getResponse()->getHeader('Content-Type')) {
                 Session::set('rollback', Request::getRequestUri());
                 $this->redirectTo('users', 'signin');
             }
@@ -104,7 +105,7 @@ class Bootstrap extends Application
                 microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
                 ceil((memory_get_usage()/1024))
             );
-            $debugString .= '; '.Request::getModule() .'/'. Request::getController();
+            $debugString .= '; '. Request::getModule() .'/'. Request::getController();
 
             Response::setHeader('Bluz-Debug', $debugString);
 

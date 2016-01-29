@@ -35,7 +35,7 @@ class UploadTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/media/upload/');
+        $this->dispatch('media/upload');
         $this->assertModule('error');
         $this->assertController('index');
     }

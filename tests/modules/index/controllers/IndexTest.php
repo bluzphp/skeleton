@@ -24,7 +24,7 @@ class IndexTest extends ControllerTestCase
      */
     public function testIndexPage()
     {
-        $this->dispatchRouter('/');
+        $this->dispatch('/');
         $this->assertModule(Router::DEFAULT_MODULE);
         $this->assertController(Router::DEFAULT_CONTROLLER);
         $this->assertQueryContentContains('h1', 'Congratulations!');

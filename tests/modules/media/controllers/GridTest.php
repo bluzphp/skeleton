@@ -25,7 +25,7 @@ class GridTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/media/grid/');
+        $this->dispatch('/media/grid/');
         $this->assertModule('media');
         $this->assertController('grid');
         $this->assertOk();

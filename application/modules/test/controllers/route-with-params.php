@@ -9,6 +9,7 @@ namespace Application;
 
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Router;
 
 return
 /**
@@ -46,6 +47,6 @@ function ($a, $b, $c) {
 </pre>
 CODE;
     var_dump(['$a'=>$a, '$b'=>$b, '$c'=>$c]);
-    var_dump(Request::getParams());
+//    var_dump(Request::getParams());
     return false;
 };

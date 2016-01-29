@@ -10,7 +10,7 @@
 namespace Application\Tests\Test;
 
 use Application\Tests\ControllerTestCase;
-use Bluz\Http\Request;
+use Bluz\Proxy\Request;
 
 /**
  * @package  Application\Tests\Test
@@ -24,7 +24,7 @@ class AjaxTest extends ControllerTestCase
      */
     public function testAjax()
     {
-        $this->dispatchRouter('/test/ajax/', [], Request::METHOD_POST, true);
+        $this->dispatch('/test/ajax/', [], Request::METHOD_POST, true);
         $this->assertOk();
         $this->assertNoticeMessage();
         $this->assertResponseVariable('foo', 'bar');
@@ -35,7 +35,7 @@ class AjaxTest extends ControllerTestCase
      */
     public function testAjaxWithParams()
     {
-        $this->dispatchRouter('/test/ajax/', ['messages'=>1], Request::METHOD_POST, true);
+        $this->dispatch('/test/ajax/', ['messages'=>1], Request::METHOD_POST, true);
         $this->assertOk();
         $this->assertErrorMessage();
         $this->assertNoticeMessage();

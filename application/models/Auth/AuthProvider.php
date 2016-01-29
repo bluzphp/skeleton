@@ -64,7 +64,7 @@ class AuthProvider implements AuthInterface
 
 
     /**
-     * @param \Application\Bootstrap $response
+     * @param \Bluz\Application\Application $response
      */
     public function setResponse($response)
     {
@@ -220,7 +220,7 @@ class AuthProvider implements AuthInterface
             Messages::addError('User is not active');
         }
 
-        $user->login();
+        $user->tryLogin();
         $this->response->redirectTo('index', 'index');
     }
 

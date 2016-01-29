@@ -13,13 +13,15 @@ namespace Application;
 
 use Application\Users\Table;
 use Bluz\Application\Application;
+use Bluz\Application\Exception\ApplicationException;
 use Bluz\Cli;
 use Bluz\Proxy\Auth;
-use Bluz\Proxy\Config;
 use Bluz\Proxy\Logger;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
+use Bluz\Request\RequestFactory;
+use Bluz\Response\Response as ResponseInstance;
 
 /**
  * Bootstrap for CLI
@@ -40,30 +42,22 @@ class CliBootstrap extends Application
 
     /**
      * get CLI Request
-     *
      * @return Cli\Request
+     * @throws ApplicationException
      */
     public function initRequest()
     {
-        $request = new Cli\Request();
-        if ($config = Config::getData('request')) {
-            $request->setOptions($config);
-        }
-        Request::setInstance($request);
-    }
+        $arguments = getopt("u:", ["uri:"]);
 
-    /**
-     * get CLI Response
-     *
-     * @return Cli\Response
-     */
-    public function initResponse()
-    {
-        $response = new Cli\Response();
-        if ($config = Config::getData('response')) {
-            $response->setOptions($config);
+        if (!array_key_exists('u', $arguments) && !array_key_exists('uri', $arguments)) {
+            throw new ApplicationException('Attribute `--uri` is required');
         }
-        Response::setInstance($response);
+
+        $uri = isset($arguments['u']) ? $arguments['u'] : $arguments['uri'];
+
+        $request = RequestFactory::fromGlobals(['REQUEST_URI' => $uri, 'REQUEST_METHOD' => 'CLI']);
+
+        Request::setInstance($request);
     }
 
     /**
@@ -116,7 +110,7 @@ class CliBootstrap extends Application
         }
 
         // return code 1 for invalid behaviour of application
-        if ($exception = Response::getException()) {
+        if ($exception = $this->getException()) {
             echo $exception->getMessage();
             exit(1);
         }
