@@ -19,6 +19,7 @@ use Bluz\Proxy\Response;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Router;
 use Bluz\Proxy\Session;
+use Bluz\Proxy\Translator;
 
 /**
  * Bootstrap
@@ -78,19 +79,23 @@ class Bootstrap extends Application
      */
     public function denied()
     {
-        // add messages make sense only if presentation is not json, xml, etc
-        if (!$this->getResponse()->getHeader('Content-Type')) {
-            Messages::addError('You don\'t have permissions, please sign in');
+        if ($this->user()) {
+            $message = Translator::translate("You don't have permissions to access this page");
+        } else {
+            $message = Translator::translate("You don't have permissions, please sign in");
         }
-        // redirect to login page
-        if (!$this->user()) {
+
+        // for guest, for requests
+        if (!$this->user() && !Request::isXmlHttpRequest()) {
             // save URL to session and redirect make sense if presentation is null
-            if (!$this->getResponse()->getHeader('Content-Type')) {
-                Session::set('rollback', Request::getRequestUri());
-                $this->redirectTo('users', 'signin');
-            }
+            Session::set('rollback', Request::getRequestUri());
+            // add error notice
+            Messages::addError($message);
+            // redirect to Sign In page
+            $this->redirectTo('users', 'signin');
+        } else {
+            throw new ForbiddenException($message);
         }
-        throw new ForbiddenException();
     }
 
     /**

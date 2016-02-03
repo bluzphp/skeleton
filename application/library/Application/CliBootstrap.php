@@ -42,7 +42,7 @@ class CliBootstrap extends Application
 
     /**
      * get CLI Request
-     * @return Cli\Request
+     * @return void
      * @throws ApplicationException
      */
     public function initRequest()

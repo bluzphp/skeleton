@@ -17,9 +17,6 @@ use Bluz\Proxy\Logger;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Request;
-use Whoops\Handler\PrettyPageHandler;
-use Whoops\Run;
-
 return
 /**
  * @route  /error/{$code}
@@ -34,6 +31,25 @@ function ($code, $message = '') use ($view) {
      */
     Logger::error($message);
 
+    // for debug mode you can use whoops
+    /*
+    if ($this->isDebug() && ($e = $this->getException())) {
+        $whoops = new \Whoops\Run();
+        if (PHP_SAPI == 'cli') {
+            $whoops->pushHandler(new \Whoops\Handler\PlainTextHandler());
+        } elseif (Request::getAccept(['application/json'])) {
+            $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler());
+        } else {
+            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
+        }
+
+        $whoops->handleException($e);
+        return false;
+    }
+    */
+
+
+
     switch ($code) {
         case 400:
             $title = __("Bad Request");
@@ -45,7 +61,7 @@ function ($code, $message = '') use ($view) {
             break;
         case 403:
             $title = __("Forbidden");
-            $description = __("You don't have permissions to access this page");
+            $description = $message ?: __("You don't have permissions to access this page");
             break;
         case 404:
             $title = __("Not Found");
@@ -74,7 +90,6 @@ function ($code, $message = '') use ($view) {
             Response::setHeader('Retry-After', '600');
             break;
         default:
-            $code = 500;
             $title = __("Internal Server Error");
             $description = __("An unexpected error occurred with your request. Please try again later");
             break;
@@ -98,12 +113,5 @@ function ($code, $message = '') use ($view) {
     $view->error = $title;
     $view->description = $description;
 
-    // for Internal Server errors only
-    if ($this->isDebug() && ($e = $this->getException()) && $code >= 500) {
-        $whoops = new Run();
-        $whoops->pushHandler(new PrettyPageHandler());
-        $whoops->handleException($e);
-        return false;
-    }
     return $view;
 };
