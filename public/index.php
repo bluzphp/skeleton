@@ -55,7 +55,7 @@ function errorDisplay() {
     require_once 'error.php';
 }
 // Shutdown function for handle critical and other errors
-register_shutdown_function('errorDisplay');
+register_shutdown_function('\\Application\\errorDisplay');
 // Try to run application
 try {
     /**
