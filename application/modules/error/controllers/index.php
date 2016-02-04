@@ -17,6 +17,7 @@ use Bluz\Proxy\Logger;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Request;
+
 return
 /**
  * @route  /error/{$code}
