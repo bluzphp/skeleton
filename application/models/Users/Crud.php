@@ -87,15 +87,11 @@ class Crud extends \Bluz\Crud\Table
 
         try {
             $mail = Mailer::create();
-
-            // subject
             $mail->Subject = $subject;
             $mail->MsgHTML(nl2br($body));
-
             $mail->AddAddress($data['email']);
 
             Mailer::send($mail);
-
         } catch (\Exception $e) {
             Logger::log(
                 'error',

@@ -72,7 +72,6 @@ function () {
         return array(
             'filelink' =>  $media->file
         );
-
     } else {
         throw new Exception('Wrong file type');
     }
