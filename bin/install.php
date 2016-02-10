@@ -32,3 +32,5 @@ echo 'Copy .htaccess file' . PHP_EOL;
 if (copy($root . '/public/.htaccess.dev.sample', $root . '/public/.htaccess')) {
     echo ' ./public/.htaccess' . PHP_EOL;
 }
+
+require_once 'update.php';
