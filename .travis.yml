@@ -10,9 +10,6 @@ install:
   - COMPOSER_ROOT_VERSION=dev-master composer install
   # Database
   - mysql -e 'CREATE DATABASE bluz;'
-  # NodeJS
-  #- nvm install 5.4
-  #- nvm use 5.4
   # Newman
   - npm install -g newman
 before_script:

@@ -67,9 +67,7 @@ try {
     $env = getenv('BLUZ_ENV') ?: 'production';
     $app = Bootstrap::getInstance();
     $app->init($env);
-    $app->process();
-    $app->render();
-    $app->finish();
+    $app->run();
 } catch (Exception $e) {
     // try to write log
     errorLog($e->getMessage(), $e->getTraceAsString());

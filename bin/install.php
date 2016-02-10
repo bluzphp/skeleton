@@ -1,7 +1,8 @@
 <?php
 /**
- * @author  volkov
- * @created 4/3/14 11:47 AM
+ * Post Install Composer script
+ *
+ * @author  Volkov
  */
 
 // Root path, one level up
