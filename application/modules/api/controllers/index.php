@@ -33,6 +33,8 @@ return
  * @route /api/{$resource}
  * @param string $resource
  *
+ * @accept JSON
+ * @accept HTML
  * @return \closure
  */
 function ($resource, $id, $relation, $relationId) {

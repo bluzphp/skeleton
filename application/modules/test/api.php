@@ -7,16 +7,6 @@
  */
 
 /**
- * @SWG\Head(
- *     path="/test/rest/",
- *     tags={"test"},
- *     operationId="overviewCollection",
- *     summary="Check collection of items",
- *     @SWG\Parameter(ref="#/parameters/offset"),
- *     @SWG\Parameter(ref="#/parameters/limit"),
- *     @SWG\Response(response=200, description="Collection present")
- * )
- *
  * @SWG\Get(
  *     path="/test/rest/",
  *     tags={"test"},
@@ -66,33 +56,9 @@
  *     summary="Try to delete Collection",
  *     @SWG\Response(response=400, description="Not Found", @SWG\Schema(ref="#/definitions/errorModel"))
  * )
- *
- * @SWG\Options(
- *     path="/test/rest/",
- *     tags={"test"},
- *     operationId="describeCollection",
- *     summary="Get allowed HTTP methods",
- *     @SWG\Response(response=200, description="List of allowed HTTP methods")
- * )
  */
 
 /**
- * @SWG\Head(
- *     path="/test/rest/{itemId}",
- *     tags={"test"},
- *     operationId="overview",
- *     summary="Check item by ID",
- *     @SWG\Parameter(
- *         name="itemId",
- *         in="path",
- *         description="ID of item that needs to be fetched",
- *         required=true,
- *         type="integer"
- *     ),
- *     @SWG\Response(response=200, description="Given item found"),
- *     @SWG\Response(response=404, description="Item not found")
- * )
- *
  * @SWG\Get(
  *     path="/test/rest/{itemId}",
  *     tags={"test"},
@@ -161,34 +127,9 @@
  *     @SWG\Response(response=204, description="Item removed"),
  *     @SWG\Response(response=404, description="Item not found")
  * )
- *
- * @SWG\Options(
- *     path="/test/rest/{itemId}",
- *     tags={"test"},
- *     operationId="describe",
- *     summary="Get allowed HTTP methods",
- *     @SWG\Parameter(
- *         name="itemId",
- *         in="path",
- *         description="ID of item",
- *         required=true,
- *         type="integer"
- *     ),
- *     @SWG\Response(response=200, description="List of allowed HTTP methods")
- * )
  */
 
 /**
- * @SWG\Head(
- *     path="/test/rest-get/",
- *     tags={"test get"},
- *     operationId="overviewCollection",
- *     summary="Check collection of items",
- *     @SWG\Parameter(ref="#/parameters/offset"),
- *     @SWG\Parameter(ref="#/parameters/limit"),
- *     @SWG\Response(response=200, description="Collection present")
- * )
- *
  * @SWG\Get(
  *     path="/test/rest-get/",
  *     tags={"test get"},
@@ -197,22 +138,6 @@
  *     @SWG\Parameter(ref="#/parameters/offset"),
  *     @SWG\Parameter(ref="#/parameters/limit"),
  *     @SWG\Response(response=206, description="Collection present")
- * )
- *
- * @SWG\Head(
- *     path="/test/rest-get/{itemId}",
- *     tags={"test get"},
- *     operationId="overview",
- *     summary="Check item by ID",
- *     @SWG\Parameter(
- *         name="itemId",
- *         in="path",
- *         description="ID of item that needs to be fetched",
- *         required=true,
- *         type="integer"
- *     ),
- *     @SWG\Response(response=200, description="Given item found"),
- *     @SWG\Response(response=404, description="Item not found")
  * )
  *
  * @SWG\Get(
@@ -330,30 +255,5 @@
  *     ),
  *     @SWG\Response(response=204, description="Item removed"),
  *     @SWG\Response(response=404, description="Item not found")
- * )
- */
-
-/**
- * @SWG\Options(
- *     path="/test/rest-options/",
- *     tags={"test options"},
- *     operationId="describeCollection",
- *     summary="Get allowed HTTP methods",
- *     @SWG\Response(response=200, description="List of allowed HTTP methods")
- * )
- *
- * @SWG\Options(
- *     path="/test/rest-options/{itemId}",
- *     tags={"test options"},
- *     operationId="describe",
- *     summary="Get allowed HTTP methods",
- *     @SWG\Parameter(
- *         name="itemId",
- *         in="path",
- *         description="ID of item",
- *         required=true,
- *         type="integer"
- *     ),
- *     @SWG\Response(response=200, description="List of allowed HTTP methods")
  * )
  */

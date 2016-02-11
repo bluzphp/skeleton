@@ -11,7 +11,7 @@
  * @SWG\Swagger(
  *     basePath="/",
  *     schemes={"http"},
- *     produces={"application/json","application/xml"},
+ *     produces={"application/json"},
  *     consumes={"application/x-www-form-urlencoded"},
  *     @SWG\Info(
  *         version="1.0.0",
