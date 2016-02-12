@@ -11,6 +11,7 @@
     "zircote/swagger-php": "~2.0",
     "fortawesome/font-awesome": "~4.5",
     "twbs/bootstrap": "~3.3",
+    "public/swagger-ui": "dev-master",
     "js/html5shiv": "dev-master",
     "js/html5shiv-printshiv": "dev-master",
     "js/jquery": "dev-master",
@@ -24,6 +25,17 @@
     "codeception/codeception": "*"
   },
   "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "version": "dev-master",
+        "name": "public/swagger-ui",
+        "dist":{
+          "url":"https://github.com/swagger-api/swagger-ui/archive/v2.1.4.zip",
+          "type":"zip"
+        }
+      }
+    },
     {
       "type": "package",
       "package": {

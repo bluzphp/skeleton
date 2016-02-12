@@ -15,15 +15,25 @@ function copyVendor($mask, $target) {
     foreach (glob($root .'/vendor/'. $mask) as $file) {
         $script = pathinfo($file, PATHINFO_FILENAME);
         $ext = pathinfo($file, PATHINFO_EXTENSION);
-        $newFile = $root .'/public/'. $target .'/'. $script .'.'. $ext;
 
-        echo 'Copy '. $script .' file' . PHP_EOL;
-//        echo $file .' >> '. $newFile .PHP_EOL;
-
-        copy($file, $newFile);
+        if (is_dir($file)) {
+            $newMask = substr($mask, 0, -2) .'/'. $script .'/*';
+            $newDir = $root .'/public/'. $target .'/'. $script;
+            if (!is_dir($newDir)) {
+                echo 'Make directory '. $target .'/'. $script .PHP_EOL;
+                mkdir($root .'/public/'. $target .'/'. $script);
+            }
+            copyVendor($newMask, $target .'/'.$script);
+        } else {
+            $newFile = $root .'/public/'. $target .'/'. $script .'.'. $ext;
+            echo '  '. $file .' >> '. $newFile .PHP_EOL;
+            copy($file, $newFile);
+        }
     }
 }
 
+// Copy Swagger-UI to public
+copyVendor('public/swagger-ui/dist/*', 'api');
 
 // Copy JavaScript libraries
 copyVendor('js/*/*.js', 'js/vendor');
