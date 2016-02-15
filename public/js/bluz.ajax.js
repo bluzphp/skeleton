@@ -66,6 +66,11 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                     jqXHR.getResponseHeader('Content-Type') === 'application/json')) {
                     var $div = createModal(jqXHR.responseText, 'width:800px');
                     $div.modal('show');
+                } else {
+                    var response = $.parseJSON(jqXHR.responseText);
+                    if (response.hasOwnProperty('error') && response.error.hasOwnProperty('message') ) {
+                        notify.addError(response.error.message);
+                    }
                 }
             })
             .ajaxComplete(function () {

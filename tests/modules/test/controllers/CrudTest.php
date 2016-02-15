@@ -10,9 +10,9 @@
 namespace Application\Tests\Test;
 
 use Application\Tests\ControllerTestCase;
-use Bluz\Http;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Response;
+use Bluz\Proxy\Request;
 
 /**
  * @package  Application\Tests\Test
@@ -84,7 +84,7 @@ class CrudTest extends ControllerTestCase
      */
     public function testCreateForm()
     {
-        $this->dispatchRouter('/test/crud/');
+        $this->dispatch('/test/crud/');
         $this->assertOk();
         $this->assertQueryCount('form[method="POST"]', 1);
     }
@@ -94,7 +94,7 @@ class CrudTest extends ControllerTestCase
      */
     public function testEditForm()
     {
-        $this->dispatchRouter('/test/crud/', ['id' => 1]);
+        $this->dispatch('/test/crud/', ['id' => 1]);
         $this->assertOk();
 
         $this->assertQueryCount('form[method="PUT"]', 1);
@@ -106,7 +106,7 @@ class CrudTest extends ControllerTestCase
      */
     public function testEditFormError()
     {
-        $this->dispatchRouter('/test/crud/', ['id' => 100042]);
+        $this->dispatch('/test/crud/', ['id' => 100042]);
         $this->assertResponseCode(404);
     }
 
@@ -115,10 +115,10 @@ class CrudTest extends ControllerTestCase
      */
     public function testCreate()
     {
-        $this->dispatchRouter(
+        $this->dispatch(
             '/test/crud/',
             ['name' => 'Splinter', 'email' => 'splinter@turtles.org'],
-            Http\Request::METHOD_POST
+            Request::METHOD_POST
         );
         $this->assertOk();
 
@@ -134,10 +134,10 @@ class CrudTest extends ControllerTestCase
      */
     public function testCreateValidationErrors()
     {
-        $this->dispatchRouter(
+        $this->dispatch(
             '/test/crud/',
             ['name' => '', 'email' => ''],
-            Http\Request::METHOD_POST
+            Request::METHOD_POST
         );
 
         $this->assertNotNull(Response::getBody()->errors);
@@ -150,10 +150,10 @@ class CrudTest extends ControllerTestCase
      */
     public function testUpdate()
     {
-        $this->dispatchRouter(
+        $this->dispatch(
             '/test/crud/',
             ['id' => 2, 'name' => 'Leonardo', 'email' => 'leonardo@turtles.ua'],
-            Http\Request::METHOD_PUT
+            Request::METHOD_PUT
         );
         ;
         $this->assertOk();
@@ -170,10 +170,10 @@ class CrudTest extends ControllerTestCase
      */
     public function testUpdateValidationErrors()
     {
-        $this->dispatchRouter(
+        $this->dispatch(
             '/test/crud/',
             ['id' => 2, 'name' => '123456', 'email' => 'leonardo[at]turtles.ua'],
-            Http\Request::METHOD_PUT
+            Request::METHOD_PUT
         );
         ;
         $this->assertNotNull(Response::getBody()->errors);
@@ -186,10 +186,10 @@ class CrudTest extends ControllerTestCase
      */
     public function testDelete()
     {
-        $this->dispatchRouter(
+        $this->dispatch(
             '/test/crud/',
             ['id' => 3],
-            Http\Request::METHOD_DELETE
+            Request::METHOD_DELETE
         );
         $this->assertOk();
 
@@ -205,10 +205,10 @@ class CrudTest extends ControllerTestCase
      */
     public function testDeleteError()
     {
-        $this->dispatchRouter(
+        $this->dispatch(
             '/test/crud/',
             ['id' => 100042],
-            Http\Request::METHOD_DELETE
+            Request::METHOD_DELETE
         );
 
         $this->assertResponseCode(404);

@@ -5,7 +5,6 @@
  * @author   C.O.
  * @created  06.07.11 16:20
  */
-
 /**
  * @namespace
  */
@@ -55,7 +54,6 @@ function errorDisplay() {
     // display error page
     require_once 'error.php';
 }
-
 // Shutdown function for handle critical and other errors
 register_shutdown_function('\\Application\\errorDisplay');
 // Try to run application
@@ -67,12 +65,9 @@ try {
     require_once dirname(__DIR__) . '/vendor/autoload.php';
     // Environment
     $env = getenv('BLUZ_ENV') ?: 'production';
-
     $app = Bootstrap::getInstance();
     $app->init($env);
-    $app->process();
-    $app->render();
-    $app->finish();
+    $app->run();
 } catch (Exception $e) {
     // try to write log
     errorLog($e->getMessage(), $e->getTraceAsString());

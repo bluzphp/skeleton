@@ -26,7 +26,7 @@ class IndexTest extends ControllerTestCase
      */
     public function testNotFoundError404()
     {
-        $this->dispatchUri(uniqid('module'). '/'. uniqid('controller'));
+        $this->dispatch(uniqid('module'). '/'. uniqid('controller'));
 
         $this->assertModule('error');
         $this->assertController('index');

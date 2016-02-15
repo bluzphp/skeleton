@@ -119,7 +119,8 @@ class ControllerTestCase extends TestCase
     protected function assertRedirect($module, $controller, $params = array(), $code = 302)
     {
         $url = Router::getUrl($module, $controller, $params);
-        $exception = Response::getException();
+
+        $exception = $this->getApp()->getException();
 
         $this->assertInstanceOf('\Bluz\Application\Exception\RedirectException', $exception);
         $this->assertEquals($exception->getCode(), $code);
@@ -133,7 +134,7 @@ class ControllerTestCase extends TestCase
      */
     protected function assertReload()
     {
-        $exception = Response::getException();
+        $exception = $this->getApp()->getException();
 
         $this->assertInstanceOf('\Bluz\Application\Exception\ReloadException', $exception);
     }
@@ -145,7 +146,7 @@ class ControllerTestCase extends TestCase
      */
     protected function assertForbidden()
     {
-        $exception = Response::getException();
+        $exception = $this->getApp()->getException();
 
         $this->assertInstanceOf('\Bluz\Application\Exception\ForbiddenException', $exception);
         $this->assertEquals(403, Response::getStatusCode());

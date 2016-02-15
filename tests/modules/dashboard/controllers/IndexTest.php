@@ -36,7 +36,7 @@ class IndexTest extends ControllerTestCase
      */
     public function testRedirectByUri()
     {
-        $this->dispatchUri('dashboard/index');
+        $this->dispatch('dashboard/index');
         $this->assertRedirect('users', 'signin');
     }
 
@@ -58,7 +58,7 @@ class IndexTest extends ControllerTestCase
     public function testForbiddenByUri()
     {
         $this->setupGuestIdentity();
-        $this->dispatchUri('dashboard/index');
+        $this->dispatch('dashboard/index');
         $this->assertForbidden();
     }
 
@@ -70,7 +70,7 @@ class IndexTest extends ControllerTestCase
     public function testError()
     {
         $this->setupGuestIdentity();
-        $this->dispatchUri('dashboard/index');
+        $this->dispatch('dashboard/index');
 
         $this->assertEquals(403, Response::getStatusCode());
     }
@@ -83,7 +83,7 @@ class IndexTest extends ControllerTestCase
     public function testIndex()
     {
         $this->setupSuperUserIdentity();
-        $this->dispatchUri('dashboard/index');
+        $this->dispatch('dashboard/index');
 
         $this->assertEquals(200, Response::getStatusCode());
     }

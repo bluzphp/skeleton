@@ -26,7 +26,7 @@ class OrderTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/categories/order/', [], Request::METHOD_GET, true);
+        $this->dispatch('/categories/order/', [], Request::METHOD_GET, true);
         $this->assertModule('categories');
         $this->assertController('order');
         $this->assertOk();

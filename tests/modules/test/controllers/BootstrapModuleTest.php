@@ -25,7 +25,7 @@ class BootstrapModuleTest extends ControllerTestCase
     public function testControllerPage()
     {
         $this->getApp()->useLayout(false);
-        $this->dispatchRouter('/test/bootstrap/');
+        $this->dispatch('/test/bootstrap/');
         $this->assertOk();
         $this->assertResponseVariable('result', 4);
     }

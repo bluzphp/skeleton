@@ -27,7 +27,7 @@ class RolesTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/acl/roles/');
+        $this->dispatch('/acl/roles/');
         $this->assertOk();
     }
 }

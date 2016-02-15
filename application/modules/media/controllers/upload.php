@@ -15,6 +15,7 @@ use Bluz\Config\ConfigException;
 use Bluz\Http\File;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Request;
+use Zend\Diactoros\UploadedFile;
 
 return
 /**
@@ -24,16 +25,16 @@ return
 function () {
     /**
      * @var Bootstrap $this
-     * @var \Bluz\Http\FileUpload $fileUpload
+     * @var UploadedFile $file
      */
-    $fileUpload = Request::getFileUpload();
-    $file = $fileUpload->getFile('file');
+    $file = Request::getFile('file');
 
-    if ($file && $file->getType() == File::TYPE_IMAGE) {
+    if ($file && $file->getClientMediaType() == File::TYPE_IMAGE) {
         // save original name
-        $original = $file->getName();
+        $original = $file->getClientFilename();
+
         // rename file to date/time stamp
-        $file->setName(date('Ymd_Hi'));
+        $filename = date('Ymd_Hi') .'.'. pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
 
         // switch to JSON response
         $this->useJson();
@@ -60,9 +61,9 @@ function () {
         $media = new Media\Row();
         $media->userId = $userId;
         $media->module = 'media';
-        $media->type = $file->getMimeType();
+        $media->type = $file->getClientMediaType();
         $media->title = $original;
-        $media->file = 'uploads/'.$userId.'/media/'.$file->getFullName();
+        $media->file = 'uploads/'.$userId.'/media/'.$filename;
 
         $media->preview = $media->file;
         $media->save();
@@ -71,7 +72,6 @@ function () {
         return array(
             'filelink' =>  $media->file
         );
-
     } else {
         throw new Exception('Wrong file type');
     }

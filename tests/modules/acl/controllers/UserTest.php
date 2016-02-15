@@ -10,6 +10,7 @@
 namespace Application\Tests\Acl;
 
 use Application\Tests\ControllerTestCase;
+use Bluz\Proxy\Request;
 
 /**
  * @package  Application\Tests\Acl
@@ -28,7 +29,7 @@ class UserTest extends ControllerTestCase
         $this->setupSuperUserIdentity();
 
         // user id is empty
-        $this->dispatchRouter('/acl/user/');
+        $this->dispatch('acl/user');
         $this->assertResponseCode(500);
     }
 
@@ -42,7 +43,8 @@ class UserTest extends ControllerTestCase
         $this->setupSuperUserIdentity();
 
         // user id is admin
-        $this->dispatchRouter('/acl/user/', ['id' => 1]);
+        $this->dispatch('acl/user', ['id' => 1]);
+
         $this->assertOk();
     }
 }

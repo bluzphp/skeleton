@@ -99,9 +99,9 @@ class Row extends AbstractRowEntity
      *
      * @throws Exception
      * @throws AuthException
-     * @return boolean|null
+     * @return void
      */
-    public function login()
+    public function tryLogin()
     {
         switch ($this->status) {
             case (Table::STATUS_PENDING):

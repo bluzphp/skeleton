@@ -25,7 +25,7 @@ class AuthProviderTest extends ControllerTestCase
 
         Db::insert('users')->setArray(
             [
-                'id' => 1,
+                'id' => 11,
                 'login' => 'Donatello',
                 'email' => 'donatello@turtles.org',
                 'status' => 'pending'
@@ -34,7 +34,7 @@ class AuthProviderTest extends ControllerTestCase
 
         Db::insert('users')->setArray(
             [
-                'id' => 2,
+                'id' => 12,
                 'login' => 'Bill',
                 'email' => 'bill@turtles.org',
                 'status' => 'active'
@@ -46,7 +46,7 @@ class AuthProviderTest extends ControllerTestCase
 
     protected function tearDown()
     {
-        Db::delete('users')->where('id IN (?)', [1, 2])->execute();
+        Db::delete('users')->where('id IN (?)', [11, 12])->execute();
         Messages::popAll();
     }
 
@@ -66,7 +66,7 @@ class AuthProviderTest extends ControllerTestCase
     {
         $provider = new AuthProvider('Facebook');
         $authRow = new Row();
-        $authRow->userId = 1;
+        $authRow->userId = 11;
         $provider->alreadyRegisteredLogic($authRow);
     }
 
@@ -75,7 +75,7 @@ class AuthProviderTest extends ControllerTestCase
         $provider = new AuthProvider('Facebook');
         $provider->setResponse($this->getApp());
         $authRow = new Row();
-        $authRow->userId = 2;
+        $authRow->userId = 12;
         try {
             $provider->alreadyRegisteredLogic($authRow);
         } catch (RedirectException $e) {

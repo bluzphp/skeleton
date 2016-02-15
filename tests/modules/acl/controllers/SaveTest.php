@@ -27,7 +27,7 @@ class SaveTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/acl/save/');
+        $this->dispatch('/acl/save/');
 
         // privileges set is empty
         // then redirect to main acl page

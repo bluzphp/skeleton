@@ -25,7 +25,7 @@ class ClosureTest extends ControllerTestCase
     public function testControllerPage()
     {
         $this->getApp()->useLayout(false);
-        $this->dispatchRouter('/test/closure/');
+        $this->dispatch('/test/closure/');
         $this->assertOk();
 
         $closure = Response::getBody();

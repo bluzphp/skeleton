@@ -28,7 +28,7 @@ class FlushTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/cache/flush/', [], Request::METHOD_GET, true);
+        $this->dispatch('/cache/flush/', [], Request::METHOD_GET, true);
         $this->assertOk();
         $this->assertNoticeMessage();
     }

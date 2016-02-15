@@ -23,7 +23,7 @@ class DbQueryTest extends ControllerTestCase
      */
     public function testControllerPage()
     {
-        $this->dispatchRouter('/test/db-query/');
+        $this->dispatch('/test/db-query/');
         $this->assertOk();
     }
 }

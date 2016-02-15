@@ -96,9 +96,7 @@ try {
 
     $app = CliBootstrap::getInstance();
     $app->init($env);
-    $app->process();
-    $app->render();
-    $app->finish();
+    $app->run();
 } catch (Exception $e) {
     echo "Application Exception\n";
     if (getenv('BLUZ_DEBUG')) {

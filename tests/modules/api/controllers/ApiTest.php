@@ -20,35 +20,35 @@ class ApiTest extends ControllerTestCase
 {
     public function testMethodNotFound()
     {
-        $this->dispatchRouter('/api/not-exists');
+        $this->dispatch('api/not-exists');
         // resource not-exists not exists => not found
         $this->assertResponseCode(404);
     }
 
     public function testWrongMethod()
     {
-        $this->dispatchRouter('api/login', [], 'GET');
+        $this->dispatch('api/login', [], 'GET');
         // get is not allowed => not implemented
         $this->assertResponseCode(501);
     }
 
     public function testMissingParam()
     {
-        $this->dispatchRouter('api/login', ['login' => 'admin'], 'POST');
+        $this->dispatch('api/login', ['login' => 'admin'], 'POST');
         // missed password => bad request
         $this->assertResponseCode(400);
     }
 
     public function testLoginWrongPassword()
     {
-        $this->dispatchRouter('api/login', ['login' => 'admin', 'password' => 'password'], 'POST');
+        $this->dispatch('api/login', ['login' => 'admin', 'password' => 'password'], 'POST');
         // wrong password => authorization failed
         $this->assertResponseCode(401);
     }
 
     public function testLoginSuccess()
     {
-        $this->dispatchRouter('api/login', ['login' => 'admin', 'password' => 'admin'], 'POST');
+        $this->dispatch('api/login', ['login' => 'admin', 'password' => 'admin'], 'POST');
 
         $this->assertOk();
         $this->assertArrayHasKey('token', Response::getBody()->toArray());

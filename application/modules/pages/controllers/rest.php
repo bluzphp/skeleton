@@ -12,9 +12,7 @@ use Bluz\Controller;
 
 return
 /**
- * @accept XML
  * @accept JSON
- * @accept JSONP
  * @method GET
  * @method HEAD
  * @return mixed

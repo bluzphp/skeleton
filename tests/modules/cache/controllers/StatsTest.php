@@ -27,7 +27,7 @@ class StatsTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/cache/stats/');
+        $this->dispatch('/cache/stats/');
         $this->assertRedirect('cache', 'index');
         $this->assertNoticeMessage();
     }

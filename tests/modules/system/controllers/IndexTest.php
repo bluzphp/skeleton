@@ -25,7 +25,7 @@ class IndexTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/system/');
+        $this->dispatch('/system/');
         $this->assertModule('system');
         $this->assertController('index');
         $this->assertOk();

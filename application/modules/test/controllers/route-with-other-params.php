@@ -10,10 +10,12 @@
 namespace Application;
 
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Router;
 
 return
 /**
  * @route /test/route-with-other-params/{$alias}(.*)
+ * @param string $alias
  */
 function ($alias) use ($module, $controller, $view) {
     /**
@@ -21,8 +23,10 @@ function ($alias) use ($module, $controller, $view) {
      * @var \Bluz\View\View $view
      */
     var_dump($alias);
-    var_dump(Request::getParams());
-    var_dump(Request::getAllParams());
-    var_dump(Request::getRawParams());
+    var_dump(Router::getParams());
+    var_dump(Router::getRawParams());
+    var_dump(Request::getParam('id'));
+    var_dump(Request::getParam('alias'));
+    var_dump(Request::getParam('PHPSESSID'));
     return false;
 };

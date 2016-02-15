@@ -20,6 +20,7 @@ use Bluz\Proxy\Auth;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Request;
+use Zend\Diactoros\UploadedFile;
 use Zend\Dom\Document;
 
 /**
@@ -63,23 +64,17 @@ class CrudTest extends ControllerTestCase
             throw new Exception('Temporary path is not configured');
         }
 
-        $_FILES = array(
-            'file' => array(
-                'name' => 'test.jpg',
-                'size' => filesize($path),
-                'type' => 'image/jpeg',
-                'tmp_name' => $path,
-                'error' => 0
-            )
-        );
+        $file = new UploadedFile($path, filesize($path), UPLOAD_ERR_OK, 'test.jpg', 'image/jpeg');
 
-        Request::setFileUpload(new TestFileUpload());
-
-        $this->dispatchUri(
+        $request = $this->prepareRequest(
             'media/crud',
-            ['title' => 'test', 'file' => $_FILES['file']],
-            'POST'
-        );
+            [],
+            ['title' => 'test'],
+            Request::METHOD_POST
+        )->withUploadedFiles(['file' => $file]);
+
+        Request::setInstance($request);
+        $this->getApp()->process();
 
         $this->assertQueryCount('input[name="title"]', 1);
         $this->assertOk();
@@ -90,7 +85,7 @@ class CrudTest extends ControllerTestCase
      */
     public function testCreateForm()
     {
-        $this->dispatchRouter('/media/crud/');
+        $this->dispatch('/media/crud/');
         $this->assertOk();
 
         $this->assertQueryCount('form[method="POST"]', 1);
@@ -121,7 +116,7 @@ class CrudTest extends ControllerTestCase
      */
     public function testEditFormError()
     {
-        $this->dispatchRouter('/media/crud/', ['id' => 100042]);
+        $this->dispatch('/media/crud/', ['id' => 100042]);
         $this->assertResponseCode(404);
     }
 }

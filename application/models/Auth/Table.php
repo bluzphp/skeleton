@@ -42,17 +42,19 @@ class Table extends AbstractTable
      * @param string $username
      * @param string $password
      * @throws AuthException
-     * @return void
+     * @throws Exception
      */
     public function authenticateEquals($username, $password)
     {
         $authRow = $this->checkEquals($username, $password);
 
         // get user profile
-        $user = Users\Table::findRow($authRow->userId);
+        if (!$user = Users\Table::findRow($authRow->userId)) {
+            throw new Exception("User is undefined in system");
+        }
 
         // try to login
-        $user->login();
+        $user->tryLogin();
     }
 
     /**
@@ -168,7 +170,7 @@ class Table extends AbstractTable
         $user = Users\Table::findRow($authRow->userId);
 
         // try to login
-        $user->login();
+        $user->tryLogin();
     }
 
     /**
@@ -275,7 +277,7 @@ class Table extends AbstractTable
         $user = Users\Table::findRow($authRow->userId);
 
         // try to login
-        $user->login();
+        $user->tryLogin();
     }
 
     /**

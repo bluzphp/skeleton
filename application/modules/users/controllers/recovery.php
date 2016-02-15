@@ -78,15 +78,11 @@ function ($email = null) use ($view) {
 
             try {
                 $mail = Mailer::create();
-
-                // subject
                 $mail->Subject = $subject;
                 $mail->MsgHTML(nl2br($body));
-
                 $mail->AddAddress($user->email);
 
                 Mailer::send($mail);
-
             } catch (\Exception $e) {
                 // log it
                 Logger::log(
@@ -102,7 +98,6 @@ function ($email = null) use ($view) {
                 "Reset password instructions has been sent to your email address"
             );
             $this->redirectTo('index', 'index');
-
         } catch (Exception $e) {
             Messages::addError($e->getMessage());
         }

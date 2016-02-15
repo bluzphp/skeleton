@@ -11,6 +11,8 @@ namespace Application;
 
 return
 /**
+ * @accept HTML
+ * @accept JSON
  * @privilege Denied
  * @return \closure
  */

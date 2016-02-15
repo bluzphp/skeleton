@@ -33,6 +33,8 @@ return
  * @route /api/{$resource}
  * @param string $resource
  *
+ * @accept JSON
+ * @accept HTML
  * @return \closure
  */
 function ($resource, $id, $relation, $relationId) {
@@ -45,7 +47,7 @@ function ($resource, $id, $relation, $relationId) {
 
     try {
         // authentication
-        if ($token = $this->getRequest()->getParam('token')) {
+        if ($token = Request::getParam('token')) {
             Table::getInstance()->authenticateToken($token);
         }
 
@@ -55,7 +57,10 @@ function ($resource, $id, $relation, $relationId) {
                 $params[] = $param;
             }
         }
-        Request::setRawParams($params);
+
+        $request = Request::getInstance();
+        $request = $request->withQueryParams($params);
+        Request::setInstance($request);
 
         return $this->dispatch('api', $resource);
     } catch (\Exception $e) {

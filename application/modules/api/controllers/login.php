@@ -11,6 +11,7 @@ namespace Application;
 
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotImplementedException;
+use Bluz\Proxy\Request;
 
 /**
  * @SWG\Post(
@@ -45,8 +46,8 @@ function () {
     /**
      * @var Bootstrap $this
      */
-    if ($this->getRequest()->isPost()) {
-        $params = $this->getRequest()->getAllParams();
+    if (Request::isPost()) {
+        $params = Request::getParams();
 
         if (!array_key_exists('login', $params) || !array_key_exists('password', $params)) {
             throw new BadRequestException('Login and password are required');

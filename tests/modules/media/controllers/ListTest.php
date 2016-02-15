@@ -25,7 +25,7 @@ class ListTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/media/list/');
+        $this->dispatch('/media/list/');
         $this->assertModule('media');
         $this->assertController('list');
         $this->assertOk();

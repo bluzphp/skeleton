@@ -25,7 +25,7 @@ class InfoTest extends ControllerTestCase
     {
         $this->setupSuperUserIdentity();
 
-        $this->dispatchRouter('/system/info/');
+        $this->dispatch('/system/info/');
         $this->assertModule('system');
         $this->assertController('info');
         $this->assertOk();

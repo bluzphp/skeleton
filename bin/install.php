@@ -1,7 +1,8 @@
 <?php
 /**
- * @author  volkov
- * @created 4/3/14 11:47 AM
+ * Post Install Composer script
+ *
+ * @author  Volkov
  */
 
 // Root path, one level up
@@ -31,3 +32,5 @@ echo 'Copy .htaccess file' . PHP_EOL;
 if (copy($root . '/public/.htaccess.dev.sample', $root . '/public/.htaccess')) {
     echo ' ./public/.htaccess' . PHP_EOL;
 }
+
+require_once 'update.php';

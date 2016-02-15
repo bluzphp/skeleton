@@ -11,6 +11,7 @@ use Swagger;
 
 return
 /**
+ * @accept JSON
  * @return \closure
  */
 function () {

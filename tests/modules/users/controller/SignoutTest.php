@@ -39,7 +39,7 @@ class SignoutTest extends ControllerTestCase
     {
         $this->assertNotNull(Auth::getIdentity());
 
-        $this->dispatchUri('users/signout');
+        $this->dispatch('users/signout');
 
         $this->assertModule('users');
         $this->assertController('signout');

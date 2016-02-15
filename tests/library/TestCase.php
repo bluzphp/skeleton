@@ -9,9 +9,7 @@
  */
 namespace Application\Tests;
 
-use Bluz\Http;
 use Bluz\Proxy;
-use Bluz\Proxy\Config;
 use Bluz\Proxy\Request;
 use Bluz\Tests\TestCase as BluzTest;
 
@@ -44,80 +42,38 @@ class TestCase extends BluzTest
     }
 
     /**
-     * prepareRequest
+     * dispatch URI over Router
      *
-     * @param string $uri in format "module/controller"
+     * @param string $path in format "module/controller"
      * @param array $params of request
      * @param string $method HTTP
      * @param bool $ajax
-     * @return Http\Request
+     * @return void
      */
-    private function prepareRequest($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
+    protected function dispatch($path, array $params = null, $method = Request::METHOD_GET, $ajax = false)
     {
-        Request::setRequestUri($uri);
-        Request::setOptions(Config::getData('request'));
-        Request::setMethod($method);
+        $query = [];
 
-
-        // process $_GET params
-        if ($query = stristr($uri, '?')) {
-            $query = substr($query, 1); // remove `?` sign
-            parse_str($query, $_GET);   // fill $_GET
-        }
-
-        // process custom params
-        if ($params) {
-            Request::setParams($params);
+        // this is magic for short signature of function
+        // for GET request use $params as `query params`
+        // for other requests use $params as `parsed body params`
+        if ($method == Request::METHOD_GET) {
+            $query = $params;
+            $params = [];
         }
 
         if ($ajax) {
-            $_SERVER['HTTP_ACCEPT'] = 'application/json';
-            $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
+            $headers = [
+                'Accept' => 'application/json',
+                'X-Requested-With' => 'XMLHttpRequest',
+            ];
         } else {
-            $_SERVER['HTTP_ACCEPT'] = 'text/html';
-        }
-    }
-
-    /**
-     * dispatch URI
-     *
-     * @param string $uri in format "module/controller"
-     * @param array $params of request
-     * @param string $method HTTP
-     * @param bool $ajax
-     * @return void
-     */
-    protected function dispatchUri($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
-    {
-        $this->prepareRequest($uri, $params, $method, $ajax);
-
-        $uri = trim($uri, '/ ');
-        list($module, $controller) = explode('/', $uri);
-
-        // set default controller
-        if (!$controller) {
-            $controller = Request::getController();
+            $headers = [
+                'Accept' => 'text/html',
+            ];
         }
 
-        Request::setModule($module);
-        Request::setController($controller);
-        Request::setRequestUri($uri);
-
-        $this->getApp()->process();
-    }
-
-    /**
-     * dispatch URI over Router
-     *
-     * @param string $uri in format "module/controller"
-     * @param array $params of request
-     * @param string $method HTTP
-     * @param bool $ajax
-     * @return void
-     */
-    protected function dispatchRouter($uri, array $params = null, $method = Http\Request::METHOD_GET, $ajax = false)
-    {
-        $this->prepareRequest($uri, $params, $method, $ajax);
+        $this->setRequestParams($path, $query, $params, $method, $headers);
         $this->getApp()->process();
     }
 }
