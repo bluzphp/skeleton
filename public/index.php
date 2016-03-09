@@ -50,12 +50,13 @@ function errorDisplay() {
         ob_end_clean();
     }
     // try to write log
-    errorLog($e['message'], $e['file'] ."#". $e['line']);
+    errorLog($e['type'], $e['message'], $e['file'], $e['line']);
     // display error page
     require_once 'error.php';
 }
-// Shutdown function for handle critical and other errors
+// Shutdown function for handle critical errors
 register_shutdown_function('\\Application\\errorDisplay');
+
 // Try to run application
 try {
     /**
@@ -63,6 +64,10 @@ try {
      * @see http://getcomposer.org/apidoc/master/Composer/Autoload/ClassLoader.html
      */
     require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+    // Error handler for log other errors
+    set_error_handler('\\Application\\errorLog', E_ALL);
+
     // Environment
     $env = getenv('BLUZ_ENV') ?: 'production';
     $app = Bootstrap::getInstance();
@@ -70,7 +75,7 @@ try {
     $app->run();
 } catch (Exception $e) {
     // try to write log
-    errorLog($e->getMessage(), $e->getTraceAsString());
+    errorLog(E_USER_ERROR, $e->getMessage());
     // display error page
     require_once 'error.php';
 }

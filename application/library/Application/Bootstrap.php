@@ -131,7 +131,7 @@ class Bootstrap extends Application
     {
         if ($messages = Logger::get('error')) {
             foreach ($messages as $message) {
-                errorLog($message);
+                errorLog(E_USER_ERROR, $message);
             }
         }
     }
