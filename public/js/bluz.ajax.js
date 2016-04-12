@@ -213,6 +213,62 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 				});
 				return false;
 			})
+            //Ajax load by clicking on the item list
+            .on('change.bluz.ajax', '.load-select', function (event) {
+                event.preventDefault();
+
+                var $this = $(this);
+                if ($this.hasClass('disabled')) {
+                    // request in progress
+                    return false;
+                }
+
+                var method = $this.data('ajax-method');
+                var target = $this.data('ajax-target');
+                var source = $this.data('ajax-source');
+
+                if (!target) {
+                    throw "Undefined 'data-ajax-target' attribute";
+                }
+
+                if (!source) {
+                    throw "Undefined 'data-ajax-source' attribute (and href is missing)";
+                }
+
+                var dataArray = [];
+                var dataOption = $('.load-select option:selected');
+                var key = $this.attr('name');
+                dataArray[key] = dataOption.val();
+
+                var plain = processData(dataOption);
+                $.extend(plain, dataArray);
+
+                $.ajax({
+                    url: source,
+                    type: (method ? method : 'post'),
+                    data: plain,
+                    dataType: 'html',
+                    beforeSend: function () {
+                        $this.addClass('disabled');
+                    },
+                    success: function (data) {
+                        $this.trigger('success.ajax.bluz', arguments);
+                        var $target = $(target);
+                        if ($target.length === 0) {
+                            throw "Element defined by 'data-ajax-target' not found";
+                        }
+                        $target.html(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        $this.trigger('error.ajax.bluz', arguments);
+                    },
+                    complete: function () {
+                        $this.removeClass('disabled');
+                    }
+                });
+                return false;
+
+            })
 			// Ajax modal dialog
 			.on('click.bluz.ajax', '.dialog', function (event) {
                 event.preventDefault();
