@@ -157,6 +157,25 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
 
 <hr/>
 
+<div class="row">
+    <div class="col-md-3 form-group">
+        <select class="form-control load-select" name="formName" data-ajax-source="/test/ajax-form"
+                data-ajax-target="#formPlace">
+            <option value="">Select Form</option>
+            <option value="first-form">First</option>
+            <option value="second-form">Second</option>
+        </select>
+    </div>
+</div>
+
+<div class="row">
+    <div id="formPlace">
+        <h3>Form loading to this container</h3>
+    </div>
+</div>
+
+<hr/>
+
 <h3>Access denied</h3>
 <div class="btn-group">
     <a href="<?= $this->url('test', 'privilege') ?>" class="btn btn-default bluz-tooltip ajax" data-toggle="tooltip" title="Return error message">Denied page, AJAX call</a>
