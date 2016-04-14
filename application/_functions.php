@@ -22,12 +22,7 @@ namespace Application;
  */
 function errorLog($type, $message, $file = null, $line = null)
 {
-    if (
-        getenv('BLUZ_LOG')
-        && is_dir(PATH_DATA .'/logs')
-        && is_writable(PATH_DATA .'/logs')
-    ) {
-
+    if (getenv('BLUZ_LOG') && is_dir(PATH_DATA .'/logs') && is_writable(PATH_DATA .'/logs')) {
         switch ($type) {
             case E_PARSE:
             case E_ERROR:
