@@ -76,12 +76,13 @@ function errorDisplay() {
         echo $e['file'] ."#". $e['line'] ."\n";
     }
     // try to write log
-    errorLog($e['message'], $e['file'] ."#". $e['line']);
+    errorLog($e['type'], $e['message'], $e['file'] ."#". $e['line']);
     exit(1);
 }
 
-// Shutdown function for handle critical and other errors
+// Shutdown function for handle critical errors
 register_shutdown_function('\\Application\\errorDisplay');
+
 
 // Try to run application
 try {
@@ -90,6 +91,9 @@ try {
      * @see http://getcomposer.org/apidoc/master/Composer/Autoload/ClassLoader.html
      */
     require_once dirname(__DIR__) . '/vendor/autoload.php';
+    
+    // Error handler for log other errors
+    set_error_handler('\\Application\\errorLog', E_ALL);
 
     // Environment
     $env = getenv('BLUZ_ENV')?:'production';
@@ -109,6 +113,6 @@ try {
         echo "Use `--debug` flag for receive more information\n";
     }
     // try to write log
-    errorLog($e->getMessage(), $e->getTraceAsString());
+    errorLog(E_USER_ERROR, $e->getMessage());
     exit(1);
 }

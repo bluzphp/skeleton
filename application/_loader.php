@@ -22,7 +22,7 @@ define('PATH_PUBLIC', $root . '/public');
 
 // Debug mode for development environment only
 if (getenv('BLUZ_DEBUG')) {
-    error_reporting(E_ALL | E_STRICT);
+    error_reporting(E_ALL);
     ini_set('display_errors', 1);
 } else {
     error_reporting(0);

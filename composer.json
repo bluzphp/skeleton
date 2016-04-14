@@ -22,8 +22,7 @@
     "phpunit/phpunit": "~5.3",
     "satooshi/php-coveralls": "dev-master",
     "squizlabs/php_codesniffer": "~2.3",
-    "zendframework/zend-dom": "~2.3",
-    "codeception/codeception": "*"
+    "zendframework/zend-dom": "~2.3"
   },
   "repositories": [
     {
@@ -43,7 +42,7 @@
         "name": "js/require",
         "version": "dev-master",
         "dist": {
-          "url": "https://requirejs.org/docs/release/2.1.22/minified/require.js",
+          "url": "http://requirejs.org/docs/release/2.1.22/minified/require.js",
           "type": "file"
         }
       }
