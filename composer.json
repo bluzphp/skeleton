@@ -42,7 +42,7 @@
         "name": "js/require",
         "version": "dev-master",
         "dist": {
-          "url": "http://requirejs.org/docs/release/2.1.22/minified/require.js",
+          "url": "https://requirejs.org/docs/release/2.2.0/minified/require.js",
           "type": "file"
         }
       }
