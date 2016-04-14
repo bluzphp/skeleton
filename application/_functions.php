@@ -22,9 +22,11 @@ namespace Application;
  */
 function errorLog($type, $message, $file = null, $line = null)
 {
-    if (getenv('BLUZ_LOG')
+    if (
+        getenv('BLUZ_LOG')
         && is_dir(PATH_DATA .'/logs')
-        && is_writable(PATH_DATA .'/logs')) {
+        && is_writable(PATH_DATA .'/logs')
+    ) {
 
         switch ($type) {
             case E_PARSE:
@@ -51,7 +53,7 @@ function errorLog($type, $message, $file = null, $line = null)
             case E_USER_DEPRECATED:
                 $error = 'deprecated';
                 break;
-            default :
+            default:
                 $error = 'undefined';
                 break;
         }
