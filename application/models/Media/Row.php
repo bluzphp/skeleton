@@ -10,6 +10,7 @@
 namespace Application\Media;
 
 use Application\Users;
+use Bluz\Proxy\Auth;
 use Bluz\Validator\Traits\Validator;
 use Bluz\Validator\Validator as v;
 use Image\Thumbnail;
@@ -62,7 +63,7 @@ class Row extends \Bluz\Db\Row
             $this->module = 'users';
         }
         // set user ID
-        if ($user = app()->user()) {
+        if ($user = Auth::getIdentity()) {
             $this->userId = $user->id;
         } else {
             $this->userId = Users\Table::SYSTEM_USER;

@@ -10,6 +10,7 @@
 namespace Application\Pages;
 
 use Application\Users;
+use Bluz\Proxy\Auth;
 use Bluz\Validator\Traits\Validator;
 use Bluz\Validator\Validator as v;
 
@@ -93,7 +94,7 @@ class Row extends \Bluz\Db\Row
         $this->created = gmdate('Y-m-d H:i:s');
 
         /* @var \Application\Users\Row $user */
-        if ($user = app()->user()) {
+        if ($user = Auth::getIdentity()) {
             $this->userId = $user->id;
         } else {
             $this->userId = Users\Table::SYSTEM_USER;
