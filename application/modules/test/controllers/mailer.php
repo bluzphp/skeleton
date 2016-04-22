@@ -24,7 +24,7 @@ function ($email = "no-reply@nixsolutions.com") use ($view) {
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Mailer Example',
         ]
     );

@@ -12,6 +12,8 @@
 namespace Application;
 
 use Bluz\Common\Nil;
+use Bluz\Controller\Controller;
+use Bluz\Controller\Data;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Messages;
@@ -23,22 +25,22 @@ return
  * @privilege Management
  * @return void
  */
-function () use ($view) {
+function () use ($data) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
+     * @var Data $data
      */
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
         [
-            $view->ahref('Dashboard', ['dashboard', 'index']),
-            $view->ahref('Cache', ['cache', 'index']),
+            Layout::ahref('Dashboard', ['dashboard', 'index']),
+            Layout::ahref('Cache', ['cache', 'index']),
             __('Statistics'),
         ]
     );
 
     if (!Cache::getInstance() instanceof Nil) {
-        $view->adapter = Cache::getInstance()->getAdapter();
+        $data->adapter = Cache::getInstance()->getAdapter();
     } else {
         Messages::addNotice("Cache is disabled");
         $this->redirectTo('cache', 'index');

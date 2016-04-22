@@ -23,7 +23,7 @@ function ($int, $string, $array, $optional = 0) use ($view) {
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Form Example',
         ]
     );

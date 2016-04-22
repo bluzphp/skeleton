@@ -34,8 +34,8 @@ function () use ($view) {
     $this->useLayout('dashboard.phtml');
     Layout::breadCrumbs(
         [
-            $view->ahref('Dashboard', ['dashboard', 'index']),
-            $view->ahref('Media', ['media', 'grid']),
+            Layout::ahref('Dashboard', ['dashboard', 'index']),
+            Layout::ahref('Media', ['media', 'grid']),
             __('Upload')
         ]
     );

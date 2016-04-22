@@ -15,9 +15,8 @@ return
  * @return void
  */
 function () {
-    /**
-     * @var Bootstrap $this
-     */
+    $this->disableView();
+    
     echo <<<LOREM
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus rutrum,
 lectus eu varius consectetur, libero velit hendrerit augue, ut posuere enim neque
@@ -30,5 +29,4 @@ tempor at scelerisque quis, tincidunt in neque. Etiam ut risus diam. Pellentesqu
 fermentum risus id elit feugiat cursus. Ut fringilla dictum diam, sed iaculis
 lorem pulvinar ut. Cras vel elit id velit commodo viverra sit amet vel orci.
 LOREM;
-
 };

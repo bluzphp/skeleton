@@ -18,14 +18,14 @@ return
  *
  * @return \closure
  */
-function ($id = null) use ($bootstrap, $view) {
+function ($id = null) use ($view) {
     /**
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Cache Data',
         ]
     );

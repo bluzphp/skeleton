@@ -17,7 +17,7 @@ return
          */
         Layout::breadCrumbs(
             [
-                $view->ahref('Test', ['test', 'index']),
+                Layout::ahref('Test', ['test', 'index']),
                 'Grid with Filter',
             ]
         );

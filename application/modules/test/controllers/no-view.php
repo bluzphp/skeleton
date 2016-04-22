@@ -20,6 +20,5 @@ function () {
             'Without view',
         ]
     );
-    return function () {
-    };
+    $this->template = null;
 };

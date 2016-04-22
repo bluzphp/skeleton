@@ -26,7 +26,7 @@ function ($sex = false, $car = 'none', $remember = false) use ($view) {
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'View Form Helpers',
         ]
     );

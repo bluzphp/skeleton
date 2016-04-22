@@ -18,7 +18,7 @@ return
  * @param bool $messages
  * @return void
  */
-function ($messages = false) use ($view) {
+function ($messages = false) use ($data) {
     /**
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
@@ -28,8 +28,8 @@ function ($messages = false) use ($view) {
         Messages::addSuccess('Success for AJAX call');
         Messages::addError('Error for AJAX call');
 
-        $view->baz = 'qux';
+        $data->baz = 'qux';
     }
     Messages::addNotice('Method '. Request::getMethod());
-    $view->foo = 'bar';
+    $data->foo = 'bar';
 };

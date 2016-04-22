@@ -9,6 +9,8 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
+use Bluz\Controller\Data;
 use Bluz\Proxy\Layout;
 
 return
@@ -17,23 +19,27 @@ return
  *
  * @return void
  */
-function () use ($view) {
+function () use ($data) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
+     * @var Data $data
      */
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
         [
-            $view->ahref('Dashboard', ['dashboard', 'index']),
+            Layout::ahref('Dashboard', ['dashboard', 'index']),
             __('ACL')
         ]
     );
 
     $set = array();
     foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {
-        $module = pathinfo(dirname(dirname($file->getPathname())), PATHINFO_FILENAME);
-        $reflection = $this->reflection($file->getPathname());
+        $module = $file->getPathInfo()->getPathInfo()->getBasename();
+        $controller = $file->getBasename('.php');
+
+        $controllerInstance = new Controller($module, $controller);
+        $reflection = $controllerInstance->getReflection();
+        
         if ($privilege = $reflection->getPrivilege()) {
             if (!isset($set[$module])) {
                 $set[$module] = array();
@@ -45,7 +51,7 @@ function () use ($view) {
         }
     }
 
-    $view->set = $set;
+    $data->set = $set;
     $privilegesRowset = Privileges\Table::getInstance()->getPrivileges();
     $privileges = array();
 
@@ -58,6 +64,6 @@ function () use ($view) {
         }
         $privileges[$privilege->roleId][$privilege->module][] = $privilege->privilege;
     }
-    $view->privileges = $privileges;
-    $view->roles = Roles\Table::getInstance()->getRoles();
+    $data->privileges = $privileges;
+    $data->roles = Roles\Table::getInstance()->getRoles();
 };

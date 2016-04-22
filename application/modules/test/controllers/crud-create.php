@@ -28,7 +28,6 @@ function () use ($view) {
     $row = new Test\Row();
     $view->row = $row;
 
-
     if (Request::isPost()) {
         $crud = Test\Crud::getInstance();
         try {

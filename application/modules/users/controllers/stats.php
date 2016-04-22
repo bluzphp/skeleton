@@ -6,17 +6,20 @@
 namespace Application;
 
 use Application\Users\Table;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Router;
 
 return
 /**
+ * @privilege Management
  * @return \closure
  */
 function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
+    $this->disableView();
     $total = Db::fetchOne('SELECT COUNT(*) FROM users');
     $active = Db::fetchOne('SELECT COUNT(*) FROM users WHERE status = ?', [Table::STATUS_ACTIVE]);
     $last = Db::fetchRow('SELECT id, login FROM users ORDER BY id DESC LIMIT 1');

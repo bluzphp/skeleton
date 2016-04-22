@@ -131,27 +131,27 @@ class Table extends AbstractTable
 
         $this->delete(
             [
-                'userId' => app()->user()->id,
-                'foreignKey' => app()->user()->login,
+                'userId' => Auth::getIdentity()->id,
+                'foreignKey' => Auth::getIdentity()->login,
                 'provider' => self::PROVIDER_COOKIE,
                 'tokenType' => self::TYPE_ACCESS,
             ]
         );
 
         $row = new Row();
-        $row->userId = app()->user()->id;
-        $row->foreignKey = app()->user()->login;
+        $row->userId = Auth::getIdentity()->id;
+        $row->foreignKey = Auth::getIdentity()->login;
         $row->provider = self::PROVIDER_COOKIE;
         $row->tokenType = self::TYPE_ACCESS;
         $row->expired = gmdate('Y-m-d H:i:s', time() + $ttl);
 
-        $row->tokenSecret = $this->generateSecret(app()->user()->id);
+        $row->tokenSecret = $this->generateSecret(Auth::getIdentity()->id);
         $row->token = hash('md5', $row->tokenSecret . $hash);
 
         $row->save();
 
         Response::setCookie('rToken', $hash, time() + $ttl, '/');
-        Response::setCookie('rId', app()->user()->id, time() + $ttl, '/');
+        Response::setCookie('rId', Auth::getIdentity()->id, time() + $ttl, '/');
     }
 
     /**

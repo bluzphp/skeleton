@@ -20,12 +20,14 @@ use Bluz\Proxy\Request;
 
 return
 /**
+ * @accept HTML
+ * @accept JSON
  * @route  /error/{$code}
  * @param  int $code
  * @param  string $message
  * @return \Bluz\View\View
  */
-function ($code, $message = '') use ($view) {
+function ($code, $message = '') {
     /**
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
@@ -48,8 +50,6 @@ function ($code, $message = '') use ($view) {
         return false;
     }
     */
-
-
 
     switch ($code) {
         case 400:
@@ -102,7 +102,7 @@ function ($code, $message = '') use ($view) {
         if (Request::getAccept(['application/json'])) {
             $this->useJson();
             Messages::addError($description);
-            return $view;
+            return null;
         }
         // dialog AJAX call, accept HTML
         if (!Request::isXmlHttpRequest()) {
@@ -111,8 +111,9 @@ function ($code, $message = '') use ($view) {
     }
 
     Layout::title($title);
-    $view->error = $title;
-    $view->description = $description;
 
-    return $view;
+    return [
+        'error' => $title,
+        'description' => $description
+    ];
 };

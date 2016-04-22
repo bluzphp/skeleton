@@ -8,14 +8,16 @@
  */
 namespace Application;
 
+use Bluz\Controller\Data;
+
 return
 /**
  * @return \closure
  */
-function () use ($view) {
+function () use ($data) {
     /**
      * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Data $data
      */
-    $view->time = date('H:i:s');
+    $data->time = date('H:i:s');
 };

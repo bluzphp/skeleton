@@ -8,29 +8,30 @@
 namespace Application;
 
 use Application\Options;
+use Bluz\Controller\Data;
 use Bluz\Proxy\Layout;
 
 return
 /**
  * @return \closure
  */
-function () use ($view) {
+function () use ($data) {
     /**
      * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Data $view
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Options',
         ]
     );
 
-    if ($data = Options\Table::get('example')) {
-        $view->message = sprintf('Option `example` was found, it is `%s`', (string) $data);
+    if ($example = Options\Table::get('example')) {
+        $data->message = sprintf('Option `example` was found, it is `%s`', (string) $example);
         Options\Table::remove('example');
     } else {
-        $view->message = 'Option `example` not found, try again later';
+        $data->message = 'Option `example` not found, try again later';
         Options\Table::set('example', uniqid('example_'));
     }
 };

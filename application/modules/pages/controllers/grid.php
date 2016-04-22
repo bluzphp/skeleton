@@ -7,6 +7,8 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
+use Bluz\Controller\Data;
 use Bluz\Proxy\Layout;
 
 return
@@ -14,15 +16,15 @@ return
  * @privilege Management
  * @return void
  */
-function () use ($view, $module, $controller) {
+function () use ($data, $module, $controller) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
+     * @var Data $data
      */
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
         [
-            $view->ahref('Dashboard', ['dashboard', 'index']),
+            Layout::ahref('Dashboard', ['dashboard', 'index']),
             __('Pages')
         ]
     );
@@ -31,5 +33,5 @@ function () use ($view, $module, $controller) {
     $grid->setModule($module);
     $grid->setController($controller);
 
-    $view->grid = $grid;
+    $data->grid = $grid;
 };

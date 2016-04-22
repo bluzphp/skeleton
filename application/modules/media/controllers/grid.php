@@ -10,6 +10,8 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
+use Bluz\Controller\Data;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
@@ -19,15 +21,15 @@ return
  * @privilege Management
  * @return \closure
  */
-function () use ($view) {
+function () use ($data) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
+     * @var Data $data
      */
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
         [
-            $view->ahref('Dashboard', ['dashboard', 'index']),
+            Layout::ahref('Dashboard', ['dashboard', 'index']),
             __('Media')
         ]
     );
@@ -42,7 +44,7 @@ function () use ($view) {
     }
 
     $lnCol = (integer)(12 / $countCol);
-    $view->countCol = $countCol;
-    $view->col = $lnCol;
-    $view->grid = $grid;
+    $data->countCol = $countCol;
+    $data->col = $lnCol;
+    $data->grid = $grid;
 };

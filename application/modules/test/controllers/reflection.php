@@ -9,6 +9,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Data;
 use Bluz\Controller\Reflection;
 use Bluz\Proxy\Layout;
 
@@ -22,14 +23,14 @@ return
  * @route /test-reflection.html
  * @return \closure
  */
-function ($id = 0, $other = "default value") use ($view) {
+function ($id = 0, $other = "default value") use ($data) {
     /**
      * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Data $data
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Reflection of this controller',
         ]
     );
@@ -37,8 +38,8 @@ function ($id = 0, $other = "default value") use ($view) {
     $reflection = new Reflection(__FILE__);
     $reflection->process();
 
-    $view->functionData = file_get_contents(__FILE__);
-    $view->reflectionData = $this->reflection(__FILE__);
-    $view->id = $id;
-    $view->other = $other;
+    $data->functionData = file_get_contents(__FILE__);
+    $data->reflectionData = $this->reflection(__FILE__);
+    $data->id = $id;
+    $data->other = $other;
 };

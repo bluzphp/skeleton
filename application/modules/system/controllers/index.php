@@ -13,16 +13,12 @@ return
  *
  * @return \closure
  */
-function () use ($view) {
-    /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
-     */
+function () {
     Layout::title('System Module');
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
         [
-            $view->ahref('Dashboard', ['dashboard', 'index']),
+            Layout::ahref('Dashboard', ['dashboard', 'index']),
             __('System'),
         ]
     );

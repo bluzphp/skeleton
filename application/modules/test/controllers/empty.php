@@ -1,9 +1,9 @@
 <?php
 /**
- * Request examples
+ * Empty view
  *
  * @author   Anton Shevchuk
- * @created  25.02.14 18:01
+ * @created  22.08.12 17:14
  */
 namespace Application;
 
@@ -13,15 +13,11 @@ return
 /**
  * @return \closure
  */
-function () use ($view) {
-    /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
-     */
+function () {
     Layout::breadCrumbs(
         [
             Layout::ahref('Test', ['test', 'index']),
-            'Request Examples',
+            'Empty',
         ]
     );
 };

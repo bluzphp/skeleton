@@ -12,7 +12,7 @@
 namespace Application;
 
 use Bluz\Config\ConfigException;
-use Bluz\Http\File;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Request;
 use Zend\Diactoros\UploadedFile;
@@ -24,7 +24,7 @@ return
  */
 function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      * @var UploadedFile $file
      */
     $file = Request::getFile('file');

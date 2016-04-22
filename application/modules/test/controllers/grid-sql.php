@@ -14,14 +14,14 @@ return
 /**
  * @return \closure
  */
-function () use ($view, $module, $controller) {
+function () use ($module, $controller) {
     /**
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Grid with SQL',
         ]
     );
@@ -31,5 +31,5 @@ function () use ($view, $module, $controller) {
     // just example of same custom param for build URL
     $grid->setParams(['id'=>5]);
 
-    $view->grid = $grid;
+    return ['grid' => $grid];
 };

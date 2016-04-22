@@ -9,10 +9,9 @@
 <p>This is page consist many examples, all of them you can find in test module</p>
 <h3>Controller features</h3>
 <ul>
-    <li><?= $this->ahref('Controller &rarr; Closure', ['test', 'closure']);?></li>
+    <li><?= $this->ahref('Reflection Data', ['test', 'reflection']);?></li>
     <li><?= $this->ahref('Controller &rarr; Disable View', ['test', 'no-view']);?></li>
     <li><?= $this->ahref('Controller &rarr; Disable Output', ['test', 'no-output']);?></li>
-    <li><?= $this->ahref('Reflection Data', ['test', 'reflection']);?></li>
 </ul>
 <hr/>
 <ul>
@@ -192,26 +191,18 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
 
 <h3>Dispatch controller</h3>
 <pre>
-$this->dispatch('test', 'closure')
+$this->dispatch('test', 'empty')
 </pre>
 <div>
-    <?= $this->dispatch('test', 'closure') ?>
+    <?= $this->dispatch('test', 'empty') ?>
 </div>
 
-<h3>Call widget</h3>
+<h3>Dispatch controller with <code>echo</code> call</h3>
 <pre>
-$this->widget('test', 'lorem')
+$this->dispatch('test', 'lorem')
 </pre>
 <div>
-    <?= $this->widget('test', 'lorem') ?>
-</div>
-
-<h3>Call API method</h3>
-<pre>
-$this->api('test', 'example', [2])
-</pre>
-<div>
-    <?= $this->api('test', 'example', [2]) ?>
+    <?= $this->dispatch('test', 'lorem') ?>
 </div>
 
 <h3>Wrong controller</h3>
@@ -222,28 +213,12 @@ $this->dispatch('test', 'not-found')
     <?= $this->dispatch('test', 'not-found') ?>
 </div>
 
-<h3>Wrong widget</h3>
+<h3>Wrong without privileges</h3>
 <pre>
-$this->widget('test', 'not-found')
+$this->dispatch('test', 'acl-denied')
 </pre>
 <div>
-    <?= $this->widget('test', 'not-found') ?>
-</div>
-
-<h3>Wrong without priveleges</h3>
-<pre>
-$this->widget('test', 'acl-denied')
-</pre>
-<div>
-    <?= $this->widget('test', 'acl-denied') ?>
-</div>
-
-<h3>Wrong API method</h3>
-<pre>
-$this->api('test', 'not-found')
-</pre>
-<div>
-    <?= $this->api('test', 'not-found') ?>
+    <?= $this->dispatch('test', 'acl-denied') ?>
 </div>
 
 <h3>Dispatch grid based on array</h3>

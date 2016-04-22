@@ -2,6 +2,8 @@
 /**
  * @var \Bluz\Grid\Grid $grid
  */
+if (!$grid) return;
+
 $filters;  // array [field=>title]
 $field = key($filters);
 $value = ''; // filter value

@@ -21,7 +21,7 @@ function () use ($view) {
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'DB Query Builders',
         ]
     );

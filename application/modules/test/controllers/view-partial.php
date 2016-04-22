@@ -14,20 +14,20 @@ return
 /**
  * @return \closure
  */
-function () use ($view) {
+function () {
     /**
      * @var Bootstrap $this
      * @var \Bluz\View\View $view
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'View Partial Helpers',
         ]
     );
-    $view->data = array(
+    return ['data' => [
         'first'=> array(2,3,4,5),
         'second'=> array(9,8,7,6),
         'third'=> array(1,3,5,7),
-    );
+    ]];
 };

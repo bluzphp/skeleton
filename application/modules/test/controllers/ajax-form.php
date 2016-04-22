@@ -1,13 +1,13 @@
 <?php
 namespace Application;
 
-use Bluz\View\View;
+use Bluz\Controller\Data;
 
 return
 
     /**
-     * @var View $view
+     * @var Data $data
      */
-    function ($formName) use ($view) {
-        $view->formName = $formName;
+    function ($formName) use ($data) {
+        $data->formName = $formName;
     };

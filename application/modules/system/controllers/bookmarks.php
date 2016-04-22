@@ -24,8 +24,8 @@ function () use ($view) {
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
         [
-            $view->ahref('Dashboard', ['dashboard', 'index']),
-            $view->ahref('System', ['system', 'index']),
+            Layout::ahref('Dashboard', ['dashboard', 'index']),
+            Layout::ahref('System', ['system', 'index']),
             __('Bookmarklets'),
         ]
     );

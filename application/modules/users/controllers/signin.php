@@ -9,6 +9,7 @@ namespace Application;
 
 use Application\Auth;
 use Bluz\Auth\AuthException;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Session;
 use Bluz\Proxy\Request;
@@ -20,11 +21,14 @@ return
  * @param bool $rememberMe
  * @return \closure
  */
-function ($login, $password, $rememberMe = false) use ($view) {
+function ($login, $password, $rememberMe = false) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
+
+    // change layout
+    $this->useLayout('small.phtml');
+
     if ($this->user()) {
         Messages::addNotice('Already signed');
         $this->redirectTo('index', 'index');
@@ -57,12 +61,10 @@ function ($login, $password, $rememberMe = false) use ($view) {
             $this->redirectTo('index', 'index');
         } catch (Exception $e) {
             Messages::addError($e->getMessage());
-            $view->login = $login;
+            return ['login' => $login];
         } catch (AuthException $e) {
             Messages::addError($e->getMessage());
-            $view->login = $login;
+            return ['login' => $login];
         }
     }
-    // change layout
-    $this->useLayout('small.phtml');
 };
