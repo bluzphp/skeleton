@@ -24,7 +24,7 @@ return
  */
 function ($id, $code) {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      * @var \Bluz\View\View $view
      */
     $actionRow = UsersActions\Table::findRow(['userId' => $id, 'code' => $code]);

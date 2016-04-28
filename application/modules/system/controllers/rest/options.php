@@ -11,17 +11,20 @@ namespace Application;
 
 use Application\Test;
 use Bluz\Controller;
+use Bluz\Proxy\Response;
 
+/**
+ * @param array $primary
+ * @param array $data
+ * @param Test\Crud $crud
+ * @return array
+ */
 return
 /**
  * @accept HTML
  * @accept JSON
- * @method HEAD
- * @method GET
- * @return mixed
+ * @method OPTIONS
  */
-function () {
-    $restController = new Controller\Rest();
-    $restController->setCrud(Test\Crud::getInstance());
-    return $restController->methodGet();
+function ($primary, $data, $crud) {
+    Response::setHeader('Allow', 'GET,HEAD,POST,PUT,DELETE,OPTIONS');
 };

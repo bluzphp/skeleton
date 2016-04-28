@@ -11,7 +11,6 @@
 namespace Application;
 
 use Bluz\Controller\Controller;
-use Bluz\Controller\Data;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
@@ -21,10 +20,9 @@ return
  * @privilege Management
  * @return \closure
  */
-function () use ($data) {
+function () {
     /**
      * @var Controller $this
-     * @var Data $data
      */
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
@@ -44,7 +42,10 @@ function () use ($data) {
     }
 
     $lnCol = (integer)(12 / $countCol);
-    $data->countCol = $countCol;
-    $data->col = $lnCol;
-    $data->grid = $grid;
+    
+    return [
+        'countCol' => $countCol,
+        'col' => $lnCol,
+        'grid' => $grid
+    ];
 };

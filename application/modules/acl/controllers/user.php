@@ -9,6 +9,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Messages;
@@ -23,9 +24,9 @@ return
  * @param int $id
  * @return void
  */
-function ($id) use ($view) {
+function ($id) {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     $user = Users\Table::findRow($id);
 
@@ -54,8 +55,6 @@ function ($id) use ($view) {
         return false;
     }
 
-    /* @var $view \Bluz\View\View */
-    $view->user = $user;
-
-    $view->roles = Roles\Table::getInstance()->getRoles();
+    $this->assign('user', $user);
+    $this->assign('roles', Roles\Table::getInstance()->getRoles());
 };

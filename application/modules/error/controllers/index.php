@@ -29,7 +29,7 @@ return
  */
 function ($code, $message = '') {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      * @var \Bluz\View\View $view
      */
     Logger::error($message);

@@ -16,7 +16,7 @@ use Bluz\Proxy\Db;
 return
 /**
  * @accept JSON
- * @var Bootstrap $this
+ * @var Controller $this
  * @return int
  */
 function ($path) {

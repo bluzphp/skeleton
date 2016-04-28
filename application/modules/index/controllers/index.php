@@ -13,7 +13,7 @@ namespace Application;
 
 return
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      * @return void
      */
     function () {

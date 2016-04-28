@@ -10,7 +10,7 @@
 namespace Application;
 
 use Bluz\Controller\Controller;
-use Bluz\Controller\Data;
+use Bluz\Controller\Reflection;
 use Bluz\Proxy\Layout;
 
 return
@@ -19,10 +19,9 @@ return
  *
  * @return void
  */
-function () use ($data) {
+function () {
     /**
      * @var Controller $this
-     * @var Data $data
      */
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
@@ -33,25 +32,63 @@ function () use ($data) {
     );
 
     $set = array();
-    foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {
-        $module = $file->getPathInfo()->getPathInfo()->getBasename();
-        $controller = $file->getBasename('.php');
+    $path = PATH_APPLICATION . '/modules';
+    $directoryIterator = new \DirectoryIterator($path);
+    $modules = array();
 
-        $controllerInstance = new Controller($module, $controller);
-        $reflection = $controllerInstance->getReflection();
-        
-        if ($privilege = $reflection->getPrivilege()) {
+    foreach ($directoryIterator as $directory) {
+        if ($directory->isDot() or
+            !$directory->isDir()
+        ) {
+            continue;
+        }
+        $modules[] = $directory->getBasename();
+    }
+
+    sort($modules);
+
+    foreach ($modules as $module) {
+        $controllerPath = $path .'/'. $module .'/controllers/';
+        $controllerPathLength = strlen($controllerPath);
+
+        if (!is_dir($controllerPath)) {
+            continue;
+        }
+        $filesIterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator(
+                $controllerPath,
+                \FilesystemIterator::KEY_AS_PATHNAME | \FilesystemIterator::CURRENT_AS_FILEINFO | \FilesystemIterator::SKIP_DOTS
+            )
+        );
+
+        foreach ($filesIterator as $filePath => $fileInfo) {
+            /* @var \SplFileInfo $fileInfo */
+            $controller = $fileInfo->getBasename('.php');
+            if ($prefix = substr($fileInfo->getPath(), $controllerPathLength)) {
+                $controller = $prefix .'/'. $controller;
+            }
+            $controllerInstance = new Controller($module, $controller);
+            $reflection = $controllerInstance->getReflection();
+            $reflection = new Reflection($filePath);
+
             if (!isset($set[$module])) {
                 $set[$module] = array();
             }
 
-            if (!in_array($privilege, $set[$module])) {
-                $set[$module][] = $privilege;
+            if ($privilege = $reflection->getPrivilege()) {
+                if (!in_array($privilege, $set[$module])) {
+                    $set[$module][] = $privilege;
+                }
+            }
+
+            if ($acl = $reflection->getAcl()) {
+                $set[$module] = array_merge($set[$module], $acl);
             }
         }
     }
 
-    $data->set = $set;
+    $this->assign('set', $set);
+    
     $privilegesRowset = Privileges\Table::getInstance()->getPrivileges();
     $privileges = array();
 
@@ -64,6 +101,7 @@ function () use ($data) {
         }
         $privileges[$privilege->roleId][$privilege->module][] = $privilege->privilege;
     }
-    $data->privileges = $privileges;
-    $data->roles = Roles\Table::getInstance()->getRoles();
+    
+    $this->assign('privileges', $privileges);
+    $this->assign('roles', Roles\Table::getInstance()->getRoles());
 };

@@ -15,7 +15,7 @@ use Bluz\Proxy\Db;
 
 return
 /**
- * @var Bootstrap $this
+ * @var Controller $this
  * @var Users\Row $user
  * @return array
  */

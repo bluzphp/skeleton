@@ -8,6 +8,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 
@@ -18,18 +19,18 @@ return
  * @param bool $messages
  * @return void
  */
-function ($messages = false) use ($data) {
+function ($messages = false) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     if ($messages) {
         Messages::addNotice('Notice for AJAX call');
         Messages::addSuccess('Success for AJAX call');
         Messages::addError('Error for AJAX call');
 
-        $data->baz = 'qux';
+        $this->assign('baz', 'qux');
     }
     Messages::addNotice('Method '. Request::getMethod());
-    $data->foo = 'bar';
+
+    $this->assign('foo', 'bar');
 };

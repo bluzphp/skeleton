@@ -7,6 +7,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
 return
@@ -15,10 +16,9 @@ return
  *
  * @return array
  */
-function () use ($view) {
+function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::title('Bookmarklets');
     Layout::setTemplate('dashboard.phtml');

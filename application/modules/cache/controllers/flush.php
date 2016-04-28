@@ -25,7 +25,7 @@ return
  */
 function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     if (!Cache::getInstance() instanceof Nil) {
         Cache::flush();

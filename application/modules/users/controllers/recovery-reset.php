@@ -11,6 +11,7 @@ namespace Application;
 
 use Application\Auth;
 use Application\Users;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 
@@ -23,10 +24,9 @@ return
  * @param string $password2
  * @return \closure
  */
-function ($id, $code, $password = null, $password2 = null) use ($view) {
+function ($id, $code, $password = null, $password2 = null) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     // change layout
     $this->useLayout('small.phtml');
@@ -46,8 +46,9 @@ function ($id, $code, $password = null, $password2 = null) use ($view) {
         $this->redirectTo('index', 'index');
     } else {
         $user = Users\Table::findRow($id);
-        $view->user = $user;
-        $view->code = $code;
+        
+        $this->assign('user', $user);
+        $this->assign('code', $code);
 
         if (Request::isPost()) {
             try {

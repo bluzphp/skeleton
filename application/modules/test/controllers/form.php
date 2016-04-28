@@ -9,6 +9,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 
@@ -16,10 +17,9 @@ return
 /**
  * @return void
  */
-function ($int, $string, $array, $optional = 0) use ($view) {
+function ($int, $string, $array, $optional = 0)  {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
@@ -30,8 +30,12 @@ function ($int, $string, $array, $optional = 0) use ($view) {
     if (Request::isPost()) {
         ob_start();
         var_dump($int, $string, $array, $optional);
-        $view->inside = ob_get_contents();
+        $inside = ob_get_contents();
         ob_end_clean();
-        $view->params = Request::getAllParams();
+        
+        return [
+            'inside' => $inside, 
+            'params' => Request::getAllParams()
+        ];
     }
 };

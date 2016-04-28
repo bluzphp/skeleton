@@ -14,7 +14,6 @@ namespace Application;
 
 use Application\Categories;
 use Bluz\Controller\Controller;
-use Bluz\Controller\Data;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Messages;
 
@@ -22,10 +21,9 @@ return
 /**
  * @privilege Management
  */
-function ($id = null) use ($data) {
+function ($id = null) {
     /**
      * @var Controller $this
-     * @var Data $data
      */
     Layout::setTemplate('dashboard.phtml');
     Layout::headStyle(Layout::baseUrl('css/categories.css'));
@@ -41,14 +39,16 @@ function ($id = null) use ($data) {
 
     if (count($rootTree) == 0) {
         Messages::addNotice('There are no categories');
-        return;
+        return [];
     }
 
-    $data->rootTree = $rootTree;
     if (!$id) {
         $id = $rootTree[0]->id;
     }
 
-    $data->branch = $id;
-    $data->tree = $categoriesTable->buildTree($id);
+    return [
+        'rootTree' => $rootTree,
+        'branch' => $id,
+        'tree' => $categoriesTable->buildTree($id)
+    ];
 };

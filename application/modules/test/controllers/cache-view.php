@@ -8,13 +8,17 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
+
 return
 /**
  * @cache 2
  * @param int $a
- * @var \Bluz\View\View $view
  * @return \closure
  */
-function ($a = 0) use ($view) {
-    $view->current = 'Time is '. date('H:i:s') . ' and $a = `'. $a .'`';
+function ($a = 0) {
+    /**
+     * @var Controller $this
+     */
+    $this->assign('current', 'Time is '. date('H:i:s') . ' and $a = `'. $a .'`');
 };

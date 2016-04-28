@@ -9,6 +9,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Layout;
 
@@ -16,10 +17,9 @@ return
 /**
  * @return bool
  */
-function () use ($view) {
+function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [

@@ -9,6 +9,8 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
+
 return
 /**
  * @accept HTML
@@ -16,9 +18,8 @@ return
  * @privilege Denied
  * @return \closure
  */
-function () use ($view) {
+function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
 };

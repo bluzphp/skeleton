@@ -9,17 +9,18 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
+
 return
 /**
  * @param string $template
  * @param array $vars
  * @return \closure
  */
-function ($template, $vars = []) use ($view) {
+function ($template, $vars = []) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
-    $view->setTemplate('mail/' . $template . '.phtml');
+    $this->template = 'mail/' . $template . '.phtml';
     return $vars;
 };

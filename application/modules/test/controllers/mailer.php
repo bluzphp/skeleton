@@ -7,6 +7,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Mailer;
 use Bluz\Proxy\Messages;
@@ -17,10 +18,9 @@ return
  * @param string $email
  * @return \closure
  */
-function ($email = "no-reply@nixsolutions.com") use ($view) {
+function ($email = "no-reply@nixsolutions.com") {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
@@ -33,13 +33,13 @@ function ($email = "no-reply@nixsolutions.com") use ($view) {
             $mail = Mailer::create();
             // subject
             $mail->Subject = "Example of Bluz Mailer";
-            $mail->MsgHTML("Hello!<br/>How are you?");
-            $mail->AddAddress($email);
+            $mail->msgHTML("Hello!<br/>How are you?");
+            $mail->addAddress($email);
             Mailer::send($mail);
             Messages::addSuccess("Email was send");
         } catch (\Exception $e) {
             Messages::addError($e->getMessage());
         }
     }
-    $view->email = $email;
+    $this->assign('email', $email);
 };

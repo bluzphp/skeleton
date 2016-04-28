@@ -10,7 +10,6 @@ namespace Application;
 
 use Application\Users;
 use Bluz\Controller\Controller;
-use Bluz\Controller\Data;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Layout;
 
@@ -19,10 +18,9 @@ return
  * @privilege Management
  * @return \closure
  */
-function () use ($data, $module, $controller) {
+function () {
     /**
      * @var Controller $this
-     * @var Data $data
      */
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
@@ -33,10 +31,9 @@ function () use ($data, $module, $controller) {
     );
 
     $grid = new Users\Grid();
-    $grid->setModule($module);
-    $grid->setController($controller);
-
-    $data->roles = Db::fetchAll('SELECT * FROM acl_roles');
-
-    $data->grid = $grid;
+    $grid->setModule($this->module);
+    $grid->setController($this->controller);
+    
+    $this->assign('roles', Db::fetchAll('SELECT * FROM acl_roles'));
+    $this->assign('grid', $grid);
 };

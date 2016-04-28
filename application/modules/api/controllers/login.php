@@ -44,7 +44,7 @@ return
  */
 function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     if (Request::isPost()) {
         $params = Request::getParams();

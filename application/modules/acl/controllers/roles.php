@@ -22,7 +22,7 @@ return
  */
 function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     $crudController = new Controller\Crud();
     $crudController->setCrud(Roles\Crud::getInstance());

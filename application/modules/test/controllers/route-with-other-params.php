@@ -9,6 +9,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Router;
 
@@ -17,10 +18,9 @@ return
  * @route /test/route-with-other-params/{$alias}(.*)
  * @param string $alias
  */
-function ($alias) use ($module, $controller, $view) {
+function ($alias) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     var_dump($alias);
     var_dump(Router::getParams());

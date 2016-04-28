@@ -8,15 +8,16 @@
 namespace Application;
 
 use Application\Test;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
 return
 /**
  * @return \closure
  */
-function () use ($module, $controller) {
+function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      * @var \Bluz\View\View $view
      */
     Layout::breadCrumbs(
@@ -26,10 +27,10 @@ function () use ($module, $controller) {
         ]
     );
     $grid = new Test\SqlGrid();
-    $grid->setModule($module);
-    $grid->setController($controller);
+    $grid->setModule($this->module);
+    $grid->setController($this->controller);
     // just example of same custom param for build URL
     $grid->setParams(['id'=>5]);
 
-    return ['grid' => $grid];
+    $this->assign('grid', $grid);
 };

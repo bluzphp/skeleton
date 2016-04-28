@@ -15,7 +15,7 @@ return
  */
 function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
      
 };

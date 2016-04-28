@@ -39,7 +39,7 @@ return
  */
 function ($resource, $id, $relation, $relationId) {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     $this->useJson();
 

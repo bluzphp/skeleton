@@ -8,16 +8,16 @@
 namespace Application;
 
 use Application\Test;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
 return
 /**
  * @return \closure
  */
-function () use ($view, $module, $controller) {
+function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
@@ -25,11 +25,12 @@ function () use ($view, $module, $controller) {
             'Grid with Select',
         ]
     );
-    $grid = new Test\SelectGrid();
-    $grid->setModule($module);
-    $grid->setController($controller);
 
-    $view->grid = $grid;
+    $grid = new Test\SelectGrid();
+    $grid->setModule($this->module);
+    $grid->setController($this->controller);
+
+    $this->assign('grid', $grid);
 
     return 'grid-sql.phtml';
 };

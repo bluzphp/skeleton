@@ -7,6 +7,8 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
+use Bluz\Controller\Reflection;
 use Bluz\Proxy\Layout;
 
 return
@@ -15,10 +17,9 @@ return
  *
  * @return \closure
  */
-function () use ($view) {
+function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::title('Routers Map');
     Layout::setTemplate('dashboard.phtml');
@@ -33,7 +34,7 @@ function () use ($view) {
     foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {
         $module = pathinfo(dirname(dirname($file->getPathname())), PATHINFO_FILENAME);
         $controller = pathinfo($file->getPathname(), PATHINFO_FILENAME);
-        $reflection = $this->reflection($file->getPathname());
+        $reflection = new Reflection($file->getPathname());
         if ($route = $reflection->getRoute()) {
             if (!isset($routers[$module])) {
                 $routers[$module] = array();
@@ -42,5 +43,5 @@ function () use ($view) {
             $routers[$module][$controller] = ['route' => $route, 'params' => $reflection->getParams()];
         }
     }
-    $view->routers = $routers;
+    $this->assign('routers', $routers);
 };

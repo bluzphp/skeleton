@@ -20,7 +20,7 @@ return
  */
 function ($a, $b, $c) {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      * @var \Bluz\View\View $view
      */
     Layout::breadCrumbs(

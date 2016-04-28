@@ -13,7 +13,6 @@ namespace Application;
 
 use Bluz\Common\Nil;
 use Bluz\Controller\Controller;
-use Bluz\Controller\Data;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Messages;
@@ -25,10 +24,9 @@ return
  * @privilege Management
  * @return void
  */
-function () use ($data) {
+function () {
     /**
      * @var Controller $this
-     * @var Data $data
      */
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
@@ -40,7 +38,7 @@ function () use ($data) {
     );
 
     if (!Cache::getInstance() instanceof Nil) {
-        $data->adapter = Cache::getInstance()->getAdapter();
+        $this->assign('adapter', Cache::getInstance()->getAdapter());
     } else {
         Messages::addNotice("Cache is disabled");
         $this->redirectTo('cache', 'index');

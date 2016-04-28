@@ -9,17 +9,15 @@ namespace Application;
 
 use Application\Test;
 use Bluz\Controller\Controller;
-use Bluz\Controller\Data;
 use Bluz\Proxy\Layout;
 
 return
 /**
  * @return \closure
  */
-function () use ($data) {
+function () {
     /**
      * @var Controller $this
-     * @var Data $view
      */
     Layout::breadCrumbs(
         [
@@ -31,5 +29,5 @@ function () use ($data) {
     $grid->setModule($this->module);
     $grid->setController($this->controller);
 
-    $data->grid = $grid;
+    $this->assign('grid', $grid);
 };

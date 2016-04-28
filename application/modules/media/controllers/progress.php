@@ -11,14 +11,15 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
+
 return
 /**
  * @return \closure
  */
-function ($file) use ($view) {
+function ($file) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     // used native session settings without rewrite save path
     // because PHP_SESSION_UPLOAD_PROGRESS mechanism is epic

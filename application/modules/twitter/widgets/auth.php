@@ -13,7 +13,7 @@ return
  */
 function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     ?>
     <a href="<?=Router::getUrl('twitter', 'auth')?>" class="btn fa fa-twitter-square fa-2x"></a>

@@ -19,7 +19,7 @@ return
  */
 function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     $crudController = new Controller\Rest();
     $crudController->setCrud(Pages\Crud::getInstance());

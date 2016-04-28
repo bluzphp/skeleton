@@ -18,7 +18,7 @@ return
     function ($provider = '') {
 
         /**
-         * @var Bootstrap $this
+         * @var Controller $this
          */
         try {
             $auth = new AuthProvider($provider);

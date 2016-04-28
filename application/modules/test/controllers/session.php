@@ -8,6 +8,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Session;
 
@@ -16,10 +17,9 @@ return
  *
  * @return \closure
  */
-function () use ($view) {
+function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
@@ -31,8 +31,10 @@ function () use ($view) {
 
     Session::set('test', Session::get('test') ?: 'Session time: '.date("H:i:s"));
 
-    $view->title = Layout::title();
-    $view->session = Session::get('test');
+    return [
+        'title' => Layout::title(),
+        'session' => Session::get('test'),
+    ];
 
     //    if ($identity = $app->user()) {
     //        var_dump($acl->isAllowed('index/index', $identity['sid']));

@@ -8,6 +8,7 @@
 namespace Application;
 
 use Application\Users;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
 return
@@ -18,10 +19,9 @@ return
  *
  * @return \closure
  */
-function ($id = null) use ($view) {
+function ($id = null) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::title('User Profile');
 
@@ -38,6 +38,6 @@ function ($id = null) use ($view) {
     if (!$user) {
         throw new Exception('User not found', 404);
     } else {
-        $view->user = $user;
+        $this->assign('user', $user);
     }
 };

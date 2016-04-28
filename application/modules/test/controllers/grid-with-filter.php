@@ -5,15 +5,16 @@
 namespace Application;
 
 use Application\Test;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
 return
     /**
      * @return \closure
      */
-    function () use ($view, $module, $controller) {
+    function () {
         /**
-         * @var \Bluz\View\View $view
+         * @var Controller $this
          */
         Layout::breadCrumbs(
             [
@@ -22,8 +23,8 @@ return
             ]
         );
         $grid = new Test\ArrayGrid();
-        $grid->setModule($module);
-        $grid->setController($controller);
+        $grid->setModule($this->module);
+        $grid->setController($this->controller);
 
-        $view->grid = $grid;
+        $this->assign('grid', $grid);
     };

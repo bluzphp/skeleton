@@ -8,16 +8,16 @@
 namespace Application;
 
 use Application\Test;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
 return
 /**
  * @return \closure
  */
-function () use ($view, $module, $controller) {
+function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
@@ -26,10 +26,10 @@ function () use ($view, $module, $controller) {
         ]
     );
     $grid = new Test\TableGrid();
-    $grid->setModule($module);
-    $grid->setController($controller);
+    $grid->setModule($this->module);
+    $grid->setController($this->controller);
 
-    $view->grid = $grid;
-
+    $this->assign('grid', $grid);
+    
     return 'grid-sql.phtml';
 };

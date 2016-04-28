@@ -1,13 +1,15 @@
 <?php
 namespace Application;
 
-use Bluz\Controller\Data;
+use Bluz\Controller\Controller;
 
 return
-
     /**
-     * @var Data $data
+     * @param $formName
      */
-    function ($formName) use ($data) {
-        $data->formName = $formName;
+    function ($formName) {
+        /**
+         * @var Controller $this
+         */ 
+        $this->assign('formName', $formName);
     };

@@ -10,7 +10,7 @@
 namespace Application;
 
 use Application\Categories;
-use Bluz\Controller;
+use Bluz\Controller\Controller;
 
 return
 /**
@@ -19,14 +19,14 @@ return
  * @privilege Management
  * @return mixed
  */
-function ($parentId = null) use ($view) {
+function ($parentId = null) {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
-    $view->parentId = $parentId;
+    $this->assign('parentId', $parentId);
 
-    $crudController = new Controller\Crud();
-    $crudController->setCrud(Categories\Crud::getInstance());
-
-    return $crudController();
+//    $crudController = new Controller\Crud();
+//    $crudController->setCrud(Categories\Crud::getInstance());
+//
+//    return $crudController();
 };

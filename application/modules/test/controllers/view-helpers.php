@@ -9,6 +9,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 
@@ -19,10 +20,9 @@ return
  * @param bool $remember
  * @return \closure
  */
-function ($sex = false, $car = 'none', $remember = false) use ($view) {
+function ($sex = false, $car = 'none', $remember = false) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
@@ -31,13 +31,13 @@ function ($sex = false, $car = 'none', $remember = false) use ($view) {
         ]
     );
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
-    $view->sex = $sex;
-    $view->car = $car;
-    $view->remember = $remember;
+    $this->assign('sex', $sex);
+    $this->assign('car', $car);
+    $this->assign('remember', $remember);
 
     if (Request::isPost()) {
-        $view->params = Request::getAllParams();
+        $this->assign('params', Request::getAllParams());
     }
 };

@@ -11,6 +11,7 @@ use Application\Users;
 use Bluz\Auth\AuthException;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotFoundException;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 
@@ -19,9 +20,9 @@ return
  * @privilege EditPassword
  * @return \closure
  */
-function ($password, $new_password, $new_password2) use ($view) {
+function ($password, $new_password, $new_password2) {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     // change layout
     $this->useLayout('small.phtml');

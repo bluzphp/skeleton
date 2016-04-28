@@ -7,6 +7,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 
 return
@@ -15,10 +16,9 @@ return
  * @param  bool $flag
  * @return \closure
  */
-function ($flag = false) use ($view) {
+function ($flag = false)  {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     if ($flag) {
         Messages::addNotice('Notice Text');
@@ -26,6 +26,5 @@ function ($flag = false) use ($view) {
         Messages::addError('Error Text');
         Messages::addError('Another Error Text');
     }
-    $view->string = 'bar';
-    $view->array = ['some', 'array'];
+    return ['string' => 'bar', 'array' => ['some', 'array']];
 };

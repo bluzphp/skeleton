@@ -9,6 +9,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Messages;
@@ -20,14 +21,13 @@ return
  * @param array $acl
  * @return void
  */
-function ($acl) use ($view) {
+function ($acl) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     $callback = function () use ($acl) {
         /**
-         * @var Bootstrap $this
+         * @var Controller $this
          */
         Db::query('DELETE FROM acl_privileges');
 

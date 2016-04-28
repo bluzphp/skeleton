@@ -9,7 +9,7 @@
  */
 namespace Application;
 
-use Bluz\Controller\Data;
+use Bluz\Controller\Controller;
 use Bluz\Controller\Reflection;
 use Bluz\Proxy\Layout;
 
@@ -23,10 +23,9 @@ return
  * @route /test-reflection.html
  * @return \closure
  */
-function ($id = 0, $other = "default value") use ($data) {
+function ($id = 0, $other = "default value") {
     /**
-     * @var Bootstrap $this
-     * @var Data $data
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
@@ -38,8 +37,10 @@ function ($id = 0, $other = "default value") use ($data) {
     $reflection = new Reflection(__FILE__);
     $reflection->process();
 
-    $data->functionData = file_get_contents(__FILE__);
-    $data->reflectionData = $this->reflection(__FILE__);
-    $data->id = $id;
-    $data->other = $other;
+    return [
+        'functionData' => file_get_contents(__FILE__),
+        'reflectionData' => $reflection,
+        'id' => $id,
+        'other' => $other
+    ];
 };

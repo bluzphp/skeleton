@@ -7,17 +7,16 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
 return
 /**
  * @return void
  */
-function () use ($view) {
+function () {
     /**
-     * @var Bootstrap $this
-     * @var \closure $bootstrap
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
