@@ -1,6 +1,6 @@
 <?php
 /**
- * Example of REST controller for GET method
+ * REST controller for POST method
  *
  * @category Application
  *
@@ -9,7 +9,6 @@
  */
 namespace Application;
 
-use Application\Test;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotImplementedException;
 use Bluz\Controller;
@@ -19,10 +18,10 @@ use Bluz\Proxy\Router;
 use Bluz\Validator\Exception\ValidatorException;
 
 /**
- * @param $primary
- * @param $data
- * @param Test\Crud $crud
- * @return array
+ * @param  \Bluz\Crud\Table $crud
+ * @param  mixed $primary
+ * @param  array $data
+ * @return void|array
  * @throws BadRequestException
  * @throws NotImplementedException
  */
@@ -32,7 +31,7 @@ return
  * @accept JSON
  * @method POST
  */
-function ($primary, $data, $crud) {
+function ($crud, $primary, $data) {
     if (!empty($primary)) {
         // POST + ID is incorrect behaviour
         throw new NotImplementedException();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Example of REST controller for GET method
+ * REST controller for PUT method
  *
  * @category Application
  *
@@ -9,7 +9,6 @@
  */
 namespace Application;
 
-use Application\Test;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotImplementedException;
 use Bluz\Controller;
@@ -17,13 +16,12 @@ use Bluz\Proxy\Response;
 use Bluz\Validator\Exception\ValidatorException;
 
 /**
- * @param $primary
- * @param $data
- * @param Test\Crud $crud
- * @return array
+ * @param  \Bluz\Crud\Table $crud
+ * @param  mixed $primary
+ * @param  array $data
+ * @return void|array
  * @throws BadRequestException
  * @throws NotImplementedException
- * @throws \Bluz\Application\Exception\NotFoundException
  */
 return
 /**
@@ -31,7 +29,7 @@ return
  * @accept JSON
  * @method PUT
  */
-function ($primary, $data, $crud) {
+function ($crud, $primary, $data) {
     if (!sizeof($data)) {
         // data not found
         throw new BadRequestException();

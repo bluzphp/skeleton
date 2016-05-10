@@ -1,6 +1,6 @@
 <?php
 /**
- * REST controller for GET method
+ * REST controller for HEAD method
  *
  * @category Application
  *
@@ -11,6 +11,7 @@ namespace Application;
 
 use Bluz\Controller;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 
 /**
  * @param  \Bluz\Crud\Table $crud
@@ -19,14 +20,13 @@ use Bluz\Proxy\Request;
  */
 return
 /**
- * @accept HTML
  * @accept JSON
- * @method GET
+ * @method HEAD
  */
 function ($crud, $primary) {
     if (!empty($primary)) {
         // @throws NotFoundException
-        return [$crud->readOne($primary)];
+        $result = [$crud->readOne($primary)];
     } else {
 
         $params = Request::getParams();
@@ -40,6 +40,10 @@ function ($crud, $primary) {
             // for better compatibility
             $limit = $last - $offset;
         }
-        return $crud->readSet($offset, $limit, $params);
+        $result = $crud->readSet($offset, $limit, $params);
     }
+
+    $size = strlen(json_encode($result));
+    Response::addHeader('Content-Length', $size);
+    return null;
 };

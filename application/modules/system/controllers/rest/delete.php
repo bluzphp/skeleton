@@ -1,6 +1,6 @@
 <?php
 /**
- * Example of REST controller for GET method
+ * REST controller for DELETE method
  *
  * @category Application
  *
@@ -9,16 +9,15 @@
  */
 namespace Application;
 
-use Application\Test;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Controller;
 use Bluz\Proxy\Response;
 
 /**
- * @param $primary
- * @param $data
- * @param Test\Crud $crud
- * @return array
+ * @param  \Bluz\Crud\Table $crud
+ * @param  mixed $primary
+ * @param  array $data
+ * @return void
  * @throws BadRequestException
  * @throws \Bluz\Application\Exception\NotFoundException
  * @throws \Bluz\Application\Exception\NotImplementedException
@@ -29,7 +28,7 @@ return
  * @accept JSON
  * @method DELETE
  */
-function ($primary, $data, $crud) {
+function ($crud, $primary, $data) {
     if (!empty($primary)) {
         // delete one
         // @throws NotFoundException

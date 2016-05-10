@@ -10,17 +10,15 @@
 namespace Application;
 
 use Application\Test;
-use Bluz\Application\Application;
 use Bluz\Application\Exception\ForbiddenException;
 
 use Bluz\Controller\Controller;
-use Bluz\Proxy\Acl;
-use Bluz\Proxy\Request;
-use Bluz\Proxy\Response;
-use Bluz\Proxy\Router;
+use Bluz\Rest\Rest;
 
 /**
- * @var Controller $this
+ * @return Controller
+ * @throws ForbiddenException
+ * @internal param Controller $this
  */
 return
     /**
@@ -35,96 +33,17 @@ return
     function () {
         $this->useJson();
 
-        // rewrite REST with "_method" param
+        $rest = new Rest();
 
-        // get path
-        // %module% / %controller% / %id% / %relation% / %id%
-        $path = Router::getCleanUri();
+        $rest->setCrud(Test\Crud::getInstance());
 
-        $params = explode('/', rtrim($path, '/'));
+        $rest->addMap('HEAD', 'system', 'rest/head', 'Read');
+        $rest->addMap('GET', 'system', 'rest/get', 'Read');
+        $rest->addMap('POST', 'system', 'rest/post', 'Create');
+        $rest->addMap('PUT', 'system', 'rest/put', 'Update');
+        $rest->addMap('DELETE', 'system', 'rest/delete', 'Delete');
 
-        // module
-        array_shift($params);
+        $rest->process();
 
-        // controller
-        array_shift($params);
-
-        if (sizeof($params)) {
-            $primary = explode('-', array_shift($params));
-        } else {
-            $primary = null;
-        }
-
-        if (sizeof($params)) {
-            $relation = array_shift($params);
-        }
-        if (sizeof($params)) {
-            $relationId = array_shift($params);
-        }
-
-        $data = Request::getParams();
-
-        unset($data['_method'], $data['_module'], $data['_controller']);
-
-        $crud = new Test\Crud();
-
-        switch (Request::getMethod()) {
-            case 'OPTIONS':
-                if (!Acl::isAllowed($this->module, 'Read')) {
-                    throw new ForbiddenException;
-                }
-                return Application::getInstance()->dispatch(
-                    'system',
-                    'rest/options',
-                    ['primary' => $primary, 'data' => $data, 'crud' => $crud]
-                );
-            case 'HEAD':
-                if (!Acl::isAllowed($this->module, 'Read')) {
-                    throw new ForbiddenException;
-                }
-                $result = Application::getInstance()->dispatch(
-                    'system',
-                    'rest/get',
-                    ['primary' => $primary, 'data' => $data, 'crud' => $crud]
-                );
-                $size = strlen(json_encode($result));
-                Response::addHeader('Content-Length', $size);
-                return null;
-            case 'GET':
-                if (!Acl::isAllowed($this->module, 'Read')) {
-                    throw new ForbiddenException;
-                }
-                return Application::getInstance()->dispatch(
-                    'system',
-                    'rest/get',
-                    ['primary' => $primary, 'data' => $data, 'crud' => $crud]
-                );
-            case 'POST':
-                if (!Acl::isAllowed($this->module, 'Create')) {
-                    throw new ForbiddenException;
-                }
-                return Application::getInstance()->dispatch(
-                    'system',
-                    'rest/post',
-                    ['primary' => $primary, 'data' => $data, 'crud' => $crud]
-                );
-            case 'PUT':
-                if (!Acl::isAllowed($this->module, 'Update')) {
-                    throw new ForbiddenException;
-                }
-                return Application::getInstance()->dispatch(
-                    'system',
-                    'rest/put',
-                    ['primary' => $primary, 'data' => $data, 'crud' => $crud]
-                );
-            case 'DELETE':
-                if (!Acl::isAllowed($this->module, 'Delete')) {
-                    throw new ForbiddenException;
-                }
-                return Application::getInstance()->dispatch(
-                    'system',
-                    'rest/delete',
-                    ['primary' => $primary, 'data' => $data, 'crud' => $crud]
-                );
-        }
+        return $rest->run();
     };
