@@ -260,7 +260,7 @@ define(['react', 'react-dom', 'pager', 'jquery', 'bluz.notify'], function(React,
             var rows = this.state.data;
             var newRows = this.state.data.slice();
             for (var i = 0; i < newRows.length; i++) {
-                if (newRows[i].id = row.id) {
+                if (newRows[i].id == row.id) {
                     newRows[i] = row;
                     break;
                 }

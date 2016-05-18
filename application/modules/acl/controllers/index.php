@@ -69,7 +69,6 @@ function () {
             }
             $controllerInstance = new Controller($module, $controller);
             $reflection = $controllerInstance->getReflection();
-            $reflection = new Reflection($filePath);
 
             if (!isset($set[$module])) {
                 $set[$module] = array();

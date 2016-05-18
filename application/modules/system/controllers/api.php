@@ -7,10 +7,12 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Swagger;
 
 return
 /**
+ * @accept HTML
  * @accept JSON
  * @return \closure
  */
@@ -27,5 +29,7 @@ function () {
     );
     $exclude = array();
 
-    return Swagger\scan($paths, $exclude);
+    // @todo: remove this `die` call
+    print Swagger\scan($paths, $exclude);
+    die();
 };

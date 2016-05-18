@@ -64,6 +64,11 @@ define(["jquery", "bootstrap"], function ($) {
             });
 
             $field.tooltip('show');
+
+            if ($field.is('input')) {
+                form.icon($form, $field);
+            }
+
             $field.click(function () {
                 $group.removeClass('has-error');
                 $field.tooltip('destroy');
@@ -81,7 +86,7 @@ define(["jquery", "bootstrap"], function ($) {
 
             $group.addClass('has-feedback');
 
-            var $icon = $('<span class="fa fa-times form-control-feedback" aria-hidden="true"></span>');
+            var $icon = $('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
             var $sr = $('<span class="sr-only">(error)</span>');
 
             $field.after($sr);

@@ -34,7 +34,10 @@ function () {
     foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {
         $module = pathinfo(dirname(dirname($file->getPathname())), PATHINFO_FILENAME);
         $controller = pathinfo($file->getPathname(), PATHINFO_FILENAME);
-        $reflection = new Reflection($file->getPathname());
+
+        $controllerInstance = new Controller($module, $controller);
+        $reflection = $controllerInstance->getReflection();
+        
         if ($route = $reflection->getRoute()) {
             if (!isset($routers[$module])) {
                 $routers[$module] = array();
