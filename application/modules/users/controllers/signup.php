@@ -16,11 +16,12 @@ use Bluz\Proxy\Request;
 return
 /**
  * @accept JSON
+ * @accept HTML
  * @return \closure
  */
 function () {
     /**
-     * @var Controller $this
+     * @var Controller\Controller $this
      * @var \Bluz\View\View $view
      */
 
