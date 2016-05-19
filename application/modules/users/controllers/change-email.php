@@ -17,6 +17,7 @@ use Bluz\Proxy\Logger;
 use Bluz\Proxy\Mailer;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
 
 return
@@ -108,7 +109,7 @@ function ($email = null, $password = null, $token = null) {
             }
 
             // try back to index
-            $this->redirectTo('users', 'profile');
+            Response::redirectTo('users', 'profile');
         } catch (Exception $e) {
             Messages::addError($e->getMessage());
             $this->assign('email', $email);
@@ -132,6 +133,6 @@ function ($email = null, $password = null, $token = null) {
         $actionRow->delete();
 
         Messages::addSuccess('Email was updated');
-        $this->redirectTo('users', 'profile');
+        Response::redirectTo('users', 'profile');
     }
 };

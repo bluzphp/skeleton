@@ -15,6 +15,7 @@ use Bluz\Proxy\Logger;
 use Bluz\Proxy\Mailer;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
 
 return
@@ -97,7 +98,7 @@ function ($email = null) {
             Messages::addSuccess(
                 "Reset password instructions has been sent to your email address"
             );
-            $this->redirectTo('index', 'index');
+            Response::redirectTo('index', 'index');
         } catch (Exception $e) {
             Messages::addError($e->getMessage());
         }

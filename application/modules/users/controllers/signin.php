@@ -11,6 +11,7 @@ use Application\Auth;
 use Bluz\Auth\AuthException;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
+use Bluz\Proxy\Response;
 use Bluz\Proxy\Session;
 use Bluz\Proxy\Request;
 
@@ -31,7 +32,7 @@ function ($login, $password, $rememberMe = false) {
 
     if ($this->user()) {
         Messages::addNotice('Already signed');
-        $this->redirectTo('index', 'index');
+        Response::redirectTo('index', 'index');
     } elseif (Request::isPost()) {
         try {
             if (empty($login)) {
@@ -55,10 +56,10 @@ function ($login, $password, $rememberMe = false) {
             // try to rollback to previous called URL
             if ($rollback = Session::get('rollback')) {
                 Session::delete('rollback');
-                $this->redirect($rollback);
+                Response::redirect($rollback);
             }
             // try back to index
-            $this->redirectTo('index', 'index');
+            Response::redirectTo('index', 'index');
         } catch (Exception $e) {
             Messages::addError($e->getMessage());
             return ['login' => $login];

@@ -7,6 +7,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Application\Auth\AuthProvider;
 
@@ -22,7 +23,7 @@ return
          */
         try {
             $auth = new AuthProvider($provider);
-            $auth->setResponse($this);
+            $auth->setController($this);
             $auth->setIdentity($this->user());
             $auth->authProcess();
         } catch (Exception $e) {

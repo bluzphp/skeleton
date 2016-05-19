@@ -14,6 +14,7 @@ use Bluz\Application\Exception\NotFoundException;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 
 return
 /**
@@ -63,7 +64,7 @@ function ($password, $new_password, $new_password2) {
             Messages::addSuccess("The password was updated successfully");
 
             // try back to index
-            $this->redirectTo('users', 'profile');
+            Response::redirectTo('users', 'profile');
         } catch (BadRequestException $e) {
             Messages::addError($e->getMessage());
         } catch (AuthException $e) {

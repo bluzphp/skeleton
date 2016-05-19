@@ -13,6 +13,7 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Messages;
+use Bluz\Proxy\Response;
 
 return
 /**
@@ -52,5 +53,5 @@ function ($acl) {
         Messages::addError('Internal Server Error');
     }
 
-    $this->redirectTo('acl', 'index');
+    Response::redirectTo('acl', 'index');
 };

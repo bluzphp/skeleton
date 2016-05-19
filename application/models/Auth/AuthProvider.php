@@ -8,6 +8,7 @@ namespace Application\Auth;
 use Bluz\Application\Exception\ApplicationException;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Messages;
+use Bluz\Proxy\Response;
 use Application\Auth;
 use Application\Users;
 
@@ -17,16 +18,19 @@ use Application\Users;
  */
 class AuthProvider implements AuthInterface
 {
-    /** @var \Application\Bootstrap */
-    protected $response;
-
-    /** @var \Application\Users\Row $identity */
+    /**
+     * @var \Application\Users\Row $identity
+     */
     protected $identity;
 
-    /** @var \Hybrid_Auth $hybridauth */
+    /**
+     * @var \Hybrid_Auth $hybridauth
+     */
     protected $hybridauth;
 
-    /** @var \Hybrid_Provider_Adapter $authAdapter */
+    /**
+     * @var \Hybrid_Provider_Adapter $authAdapter
+     */
     protected $authAdapter;
 
     /**
@@ -57,26 +61,12 @@ class AuthProvider implements AuthInterface
         return $this->hybridauth;
     }
 
+    /**
+     * @param \Hybrid_Auth $hybridauth
+     */
     public function setHybridauth($hybridauth)
     {
         $this->hybridauth = $hybridauth;
-    }
-
-
-    /**
-     * @param \Bluz\Application\Application $response
-     */
-    public function setResponse($response)
-    {
-        $this->response = $response;
-    }
-
-    /**
-     * @return \Application\Bootstrap
-     */
-    public function getResponse()
-    {
-        return $this->response;
     }
 
     /**
@@ -147,7 +137,6 @@ class AuthProvider implements AuthInterface
         $row = new Auth\Row();
         $row->userId = $user->id;
         $row->provider = strtolower($this->providerName);
-
         $row->foreignKey = $data->identifier;
         $row->token = $this->authAdapter->getAccessToken()['access_token'];
         $row->tokenSecret = ($this->authAdapter->getAccessToken()['access_token_secret']) ? : '';
@@ -155,7 +144,7 @@ class AuthProvider implements AuthInterface
         $row->save();
 
         Messages::addNotice(sprintf('Your account was linked to %s successfully !', $this->providerName));
-        $this->response->redirectTo('users', 'profile', ['id' => $user->id]);
+        Response::redirectTo('users', 'profile', ['id' => $user->id]);
     }
 
     /**
@@ -176,7 +165,7 @@ class AuthProvider implements AuthInterface
         if ($this->identity) {
             if ($auth) {
                 Messages::addNotice(sprintf('You have already linked to %s', $this->providerName));
-                $this->response->redirectTo('users', 'profile', ['id' => $this->identity->id]);
+                Response::redirectTo('users', 'profile', ['id' => $this->identity->id]);
             } else {
                 $user = Users\Table::findRow($this->identity->id);
                 $this->registration($profile, $user);
@@ -187,7 +176,7 @@ class AuthProvider implements AuthInterface
             $this->alreadyRegisteredLogic($auth);
         } else {
             Messages::addError(sprintf('First you need to be linked to %s', $this->providerName));
-            $this->response->redirectTo('users', 'signin');
+            Response::redirectTo('users', 'signin');
         }
     }
 
@@ -221,7 +210,7 @@ class AuthProvider implements AuthInterface
         }
 
         $user->tryLogin();
-        $this->response->redirectTo('index', 'index');
+        Response::redirectTo('index', 'index');
     }
 
     /**

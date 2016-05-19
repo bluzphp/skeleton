@@ -14,7 +14,9 @@ use Application\Roles\Table;
 use Application\Users;
 use Application\UsersActions;
 use Application\UsersRoles;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
+use Bluz\Proxy\Response;
 
 return
 /**
@@ -25,13 +27,12 @@ return
 function ($id, $code) {
     /**
      * @var Controller $this
-     * @var \Bluz\View\View $view
      */
     $actionRow = UsersActions\Table::findRow(['userId' => $id, 'code' => $code]);
 
     if (!$actionRow) {
         Messages::addError('Invalid activation code');
-        $this->redirectTo('index', 'index');
+        Response::redirectTo('index', 'index');
         return false;
     }
 
@@ -65,8 +66,7 @@ function ($id, $code) {
             'Your Account has been successfully activated. <br/>'.
             'You can now log in using the username and password you chose during the registration.'
         );
-        $this->redirectTo('users', 'signin');
+        Response::redirectTo('users', 'signin');
     }
-    $this->redirectTo('index', 'index');
-    return false;
+    Response::redirectTo('index', 'index');
 };

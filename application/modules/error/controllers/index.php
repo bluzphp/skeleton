@@ -12,6 +12,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Logger;
 use Bluz\Proxy\Messages;
@@ -30,7 +31,6 @@ return
 function ($code, $message = '') {
     /**
      * @var Controller $this
-     * @var \Bluz\View\View $view
      */
     Logger::error($message);
 

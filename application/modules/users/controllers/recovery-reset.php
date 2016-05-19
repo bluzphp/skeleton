@@ -14,6 +14,7 @@ use Application\Users;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 
 return
 /**
@@ -39,11 +40,11 @@ function ($id, $code, $password = null, $password2 = null) {
 
     if (!$actionRow or $actionRow->action !== UsersActions\Table::ACTION_RECOVERY) {
         Messages::addError('Invalid code');
-        $this->redirectTo('index', 'index');
+        Response::redirectTo('index', 'index');
     } elseif ($interval->invert) {
         Messages::addError('The activation code has expired');
         $actionRow->delete();
-        $this->redirectTo('index', 'index');
+        Response::redirectTo('index', 'index');
     } else {
         $user = Users\Table::findRow($id);
         
@@ -72,7 +73,7 @@ function ($id, $code, $password = null, $password2 = null) {
                 Messages::addSuccess(
                     "Your password has been updated"
                 );
-                $this->redirectTo('users', 'signin');
+                Response::redirectTo('users', 'signin');
             } catch (Exception $e) {
                 Messages::addError($e->getMessage());
             }

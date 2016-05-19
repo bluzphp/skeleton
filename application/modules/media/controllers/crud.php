@@ -14,7 +14,6 @@ use Application\Media;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Layout;
-use Bluz\Proxy\Request;
 use Bluz\Proxy\Session;
 
 return
@@ -61,7 +60,7 @@ function () {
 //            or $crudController->getMethod() == Request::METHOD_PUT )
 //        && !$result /*($result instanceof Media\Row)*/) {
 //        // all ok, go to grid
-//        $this->redirectTo('media', 'grid');
+//        Response::redirectTo('media', 'grid');
 //    }
 //
 //    return $result;

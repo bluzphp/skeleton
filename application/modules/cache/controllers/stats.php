@@ -16,6 +16,7 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Messages;
+use Bluz\Proxy\Response;
 
 return
 /**
@@ -41,6 +42,6 @@ function () {
         $this->assign('adapter', Cache::getInstance()->getAdapter());
     } else {
         Messages::addNotice("Cache is disabled");
-        $this->redirectTo('cache', 'index');
+        Response::redirectTo('cache', 'index');
     }
 };
