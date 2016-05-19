@@ -10,7 +10,6 @@
 namespace Application\Tests;
 
 use Bluz\Application;
-use Bluz\Request;
 use Application\Bootstrap;
 
 /**
@@ -35,6 +34,11 @@ class BootstrapTest extends Bootstrap
      */
     protected $dispatchController;
 
+    /**
+     * @var \Exception
+     */
+    protected $exception;
+    
     /**
      * resetRouter
      *
@@ -69,13 +73,41 @@ class BootstrapTest extends Bootstrap
      * @param string $module
      * @param string $controller
      * @param array $params
-     * @return \Bluz\View\View|string
+     * @return \Bluz\Controller\Controller
+     * @throws \Exception
      */
     public function dispatch($module, $controller, $params = array())
     {
         $this->dispatchModule = $module;
         $this->dispatchController = $controller;
 
-        return parent::dispatch($module, $controller, $params);
+        try {
+            return parent::dispatch($module, $controller, $params);
+        } catch (\Exception $e) {
+            $this->setException($e);
+            throw $e;
+        }
+    }
+
+
+    /**
+     * setException
+     *
+     * @param \Exception $exception
+     * @return void
+     */
+    public function setException($exception)
+    {
+        $this->exception = $exception;
+    }
+
+    /**
+     * getException
+     *
+     * @return \Exception
+     */
+    public function getException()
+    {
+        return $this->exception;
     }
 }

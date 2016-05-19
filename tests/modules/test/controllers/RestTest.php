@@ -76,7 +76,9 @@ class RestTest extends ControllerTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->getApp()->useJson();
+        $this->setupSuperUserIdentity();
+        $this->getApp()->useLayout(false);
+        Response::setHeader('Content-Type', 'application/json');
     }
 
     /**
@@ -89,7 +91,9 @@ class RestTest extends ControllerTestCase
         $this->assertOk();
 
         /** @var \Application\Test\Row $row */
-        $row = current(Response::getBody()->toArray());
+        $row = current(Response::getBody()->getData()->toArray());
+
+
         $this->assertEquals($row->id, 1);
     }
 
@@ -101,7 +105,7 @@ class RestTest extends ControllerTestCase
         $this->dispatch('/test/rest/', ['offset' => 0, 'limit' => 3]);
 
         $this->assertResponseCode(206);
-        $this->assertEquals(sizeof(Response::getBody()->toArray()), 3);
+        $this->assertEquals(sizeof(Response::getBody()->getData()->toArray()), 3);
         $this->assertEquals(Response::getHeader('Content-Range'), 'items 0-3/45');
     }
 
@@ -154,8 +158,8 @@ class RestTest extends ControllerTestCase
             Request::METHOD_POST
         );
 
-        $this->assertNotNull(Response::getBody()->errors);
-        $this->assertEquals(sizeof(Response::getBody()->errors), 2);
+        $this->assertNotNull(Response::getBody()->getData()->get('errors'));
+        $this->assertEquals(sizeof(Response::getBody()->getData()->get('errors')), 2);
         $this->assertResponseCode(400);
     }
 

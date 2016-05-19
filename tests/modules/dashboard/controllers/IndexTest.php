@@ -22,26 +22,6 @@ class IndexTest extends ControllerTestCase
 {
     /**
      * Dispatch controller w/out application:
-     *  - as guest
-     *  - w/out permission
-     * @expectedException \Bluz\Application\Exception\RedirectException
-     */
-    public function testRedirect()
-    {
-        $this->getApp()->dispatch('dashboard', 'index');
-    }
-
-    /**
-     * Dispatch controller as guest w/out permissions
-     */
-    public function testRedirectByUri()
-    {
-        $this->dispatch('dashboard/index');
-        $this->assertRedirect('users', 'signin');
-    }
-
-    /**
-     * Dispatch controller w/out application:
      *  - as user
      *  - w/out permission
      * @expectedException \Bluz\Application\Exception\ForbiddenException

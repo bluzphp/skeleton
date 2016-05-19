@@ -9,6 +9,7 @@
  */
 namespace Application\Tests;
 
+use Bluz\Application\Exception\RedirectException;
 use Bluz\Messages\Messages as MessagesInstance;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Messages;
@@ -120,11 +121,14 @@ class ControllerTestCase extends TestCase
     {
         $url = Router::getUrl($module, $controller, $params);
 
+        /**
+         * @var RedirectException $exception
+         */
         $exception = $this->getApp()->getException();
 
         $this->assertInstanceOf('\Bluz\Application\Exception\RedirectException', $exception);
         $this->assertEquals($exception->getCode(), $code);
-        $this->assertEquals($exception->getMessage(), $url);
+        $this->assertEquals($exception->getUrl(), $url);
     }
 
     /**
@@ -163,11 +167,11 @@ class ControllerTestCase extends TestCase
      */
     protected function assertResponseVariable($key, $value)
     {
-        if ($this->getApp()->hasLayout()) {
+        if ($this->getApp()->useLayout()) {
             $this->fail("Method `assertResponseVariable` required to disable Layout, please update test");
         }
 
-        $variable = Response::getBody()->__get($key);
+        $variable = Response::getBody()->getData()->__get($key);
         $this->assertEquals($variable, $value);
     }
 

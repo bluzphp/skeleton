@@ -93,7 +93,6 @@ class AuthTest extends ControllerTestCase
         $this->assertInstanceOf('\Hybrid_Auth', $this->hybridAuthMock);
 
         $provider = new AuthProvider('Facebook');
-        $provider->setResponse($this->getApp());
         $provider->setIdentity($identity);
         $provider->setHybridauth($this->hybridAuthMock);
         $provider->setAuthAdapter($this->authAdapterMock);
@@ -122,7 +121,6 @@ class AuthTest extends ControllerTestCase
         $this->assertInstanceOf('\Hybrid_Auth', $this->hybridAuthMock);
 
         $provider = new AuthProvider('Facebook');
-        $provider->setResponse($this->getApp());
         $provider->setHybridauth($this->hybridAuthMock);
         $provider->setAuthAdapter($this->authAdapterMock);
         try {

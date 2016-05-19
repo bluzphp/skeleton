@@ -51,6 +51,6 @@ class ApiTest extends ControllerTestCase
         $this->dispatch('api/login', ['login' => 'admin', 'password' => 'admin'], 'POST');
 
         $this->assertOk();
-        $this->assertArrayHasKey('token', Response::getBody()->toArray());
+        $this->assertArrayHasKey('token', Response::getBody()->getData()->toArray());
     }
 }
