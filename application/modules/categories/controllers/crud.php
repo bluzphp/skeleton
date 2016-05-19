@@ -11,6 +11,7 @@ namespace Application;
 
 use Application\Categories;
 use Bluz\Controller\Controller;
+use Bluz\Controller\Crud;
 
 return
 /**
@@ -25,8 +26,8 @@ function ($parentId = null) {
      */
     $this->assign('parentId', $parentId);
 
-//    $crudController = new Controller\Crud();
-//    $crudController->setCrud(Categories\Crud::getInstance());
-//
-//    return $crudController();
+    $crudController = new Crud();
+    $crudController->setCrud(Categories\Crud::getInstance());
+
+    return $crudController();
 };

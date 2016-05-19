@@ -12,8 +12,11 @@ namespace Application;
 
 use Application\Media;
 use Bluz\Controller\Controller;
+use Bluz\Controller\Crud;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Layout;
+use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 use Bluz\Proxy\Session;
 
 return
@@ -51,17 +54,17 @@ function () {
     }
     $crud->setUploadDir($path.'/'.$userId.'/media');
 
-//    $crudController = new Controller\Crud();
-//    $crudController->setCrud($crud);
-//    $result = $crudController();
-//
-//    // FIXME: workaround
-//    if (($crudController->getMethod() == Request::METHOD_POST
-//            or $crudController->getMethod() == Request::METHOD_PUT )
-//        && !$result /*($result instanceof Media\Row)*/) {
-//        // all ok, go to grid
-//        Response::redirectTo('media', 'grid');
-//    }
-//
-//    return $result;
+    $crudController = new Crud();
+    $crudController->setCrud($crud);
+    $result = $crudController();
+
+    // FIXME: workaround
+    if (($crudController->getMethod() == Request::METHOD_POST
+            or $crudController->getMethod() == Request::METHOD_PUT )
+        && !$result /*($result instanceof Media\Row)*/) {
+        // all ok, go to grid
+        Response::redirectTo('media', 'grid');
+    }
+
+    return $result;
 };
