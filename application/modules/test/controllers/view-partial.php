@@ -8,6 +8,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
 return
@@ -17,7 +18,6 @@ return
 function () {
     /**
      * @var Controller $this
-     * @var \Bluz\View\View $view
      */
     Layout::breadCrumbs(
         [

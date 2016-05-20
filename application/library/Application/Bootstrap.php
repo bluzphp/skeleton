@@ -90,7 +90,7 @@ class Bootstrap extends Application
         // for guest, for requests
         if (!AuthProxy::getIdentity() && !Request::isXmlHttpRequest()) {
             // save URL to session and redirect make sense if presentation is null
-            Session::set('rollback', Request::getRequestUri()->__toString());
+            Session::set('rollback', Request::getUri()->__toString());
             // add error notice
             Messages::addError($message);
             // redirect to Sign In page

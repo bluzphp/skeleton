@@ -28,7 +28,7 @@ function () {
         ]
     );
 
-    $uri = Request::getRequestUri();
+    $uri = Request::getUri();
     $module = Request::getModule();
     $controller = Request::getController();
     echo <<<CODE

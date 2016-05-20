@@ -10,7 +10,8 @@
 namespace Application;
 
 use Application\Users;
-use Bluz\Controller;
+use Bluz\Controller\Controller;
+use Bluz\Controller\Crud;
 use Bluz\Proxy\Request;
 
 return
@@ -21,8 +22,7 @@ return
  */
 function () {
     /**
-     * @var Controller\Controller $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
 
     // change layout
@@ -30,7 +30,7 @@ function () {
         $this->useLayout('small.phtml');
     }
 
-    $crudController = new Controller\Crud();
+    $crudController = new Crud();
     $crudController->setCrud(Users\Crud::getInstance());
     return $crudController();
 };

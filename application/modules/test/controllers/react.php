@@ -13,7 +13,7 @@ use Application\Test;
 use Bluz\Application\Exception\ForbiddenException;
 
 use Bluz\Controller\Controller;
-use Bluz\Rest\Rest;
+use Bluz\Proxy\Layout;
 
 /**
  * @return Controller
@@ -26,5 +26,13 @@ return
      * @return mixed
      */
     function () {
-        
+        /**
+         * @var Controller $this
+         */
+        Layout::breadCrumbs(
+            [
+                Layout::ahref('Test', ['test', 'index']),
+                'React',
+            ]
+        );
     };

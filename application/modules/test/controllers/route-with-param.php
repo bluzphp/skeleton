@@ -7,6 +7,7 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 
@@ -20,7 +21,6 @@ return
 function ($a = 42) {
     /**
      * @var Controller $this
-     * @var \Bluz\View\View $view
      */
     Layout::breadCrumbs(
         [
@@ -29,7 +29,7 @@ function ($a = 42) {
         ]
     );
 
-    $uri = Request::getRequestUri();
+    $uri = Request::getUri();
     $module = Request::getModule();
     $controller = Request::getController();
     echo <<<CODE
