@@ -8,6 +8,9 @@
 define(['react', 'react-dom', 'pager', 'jquery', 'bluz.notify'], function(React, ReactDOM, Pager, $, notify) {
     "use strict";
 
+    /**
+     * Table Row
+     */
     var Row = React.createClass({
         handleEdit: function(e) {
             e.preventDefault();
@@ -43,11 +46,14 @@ define(['react', 'react-dom', 'pager', 'jquery', 'bluz.notify'], function(React,
         }
     });
 
-    var List = React.createClass({
+    /**
+     * Table Body
+     */
+    var TBody = React.createClass({
         render: function() {
             var rowNodes = this.props.data.map(function(row, i) {
                 return (
-                    <Row key={i} id={row.id} name={row.name} email={row.email} status={row.status} onEdit={this.props.onEdit} onDelete={this.props.onDelete} />
+                    <Row key={row.id} id={row.id} name={row.name} email={row.email} status={row.status} onEdit={this.props.onEdit} onDelete={this.props.onDelete} />
                 );
             }.bind(this));
 
@@ -59,33 +65,139 @@ define(['react', 'react-dom', 'pager', 'jquery', 'bluz.notify'], function(React,
         }
     });
 
+    /**
+     * Input Mixin
+     */
+    var InputMixin = {
+        getDefaultProps: function () {
+            return {
+                name: 'field',
+                title: 'Field',
+                description: 'Some field'
+            };
+        },
+        getInitialState: function () {
+            return {
+                value: this.props.value || '',
+                error: null
+            };
+        },
+        // hide notification
+        handleClick: function (e) {
+            this.setState({'error': null});
+        },
+        // call Form callback
+        handleChange: function (e) {
+            this.setState({value: e.currentTarget.value}, function () {
+                this.props.onChange(this.state.value);
+            });
+        },
+        value: function (value) {
+            this.setState({value: value});
+        },
+        error: function (error) {
+            this.setState({error: error});
+        }
+    };
+
+    /**
+     * Input Text Component
+     */
+    var TextInput = React.createClass({
+        mixins: [InputMixin],
+        render: function () {
+            var error = this.state.error ? (
+                <span className="error">{this.state.error}</span>
+            ) : null;
+
+            return (
+                <div className={error ? 'form-group has-error' : 'form-group'}>
+                    <label className="col-sm-2 control-label" for="inputName">
+                        {this.props.title}
+                    </label>
+                    <div className="col-sm-10">
+                        <input type="text" name={this.props.name} id="inputName"
+                               className="form-control" placeholder={this.props.description}
+                               value={this.state.value}
+                               onClick={this.handleClick}
+                               onChange={this.handleChange} />
+                        {error}
+                    </div>
+                </div>
+            );
+        }
+    });
+
+    /**
+     * Input Select Component
+     */
+    var SelectInput = React.createClass({
+        mixins: [InputMixin],
+        render: function () {
+            var error = this.state.error ? (
+                <span className="error">{this.state.error}</span>
+            ) : null;
+
+            return (
+            <div className={error ? 'form-group has-error' : 'form-group'}>
+                <label className="col-sm-2 control-label">{this.props.title}</label>
+                <div className="col-sm-10">
+                    <select className="form-control"
+                            value={this.state.value}
+                            onChange={this.handleChange}>
+                        {this.props.children}
+                    </select>
+                    {error}
+                </div>
+            </div>
+            );
+        }
+    });
+
+    /**
+     * Create and Edit Form
+     */
     var Form = React.createClass({
         getInitialState: function() {
             return {id: '', name: '', email: '', status: 'active'};
         },
-        handleNameChange: function(e) {
-            this.setState({name: e.target.value});
+        handleNameChange: function(value) {
+            this.setState({name: value});
         },
-        handleEmailChange: function(e) {
-            this.setState({email: e.target.value});
+        handleEmailChange: function(value) {
+            this.setState({email: value});
         },
-        handleStatusChange: function(e) {
-            this.setState({status: e.target.value});
+        handleStatusChange: function(value) {
+            this.setState({status: value});
         },
         handleSubmit: function(e) {
             e.preventDefault();
             var id = this.state.id.trim();
+
             var name = this.state.name.trim();
+            if (!name) {
+                this.refs.Name.error('Name is required');
+            }
+
             var email = this.state.email.trim();
+            if (!email) {
+                this.refs.Email.error('Email is required');
+            }
+
             var status = this.state.status.trim();
-            if (!name || !email) {
+
+            if (!name || !email || !status) {
                 return;
             }
             this.props.onSubmit({id: id, name: name, email: email, status: status});
             this.clear();
         },
         set: function(row) {
-            this.setState(row);
+            this.setState(row, function() {
+                this.refs.Name.value(this.state.name);
+                this.refs.Email.value(this.state.email);
+                this.refs.Status.value(this.state.status);
+            });
         },
         clear: function() {
             this.setState({id: '', name: '', email: '', status: 'active'});
@@ -98,38 +210,17 @@ define(['react', 'react-dom', 'pager', 'jquery', 'bluz.notify'], function(React,
                             <form className="editForm form-horizontal" onSubmit={this.handleSubmit}>
                             <div className="modal-header">
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 className="modal-title">Modal title</h4>
+                                <h4 className="modal-title">{this.state.id ? 'Edit' : 'Create'}</h4>
                             </div>
                             <div className="modal-body">
-                                    <input type="hidden" value={this.state.id}/>
-                                    <div className="form-group">
-                                        <label className="col-sm-2 control-label" for="inputName">Name</label>
-                                        <div className="col-sm-10">
-                                        <input type="text" id="inputName" className="form-control" placeholder="User name"
-                                               value={this.state.name}
-                                               onChange={this.handleNameChange} />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="col-sm-2 control-label" for="inputEmail">Email</label>
-                                        <div className="col-sm-10">
-                                        <input type="email" id="inputEmail" className="form-control" placeholder="User email"
-                                               value={this.state.email}
-                                               onChange={this.handleEmailChange} />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="col-sm-2 control-label" for="inputStatus">Status</label>
-                                        <div className="col-sm-10">
-                                        <select className="form-control" id="inputStatus"
-                                                value={this.state.status}
-                                                onChange={this.handleStatusChange}>
-                                            <option value="active">active</option>
-                                            <option value="disable">disable</option>
-                                            <option value="delete">delete</option>
-                                        </select>
-                                        </div>
-                                    </div>
+                                <input type="hidden" value={this.state.id}/>
+                                <TextInput ref="Name" name="name" title="Name" description="User name" onChange={this.handleNameChange}/>
+                                <TextInput ref="Email" name="email" title="Email" description="example@domain.com" onChange={this.handleEmailChange}/>
+                                <SelectInput ref="Status" name="status" title="Status" description="" onChange={this.handleStatusChange}>
+                                    <option value="active">active</option>
+                                    <option value="disable">disable</option>
+                                    <option value="delete">delete</option>
+                                </SelectInput>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
@@ -331,7 +422,7 @@ define(['react', 'react-dom', 'pager', 'jquery', 'bluz.notify'], function(React,
                             <th>Action</th>
                         </tr>
                         </thead>
-                        <List data={this.state.data} onEdit={this.handleEditClick} onDelete={this.handleDeleteClick}/>
+                        <TBody data={this.state.data} onEdit={this.handleEditClick} onDelete={this.handleDeleteClick}/>
                     </table>
                     <Pager total={this.state.total}
                            current={this.state.current}
