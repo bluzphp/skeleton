@@ -12,12 +12,10 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Session;
 
-return
 /**
- *
- * @return \closure
+ * @return array
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

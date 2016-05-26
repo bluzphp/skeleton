@@ -16,16 +16,13 @@ use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 
-return
 /**
- *
  * @param int $id User UID
  * @param string $code
  * @param string $password
  * @param string $password2
- * @return \closure
  */
-function ($id, $code, $password = null, $password2 = null) {
+return function ($id, $code, $password = null, $password2 = null) {
     /**
      * @var Controller $this
      */

@@ -200,10 +200,10 @@ $this->dispatch('test', 'empty')
 
 <h3>Dispatch controller with <code>echo</code> call</h3>
 <pre>
-$this->dispatch('test', 'lorem')
+$this->dispatch('test', 'widgets/lorem')
 </pre>
 <div>
-    <?= $this->dispatch('test', 'lorem') ?>
+    <?php $this->dispatch('test', 'widgets/lorem') ?>
 </div>
 
 <h3>Wrong controller</h3>

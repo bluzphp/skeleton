@@ -11,7 +11,6 @@ use Application\Test;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * Example of Grid with custom route
  *
@@ -19,7 +18,7 @@ return
  * @param string $alias
  * @return \closure
  */
-function ($alias) {
+return function ($alias) {
     /**
      * @var Controller $this
      */

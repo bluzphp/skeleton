@@ -13,11 +13,10 @@ use Bluz\EventManager\Event;
 use Bluz\Proxy\EventManager;
 use Bluz\Proxy\Layout;
 
-return
 /**
- * @return \closure
+ * @return array
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

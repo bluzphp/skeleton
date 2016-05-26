@@ -16,12 +16,16 @@ use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 
-return
 /**
  * @privilege EditPassword
- * @return \closure
+ * 
+ * @param $password
+ * @param $new_password
+ * @param $new_password2
+ * @return void
+ * @throws NotFoundException
  */
-function ($password, $new_password, $new_password2) {
+return function ($password, $new_password, $new_password2) {
     /**
      * @var Controller $this
      */

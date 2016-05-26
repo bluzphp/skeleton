@@ -15,16 +15,16 @@ use Bluz\Proxy\Db;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 
-return
 /**
- * @privilege Management
- *
  * @accept HTML
  * @accept JSON
+ * @privilege Management
+ * 
  * @param int $id
- * @return void
+ * @return bool
+ * @throws Exception
  */
-function ($id) {
+return function ($id) {
     /**
      * @var Controller $this
      */

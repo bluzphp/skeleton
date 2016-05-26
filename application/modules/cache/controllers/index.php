@@ -17,14 +17,13 @@ use Bluz\Proxy\Cache;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Messages;
 
-return
 /**
  * List of cache servers
  *
  * @privilege Management
  * @return void
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

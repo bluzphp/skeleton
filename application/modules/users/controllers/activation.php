@@ -18,13 +18,12 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 
-return
 /**
  * @param int $id User UID
  * @param string $code
- * @return \closure
+ * @return bool
  */
-function ($id, $code) {
+return function ($id, $code) {
     /**
      * @var Controller $this
      */

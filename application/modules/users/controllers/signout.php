@@ -14,11 +14,10 @@ use Bluz\Proxy\Messages;
 use Application\Auth as AppAuth;
 use Bluz\Proxy\Response;
 
-return
 /**
- * @return \closure
+ * @return void
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

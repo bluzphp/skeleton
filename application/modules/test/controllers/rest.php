@@ -13,37 +13,33 @@ use Application\Test;
 use Bluz\Application\Exception\ForbiddenException;
 
 use Bluz\Controller\Controller;
-use Bluz\Rest\Rest;
+use Bluz\Controller\Mapper\Rest;
 
 /**
- * @return Controller
+ * @accept HTML
+ * @accept JSON
+ * @acl Read
+ * @acl Create
+ * @acl Update
+ * @acl Delete
+ * 
+ * @return mixed
  * @throws ForbiddenException
  * @internal param Controller $this
  */
-return
+return function () {
     /**
-     * @accept HTML
-     * @accept JSON
-     * @acl Read
-     * @acl Create
-     * @acl Update
-     * @acl Delete
-     * @return mixed
-     */
-    function () {
-        $this->useJson();
-
-        $rest = new Rest();
-
-        $rest->setCrud(Test\Crud::getInstance());
-
-        $rest->addMap('HEAD', 'system', 'rest/head', 'Read');
-        $rest->addMap('GET', 'system', 'rest/get', 'Read');
-        $rest->addMap('POST', 'system', 'rest/post', 'Create');
-        $rest->addMap('PUT', 'system', 'rest/put', 'Update');
-        $rest->addMap('DELETE', 'system', 'rest/delete', 'Delete');
-
-        $rest->process();
-
-        return $rest->run();
-    };
+     * @var Controller $this
+     */        
+    $rest = new Rest();
+        
+    $rest->setCrud(Test\Crud::getInstance());
+        
+    $rest->addMap('HEAD', 'system', 'rest/head', 'Read');
+    $rest->addMap('GET', 'system', 'rest/get', 'Read');
+    $rest->addMap('POST', 'system', 'rest/post', 'Create');
+    $rest->addMap('PUT', 'system', 'rest/put', 'Update');
+    $rest->addMap('DELETE', 'system', 'rest/delete', 'Delete');
+        
+    return $rest->run();
+};

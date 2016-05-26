@@ -20,12 +20,17 @@ use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
 
-return
 /**
  * @privilege EditEmail
+ *
+ * @param $email
+ * @param $password
+ * @param $token
  * @return void
+ * @throws Exception
+ * @throws NotFoundException
  */
-function ($email = null, $password = null, $token = null) {
+return function ($email = null, $password = null, $token = null) {
     /**
      * @var Controller $this
      */
@@ -79,7 +84,7 @@ function ($email = null, $password = null, $token = null) {
 
             $body = $this->dispatch(
                 'users',
-                'mail-template',
+                'mail/template',
                 [
                     'template' => 'change-email',
                     'vars' => [

@@ -10,13 +10,12 @@ namespace Application;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * @privilege Info
  *
  * @return array
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

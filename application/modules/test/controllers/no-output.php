@@ -7,10 +7,9 @@
  */
 namespace Application;
 
-return
 /**
- * @return \closure
+ * @return false
  */
-function () {
+return function () {
     return false;
 };

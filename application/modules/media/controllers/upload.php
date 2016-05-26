@@ -17,19 +17,22 @@ use Bluz\Proxy\Config;
 use Bluz\Proxy\Request;
 use Zend\Diactoros\UploadedFile;
 
-return
 /**
  * @privilege Upload
+ * 
  * @return array
+ * @throws ConfigException
+ * @throws Exception
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      * @var UploadedFile $file
      */
     $file = Request::getFile('file');
 
-    if ($file && $file->getClientMediaType() == File::TYPE_IMAGE) {
+    // TODO: create media type validation
+    if ($file && $file->getClientMediaType()) {
         // save original name
         $original = $file->getClientFilename();
 

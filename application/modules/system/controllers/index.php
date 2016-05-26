@@ -7,13 +7,12 @@ namespace Application;
 
 use Bluz\Proxy\Layout;
 
-return
 /**
  * @privilege Info
  *
  * @return \closure
  */
-function () {
+return function () {
     Layout::title('System Module');
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(

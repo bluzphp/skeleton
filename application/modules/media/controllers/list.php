@@ -11,15 +11,18 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Db;
 
-return
 /**
- * @var Controller $this
- * @var Users\Row $user
  * @return array
+ * @throws Exception
  */
-function () {
+return function () {
+    /**
+     * @var Controller $this
+     * @var Users\Row $user
+     */
     $this->useJson();
 
     if (!$this->user()) {

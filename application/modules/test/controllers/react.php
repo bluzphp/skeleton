@@ -16,23 +16,19 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
 /**
- * @return Controller
+ * @privilege Read
+ * 
+ * @return void 
  * @throws ForbiddenException
- * @internal param Controller $this
  */
-return
+return function () {
     /**
-     * @privilege Read
-     * @return mixed
+     * @var Controller $this
      */
-    function () {
-        /**
-         * @var Controller $this
-         */
-        Layout::breadCrumbs(
-            [
-                Layout::ahref('Test', ['test', 'index']),
-                'React',
-            ]
-        );
-    };
+    Layout::breadCrumbs(
+        [
+            Layout::ahref('Test', ['test', 'index']),
+            'React',
+        ]
+    );
+};

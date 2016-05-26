@@ -10,13 +10,13 @@ namespace Application;
 use Bluz\Controller\Controller;
 use Swagger;
 
-return
 /**
  * @accept HTML
  * @accept JSON
- * @return \closure
+ *
+ * @return void
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */
@@ -31,5 +31,6 @@ function () {
 
     // @todo: remove this `die` call
     print Swagger\scan($paths, $exclude);
-    die();
+
+    die;
 };

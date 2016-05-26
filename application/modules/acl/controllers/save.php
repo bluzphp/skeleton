@@ -15,14 +15,13 @@ use Bluz\Proxy\Db;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 
-return
 /**
  * @privilege Management
  *
  * @param array $acl
  * @return void
  */
-function ($acl) {
+return function ($acl) {
     /**
      * @var Controller $this
      */

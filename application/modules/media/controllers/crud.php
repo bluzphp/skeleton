@@ -12,21 +12,24 @@ namespace Application;
 
 use Application\Media;
 use Bluz\Controller\Controller;
-use Bluz\Controller\Crud;
+use Bluz\Controller\Mapper\Crud;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Session;
 
-return
 /**
  * @accept HTML
  * @accept JSON
  * @privilege Management
- * @return mixed
+ * 
+ * @return array
+ * @throws Exception
+ * @throws \Bluz\Application\Exception\ForbiddenException
+ * @throws \Bluz\Application\Exception\NotImplementedException
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */
@@ -55,13 +58,18 @@ function () {
     $crud->setUploadDir($path.'/'.$userId.'/media');
 
     $crudController = new Crud();
+    
     $crudController->setCrud($crud);
-    $result = $crudController();
+
+    $crudController->addMap('GET', 'system', 'crud/get', 'Read');
+    $crudController->addMap('POST', 'system', 'crud/post', 'Create');
+    $crudController->addMap('PUT', 'system', 'crud/put', 'Update');
+    $crudController->addMap('DELETE', 'system', 'crud/delete', 'Delete');
+
+    $result = $crudController->run();
 
     // FIXME: workaround
-    if (($crudController->getMethod() == Request::METHOD_POST
-            or $crudController->getMethod() == Request::METHOD_PUT )
-        && !$result /*($result instanceof Media\Row)*/) {
+    if ((Request::isPost() or Request::isPut()) && !$result /*($result instanceof Media\Row)*/) {
         // all ok, go to grid
         Response::redirectTo('media', 'grid');
     }

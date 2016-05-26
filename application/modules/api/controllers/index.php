@@ -15,8 +15,10 @@ use Bluz\Proxy\Auth;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 
-return
 /**
+ * @accept JSON
+ * @accept HTML
+ * 
  * @route /api/{$resource}/{$id}/{$relation}/{$relationId}
  * @param string $resource
  * @param string $id
@@ -35,11 +37,9 @@ return
  * @route /api/{$resource}
  * @param string $resource
  *
- * @accept JSON
- * @accept HTML
- * @return \closure
+ * @return mixed
  */
-function ($resource, $id, $relation, $relationId) {
+return function ($resource, $id, $relation, $relationId) {
     /**
      * @var Controller $this
      */

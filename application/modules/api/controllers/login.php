@@ -11,6 +11,7 @@ namespace Application;
 
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotImplementedException;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Request;
 
 /**
@@ -37,12 +38,12 @@ use Bluz\Proxy\Request;
  *   @SWG\Response(response=400, description="Login and password are required"),
  *   @SWG\Response(response=401, description="User not found")
  * )
- */
-return
-/**
  * @return array
+ * @throws BadRequestException
+ * @throws NotImplementedException
+ * @throws \Bluz\Auth\AuthException
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

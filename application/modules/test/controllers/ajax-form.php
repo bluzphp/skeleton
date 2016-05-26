@@ -3,13 +3,13 @@ namespace Application;
 
 use Bluz\Controller\Controller;
 
-return
+/**
+ * @param $formName
+ * @return void
+ */
+return function ($formName) {
     /**
-     * @param $formName
-     */
-    function ($formName) {
-        /**
-         * @var Controller $this
-         */ 
-        $this->assign('formName', $formName);
-    };
+     * @var Controller $this
+     */ 
+    $this->assign('formName', $formName);
+};

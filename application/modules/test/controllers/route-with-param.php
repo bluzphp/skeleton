@@ -11,14 +11,14 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 
-return
 /**
  * @route /test/param/$
  * @route /test/param/{$a}/
- * @param string $a
- * @return \closure
+ * 
+ * @param int $a
+ * @return false
  */
-function ($a = 42) {
+return function ($a = 42) {
     /**
      * @var Controller $this
      */
@@ -44,6 +44,5 @@ function ($a = 42) {
 </pre>
 CODE;
     var_dump($a);
-//    var_dump(Request::getParams());
     return false;
 };

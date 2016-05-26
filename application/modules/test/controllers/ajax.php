@@ -12,14 +12,14 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 
-return
 /**
  * @accept HTML
  * @accept JSON
+ * 
  * @param bool $messages
  * @return void
  */
-function ($messages = false) {
+return function ($messages = false) {
     /**
      * @var Controller $this
      */

@@ -19,16 +19,16 @@ use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Request;
 
-return
 /**
  * @accept HTML
  * @accept JSON
  * @route  /error/{$code}
+ * 
  * @param  int $code
  * @param  string $message
- * @return \Bluz\View\View
+ * @return array
  */
-function ($code, $message = '') {
+return function ($code, $message = '') {
     /**
      * @var Controller $this
      */

@@ -13,12 +13,11 @@ use Bluz\Proxy\Mailer;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 
-return
 /**
  * @param string $email
- * @return \closure
+ * @return void
  */
-function ($email = "no-reply@nixsolutions.com") {
+return function ($email = "no-reply@nixsolutions.com") {
     /**
      * @var Controller $this
      */

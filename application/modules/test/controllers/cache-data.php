@@ -11,14 +11,12 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Layout;
 
-return
 /**
- * @param int $id
- *
- * @acl Index Test
- *
- * @return \closure
+ * @param  int $id
+ * @return void
+ * @throws \Exception
  */
+return
 function ($id = null) {
     /**
      * @var Controller $this

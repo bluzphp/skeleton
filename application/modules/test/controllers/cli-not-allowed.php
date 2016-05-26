@@ -10,13 +10,13 @@ namespace Application;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 
-return
 /**
  * @method GET
+ * 
  * @param  bool $flag
- * @return \closure
+ * @return array
  */
-function ($flag = false)  {
+return function ($flag = false)  {
     /**
      * @var Controller $this
      */

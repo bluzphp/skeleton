@@ -11,23 +11,28 @@ namespace Application;
 
 use Application\Categories;
 use Bluz\Controller\Controller;
-use Bluz\Controller\Crud;
+use Bluz\Controller\Mapper\Crud;
 
-return
 /**
  * @accept HTML
  * @accept JSON
  * @privilege Management
  * @return mixed
  */
-function ($parentId = null) {
+return function ($parentId = null) {
     /**
      * @var Controller $this
      */
     $this->assign('parentId', $parentId);
 
-    $crudController = new Crud();
-    $crudController->setCrud(Categories\Crud::getInstance());
+    $crud = new Crud();
 
-    return $crudController();
+    $crud->setCrud(Categories\Crud::getInstance());
+
+    $crud->addMap('GET', 'system', 'crud/get', 'Read');
+    $crud->addMap('POST', 'system', 'crud/post', 'Create');
+    $crud->addMap('PUT', 'system', 'crud/put', 'Update');
+    $crud->addMap('DELETE', 'system', 'crud/delete', 'Delete');
+
+    return $crud->run();
 };

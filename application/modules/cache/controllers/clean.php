@@ -12,10 +12,10 @@
 namespace Application;
 
 use Bluz\Common\Nil;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Messages;
 
-return
 /**
  * Clean data
  *
@@ -23,7 +23,7 @@ return
  * @privilege Management
  * @return void
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

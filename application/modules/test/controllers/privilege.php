@@ -11,14 +11,14 @@ namespace Application;
 
 use Bluz\Controller\Controller;
 
-return
 /**
  * @accept HTML
  * @accept JSON
  * @privilege Denied
- * @return \closure
+ * 
+ * @return void
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

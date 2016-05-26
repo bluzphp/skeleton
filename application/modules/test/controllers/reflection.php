@@ -13,7 +13,6 @@ use Bluz\Controller\Controller;
 use Bluz\Controller\Reflection;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * @key Example of custom key-value
  * @key Array also supported
@@ -21,9 +20,9 @@ return
  * @param string $other
  * @route /test-reflection-{$id}.html
  * @route /test-reflection.html
- * @return \closure
+ * @return array
  */
-function ($id = 0, $other = "default value") {
+return function ($id = 0, $other = "default value") {
     /**
      * @var Controller $this
      */

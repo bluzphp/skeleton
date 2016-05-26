@@ -11,11 +11,10 @@ use Application\Test;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
- * @return \closure
+ * @return void
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

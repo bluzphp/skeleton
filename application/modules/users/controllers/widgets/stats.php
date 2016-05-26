@@ -10,12 +10,12 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Router;
 
-return
 /**
  * @privilege Management
- * @return \closure
+ * 
+ * @return void
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

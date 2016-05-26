@@ -9,11 +9,9 @@ namespace Application;
 
 use Application\Users;
 
-return
-    /**
-     * @return \closure
-     */
-    function () {
-
-        \Hybrid_Endpoint::process();
-    };
+/**
+ * @return \closure
+ */
+return function () {
+    \Hybrid_Endpoint::process();
+};

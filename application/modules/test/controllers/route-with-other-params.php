@@ -13,18 +13,17 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Router;
 
-return
 /**
  * @route /test/route-with-other-params/{$alias}(.*)
  * @param string $alias
+ * @return false
  */
-function ($alias) {
+return function ($alias) {
     /**
      * @var Controller $this
      */
     var_dump($alias);
-    var_dump(Router::getParams());
-    var_dump(Router::getRawParams());
+    var_dump(Request::getParams());
     var_dump(Request::getParam('id'));
     var_dump(Request::getParam('alias'));
     var_dump(Request::getParam('PHPSESSID'));

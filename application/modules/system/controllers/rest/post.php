@@ -18,6 +18,10 @@ use Bluz\Proxy\Router;
 use Bluz\Validator\Exception\ValidatorException;
 
 /**
+ * @accept HTML
+ * @accept JSON
+ * @method POST
+ * 
  * @param  \Bluz\Crud\Table $crud
  * @param  mixed $primary
  * @param  array $data
@@ -25,13 +29,7 @@ use Bluz\Validator\Exception\ValidatorException;
  * @throws BadRequestException
  * @throws NotImplementedException
  */
-return
-/**
- * @accept HTML
- * @accept JSON
- * @method POST
- */
-function ($crud, $primary, $data) {
+return function ($crud, $primary, $data) {
     if (!empty($primary)) {
         // POST + ID is incorrect behaviour
         throw new NotImplementedException();

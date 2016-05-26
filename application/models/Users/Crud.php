@@ -79,7 +79,7 @@ class Crud extends \Bluz\Crud\Table
 
         $body = Application::getInstance()->dispatch(
             'users',
-            'mail-template',
+            'mail/template',
             [
                 'template' => 'registration',
                 'vars' => ['user' => $row, 'activationUrl' => $activationUrl, 'password' => $password]
@@ -89,8 +89,8 @@ class Crud extends \Bluz\Crud\Table
         try {
             $mail = Mailer::create();
             $mail->Subject = $subject;
-            $mail->MsgHTML(nl2br($body));
-            $mail->AddAddress($data['email']);
+            $mail->msgHTML(nl2br($body));
+            $mail->addAddress($data['email']);
 
             Mailer::send($mail);
         } catch (\Exception $e) {

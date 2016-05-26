@@ -15,12 +15,12 @@ use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 
-return
 /**
  * @privilege Management
- * @return \closure
+ * 
+ * @return array
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

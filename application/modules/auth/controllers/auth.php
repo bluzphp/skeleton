@@ -11,28 +11,21 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Application\Auth\AuthProvider;
 
-return
+/**
+ * @param string $provider
+ * @return \closure
+ */
+return function ($provider = '') {
     /**
-     * @param string $provider
-     * @return \closure
+     * @var Controller $this
      */
-    function ($provider = '') {
+    try {
+        $auth = new AuthProvider($provider);
+        $auth->setIdentity($this->user());
+        $auth->authProcess();
+    } catch (Exception $e) {
+        Messages::addError($e->getMessage());
+    }
 
-        /**
-         * @var Controller $this
-         */
-        try {
-            $auth = new AuthProvider($provider);
-            $auth->setController($this);
-            $auth->setIdentity($this->user());
-            $auth->authProcess();
-        } catch (Exception $e) {
-            Messages::addError($e->getMessage());
-        }
-
-        return
-            function () {
-                return false;
-            };
-
-    };
+    return false;
+};

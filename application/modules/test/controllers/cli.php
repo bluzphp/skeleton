@@ -7,19 +7,16 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 
 /**
+ * @method CLI
+ * 
  * @param bool $flag
  * @return array
  */
-return
-/**
- * @method CLI
- * @param  bool $flag
- * @return \closure
- */
-function ($flag = false) {
+return function ($flag = false) {
     /**
      * @var Controller $this
      */

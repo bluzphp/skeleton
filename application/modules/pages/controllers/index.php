@@ -13,13 +13,13 @@ use Bluz\Proxy\HttpCacheControl;
 use Bluz\Proxy\Layout;
 use Bluz\View\View;
 
-return
 /**
  * @route /{$alias}.html
+ * 
  * @param string $alias
- * @return void
+ * @throws NotFoundException
  */
-function ($alias) {
+return function ($alias) {
     /**
      * @var Controller $this
      * @var Pages\Row $page

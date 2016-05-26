@@ -14,16 +14,14 @@ use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 
 /**
+ * @accept JSON
+ * @method HEAD
+ * 
  * @param  \Bluz\Crud\Table $crud
  * @param  mixed $primary
  * @return array
  */
-return
-/**
- * @accept JSON
- * @method HEAD
- */
-function ($crud, $primary) {
+return function ($crud, $primary) {
     if (!empty($primary)) {
         // @throws NotFoundException
         $result = [$crud->readOne($primary)];

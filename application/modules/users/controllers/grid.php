@@ -13,12 +13,11 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * @privilege Management
  * @return \closure
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

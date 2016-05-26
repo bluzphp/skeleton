@@ -13,11 +13,14 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 
-return
 /**
- * @return void
+ * @param $int
+ * @param $string
+ * @param $array
+ * @param int $optional
+ * @return array
  */
-function ($int, $string, $array, $optional = 0)  {
+return function ($int, $string, $array, $optional = 0)  {
     /**
      * @var Controller $this
      */
@@ -35,7 +38,7 @@ function ($int, $string, $array, $optional = 0)  {
         
         return [
             'inside' => $inside, 
-            'params' => Request::getAllParams()
+            'params' => Request::getParams()
         ];
     }
 };

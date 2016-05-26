@@ -8,14 +8,30 @@
 namespace Application;
 
 use Application\Test;
-use Bluz\Controller;
+use Bluz\Controller\Controller;
+use Bluz\Controller\Mapper\Crud;
 
 /**
+ * @acl Read
+ * @acl Create
+ * @acl Update
+ * @acl Delete
+ *
  * @accept HTML
  * @accept JSON
  */
 return function () {
-    $crudController = new Controller\Crud();
-    $crudController->setCrud(Test\Crud::getInstance());
-    return $crudController();
+    /**
+     * @var Controller $this
+     */
+    $crud = new Crud();
+
+    $crud->setCrud(Test\Crud::getInstance());
+
+    $crud->addMap('GET', 'system', 'crud/get', 'Read');
+    $crud->addMap('POST', 'system', 'crud/post', 'Create');
+    $crud->addMap('PUT', 'system', 'crud/put', 'Update');
+    $crud->addMap('DELETE', 'system', 'crud/delete', 'Delete');
+
+    return $crud->run();
 };

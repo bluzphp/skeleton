@@ -14,12 +14,14 @@ use Application\Categories;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 
-return
 /**
  * @accept JSON
  * @privilege Management
+ * 
+ * @param $tree
+ * @param $treeParent
  */
-function ($tree, $treeParent) {
+return function ($tree, $treeParent) {
     /**
      * @var Controller $this
      */

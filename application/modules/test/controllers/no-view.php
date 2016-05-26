@@ -9,11 +9,10 @@ namespace Application;
 
 use Bluz\Proxy\Layout;
 
-return
 /**
- * @return \closure
+ * @return void
  */
-function () {
+return function () {
     Layout::breadCrumbs(
         [
             Layout::ahref('Test', ['test', 'index']),

@@ -17,11 +17,13 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Messages;
 
-return
 /**
  * @privilege Management
+ * 
+ * @param integer $id
+ * @return array
  */
-function ($id = null) {
+return function ($id = null) {
     /**
      * @var Controller $this
      */

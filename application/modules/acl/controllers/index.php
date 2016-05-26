@@ -13,13 +13,12 @@ use Bluz\Controller\Controller;
 use Bluz\Controller\Reflection;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * @privilege View
  *
  * @return void
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

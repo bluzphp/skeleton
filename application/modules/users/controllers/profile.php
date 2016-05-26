@@ -11,15 +11,13 @@ use Application\Users;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
- * @param int $id
- *
  * @privilege ViewProfile
  *
- * @return \closure
+ * @param int $id
+ * @throws Exception
  */
-function ($id = null) {
+return function ($id = null) {
     /**
      * @var Controller $this
      */

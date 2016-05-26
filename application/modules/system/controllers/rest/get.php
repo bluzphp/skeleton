@@ -13,17 +13,15 @@ use Bluz\Controller;
 use Bluz\Proxy\Request;
 
 /**
+ * @accept HTML
+ * @accept JSON
+ * @method GET
+ * 
  * @param  \Bluz\Crud\Table $crud
  * @param  mixed $primary
  * @return array
  */
-return
-/**
- * @accept HTML
- * @accept JSON
- * @method GET
- */
-function ($crud, $primary) {
+return function ($crud, $primary) {
     if (!empty($primary)) {
         // @throws NotFoundException
         return [$crud->readOne($primary)];

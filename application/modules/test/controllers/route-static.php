@@ -11,13 +11,12 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 
-return
 /**
  * @route /static-route/
  * @route /another-route.html
- * @return \closure
+ * @return false
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

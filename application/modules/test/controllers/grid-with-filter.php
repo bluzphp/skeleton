@@ -8,23 +8,22 @@ use Application\Test;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
+/**
+ * @return void
+ */
+return function () {
     /**
-     * @return \closure
+     * @var Controller $this
      */
-    function () {
-        /**
-         * @var Controller $this
-         */
-        Layout::breadCrumbs(
-            [
-                Layout::ahref('Test', ['test', 'index']),
-                'Grid with Filter',
-            ]
-        );
-        $grid = new Test\ArrayGrid();
-        $grid->setModule($this->module);
-        $grid->setController($this->controller);
+    Layout::breadCrumbs(
+        [
+            Layout::ahref('Test', ['test', 'index']),
+            'Grid with Filter',
+        ]
+    );
+    $grid = new Test\ArrayGrid();
+    $grid->setModule($this->module);
+    $grid->setController($this->controller);
 
-        $this->assign('grid', $grid);
-    };
+    $this->assign('grid', $grid);
+};

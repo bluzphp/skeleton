@@ -18,14 +18,13 @@ use Bluz\Proxy\Layout;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 
-return
 /**
  * Statistics
  *
  * @privilege Management
  * @return void
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

@@ -14,6 +14,10 @@ use Bluz\Controller;
 use Bluz\Proxy\Response;
 
 /**
+ * @accept HTML
+ * @accept JSON
+ * @method DELETE
+ * 
  * @param  \Bluz\Crud\Table $crud
  * @param  mixed $primary
  * @param  array $data
@@ -22,13 +26,7 @@ use Bluz\Proxy\Response;
  * @throws \Bluz\Application\Exception\NotFoundException
  * @throws \Bluz\Application\Exception\NotImplementedException
  */
-return
-/**
- * @accept HTML
- * @accept JSON
- * @method DELETE
- */
-function ($crud, $primary, $data) {
+return function ($crud, $primary, $data) {
     if (!empty($primary)) {
         // delete one
         // @throws NotFoundException

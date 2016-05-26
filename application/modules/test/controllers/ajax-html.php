@@ -10,11 +10,10 @@ namespace Application;
 
 use Bluz\Controller\Controller;
 
-return
 /**
- * @return \closure
+ * @return void
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

@@ -15,14 +15,13 @@ use Bluz\Proxy\Response;
 use Bluz\Proxy\Session;
 use Bluz\Proxy\Request;
 
-return
 /**
  * @param string $login
  * @param string $password
  * @param bool $rememberMe
- * @return \closure
+ * @return array
  */
-function ($login, $password, $rememberMe = false) {
+return function ($login, $password, $rememberMe = false) {
     /**
      * @var Controller $this
      */

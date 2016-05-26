@@ -13,11 +13,12 @@ namespace Application;
 
 use Bluz\Controller\Controller;
 
-return
 /**
- * @return \closure
+ * @param $file
+ * @return string
+ * @throws Exception
  */
-function ($file) {
+return function ($file) {
     /**
      * @var Controller $this
      */
@@ -34,7 +35,5 @@ function ($file) {
     }
 
     $this->useLayout(false);
-    return function () use ($key) {
-        return json_encode($_SESSION[$key]);
-    };
+    return json_encode($_SESSION[$key]);
 };

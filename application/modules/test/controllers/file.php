@@ -7,13 +7,14 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Response;
 
-return
 /**
+ * FIXME: closure should be back...
  * @return \closure
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

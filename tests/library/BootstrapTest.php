@@ -11,6 +11,13 @@ namespace Application\Tests;
 
 use Bluz\Application;
 use Application\Bootstrap;
+use Bluz\Application\Exception\ForbiddenException;
+use Bluz\Application\Exception\RedirectException;
+use Bluz\Application\Exception\ReloadException;
+use Bluz\Proxy\Layout;
+use Bluz\Proxy\Logger;
+use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 
 /**
  * Bootstrap
@@ -88,7 +95,6 @@ class BootstrapTest extends Bootstrap
             throw $e;
         }
     }
-
 
     /**
      * setException

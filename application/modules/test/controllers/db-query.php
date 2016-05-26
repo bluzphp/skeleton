@@ -10,11 +10,10 @@ namespace Application;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * @return void
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

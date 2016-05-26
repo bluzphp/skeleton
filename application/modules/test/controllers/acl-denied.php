@@ -10,12 +10,13 @@
  */
 namespace Application;
 
-return
+use Bluz\Controller\Controller;
+
 /**
  * @privilege Another
  * @return void
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

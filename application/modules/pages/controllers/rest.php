@@ -8,20 +8,24 @@
 namespace Application;
 
 use Application\Pages;
-use Bluz\Controller;
+use Bluz\Controller\Controller;
+use Bluz\Controller\Mapper\Rest;
 
-return
 /**
  * @accept JSON
- * @method GET
- * @method HEAD
+ * 
  * @return mixed
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */
-    $crudController = new Controller\Rest();
-    $crudController->setCrud(Pages\Crud::getInstance());
-    return $crudController();
+    $rest = new Rest();
+
+    $rest->setCrud(Pages\Crud::getInstance());
+
+    $rest->addMap('HEAD', 'system', 'rest/head');
+    $rest->addMap('GET', 'system', 'rest/get');
+
+    return $rest->run();
 };

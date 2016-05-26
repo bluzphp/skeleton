@@ -18,12 +18,11 @@ use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
 
-return
 /**
  * @param string $email
- * @return \closure
+ * @return void
  */
-function ($email = null) {
+return function ($email = null) {
     /**
      * @var Controller $this
      */
@@ -70,7 +69,7 @@ function ($email = null) {
 
             $body = $this->dispatch(
                 'users',
-                'mail-template',
+                'mail/template',
                 [
                     'template' => 'recovery',
                     'vars' => ['user' => $user, 'resetUrl' => $resetUrl]

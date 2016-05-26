@@ -13,14 +13,13 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 
-return
 /**
- * @param bool $sex
- * @param string $car
- * @param bool $remember
- * @return \closure
+ * @param  bool $sex
+ * @param  string $car
+ * @param  bool $remember
+ * @return void
  */
-function ($sex = false, $car = 'none', $remember = false) {
+return function ($sex = false, $car = 'none', $remember = false) {
     /**
      * @var Controller $this
      */
@@ -38,6 +37,6 @@ function ($sex = false, $car = 'none', $remember = false) {
     $this->assign('remember', $remember);
 
     if (Request::isPost()) {
-        $this->assign('params', Request::getAllParams());
+        $this->assign('params', Request::getParams());
     }
 };

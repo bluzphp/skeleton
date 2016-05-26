@@ -8,13 +8,13 @@
 namespace Application;
 
 use Application\Test;
+use Bluz\Controller\Controller;
 
-return
 /**
  * @TODO: need more informative example
  * @return bool
  */
-function () {
+return function () {
     /**
      * @var Controller $this
      */

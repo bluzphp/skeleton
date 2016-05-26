@@ -1,22 +1,18 @@
 <?php
 /**
- * @category Application\Test
- *
  * @author   Anton Shevchuk
  * @created  06.07.11 18:39
  */
+
 /**
  * @namespace
  */
 namespace Application;
 
-return
 /**
  * @return void
  */
-function () {
-    $this->disableView();
-    
+return function () {
     echo <<<LOREM
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus rutrum,
 lectus eu varius consectetur, libero velit hendrerit augue, ut posuere enim neque

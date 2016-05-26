@@ -11,13 +11,12 @@ namespace Application;
 
 use Bluz\Controller\Controller;
 
-return
 /**
- * @param string $template
- * @param array $vars
- * @return \closure
+ * @param  string $template
+ * @param  array $vars
+ * @return array
  */
-function ($template, $vars = []) {
+return function ($template, $vars = []) {
     /**
      * @var Controller $this
      */
