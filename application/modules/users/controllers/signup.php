@@ -16,6 +16,7 @@ use Bluz\Proxy\Request;
 return
 /**
  * @accept JSON
+ * @accept HTML
  * @return \closure
  */
 function () {
