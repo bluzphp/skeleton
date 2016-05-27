@@ -13,7 +13,8 @@ use Bluz\Controller\Mapper\Rest;
 
 /**
  * @accept JSON
- * 
+ * @accept HTML
+ *
  * @return mixed
  */
 return function () {

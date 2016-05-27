@@ -2,6 +2,8 @@
 /**
  * Test of file download
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  29.01.15 15:23
  */

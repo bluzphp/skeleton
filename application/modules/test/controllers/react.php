@@ -1,16 +1,13 @@
 <?php
 /**
- * Example of REST controller for GET method
+ * Example of ReactJS
  *
  * @category Application
  *
  * @author   Anton Shevchuk
- * @created  19.02.15 16:27
+ * @created  19.05.16 16:27
  */
 namespace Application;
-
-use Application\Test;
-use Bluz\Application\Exception\ForbiddenException;
 
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
@@ -19,7 +16,6 @@ use Bluz\Proxy\Layout;
  * @privilege Read
  * 
  * @return void 
- * @throws ForbiddenException
  */
 return function () {
     /**

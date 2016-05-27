@@ -1,10 +1,10 @@
 <?php
 /**
+ * Example of privilege usage - denied access
  *
+ * @category Example
  *
- * @category Application
- *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  21.05.13 16:55
  */
 namespace Application;

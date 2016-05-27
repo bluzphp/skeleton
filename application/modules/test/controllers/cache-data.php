@@ -1,6 +1,8 @@
 <?php
 /**
- * Test MVC
+ * Example of Cache usage
+ *
+ * @category Example
  *
  * @author   dark
  * @created  08.07.11 13:23
@@ -16,8 +18,7 @@ use Bluz\Proxy\Layout;
  * @return void
  * @throws \Exception
  */
-return
-function ($id = null) {
+return function ($id = null) {
     /**
      * @var Controller $this
      */

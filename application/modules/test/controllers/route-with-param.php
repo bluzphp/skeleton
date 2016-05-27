@@ -1,6 +1,8 @@
 <?php
 /**
- * Example of static route
+ * Route with one param optional
+ *
+ * @category Example
  *
  * @author   Anton Shevchuk
  * @created  12.06.12 13:08

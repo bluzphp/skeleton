@@ -2,9 +2,9 @@
 /**
  * Example of forms handle
  *
- * @category Application
+ * @category Example
  *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  13.12.13 18:12
  */
 namespace Application;

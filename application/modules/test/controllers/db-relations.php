@@ -2,7 +2,7 @@
 /**
  * Example of Db\Relations
  *
- * @category Application
+ * @category Example
  *
  * @author   Anton Shevchuk
  * @created  14.11.13 10:45

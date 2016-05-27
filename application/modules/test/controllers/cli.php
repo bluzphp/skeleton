@@ -2,6 +2,8 @@
 /**
  * Test CLI
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  18.11.12 19:41
  */

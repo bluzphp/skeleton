@@ -2,6 +2,8 @@
 /**
  * Works with Options Module
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  04.11.13 13:30
  */

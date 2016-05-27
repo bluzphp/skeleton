@@ -1,6 +1,8 @@
 <?php
 /**
- * Example of grid
+ * Example of grid based on Table
+ *
+ * @category Example
  *
  * @author   Anton Shevchuk
  * @created  27.08.12 10:08

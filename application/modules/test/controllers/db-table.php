@@ -2,6 +2,8 @@
 /**
  * Example of DB\Table usage
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  18.07.13 13:35
  */

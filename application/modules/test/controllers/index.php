@@ -2,6 +2,8 @@
 /**
  * Test of test of test
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  21.08.12 12:39
  */

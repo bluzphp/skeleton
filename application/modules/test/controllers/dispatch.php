@@ -2,6 +2,8 @@
 /**
  * Dispatch other controllers
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  23.08.12 13:14
  */

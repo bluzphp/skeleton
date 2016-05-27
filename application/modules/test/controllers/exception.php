@@ -2,7 +2,7 @@
 /**
  * Exception inside controller
  *
- * @category Application
+ * @category Example
  *
  * @author   Anton
  * @created  12/28/13 8:32 AM

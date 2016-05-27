@@ -11,6 +11,7 @@ namespace Application;
 
 use Bluz\Controller;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 
 /**
  * @accept HTML
@@ -38,6 +39,21 @@ return function ($crud, $primary) {
             // for better compatibility
             $limit = $last - $offset;
         }
-        return $crud->readSet($offset, $limit, $params);
+
+        Response::setStatusCode(206);
+        
+        $total = 0;
+        
+        $result = $crud->readSet($offset, $limit, $params, $total);
+
+        if (sizeof($result) < $total) {
+            Response::setStatusCode(206);
+            Response::setHeader(
+                'Content-Range',
+                'items ' . $offset . '-' . ($offset + sizeof($result)) . '/' . $total
+            );
+        }
+        
+        return $result;
     }
 };

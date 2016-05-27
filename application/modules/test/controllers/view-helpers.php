@@ -1,10 +1,10 @@
 <?php
 /**
- * Demo of View helpers
+ * Example of View helpers
  *
- * @category Application
+ * @category Example
  *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  14.05.13 16:12
  */
 namespace Application;

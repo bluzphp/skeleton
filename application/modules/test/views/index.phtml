@@ -76,8 +76,7 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
 
 <h3>Packages</h3>
 <ul>
-    <li><?= $this->ahref('Cache View', ['test', 'cache-view']);?></li>
-    <li><?= $this->ahref('Cache HTML', ['test', 'cache-html']);?></li>
+    <li><?= $this->ahref('Cache Controller', ['test', 'cache-controller']);?></li>
     <li><?= $this->ahref('Cache Data', ['test', 'cache-data', ['id'=>1]]);?></li>
     <li><?= $this->ahref('DB Operations', ['test', 'db']);?></li>
     <li><?= $this->ahref('DB Query Builders', ['test', 'db-query']);?></li>
@@ -178,8 +177,8 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
 
 <h3>Access denied</h3>
 <div class="btn-group">
-    <a href="<?= $this->url('test', 'privilege') ?>" class="btn btn-default bluz-tooltip ajax" data-toggle="tooltip" title="Return error message">Denied page, AJAX call</a>
-    <a href="<?= $this->url('test', 'privilege') ?>" class="btn btn-default bluz-tooltip dialog" data-toggle="tooltip" title="Return error dialog">Denied page, dialog</a>
+    <a href="<?= $this->url('test', 'denied') ?>" class="btn btn-default bluz-tooltip ajax" data-toggle="tooltip" title="Return error message">Denied page, AJAX call</a>
+    <a href="<?= $this->url('test', 'denied') ?>" class="btn btn-default bluz-tooltip dialog" data-toggle="tooltip" title="Return error dialog">Denied page, dialog</a>
 </div>
 <hr/>
 
@@ -216,10 +215,10 @@ $this->dispatch('test', 'not-found')
 
 <h3>Wrong without privileges</h3>
 <pre>
-$this->dispatch('test', 'acl-denied')
+$this->dispatch('test', 'denied')
 </pre>
 <div>
-    <?= $this->dispatch('test', 'acl-denied') ?>
+    <?= $this->dispatch('test', 'denied') ?>
 </div>
 
 <h3>Dispatch grid based on array</h3>

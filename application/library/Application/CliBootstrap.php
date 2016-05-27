@@ -21,7 +21,6 @@ use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
 use Bluz\Request\RequestFactory;
-use Bluz\Response\Response as ResponseInstance;
 
 /**
  * Bootstrap for CLI

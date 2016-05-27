@@ -2,9 +2,10 @@
 /**
  * Test Cache
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  08.06.12 12:21
- * @return closure
  */
 namespace Application;
 

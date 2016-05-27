@@ -2,6 +2,8 @@
 /**
  * Example of DB Query builder usage
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  07.06.13 18:28
  */

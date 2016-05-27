@@ -2,6 +2,8 @@
 /**
  * Example of static route
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  12.06.12 13:08
  */

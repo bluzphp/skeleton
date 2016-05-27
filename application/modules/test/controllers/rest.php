@@ -1,8 +1,8 @@
 <?php
 /**
- * Example of REST controller for GET method
+ * Complex example of REST controller
  *
- * @category Application
+ * @category Example
  *
  * @author   Anton Shevchuk
  * @created  19.02.15 16:27
@@ -11,7 +11,6 @@ namespace Application;
 
 use Application\Test;
 use Bluz\Application\Exception\ForbiddenException;
-
 use Bluz\Controller\Controller;
 use Bluz\Controller\Mapper\Rest;
 

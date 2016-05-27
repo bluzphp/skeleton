@@ -1,10 +1,11 @@
 <?php
 /**
- * Default module/controller
+ * Session example
  *
+ * @category Example
+ * 
  * @author   Anton Shevchuk
  * @created  06.07.11 18:39
- * @return closure
  */
 namespace Application;
 
@@ -33,12 +34,4 @@ return function () {
         'title' => Layout::title(),
         'session' => Session::get('test'),
     ];
-
-    //    if ($identity = $app->user()) {
-    //        var_dump($acl->isAllowed('index/index', $identity['sid']));
-    //        var_dump($acl->isAllowed('index/test', $identity['sid']));
-    //        var_dump($acl->isAllowed('index/error', $identity['sid']));
-    //    } else {
-    //        Auth::authenticate('admin', '123456');
-    //    }
 };

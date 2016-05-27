@@ -2,9 +2,9 @@
 /**
  * Example of backbone usage
  *
- * @category Application
+ * @category Example
  *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  13.08.13 17:16
  */
 namespace Application;

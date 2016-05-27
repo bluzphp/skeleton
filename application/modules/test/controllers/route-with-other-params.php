@@ -1,17 +1,16 @@
 <?php
 /**
+ * Router with other params
  *
+ * @category Example
  *
- * @category Application
- *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  18.12.13 18:39
  */
 namespace Application;
 
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Request;
-use Bluz\Proxy\Router;
 
 /**
  * @route /test/route-with-other-params/{$alias}(.*)

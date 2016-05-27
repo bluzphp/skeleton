@@ -2,7 +2,7 @@
 /**
  * Exception in View
  *
- * @category Application
+ * @category Example
  *
  * @author   Anton
  * @created  12/28/13 8:34 AM

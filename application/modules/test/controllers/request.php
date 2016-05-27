@@ -2,6 +2,8 @@
 /**
  * Request examples
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  25.02.14 18:01
  */

@@ -2,6 +2,8 @@
 /**
  * Example of grid
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  27.08.12 10:08
  */

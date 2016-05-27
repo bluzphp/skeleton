@@ -1,7 +1,9 @@
 <?php
 /**
- * Example of static route
+ * Example of route with many params
  *
+ * @category Example
+ * 
  * @author   Anton Shevchuk
  * @created  12.06.12 13:08
  */

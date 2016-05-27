@@ -2,6 +2,8 @@
 /**
  * Example of Mailer usage
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  07.09.12 18:28
  */

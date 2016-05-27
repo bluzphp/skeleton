@@ -2,9 +2,9 @@
 /**
  * Get custom reflection data
  *
- * @category Application
+ * @category Example
  *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  17.05.13 17:05
  */
 namespace Application;

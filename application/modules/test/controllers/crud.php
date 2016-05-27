@@ -2,6 +2,8 @@
 /**
  * Example of Crud Controller
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  04.09.12 11:21
  */

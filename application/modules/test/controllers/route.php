@@ -2,6 +2,8 @@
 /**
  * Route examples
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  12.06.12 13:08
  */

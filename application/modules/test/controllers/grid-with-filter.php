@@ -1,5 +1,9 @@
 <?php
 /**
+ * Grid with filters
+ * 
+ * @category Example
+ *
  * @author  Volkov Sergey
  */
 namespace Application;

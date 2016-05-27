@@ -2,9 +2,10 @@
 /**
  * Test of events
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  16.03.12 15:21
- * @return closure
  */
 namespace Application;
 
