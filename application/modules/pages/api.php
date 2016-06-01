@@ -24,10 +24,14 @@
  * )
  *
  * @SWG\Get(
- *   path="/pages/rest/",
- *   tags={"page"},
- *   operationId="getPages",
- *   summary="Collection of Pages",
- *   @SWG\Response(response=501, description="Not Implemented", @SWG\Schema(ref="#/definitions/errorModel"))
+ *     path="/pages/rest/",
+ *     tags={"page"},
+ *     method="GET",
+ *     operationId="getCollection",
+ *     summary="Collection of items",
+ *     @SWG\Parameter(ref="#/parameters/offset"),
+ *     @SWG\Parameter(ref="#/parameters/limit"),
+ *     @SWG\Response(response=200, description="Collection present"),
+ *     @SWG\Response(response=206, description="Collection present")
  * )
  */

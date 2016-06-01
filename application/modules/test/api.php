@@ -17,6 +17,7 @@
  *     summary="Collection of items",
  *     @SWG\Parameter(ref="#/parameters/offset"),
  *     @SWG\Parameter(ref="#/parameters/limit"),
+ *     @SWG\Response(response=200, description="Collection present"),
  *     @SWG\Response(response=206, description="Collection present")
  * )
  *

@@ -86,8 +86,12 @@ class Bootstrap extends Application
             $message = Translator::translate("You don't have permissions, please sign in");
         }
 
+        // for AJAX and API calls (over JSON)
+        $jsonOrApi = Request::isXmlHttpRequest()
+            || (Request::getAccept([Request::TYPE_HTML, Request::TYPE_JSON]) == Request::TYPE_JSON);
+
         // for guest, for requests
-        if (!AuthProxy::getIdentity() && !Request::isXmlHttpRequest()) {
+        if (!AuthProxy::getIdentity() && !$jsonOrApi) {
             // save URL to session and redirect make sense if presentation is null
             Session::set('rollback', Request::getUri()->__toString());
             // add error notice

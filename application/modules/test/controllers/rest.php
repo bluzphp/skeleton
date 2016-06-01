@@ -29,7 +29,9 @@ use Bluz\Controller\Mapper\Rest;
 return function () {
     /**
      * @var Controller $this
-     */        
+     */
+    $this->disableLayout();
+    
     $rest = new Rest();
         
     $rest->setCrud(Test\Crud::getInstance());

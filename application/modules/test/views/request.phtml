@@ -1,7 +1,15 @@
-<h3>Http\Request Methods</h3>
+<?php use Bluz\Proxy\Request; ?>
 
-<h4><code>getRequestUri()</code></h4>
-<code><?php var_dump(\Bluz\Proxy\Request::getRequestUri())?></code>
+<h3>Proxy\Request Methods</h3>
+
+<h4><code>getMethod()</code></h4>
+<code><?php var_dump(Request::getMethod())?></code>
+
+<h4><code>isCli()</code></h4>
+<code><?php var_dump(Request::isCli())?></code>
+
+<h4><code>getUri()</code></h4>
+<code><?php var_dump(Request::getUri()->__toString())?></code>
 
 <h4><code>getClientIp()</code></h4>
-<code><?php var_dump(\Bluz\Proxy\Request::getClientIp())?></code>
+<code><?php var_dump(Request::getClientIp())?></code>
