@@ -28,7 +28,7 @@ return function () {
     $crud->setCrud(Options\Crud::getInstance());
 
     $crud->get('system', 'crud/get');
-    $crud->post('system', 'crud/post');
+    $crud->post('options', 'crud/post');
     $crud->put('system', 'crud/put');
     $crud->delete('system', 'crud/delete');
     
