@@ -16,9 +16,9 @@ define(['jquery', 'bluz'], function ($, bluz) {
     tools.alias = function(string) {
         string = tools.transliterate(string);
         string = string.toLowerCase();
-        string = string.replace(/[ _:;]+/gi, "-");
+        string = string.replace(/[ _.:;]+/gi, "-");
         string = string.replace(/[-]+/gi, "-");
-        string = string.replace(/[^a-z0-9.-]/gi, "");
+        string = string.replace(/[^a-z0-9-]/gi, "");
         return string;
     };
     /**
