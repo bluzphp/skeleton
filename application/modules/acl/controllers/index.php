@@ -80,11 +80,10 @@ return function () {
             }
 
             if ($acl = $reflection->getAcl()) {
-                $set[$module] = array_merge($set[$module], $acl);
+                $set[$module] += $acl;
             }
         }
     }
-
     $this->assign('set', $set);
     
     $privilegesRowset = Privileges\Table::getInstance()->getPrivileges();

@@ -21,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($set as $module => $modulePrivileges) : ?>
+    <?php foreach ($set as $module => $modulePrivileges) : sort($modulePrivileges); ?>
         <tr>
             <th colspan="<?=sizeof($roles) + 1?>"><?=ucfirst($module)?></th>
         </tr>
