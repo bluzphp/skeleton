@@ -25,8 +25,8 @@ return function () {
 
     $rest->setCrud(Pages\Crud::getInstance());
 
-    $rest->addMap('HEAD', 'system', 'rest/head');
-    $rest->addMap('GET', 'system', 'rest/get');
+    $rest->head('system', 'rest/head');
+    $rest->get('system', 'rest/get');
 
     return $rest->run();
 };

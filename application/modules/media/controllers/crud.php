@@ -61,10 +61,10 @@ return function () {
     
     $crudController->setCrud($crud);
 
-    $crudController->addMap('GET', 'system', 'crud/get', 'Read');
-    $crudController->addMap('POST', 'system', 'crud/post', 'Create');
-    $crudController->addMap('PUT', 'system', 'crud/put', 'Update');
-    $crudController->addMap('DELETE', 'system', 'crud/delete', 'Delete');
+    $crudController->get('system', 'crud/get');
+    $crudController->post('system', 'crud/post');
+    $crudController->put('system', 'crud/put');
+    $crudController->delete('system', 'crud/delete');
 
     $result = $crudController->run();
 

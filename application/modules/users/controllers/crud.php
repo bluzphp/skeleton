@@ -13,7 +13,8 @@ use Bluz\Controller\Mapper\Crud;
  * @accept HTML
  * @accept JSON
  * @privilege Management
- * @return \closure
+ *
+ * @return array
  */
 return function () {
     /**
@@ -23,10 +24,10 @@ return function () {
 
     $crud->setCrud(Users\Crud::getInstance());
 
-    $crud->addMap('GET', 'system', 'crud/get', 'Read');
-    $crud->addMap('POST', 'system', 'crud/post', 'Create');
-    $crud->addMap('PUT', 'system', 'crud/put', 'Update');
-    $crud->addMap('DELETE', 'system', 'crud/delete', 'Delete');
+    $crud->get('system', 'crud/get');
+    $crud->post('system', 'crud/post');
+    $crud->put('system', 'crud/put');
+    $crud->delete('system', 'crud/delete');
 
     return $crud->run();
 };

@@ -27,10 +27,10 @@ return function () {
 
     $crud->setCrud(Options\Crud::getInstance());
 
-    $crud->addMap('GET', 'system', 'crud/get');
-    $crud->addMap('POST', 'system', 'crud/post');
-    $crud->addMap('PUT', 'system', 'crud/put');
-    $crud->addMap('DELETE', 'system', 'crud/delete');
+    $crud->get('system', 'crud/get');
+    $crud->post('system', 'crud/post');
+    $crud->put('system', 'crud/put');
+    $crud->delete('system', 'crud/delete');
     
     return $crud->run();
 };
