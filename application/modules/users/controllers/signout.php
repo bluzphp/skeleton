@@ -21,8 +21,11 @@ return function () {
     /**
      * @var Controller $this
      */
-    AppAuth\Table::getInstance()->removeCookieToken($this->user()->id);
-    Auth::clearIdentity();
+    if ($this->user()) {
+        AppAuth\Table::getInstance()->removeCookieToken($this->user()->id);
+        Auth::clearIdentity();
+    }
+
     Messages::addNotice('You are signout');
     Response::redirectTo('index', 'index');
 };
