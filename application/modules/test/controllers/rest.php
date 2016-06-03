@@ -24,23 +24,20 @@ use Bluz\Controller\Mapper\Rest;
  * 
  * @return mixed
  * @throws ForbiddenException
- * @internal param Controller $this
  */
 return function () {
     /**
      * @var Controller $this
      */
-    $this->disableLayout();
-    
     $rest = new Rest();
         
     $rest->setCrud(Test\Crud::getInstance());
         
-    $rest->addMap('HEAD', 'system', 'rest/head', 'Read');
-    $rest->addMap('GET', 'system', 'rest/get', 'Read');
-    $rest->addMap('POST', 'system', 'rest/post', 'Create');
-    $rest->addMap('PUT', 'system', 'rest/put', 'Update');
-    $rest->addMap('DELETE', 'system', 'rest/delete', 'Delete');
+    $rest->head('system', 'rest/head', 'Read');
+    $rest->get('system', 'rest/get', 'Read');
+    $rest->post('system', 'rest/post', 'Create');
+    $rest->put('system', 'rest/put', 'Update');
+    $rest->delete('system', 'rest/delete', 'Delete');
         
     return $rest->run();
 };
