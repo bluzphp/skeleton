@@ -62,10 +62,10 @@ LOCK TABLES `acl_roles` WRITE;
 
 INSERT INTO `acl_roles` (`id`, `name`, `created`)
 VALUES
-	(1,'admin','2012-11-09 07:37:31'),
-	(2,'member','2012-11-09 07:37:37'),
-	(3,'guest','2012-11-09 07:37:44'),
-	(4,'system','2014-12-05 10:14:42');
+	(1,'system','2012-11-09 07:37:31'),
+  (2,'admin','2012-11-09 07:37:33'),
+	(3,'member','2012-11-09 07:37:37'),
+	(4,'guest','2012-11-09 07:37:44');
 
 /*!40000 ALTER TABLE `acl_roles` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -79,8 +79,8 @@ LOCK TABLES `acl_users_roles` WRITE;
 
 INSERT INTO `acl_users_roles` (`userId`, `roleId`)
 VALUES
-	(0,4),
-	(1,1);
+	(1,1),
+	(2,2);
 
 /*!40000 ALTER TABLE `acl_users_roles` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -94,7 +94,7 @@ LOCK TABLES `auth` WRITE;
 
 INSERT INTO `auth` (`userId`, `provider`, `foreignKey`, `token`, `tokenSecret`, `tokenType`, `created`)
 VALUES
-	(1,'equals','admin','$2y$10$4a454775178c3f89d510fud2T.xtw01Ir.Jo.91Dr3nL2sz3OyVpK','','access','2012-11-09 07:40:46');
+	(2,'equals','admin','$2y$10$4a454775178c3f89d510fud2T.xtw01Ir.Jo.91Dr3nL2sz3OyVpK','','access','2012-11-09 07:40:46');
 
 /*!40000 ALTER TABLE `auth` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -134,8 +134,8 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `login`, `email`, `created`, `updated`, `status`)
 VALUES
-	(0,'system',NULL,'2012-11-09 07:37:58',NULL,'disabled'),
-	(1,'admin',NULL,'2012-11-09 07:38:41',NULL,'active');
+	(1,'system',NULL,'2012-11-09 07:37:58',NULL,'disabled'),
+	(2,'admin',NULL,'2012-11-09 07:38:41',NULL,'active');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;

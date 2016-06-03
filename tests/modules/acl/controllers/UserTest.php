@@ -43,7 +43,7 @@ class UserTest extends ControllerTestCase
         $this->setupSuperUserIdentity();
 
         // user id is admin
-        $this->dispatch('acl/user', ['id' => 1]);
+        $this->dispatch('acl/user', ['id' => 2]);
 
         $this->assertOk();
     }

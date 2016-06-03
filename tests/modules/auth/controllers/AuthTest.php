@@ -50,7 +50,7 @@ class AuthTest extends ControllerTestCase
 
         Db::insert('users')->setArray(
             [
-                'id' => 2,
+                'id' => 3,
                 'login' => 'Bill',
                 'email' => 'bill@turtles.org',
                 'status' => 'active'
@@ -60,7 +60,7 @@ class AuthTest extends ControllerTestCase
         Db::insert('auth')->setArray(
             [
                 'provider' => 'facebook',
-                'userId' => 2,
+                'userId' => 3,
                 'foreignKey' => 112233
             ]
         )->execute();
@@ -70,8 +70,8 @@ class AuthTest extends ControllerTestCase
 
     protected function tearDown()
     {
-        Db::delete('users')->where('id IN (?)', [2])->execute();
-        Db::delete('auth')->where('userId IN (?)', [2])->execute();
+        Db::delete('users')->where('id IN (?)', [3])->execute();
+        Db::delete('auth')->where('userId IN (?)', [3])->execute();
         Messages::popAll();
     }
 
@@ -79,7 +79,7 @@ class AuthTest extends ControllerTestCase
     {
 
         $identity = new \Application\Users\Row();
-        $identity->id = 2;
+        $identity->id = 3;
 
         $userProfile = new \Hybrid_User_Profile();
         $userProfile->identifier = 112233;
