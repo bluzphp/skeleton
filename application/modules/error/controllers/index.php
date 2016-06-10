@@ -20,6 +20,7 @@ use Bluz\Proxy\Response;
 use Bluz\Proxy\Request;
 
 /**
+ * @accept ANY
  * @accept HTML
  * @accept JSON
  * @route  /error/{$code}
@@ -62,11 +63,11 @@ return function ($code, $message = '') {
             break;
         case 403:
             $title = __("Forbidden");
-            $description = $message ?: __("You don't have permissions to access this page");
+            $description = __("You don't have permissions to access this page");
             break;
         case 404:
             $title = __("Not Found");
-            $description = $message ?: __("The page you requested was not found");
+            $description = __("The page you requested was not found");
             break;
         case 405:
             $title = __("Method Not Allowed");

@@ -20,17 +20,22 @@
     <li><?= $this->ahref('REST + React', ['test', 'react']) ?> &mdash; is working too</li>
 </ul>
 <hr/>
+<ul>
+    <li><?= $this->ahref('Download File', ['test', 'file']) ?> &mdash; Send file to browser</li>
+    <li><?= $this->ahref('Cookies', ['test', 'cookies']) ?> &mdash; Send cookies to browser</li>
+</ul>
+<hr/>
 <p>Try REST methods</p>
 <div id="rest">
     <div class="btn-group">
-        <?= $this->ahref('GET 10 Records', ['test', 'rest-get'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'GET']);?>
-        <?= $this->ahref('HEAD 10 Records', ['test', 'rest-get'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'HEAD']);?>
+        <?= $this->ahref('GET 10 Records', ['test', 'rest'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'GET', 'id'=> 'rest-get']);?>
+        <?= $this->ahref('HEAD 10 Records', ['test', 'rest'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'HEAD']);?>
     </div>
     <br/>
     <br/>
     <div class="btn-group">
-        <?= $this->ahref('GET Record ID:10', 'test/rest-get/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'GET']);?>
-        <?= $this->ahref('HEAD Record ID:10', 'test/rest-get/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'HEAD']);?>
+        <?= $this->ahref('GET Record ID:10', 'test/rest/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'GET']);?>
+        <?= $this->ahref('HEAD Record ID:10', 'test/rest/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'HEAD']);?>
     </div>
     <br/>
     <br/>
@@ -62,11 +67,6 @@
         });
     });
 </script>
-
-<hr/>
-<ul>
-    <li><?= $this->ahref('Download File', ['test', 'file']) ?> &mdash; Send file to browser</li>
-</ul>
 
 <h3>CLI</h3>
 <p>

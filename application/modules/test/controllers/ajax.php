@@ -14,7 +14,7 @@ use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 
 /**
- * @accept HTML
+ * @accept ANY
  * @accept JSON
  * 
  * @param bool $messages
@@ -24,6 +24,7 @@ return function ($messages = false) {
     /**
      * @var Controller $this
      */
+    $this->useJson();
     if ($messages) {
         Messages::addNotice('Notice for AJAX call');
         Messages::addSuccess('Success for AJAX call');
