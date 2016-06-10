@@ -67,6 +67,7 @@ class CliBootstrap extends Application
     {
         Logger::info("app:process:pre");
         Router::process();
+        Response::switchType('CLI');
     }
 
     /**

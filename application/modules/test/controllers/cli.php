@@ -18,15 +18,13 @@ use Bluz\Proxy\Messages;
  * @param bool $flag
  * @return array
  */
-return function ($flag = false) {
+return function ($flag = false)  {
     /**
      * @var Controller $this
      */
     if ($flag) {
-        Messages::addNotice('Notice Text');
-        Messages::addSuccess('Success Text');
-        Messages::addError('Error Text');
-        Messages::addError('Another Error Text');
+        $this->assign('flag', 'true');
     }
+
     return ['string' => 'bar', 'array' => ['some', 'array']];
 };

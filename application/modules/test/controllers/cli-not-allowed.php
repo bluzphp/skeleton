@@ -22,11 +22,5 @@ return function ($flag = false)  {
     /**
      * @var Controller $this
      */
-    if ($flag) {
-        Messages::addNotice('Notice Text');
-        Messages::addSuccess('Success Text');
-        Messages::addError('Error Text');
-        Messages::addError('Another Error Text');
-    }
-    return ['string' => 'bar', 'array' => ['some', 'array']];
+    return ['string' => 'bar', 'array' => ['some', 'array'], 'flag' => $flag];
 };
