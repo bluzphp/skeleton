@@ -42,7 +42,7 @@
         "name": "js/require",
         "version": "dev-master",
         "dist": {
-          "url": "https://requirejs.org/docs/release/2.2.0/minified/require.js",
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js",
           "type": "file"
         }
       }
