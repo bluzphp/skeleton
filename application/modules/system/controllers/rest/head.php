@@ -16,7 +16,7 @@ use Bluz\Proxy\Response;
 /**
  * @accept JSON
  * @method HEAD
- * 
+ *
  * @param  \Bluz\Crud\Table $crud
  * @param  mixed $primary
  * @return array
@@ -26,7 +26,6 @@ return function ($crud, $primary) {
         // @throws NotFoundException
         $result = [$crud->readOne($primary)];
     } else {
-
         $params = Request::getParams();
 
         // setup default offset and limit - safe way

@@ -17,7 +17,7 @@ use Bluz\Proxy\Response;
 
 /**
  * @privilege Management
- * 
+ *
  * @return array
  */
 return function () {

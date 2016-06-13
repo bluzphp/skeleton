@@ -15,7 +15,7 @@ use Bluz\View\View;
 
 /**
  * @route /{$alias}.html
- * 
+ *
  * @param string $alias
  * @throws NotFoundException
  */

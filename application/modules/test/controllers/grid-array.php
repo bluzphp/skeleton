@@ -14,7 +14,7 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
 /**
- * @return \closure
+ * @return void
  */
 return function () {
     /**

@@ -56,7 +56,9 @@ return function () {
         $filesIterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator(
                 $controllerPath,
-                \FilesystemIterator::KEY_AS_PATHNAME | \FilesystemIterator::CURRENT_AS_FILEINFO | \FilesystemIterator::SKIP_DOTS
+                \FilesystemIterator::KEY_AS_PATHNAME
+                | \FilesystemIterator::CURRENT_AS_FILEINFO
+                | \FilesystemIterator::SKIP_DOTS
             )
         );
 

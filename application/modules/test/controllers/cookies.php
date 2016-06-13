@@ -15,7 +15,10 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Response;
 
-return function() {
+/**
+ * @return void
+ */
+return function () {
     /**
      * @var Controller $this
      */

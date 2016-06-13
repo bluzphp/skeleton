@@ -18,7 +18,7 @@ use Bluz\Proxy\Response;
 /**
  * @accept JSON
  * @accept HTML
- * 
+ *
  * @route /api/{$resource}/{$id}/{$relation}/{$relationId}
  * @param string $resource
  * @param string $id

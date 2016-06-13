@@ -12,7 +12,7 @@ use Bluz\Proxy\Router;
 
 /**
  * @privilege Management
- * 
+ *
  * @return void
  */
 return function () {

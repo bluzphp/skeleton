@@ -19,7 +19,7 @@ use Bluz\Proxy\Request;
  * @accept HTML
  * @accept JSON
  * @privilege Management
- * 
+ *
  * @param int $id
  * @return bool
  * @throws Exception

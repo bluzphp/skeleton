@@ -21,7 +21,7 @@ use Bluz\Validator\Exception\ValidatorException;
  * @accept HTML
  * @accept JSON
  * @method POST
- * 
+ *
  * @param  \Bluz\Crud\Table $crud
  * @param  mixed $primary
  * @param  array $data

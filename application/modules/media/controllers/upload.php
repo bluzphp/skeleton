@@ -19,7 +19,7 @@ use Zend\Diactoros\UploadedFile;
 
 /**
  * @privilege Upload
- * 
+ *
  * @return array
  * @throws ConfigException
  * @throws Exception

@@ -16,7 +16,7 @@ use Bluz\Proxy\Request;
 /**
  * @route /test/param/$
  * @route /test/param/{$a}/
- * 
+ *
  * @param int $a
  * @return false
  */

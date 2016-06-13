@@ -17,7 +17,7 @@ use Bluz\Proxy\Messages;
 /**
  * @accept JSON
  * @privilege Management
- * 
+ *
  * @param $tree
  * @param $treeParent
  */

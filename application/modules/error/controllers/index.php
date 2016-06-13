@@ -24,7 +24,7 @@ use Bluz\Proxy\Request;
  * @accept HTML
  * @accept JSON
  * @route  /error/{$code}
- * 
+ *
  * @param  int $code
  * @param  string $message
  * @return array

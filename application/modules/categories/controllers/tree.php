@@ -19,7 +19,7 @@ use Bluz\Proxy\Messages;
 
 /**
  * @privilege Management
- * 
+ *
  * @param integer $id
  * @return array
  */

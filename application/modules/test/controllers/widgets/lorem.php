@@ -1,7 +1,7 @@
 <?php
 /**
  * Widget example
- * 
+ *
  * @category Example
  *
  * @author   Anton Shevchuk

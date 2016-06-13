@@ -1,7 +1,7 @@
 <?php
 /**
  * Example of grid based on SQL
- * 
+ *
  * @category Example
  *
  * @author   Anton Shevchuk

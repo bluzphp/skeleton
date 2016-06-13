@@ -18,7 +18,7 @@ use Bluz\Proxy\Response;
 
 /**
  * @privilege EditPassword
- * 
+ *
  * @param $password
  * @param $new_password
  * @param $new_password2

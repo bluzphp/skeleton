@@ -23,7 +23,7 @@ use Bluz\Proxy\Session;
  * @accept HTML
  * @accept JSON
  * @privilege Management
- * 
+ *
  * @return array
  * @throws Exception
  * @throws \Bluz\Application\Exception\ForbiddenException

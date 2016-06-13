@@ -16,7 +16,7 @@ use Bluz\Proxy\Db;
 
 /**
  * @accept JSON
- * 
+ *
  * @param  $path
  * @return int
  * @throws Exception

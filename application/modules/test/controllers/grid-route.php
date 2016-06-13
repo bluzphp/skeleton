@@ -16,9 +16,9 @@ use Bluz\Proxy\Layout;
 /**
  * Example of Grid with custom route
  *
- * @route /example/{$alias}
- * @param string $alias
- * @return \closure
+ * @route  /example/{$alias}
+ * @param  string $alias
+ * @return string
  */
 return function ($alias) {
     /**

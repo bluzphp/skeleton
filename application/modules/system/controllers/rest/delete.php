@@ -17,7 +17,7 @@ use Bluz\Proxy\Response;
  * @accept HTML
  * @accept JSON
  * @method DELETE
- * 
+ *
  * @param  \Bluz\Crud\Table $crud
  * @param  mixed $primary
  * @param  array $data

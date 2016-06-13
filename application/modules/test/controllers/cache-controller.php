@@ -13,7 +13,7 @@ use Bluz\Controller\Controller;
 
 /**
  * @cache 2
- * 
+ *
  * @param int $a
  * @return void
  */

@@ -16,7 +16,7 @@ use Bluz\Controller\Mapper\Crud;
  * @accept HTML
  * @accept JSON
  * @privilege Management
- * 
+ *
  * @return mixed
  */
 return function () {

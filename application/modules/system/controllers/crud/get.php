@@ -16,7 +16,7 @@ use Bluz\Proxy\Request;
  * @accept HTML
  * @accept JSON
  * @method GET
- * 
+ *
  * @param  \Bluz\Crud\Table $crud
  * @param  mixed $primary
  * @return array

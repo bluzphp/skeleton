@@ -15,7 +15,7 @@ use Bluz\Controller\Controller;
  * @accept HTML
  * @accept JSON
  * @privilege Denied
- * 
+ *
  * @return void
  */
 return function () {

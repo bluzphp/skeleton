@@ -14,11 +14,11 @@ use Bluz\Proxy\Messages;
 
 /**
  * @method GET
- * 
+ *
  * @param  bool $flag
  * @return array
  */
-return function ($flag = false)  {
+return function ($flag = false) {
     /**
      * @var Controller $this
      */

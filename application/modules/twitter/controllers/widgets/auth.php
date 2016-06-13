@@ -20,6 +20,7 @@ return function () {
      * @var Controller $this
      */
     ?>
-    <a href="<?=Router::getUrl('auth', 'auth',['provider'=> 'twitter'])?>" class="provider btn fa fa-twitter-square fa-2x"></a>
+    <a href="<?=Router::getUrl('auth', 'auth', ['provider'=> 'twitter'])?>"
+       class="provider btn fa fa-twitter-square fa-2x"></a>
     <?php
 };

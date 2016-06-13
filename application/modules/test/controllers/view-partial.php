@@ -3,7 +3,7 @@
  * Example of partial methods of View
  *
  * @category Example
- * 
+ *
  * @author   Anton Shevchuk
  * @created  13.10.11 12:39
  */

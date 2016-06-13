@@ -16,7 +16,7 @@ use Bluz\Proxy\Request;
 /**
  * @accept ANY
  * @accept JSON
- * 
+ *
  * @param bool $messages
  * @return void
  */

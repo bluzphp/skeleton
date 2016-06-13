@@ -21,7 +21,7 @@ use Bluz\Controller\Mapper\Rest;
  * @acl Create
  * @acl Update
  * @acl Delete
- * 
+ *
  * @return mixed
  * @throws ForbiddenException
  */

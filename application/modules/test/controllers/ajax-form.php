@@ -1,9 +1,9 @@
 <?php
 /**
  * Example of ajax form
- * 
+ *
  * @category Example
- * 
+ *
  * @author Anton Shevchuk
  */
 namespace Application;
@@ -17,6 +17,6 @@ use Bluz\Controller\Controller;
 return function ($formName) {
     /**
      * @var Controller $this
-     */ 
+     */
     $this->assign('formName', $formName);
 };

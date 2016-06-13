@@ -14,8 +14,8 @@ use Bluz\Proxy\Layout;
 
 /**
  * @privilege Read
- * 
- * @return void 
+ *
+ * @return void
  */
 return function () {
     /**
