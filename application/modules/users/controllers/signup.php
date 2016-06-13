@@ -24,7 +24,6 @@ return function () {
     /**
      * @var Controller $this
      */
-
     // change layout
     if (!Request::isXmlHttpRequest()) {
         $this->useLayout('small.phtml');
