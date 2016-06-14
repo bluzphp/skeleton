@@ -35,9 +35,11 @@ return function () {
         
     $rest->head('system', 'rest/head', 'Read');
     $rest->get('system', 'rest/get', 'Read');
+    $rest->options('system', 'rest/options', 'Read');
     $rest->post('system', 'rest/post', 'Create');
     $rest->put('system', 'rest/put', 'Update');
+    $rest->patch('system', 'rest/put', 'Update');
     $rest->delete('system', 'rest/delete', 'Delete');
-        
+
     return $rest->run();
 };

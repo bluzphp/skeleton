@@ -19,6 +19,7 @@ use Bluz\Validator\Exception\ValidatorException;
  * @accept HTML
  * @accept JSON
  * @method PUT
+ * @method PATCH
  *
  * @param  \Bluz\Crud\Table $crud
  * @param  mixed $primary

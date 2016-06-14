@@ -19,7 +19,7 @@ use Bluz\Proxy\Response;
  *
  * @param  \Bluz\Crud\Table $crud
  * @param  mixed $primary
- * @return array
+ * @return void
  */
 return function ($crud, $primary) {
     if (!empty($primary)) {
@@ -41,6 +41,6 @@ return function ($crud, $primary) {
     }
 
     $size = strlen(json_encode($result));
+
     Response::addHeader('Content-Length', $size);
-    return null;
 };

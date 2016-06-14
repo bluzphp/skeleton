@@ -47,13 +47,17 @@ class Bootstrap extends Application
         Layout::title("Bluz Skeleton");
 
         // apply "remember me" function
-        if (!AuthProxy::getIdentity() && !empty($_COOKIE['rToken']) && !empty($_COOKIE['rId'])) {
-            // try to login
-            try {
-                Auth\Table::getInstance()->authenticateCookie($_COOKIE['rId'], $_COOKIE['rToken']);
-            } catch (AuthException $e) {
-                $this->getResponse()->setCookie('rId', '', 1, '/');
-                $this->getResponse()->setCookie('rToken', '', 1, '/');
+        if (!AuthProxy::getIdentity()) {
+            if (!empty($_COOKIE['rToken']) && !empty($_COOKIE['rId'])) {
+                // try to login
+                try {
+                    Auth\Table::getInstance()->authenticateCookie($_COOKIE['rId'], $_COOKIE['rToken']);
+                } catch (AuthException $e) {
+                    $this->getResponse()->setCookie('rId', '', 1, '/');
+                    $this->getResponse()->setCookie('rToken', '', 1, '/');
+                }
+            } elseif (!empty(Request::getHeader('Bluz-Token'))) {
+                Auth\Table::getInstance()->authenticateToken(Request::getHeader('Bluz-Token'));
             }
         }
 
