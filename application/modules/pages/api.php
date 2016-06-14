@@ -27,7 +27,7 @@
  *     path="/pages/rest/",
  *     tags={"page"},
  *     method="GET",
- *     operationId="getCollection",
+ *     operationId="getPageCollection",
  *     summary="Collection of items",
  *     @SWG\Parameter(ref="#/parameters/offset"),
  *     @SWG\Parameter(ref="#/parameters/limit"),
