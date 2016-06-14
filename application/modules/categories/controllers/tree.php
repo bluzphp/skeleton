@@ -41,7 +41,11 @@ return function ($id = null) {
 
     if (count($rootTree) == 0) {
         Messages::addNotice('There are no categories');
-        return [];
+        return [
+            'rootTree' => [],
+            'branch' => null,
+            'tree' => []
+        ];
     }
 
     if (!$id) {
