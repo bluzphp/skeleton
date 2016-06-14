@@ -48,7 +48,7 @@ return function ($resource, $id, $relation, $relationId) {
     Auth::clearIdentity();
 
     try {
-        // authentication
+        // authentication by api token
         if ($token = Request::getParam('token')) {
             Table::getInstance()->authenticateToken($token);
         }
@@ -60,7 +60,7 @@ return function ($resource, $id, $relation, $relationId) {
             }
         }
 
-        return $this->dispatch('api', $resource, $params);
+        return $this->dispatch('api', 'resources/' . $resource, $params);
     } catch (\Exception $e) {
         // process exceptions here
         Response::setStatusCode($e->getCode());

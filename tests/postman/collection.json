@@ -505,30 +505,30 @@
 		{
 			"id": "da9e0636-7e51-f089-ac75-52afd67e70ea",
 			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/api/login?login=admin&password=admin",
+			"url": "{{URL}}/api/login",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
 			"data": [
 				{
-					"key": "name",
-					"value": "Some User Name",
+					"key": "login",
+					"value": "admin",
 					"type": "text",
 					"enabled": true
 				},
 				{
-					"key": "email",
-					"value": "example@example.com",
+					"key": "password",
+					"value": "admin",
 					"type": "text",
 					"enabled": true
 				}
 			],
-			"dataMode": "params",
+			"dataMode": "urlencoded",
 			"version": 2,
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody);\n\ntests[\"Response has token\"] = data.hasOwnProperty(\"token\");\n\npostman.setEnvironmentVariable('TOKEN', data.token);",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1465828278505,
+			"time": 1465905111937,
 			"name": "login",
 			"description": "SHOULD return **200**  \nSHOULD return `Token` for API",
 			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
