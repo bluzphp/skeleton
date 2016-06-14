@@ -48,7 +48,9 @@ class Bootstrap extends Application
 
         // apply "remember me" function
         if (!AuthProxy::getIdentity()) {
-            if (!empty($_COOKIE['rToken']) && !empty($_COOKIE['rId'])) {
+            if ($token = Request::getHeader('Bluz-Token')) {
+                Auth\Table::getInstance()->authenticateToken($token);
+            } elseif (!empty($_COOKIE['rToken']) && !empty($_COOKIE['rId'])) {
                 // try to login
                 try {
                     Auth\Table::getInstance()->authenticateCookie($_COOKIE['rId'], $_COOKIE['rToken']);
@@ -56,8 +58,6 @@ class Bootstrap extends Application
                     $this->getResponse()->setCookie('rId', '', 1, '/');
                     $this->getResponse()->setCookie('rToken', '', 1, '/');
                 }
-            } elseif (!empty(Request::getHeader('Bluz-Token'))) {
-                Auth\Table::getInstance()->authenticateToken(Request::getHeader('Bluz-Token'));
             }
         }
 
