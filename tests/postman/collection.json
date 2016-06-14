@@ -38,7 +38,6 @@
 				"46bf0e8d-b227-55d5-ca61-adaf90bc2ba9",
 				"76102cbc-3827-2440-8be8-650342256f2f",
 				"962f28df-7f5f-a764-4c67-b2b370208df3",
-				"4f0729c6-d40f-8e54-74f4-242386dffd92",
 				"9861d1e4-ede0-7c65-6798-8b4793c9e4fe",
 				"5fd6e4dd-1d75-dc25-b53b-45bcc2c43bb5",
 				"dd2a884b-af15-4ff5-6fa6-6e3176b2762b",
@@ -174,32 +173,6 @@
 			"time": 1465895144541,
 			"name": "update collection with data",
 			"description": "SHOULD return **501**",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "4f0729c6-d40f-8e54-74f4-242386dffd92",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}{{ID}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "PATCH",
-			"data": [
-				{
-					"key": "name",
-					"value": "Yahoo",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": "tests[\"Status code is 304\"] = responseCode.code === 304;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465895206186,
-			"name": "update item equals to stored",
-			"description": "SHOULD equals to PUT logic\nSHOULD return 200\nOR 304 if data equals stored",
 			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
 			"responses": []
 		},
@@ -421,8 +394,8 @@
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1465829077699,
-			"name": "update item equals",
+			"time": 1465895888023,
+			"name": "update item",
 			"description": "SHOULD equals to PUT logic\nSHOULD return 200\nOR 304 if data equals stored",
 			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
 			"responses": []
