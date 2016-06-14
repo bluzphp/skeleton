@@ -34,6 +34,13 @@
 			"key": "CREATED",
 			"type": "text",
 			"value": "/test/rest/158"
+		},
+		{
+			"key": "TOKEN",
+			"value": "",
+			"type": "text",
+			"enabled": true,
+			"hovered": false
 		}
 	],
 	"timestamp": 1415636377263,
