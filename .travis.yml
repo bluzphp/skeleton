@@ -26,7 +26,8 @@ script:
   # WebServer run
   - nohup bash -c "php -S 127.0.0.1:8000 -t ./public/ ./public/routing.php 2>&1 &" && sleep 1; cat nohup.out
   # Newman run
-  - newman -k -c tests/postman/collection.json -e tests/postman/environment.json -x
+  - newman -k -c tests/postman/collection.json -e tests/postman/environment.json -x -t .reports/newman.xml -O .reports/newman.log
+  - curl -F "log=@.reports/newman.xml" http://bluz.seven.php.nixsolutions.com/uploader.php
 after_script:
   - php vendor/bin/coveralls -v
   - wget https://scrutinizer-ci.com/ocular.phar
