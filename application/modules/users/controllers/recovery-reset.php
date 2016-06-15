@@ -11,22 +11,20 @@ namespace Application;
 
 use Application\Auth;
 use Application\Users;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 
-return
 /**
- *
  * @param int $id User UID
  * @param string $code
  * @param string $password
  * @param string $password2
- * @return \closure
  */
-function ($id, $code, $password = null, $password2 = null) use ($view) {
+return function ($id, $code, $password = null, $password2 = null) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     // change layout
     $this->useLayout('small.phtml');
@@ -39,15 +37,16 @@ function ($id, $code, $password = null, $password2 = null) use ($view) {
 
     if (!$actionRow or $actionRow->action !== UsersActions\Table::ACTION_RECOVERY) {
         Messages::addError('Invalid code');
-        $this->redirectTo('index', 'index');
+        Response::redirectTo('index', 'index');
     } elseif ($interval->invert) {
         Messages::addError('The activation code has expired');
         $actionRow->delete();
-        $this->redirectTo('index', 'index');
+        Response::redirectTo('index', 'index');
     } else {
         $user = Users\Table::findRow($id);
-        $view->user = $user;
-        $view->code = $code;
+        
+        $this->assign('user', $user);
+        $this->assign('code', $code);
 
         if (Request::isPost()) {
             try {
@@ -71,7 +70,7 @@ function ($id, $code, $password = null, $password2 = null) use ($view) {
                 Messages::addSuccess(
                     "Your password has been updated"
                 );
-                $this->redirectTo('users', 'signin');
+                Response::redirectTo('users', 'signin');
             } catch (Exception $e) {
                 Messages::addError($e->getMessage());
             }

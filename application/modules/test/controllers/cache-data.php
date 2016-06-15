@@ -1,35 +1,33 @@
 <?php
 /**
- * Test MVC
+ * Example of Cache usage
+ *
+ * @category Example
  *
  * @author   dark
  * @created  08.07.11 13:23
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Layout;
 
-return
 /**
- * @param int $id
- *
- * @acl Index Test
- *
- * @return \closure
+ * @param  int $id
+ * @return void
+ * @throws \Exception
  */
-function ($id = null) use ($bootstrap, $view) {
+return function ($id = null) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Cache Data',
         ]
     );
-    /* @var Bootstrap $this */
     Layout::title('Check cache');
 
     // try to load profile of current user
@@ -52,5 +50,5 @@ function ($id = null) use ($bootstrap, $view) {
     if (!$userRow) {
         throw new \Exception('User not found', 404);
     }
-    $view->user = $userRow;
+    $this->assign('user', $userRow);
 };

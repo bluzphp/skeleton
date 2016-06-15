@@ -11,16 +11,19 @@
 namespace Application;
 
 use Application\Categories;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 
-return
 /**
  * @accept JSON
  * @privilege Management
+ *
+ * @param $tree
+ * @param $treeParent
  */
-function ($tree, $treeParent) use ($view) {
+return function ($tree, $treeParent) {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     try {
         $categories = json_decode($tree);

@@ -2,20 +2,22 @@
 /**
  * Exception inside controller
  *
- * @category Application
+ * @category Example
  *
  * @author   Anton
  * @created  12/28/13 8:32 AM
  */
 namespace Application;
 
-return
+use Bluz\Controller\Controller;
+
 /**
- * @return \closure
+ * @return void
+ * @throws \Exception
  */
-function () {
+return function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     throw new \Exception("Example of exception");
 };

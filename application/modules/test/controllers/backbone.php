@@ -2,27 +2,26 @@
 /**
  * Example of backbone usage
  *
- * @category Application
+ * @category Example
  *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  13.08.13 17:16
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
- * @return \closure
+ * @return void
  */
-function () use ($view) {
+return function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Backbone',
         ]
     );

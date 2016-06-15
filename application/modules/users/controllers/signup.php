@@ -10,27 +10,31 @@
 namespace Application;
 
 use Application\Users;
-use Bluz\Controller;
+use Bluz\Controller\Controller;
+use Bluz\Controller\Mapper\Crud;
 use Bluz\Proxy\Request;
 
-return
 /**
  * @accept JSON
  * @accept HTML
- * @return \closure
+ *
+ * @return array
  */
-function () {
+return function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
-
     // change layout
     if (!Request::isXmlHttpRequest()) {
         $this->useLayout('small.phtml');
     }
 
-    $crudController = new Controller\Crud();
-    $crudController->setCrud(Users\Crud::getInstance());
-    return $crudController();
+    $crud = new Crud();
+
+    $crud->setCrud(Users\Crud::getInstance());
+
+    $crud->addMap('GET', 'system', 'crud/get');
+    $crud->addMap('POST', 'system', 'crud/post');
+
+    return $crud->run();
 };

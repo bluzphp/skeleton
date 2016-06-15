@@ -9,25 +9,25 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Messages;
+use Bluz\Proxy\Response;
 
-return
 /**
  * @privilege Management
  *
  * @param array $acl
  * @return void
  */
-function ($acl) use ($view) {
+return function ($acl) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     $callback = function () use ($acl) {
         /**
-         * @var Bootstrap $this
+         * @var Controller $this
          */
         Db::query('DELETE FROM acl_privileges');
 
@@ -52,5 +52,5 @@ function ($acl) use ($view) {
         Messages::addError('Internal Server Error');
     }
 
-    $this->redirectTo('acl', 'index');
+    Response::redirectTo('acl', 'index');
 };

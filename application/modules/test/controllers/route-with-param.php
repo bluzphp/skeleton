@@ -1,27 +1,28 @@
 <?php
 /**
- * Example of static route
+ * Route with one param optional
+ *
+ * @category Example
  *
  * @author   Anton Shevchuk
  * @created  12.06.12 13:08
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
-use Bluz\Proxy\Router;
 
-return
 /**
  * @route /test/param/$
  * @route /test/param/{$a}/
- * @param string $a
- * @return \closure
+ *
+ * @param int $a
+ * @return false
  */
-function ($a = 42) {
+return function ($a = 42) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
@@ -30,7 +31,7 @@ function ($a = 42) {
         ]
     );
 
-    $uri = Request::getRequestUri();
+    $uri = Request::getUri();
     $module = Request::getModule();
     $controller = Request::getController();
     echo <<<CODE
@@ -45,6 +46,5 @@ function ($a = 42) {
 </pre>
 CODE;
     var_dump($a);
-//    var_dump(Request::getParams());
     return false;
 };

@@ -2,17 +2,17 @@
 /**
  * Get custom reflection data
  *
- * @category Application
+ * @category Example
  *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  17.05.13 17:05
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Controller\Reflection;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * @key Example of custom key-value
  * @key Array also supported
@@ -20,16 +20,15 @@ return
  * @param string $other
  * @route /test-reflection-{$id}.html
  * @route /test-reflection.html
- * @return \closure
+ * @return array
  */
-function ($id = 0, $other = "default value") use ($view) {
+return function ($id = 0, $other = "default value") {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Reflection of this controller',
         ]
     );
@@ -37,8 +36,10 @@ function ($id = 0, $other = "default value") use ($view) {
     $reflection = new Reflection(__FILE__);
     $reflection->process();
 
-    $view->functionData = file_get_contents(__FILE__);
-    $view->reflectionData = $this->reflection(__FILE__);
-    $view->id = $id;
-    $view->other = $other;
+    return [
+        'functionData' => file_get_contents(__FILE__),
+        'reflectionData' => $reflection,
+        'id' => $id,
+        'other' => $other
+    ];
 };

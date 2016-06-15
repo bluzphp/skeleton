@@ -11,14 +11,16 @@
  */
 namespace Application;
 
-return
+use Bluz\Controller\Controller;
+
 /**
- * @return \closure
+ * @param $file
+ * @return string
+ * @throws Exception
  */
-function ($file) use ($view) {
+return function ($file) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     // used native session settings without rewrite save path
     // because PHP_SESSION_UPLOAD_PROGRESS mechanism is epic
@@ -33,7 +35,5 @@ function ($file) use ($view) {
     }
 
     $this->useLayout(false);
-    return function () use ($key) {
-        return json_encode($_SESSION[$key]);
-    };
+    return json_encode($_SESSION[$key]);
 };

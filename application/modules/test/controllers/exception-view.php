@@ -2,20 +2,20 @@
 /**
  * Exception in View
  *
- * @category Application
+ * @category Example
  *
  * @author   Anton
  * @created  12/28/13 8:34 AM
  */
 namespace Application;
 
-return
+use Bluz\Controller\Controller;
+
 /**
- * @return \closure
+ * @return void
  */
-function () {
+return function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
-     
 };

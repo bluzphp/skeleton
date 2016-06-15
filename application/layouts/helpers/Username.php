@@ -9,6 +9,8 @@
  */
 namespace Application\Layout\Helper;
 
+use Bluz\Proxy\Auth;
+
 return
 /**
  * Get current user name
@@ -19,7 +21,7 @@ function () {
     /**
      * @var \Application\Users\Row $user
      */
-    if ($user = app()->user()) {
+    if ($user = Auth::getIdentity()) {
         return $user->login;
     } else {
         return __('Guest');

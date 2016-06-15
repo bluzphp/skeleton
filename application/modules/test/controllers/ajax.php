@@ -2,34 +2,37 @@
 /**
  * Test AJAX
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  26.09.11 17:41
- * @return closure
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 
-return
 /**
- * @accept HTML
+ * @accept ANY
  * @accept JSON
+ *
  * @param bool $messages
  * @return void
  */
-function ($messages = false) use ($view) {
+return function ($messages = false) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
+    $this->useJson();
     if ($messages) {
         Messages::addNotice('Notice for AJAX call');
         Messages::addSuccess('Success for AJAX call');
         Messages::addError('Error for AJAX call');
 
-        $view->baz = 'qux';
+        $this->assign('baz', 'qux');
     }
     Messages::addNotice('Method '. Request::getMethod());
-    $view->foo = 'bar';
+
+    $this->assign('foo', 'bar');
 };

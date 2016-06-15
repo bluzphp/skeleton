@@ -8,25 +8,25 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * @privilege Management
  * @return void
  */
-function () use ($view) {
+return function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
         [
-            $view->ahref('Dashboard', ['dashboard', 'index']),
+            Layout::ahref('Dashboard', ['dashboard', 'index']),
             __('Options')
         ]
     );
     $grid = new Options\Grid();
-    $view->grid = $grid;
+    
+    $this->assign('grid', $grid);
 };

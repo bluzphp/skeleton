@@ -12,18 +12,28 @@ use Application\UsersActions;
 use Application\UsersActions\Table;
 use Bluz\Application\Exception\NotFoundException;
 use Bluz\Auth\AuthException;
+use Bluz\Controller\Controller;
+use Bluz\Proxy\Logger;
 use Bluz\Proxy\Mailer;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
 
-return
 /**
- * @var Bootstrap $this
  * @privilege EditEmail
+ *
+ * @param $email
+ * @param $password
+ * @param $token
  * @return void
+ * @throws Exception
+ * @throws NotFoundException
  */
-function ($email = null, $password = null, $token = null) use ($view) {
+return function ($email = null, $password = null, $token = null) {
+    /**
+     * @var Controller $this
+     */
     // change layout
     $this->useLayout('small.phtml');
 
@@ -38,7 +48,7 @@ function ($email = null, $password = null, $token = null) use ($view) {
         throw new NotFoundException('User not found');
     }
 
-    $view->email = $user->email;
+    $this->assign('email', $user->email);
 
     if (Request::isPost()) {
         // process form
@@ -74,7 +84,7 @@ function ($email = null, $password = null, $token = null) use ($view) {
 
             $body = $this->dispatch(
                 'users',
-                'mail-template',
+                'mail/template',
                 [
                     'template' => 'change-email',
                     'vars' => [
@@ -89,13 +99,13 @@ function ($email = null, $password = null, $token = null) use ($view) {
             try {
                 $mail = Mailer::create();
                 $mail->Subject = $subject;
-                $mail->MsgHTML(nl2br($body));
-                $mail->AddAddress($email);
+                $mail->msgHTML(nl2br($body));
+                $mail->addAddress($email);
                 Mailer::send($mail);
 
                 Messages::addNotice('Check your email and follow instructions in letter.');
             } catch (\Exception $e) {
-                $this->getLogger()->log(
+                Logger::log(
                     'error',
                     $e->getMessage(),
                     ['module' => 'users', 'controller' => 'change-email', 'userId' => $userId]
@@ -104,13 +114,13 @@ function ($email = null, $password = null, $token = null) use ($view) {
             }
 
             // try back to index
-            $this->redirectTo('users', 'profile');
+            Response::redirectTo('users', 'profile');
         } catch (Exception $e) {
             Messages::addError($e->getMessage());
-            $view->email = $email;
+            $this->assign('email', $email);
         } catch (AuthException $e) {
             Messages::addError($e->getMessage());
-            $view->email = $email;
+            $this->assign('email', $email);
         }
     } elseif ($token) {
         // process activation
@@ -128,6 +138,6 @@ function ($email = null, $password = null, $token = null) use ($view) {
         $actionRow->delete();
 
         Messages::addSuccess('Email was updated');
-        $this->redirectTo('users', 'profile');
+        Response::redirectTo('users', 'profile');
     }
 };

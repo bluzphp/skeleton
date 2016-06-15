@@ -5,7 +5,7 @@
   "type": "library",
   "require": {
     "php": ">=5.6",
-    "bluzphp/framework": "~2.0",
+    "bluzphp/framework": "~7.0",
     "hybridauth/hybridauth": "dev-master",
     "phpmailer/phpmailer": "~5.2",
     "zircote/swagger-php": "~2.0",
@@ -42,7 +42,7 @@
         "name": "js/require",
         "version": "dev-master",
         "dist": {
-          "url": "https://requirejs.org/docs/release/2.2.0/minified/require.js",
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js",
           "type": "file"
         }
       }

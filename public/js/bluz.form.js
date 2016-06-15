@@ -1,6 +1,8 @@
 /**
  * Working with forms
- * Require bootstrap.notify
+ * Require bootstrap.tooltips
+ * http://getbootstrap.com/javascript/#tooltips
+ * http://getbootstrap.com/css/?#forms-control-validation
  *
  * @author Anton Shevchuk
  * @created  26.11.12 12:51
@@ -62,10 +64,52 @@ define(["jquery", "bootstrap"], function ($) {
             });
 
             $field.tooltip('show');
+
+            if ($field.is('input')) {
+                form.icon($form, $field);
+            }
+
             $field.click(function () {
                 $group.removeClass('has-error');
                 $field.tooltip('destroy');
             });
+        },
+        /**
+         * Add icon to field
+         * @param $form jQuery
+         * @param field
+         * @param type
+         */
+        icon: function ($form, field, type) {
+            var $field = $(field);
+            var $group = $field.parents(settings.container);
+
+            $group.addClass('has-feedback');
+
+            var $icon = $('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+            var $sr = $('<span class="sr-only">(error)</span>');
+
+            $field.after($sr);
+            $field.after($icon);
+
+            $field.click(function () {
+                $group.removeClass('has-feedback');
+                $icon.remove();
+                $sr.remove();
+            });
+            /*
+            <span class="fa fa-times form-control-feedback" aria-hidden="true"></span>
+            <span class="sr-only">(error)</span>
+
+             <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-3" for="inputSuccess3">Input with success</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputSuccess3" aria-describedby="inputSuccess3Status">
+                    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputSuccess3Status" class="sr-only">(success)</span>
+                </div>
+             </div>
+            */
         },
         /**
          * Process errors stack from server side

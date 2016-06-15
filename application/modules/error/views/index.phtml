@@ -1,7 +1,13 @@
+<?php
+use Bluz\Application\Application;
+?>
 <div class="modal-header">
     <h3 class="modal-title"><?=esc($error)?></h3>
 </div>
 <div class="modal-body">
     <p><?=esc($description)?></p>
+    <?php if (Application::getInstance()->isDebug()) : ?>
+        <p><?=esc($message)?></p>
+    <?php endif; ?>
 </div>
 

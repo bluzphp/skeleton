@@ -10,23 +10,33 @@
 namespace Application;
 
 use Application\Categories;
-use Bluz\Controller;
+use Bluz\Controller\Controller;
+use Bluz\Controller\Mapper\Crud;
 
-return
 /**
  * @accept HTML
  * @accept JSON
  * @privilege Management
+ *
+ * @param $parentId
  * @return mixed
+ * @throws \Bluz\Application\Exception\ForbiddenException
+ * @throws \Bluz\Application\Exception\NotImplementedException
  */
-function ($parentId = null) use ($view) {
+return function ($parentId = null) {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
-    $view->parentId = $parentId;
+    $this->assign('parentId', $parentId);
 
-    $crudController = new Controller\Crud();
-    $crudController->setCrud(Categories\Crud::getInstance());
+    $crud = new Crud();
 
-    return $crudController();
+    $crud->setCrud(Categories\Crud::getInstance());
+
+    $crud->get('system', 'crud/get');
+    $crud->post('system', 'crud/post');
+    $crud->put('system', 'crud/put');
+    $crud->delete('system', 'crud/delete');
+
+    return $crud->run();
 };

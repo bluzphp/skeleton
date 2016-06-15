@@ -2,21 +2,23 @@
 /**
  * Example of DB\Table usage
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  18.07.13 13:35
  */
 namespace Application;
 
 use Application\Test;
+use Bluz\Controller\Controller;
 
-return
 /**
  * @TODO: need more informative example
  * @return bool
  */
-function () {
+return function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     $table = Test\Table::getInstance();
 

@@ -1,6 +1,8 @@
 <?php
 /**
- * Example of grid
+ * Example of grid based on SQL
+ *
+ * @category Example
  *
  * @author   Anton Shevchuk
  * @created  27.08.12 10:08
@@ -8,28 +10,27 @@
 namespace Application;
 
 use Application\Test;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
- * @return \closure
+ * @return void
  */
-function () use ($view, $module, $controller) {
+return function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Grid with SQL',
         ]
     );
     $grid = new Test\SqlGrid();
-    $grid->setModule($module);
-    $grid->setController($controller);
+    $grid->setModule($this->module);
+    $grid->setController($this->controller);
     // just example of same custom param for build URL
     $grid->setParams(['id'=>5]);
 
-    $view->grid = $grid;
+    $this->assign('grid', $grid);
 };

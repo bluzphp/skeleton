@@ -21,7 +21,6 @@ use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
 use Bluz\Request\RequestFactory;
-use Bluz\Response\Response as ResponseInstance;
 
 /**
  * Bootstrap for CLI
@@ -68,6 +67,7 @@ class CliBootstrap extends Application
     {
         Logger::info("app:process:pre");
         Router::process();
+        Response::switchType('CLI');
     }
 
     /**
@@ -110,10 +110,10 @@ class CliBootstrap extends Application
         }
 
         // return code 1 for invalid behaviour of application
-        if ($exception = $this->getException()) {
-            echo $exception->getMessage();
-            exit(1);
-        }
+//        if ($exception = $this->getException()) {
+//            echo $exception->getMessage();
+//            exit(1);
+//        }
         exit;
     }
 }

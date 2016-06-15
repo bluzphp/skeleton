@@ -7,13 +7,12 @@
  */
 namespace Application;
 
-return
 /**
  * @privilege Info
  *
- * @return \closure
+ * @return void
  */
-function () {
+return function () {
     phpinfo();
-    return false;
+    die;
 };

@@ -9,28 +9,33 @@
 <p>This is page consist many examples, all of them you can find in test module</p>
 <h3>Controller features</h3>
 <ul>
-    <li><?= $this->ahref('Controller &rarr; Closure', ['test', 'closure']);?></li>
+    <li><?= $this->ahref('Reflection Data', ['test', 'reflection']);?></li>
     <li><?= $this->ahref('Controller &rarr; Disable View', ['test', 'no-view']);?></li>
     <li><?= $this->ahref('Controller &rarr; Disable Output', ['test', 'no-output']);?></li>
-    <li><?= $this->ahref('Reflection Data', ['test', 'reflection']);?></li>
 </ul>
 <hr/>
 <ul>
     <li><?= $this->ahref('CRUD', ['test', 'grid-sql']) ?> &mdash; Create, Read, Update and Delete examples</li>
-    <li><?= $this->ahref('REST + Backbone', ['test', 'backbone']) ?> &mdash; working too</li>
+    <li><?= $this->ahref('REST + Backbone', ['test', 'backbone']) ?> &mdash; is working</li>
+    <li><?= $this->ahref('REST + React', ['test', 'react']) ?> &mdash; is working too</li>
+</ul>
+<hr/>
+<ul>
+    <li><?= $this->ahref('Download File', ['test', 'file']) ?> &mdash; Send file to browser</li>
+    <li><?= $this->ahref('Cookies', ['test', 'cookies']) ?> &mdash; Send cookies to browser</li>
 </ul>
 <hr/>
 <p>Try REST methods</p>
 <div id="rest">
     <div class="btn-group">
-        <?= $this->ahref('GET 10 Records', ['test', 'rest-get'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'GET']);?>
-        <?= $this->ahref('HEAD 10 Records', ['test', 'rest-get'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'HEAD']);?>
+        <?= $this->ahref('GET 10 Records', ['test', 'rest'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'GET', 'id'=> 'rest-get']);?>
+        <?= $this->ahref('HEAD 10 Records', ['test', 'rest'], ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'HEAD']);?>
     </div>
     <br/>
     <br/>
     <div class="btn-group">
-        <?= $this->ahref('GET Record ID:10', 'test/rest-get/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'GET']);?>
-        <?= $this->ahref('HEAD Record ID:10', 'test/rest-get/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'HEAD']);?>
+        <?= $this->ahref('GET Record ID:10', 'test/rest/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'GET']);?>
+        <?= $this->ahref('HEAD Record ID:10', 'test/rest/10', ['class'=>'ajax btn btn-default', 'data-ajax-method'=>'HEAD']);?>
     </div>
     <br/>
     <br/>
@@ -63,11 +68,6 @@
     });
 </script>
 
-<hr/>
-<ul>
-    <li><?= $this->ahref('Download File', ['test', 'file']) ?> &mdash; Send file to browser</li>
-</ul>
-
 <h3>CLI</h3>
 <p>
 For test CLI you can run <code>`php ./bin/cli.php --uri 'test/cli' --env='dev'`</code>.
@@ -76,8 +76,7 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
 
 <h3>Packages</h3>
 <ul>
-    <li><?= $this->ahref('Cache View', ['test', 'cache-view']);?></li>
-    <li><?= $this->ahref('Cache HTML', ['test', 'cache-html']);?></li>
+    <li><?= $this->ahref('Cache Controller', ['test', 'cache-controller']);?></li>
     <li><?= $this->ahref('Cache Data', ['test', 'cache-data', ['id'=>1]]);?></li>
     <li><?= $this->ahref('DB Operations', ['test', 'db']);?></li>
     <li><?= $this->ahref('DB Query Builders', ['test', 'db-query']);?></li>
@@ -178,8 +177,8 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
 
 <h3>Access denied</h3>
 <div class="btn-group">
-    <a href="<?= $this->url('test', 'privilege') ?>" class="btn btn-default bluz-tooltip ajax" data-toggle="tooltip" title="Return error message">Denied page, AJAX call</a>
-    <a href="<?= $this->url('test', 'privilege') ?>" class="btn btn-default bluz-tooltip dialog" data-toggle="tooltip" title="Return error dialog">Denied page, dialog</a>
+    <a href="<?= $this->url('test', 'denied') ?>" class="btn btn-default bluz-tooltip ajax" data-toggle="tooltip" title="Return error message">Denied page, AJAX call</a>
+    <a href="<?= $this->url('test', 'denied') ?>" class="btn btn-default bluz-tooltip dialog" data-toggle="tooltip" title="Return error dialog">Denied page, dialog</a>
 </div>
 <hr/>
 
@@ -192,26 +191,18 @@ You can find source code at <code>`application/modules/test/controllers/cli.php`
 
 <h3>Dispatch controller</h3>
 <pre>
-$this->dispatch('test', 'closure')
+$this->dispatch('test', 'empty')
 </pre>
 <div>
-    <?= $this->dispatch('test', 'closure') ?>
+    <?= $this->dispatch('test', 'empty') ?>
 </div>
 
-<h3>Call widget</h3>
+<h3>Dispatch controller with <code>echo</code> call</h3>
 <pre>
-$this->widget('test', 'lorem')
+$this->dispatch('test', 'widgets/lorem')
 </pre>
 <div>
-    <?= $this->widget('test', 'lorem') ?>
-</div>
-
-<h3>Call API method</h3>
-<pre>
-$this->api('test', 'example', [2])
-</pre>
-<div>
-    <?= $this->api('test', 'example', [2]) ?>
+    <?php $this->dispatch('test', 'widgets/lorem') ?>
 </div>
 
 <h3>Wrong controller</h3>
@@ -222,28 +213,12 @@ $this->dispatch('test', 'not-found')
     <?= $this->dispatch('test', 'not-found') ?>
 </div>
 
-<h3>Wrong widget</h3>
+<h3>Wrong without privileges</h3>
 <pre>
-$this->widget('test', 'not-found')
+$this->dispatch('test', 'denied')
 </pre>
 <div>
-    <?= $this->widget('test', 'not-found') ?>
-</div>
-
-<h3>Wrong without priveleges</h3>
-<pre>
-$this->widget('test', 'acl-denied')
-</pre>
-<div>
-    <?= $this->widget('test', 'acl-denied') ?>
-</div>
-
-<h3>Wrong API method</h3>
-<pre>
-$this->api('test', 'not-found')
-</pre>
-<div>
-    <?= $this->api('test', 'not-found') ?>
+    <?= $this->dispatch('test', 'denied') ?>
 </div>
 
 <h3>Dispatch grid based on array</h3>

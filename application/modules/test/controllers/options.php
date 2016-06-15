@@ -2,35 +2,38 @@
 /**
  * Works with Options Module
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  04.11.13 13:30
  */
 namespace Application;
 
 use Application\Options;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
- * @return \closure
+ * @return void
  */
-function () use ($view) {
+return function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Options',
         ]
     );
 
-    if ($data = Options\Table::get('example')) {
-        $view->message = sprintf('Option `example` was found, it is `%s`', (string) $data);
+    if ($example = Options\Table::get('example')) {
+        $message = sprintf('Option `example` was found, it is `%s`', (string) $example);
         Options\Table::remove('example');
     } else {
-        $view->message = 'Option `example` not found, try again later';
+        $message = 'Option `example` not found, try again later';
         Options\Table::set('example', uniqid('example_'));
     }
+    
+    $this->assign('message', $message);
 };

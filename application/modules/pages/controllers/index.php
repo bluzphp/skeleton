@@ -8,20 +8,20 @@
 namespace Application;
 
 use Bluz\Application\Exception\NotFoundException;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\HttpCacheControl;
 use Bluz\Proxy\Layout;
 use Bluz\View\View;
 
-return
 /**
  * @route /{$alias}.html
+ *
  * @param string $alias
- * @return void
+ * @throws NotFoundException
  */
-function ($alias) use ($view) {
+return function ($alias) {
     /**
-     * @var Bootstrap $this
-     * @var View $view
+     * @var Controller $this
      * @var Pages\Row $page
      */
     $page = Pages\Table::getInstance()->getByAlias($alias);
@@ -42,6 +42,6 @@ function ($alias) use ($view) {
         HttpCacheControl::setLastModified($page->updated);
 
         // assign page to view
-        $view->page = $page;
+        $this->assign('page', $page);
     }
 };

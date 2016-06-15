@@ -2,20 +2,23 @@
 /**
  * Test of file download
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  29.01.15 15:23
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Response;
 
-return
 /**
+ * FIXME: closure should be back...
  * @return \closure
  */
-function () {
+return function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     $this->useLayout(false);
 

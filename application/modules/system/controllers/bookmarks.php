@@ -7,25 +7,24 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * @privilege Info
  *
  * @return array
  */
-function () use ($view) {
+return function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::title('Bookmarklets');
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
         [
-            $view->ahref('Dashboard', ['dashboard', 'index']),
-            $view->ahref('System', ['system', 'index']),
+            Layout::ahref('Dashboard', ['dashboard', 'index']),
+            Layout::ahref('System', ['system', 'index']),
             __('Bookmarklets'),
         ]
     );

@@ -2,20 +2,21 @@
 /**
  * Test AJAX
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  26.09.11 17:41
- * @return closure
  */
 namespace Application;
 
-return
+use Bluz\Controller\Controller;
+
 /**
- * @return \closure
+ * @return void
  */
-function () use ($view) {
+return function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
-    $view->time = date('H:i:s');
+    $this->assign('time', date('H:i:s'));
 };

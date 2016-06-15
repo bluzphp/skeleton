@@ -2,28 +2,28 @@
 /**
  * Test of events
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  16.03.12 15:21
- * @return closure
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\EventManager\Event;
 use Bluz\Proxy\EventManager;
 use Bluz\Proxy\Layout;
 
-return
 /**
- * @return \closure
+ * @return array
  */
-function () use ($view) {
+return function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Events',
         ]
     );
@@ -78,7 +78,9 @@ function () use ($view) {
         }
     );
 
-    $view->res1 = EventManager::trigger('testevent', 1);
-    $view->res2 = EventManager::trigger('testspace:event', 1);
-    $view->res3 = EventManager::trigger('testspace:event2', 1);
+    return [
+        'res1' => EventManager::trigger('testevent', 1),
+        'res2' => EventManager::trigger('testspace:event', 1),
+        'res3' => EventManager::trigger('testspace:event2', 1),
+    ];
 };

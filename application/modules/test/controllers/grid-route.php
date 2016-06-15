@@ -2,39 +2,40 @@
 /**
  * Example of grid
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  27.08.12 10:08
  */
 namespace Application;
 
 use Application\Test;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * Example of Grid with custom route
  *
- * @route /example/{$alias}
- * @param string $alias
- * @return \closure
+ * @route  /example/{$alias}
+ * @param  string $alias
+ * @return string
  */
-function ($alias) use ($view, $module, $controller) {
+return function ($alias) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Grid with Select',
         ]
     );
     $grid = new Test\SelectGrid();
-    $grid->setModule($module);
-    $grid->setController($controller);
+    $grid->setModule($this->module);
+    $grid->setController($this->controller);
     $grid->setParams(['alias'=>$alias]);
 
-    $view->grid = $grid;
+    $this->assign('grid', $grid);
 
     return 'grid-sql.phtml';
 };

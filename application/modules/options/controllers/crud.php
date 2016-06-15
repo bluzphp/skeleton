@@ -9,20 +9,28 @@
 namespace Application;
 
 use Application\Options;
-use Bluz\Controller;
+use Bluz\Controller\Controller;
+use Bluz\Controller\Mapper\Crud;
 
-return
 /**
  * @accept HTML
  * @accept JSON
  * @privilege Management
+ *
  * @return mixed
  */
-function () {
+return function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
-    $crudController = new Controller\Crud();
-    $crudController->setCrud(Options\Crud::getInstance());
-    return $crudController();
+    $crud = new Crud();
+
+    $crud->setCrud(Options\Crud::getInstance());
+
+    $crud->get('system', 'crud/get');
+    $crud->post('options', 'crud/post');
+    $crud->put('system', 'crud/put');
+    $crud->delete('system', 'crud/delete');
+    
+    return $crud->run();
 };

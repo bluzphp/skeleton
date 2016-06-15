@@ -7,6 +7,15 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 /*Table structure for table `test` */
 
+INSERT INTO `auth` (`userId`, `provider`, `foreignKey`, `token`, `tokenSecret`, `tokenType`, `created`, `updated`, `expired`)
+VALUES ('2','token','admin','$2y$10$wkZxb1sp8TsRXNL2s5KjGuFD58hGJQy4oyihm8xo7OBtV2uH7hQUu','c8ab812795bb6a2784e30527d5b167fc','access','2015-01-01 00:00:00',NULL,'2025-01-01 00:00:00');
+
+INSERT INTO `acl_privileges` (`roleId`, `module`, `privilege`) VALUES
+  ('2','test','Create'),
+  ('2','test','Delete'),
+  ('2','test','Read'),
+  ('2','test','Update');
+
 CREATE TABLE `test` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -17,7 +26,7 @@ CREATE TABLE `test` (
 
 /*Data for the table `test` */
 
-insert  into `test`(`id`,`name`,`email`,`status`) values
+INSERT INTO `test`(`id`,`name`,`email`,`status`) VALUES
   (10,'Jonah','dictum@pharetra.ca','disable'),
   (11,'Connor','congue.In.scelerisque@Integervulputaterisus.ca','disable'),
   (12,'Jessica','imperdiet.ornare@iaculisnec.com','delete'),

@@ -12,23 +12,26 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Logger;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Request;
 
-return
 /**
+ * @accept ANY
+ * @accept HTML
+ * @accept JSON
  * @route  /error/{$code}
+ *
  * @param  int $code
  * @param  string $message
- * @return \Bluz\View\View
+ * @return array
  */
-function ($code, $message = '') use ($view) {
+return function ($code, $message = '') {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Logger::error($message);
 
@@ -49,8 +52,6 @@ function ($code, $message = '') use ($view) {
     }
     */
 
-
-
     switch ($code) {
         case 400:
             $title = __("Bad Request");
@@ -62,11 +63,11 @@ function ($code, $message = '') use ($view) {
             break;
         case 403:
             $title = __("Forbidden");
-            $description = $message ?: __("You don't have permissions to access this page");
+            $description = __("You don't have permissions to access this page");
             break;
         case 404:
             $title = __("Not Found");
-            $description = $message ?: __("The page you requested was not found");
+            $description = __("The page you requested was not found");
             break;
         case 405:
             $title = __("Method Not Allowed");
@@ -102,7 +103,7 @@ function ($code, $message = '') use ($view) {
         if (Request::getAccept(['application/json'])) {
             $this->useJson();
             Messages::addError($description);
-            return $view;
+            return null;
         }
         // dialog AJAX call, accept HTML
         if (!Request::isXmlHttpRequest()) {
@@ -111,8 +112,11 @@ function ($code, $message = '') use ($view) {
     }
 
     Layout::title($title);
-    $view->error = $title;
-    $view->description = $description;
 
-    return $view;
+    return [
+        'code' => $code,
+        'error' => $title,
+        'description' => $description,
+        'message' => $message
+    ];
 };

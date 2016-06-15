@@ -1,43 +1,42 @@
 <?php
 /**
- * Demo of View helpers
+ * Example of View helpers
  *
- * @category Application
+ * @category Example
  *
- * @author   dark
+ * @author   Anton Shevchuk
  * @created  14.05.13 16:12
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Request;
 
-return
 /**
- * @param bool $sex
- * @param string $car
- * @param bool $remember
- * @return \closure
+ * @param  bool $sex
+ * @param  string $car
+ * @param  bool $remember
+ * @return void
  */
-function ($sex = false, $car = 'none', $remember = false) use ($view) {
+return function ($sex = false, $car = 'none', $remember = false) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'View Form Helpers',
         ]
     );
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
-    $view->sex = $sex;
-    $view->car = $car;
-    $view->remember = $remember;
+    $this->assign('sex', $sex);
+    $this->assign('car', $car);
+    $this->assign('remember', $remember);
 
     if (Request::isPost()) {
-        $view->params = Request::getAllParams();
+        $this->assign('params', Request::getParams());
     }
 };

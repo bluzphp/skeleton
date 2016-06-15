@@ -1,6 +1,8 @@
 <?php
 /**
- * Example of grid
+ * Example of grid based on array
+ *
+ * @category Example
  *
  * @author   Anton Shevchuk
  * @created  27.08.12 10:08
@@ -8,26 +10,25 @@
 namespace Application;
 
 use Application\Test;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
- * @return \closure
+ * @return void
  */
-function () use ($view, $module, $controller) {
+return function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Grid with Array',
         ]
     );
     $grid = new Test\ArrayGrid();
-    $grid->setModule($module);
-    $grid->setController($controller);
+    $grid->setModule($this->module);
+    $grid->setController($this->controller);
 
-    $view->grid = $grid;
+    $this->assign('grid', $grid);
 };

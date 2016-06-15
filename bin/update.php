@@ -33,7 +33,7 @@ function copyVendor($mask, $target) {
 }
 
 // Copy Swagger-UI to public
-copyVendor('public/swagger-ui/dist/*', 'api');
+copyVendor('public/swagger-ui/dist/*', 'api-reference');
 
 // Copy JavaScript libraries
 copyVendor('js/*/*.js', 'js/vendor');

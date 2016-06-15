@@ -1,13 +1,22 @@
 <?php
+/**
+ * Example of ajax form
+ *
+ * @category Example
+ *
+ * @author Anton Shevchuk
+ */
 namespace Application;
 
-use Bluz\View\View;
+use Bluz\Controller\Controller;
 
-return
-
+/**
+ * @param $formName
+ * @return void
+ */
+return function ($formName) {
     /**
-     * @var View $view
+     * @var Controller $this
      */
-    function ($formName) use ($view) {
-        $view->formName = $formName;
-    };
+    $this->assign('formName', $formName);
+};

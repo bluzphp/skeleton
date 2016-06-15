@@ -7,29 +7,29 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * @privilege Management
+ *
  * @return void
  */
-function () use ($view, $module, $controller) {
+return function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::setTemplate('dashboard.phtml');
     Layout::breadCrumbs(
         [
-            $view->ahref('Dashboard', ['dashboard', 'index']),
+            Layout::ahref('Dashboard', ['dashboard', 'index']),
             __('Pages')
         ]
     );
 
     $grid = new Pages\Grid();
-    $grid->setModule($module);
-    $grid->setController($controller);
+    $grid->setModule($this->module);
+    $grid->setController($this->controller);
 
-    $view->grid = $grid;
+    $this->assign('grid', $grid);
 };

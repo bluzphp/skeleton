@@ -73,7 +73,6 @@ class AuthProviderTest extends ControllerTestCase
     public function testUserStatusActive()
     {
         $provider = new AuthProvider('Facebook');
-        $provider->setResponse($this->getApp());
         $authRow = new Row();
         $authRow->userId = 12;
         try {

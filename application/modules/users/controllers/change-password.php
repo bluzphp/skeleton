@@ -11,17 +11,23 @@ use Application\Users;
 use Bluz\Auth\AuthException;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotFoundException;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 
-return
 /**
  * @privilege EditPassword
- * @return \closure
+ *
+ * @param $password
+ * @param $new_password
+ * @param $new_password2
+ * @return void
+ * @throws NotFoundException
  */
-function ($password, $new_password, $new_password2) use ($view) {
+return function ($password, $new_password, $new_password2) {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     // change layout
     $this->useLayout('small.phtml');
@@ -62,7 +68,7 @@ function ($password, $new_password, $new_password2) use ($view) {
             Messages::addSuccess("The password was updated successfully");
 
             // try back to index
-            $this->redirectTo('users', 'profile');
+            Response::redirectTo('users', 'profile');
         } catch (BadRequestException $e) {
             Messages::addError($e->getMessage());
         } catch (AuthException $e) {

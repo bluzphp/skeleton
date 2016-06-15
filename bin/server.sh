@@ -24,7 +24,7 @@ done
 
 # Apply environment
 [ ! -z "$env" ] && echo "Environment is $env"
-export BLUZ_ENV=$env
+export BLUZ_ENV=${env}
 
 # Apply debug mode
 if [ ! -z "$debug" ]
@@ -34,7 +34,7 @@ then
 fi
 
 # Start server on port 8000 for public directory
-cd $ROOT_DIR/public/
+cd ${ROOT_DIR}/public/
 
 # Run
-php -S $host -t ./ routing.php
+php -S ${host} -t ./ routing.php

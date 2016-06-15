@@ -2,20 +2,22 @@
 /**
  * Test of test of test
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  21.08.12 12:39
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * @return \closure
  */
-function () {
+return function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     Layout::title('Test Module');
     Layout::title('Append', Layout::POS_APPEND);

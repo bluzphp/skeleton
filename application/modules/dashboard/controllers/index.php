@@ -12,17 +12,17 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * @privilege Dashboard
  *
  * @return void
  */
-function () {
+return function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [

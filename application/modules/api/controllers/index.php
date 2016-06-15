@@ -10,11 +10,15 @@
 namespace Application;
 
 use Application\Auth\Table;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 
-return
 /**
+ * @accept JSON
+ * @accept HTML
+ *
  * @route /api/{$resource}/{$id}/{$relation}/{$relationId}
  * @param string $resource
  * @param string $id
@@ -33,20 +37,18 @@ return
  * @route /api/{$resource}
  * @param string $resource
  *
- * @accept JSON
- * @accept HTML
- * @return \closure
+ * @return mixed
  */
-function ($resource, $id, $relation, $relationId) {
+return function ($resource, $id, $relation, $relationId) {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     $this->useJson();
 
     Auth::clearIdentity();
 
     try {
-        // authentication
+        // authentication by api token
         if ($token = Request::getParam('token')) {
             Table::getInstance()->authenticateToken($token);
         }
@@ -58,14 +60,10 @@ function ($resource, $id, $relation, $relationId) {
             }
         }
 
-        $request = Request::getInstance();
-        $request = $request->withQueryParams($params);
-        Request::setInstance($request);
-
-        return $this->dispatch('api', $resource);
+        return $this->dispatch('api', 'resources/' . $resource, $params);
     } catch (\Exception $e) {
         // process exceptions here
-        $this->getResponse()->setStatusCode($e->getCode());
-        return (object)['error' => $e->getMessage()];
+        Response::setStatusCode($e->getCode());
+        return ['error' => $e->getMessage()];
     }
 };

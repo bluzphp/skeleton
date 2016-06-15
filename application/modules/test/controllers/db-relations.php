@@ -2,29 +2,27 @@
 /**
  * Example of Db\Relations
  *
- * @category Application
+ * @category Example
  *
  * @author   Anton Shevchuk
  * @created  14.11.13 10:45
  */
 namespace Application;
 
-use Bluz\Db\Relations;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Layout;
 
-return
 /**
  * @return bool
  */
-function () use ($view) {
+return function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'DB Relations',
         ]
     );

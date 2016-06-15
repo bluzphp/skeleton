@@ -76,6 +76,7 @@ class CrudTest extends ControllerTestCase
     public function setUp()
     {
         parent::setUp();
+        $this->setupSuperUserIdentity();
         $this->getApp()->useLayout(false);
     }
 
@@ -140,8 +141,8 @@ class CrudTest extends ControllerTestCase
             Request::METHOD_POST
         );
 
-        $this->assertNotNull(Response::getBody()->errors);
-        $this->assertEquals(sizeof(Response::getBody()->errors), 2);
+        $this->assertNotNull(Response::getBody()->getData()->get('errors'));
+        $this->assertEquals(sizeof(Response::getBody()->getData()->get('errors')), 2);
         $this->assertOk();
     }
 
@@ -176,8 +177,8 @@ class CrudTest extends ControllerTestCase
             Request::METHOD_PUT
         );
         ;
-        $this->assertNotNull(Response::getBody()->errors);
-        $this->assertEquals(sizeof(Response::getBody()->errors), 2);
+        $this->assertNotNull(Response::getBody()->getData()->get('errors'));
+        $this->assertEquals(sizeof(Response::getBody()->getData()->get('errors')), 2);
         $this->assertOk();
     }
 

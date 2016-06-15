@@ -1,29 +1,33 @@
 <?php
 /**
+ * Grid with filters
+ *
+ * @category Example
+ *
  * @author  Volkov Sergey
  */
 namespace Application;
 
 use Application\Test;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
+/**
+ * @return void
+ */
+return function () {
     /**
-     * @return \closure
+     * @var Controller $this
      */
-    function () use ($view, $module, $controller) {
-        /**
-         * @var \Bluz\View\View $view
-         */
-        Layout::breadCrumbs(
-            [
-                $view->ahref('Test', ['test', 'index']),
-                'Grid with Filter',
-            ]
-        );
-        $grid = new Test\ArrayGrid();
-        $grid->setModule($module);
-        $grid->setController($controller);
+    Layout::breadCrumbs(
+        [
+            Layout::ahref('Test', ['test', 'index']),
+            'Grid with Filter',
+        ]
+    );
+    $grid = new Test\ArrayGrid();
+    $grid->setModule($this->module);
+    $grid->setController($this->controller);
 
-        $view->grid = $grid;
-    };
+    $this->assign('grid', $grid);
+};

@@ -2,25 +2,26 @@
 /**
  * Request examples
  *
+ * @category Example
+ *
  * @author   Anton Shevchuk
  * @created  25.02.14 18:01
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
-return
 /**
- * @return \closure
+ * @return void
  */
-function () use ($view) {
+return function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
     Layout::breadCrumbs(
         [
-            $view->ahref('Test', ['test', 'index']),
+            Layout::ahref('Test', ['test', 'index']),
             'Request Examples',
         ]
     );

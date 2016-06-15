@@ -11,21 +11,23 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Db;
 
-return
 /**
  * @accept JSON
- * @var Bootstrap $this
+ *
+ * @param  $path
  * @return int
+ * @throws Exception
  */
-function ($path) {
-
-    $this->useJson();
-
+return function ($path) {
     /**
+     * @var Controller $this
      * @var Users\Row $user
      */
+    $this->useJson();
+
     if (!$this->user()) {
         throw new Exception('User not found');
     }

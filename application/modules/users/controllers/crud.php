@@ -6,20 +6,28 @@
 namespace Application;
 
 use Application\Users;
-use Bluz\Controller;
+use Bluz\Controller\Controller;
+use Bluz\Controller\Mapper\Crud;
 
-return
 /**
  * @accept HTML
  * @accept JSON
  * @privilege Management
- * @return \closure
+ *
+ * @return array
  */
-function () {
+return function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
-    $crudController = new Controller\Crud();
-    $crudController->setCrud(Users\Crud::getInstance());
-    return $crudController();
+    $crud = new Crud();
+
+    $crud->setCrud(Users\Crud::getInstance());
+
+    $crud->get('system', 'crud/get');
+    $crud->post('system', 'crud/post');
+    $crud->put('system', 'crud/put');
+    $crud->delete('system', 'crud/delete');
+
+    return $crud->run();
 };

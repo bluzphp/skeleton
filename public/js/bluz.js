@@ -10,7 +10,7 @@ define(['jquery', 'bootstrap'], function ($) {
     var bluz = {
         log: function (error, text) {
             if (window.console !== undefined) {
-                window.console.error(error, "Response Text:", text);
+                window.console.error(error, text);
             }
         }
     };

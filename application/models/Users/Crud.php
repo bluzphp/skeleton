@@ -12,6 +12,7 @@ namespace Application\Users;
 use Application\Auth;
 use Application\Exception;
 use Application\UsersActions;
+use Bluz\Application\Application;
 use Bluz\Proxy\Logger;
 use Bluz\Proxy\Mailer;
 use Bluz\Proxy\Messages;
@@ -76,9 +77,9 @@ class Crud extends \Bluz\Crud\Table
 
         $subject = "Activation";
 
-        $body = app()->dispatch(
+        $body = Application::getInstance()->dispatch(
             'users',
-            'mail-template',
+            'mail/template',
             [
                 'template' => 'registration',
                 'vars' => ['user' => $row, 'activationUrl' => $activationUrl, 'password' => $password]
@@ -88,8 +89,8 @@ class Crud extends \Bluz\Crud\Table
         try {
             $mail = Mailer::create();
             $mail->Subject = $subject;
-            $mail->MsgHTML(nl2br($body));
-            $mail->AddAddress($data['email']);
+            $mail->msgHTML(nl2br($body));
+            $mail->addAddress($data['email']);
 
             Mailer::send($mail);
         } catch (\Exception $e) {
@@ -109,7 +110,8 @@ class Crud extends \Bluz\Crud\Table
             "Note that you must activate the account by clicking on the activation link".
             "when you get the e-mail before you can login."
         );
-        app()->redirectTo('index', 'index');
+        // wtf?
+        // redirectTo('index', 'index');
 
         return $userId;
     }

@@ -1,31 +1,26 @@
 <?php
 /**
- * Test CLI
+ * Test CLI - denied access
+ *
+ * @category Example
  *
  * @author   Anton Shevchuk
  * @created  18.11.12 19:41
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 
-return
 /**
  * @method GET
+ *
  * @param  bool $flag
- * @return \closure
+ * @return array
  */
-function ($flag = false) use ($view) {
+return function ($flag = false) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
-    if ($flag) {
-        Messages::addNotice('Notice Text');
-        Messages::addSuccess('Success Text');
-        Messages::addError('Error Text');
-        Messages::addError('Another Error Text');
-    }
-    $view->string = 'bar';
-    $view->array = ['some', 'array'];
+    return ['string' => 'bar', 'array' => ['some', 'array'], 'flag' => $flag];
 };

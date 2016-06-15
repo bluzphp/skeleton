@@ -8,22 +8,24 @@
  */
 namespace Application;
 
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Messages;
 use Application\Auth as AppAuth;
+use Bluz\Proxy\Response;
 
-return
 /**
- * @return \closure
+ * @return void
  */
-function () use ($view) {
+return function () {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
+    if ($this->user()) {
+        AppAuth\Table::getInstance()->removeCookieToken($this->user()->id);
+        Auth::clearIdentity();
+    }
 
-    AppAuth\Table::getInstance()->removeCookieToken($this->user()->id);
-    Auth::clearIdentity();
     Messages::addNotice('You are signout');
-    $this->redirectTo('index', 'index');
+    Response::redirectTo('index', 'index');
 };

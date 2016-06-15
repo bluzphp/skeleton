@@ -27,8 +27,8 @@ class CrudTest extends ControllerTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->getApp()->useLayout(false);
         $this->setupSuperUserIdentity();
+        $this->getApp()->useLayout(false);
     }
 
     /**

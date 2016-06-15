@@ -31,12 +31,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
             .ajaxSuccess(function (event, jqXHR) {
                 // redirect and reload page
                 var callback = null;
-                if (jqXHR.getResponseHeader('Bluz-Reload')) {
-                    callback = function () {
-                        // reload current page
-                        window.location.reload();
-                    };
-                } else if (jqXHR.getResponseHeader('Bluz-Redirect')) {
+                if (jqXHR.getResponseHeader('Bluz-Redirect')) {
                     callback = function () {
                         // redirect to another page
                         window.location = jqXHR.getResponseHeader('Bluz-Redirect');

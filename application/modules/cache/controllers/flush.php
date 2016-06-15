@@ -12,10 +12,10 @@
 namespace Application;
 
 use Bluz\Common\Nil;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Messages;
 
-return
 /**
  * Flush cache servers
  *
@@ -23,9 +23,9 @@ return
  * @privilege Management
  * @return void
  */
-function () {
+return function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
     if (!Cache::getInstance() instanceof Nil) {
         Cache::flush();

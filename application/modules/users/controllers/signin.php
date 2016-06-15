@@ -9,25 +9,29 @@ namespace Application;
 
 use Application\Auth;
 use Bluz\Auth\AuthException;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
+use Bluz\Proxy\Response;
 use Bluz\Proxy\Session;
 use Bluz\Proxy\Request;
 
-return
 /**
  * @param string $login
  * @param string $password
  * @param bool $rememberMe
- * @return \closure
+ * @return array
  */
-function ($login, $password, $rememberMe = false) use ($view) {
+return function ($login, $password, $rememberMe = false) {
     /**
-     * @var Bootstrap $this
-     * @var \Bluz\View\View $view
+     * @var Controller $this
      */
+
+    // change layout
+    $this->useLayout('small.phtml');
+
     if ($this->user()) {
         Messages::addNotice('Already signed');
-        $this->redirectTo('index', 'index');
+        Response::redirectTo('index', 'index');
     } elseif (Request::isPost()) {
         try {
             if (empty($login)) {
@@ -51,18 +55,16 @@ function ($login, $password, $rememberMe = false) use ($view) {
             // try to rollback to previous called URL
             if ($rollback = Session::get('rollback')) {
                 Session::delete('rollback');
-                $this->redirect($rollback);
+                Response::redirect($rollback);
             }
             // try back to index
-            $this->redirectTo('index', 'index');
+            Response::redirectTo('index', 'index');
         } catch (Exception $e) {
             Messages::addError($e->getMessage());
-            $view->login = $login;
+            return ['login' => $login];
         } catch (AuthException $e) {
             Messages::addError($e->getMessage());
-            $view->login = $login;
+            return ['login' => $login];
         }
     }
-    // change layout
-    $this->useLayout('small.phtml');
 };

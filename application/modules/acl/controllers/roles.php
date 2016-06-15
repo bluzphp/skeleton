@@ -10,9 +10,9 @@
 namespace Application;
 
 use Application\Roles;
-use Bluz\Controller;
+use Bluz\Controller\Controller;
+use Bluz\Controller\Mapper\Crud;
 
-return
 /**
  * @accept HTML
  * @accept JSON
@@ -20,11 +20,18 @@ return
  *
  * @return mixed
  */
-function () {
+return function () {
     /**
-     * @var Bootstrap $this
+     * @var Controller $this
      */
-    $crudController = new Controller\Crud();
-    $crudController->setCrud(Roles\Crud::getInstance());
-    return $crudController();
+    $crud = new Crud();
+
+    $crud->setCrud(Roles\Crud::getInstance());
+
+    $crud->get('system', 'crud/get', 'Read');
+    $crud->post('system', 'crud/post', 'Create');
+    $crud->put('system', 'crud/put', 'Update');
+    $crud->delete('system', 'crud/delete', 'Delete');
+
+    return $crud->run();
 };
