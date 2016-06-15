@@ -10,7 +10,6 @@
 namespace Application;
 
 use Bluz\Controller\Controller;
-use Bluz\Proxy\Messages;
 
 /**
  * @method CLI

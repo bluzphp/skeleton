@@ -69,7 +69,8 @@ return function () {
     $result = $crudController->run();
 
     // FIXME: workaround
-    if ((Request::isPost() or Request::isPut()) && !$result /*($result instanceof Media\Row)*/) {
+    // check result for instance of Media\Row
+    if ((Request::isPost() || Request::isPut()) && !$result) {
         // all ok, go to grid
         Response::redirectTo('media', 'grid');
     }
