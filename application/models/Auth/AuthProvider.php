@@ -5,12 +5,12 @@
  */
 namespace Application\Auth;
 
+use Application\Auth;
+use Application\Users;
 use Bluz\Application\Exception\ApplicationException;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
-use Application\Auth;
-use Application\Users;
 
 /**
  * Class AuthProvider

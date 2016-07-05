@@ -11,9 +11,9 @@ use Application\Auth;
 use Bluz\Auth\AuthException;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
+use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Session;
-use Bluz\Proxy\Request;
 
 /**
  * @param string $login

@@ -9,10 +9,6 @@
  */
 namespace Application\Test;
 
-use Bluz\Proxy\Db;
-use Bluz\Proxy\Request;
-use Bluz\Proxy\Response;
-
 /**
  * Crud based on Db\Table
  *

@@ -8,10 +8,10 @@
  */
 namespace Application;
 
+use Application\Auth as AppAuth;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Messages;
-use Application\Auth as AppAuth;
 use Bluz\Proxy\Response;
 
 /**

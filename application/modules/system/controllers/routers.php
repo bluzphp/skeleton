@@ -8,7 +8,6 @@
 namespace Application;
 
 use Bluz\Controller\Controller;
-use Bluz\Controller\Reflection;
 use Bluz\Proxy\Layout;
 
 /**

@@ -7,9 +7,9 @@
  */
 namespace Application;
 
+use Application\Auth\AuthProvider;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
-use Application\Auth\AuthProvider;
 
 /**
  * @param string $provider
