@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8" collation="utf8_general_ci">p_bluz_ddl</database>
+</source>
+<canvas zoom="110">
+<tables>
+<table name="users" view="colnames">
+<left>278</left>
+<top>117</top>
+<width>101</width>
+<height>193</height>
+<sql_create_table>CREATE TABLE `users` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `login` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` varchar(32) NOT NULL DEFAULT 'disabled',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_login_uindex` (`login`),
+  UNIQUE KEY `users_email_uindex` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="users_actions" view="colnames">
+<left>402</left>
+<top>554</top>
+<width>98</width>
+<height>193</height>
+<sql_create_table>CREATE TABLE `users_actions` (
+  `userId` bigint(20) unsigned NOT NULL,
+  `code` varchar(32) NOT NULL,
+  `action` varchar(32) NOT NULL,
+  `params` longtext,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `expired` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`userId`,`code`),
+  UNIQUE KEY `users_actions_userId_action_uindex` (`userId`,`action`),
+  CONSTRAINT `users_actions_users_id_fk` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="acl_roles" view="colnames">
+<left>659</left>
+<top>135</top>
+<width>98</width>
+<height>136</height>
+<sql_create_table>CREATE TABLE `acl_roles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`,`name`),
+  UNIQUE KEY `acl_roles_name_uindex` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="acl_users_roles" view="colnames">
+<left>507</left>
+<top>117</top>
+<width>91</width>
+<height>118</height>
+<sql_create_table>CREATE TABLE `acl_users_roles` (
+  `userId` bigint(20) unsigned NOT NULL,
+  `roleId` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`userId`,`roleId`),
+  KEY `acl_users_roles_acl_roles_id_fk` (`roleId`),
+  CONSTRAINT `acl_users_roles_users_id_fk` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `acl_users_roles_acl_roles_id_fk` FOREIGN KEY (`roleId`) REFERENCES `acl_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="auth" view="colnames">
+<left>127</left>
+<top>316</top>
+<width>127</width>
+<height>249</height>
+<sql_create_table>CREATE TABLE `auth` (
+  `userId` bigint(20) unsigned NOT NULL,
+  `provider` varchar(64) NOT NULL,
+  `foreignKey` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `tokenSecret` varchar(64) NOT NULL,
+  `tokenType` varchar(32) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `expired` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`userId`,`provider`),
+  CONSTRAINT `auth_users_id_fk` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="acl_privileges" view="colnames">
+<left>813</left>
+<top>135</top>
+<width>105</width>
+<height>136</height>
+<sql_create_table>CREATE TABLE `acl_privileges` (
+  `roleId` int(10) unsigned NOT NULL,
+  `module` varchar(32) NOT NULL,
+  `privilege` varchar(32) NOT NULL,
+  UNIQUE KEY `acl_privileges_roleId_module_privilege_uindex` (`roleId`,`module`,`privilege`),
+  CONSTRAINT `acl_privileges_acl_roles_id_fk` FOREIGN KEY (`roleId`) REFERENCES `acl_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="categories" view="colnames">
+<left>1056</left>
+<top>327</top>
+<width>105</width>
+<height>211</height>
+<sql_create_table>CREATE TABLE `categories` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `parentId` bigint(20) unsigned DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `alias` varchar(255) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `order` bigint(20) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQUE_alias` (`parentId`,`alias`),
+  CONSTRAINT `categories_categories_id_fk` FOREIGN KEY (`parentId`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="media" view="colnames">
+<left>758</left>
+<top>553</top>
+<width>101</width>
+<height>249</height>
+<sql_create_table>CREATE TABLE `media` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `userId` bigint(20) unsigned NOT NULL,
+  `module` varchar(24) NOT NULL DEFAULT 'users',
+  `title` longtext,
+  `type` varchar(24) DEFAULT NULL,
+  `file` varchar(255) DEFAULT NULL,
+  `preview` varchar(255) DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `media_users_id_fk` (`userId`),
+  CONSTRAINT `media_users_id_fk` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="options" view="colnames">
+<left>1057</left>
+<top>575</top>
+<width>122</width>
+<height>193</height>
+<sql_create_table>CREATE TABLE `options` (
+  `namespace` varchar(64) NOT NULL DEFAULT 'default',
+  `key` varchar(255) NOT NULL,
+  `value` longtext NOT NULL,
+  `description` longtext,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`key`,`namespace`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="pages" view="colnames">
+<left>553</left>
+<top>552</top>
+<width>119</width>
+<height>249</height>
+<sql_create_table>CREATE TABLE `pages` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userId` bigint(20) unsigned DEFAULT NULL,
+  `title` longtext NOT NULL,
+  `alias` varchar(255) NOT NULL,
+  `content` longtext,
+  `keywords` longtext,
+  `description` longtext,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `pages_alias_uindex` (`alias`),
+  KEY `pages_users_id_fk` (`userId`),
+  CONSTRAINT `pages_users_id_fk` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
