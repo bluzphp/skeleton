@@ -16,8 +16,8 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Logger;
 use Bluz\Proxy\Messages;
-use Bluz\Proxy\Response;
 use Bluz\Proxy\Request;
+use Bluz\Proxy\Response;
 
 /**
  * @accept ANY

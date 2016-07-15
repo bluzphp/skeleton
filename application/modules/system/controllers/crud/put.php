@@ -11,10 +11,8 @@ namespace Application;
 
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotImplementedException;
-use Bluz\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
-use Bluz\Proxy\Response;
 use Bluz\Validator\Exception\ValidatorException;
 
 /**

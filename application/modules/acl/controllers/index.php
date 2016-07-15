@@ -10,7 +10,6 @@
 namespace Application;
 
 use Bluz\Controller\Controller;
-use Bluz\Controller\Reflection;
 use Bluz\Proxy\Layout;
 
 /**
@@ -36,9 +35,7 @@ return function () {
     $modules = array();
 
     foreach ($directoryIterator as $directory) {
-        if ($directory->isDot() or
-            !$directory->isDir()
-        ) {
+        if ($directory->isDot() || !$directory->isDir()) {
             continue;
         }
         $modules[] = $directory->getBasename();

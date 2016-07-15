@@ -10,9 +10,7 @@
 namespace Application;
 
 use Bluz\Application\Exception\BadRequestException;
-use Bluz\Controller;
 use Bluz\Proxy\Messages;
-use Bluz\Proxy\Response;
 
 /**
  * @accept HTML

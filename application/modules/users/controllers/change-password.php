@@ -8,9 +8,9 @@
 namespace Application;
 
 use Application\Users;
-use Bluz\Auth\AuthException;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotFoundException;
+use Bluz\Auth\AuthException;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;

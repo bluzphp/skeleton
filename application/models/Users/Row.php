@@ -14,10 +14,10 @@ use Application\Privileges;
 use Application\Roles;
 use Bluz\Auth\AbstractRowEntity;
 use Bluz\Auth\AuthException;
-use Bluz\Validator\Traits\Validator;
-use Bluz\Validator\Validator as v;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Session;
+use Bluz\Validator\Traits\Validator;
+use Bluz\Validator\Validator as v;
 
 /**
  * User
