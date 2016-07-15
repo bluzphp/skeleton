@@ -181,5 +181,3 @@ CREATE TABLE com_content
   CONSTRAINT com_content_com_content_id_fk FOREIGN KEY (parentId) REFERENCES com_content (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE INDEX comments_target ON com_content (settingsId, foreignKey);
-CREATE INDEX com_content_com_content_id_fk ON com_content (parentId);
-CREATE INDEX com_content_users_id_fk ON com_content (userId);
