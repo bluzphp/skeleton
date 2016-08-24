@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+#Get into container and run whatever command
+docker exec -u dev -it bluz_php $@
