@@ -11,7 +11,7 @@ server {
         server_name ${SERVER_NAME};
 
         location / {
-              try_files $uri $uri/ /index.html;
+              try_files $uri $uri/ /index.php;
         }
 
         # pass the PHP scripts to FastCGI server listening on the php-fpm socket
@@ -21,5 +21,9 @@ server {
                 fastcgi_index index.php;
                 include fastcgi_params;
         }
+
+ location ~ /\.ht {
+        deny all;
+    }
 
 }

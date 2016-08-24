@@ -11,12 +11,11 @@ services:
     volumes_from:
       - code
     ports:
-      - "80:80"
+      - "81:80"
     links:
       - php:fpm
-    command: /bin/bash -c "export SERVER_NAME=%server_name% DOC_ROOT=/var/www
-          || envsubst '${SERVER_NAME},${DOC_ROOT}' < /default.conf.template > /etc/nginx/conf.d/default.conf
-          && nginx -g 'daemon off;'"
+    depends_on:
+      - php
 
   php:
     build: php
@@ -28,6 +27,10 @@ services:
       - code
     links:
       - mysql
+    depends_on:
+      - mysql
+    environment:
+      - USER=dev
 
   mysql:
     build: mysql
@@ -35,7 +38,12 @@ services:
     volumes_from:
       - mysqldata
     ports:
-      - "3306:3306"
+      - "3307:3306"
+    environment:
+      - MYSQL_DATABASE=bluz
+      - MYSQL_USER=developer
+      - MYSQL_PASSWORD=nodevpass
+      - MYSQL_ROOT_PASSWORD=rootpass
 
   mysqldata:
     image: debian:jessie
