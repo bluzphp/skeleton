@@ -1,5 +1,5 @@
 upstream fpm_backend {
-     server fpm:9000;
+     server php:9000;
 }
 
 server {

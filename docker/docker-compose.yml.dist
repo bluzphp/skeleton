@@ -12,8 +12,6 @@ services:
       - code
     ports:
       - "81:80"
-    links:
-      - php:fpm
     depends_on:
       - php
 
@@ -25,12 +23,12 @@ services:
       - DEVELOPER_PORT=9000
     volumes_from:
       - code
-    links:
-      - mysql
     depends_on:
       - mysql
     environment:
       - USER=dev
+    env_file:
+     - mysql/db.env
 
   mysql:
     build: mysql
@@ -39,11 +37,8 @@ services:
       - mysqldata
     ports:
       - "3307:3306"
-    environment:
-      - MYSQL_DATABASE=bluz
-      - MYSQL_USER=developer
-      - MYSQL_PASSWORD=nodevpass
-      - MYSQL_ROOT_PASSWORD=rootpass
+    env_file:
+      - mysql/db.env
 
   mysqldata:
     image: debian:jessie
