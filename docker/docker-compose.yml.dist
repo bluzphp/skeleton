@@ -18,9 +18,6 @@ services:
   php:
     build: php
     container_name: bluz_php
-    environment:
-      - DEVELOPER_HOST=172.17.0.1
-      - DEVELOPER_PORT=9000
     volumes_from:
       - code
     depends_on:
@@ -29,6 +26,8 @@ services:
       - USER=dev
     env_file:
      - mysql/db.env
+     - php/xdebug.env
+     - php/bluz.env
 
   mysql:
     build: mysql
