@@ -37,7 +37,7 @@ return function ($id = null) {
     );
 
     $categoriesTable = Categories\Table::getInstance();
-    $rootTree = $categoriesTable->getAllRootCategory();
+    $rootTree = $categoriesTable->getRootCategories();
 
     if (count($rootTree) == 0) {
         Messages::addNotice('There are no categories');

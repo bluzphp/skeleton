@@ -35,20 +35,13 @@ class Table extends \Bluz\Db\Table
     protected $primary = array('id');
 
     /**
-     * @param int $id
      * @return array
      */
-    public function getAllCategories($id = null)
+    public function getRootCategories()
     {
-        $select = $this->select();
-
-        if ($id) {
-            $select->where('id != ?', $id);
-        }
-
-        return $select->execute();
+        return $this->select()->where('parentId IS NULL')->orderBy('created', 'DESC')->execute();
     }
-
+    
     /**
      * @param int $id
      * @return array
@@ -66,17 +59,17 @@ class Table extends \Bluz\Db\Table
     {
         $current = $this->findRow(['alias' => $alias]);
 
-        return $this->generateTree($this->prepareTree(), $current['id']);
+        return $this->buildTree($current['id']);
     }
 
     /**
+     * Get all categories
      * @return array
      */
-    public function prepareTree()
+    protected function prepareTree()
     {
         $result = Db::fetchGroup('SELECT id, categories.* FROM categories ORDER BY `order`');
         $result = array_map('reset', $result);
-
         return $result;
     }
 
@@ -85,7 +78,7 @@ class Table extends \Bluz\Db\Table
      * @param int $id
      * @return array
      */
-    public function generateTree($categoryList, $id)
+    protected function generateTree($categoryList, $id)
     {
         foreach ($categoryList as $categoryId => $category) {
             if ($category['parentId']) {
@@ -94,13 +87,5 @@ class Table extends \Bluz\Db\Table
         }
 
         return array($categoryList[$id]);
-    }
-
-    /**
-     * @return array
-     */
-    public function getAllRootCategory()
-    {
-        return $this->select()->where('parentId IS NULL')->orderBy('created', 'DESC')->execute();
     }
 }
