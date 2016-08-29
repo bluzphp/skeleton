@@ -9,7 +9,6 @@
  */
 namespace Application;
 
-use Bluz\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 use Bluz\Validator\Exception\ValidatorException;
