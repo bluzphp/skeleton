@@ -26,4 +26,9 @@ _**Frequently Asked Question(s)**_
  get inside container
  $ docker exec -ti %container_name% %bash_commnad%
  
- show docker bridge IP
+ run phpunit tests
+ 1. get into php container 
+ 2. $ phpunit
+ _OR_ 
+ $ docker exec -ti bluz_php -u www-data phpunit
+ 
