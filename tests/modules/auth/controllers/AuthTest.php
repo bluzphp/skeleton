@@ -61,7 +61,9 @@ class AuthTest extends ControllerTestCase
             [
                 'provider' => 'facebook',
                 'userId' => 3,
-                'foreignKey' => 112233
+                'foreignKey' => 112233,
+                'token' => '',
+                'tokenType'=>'access'
             ]
         )->execute();
 
@@ -77,7 +79,6 @@ class AuthTest extends ControllerTestCase
 
     public function testUserAlreadyLinkedTo()
     {
-
         $identity = new \Application\Users\Row();
         $identity->id = 3;
 
