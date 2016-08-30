@@ -31,10 +31,10 @@ CREATE TABLE users_actions
   params LONGTEXT,
   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   expired TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  CONSTRAINT users_actions_userId_code_pk PRIMARY KEY (userId, CODE),
+  CONSTRAINT users_actions_userId_code_pk PRIMARY KEY (userId, code),
   CONSTRAINT users_actions_users_id_fk FOREIGN KEY (userId) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-CREATE UNIQUE INDEX users_actions_userId_action_uindex ON users_actions (userId, ACTION);
+CREATE UNIQUE INDEX users_actions_userId_action_uindex ON users_actions (userId, action);
 
 # Authentication by providers
 # - cookie - for `remember me`
