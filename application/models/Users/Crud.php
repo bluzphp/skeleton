@@ -51,6 +51,9 @@ class Crud extends \Bluz\Crud\Table
             throw ValidatorException::exception('password2', __('Password is not equal'));
         }
 
+        if($data['id'] == ''){
+            unset($data['id']);
+        }
 
         /** @var $row Row */
         $row = $this->getTable()->create();
@@ -91,7 +94,6 @@ class Crud extends \Bluz\Crud\Table
             $mail->Subject = $subject;
             $mail->msgHTML(nl2br($body));
             $mail->addAddress($data['email']);
-
             Mailer::send($mail);
         } catch (\Exception $e) {
             Logger::log(
