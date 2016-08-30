@@ -24,7 +24,7 @@ RUN tar -xvzf /xdebug-2.4.0rc4.tgz \
 COPY xdebug.ini /usr/local/etc/php/conf.d/
 RUN docker-php-ext-enable xdebug
 
-ENV PATH=$PATH:/var/www/docker/bin
+ENV PATH=$PATH:/var/www/docker/bin:/var/www/vendor/bin
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /var/www
