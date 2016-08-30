@@ -40,8 +40,8 @@ class Crud extends \Bluz\Crud\Table
     public function createOne($data)
     {
         // password
-        $password = isset($data['password'])?$data['password']:null;
-        $password2 = isset($data['password2'])?$data['password2']:null;
+        $password = isset($data['password']) ? $data['password'] : null;
+        $password2 = isset($data['password2']) ? $data['password2'] : null;
 
         if (empty($password)) {
             throw ValidatorException::exception('password', __('Password can\'t be empty'));
@@ -51,7 +51,7 @@ class Crud extends \Bluz\Crud\Table
             throw ValidatorException::exception('password2', __('Password is not equal'));
         }
 
-        if($data['id'] == ''){
+        if ($data['id'] == '') {
             unset($data['id']);
         }
 
@@ -107,9 +107,9 @@ class Crud extends \Bluz\Crud\Table
 
         // show notification and redirect
         Messages::addSuccess(
-            "Your account has been created and an activation link has".
-            "been sent to the e-mail address you entered.<br/>".
-            "Note that you must activate the account by clicking on the activation link".
+            "Your account has been created and an activation link has" .
+            "been sent to the e-mail address you entered.<br/>" .
+            "Note that you must activate the account by clicking on the activation link" .
             "when you get the e-mail before you can login."
         );
         // wtf?
