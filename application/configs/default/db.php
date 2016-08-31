@@ -18,3 +18,18 @@ return array(
         )
     )
 );
+
+///* for docker configuration*/
+//return array(
+//    "connect" => array(
+//        "type" => "mysql",
+//        "host" =>  "mysql",
+//        "name" => getenv("MYSQL_DATABASE"),
+//        "user" => getenv("MYSQL_USER"),
+//        "pass" => getenv("MYSQL_PASSWORD"),
+//        "options" => array(
+//            \PDO::ATTR_PERSISTENT => true,
+//            \PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET utf8"
+//        )
+//    )
+//);

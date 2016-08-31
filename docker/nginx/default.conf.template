@@ -1,0 +1,29 @@
+upstream fpm_backend {
+     server php:9000;
+}
+
+server {
+        listen  80;
+
+        root ${DOC_ROOT}/public;
+        index index.php;
+
+        server_name ${SERVER_NAME};
+
+        location / {
+              try_files $uri $uri/ /index.php;
+        }
+
+        # pass the PHP scripts to FastCGI server listening on the php-fpm socket
+        location ~ \.php$ {
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_pass fpm_backend;
+                fastcgi_index index.php;
+                include fastcgi_params;
+        }
+
+ location ~ /\.ht {
+        deny all;
+    }
+
+}

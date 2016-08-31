@@ -105,7 +105,7 @@ class Table extends \Bluz\Db\Table
                 "SELECT DISTINCT CONCAT(p.module, ':', p.privilege)
                 FROM acl_privileges AS p, acl_roles AS r
                 WHERE p.roleId = r.id AND r.id = ?
-                ORDER BY module, privilege",
+                ORDER BY CONCAT(p.module, ':', p.privilege)",
                 array((int) $roleId)
             );
 

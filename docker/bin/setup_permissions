@@ -1,0 +1,16 @@
+#!/bin/bash
+USER_EXISTS="$(getent passwd $USER)"
+
+if [ -z "$USER_EXISTS" ]; then
+    echo -e "\x1B[01;95m Creation of new ${USER^^} user ...\x1B[0m"
+    useradd -m $USER
+    usermod -a -G www-data $USER
+fi
+
+chown -R $USER ./
+chgrp -R www-data ./
+chmod -R 750 ./
+chmod g+s ./
+
+chmod g+w -R ./data
+chmod g+w -R ./public/uploads
