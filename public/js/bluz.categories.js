@@ -3,22 +3,12 @@
  * @created  11.09.12 10:30
  */
 /*global define,require*/
-define(['jquery', 'bluz', 'bluz.notify', 'bluz.tools', 'bluz.ajax', 'vendor/jquery.mjs.nestedSortable'], function ($, bluz, notify, tools) {
+define(['jquery', 'bluz', 'bluz.notify', 'bluz.tools', 'bluz.ajax'], function ($, bluz, notify, tools) {
     "use strict";
 
     $(function () {
-        function sortableInit() {
-            $('.sortable').nestedSortable({
-                handle: 'div',
-                items: 'li',
-                toleranceElement: '> div'
-            });
-        }
-
-        sortableInit();
 
         $('.category-page-wrapper').on('change', '.select-tree select', function () {
-
             var $this= $(this);
             $.ajax({
                 url: '/categories/tree',
@@ -28,26 +18,6 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.tools', 'bluz.ajax', 'vendor/jque
                 success: function (resp) {
                     $('.tree-wrapper').remove();
                     $('.tree-container').html($(resp).find('.tree-wrapper'));
-
-                    sortableInit();
-                }
-            });
-
-        }).on('click', '#save', function (e) {
-
-            $('.sortable li').each(function (key, value) {
-                $(this).attr('data-order', key);
-            });
-
-            var arraied = $('ol.sortable').nestedSortable('toArray', {startDepthCount: 0});
-
-            $.ajax({
-                url: 'categories/order',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    tree: JSON.stringify(arraied),
-                    treeParent: $('.tree-header').attr('data-parent-id')
                 }
             });
         });
@@ -62,7 +32,6 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.tools', 'bluz.ajax', 'vendor/jque
                 $('.message-wrapper').children().remove();
                 $('.message-wrapper').append('<h3 class="not-one-category">There are no categories</h3>');
             }
-
             $list.trigger('change');
         });
 
@@ -75,8 +44,6 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.tools', 'bluz.ajax', 'vendor/jque
                 success: function (resp) {
                     $('.tree-wrapper').remove();
                     $('.tree-container').html($(resp).find('.tree-wrapper'));
-
-                    sortableInit();
                 }
             });
         }).on('success.form.bluz', '.category-form', function (e) {
@@ -84,7 +51,6 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.tools', 'bluz.ajax', 'vendor/jque
                 url: '/categories/tree',
                 success: function (resp) {
                     $('.category-page-wrapper').html($(resp).children().unwrap());
-                    sortableInit();
                 }
             });
         }).on('success.form.bluz', '.add-child', function () {
@@ -95,7 +61,6 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.tools', 'bluz.ajax', 'vendor/jque
                 },
                 success: function () {
                     $('.root-category-list').trigger('change');
-                    sortableInit();
                 }
             });
             return false;
@@ -106,7 +71,6 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.tools', 'bluz.ajax', 'vendor/jque
                 $alias.val(title);
             }
         });
-
     });
 
     return {};

@@ -1,21 +1,31 @@
-<?php $uid = uniqid('form_'); ?>
+<?php
+$uid = uniqid('form_');
+$parentId = $parentId ?: $row->parentId;
+$rootId = $rootId ?: $row->rootId;
+?>
     <form id="<?= $uid ?>" action="<?= $this->url('categories', 'crud') ?>"
           class="form-horizontal ajax <?= $parentId ? 'add-child' : 'category-form' ?> <?= $row->id ? 'category-edit' : '' ?>"
           method="<?= $method ?>">
         <input type="hidden" name="id" value="<?= $row->id ?>"/>
         <input type="hidden" name="_method" value="<?= $method ?>"/>
-
-        <?php if ($parentId) : ?>
-            <input type="hidden" name="parentId" value="<?= $parentId ?>" />
-        <?php else: ?>
-            <input type="hidden" name="parentId" value="<?= $row->parentId ?>" />
-        <?php endif; ?>
-
+        <input type="hidden" name="rootId" value="<?= $rootId ?>"/>
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title"><?=__('Category')?></h4>
         </div>
         <div class="modal-body">
+            <div class="form-group">
+                <label class="control-label col-lg-2" for="name"><?=__('Parent')?></label>
+                <div class="col-lg-10">
+                    <select class="form-control" name="parentId">
+                        <?php
+                        foreach ($tree as $category):
+                            echo $this->partial('partial/option.phtml', ['category' => $category, 'level' => 0, 'selected' => $parentId]);
+                        endforeach;
+                        ?>
+                    </select>
+                </div>
+            </div>
             <div class="form-group">
                 <label class="control-label col-lg-2" for="name"><?=__('Name')?></label>
                 <div class="col-lg-10">
@@ -24,7 +34,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-lg-2" for="email"><?=__('Alias')?></label>
+                <label class="control-label col-lg-2" for="alias"><?=__('Alias')?></label>
 
                 <div class="col-lg-10">
                     <input type="text" class="form-control" id="alias" name="alias" value="<?= esc($row->alias) ?>"
