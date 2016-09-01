@@ -41,9 +41,11 @@
             <div class="form-group">
                 <label class="control-label col-lg-2"><?=__('Link')?></label>
                 <div class="col-lg-10">
-                    <a href="<?=$this->baseUrl($row->file)?>">
-                        <?=$this->baseUrl($row->file)?>
-                    </a>
+                    <p class="form-control-static">
+                        <a href="<?=$this->baseUrl($row->file)?>">
+                            <?=\Bluz\Proxy\Router::getFullUrl().($row->file)?>
+                        </a>
+                    </p>
                 </div>
             </div>
         <?php

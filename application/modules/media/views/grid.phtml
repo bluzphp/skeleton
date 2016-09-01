@@ -39,12 +39,14 @@ if (!$grid) return;
 
     <?=$this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
     <?=$this->partial('grid/limit.phtml', ['grid'=>$grid]) ?>
-
+    <?php if ($grid->total()) : ?>
+    <div class="pull-right">&nbsp;</div>
     <ul class="pagination pagination-small pull-right">
         <li class="disabled"><a href="#"><?=__('Image quantity')?></a></li>
         <li <?=(($countCol==2)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 2]);?>">2</a></li>
         <li <?=(($countCol==4)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 4]);?>">4</a></li>
     </ul>
+    <?php endif; ?>
 
     <div class="row clearfix">
         <div class="col-lg-12">
