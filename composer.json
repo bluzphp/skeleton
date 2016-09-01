@@ -11,11 +11,11 @@
     "zircote/swagger-php": "~2.0",
     "fortawesome/font-awesome": "~4.5",
     "twbs/bootstrap": "~3.3",
-    "public/swagger-ui": "dev-master",
-    "js/html5shiv": "dev-master",
-    "js/html5shiv-printshiv": "dev-master",
-    "jquery": "3.1.0",
-    "js/require": "dev-master"
+    "public/swagger-ui": "2.2.2",
+    "html5shiv": "3.7.3",
+    "js/html5shiv-printshiv": "3.7.3",
+    "jQuery": "3.1.0",
+    "js/require": "2.2.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.4",
@@ -52,7 +52,7 @@
       "type": "package",
       "license": "MIT",
       "package": {
-        "name": "jquery",
+        "name": "jQuery",
         "version": "3.1.0",
         "dist": {
           "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js",
