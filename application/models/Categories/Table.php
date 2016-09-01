@@ -35,72 +35,58 @@ class Table extends \Bluz\Db\Table
     protected $primary = array('id');
 
     /**
-     * @param int $id
+     * Get root categories
      * @return array
      */
-    public function getAllCategories($id = null)
+    public function getRootCategories()
     {
-        $select = $this->select();
-
-        if ($id) {
-            $select->where('id != ?', $id);
-        }
-
-        return $select->execute();
+        return $this->select()->where('parentId IS NULL')->orderBy('name', 'ASC')->execute();
     }
-
+    
     /**
+     * Build tree by root id
      * @param int $id
-     * @return array
+     * @return Row
      */
     public function buildTree($id = null)
     {
-        return $this->generateTree($this->prepareTree(), $id);
+        $tree = $this->generateTree($id);
+        return $tree[$id];
     }
 
     /**
+     * Build tree by root alias
      * @param string $alias
-     * @return array
+     * @return Row
      */
     public function buildTreeByAlias($alias)
     {
         $current = $this->findRow(['alias' => $alias]);
 
-        return $this->generateTree($this->prepareTree(), $current['id']);
+        return $this->buildTree($current['id']);
     }
 
     /**
-     * @return array
+     * Get all categories in tree by rootId
+     * @param integer $rootId
+     * @return Row[]
      */
-    public function prepareTree()
+    protected function generateTree($rootId)
     {
-        $result = Db::fetchGroup('SELECT id, categories.* FROM categories ORDER BY `order`');
-        $result = array_map('reset', $result);
+        /** @var Row[] $categories */
+        $categories = Db::fetchGroup(
+            'SELECT id, categories.* FROM categories WHERE rootId = :id or id = :id ORDER BY `name`',
+            ['id' => $rootId],
+            $this->rowClass
+        );
+        $categories = array_map('reset', $categories);
 
-        return $result;
-    }
 
-    /**
-     * @param array $categoryList
-     * @param int $id
-     * @return array
-     */
-    public function generateTree($categoryList, $id)
-    {
-        foreach ($categoryList as $categoryId => $category) {
-            if ($category['parentId']) {
-                $categoryList[$category['parentId']]['children'][$categoryId] =& $categoryList[$categoryId];
+        foreach ($categories as $category) {
+            if ($category->parentId && $category->id != $category->parentId) {
+                $categories[$category->parentId]->addChild($category);
             }
         }
-
-        return array($categoryList[$id]);
-    }
-
-    /**
-     * @return array
-     */
-    public function getAllRootCategory()
-    {
-        return $this->select()->where('parentId IS NULL')->orderBy('created', 'DESC')->execute();
+        return $categories;
     }
 }

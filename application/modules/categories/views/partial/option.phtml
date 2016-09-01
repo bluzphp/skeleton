@@ -1,0 +1,13 @@
+<?php /** @var Application\Categories\Row $category */ ?>
+<option value="<?=$category->id?>" <?php if ($category->id == $selected) echo 'selected'?>>
+    <?=str_repeat('&nbsp;&nbsp;', $level)?>
+    <?=$category->name?>
+</option>
+
+<?php
+if ($category->getChildren()) :
+    foreach ($category->getChildren() as $child):
+        echo $this->partial('partial/option.phtml', ['category' => $child, 'level' => $level + 1, 'selected' => $selected]);
+    endforeach;
+endif;
+?>

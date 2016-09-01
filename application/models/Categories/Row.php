@@ -17,16 +17,21 @@ use Bluz\Validator\Validator as v;
  * @package Application\Categories
  *
  * @property integer $id
+ * @property integer $rootId
  * @property integer $parentId
  * @property string $name
  * @property string $alias
  * @property string $created
  * @property string $updated
- * @property integer $order
  */
 class Row extends \Bluz\Db\Row
 {
     use Validator;
+
+    /**
+     * @var Row[]
+     */
+    protected $children;
 
     /**
      * @return void
@@ -80,5 +85,25 @@ class Row extends \Bluz\Db\Row
     public function beforeUpdate()
     {
         $this->updated = gmdate('Y-m-d H:i:s');
+    }
+
+    /**
+     * Add child
+     *
+     * @param Row $row
+     */
+    public function addChild(Row $row)
+    {
+        $this->children[$row->id] = $row;
+    }
+
+    /**
+     * Get children directories
+     *
+     * @return array
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }

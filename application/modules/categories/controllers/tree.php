@@ -28,7 +28,6 @@ return function ($id = null) {
      * @var Controller $this
      */
     Layout::setTemplate('dashboard.phtml');
-    Layout::headStyle(Layout::baseUrl('css/categories.css'));
     Layout::breadCrumbs(
         [
             Layout::ahref('Dashboard', ['dashboard', 'grid']),
@@ -37,24 +36,25 @@ return function ($id = null) {
     );
 
     $categoriesTable = Categories\Table::getInstance();
-    $rootTree = $categoriesTable->getAllRootCategory();
+    $rootTree = $categoriesTable->getRootCategories();
 
     if (count($rootTree) == 0) {
         Messages::addNotice('There are no categories');
         return [
             'rootTree' => [],
-            'branch' => null,
-            'tree' => []
+            'category' => null,
+            'categoryId' => null,
         ];
     }
 
+    // open first root category by default
     if (!$id) {
         $id = $rootTree[0]->id;
     }
 
     return [
         'rootTree' => $rootTree,
-        'branch' => $id,
-        'tree' => $categoriesTable->buildTree($id)
+        'category' => $categoriesTable->buildTree($id),
+        'categoryId' => $id,
     ];
 };
