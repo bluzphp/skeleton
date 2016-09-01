@@ -29,8 +29,8 @@
       "package": {
         "version": "2.2.2",
         "name": "public/swagger-ui",
-        "license": "Apache-2.0",
         "dist":{
+          "license": "Apache-2.0",
           "url":"https://github.com/swagger-api/swagger-ui/archive/v2.2.2.zip",
           "type":"zip"
         }
@@ -38,11 +38,11 @@
     },
     {
       "type": "package",
-      "license": "MIT",
       "package": {
         "name": "js/require",
         "version": "2.2.0",
         "dist": {
+          "license": "MIT",
           "url": "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js",
           "type": "file"
         }
@@ -50,11 +50,11 @@
     },
     {
       "type": "package",
-      "license": "MIT",
       "package": {
         "name": "jQuery",
         "version": "3.1.0",
         "dist": {
+          "license": "MIT",
           "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js",
           "type": "file"
         }
@@ -62,11 +62,11 @@
     },
     {
       "type": "package",
-      "license": "MIT",
       "package": {
         "name": "js/html5shiv",
         "version": "3.7.3",
         "dist": {
+          "license": "MIT",
           "url": "https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js",
           "type": "file"
         }
@@ -74,11 +74,11 @@
     },
     {
       "type": "package",
-      "license": "MIT",
       "package": {
         "name": "js/html5shiv-printshiv",
         "version": "3.7.3",
         "dist": {
+          "license": "MIT",
           "url": "https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.js",
           "type": "file"
         }
