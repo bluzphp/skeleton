@@ -9,6 +9,10 @@
  */
 namespace Application\Media;
 
+use Application\Exception;
+use Application\Users\Row;
+use Bluz\Proxy\Auth;
+
 /**
  * Table
  *
@@ -31,4 +35,34 @@ class Table extends \Bluz\Db\Table
      * @var array
      */
     protected $primary = array('id');
+
+    /**
+     * Get images of current user
+     *
+     * @return Row[]
+     * @throws Exception
+     */
+    public function getImages()
+    {
+        /** @var Row $user */
+        if (!$user = Auth::getIdentity()) {
+            throw new Exception('User not found');
+        }
+
+        return $this->getImagesByUserId($user->id);
+    }
+
+    /**
+     * Get images by owner
+     *
+     * @param  integer $id
+     * @return Row[]
+     */
+    public function getImagesByUserId($id)
+    {
+        return self::select()
+            ->where('type LIKE (?)', 'image/%')
+            ->andWhere('userId = ?', $id)
+            ->execute();
+    }
 }

@@ -11,35 +11,24 @@
  */
 namespace Application;
 
+use Application\Media\Table;
 use Bluz\Controller\Controller;
-use Bluz\Proxy\Db;
 
 /**
+ * @accept JSON
  * @return array
  * @throws Exception
  */
 return function () {
     /**
      * @var Controller $this
-     * @var Users\Row $user
      */
-    $this->useJson();
-
-    if (!$this->user()) {
-        throw new Exception('User not found');
-    }
-
-    $userId = $this->user()->id;
-
-    $images = Db::select('*')
-        ->from('media', 'm')
-        ->where('type LIKE (?)', 'image/%')
-        ->andWhere('userId = ?', $userId)
-        ->execute('Application\\Media\\Row');
+    $images = Table::getInstance()->getImages();
 
     $result = array();
     foreach ($images as $image) {
         $result[] = [
+            "id" => $image->id,
             "title" => $image->title,
             "image" => $image->file,
             "thumb" => $image->preview,
