@@ -15,6 +15,7 @@ use Bluz\Config\ConfigException;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Request;
+use Bluz\Validator\Exception\ValidatorException;
 use Zend\Diactoros\UploadedFile;
 
 /**
@@ -31,10 +32,12 @@ return function () {
      */
     $file = Request::getFile('file');
 
-    // TODO: create media type validation
-    if ($file && $file->getClientMediaType()) {
+    $allowTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif'];
+
+    // check media type
+    if ($file && $file->getClientMediaType() && in_array($file->getClientMediaType(), $allowTypes)) {
         // save original name
-        $original = $file->getClientFilename();
+        $original = pathinfo($file->getClientFilename(), PATHINFO_FILENAME);
 
         // rename file to date/time stamp
         $filename = date('Ymd_Hi') .'.'. pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
@@ -58,7 +61,7 @@ return function () {
             throw new ConfigException('Upload path is not configured');
         }
 
-        $file->moveTo($path.'/'.$userId.'/media');
+        $file->moveTo($path.'/'.$userId.'/media/'.$filename);
 
         // save media data
         $media = new Media\Row();
@@ -67,14 +70,30 @@ return function () {
         $media->type = $file->getClientMediaType();
         $media->title = $original;
         $media->file = 'uploads/'.$userId.'/media/'.$filename;
-
+        // preview will generate in beforeSave method
         $media->preview = $media->file;
-        $media->save();
+
+        try {
+            $media->save();
+        } catch (ValidatorException $e) {
+            // remove invalid files
+            if (is_file(PATH_PUBLIC .'/'. $media->file)) {
+                @unlink(PATH_PUBLIC .'/'. $media->file);
+            }
+            if (is_file(PATH_PUBLIC .'/'. $media->preview)) {
+                @unlink(PATH_PUBLIC .'/'. $media->preview);
+            }
+            // create error message
+            $message = '';
+            $errors = $e->getErrors();
+            foreach ($errors as $field => $errs) {
+                $message .= join("\n", $errs);
+            }
+            throw new Exception($message);
+        }
 
         // displaying file
-        return array(
-            'filelink' =>  $media->file
-        );
+        return ['filelink' =>  $media->file];
     } else {
         throw new Exception('Wrong file type');
     }

@@ -35,8 +35,8 @@ class Row extends \Bluz\Db\Row
 {
     use Validator;
 
-    const THUMB_HEIGHT = 120;
-    const THUMB_WIDTH = 120;
+    const THUMB_HEIGHT = 196;
+    const THUMB_WIDTH = 196;
 
     /**
      * {@inheritdoc}
@@ -45,7 +45,7 @@ class Row extends \Bluz\Db\Row
     {
         $this->addValidator(
             'title',
-            v::required()->latinNumeric(' -_')
+            v::required()->latinNumeric(' -_.')
         );
     }
 

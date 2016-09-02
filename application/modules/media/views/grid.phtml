@@ -70,8 +70,8 @@ if (!$grid) return;
                                 </a>
                             </div>
                         </div>
-                        <div class="panel-body">
-                            <img style="height:<?=$col*40?>px" class="img-thumbnail" src="<?=$this->baseUrl($row['preview'])?>"/>
+                        <div class="panel-body" style="overflow: hidden; height:<?=$col*40?>px; background: url(<?=$this->baseUrl($row['preview'])?>) 50% 50% no-repeat;">
+                            <!-- use image as background -->
                         </div>
                         <div class="panel-footer">
                             <a href="<?=$this->url('users', 'profile', ['id'=>$row['userId']])?>">
