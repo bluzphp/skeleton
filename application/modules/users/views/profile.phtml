@@ -15,12 +15,12 @@
 
 <div class="panel-body">
     <div class="row">
-        <div class="col-md-3 col-lg-3 " align="center">
+        <div class="col-md-2 col-lg-2 " align="center">
             <a href="#" class="thumbnail">
-                <img id="avatar" src="" alt="avatar">
+                <img id="avatar" src="<?=$this->gravatar($user->email, 128)?>" alt="<?=$user->email?>">
             </a>
         </div>
-        <div class=" col-md-9 col-lg-9 ">
+        <div class=" col-md-10 col-lg-10 ">
             <table class="table table-user-information">
                 <tbody>
                 <tr>
