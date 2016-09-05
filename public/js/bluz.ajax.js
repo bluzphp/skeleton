@@ -93,7 +93,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
         var modals = [];
         var createModal = function (content, style) {
 
-            var $div = $('<div>', {'class':'modal fade'});
+            var $div = $('div.modal.fade').length ? $('div.modal.fade') : $('<div>', {'class':'modal fade'});
             var $divDialog = $('<div>', {'class':'modal-dialog', 'style':style});
             var $divContent = $('<div>', {'class':'modal-content'});
 
@@ -208,7 +208,7 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
 				});
 				return false;
 			})
-            //Ajax load by clicking on the item list
+            // Ajax load by clicking on the item list
             .on('change.bluz.ajax', '.load-select', function (event) {
                 event.preventDefault();
 
