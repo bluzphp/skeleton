@@ -32,6 +32,7 @@ return function () {
             "title" => $image->title,
             "image" => $image->file,
             "thumb" => $image->preview,
+            "size" => $image->size,
             "folder" => $image->module,
         ];
     }

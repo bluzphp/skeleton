@@ -5,34 +5,34 @@
 <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><?=__('Images')?></h4>
+        <h4 class="modal-title"><?= __('Images') ?></h4>
     </div>
+    <div id="upload" class="modal-body clearfix">
+        <div class="btn btn-success fileinput-button dz-clickable">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span><?= __('Add files...') ?></span>
+        </div>
 
-    <div class="modal-body">
-
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active">
-                <a href="#upload" aria-controls="upload" role="tab" data-toggle="tab"><?=__('Upload')?></a>
-            </li>
-            <li role="presentation">
-                <a href="#grid" aria-controls="grid" role="tab" data-toggle="tab"><?=__('List')?></a>
-            </li>
-        </ul>
-
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="upload">
-                <div id="media-droparea"><div id="media-droparea-placeholder"><?=__('Drop file here or ')?><input type="file" name="file"></div></div>
-            </div>
-            <div role="tabpanel" class="tab-pane row" id="grid">
-                <?php foreach ($images as $image) : ?>
-                    <div class="col-xs-4 col-md-2">
-                        <div class="thumbnail" data-id="<?=$image->id?>" data-preview="<?=$image->preview?>" data-preview="<?=$image->preview?>" >
-                            <div style="background-image: url(<?=$this->baseUrl($image->preview)?>);"><!-- thumbnail --></div>
+        <div id="previews" class="drop-area clearfix">
+            <div id="template" class="file-row pull-left">
+                <!-- This is used as the file preview template -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-lg-8 text-overflow" data-dz-name></div>
+                            <div class="col-lg-4 text-right">
+                                <a href="<?=$this->url('media', 'crud')?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                    <div class="panel-body text-center">
+                        <img data-dz-thumbnail/>
+                        <strong class="error text-danger" data-dz-errormessage></strong>
+                    </div>
+                    <div class="panel-footer" data-dz-size></div>
+                </div>
             </div>
         </div>
 
@@ -41,31 +41,20 @@
 
 <!-- Styles -->
 <style>
-    #upload, #grid {
-        padding: 8px;
-        height: 360px;
-        overflow: auto;
+    .file-row {
+        width: 250px;
+        margin-left: 20px;
     }
-    #grid .thumbnail > div {
-        height: 128px;
+    .file-row .panel-body {
         overflow: hidden;
+        height: 160px;
         cursor: pointer;
-        background-position: 50% 50%;
-        background-repeat: no-repeat;
     }
-    #media-droparea {
-        position: relative;
-        overflow: hidden;
-        padding: 148px 24px;
+    .drop-area {
+        margin-top: 20px;
+        padding-top: 20px;
+        max-height: 480px;
+        overflow-y: scroll;
         border: 3px dashed rgba(0, 0, 0, 0.1);
-    }
-    #media-droparea-placeholder {
-        text-align: center;
-        font-size: 12px;
-        margin: auto;
-        color: rgba(0, 0, 0, 0.7);
-    }
-    #media-droparea-placeholder input {
-        display: inline-block;
     }
 </style>

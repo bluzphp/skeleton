@@ -28,6 +28,7 @@ use Image\Thumbnail;
  * @property string $type
  * @property string $file
  * @property string $preview
+ * @property integer $size
  * @property string $created
  * @property string $updated
  */

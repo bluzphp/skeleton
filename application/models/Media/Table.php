@@ -10,7 +10,6 @@
 namespace Application\Media;
 
 use Application\Exception;
-use Application\Users\Row;
 use Bluz\Proxy\Auth;
 
 /**

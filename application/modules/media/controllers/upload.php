@@ -70,6 +70,7 @@ return function () {
         $media->type = $file->getClientMediaType();
         $media->title = $original;
         $media->file = 'uploads/'.$userId.'/media/'.$filename;
+        $media->size = filesize($path.'/'.$userId.'/media/'.$filename);
         // preview will generate in beforeSave method
         $media->preview = $media->file;
 
