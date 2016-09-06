@@ -102,6 +102,8 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
             $div.append($divDialog);
             $div.modal();
 
+            // save modals to stack
+            // because you can open modal dialog from another modal dialog
             modals.push($div);
 
             return $div;
