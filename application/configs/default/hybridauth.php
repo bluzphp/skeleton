@@ -1,13 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: yuklia
- * Date: 05.05.15
- * Time: 14:04
- */
-
-/**
- * @link http://hybridauth.sourceforge.net/userguide/Configuration.html
+ * @author yuklia
+ * @link   http://hybridauth.sourceforge.net/userguide/Configuration.html
+ * @return array
  */
 return array(
         //"base_url" the url that point to HybridAuth Endpoint (where index.php and config.php are found)
