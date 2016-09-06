@@ -16,9 +16,9 @@
 <div class="panel-body">
     <div class="row">
         <div class="col-md-2 col-lg-2 " align="center">
-            <a href="<?=$this->url('media', 'manager')?>" class="thumbnail dialog">
+<!--            <a href="--><?//=$this->url('media', 'manager')?><!--" class="thumbnail dialog">-->
                 <img id="avatar" src="<?=$this->gravatar($user->email, 128)?>" alt="<?=$user->email?>">
-            </a>
+<!--            </a>-->
         </div>
         <div class=" col-md-10 col-lg-10 ">
             <table class="table table-user-information">
@@ -48,3 +48,11 @@
     </div>
 </div>
 
+<script>
+    require(['jquery'], function($) {
+        $('a.thumbnail').on('push.data.bluz', function(event, data) {
+            // send to server for update avatar
+            // all information about image inside data
+        });
+    });
+</script>

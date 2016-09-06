@@ -8,7 +8,7 @@
 
 <form action="<?=$this->url('users', 'recovery')?>" method="post" >
     <div class="form-group input-group">
-        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+        <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
         <input type="email" id="email" name="email" class="form-control" value="<?=isset($email)?$email:''?>" placeholder="<?=__('email')?>" maxlength="255" required/>
     </div>
     <input type="submit" value="<?=__('Recovery')?>" class="btn btn-primary"/>

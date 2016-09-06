@@ -133,29 +133,14 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                 $this.trigger('hidden.bluz.modal');
             });
 
-            // save modals to stack
-            // because you can open modal dialog from another modal dialog
-            // modals.push($div);
+            // you can handle event "push.bluz" on button
+            $div.on('push.data.bluz', function (event, data) {
+                $this.trigger('push.data.bluz', data);
+            });
 
             return $div;
         };
 
-        /**
-         * @deprecated
-         * @type {Array}
-         */
-        var modals = [];
-
-        /**
-         * @deprecated
-         */
-        var closeModals = function () {
-            for (var i = 0; i < modals.length; i++) {
-                modals[i].modal('hide');
-                modals[i].data('modal', null);
-            }
-            modals = [];
-        };
 
 		// live event handlers
 		$('body')

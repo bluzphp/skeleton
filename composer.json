@@ -9,7 +9,7 @@
     "hybridauth/hybridauth": "dev-master",
     "phpmailer/phpmailer": "~5.2",
     "zircote/swagger-php": "~2.0",
-    "fortawesome/font-awesome": "~4.5",
+    "fortawesome/font-awesome": "~4.6",
     "twbs/bootstrap": "~3.3",
     "public/swagger-ui": "dev-master",
     "js/html5shiv": "dev-master",
