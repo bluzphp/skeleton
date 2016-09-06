@@ -11,7 +11,7 @@ require.config({
     paths: {
         "bootstrap": './vendor/bootstrap',
         "jquery": './vendor/jquery',
-        "jquery-ui": './vendor/jquery-ui',
+        "dropzone": './vendor/dropzone-amd-module',
         "redactor": './../redactor/redactor',
         "redactor.imagemanager": './../redactor/plugins/imagemanager',
         "pager": "./vendor/pager",

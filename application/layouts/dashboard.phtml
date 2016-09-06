@@ -11,11 +11,13 @@
                         <li <?=($this->module('users')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-user fa-fw"></i> '.__('Users'), ['users', 'grid', [], true]) ?></li>
                         <li <?=($this->module('media')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-picture-o fa-fw"></i> '.__('Media'), ['media', 'grid', [], true]) ?></li>
                         <li <?=($this->module('categories')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-folder-o fa-fw"></i> '.__('Categories'), ['categories', 'tree', [], true]) ?></li>
+                    </ul>
+                    <ul class="nav nav-tabs nav-stacked">
+                        <li <?=($this->module('acl')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-lock fa-fw"></i> '.__('Permissions'), ['acl', 'index', [], true]) ?></li>
                         <li <?=($this->module('options')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-th-list fa-fw"></i> '.__('Options'), ['options', 'grid', [], true]) ?></li>
-                  </ul>
+                    </ul>
                     <ul class="nav nav-tabs nav-stacked">
                         <li <?=($this->module('cache')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-hdd-o fa-fw"></i> '.__('Cache'), ['cache', 'index', [], true]) ?></li>
-                        <li <?=($this->module('acl')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-lock fa-fw"></i> '.__('Permissions'), ['acl', 'index', [], true]) ?></li>
                         <li <?=($this->module('system')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-wrench fa-fw"></i> '.__('System'), ['system', 'index', [], true]) ?></li>
                     </ul>
                 </div>

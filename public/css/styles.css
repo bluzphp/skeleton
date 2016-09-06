@@ -90,6 +90,9 @@ code strong { color: #b22222 }
 .modal form {
     margin: 0;
 }
+.modal-content > .thumbnail {
+    margin: 0;
+}
 
 .tooltip-inner {
     min-width: 160px;
@@ -102,7 +105,11 @@ code strong { color: #b22222 }
 .table.grid .controls {
     padding: 2px 8px;
 }
-
+.text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .breadcrumb a:hover {
     text-decoration: none;
 }

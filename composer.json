@@ -15,6 +15,7 @@
     "js/html5shiv": "dev-master",
     "js/html5shiv-printshiv": "dev-master",
     "js/jquery": "dev-master",
+    "js/dropzone": "dev-master",
     "js/require": "dev-master"
   },
   "require-dev": {
@@ -56,6 +57,18 @@
         "license": "MIT",
         "dist": {
           "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js",
+          "type": "file"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "js/dropzone",
+        "version": "dev-master",
+        "license": "MIT",
+        "dist": {
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone-amd-module.js",
           "type": "file"
         }
       }

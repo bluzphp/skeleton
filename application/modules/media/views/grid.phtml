@@ -39,12 +39,14 @@ if (!$grid) return;
 
     <?=$this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
     <?=$this->partial('grid/limit.phtml', ['grid'=>$grid]) ?>
-
+    <?php if ($grid->total()) : ?>
+    <div class="pull-right">&nbsp;</div>
     <ul class="pagination pagination-small pull-right">
         <li class="disabled"><a href="#"><?=__('Image quantity')?></a></li>
         <li <?=(($countCol==2)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 2]);?>">2</a></li>
         <li <?=(($countCol==4)?'class="active"':'')?>><a href="<?=$this->url('media', 'grid', ['countCol' => 4]);?>">4</a></li>
     </ul>
+    <?php endif; ?>
 
     <div class="row clearfix">
         <div class="col-lg-12">
@@ -58,8 +60,11 @@ if (!$grid) return;
                 <div class="col-lg-<?=$col?>">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <?php if (strlen($row['title']) > 16) : echo substr($row['title'], 0, 10), '...'; else: echo $row['title']; endif; ?>
-                            <div class="pull-right">
+                            <div class="row">
+                            <div class="col-lg-7 text-overflow">
+                                <?=$row['title']?>
+                            </div>
+                            <div class="col-lg-5 text-right">
                                 <a href="<?=$this->url('media', 'crud', ['id' => $row['id']])?>" class="btn btn-xs btn-primary ">
                                     <i class="fa fa-pencil"></i>
                                 </a>
@@ -67,9 +72,13 @@ if (!$grid) return;
                                     <i class="fa fa-trash-o"></i>
                                 </a>
                             </div>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <img style="height:<?=$col*40?>px" class="img-thumbnail" src="<?=$this->baseUrl($row['preview'])?>"/>
+                        <div class="panel-body" style="padding: 0">
+                            <!-- use image as background -->
+                            <a href="<?=$this->baseUrl($row['file'])?>"
+                               style="display:block; overflow: hidden; height:<?=$col*50?>px; background: url(<?=$this->baseUrl($row['preview'])?>) 50% 50% no-repeat; background-size: contain;"
+                               class="bluz-preview"></a>
                         </div>
                         <div class="panel-footer">
                             <a href="<?=$this->url('users', 'profile', ['id'=>$row['userId']])?>">

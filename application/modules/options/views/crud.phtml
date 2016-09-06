@@ -12,7 +12,7 @@
     </div>
     <div class="modal-body">
         <div class="form-group">
-            <label class="control-label col-lg-2" for="name"><?=__('Namespace')?></label>
+            <label class="control-label col-lg-2" for="namespace"><?=__('Namespace')?></label>
             <div class="col-lg-10">
                 <input type="text" class="form-control" id="namespace" name="namespace" value="<?=esc($row->namespace)?:'default'?>" <?=($method != 'POST')?'disabled':''?> required />
             </div>
@@ -28,17 +28,19 @@
             <div class="col-lg-10">
                 <?php $value = $row->value; ?>
                 <?php if (is_array($value)) : ?>
-                <input type="text" class="form-control" disabled value="<?=__('Array (length=%d)', sizeof($value));?>"/>
+                <input type="text" class="form-control" id="value" name="value" disabled value="<?=__('Array (length=%d)', sizeof($value));?>"/>
                 <?php elseif (is_object($value)): ?>
-                <input type="text" class="form-control" disabled value="<?=__('Object of `%s` class', get_class($value));?>"/>
+                <input type="text" class="form-control" id="value" name="value" disabled value="<?=__('Object of `%s` class', get_class($value));?>"/>
                 <?php else: ?>
                 <input type="text" class="form-control" id="value" name="value" value="<?=esc($row->value)?>" />
                 <?php endif; ?>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" for="value"><?=__('Description')?></label>
+            <div class="col-lg-12">
+            <label class="control-label" for="description"><?=__('Description')?></label>
             <textarea class="form-control" id="description" name="description"><?=esc($row->description)?></textarea>
+            </div>
         </div>
     </div>
     <div class="modal-footer">

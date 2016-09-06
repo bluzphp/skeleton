@@ -1,0 +1,60 @@
+<script>
+    require(['bluz.media']);
+</script>
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><?= __('Images') ?></h4>
+    </div>
+    <div id="upload" class="modal-body clearfix">
+        <div class="btn btn-success fileinput-button dz-clickable">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span><?= __('Add files...') ?></span>
+        </div>
+
+        <div id="previews" class="drop-area clearfix">
+            <div id="template" class="file-row pull-left">
+                <!-- This is used as the file preview template -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-lg-8 text-overflow" data-dz-name></div>
+                            <div class="col-lg-4 text-right">
+                                <a href="<?=$this->url('media', 'crud')?>" class="confirm btn btn-xs btn-danger ajax" data-ajax-method="delete">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body text-center">
+                        <img data-dz-thumbnail/>
+                        <strong class="error text-danger" data-dz-errormessage></strong>
+                    </div>
+                    <div class="panel-footer" data-dz-size></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Styles -->
+<style>
+    .file-row {
+        width: 250px;
+        margin-left: 20px;
+    }
+    .file-row .panel-body {
+        overflow: hidden;
+        height: 160px;
+        cursor: pointer;
+    }
+    .drop-area {
+        margin-top: 20px;
+        padding-top: 20px;
+        max-height: 480px;
+        overflow-y: scroll;
+        border: 3px dashed rgba(0, 0, 0, 0.1);
+    }
+</style>
