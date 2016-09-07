@@ -23,18 +23,5 @@ return function () {
     /**
      * @var Controller $this
      */
-    $images = Table::getInstance()->getImages();
-
-    $result = array();
-    foreach ($images as $image) {
-        $result[] = [
-            "id" => $image->id,
-            "title" => $image->title,
-            "image" => $image->file,
-            "thumb" => $image->preview,
-            "size" => $image->size,
-            "folder" => $image->module,
-        ];
-    }
-    return $result;
+    return Table::getInstance()->getImages();
 };

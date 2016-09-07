@@ -71,8 +71,8 @@ return function () {
         $media->title = $original;
         $media->file = 'uploads/'.$userId.'/media/'.$filename;
         $media->size = filesize($path.'/'.$userId.'/media/'.$filename);
-        // preview will generate in beforeSave method
-        $media->preview = $media->file;
+        // thumbnail will generate in beforeSave method
+        $media->thumb = $media->file;
 
         try {
             $media->save();
@@ -81,8 +81,8 @@ return function () {
             if (is_file(PATH_PUBLIC .'/'. $media->file)) {
                 @unlink(PATH_PUBLIC .'/'. $media->file);
             }
-            if (is_file(PATH_PUBLIC .'/'. $media->preview)) {
-                @unlink(PATH_PUBLIC .'/'. $media->preview);
+            if (is_file(PATH_PUBLIC .'/'. $media->thumb)) {
+                @unlink(PATH_PUBLIC .'/'. $media->thumb);
             }
             // create error message
             $message = '';

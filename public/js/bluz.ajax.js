@@ -138,6 +138,8 @@ define(['jquery', 'bluz', 'bluz.notify'], function ($, bluz, notify) {
                 $this.trigger('push.data.bluz', data);
             });
 
+            $this.data('modal', $div);
+
             return $div;
         };
 

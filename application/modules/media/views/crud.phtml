@@ -54,7 +54,7 @@
         </div>
         <div class="form-group col-lg-2">
             <a href="<?=$this->baseUrl($row->file)?>" class="thumbnail bluz-preview">
-                <img src="<?=$this->baseUrl($row->preview?:$row->file)?>" class="img-polaroid" alt="<?=$row->title?>" />
+                <img src="<?=$this->baseUrl($row->thumb?:$row->file)?>" class="img-polaroid" alt="<?=$row->title?>" />
             </a>
         <?php
             endif;

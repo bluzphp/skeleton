@@ -27,7 +27,7 @@ use Image\Thumbnail;
  * @property string $module
  * @property string $type
  * @property string $file
- * @property string $preview
+ * @property string $thumb
  * @property integer $size
  * @property string $created
  * @property string $updated
@@ -70,15 +70,15 @@ class Row extends \Bluz\Db\Row
             $this->userId = Users\Table::SYSTEM_USER;
         }
 
-        // create preview
+        // create thumbnail
         // set full path
         $image = new Thumbnail(PATH_PUBLIC .'/'. $this->file);
         $image->setHeight(self::THUMB_HEIGHT);
         $image->setWidth(self::THUMB_WIDTH);
-        $preview = $image->generate();
+        $thumb = $image->generate();
         // crop full path
-        $preview = substr($preview, strlen(PATH_PUBLIC) + 1);
-        $this->preview = $preview;
+        $thumb = substr($thumb, strlen(PATH_PUBLIC) + 1);
+        $this->thumb = $thumb;
     }
 
     /**
@@ -101,8 +101,8 @@ class Row extends \Bluz\Db\Row
         if (is_file(PATH_PUBLIC .'/'. $this->file)) {
             @unlink(PATH_PUBLIC .'/'. $this->file);
         }
-        if (is_file(PATH_PUBLIC .'/'. $this->preview)) {
-            @unlink(PATH_PUBLIC .'/'. $this->preview);
+        if (is_file(PATH_PUBLIC .'/'. $this->thumb)) {
+            @unlink(PATH_PUBLIC .'/'. $this->thumb);
         }
     }
 }
