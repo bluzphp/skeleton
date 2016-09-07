@@ -71,19 +71,13 @@ return function () {
         $media->title = $original;
         $media->file = 'uploads/'.$userId.'/media/'.$filename;
         $media->size = filesize($path.'/'.$userId.'/media/'.$filename);
-        // thumbnail will generate in beforeSave method
-        $media->thumb = $media->file;
 
         try {
             $media->save();
         } catch (ValidatorException $e) {
             // remove invalid files
-            if (is_file(PATH_PUBLIC .'/'. $media->file)) {
-                @unlink(PATH_PUBLIC .'/'. $media->file);
-            }
-            if (is_file(PATH_PUBLIC .'/'. $media->thumb)) {
-                @unlink(PATH_PUBLIC .'/'. $media->thumb);
-            }
+            $media->deleteFiles();
+
             // create error message
             $message = '';
             $errors = $e->getErrors();
