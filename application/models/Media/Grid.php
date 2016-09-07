@@ -9,6 +9,8 @@
  */
 namespace Application\Media;
 
+use Bluz\Grid\Source\SqlSource;
+
 /**
  * Grid based on SQL
  *
@@ -27,7 +29,7 @@ class Grid extends \Bluz\Grid\Grid
     public function init()
     {
         // Array
-        $adapter = new \Bluz\Grid\Source\SqlSource();
+        $adapter = new SqlSource();
         $adapter->setSource(
             '
              SELECT m.*, u.login
