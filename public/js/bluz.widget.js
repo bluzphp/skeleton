@@ -10,7 +10,7 @@ define(['jquery', 'bluz', 'bluz.storage'], function ($, bluz, storage) {
 	$(function () {
 		// one handler for all widgets and all controls
 		$(document).on('click', '.widget .widget-control', function() {
-			var $this, $widget, $content, key, control;
+			let $this, $widget, $content, key, control;
 			$this = $(this);
 			// widget container
 			$widget = $this.parents('.widget');
@@ -36,7 +36,7 @@ define(['jquery', 'bluz', 'bluz.storage'], function ($, bluz, storage) {
 		});
 
 		$('.widget').each(function (i, el) {
-			var $widget, $content, key;
+			let $widget, $content, key;
 			$widget = $(el);
 			$content = $widget.find('.widget-content');
 			key = $widget.data('widget-key');

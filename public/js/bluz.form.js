@@ -12,7 +12,7 @@ define(["jquery", "bootstrap"], function ($) {
     "use strict";
 
     // static validator
-    var form, defaults, settings;
+    let form, defaults, settings;
     defaults =  {
         container: '.form-group', // default for Twitter Bootstrap layout
         errorClass: 'has-error',
@@ -37,8 +37,8 @@ define(["jquery", "bootstrap"], function ($) {
          * @param messages
          */
         notice: function ($form, field, messages) {
-            var $field = $(field);
-            var $group = $field.parents(settings.container);
+            let $field = $(field);
+            let $group = $field.parents(settings.container);
 
             if (messages instanceof Array) {
                 messages = messages.join('<br/>');
@@ -81,13 +81,13 @@ define(["jquery", "bootstrap"], function ($) {
          * @param type
          */
         icon: function ($form, field, type) {
-            var $field = $(field);
-            var $group = $field.parents(settings.container);
+            let $field = $(field);
+            let $group = $field.parents(settings.container);
 
             $group.addClass('has-feedback');
 
-            var $icon = $('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
-            var $sr = $('<span class="sr-only">(error)</span>');
+            let $icon = $('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+            let $sr = $('<span class="sr-only">(error)</span>');
 
             $field.after($sr);
             $field.after($icon);

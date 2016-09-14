@@ -7,7 +7,7 @@
 /*global define,require*/
 define(['jquery', 'bluz'], function ($, bluz) {
     "use strict";
-    var tools = {};
+    let tools = {};
 
     /**
      * Prepare string for URL alias
@@ -27,7 +27,7 @@ define(['jquery', 'bluz'], function ($, bluz) {
      */
     tools.transliterate = function(string) {
         // rules
-        var L = {
+        let L = {
                 // Cyrillic RU, UA, BE
                 'А': 'A', 'а': 'a',
                 'Б': 'B', 'б': 'b',

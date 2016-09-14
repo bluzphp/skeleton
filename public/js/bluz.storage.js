@@ -8,7 +8,7 @@
 define(['jquery'], function ($) {
 	"use strict";
 	// initial local storage
-	var storage = null,
+	let storage = null,
 		storageCheck = false,
 		data = {};
 
