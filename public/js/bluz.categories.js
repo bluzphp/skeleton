@@ -9,7 +9,7 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.tools', 'bluz.ajax'], function ($
     $(function () {
 
         $('.category-page-wrapper').on('change', '.select-tree select', function () {
-            var $this= $(this);
+            let $this= $(this);
             $.ajax({
                 url: '/categories/tree',
                 data: {
@@ -25,7 +25,7 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.tools', 'bluz.ajax'], function ($
         $('.tree-container').on('success.ajax.bluz', '.remove', function () {
             $(this).parent().parent().remove();
         }).on('success.ajax.bluz', '.remove-root', function () {
-            var $list = $('.root-category-list');
+            let $list = $('.root-category-list');
                 $list.find('[value=' + $list.val() + ']').remove();
 
             if ($list.children().length === 0) {
@@ -65,9 +65,9 @@ define(['jquery', 'bluz', 'bluz.notify', 'bluz.tools', 'bluz.ajax'], function ($
             });
             return false;
         }).on('blur', '#name', function () {
-            var $alias = $("#alias");
+            let $alias = $("#alias");
             if ($alias.val() === "") {
-                var title = tools.alias($(this).val());
+                let title = tools.alias($(this).val());
                 $alias.val(title);
             }
         });

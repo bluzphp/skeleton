@@ -9,7 +9,7 @@
 define(['jquery'], function($) {
     "use strict";
 
-    var notify, classes, container, counter, deferred;
+    let notify, classes, container, counter, deferred;
 
     counter = 0;
     deferred = $.Deferred();
@@ -46,7 +46,7 @@ define(['jquery'], function($) {
      * @returns {HTMLElement}
      */
     function prepareNotify (type, content) {
-        var div = document.createElement('div');
+        let div = document.createElement('div');
             div.className = classes[type];
             div.innerHTML = content;
             div.style.display = 'none';
@@ -55,7 +55,7 @@ define(['jquery'], function($) {
             };
 
         // add notification to container
-        var container = prepareContainer();
+        let container = prepareContainer();
         container.appendChild(div);
 
         // increase notifications counter
@@ -93,9 +93,9 @@ define(['jquery'], function($) {
          * @param notifications
          */
         set: function (notifications) {
-            for (var type in notifications) {
+            for (let type in notifications) {
                 if (notifications.hasOwnProperty(type)) {
-                    for (var i = 0; i < notifications[type].length; i++) {
+                    for (let i = 0; i < notifications[type].length; i++) {
                         notify.add(type, notifications[type][i]);
                     }
                 }
@@ -106,7 +106,7 @@ define(['jquery'], function($) {
          * @param {string} content
          */
         add: function (type, content) {
-            var $el;
+            let $el;
             $el = $(prepareNotify(type, content));
             $el.animate({opacity:"show"}, 300)
                 .delay(3000)

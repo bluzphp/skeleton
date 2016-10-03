@@ -9,7 +9,7 @@ define(['jquery', 'bluz'], function ($, bluz) {
 	"use strict";
 	$(function () {
 		$('[data-spy="grid"]').each(function (i, el) {
-			var $grid = $(el);
+            let $grid = $(el);
 			// TODO: work with hash from URI
             if (!$grid.data('url')) {
                 $grid.data('url', window.location.pathname);
@@ -17,7 +17,7 @@ define(['jquery', 'bluz'], function ($, bluz) {
 
             // pagination, sorting and filtering over AJAX
 			$grid.on('click.bluz.ajax', '.pagination li a, thead a, .navbar a.ajax', function () {
-				var $link = $(this),
+                let $link = $(this),
 					href = $link.attr('href');
 
 				if (href === '#') {
@@ -77,7 +77,7 @@ define(['jquery', 'bluz'], function ($, bluz) {
 
             // apply filter form
             $grid.on('submit.bluz.ajax', 'form.filter-form', function () {
-                var $form = $(this),
+                let $form = $(this),
                     $searchInput = $form.find('.grid-filter-search-input');
 
                 // magic like
@@ -105,7 +105,7 @@ define(['jquery', 'bluz'], function ($, bluz) {
             });
             // magic control for like plugin
             $grid.on('click.bluz.grid', '.grid-filter-search a', function(e){
-                var $a = $(this);
+                let $a = $(this);
                 $grid.find('.grid-filter-search .dropdown-toggle').html($a.text() + ' <span class="caret"></span>');
                 $grid.find('.grid-filter-search-input').attr('name', $a.data('filter'))
                     .val($a.data('filter-type') + '-');
