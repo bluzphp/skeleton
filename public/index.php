@@ -36,27 +36,6 @@ header('X-Frame-Options: SAMEORIGIN');
 // Make fake header
 header('X-Powered-By: backend');
 
-// Error Handler
-function errorDisplay() {
-    if (!$e = error_get_last()) {
-        return;
-    }
-    if (!is_array($e)
-        || !in_array($e['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR))) {
-        return;
-    }
-    // clean all buffers
-    while (ob_get_level()) {
-        ob_end_clean();
-    }
-    // try to write log
-    errorLog($e['type'], $e['message'], $e['file'], $e['line']);
-    // display error page
-    require_once 'error.php';
-}
-// Shutdown function for handle critical errors
-register_shutdown_function('\\Application\\errorDisplay');
-
 // Try to run application
 try {
     /**
@@ -73,9 +52,14 @@ try {
     $app = Bootstrap::getInstance();
     $app->init($env);
     $app->run();
-} catch (Exception $e) {
-    // try to write log
-    errorLog(E_USER_ERROR, $e->getMessage());
+} catch (\Exception $e) {
+    // try to write log "warning"
+    errorLog(E_USER_WARNING, $e->getMessage(), $e->getFile(), $e->getLine());
+    // display error page
+    require_once 'error.php';
+} catch (\Error $e) {
+    // try to write log "error"
+    errorLog(E_USER_ERROR, $e->getMessage(), $e->getFile(), $e->getLine());
     // display error page
     require_once 'error.php';
 }
