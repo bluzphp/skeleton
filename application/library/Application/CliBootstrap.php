@@ -105,7 +105,7 @@ class CliBootstrap extends Application
     {
         if ($messages = Logger::get('error')) {
             foreach ($messages as $message) {
-                errorLog(E_USER_ERROR, $message);
+                errorLog(new \ErrorException($message, 0, E_USER_ERROR));
             }
         }
 

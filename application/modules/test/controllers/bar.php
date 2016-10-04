@@ -17,8 +17,6 @@ use Bluz\Proxy\Logger;
  */
 return function () {
     $this->disableView();
-
     Logger::info("Controller Bar");
-
     return;
 };

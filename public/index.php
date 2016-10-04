@@ -44,22 +44,17 @@ try {
      */
     require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-    // Error handler for log other errors
-    set_error_handler('\\Application\\errorLog', E_ALL);
+    // Error handler for log all errors
+    set_error_handler('\\Application\\errorHandler', E_ALL);
 
     // Environment
     $env = getenv('BLUZ_ENV') ?: 'production';
     $app = Bootstrap::getInstance();
     $app->init($env);
     $app->run();
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     // try to write log "warning"
-    errorLog(E_USER_WARNING, $e->getMessage(), $e->getFile(), $e->getLine());
-    // display error page
-    require_once 'error.php';
-} catch (\Error $e) {
-    // try to write log "error"
-    errorLog(E_USER_ERROR, $e->getMessage(), $e->getFile(), $e->getLine());
+    errorLog($e);
     // display error page
     require_once 'error.php';
 }
