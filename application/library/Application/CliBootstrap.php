@@ -101,7 +101,7 @@ class CliBootstrap extends Application
     /**
      * @return void
      */
-    public function finish()
+    public function end()
     {
         if ($messages = Logger::get('error')) {
             foreach ($messages as $message) {

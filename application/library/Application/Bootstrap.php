@@ -137,7 +137,7 @@ class Bootstrap extends Application
      * Finish it
      * @return void
      */
-    public function finish()
+    public function end()
     {
         if ($messages = Logger::get('error')) {
             foreach ($messages as $message) {
