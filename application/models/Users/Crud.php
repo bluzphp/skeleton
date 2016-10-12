@@ -40,8 +40,8 @@ class Crud extends \Bluz\Crud\Table
     public function createOne($data)
     {
         // password
-        $password = isset($data['password']) ? $data['password'] : null;
-        $password2 = isset($data['password2']) ? $data['password2'] : null;
+        $password = $data['password'] ?? null;
+        $password2 = $data['password2'] ?? null;
 
         if (empty($password)) {
             throw ValidatorException::exception('password', __('Password can\'t be empty'));

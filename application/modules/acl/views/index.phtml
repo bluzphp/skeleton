@@ -31,7 +31,7 @@
             <?php foreach ($roles as $role) : ?>
             <td>
                 <input type="checkbox" name="acl[<?=$role->id?>][<?=$module?>][<?=$privilege?>]" value="1"
-                <?=((isset($privileges[$role->id]) && isset($privileges[$role->id][$module]) && in_array($privilege, $privileges[$role->id][$module]))?"checked":"")?> /></td>
+                <?=((isset($privileges[$role->id], $privileges[$role->id][$module]) && in_array($privilege, $privileges[$role->id][$module]))?"checked":"")?> /></td>
             <?php endforeach; ?>
         </tr>
     <?php endforeach; ?>

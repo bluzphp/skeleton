@@ -51,7 +51,7 @@ class Crud extends \Bluz\Crud\Table
          */
         $pathinfo = pathinfo($file->getClientFilename());
 
-        $fileName = strtolower(isset($data['title'])?$data['title']:$pathinfo['filename']);
+        $fileName = strtolower($data['title'] ?? $pathinfo['filename']);
 
         // Prepare filename
         $fileName = preg_replace('/[ _;:]+/i', '-', $fileName);

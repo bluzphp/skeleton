@@ -32,7 +32,7 @@
         <?php foreach ($servers as $stat):?>
         <tr>
             <td><?=$stat['host']?>:<?=$stat['port']?></td>
-            <td class="text-center"><?=isset($stat['weight'])?$stat['weight']:''?></td>
+            <td class="text-center"><?=$stat['weight'] ?? ''?></td>
         </tr>
         <?php endforeach; ?>
     </table>

@@ -52,7 +52,7 @@ class CliBootstrap extends Application
             throw new ApplicationException('Attribute `--uri` is required');
         }
 
-        $uri = isset($arguments['u']) ? $arguments['u'] : $arguments['uri'];
+        $uri = $arguments['u'] ?? $arguments['uri'];
 
         $request = RequestFactory::fromGlobals(['REQUEST_URI' => $uri, 'REQUEST_METHOD' => 'CLI']);
 
