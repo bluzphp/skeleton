@@ -146,7 +146,7 @@ class Row extends \Bluz\Db\Row {
 
 ## Demo
 
-* [Bluz Demo](http://bluz.demo.php.nixsolutions.com/)
+* [Bluz Demo](http://bluz.demo.php.nixdev.co)
 
 ## License
 
