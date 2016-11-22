@@ -37,19 +37,19 @@
     <div class="panel-footer clearfix">
         <div class="pull-left">
             <?php
-            if ($this->isInstalledModule('google')) {
+            if ($this->hasModule('google')) {
                 $this->dispatch('google', 'widgets/auth');
             } ?>
         </div>
         <div class="pull-left">
             <?php
-            if ($this->isInstalledModule('facebook')) {
+            if ($this->hasModule('facebook')) {
                 $this->dispatch('facebook', 'widgets/auth');
             } ?>
         </div>
         <div class="pull-left">
             <?php
-            if ($this->isInstalledModule('twitter')) {
+            if ($this->hasModule('twitter')) {
                 $this->dispatch('twitter', 'widgets/auth');
             } ?>
         </div>

@@ -15,7 +15,7 @@
                     <li <?=($this->module('index')?'class="active"':'')?>><?=$this->ahref('Home', ['index', 'index'])?></li>
                     <li <?=($this->module('dashboard')?'class="active"':'')?>><?=$this->ahref('Dashboard', ['dashboard', 'index'])?></li>
 
-                    <?php if ($this->isInstalledModule('test')) : ?>
+                    <?php if ($this->hasModule('test')) : ?>
                     <li <?=($this->module('test')?'class="active"':'')?>><?=$this->ahref('Test', ['test', 'index'])?></li>
                     <?php endif; ?>
                 </ul>

@@ -34,15 +34,15 @@
                 <tr>
                     <td><?= __('Linking to social networks') ?></td>
                     <td>
-                        <?php if ($this->isInstalledModule('google')) : ?>
+                        <?php if ($this->hasModule('google')) : ?>
                         <a href="<?= \Bluz\Proxy\Router::getUrl('auth', 'auth', ['provider'=> 'google']) ?>"
                            class="provider btn fa fa-google-plus-square fa-2x"></a>
                         <?php endif; ?>
-                        <?php if ($this->isInstalledModule('facebook')) : ?>
+                        <?php if ($this->hasModule('facebook')) : ?>
                         <a href="<?= \Bluz\Proxy\Router::getUrl('auth', 'auth',  ['provider'=> 'facebook']) ?>"
                            class="provider btn fa fa-facebook-square fa-2x"></a>
                         <?php endif; ?>
-                        <?php if ($this->isInstalledModule('twitter')) : ?>
+                        <?php if ($this->hasModule('twitter')) : ?>
                         <a href="<?= \Bluz\Proxy\Router::getUrl('auth', 'auth',  ['provider'=> 'twitter']) ?>"
                            class="provider btn fa fa-twitter-square fa-2x"></a>
                         <?php endif; ?>
