@@ -18,7 +18,7 @@
                     </ul>
                     <ul class="nav nav-tabs nav-stacked">
                         <li <?=($this->module('acl')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-lock fa-fw"></i> '.__('Permissions'), ['acl', 'index', [], true]) ?></li>
-                        <?php if ($this->hasModule('options')) : ?>
+                        <?php if ($this->hasModule('categories')) : ?>
                         <li <?=($this->module('options')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-th-list fa-fw"></i> '.__('Options'), ['options', 'grid', [], true]) ?></li>
                         <?php endif; ?>
                     </ul>
