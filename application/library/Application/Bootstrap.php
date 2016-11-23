@@ -82,7 +82,7 @@ class Bootstrap extends Application
      * @param ForbiddenException $exception
      * @return \Bluz\Controller\Controller|null
      */
-    public function forbidden($exception)
+    public function forbidden(ForbiddenException $exception)
     {
         if (AuthProxy::getIdentity()) {
             $message = Translator::translate("You don't have permissions to access this page");
@@ -114,6 +114,8 @@ class Bootstrap extends Application
      */
     public function render()
     {
+        Logger::info('app:render');
+
         if ($this->debugFlag && !headers_sent()) {
             $debugString = sprintf(
                 "%fsec; %skb",
@@ -130,6 +132,7 @@ class Bootstrap extends Application
                 Response::setHeader('Bluz-Bar', '{"!":"Logger is disabled"}');
             }
         }
+
         parent::render();
     }
 

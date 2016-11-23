@@ -65,7 +65,6 @@ class CliBootstrap extends Application
      */
     protected function preProcess()
     {
-        Logger::info("app:process:pre");
         Router::process();
         Response::switchType('CLI');
     }
@@ -85,17 +84,6 @@ class CliBootstrap extends Application
         Auth::setIdentity($cliUser);
 
         parent::preDispatch($module, $controller, $params);
-    }
-
-    /**
-     * Render, is send Response
-     *
-     * @return void
-     */
-    public function render()
-    {
-        Logger::info('app:render');
-        Response::send();
     }
 
     /**
