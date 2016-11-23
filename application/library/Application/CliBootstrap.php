@@ -52,7 +52,7 @@ class CliBootstrap extends Application
             throw new ApplicationException('Attribute `--uri` is required');
         }
 
-        $uri = isset($arguments['u']) ? $arguments['u'] : $arguments['uri'];
+        $uri = $arguments['u'] ?? $arguments['uri'];
 
         $request = RequestFactory::fromGlobals(['REQUEST_URI' => $uri, 'REQUEST_METHOD' => 'CLI']);
 
@@ -65,7 +65,6 @@ class CliBootstrap extends Application
      */
     protected function preProcess()
     {
-        Logger::info("app:process:pre");
         Router::process();
         Response::switchType('CLI');
     }
@@ -88,24 +87,13 @@ class CliBootstrap extends Application
     }
 
     /**
-     * Render, is send Response
-     *
      * @return void
      */
-    public function render()
-    {
-        Logger::info('app:render');
-        Response::send();
-    }
-
-    /**
-     * @return void
-     */
-    public function finish()
+    public function end()
     {
         if ($messages = Logger::get('error')) {
             foreach ($messages as $message) {
-                errorLog(E_USER_ERROR, $message);
+                errorLog(new \ErrorException($message, 0, E_USER_ERROR));
             }
         }
 

@@ -63,27 +63,6 @@ if (array_key_exists('d', $arguments) || array_key_exists('debug', $arguments)) 
     putenv('BLUZ_DEBUG=1');
 }
 
-// Display error
-function errorDisplay() {
-    $e = error_get_last();
-    if (!is_array($e)
-        || !in_array($e['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR))) {
-        return;
-    }
-    echo "Application Error\n";
-    if (getenv('BLUZ_DEBUG')) {
-        echo $e['message']."\n";
-        echo $e['file'] ."#". $e['line'] ."\n";
-    }
-    // try to write log
-    errorLog($e['type'], $e['message'], $e['file'] ."#". $e['line']);
-    exit(1);
-}
-
-// Shutdown function for handle critical errors
-register_shutdown_function('\\Application\\errorDisplay');
-
-
 // Try to run application
 try {
     /**
@@ -91,9 +70,9 @@ try {
      * @see http://getcomposer.org/apidoc/master/Composer/Autoload/ClassLoader.html
      */
     require_once dirname(__DIR__) . '/vendor/autoload.php';
-    
-    // Error handler for log other errors
-    set_error_handler('\\Application\\errorLog', E_ALL);
+
+    // Error handler for log all errors
+    set_error_handler('\\Application\\errorHandler', E_ALL);
 
     // Environment
     $env = getenv('BLUZ_ENV')?:'production';
@@ -101,7 +80,7 @@ try {
     $app = CliBootstrap::getInstance();
     $app->init($env);
     $app->run();
-} catch (Exception $e) {
+} catch (\Throwable $e) {
     echo "Application Exception\n";
     if (getenv('BLUZ_DEBUG')) {
         echo strip_tags($e->getMessage())."\n\n";
@@ -113,6 +92,6 @@ try {
         echo "Use `--debug` flag for receive more information\n";
     }
     // try to write log
-    errorLog(E_USER_ERROR, $e->getMessage());
+    errorLog($e);
     exit(1);
 }

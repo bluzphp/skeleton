@@ -50,9 +50,6 @@ $rootId = $rootId ?: $row->rootId;
 <?php
 // need for plain request
 if (isset($errors)) :
-    $data = json_encode(['errors' => $errors]);
-    $this->headScript('require(["bluz.form"], function(form) {
-        form.notices($("#' . $uid . '"), ' . $data . ');
-    });');
+    $this->partial('crud/errors.phtml', ['uid' => $uid, 'errors' => $errors]);
 endif;
 ?>
