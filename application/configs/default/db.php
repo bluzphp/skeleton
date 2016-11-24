@@ -9,7 +9,7 @@ return array(
     "connect" => array(
         "type" => "mysql",
         "host" => getenv("MYSQL_HOST") ?: "localhost",
-        "name" => getenv("MYSQL_DATABASE") ?: "skeleton",
+        "name" => getenv("MYSQL_DATABASE") ?: "bluz",
         "user" => getenv("MYSQL_USER") ?: "root",
         "pass" => getenv("MYSQL_PASSWORD") ?: "",
         "options" => array(
