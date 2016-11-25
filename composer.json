@@ -1,5 +1,5 @@
 {
-  "name": "kvasenko/skeleton",
+  "name": "bluzphp/skeleton",
   "description": "Skeleton application for Bluz, a lightweight PHP framework",
   "minimum-stability": "dev",
   "type": "library",
@@ -25,11 +25,6 @@
     "zendframework/zend-dom": "~2.3"
   },
   "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/bluzphp/composer-plugin",
-      "version": "0.2.4"
-    },
     {
       "type": "package",
       "package": {
