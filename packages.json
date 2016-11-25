@@ -1,0 +1,11 @@
+{
+  "package": {
+    "name": "kvasenko/skeleton",
+    "version": "dev-refactoring-for-bluz-module-installer",
+    "source": {
+      "url": "https://github.com/kvasenko/skeleton.git",
+      "type": "git",
+      "reference": "87d375fdb00ff5d12cf8570f3c541db27f016af2"
+    }
+  }
+}
