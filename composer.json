@@ -1,5 +1,5 @@
 {
-  "name": "bluzphp/skeleton",
+  "name": "kvasenko/skeleton",
   "description": "Skeleton application for Bluz, a lightweight PHP framework",
   "minimum-stability": "dev",
   "type": "library",
