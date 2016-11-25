@@ -14,7 +14,10 @@
                 <ul class="nav navbar-nav">
                     <li <?=($this->module('index')?'class="active"':'')?>><?=$this->ahref('Home', ['index', 'index'])?></li>
                     <li <?=($this->module('dashboard')?'class="active"':'')?>><?=$this->ahref('Dashboard', ['dashboard', 'index'])?></li>
+
+                    <?php if ($this->hasModule('test')) : ?>
                     <li <?=($this->module('test')?'class="active"':'')?>><?=$this->ahref('Test', ['test', 'index'])?></li>
+                    <?php endif; ?>
                 </ul>
                 <?php if ($identity = $this->user()) : ?>
                     <p class="navbar-text navbar-right">
@@ -23,7 +26,7 @@
                     </p>
                 <?php else: ?>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><?=$this->ahref(__('Sign In') , ['users', 'signin'])?></li>
+                    <li><?=$this->ahref(__('Sign In'), ['users', 'signin'])?></li>
                 </ul>
                 <?php endif; ?>
                 <div id="loading"></div>
