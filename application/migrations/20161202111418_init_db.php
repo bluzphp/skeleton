@@ -4,13 +4,10 @@
  * @link https://github.com/bluzphp/skeleton
  */
 
-/**
- * @namespace
- */
 use Phinx\Migration\AbstractMigration;
 
 /**
- * InitDb
+ * InitDb migration class
  */
 class InitDb extends AbstractMigration
 {
