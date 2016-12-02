@@ -65,10 +65,15 @@ Create project in PhpStorm:
 
 ### Last step
 
-Restore database structure from `structure.ddl` file (use InnoDB as the Default MySQL Storage Engine for avoid "Error Code: 1071"!).
-Restore default database data from `dump.sql`
+Edit your configuration's files `/path/to/application/configs/dev/*.php` (configuration for development environment).
+Edit your configuration file `phinx.yml` (configuration for phinx migration)
 
-Edit your configuration's files `/path/to/application/configs/dev/*.php` (configuration for development environment)
+To run the migrations, execute the command:
+(for development environment)
+
+```
+/path/to/vendor/bin/phinx migrate -e development
+```
 
 Run internal PHP web-server with simple console tool (for Linux):
 
