@@ -4,6 +4,11 @@
  * @link https://github.com/bluzphp/skeleton
  */
 
+/**
+ * @namespace
+ */
+namespace Application\Migrations;
+
 use Phinx\Migration\AbstractMigration;
 
 /**
