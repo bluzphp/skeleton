@@ -14,7 +14,7 @@ install:
   - npm install -g newman@1
 before_script:
   # Migrations
-  - vendor/bin/phinx migrate -e production
+  - vendor/bin/phinx migrate -e travis
 script:
   - mkdir .reports
   # Code style

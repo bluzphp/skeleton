@@ -11,13 +11,13 @@
     "zircote/swagger-php": "~2.0",
     "fortawesome/font-awesome": "~4.6",
     "twbs/bootstrap": "~3.3",
+    "robmorgan/phinx": "0.6",
     "public/swagger-ui": "dev-master",
     "js/html5shiv": "dev-master",
     "js/html5shiv-printshiv": "dev-master",
     "js/jquery": "dev-master",
     "js/dropzone": "dev-master",
-    "js/require": "dev-master",
-    "robmorgan/phinx": "0.6"
+    "js/require": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.4",
