@@ -2,8 +2,8 @@
 nbproject
 /application/configs/dev/*.php
 /data/
+!data/migrations
 !/data/locale
-!/data/migrations
 /public/.htaccess
 !.stub
 composer.lock
