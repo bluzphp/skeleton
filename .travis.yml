@@ -13,9 +13,8 @@ install:
   # Newman
   - npm install -g newman@1
 before_script:
-  # Database
-  - mysql -uroot bluz < structure.ddl
-  - mysql -uroot bluz < dump.sql
+  # Migrations
+  - vendor/bin/phinx migrate -e travis
 script:
   - mkdir .reports
   # Code style

@@ -2,6 +2,7 @@
 nbproject
 /application/configs/dev/*.php
 /data/
+!data/migrations
 !/data/locale
 /public/.htaccess
 !.stub
