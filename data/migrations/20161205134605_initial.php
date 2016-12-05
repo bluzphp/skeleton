@@ -30,10 +30,6 @@ class Initial extends AbstractMigration
         $this->execute('CREATE TABLE acl_users_roles ( userId BIGINT(20) unsigned NOT NULL, roleId INT(10) unsigned NOT NULL, CONSTRAINT acl_users_roles_userId_roleId_pk PRIMARY KEY (userId, roleId), CONSTRAINT acl_users_roles_users_id_fk FOREIGN KEY (userId) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE, CONSTRAINT acl_users_roles_acl_roles_id_fk FOREIGN KEY (roleId) REFERENCES acl_roles (id) ON DELETE CASCADE ON UPDATE CASCADE);');
         $this->execute('CREATE TABLE pages ( id INT(10) unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT, userId BIGINT(20) unsigned, title LONGTEXT NOT NULL, alias VARCHAR(255) NOT NULL, content LONGTEXT, keywords LONGTEXT, description LONGTEXT, created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, updated TIMESTAMP NOT NULL, CONSTRAINT pages_users_id_fk FOREIGN KEY (userId) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE);');
         $this->execute('CREATE UNIQUE INDEX pages_alias_uindex ON pages (alias);');
-        $this->execute('CREATE TABLE com_settings ( id INT(10) unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT, alias VARCHAR(255) NOT NULL, options LONGTEXT, created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, updated TIMESTAMP NOT NULL, countPerPage SMALLINT(6) DEFAULT \'10\' NOT NULL, relatedTable VARCHAR(64));');
-        $this->execute('CREATE UNIQUE INDEX com_settings_alias_uindex ON com_settings (alias);');
-        $this->execute('CREATE TABLE com_content ( id BIGINT(20) unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT, settingsId INT(10) unsigned NOT NULL, foreignKey INT(10) unsigned NOT NULL, userId BIGINT(20) unsigned NOT NULL, parentId BIGINT(20) unsigned, content LONGTEXT, created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, updated TIMESTAMP NOT NULL,  status VARCHAR(255) DEFAULT \'active\' NOT NULL, CONSTRAINT com_content_com_settings_id_fk FOREIGN KEY (settingsId) REFERENCES com_settings (id) ON DELETE CASCADE ON UPDATE CASCADE, CONSTRAINT com_content_users_id_fk FOREIGN KEY (userId) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE, CONSTRAINT com_content_com_content_id_fk FOREIGN KEY (parentId) REFERENCES com_content (id) ON DELETE CASCADE ON UPDATE CASCADE);');
-        $this->execute('CREATE INDEX comments_target ON com_content (settingsId, foreignKey);');
 
         $this->execute('LOCK TABLES `users` WRITE;');
         $this->execute('INSERT INTO `users` (`id`, `login`, `email`, `created`, `updated`, `status`) VALUES (1,\'system\',NULL,\'2012-11-09 07:37:58\',NULL,\'disabled\'), (2,\'admin\',NULL,\'2012-11-09 07:38:41\',NULL,\'active\');');
@@ -59,8 +55,6 @@ class Initial extends AbstractMigration
      */
     public function down()
     {
-        $this->dropTable('com_content');
-        $this->dropTable('com_settings');
         $this->dropTable('pages');
         $this->dropTable('acl_users_roles');
         $this->dropTable('acl_privileges');
