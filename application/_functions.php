@@ -52,3 +52,23 @@ function errorLog($exception)
 
     return false;
 }
+
+/**
+ * Get db config
+ *
+ * @param $env
+ * @return array
+ */
+function getConfigByEnvironment($env)
+{
+    $config = new \Bluz\Config\Config();
+
+    $config ->setPath(PATH_APPLICATION);
+    $config ->setEnvironment($env);
+    $config ->init();
+
+    $data = $config->getData('db', 'connect');
+    $data['adapter'] = $data['type'];
+
+    return $data;
+}
