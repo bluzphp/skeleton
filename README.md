@@ -69,10 +69,10 @@ Edit your configuration's files `/path/to/application/configs/dev/*.php` (config
 Edit your configuration file `phinx.yml` (configuration for phinx migration)
 
 To run the migrations, execute the command:
-(for development environment)
+(for default environment)
 
 ```
-/path/to/vendor/bin/phinx migrate -e development
+/path/to/vendor/bin/phinx migrate -e default
 ```
 
 Run internal PHP web-server with simple console tool (for Linux):
