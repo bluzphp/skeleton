@@ -11,7 +11,17 @@ return [
     'environments' => [
         'default_migration_table' => 'migrations',
 
-        'default' => getConfigByEnvironment('default'),
-        'travis' =>  getConfigByEnvironment('default'),
+        'default' => call_user_func(function () {
+            $config = new \Bluz\Config\Config();
+
+            $config ->setPath(PATH_APPLICATION);
+            $config ->setEnvironment(getenv('BLUZ_ENV'));
+            $config ->init();
+
+            $data = $config->getData('db', 'connect');
+            $data['adapter'] = $data['type'];
+
+            return $data;
+        })
     ]
 ];
