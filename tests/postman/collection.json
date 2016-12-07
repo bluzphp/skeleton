@@ -18,32 +18,6 @@
 				"6a286db2-0c0b-bbc1-ae7c-b55578dbba8a",
 				"9ecfa74e-32d5-845b-71a7-862eb91e9bc7"
 			]
-		},
-		{
-			"id": "e953a3ee-603c-4871-e4a6-c11811d8e0af",
-			"name": "Tests:JSON",
-			"description": "",
-			"order": [
-				"da9e0636-7e51-f089-ac75-52afd67e70ea",
-				"d4433a61-40f0-3b37-c2f2-0c34420f3416",
-				"5aa25ed5-1afa-a92b-0dd0-1afbd9f5905a",
-				"8a96493a-fb9e-3d48-7670-0186deccffb8",
-				"dc630274-5767-afb6-2654-02d25a4281cb",
-				"b5c6ccd0-7d7e-b7d9-fb36-5cb86fc387bd",
-				"ecfba2c5-91b8-6c1a-547b-3dbf75ed7b04",
-				"1325ad4f-9945-6677-fed3-2f84e4112eb0",
-				"6b4a3c89-0cd3-71d4-f0e7-7843698e8256",
-				"feb900d6-f21c-80d7-b5f8-dee4e3202d45",
-				"5ce9e625-90ec-9d97-bf9f-e02f303c293e",
-				"46bf0e8d-b227-55d5-ca61-adaf90bc2ba9",
-				"76102cbc-3827-2440-8be8-650342256f2f",
-				"962f28df-7f5f-a764-4c67-b2b370208df3",
-				"9861d1e4-ede0-7c65-6798-8b4793c9e4fe",
-				"5fd6e4dd-1d75-dc25-b53b-45bcc2c43bb5",
-				"dd2a884b-af15-4ff5-6fa6-6e3176b2762b",
-				"ee485ab8-aa28-aa73-aa04-b70a50312c9a"
-			],
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39"
 		}
 	],
 	"timestamp": 1415355182015,
@@ -67,25 +41,6 @@
 			"time": 1465827630958,
 			"name": "overview collection",
 			"description": "SHOULD return **200**  \nSHOULD return `Content-Length`  \nSHOULD without body  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "1325ad4f-9945-6677-fed3-2f84e4112eb0",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}{{ID}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 501\"] = responseCode.code === 501;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465828897163,
-			"name": "create item with primary",
-			"description": "SHOULD return **501**",
 			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
 			"responses": []
 		},
@@ -145,115 +100,6 @@
 			"responses": []
 		},
 		{
-			"id": "46bf0e8d-b227-55d5-ca61-adaf90bc2ba9",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "PUT",
-			"data": [
-				{
-					"key": "id",
-					"value": "{{ID}}",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "name",
-					"value": "Postman",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465895144541,
-			"name": "update collection with data",
-			"description": "SHOULD return **501**",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "5aa25ed5-1afa-a92b-0dd0-1afbd9f5905a",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}{{ID}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "HEAD",
-			"data": [
-				{
-					"key": "name",
-					"value": "Some User Name",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "email",
-					"value": "example@example.com",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Body is empty\"] = responseBody === \"\";\ntests[\"Content-Length is present\"] = responseHeaders.hasOwnProperty(\"Content-Length\");\ntests[\"Content-Length is greater than zero\"] = responseHeaders[\"Content-Length\"] > 0;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465894290261,
-			"name": "overview item",
-			"description": "SHOULD return **200**  \nSHOULD return `Content-Length`  \nSHOULD without body  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "5ce9e625-90ec-9d97-bf9f-e02f303c293e",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}{{ID}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "PUT",
-			"data": [
-				{
-					"key": "name",
-					"value": "@",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\n\nvar data = JSON.parse(responseBody);\n\ntests[\"Stack of errors on JSON\"] = data.hasOwnProperty(\"errors\");",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465828959320,
-			"name": "update item with invalid data",
-			"description": "SHOULD return **400**  \nSHOULD return stack of errors in JSON  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "5fd6e4dd-1d75-dc25-b53b-45bcc2c43bb5",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{CREATED}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "DELETE",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 404\"] = responseCode.code === 404;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465829138287,
-			"name": "item already removed",
-			"description": "SHOULD return **204**  \nOR **404** if item not found (or already removed)",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
 			"id": "6a286db2-0c0b-bbc1-ae7c-b55578dbba8a",
 			"headers": "Accept: application/json\n",
 			"url": "{{URL}}/pages/rest/1",
@@ -269,51 +115,6 @@
 			"time": 1465827660521,
 			"name": "update item",
 			"description": "SHOULD return **403**   ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "6b4a3c89-0cd3-71d4-f0e7-7843698e8256",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
-			"data": [
-				{
-					"key": "name",
-					"value": "Some Name",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\n\nvar data = JSON.parse(responseBody);\n\ntests[\"Stack of errors on JSON\"] = data.hasOwnProperty(\"errors\");",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465828905999,
-			"name": "create item with invalid data",
-			"description": "SHOULD return **400**  \nSHOULD return stack of errors in JSON  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "76102cbc-3827-2440-8be8-650342256f2f",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "PUT",
-			"data": [],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465829007607,
-			"name": "update collection without data",
-			"description": "SHOULD return **400**",
 			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
 			"responses": []
 		},
@@ -337,25 +138,6 @@
 			"responses": []
 		},
 		{
-			"id": "8a96493a-fb9e-3d48-7670-0186deccffb8",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 206\"] = responseCode.code === 206;\ntests[\"Content-Range is present\"] = responseHeaders.hasOwnProperty(\"Content-Range\");\n\nvar data = JSON.parse(responseBody);\ntests[\"Collection size is 10\"] = data.length === parseInt(environment.LENGTH);",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465828826383,
-			"name": "collection",
-			"description": "SHOULD return **206**  \nSHOULD return part of collection in JSON  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
 			"id": "94b6fb0b-55a1-5f00-16e0-e55db99d1f70",
 			"headers": "Accept: application/json\n",
 			"url": "{{URL}}/pages/rest/",
@@ -375,51 +157,6 @@
 			"responses": []
 		},
 		{
-			"id": "962f28df-7f5f-a764-4c67-b2b370208df3",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}{{ID}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "PATCH",
-			"data": [
-				{
-					"key": "name",
-					"value": "Yahoo",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465895888023,
-			"name": "update item",
-			"description": "SHOULD equals to PUT logic\nSHOULD return 200\nOR 304 if data equals stored",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "9861d1e4-ede0-7c65-6798-8b4793c9e4fe",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{CREATED}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "DELETE",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 204\"] = responseCode.code === 204;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465829128246,
-			"name": "item",
-			"description": "SHOULD return **204**  \nOR **404** if item not found (or already removed)",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
 			"id": "9ecfa74e-32d5-845b-71a7-862eb91e9bc7",
 			"headers": "Accept: application/json\n",
 			"url": "{{URL}}/pages/rest/1",
@@ -435,70 +172,6 @@
 			"time": 1465827668361,
 			"name": "item",
 			"description": "SHOULD return **403**  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "b5c6ccd0-7d7e-b7d9-fb36-5cb86fc387bd",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
-			"data": [
-				{
-					"key": "name",
-					"value": "Some User Name",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "email",
-					"value": "example@example.com",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 201\"] = responseCode.code === 201;\ntests[\"Location\"] = responseHeaders.hasOwnProperty(\"Location\");\n\npostman.setEnvironmentVariable('CREATED', responseHeaders.Location);",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465828854165,
-			"name": "create item",
-			"description": "SHOULD return **201**  \nSHOULD return `Location` of new item  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "d4433a61-40f0-3b37-c2f2-0c34420f3416",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "HEAD",
-			"data": [
-				{
-					"key": "name",
-					"value": "Some User Name",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "email",
-					"value": "example@example.com",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Body is empty\"] = responseBody === \"\";\ntests[\"Content-Length is present\"] = responseHeaders.hasOwnProperty(\"Content-Length\");\ntests[\"Content-Length is greater than zero\"] = responseHeaders[\"Content-Length\"] > 0;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465828351557,
-			"name": "overview collection",
-			"description": "SHOULD return **200**  \nSHOULD return `Content-Length`  \nSHOULD without body  ",
 			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
 			"responses": []
 		},
@@ -531,108 +204,6 @@
 			"time": 1465905111937,
 			"name": "login",
 			"description": "SHOULD return **200**  \nSHOULD return `Token` for API",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "dc630274-5767-afb6-2654-02d25a4281cb",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}{{ID}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody);\ntests[\"Item is present\"] = data[0].id === environment.ID;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465828842393,
-			"name": "item",
-			"description": "SHOULD return **200**  \nSHOULD return item in JSON  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "dd2a884b-af15-4ff5-6fa6-6e3176b2762b",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "OPTIONS",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 204\"] = responseCode.code === 204;\ntests[\"Body is empty\"] = responseBody === \"\";\ntests[\"Allow is present\"] = responseHeaders.hasOwnProperty(\"Allow\");",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465894297965,
-			"name": "allowed methods for collection",
-			"description": "SHOULD return **200**  \nSHOULD return `Allow` header  \nSHOULD without body  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "ecfba2c5-91b8-6c1a-547b-3dbf75ed7b04",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 400\"] = responseCode.code === 400;\n\nvar data = JSON.parse(responseBody);\n\ntests[\"Stack of errors on JSON\"] = data.hasOwnProperty(\"errors\");",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465828868174,
-			"name": "create item without data",
-			"description": "SHOULD return **400**  \nSHOULD return stack of errors in JSON  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "ee485ab8-aa28-aa73-aa04-b70a50312c9a",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}{{ID}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "OPTIONS",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 204\"] = responseCode.code === 204;\ntests[\"Body is empty\"] = responseBody === \"\";\ntests[\"Allow is present\"] = responseHeaders.hasOwnProperty(\"Allow\");",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465894312777,
-			"name": "allowed methods for item",
-			"description": "SHOULD return **200**  \nSHOULD return `Allow` header  \nSHOULD without body  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "feb900d6-f21c-80d7-b5f8-dee4e3202d45",
-			"headers": "Accept: application/json\nBluz-Token: {{TOKEN}}\n",
-			"url": "{{URL}}{{PATH}}{{ID}}",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "PUT",
-			"data": [
-				{
-					"key": "name",
-					"value": "Man",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465895254117,
-			"name": "update item",
-			"description": "SHOULD return **200**  \nOR **304** if data equals stored",
 			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
 			"responses": []
 		}
