@@ -44,6 +44,8 @@ class Table extends \Bluz\Db\Table
      */
     const SYSTEM_USER = 0;
 
+    const ADMIN_ROLE_ID = 1;
+
     /**
      * Table
      *

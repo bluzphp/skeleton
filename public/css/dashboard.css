@@ -89,3 +89,10 @@
 	text-decoration: none;
 }
 /*/Dashboard Widgets*/
+
+.bold {
+	font-weight:bold;
+}
+.mark-read-filter {
+	width: 20%;
+}
