@@ -19,8 +19,8 @@
                     <li <?=($this->module('test')?'class="active"':'')?>><?=$this->ahref('Test', ['test', 'index'])?></li>
                     <?php endif; ?>
 
-                    <?php if ($this->hasModule('contact-us') && ($this->user() && !$this->user()->hasRole(Application\Users\Table::ADMIN_ROLE_ID)) || !$this->user()) : ?>
-                      <li <?=($this->module('contact-us')?'class="active"':'')?>><?=$this->ahref('Contact us', ['contact-us', 'add-message'])?></li>
+                    <?php if ($this->hasModule('contact-us')) : ?>
+                    <li <?=($this->module('contact-us')?'class="active"':'')?>><?=$this->ahref('Contact us', ['contact-us', 'add-message'])?></li>
                     <?php endif; ?>
                 </ul>
                 <?php if ($identity = $this->user()) : ?>
