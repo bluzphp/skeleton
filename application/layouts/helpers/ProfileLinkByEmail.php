@@ -15,7 +15,6 @@ return
     /**
      * get profile link by email user
      *
-     * @param string $name
      * @param string $email
      *
      * @return string
