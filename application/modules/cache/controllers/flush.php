@@ -27,8 +27,8 @@ return function () {
     /**
      * @var Controller $this
      */
-    if (!Cache::getInstance() instanceof Nil) {
-        Cache::flush();
+    if (Cache::getInstance()) {
+        Cache::clear();
         Messages::addSuccess("Cache is flushed");
     } else {
         Messages::addNotice("Cache is disabled");

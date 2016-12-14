@@ -72,7 +72,7 @@ class Table extends \Bluz\Db\Table
         // in other words, need more memory for decrease CPU load
         // for update
         /*
-        $cacheKey = 'privileges:user:'.$userId;
+        $cacheKey = '|privileges|'.$userId;
         if (!$data = Cache::get($cacheKey)) {
             $data = Db::getDefaultAdapter()->fetchColumn(
                 "SELECT DISTINCT r.id, CONCAT(p.module, ':', p.privilege)
@@ -83,8 +83,6 @@ class Table extends \Bluz\Db\Table
             );
 
             Cache::set($cacheKey, $data, Cache::TTL_NO_EXPIRY);
-            Cache::addTag($cacheKey, 'privileges');
-            Cache::addTag($cacheKey, 'user:'.$userId);
         }
         return $data;
         */
@@ -98,7 +96,7 @@ class Table extends \Bluz\Db\Table
      */
     public function getRolePrivileges($roleId)
     {
-        $cacheKey = 'privileges:role:'.$roleId;
+        $cacheKey = 'roles.privileges.'.$roleId;
 
         if (!$data = Cache::get($cacheKey)) {
             $data = Db::fetchColumn(
@@ -109,8 +107,7 @@ class Table extends \Bluz\Db\Table
                 array((int) $roleId)
             );
 
-            Cache::set($cacheKey, $data, Cache::TTL_NO_EXPIRY);
-            Cache::addTag($cacheKey, 'privileges');
+            Cache::set($cacheKey, $data, Cache::TTL_NO_EXPIRY, ['system', 'roles', 'privileges']);
         }
         return $data;
     }

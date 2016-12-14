@@ -37,8 +37,8 @@ return function () {
         ]
     );
 
-    if (!Cache::getInstance() instanceof Nil) {
-        $this->assign('adapter', Cache::getInstance()->getAdapter());
+    if ($cacheAdapter = Cache::getInstance()) {
+        $this->assign('adapter', $cacheAdapter);
     } else {
         Messages::addNotice("Cache is disabled");
         Response::redirectTo('cache', 'index');

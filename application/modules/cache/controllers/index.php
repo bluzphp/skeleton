@@ -35,12 +35,11 @@ return function () {
         ]
     );
 
-    if (!Cache::getInstance() instanceof Nil) {
-        $adapter = get_class(Cache::getInstance()->getAdapter());
+    if ($cacheAdapter = Cache::getInstance()) {
+        $adapter = get_class($cacheAdapter);
+        $this->assign('adapter', get_class($cacheAdapter));
     } else {
-        $adapter = null;
+        $this->assign('adapter', $cacheAdapter);
         Messages::addNotice("Cache is disabled");
     }
-    
-    $this->assign('adapter', $adapter);
 };

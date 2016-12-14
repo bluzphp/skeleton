@@ -101,7 +101,7 @@ class Table extends \Bluz\Db\Table
      */
     public function getUserRolesIdentity($userId)
     {
-        $cacheKey = 'roles:user:'.$userId;
+        $cacheKey = 'users.roles.'.$userId;
         if (!$data = Cache::get($cacheKey)) {
             $data = Db::fetchColumn(
                 "SELECT r.id
@@ -110,9 +110,7 @@ class Table extends \Bluz\Db\Table
                 ORDER BY r.id ASC",
                 array($userId)
             );
-            Cache::set($cacheKey, $data, Cache::TTL_NO_EXPIRY);
-            Cache::addTag($cacheKey, 'roles');
-            Cache::addTag($cacheKey, 'user:'.$userId);
+            Cache::set($cacheKey, $data, Cache::TTL_NO_EXPIRY, ['system', 'users', 'roles']);
         }
         return $data;
     }
