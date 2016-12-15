@@ -11,7 +11,6 @@
  */
 namespace Application;
 
-use Bluz\Common\Nil;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Layout;
@@ -36,7 +35,6 @@ return function () {
     );
 
     if ($cacheAdapter = Cache::getInstance()) {
-        $adapter = get_class($cacheAdapter);
         $this->assign('adapter', get_class($cacheAdapter));
     } else {
         $this->assign('adapter', $cacheAdapter);
