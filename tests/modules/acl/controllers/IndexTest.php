@@ -25,9 +25,9 @@ class IndexTest extends ControllerTestCase
      */
     public function testControllerPage()
     {
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
 
         $this->dispatch('/acl/');
-        $this->assertOk();
+        self::assertOk();
     }
 }

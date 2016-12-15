@@ -10,7 +10,6 @@
 namespace Application\Tests\System;
 
 use Application\Tests\ControllerTestCase;
-use Bluz\Proxy\Response;
 
 /**
  * @package  Application\Tests\System
@@ -24,13 +23,13 @@ class BookmarksTest extends ControllerTestCase
      */
     public function testBookmarksPage()
     {
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
 
         $this->dispatch('/system/bookmarks');
-        $this->assertModule('system');
-        $this->assertController('bookmarks');
-        $this->assertOk();
-        $this->assertQueryContentContains('title', __('Bookmarklets'));
-        $this->assertQueryContentContains('h2', __('Bookmarklets for debug site'));
+        self::assertModule('system');
+        self::assertController('bookmarks');
+        self::assertOk();
+        self::assertQueryContentContains('title', __('Bookmarklets'));
+        self::assertQueryContentContains('h2', __('Bookmarklets for debug site'));
     }
 }

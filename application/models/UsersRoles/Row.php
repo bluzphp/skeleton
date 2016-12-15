@@ -12,11 +12,10 @@ namespace Application\UsersRoles;
 /**
  * User
  *
+ * @package  Application\Roles
+ *
  * @property integer $userId
  * @property integer $roleId
- *
- * @category Application
- * @package  Roles
  */
 class Row extends \Bluz\Db\Row
 {

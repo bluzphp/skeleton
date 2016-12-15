@@ -13,8 +13,7 @@ use Bluz\Db\Query\Select;
 use Bluz\Grid\Source\SelectSource;
 
 /**
- * @category Application
- * @package  Users
+ * @package  Application\Users
  */
 class Grid extends \Bluz\Grid\Grid
 {
@@ -32,7 +31,7 @@ class Grid extends \Bluz\Grid\Grid
     {
         // Create Select
         $select = new Select();
-        $select->select('u.*, u.id as uid, GROUP_CONCAT( ar.`name` SEPARATOR ", " ) AS rolesList')
+        $select->select('u.*, GROUP_CONCAT( ar.`name` SEPARATOR ", " ) AS rolesList')
             ->from('users', 'u')
             ->leftJoin('u', 'acl_users_roles', 'aur', 'u.`id` = aur.`userId`')
             ->leftJoin('aur', 'acl_roles', 'ar', 'ar.`id` = aur.`roleId`')
@@ -45,7 +44,6 @@ class Grid extends \Bluz\Grid\Grid
 
         $this->setAdapter($adapter);
         $this->setDefaultLimit(25);
-        $this->addAlias('id', 'u.id');
         $this->setAllowOrders(['login', 'email', 'status', 'id']);
         $this->setAllowFilters(['login', 'email', 'status', 'id', 'roleId']);
         return $this;

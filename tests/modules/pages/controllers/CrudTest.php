@@ -10,7 +10,6 @@
 namespace Application\Tests\Pages;
 
 use Application\Tests\ControllerTestCase;
-use Bluz\Http;
 
 /**
  * @package  Application\Tests\Pages
@@ -44,7 +43,7 @@ class CrudTest extends ControllerTestCase
     {
         parent::setUp();
         $this->getApp()->useLayout(false);
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
     }
 
     /**
@@ -53,9 +52,9 @@ class CrudTest extends ControllerTestCase
     public function testCreateForm()
     {
         $this->dispatch('/pages/crud/');
-        $this->assertOk();
+        self::assertOk();
 
-        $this->assertQueryCount('form[method="POST"]', 1);
+        self::assertQueryCount('form[method="POST"]', 1);
     }
 
     /**
@@ -64,10 +63,10 @@ class CrudTest extends ControllerTestCase
     public function testEditForm()
     {
         $this->dispatch('/pages/crud/', ['id' => 1]);
-        $this->assertOk();
+        self::assertOk();
 
-        $this->assertQueryCount('form[method="PUT"]', 1);
-        $this->assertQueryCount('input[name="id"][value="1"]', 1);
+        self::assertQueryCount('form[method="PUT"]', 1);
+        self::assertQueryCount('input[name="id"][value="1"]', 1);
     }
 
     /**
@@ -76,6 +75,6 @@ class CrudTest extends ControllerTestCase
     public function testEditFormError()
     {
         $this->dispatch('/pages/crud/', ['id' => 100042]);
-        $this->assertResponseCode(404);
+        self::assertResponseCode(404);
     }
 }

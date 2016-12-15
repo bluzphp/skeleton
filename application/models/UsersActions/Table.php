@@ -34,7 +34,7 @@ class Table extends \Bluz\Db\Table
      *
      * @var string
      */
-    protected $table = 'users_actions';
+    protected $name = 'users_actions';
 
     /**
      * Primary key(s)
@@ -54,7 +54,7 @@ class Table extends \Bluz\Db\Table
     public function generate($userId, $action, $expired = 5, $params = [])
     {
         // remove previously generated tokens
-        Db::delete($this->table)
+        Db::delete($this->name)
             ->where('userId = ?', $userId)
             ->andWhere('action = ?', $action)
             ->execute();

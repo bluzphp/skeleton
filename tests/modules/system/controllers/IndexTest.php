@@ -23,11 +23,11 @@ class IndexTest extends ControllerTestCase
      */
     public function testBookmarksPage()
     {
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
 
         $this->dispatch('/system/');
-        $this->assertModule('system');
-        $this->assertController('index');
-        $this->assertOk();
+        self::assertModule('system');
+        self::assertController('index');
+        self::assertOk();
     }
 }

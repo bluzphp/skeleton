@@ -25,10 +25,10 @@ class StatsTest extends ControllerTestCase
      */
     public function testControllerPage()
     {
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
 
         $this->dispatch('/cache/stats/');
-        $this->assertRedirect('cache', 'index');
-        $this->assertNoticeMessage();
+        self::assertRedirect('cache', 'index');
+        self::assertNoticeMessage();
     }
 }

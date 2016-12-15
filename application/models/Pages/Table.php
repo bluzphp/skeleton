@@ -25,7 +25,7 @@ class Table extends \Bluz\Db\Table
      * Table
      * @var string
      */
-    protected $table = 'pages';
+    protected $name = 'pages';
 
     /**
      * Primary key(s)
@@ -40,7 +40,7 @@ class Table extends \Bluz\Db\Table
      */
     public function getByAlias($alias)
     {
-        return $this->findRowWhere(['alias'=>$alias]);
+        return self::findRowWhere(['alias'=>$alias]);
     }
 
     /**

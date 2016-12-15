@@ -12,8 +12,7 @@ namespace Application\Privileges;
 /**
  * Privileges Row
  *
- * @category Application
- * @package  Privileges
+ * @package  Application\Privileges
  *
  * @property integer $roleId
  * @property string $module

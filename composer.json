@@ -5,7 +5,7 @@
   "type": "library",
   "require": {
     "php": ">=7.0",
-    "bluzphp/framework": "~7.0",
+    "bluzphp/framework": "~7.1",
     "hybridauth/hybridauth": "dev-master",
     "phpmailer/phpmailer": "~5.2",
     "zircote/swagger-php": "~2.0",
@@ -33,7 +33,7 @@
         "version": "dev-master",
         "license": "Apache-2.0",
         "dist":{
-          "url":"https://github.com/swagger-api/swagger-ui/archive/v2.2.2.zip",
+          "url":"https://github.com/swagger-api/swagger-ui/archive/v2.2.8.zip",
           "type":"zip"
         }
       }
@@ -45,7 +45,7 @@
         "version": "dev-master",
         "license": "MIT",
         "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js",
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js",
           "type": "file"
         }
       }
@@ -57,7 +57,7 @@
         "version": "dev-master",
         "license": "MIT",
         "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js",
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js",
           "type": "file"
         }
       }

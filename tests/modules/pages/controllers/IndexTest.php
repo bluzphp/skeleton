@@ -33,8 +33,8 @@ class IndexTest extends ControllerTestCase
     public function testIndexPage()
     {
         $this->dispatch('/about.html');
-        $this->assertModule('pages');
-        $this->assertController('index');
-        $this->assertQueryContentContains('h2.page-header', 'About Bluz Framework');
+        self::assertModule('pages');
+        self::assertController('index');
+        self::assertQueryContentContains('h2.page-header', 'About Bluz Framework');
     }
 }

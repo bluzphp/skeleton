@@ -1,9 +1,11 @@
 <?php
 /**
- * User
- *
- * @category Application
- * @package  Roles
+ * @copyright Bluz PHP Team
+ * @link https://github.com/bluzphp/skeleton
+ */
+
+/**
+ * @namespace
  */
 namespace Application\Roles;
 
@@ -11,7 +13,8 @@ use Bluz\Validator\Traits\Validator;
 use Bluz\Validator\Validator as v;
 
 /**
- * Class Row
+ * User Role
+ *
  * @package Application\Roles
  *
  * @property integer $id

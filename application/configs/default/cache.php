@@ -8,39 +8,30 @@
 return array(
     "enabled" => false,
     "adapter" => "memcached",
-    "prefix" => "bluz:",
-    "tagPrefix" => "bluz:@:",
-    "settings" => array(
-        "apc" => array(),
+    "pools" => array(
         /**
-         * @link http://php.net/manual/en/memcached.addservers.php
-         * @link http://php.net/manual/en/memcached.setoptions.php
+         * @link https://github.com/php-cache/apc-adapter
          */
-        "memcached" => array(
-            "persistent" => "uid",
-            "servers" => [
-                ["localhost", 11211, 1],
-            ],
-            "options" => array()
-        ),
-        "phpFile" => array(
-            "cacheDir" => PATH_DATA . '/cache'
-        ),
+        "apc" => function () {
+            return new \Cache\Adapter\Apc\ApcCachePool();
+        },
         /**
-         * @link https://github.com/nicolasff/phpredis#connection
-         * @link https://github.com/nicolasff/phpredis#setoption
+         * @link https://github.com/php-cache/filesystem-adapter
          */
-        "redis" => array(
-            "host" => 'localhost',
-            "options" => array()
-        ),
+        "filesystem" => function () {
+            $filesystemAdapter = new \League\Flysystem\Adapter\Local(PATH_DATA . '/cache');
+            $filesystem        = new \League\Flysystem\Filesystem($filesystemAdapter);
+
+            return new \Cache\Adapter\Filesystem\FilesystemCachePool($filesystem);
+        },
         /**
+         * @link https://github.com/php-cache/predis-adapter
          * @link https://github.com/nrk/predis/wiki/Connection-Parameters
          * @link https://github.com/nrk/predis/wiki/Client-Options
          */
-        "predis" => array(
-            "host" => 'localhost',
-            "options" => array()
-        )
+        "predis" => function () {
+            $client = new \Predis\Client('tcp:/127.0.0.1:6379');
+            return new \Cache\Adapter\Predis\PredisCachePool($client);
+        }
     )
 );

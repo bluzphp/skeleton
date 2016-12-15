@@ -25,9 +25,9 @@ class RolesTest extends ControllerTestCase
      */
     public function testControllerPage()
     {
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
 
         $this->dispatch('/acl/roles/');
-        $this->assertOk();
+        self::assertOk();
     }
 }

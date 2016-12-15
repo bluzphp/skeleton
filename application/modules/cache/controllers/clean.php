@@ -27,21 +27,8 @@ return function () {
     /**
      * @var Controller $this
      */
-    if (!Cache::getInstance() instanceof Nil) {
-        // routers
-        Cache::delete('router:routers');
-        Cache::delete('router:reverse');
-        // roles
-        Cache::deleteByTag('roles');
-        Cache::deleteByTag('privileges');
-        // reflection data
-        Cache::deleteByTag('reflection');
-        // db metadata
-        Cache::deleteByTag('db');
-        // view data
-        Cache::deleteByTag('view');
-        // html data
-        Cache::deleteByTag('html');
+    if (Cache::getInstance()) {
+        Cache::clearTags(['system']);
 
         Messages::addSuccess("Cache is cleaned");
     } else {

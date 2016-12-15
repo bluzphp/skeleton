@@ -50,7 +50,7 @@ return function ($id) {
         }
 
         // clean cache
-        Cache::delete('user:'.$user->id);
+        Cache::delete('users.roles.'. $user->id);
         Messages::addSuccess('User roles was updated');
         return false;
     }

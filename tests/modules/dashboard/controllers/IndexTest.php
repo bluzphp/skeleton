@@ -10,7 +10,6 @@
 namespace Application\Tests\Dashboard;
 
 use Application\Tests\ControllerTestCase;
-use Application\Users;
 use Bluz\Proxy\Response;
 
 /**
@@ -28,8 +27,8 @@ class IndexTest extends ControllerTestCase
      */
     public function testForbidden()
     {
-        $this->setupGuestIdentity();
-        $this->getApp()->dispatch('dashboard', 'index');
+        self::setupGuestIdentity();
+        self::getApp()->dispatch('dashboard', 'index');
     }
 
     /**
@@ -37,9 +36,11 @@ class IndexTest extends ControllerTestCase
      */
     public function testForbiddenByUri()
     {
-        $this->setupGuestIdentity();
+        self::setupGuestIdentity();
+
         $this->dispatch('dashboard/index');
-        $this->assertForbidden();
+
+        self::assertForbidden();
     }
 
     /**
@@ -49,10 +50,11 @@ class IndexTest extends ControllerTestCase
      */
     public function testError()
     {
-        $this->setupGuestIdentity();
+        self::setupGuestIdentity();
+
         $this->dispatch('dashboard/index');
 
-        $this->assertEquals(403, Response::getStatusCode());
+        self::assertEquals(403, Response::getStatusCode());
     }
 
     /**
@@ -62,9 +64,9 @@ class IndexTest extends ControllerTestCase
      */
     public function testIndex()
     {
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
         $this->dispatch('dashboard/index');
 
-        $this->assertEquals(200, Response::getStatusCode());
+        self::assertEquals(200, Response::getStatusCode());
     }
 }
