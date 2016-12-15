@@ -25,10 +25,10 @@ class IndexTest extends ControllerTestCase
      */
     public function testControllerPage()
     {
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
 
         $this->dispatch('/cache/');
-        $this->assertOk();
-        $this->assertNoticeMessage();
+        self::assertOk();
+        self::assertNoticeMessage();
     }
 }

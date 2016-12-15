@@ -28,8 +28,8 @@ class IndexTest extends ControllerTestCase
     {
         $this->dispatch(uniqid('module'). '/'. uniqid('controller'));
 
-        $this->assertModule('error');
-        $this->assertController('index');
-        $this->assertEquals(Response::getStatusCode(), 404);
+        self::assertModule('error');
+        self::assertController('index');
+        self::assertEquals(Response::getStatusCode(), 404);
     }
 }

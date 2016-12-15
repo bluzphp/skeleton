@@ -26,10 +26,10 @@ class CleanTest extends ControllerTestCase
      */
     public function testControllerPage()
     {
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
 
         $this->dispatch('/cache/clean/', [], Request::METHOD_GET, true);
-        $this->assertOk();
-        $this->assertNoticeMessage();
+        self::assertOk();
+        self::assertNoticeMessage();
     }
 }

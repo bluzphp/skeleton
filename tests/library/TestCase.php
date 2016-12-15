@@ -9,7 +9,6 @@
  */
 namespace Application\Tests;
 
-use Bluz\Proxy;
 use Bluz\Proxy\Request;
 use Bluz\Tests\TestCase as BluzTest;
 
@@ -74,6 +73,6 @@ class TestCase extends BluzTest
         }
 
         $this->setRequestParams($path, $query, $params, $method, $headers);
-        $this->getApp()->process();
+        self::getApp()->process();
     }
 }

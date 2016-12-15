@@ -32,7 +32,7 @@ class ControllerTestCase extends TestCase
     /**
      * @var Document
      */
-    protected $document;
+    protected static $document;
 
     /**
      * setUp
@@ -42,7 +42,7 @@ class ControllerTestCase extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->document = null;
+        self::$document = null;
     }
 
     /**
@@ -50,7 +50,7 @@ class ControllerTestCase extends TestCase
      *
      * @return void
      */
-    protected function setupGuestIdentity()
+    protected static function setupGuestIdentity()
     {
         Auth::setIdentity(new Users\Row());
     }
@@ -60,7 +60,7 @@ class ControllerTestCase extends TestCase
      *
      * @return void
      */
-    protected function setupSuperUserIdentity()
+    protected static function setupSuperUserIdentity()
     {
         Auth::setIdentity(new UserHasPermission());
     }
@@ -70,9 +70,9 @@ class ControllerTestCase extends TestCase
      *
      * @return void
      */
-    protected function assertOk()
+    protected static function assertOk()
     {
-        $this->assertResponseCode(200);
+        self::assertResponseCode(200);
     }
 
     /**
@@ -81,9 +81,9 @@ class ControllerTestCase extends TestCase
      * @param int $code
      * @return void
      */
-    protected function assertResponseCode($code)
+    protected static function assertResponseCode($code)
     {
-        $this->assertEquals($code, Response::getStatusCode());
+        self::assertEquals($code, Response::getStatusCode());
     }
 
     /**
@@ -92,9 +92,9 @@ class ControllerTestCase extends TestCase
      * @param string $module
      * @return void
      */
-    protected function assertModule($module)
+    protected static function assertModule($module)
     {
-        $this->assertEquals($module, $this->getApp()->getModule());
+        self::assertEquals($module, self::getApp()->getModule());
     }
 
     /**
@@ -103,9 +103,9 @@ class ControllerTestCase extends TestCase
      * @param string $controller
      * @return void
      */
-    protected function assertController($controller)
+    protected static function assertController($controller)
     {
-        $this->assertEquals($controller, $this->getApp()->getController());
+        self::assertEquals($controller, self::getApp()->getController());
     }
 
     /**
@@ -117,18 +117,18 @@ class ControllerTestCase extends TestCase
      * @param int $code
      * @return void
      */
-    protected function assertRedirect($module, $controller, $params = array(), $code = 302)
+    protected static function assertRedirect($module, $controller, $params = array(), $code = 302)
     {
         $url = Router::getUrl($module, $controller, $params);
 
         /**
          * @var RedirectException $exception
          */
-        $exception = $this->getApp()->getException();
+        $exception = self::getApp()->getException();
 
-        $this->assertInstanceOf('\Bluz\Application\Exception\RedirectException', $exception);
-        $this->assertEquals($exception->getCode(), $code);
-        $this->assertEquals($exception->getUrl(), $url);
+        self::assertInstanceOf('\Bluz\Application\Exception\RedirectException', $exception);
+        self::assertEquals($exception->getCode(), $code);
+        self::assertEquals($exception->getUrl(), $url);
     }
 
     /**
@@ -136,11 +136,11 @@ class ControllerTestCase extends TestCase
      *
      * @return void
      */
-    protected function assertReload()
+    protected static function assertReload()
     {
-        $exception = $this->getApp()->getException();
+        $exception = self::getApp()->getException();
 
-        $this->assertInstanceOf('\Bluz\Application\Exception\ReloadException', $exception);
+        self::assertInstanceOf('\Bluz\Application\Exception\ReloadException', $exception);
     }
 
     /**
@@ -148,14 +148,14 @@ class ControllerTestCase extends TestCase
      *
      * @return void
      */
-    protected function assertForbidden()
+    protected static function assertForbidden()
     {
-        $exception = $this->getApp()->getException();
+        $exception = self::getApp()->getException();
 
-        $this->assertInstanceOf('\Bluz\Application\Exception\ForbiddenException', $exception);
-        $this->assertEquals(403, Response::getStatusCode());
-        $this->assertModule(Router::getErrorModule());
-        $this->assertController(Router::getErrorController());
+        self::assertInstanceOf('\Bluz\Application\Exception\ForbiddenException', $exception);
+        self::assertEquals(403, Response::getStatusCode());
+        self::assertModule(Router::getErrorModule());
+        self::assertController(Router::getErrorController());
     }
 
     /**
@@ -165,14 +165,14 @@ class ControllerTestCase extends TestCase
      * @param mixed $value
      * @return void
      */
-    protected function assertResponseVariable($key, $value)
+    protected static function assertResponseVariable($key, $value)
     {
-        if ($this->getApp()->useLayout()) {
-            $this->fail("Method `assertResponseVariable` required to disable Layout, please update test");
+        if (self::getApp()->useLayout()) {
+            self::fail("Method `assertResponseVariable` required to disable Layout, please update test");
         }
 
         $variable = Response::getBody()->getData()->__get($key);
-        $this->assertEquals($variable, $value);
+        self::assertEquals($variable, $value);
     }
 
     /**
@@ -182,16 +182,16 @@ class ControllerTestCase extends TestCase
      * @param string $text
      * @return void
      */
-    private function checkMessage($type, $text = null)
+    private static function checkMessage($type, $text = null)
     {
         $message = Messages::pop($type);
 
         if (!$message) {
-            $this->fail("System should be generated `$type` message");
+            self::fail("System should be generated `$type` message");
         }
 
         if ($text) {
-            $this->assertEquals($text, $message->text);
+            self::assertEquals($text, $message->text);
         }
     }
 
@@ -201,9 +201,9 @@ class ControllerTestCase extends TestCase
      * @param string $text
      * @return void
      */
-    protected function assertErrorMessage($text = null)
+    protected static function assertErrorMessage($text = null)
     {
-        $this->checkMessage(MessagesInstance::TYPE_ERROR, $text);
+        self::checkMessage(MessagesInstance::TYPE_ERROR, $text);
     }
 
     /**
@@ -212,9 +212,9 @@ class ControllerTestCase extends TestCase
      * @param string $text
      * @return void
      */
-    protected function assertNoticeMessage($text = null)
+    protected static function assertNoticeMessage($text = null)
     {
-        $this->checkMessage(MessagesInstance::TYPE_NOTICE, $text);
+        self::checkMessage(MessagesInstance::TYPE_NOTICE, $text);
     }
 
     /**
@@ -223,9 +223,9 @@ class ControllerTestCase extends TestCase
      * @param string $text
      * @return void
      */
-    protected function assertSuccessMessage($text = null)
+    protected static function assertSuccessMessage($text = null)
     {
-        $this->checkMessage(MessagesInstance::TYPE_SUCCESS, $text);
+        self::checkMessage(MessagesInstance::TYPE_SUCCESS, $text);
     }
 
     /**
@@ -240,12 +240,12 @@ class ControllerTestCase extends TestCase
      * @param  string $path
      * @return Document\NodeList
      */
-    private function query($path)
+    private static function query($path)
     {
-        if (!$this->document) {
-            $this->document = new Document(Response::getBody());
+        if (!self::$document) {
+            self::$document = new Document(Response::getBody());
         }
-        return Document\Query::execute($path, $this->document, Document\Query::TYPE_CSS);
+        return Document\Query::execute($path, self::$document, Document\Query::TYPE_CSS);
     }
 
     /**
@@ -254,9 +254,9 @@ class ControllerTestCase extends TestCase
      * @param  string $path
      * @return int
      */
-    private function queryCount($path)
+    private static function queryCount($path)
     {
-        return count($this->query($path));
+        return count(self::query($path));
     }
 
     /**
@@ -265,16 +265,16 @@ class ControllerTestCase extends TestCase
      * @param string $path
      * @throws \PHPUnit_Framework_ExpectationFailedException
      */
-    public function assertQuery($path)
+    public static function assertQuery($path)
     {
-        $match = $this->queryCount($path);
+        $match = self::queryCount($path);
         if (!$match > 0) {
             throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s EXISTS',
                     $path
                 ));
         }
-        $this->assertTrue($match > 0);
+        self::assertTrue($match > 0);
     }
 
     /**
@@ -283,16 +283,16 @@ class ControllerTestCase extends TestCase
      * @param string $path CSS selector path
      * @throws \PHPUnit_Framework_ExpectationFailedException
      */
-    public function assertNotQuery($path)
+    public static function assertNotQuery($path)
     {
-        $match  = $this->queryCount($path);
+        $match  = self::queryCount($path);
         if ($match != 0) {
             throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s DOES NOT EXIST',
                     $path
                 ));
         }
-        $this->assertEquals(0, $match);
+        self::assertEquals(0, $match);
     }
 
     /**
@@ -302,9 +302,9 @@ class ControllerTestCase extends TestCase
      * @param string $count Number of nodes that should match
      * @throws \PHPUnit_Framework_ExpectationFailedException
      */
-    public function assertQueryCount($path, $count)
+    public static function assertQueryCount($path, $count)
     {
-        $match = $this->queryCount($path);
+        $match = self::queryCount($path);
         if ($match != $count) {
             throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s OCCURS EXACTLY %d times, actually occurs %d times',
@@ -313,7 +313,7 @@ class ControllerTestCase extends TestCase
                     $match
                 ));
         }
-        $this->assertEquals($match, $count);
+        self::assertEquals($match, $count);
     }
 
     /**
@@ -323,9 +323,9 @@ class ControllerTestCase extends TestCase
      * @param  string $count Number of nodes that should NOT match
      * @throws \PHPUnit_Framework_ExpectationFailedException
      */
-    public function assertNotQueryCount($path, $count)
+    public static function assertNotQueryCount($path, $count)
     {
-        $match = $this->queryCount($path);
+        $match = self::queryCount($path);
         if ($match == $count) {
             throw new\ PHPUnit_Framework_ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s DOES NOT OCCUR EXACTLY %d times',
@@ -333,7 +333,7 @@ class ControllerTestCase extends TestCase
                     $count
                 ));
         }
-        $this->assertNotEquals($match, $count);
+        self::assertNotEquals($match, $count);
     }
 
     /**
@@ -343,9 +343,9 @@ class ControllerTestCase extends TestCase
      * @param  string $match content that should be contained in matched nodes
      * @throws \PHPUnit_Framework_ExpectationFailedException
      */
-    public function assertQueryContentContains($path, $match)
+    public static function assertQueryContentContains($path, $match)
     {
-        $result = $this->query($path);
+        $result = self::query($path);
         if ($result->count() == 0) {
             throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s EXISTS',
@@ -354,7 +354,7 @@ class ControllerTestCase extends TestCase
         }
         foreach ($result as $node) {
             if ($node->nodeValue == $match) {
-                $this->assertEquals($match, $node->nodeValue);
+                self::assertEquals($match, $node->nodeValue);
                 return;
             }
         }
@@ -373,9 +373,9 @@ class ControllerTestCase extends TestCase
      * @param  string $pattern Pattern that should be contained in matched nodes
      * @throws \PHPUnit_Framework_ExpectationFailedException
      */
-    public function assertQueryContentRegex($path, $pattern)
+    public static function assertQueryContentRegex($path, $pattern)
     {
-        $result = $this->query($path);
+        $result = self::query($path);
 
         if ($result->count() == 0) {
             throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
@@ -391,6 +391,6 @@ class ControllerTestCase extends TestCase
                     $result->current()->nodeValue
                 ));
         }
-        $this->assertTrue((bool) preg_match($pattern, $result->current()->nodeValue));
+        self::assertTrue((bool) preg_match($pattern, $result->current()->nodeValue));
     }
 }

@@ -23,12 +23,13 @@ class GridTest extends ControllerTestCase
      */
     public function testGridPage()
     {
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
 
         $this->dispatch('/pages/grid/');
-        $this->assertModule('pages');
-        $this->assertController('grid');
-        $this->assertOk();
-        $this->assertQuery('table.grid');
+
+        self::assertModule('pages');
+        self::assertController('grid');
+        self::assertOk();
+        self::assertQuery('table.grid');
     }
 }

@@ -23,12 +23,12 @@ class InfoTest extends ControllerTestCase
      */
     public function testBookmarksPage()
     {
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
 
         $this->dispatch('/system/info/');
-        $this->assertModule('system');
-        $this->assertController('info');
-        $this->assertOk();
-        $this->assertQueryCount('iframe', 1);
+        self::assertModule('system');
+        self::assertController('info');
+        self::assertOk();
+        self::assertQueryCount('iframe', 1);
     }
 }

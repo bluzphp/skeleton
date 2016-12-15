@@ -25,14 +25,14 @@ class SaveTest extends ControllerTestCase
      */
     public function testControllerPage()
     {
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
 
         $this->dispatch('/acl/save/');
 
         // privileges set is empty
         // then redirect to main acl page
         // and set error message
-        $this->assertRedirect('acl', 'index');
-        $this->assertErrorMessage();
+        self::assertRedirect('acl', 'index');
+        self::assertErrorMessage();
     }
 }

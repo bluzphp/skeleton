@@ -23,12 +23,12 @@ class RoutersTest extends ControllerTestCase
      */
     public function testBookmarksPage()
     {
-        $this->setupSuperUserIdentity();
+        self::setupSuperUserIdentity();
 
         $this->dispatch('/system/routers/');
-        $this->assertModule('system');
-        $this->assertController('routers');
-        $this->assertOk();
-        $this->assertQueryCount('table.table', 1);
+        self::assertModule('system');
+        self::assertController('routers');
+        self::assertOk();
+        self::assertQueryCount('table.table', 1);
     }
 }
