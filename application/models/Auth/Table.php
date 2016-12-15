@@ -94,7 +94,7 @@ class Table extends AbstractTable
     {
         // clear previous generated Auth record
         // works with change password
-        $this->delete(
+        self::delete(
             [
                 'userId' => $user->id,
                 'foreignKey' => $user->login,
@@ -129,7 +129,7 @@ class Table extends AbstractTable
         $hash = hash('md5', microtime(true));
         $ttl = Config::getModuleData('users', 'rememberMe');
 
-        $this->delete(
+        self::delete(
             [
                 'userId' => Auth::getIdentity()->id,
                 'foreignKey' => Auth::getIdentity()->login,
@@ -207,7 +207,7 @@ class Table extends AbstractTable
      */
     public function removeCookieToken($userId)
     {
-        $this->delete(
+        self::delete(
             [
                 'userId' => $userId,
                 'provider' => self::PROVIDER_COOKIE
@@ -310,7 +310,7 @@ class Table extends AbstractTable
     {
         // clear previous generated Auth record
         // works with change password
-        $this->delete(
+        self::delete(
             [
                 'userId' => $equalAuth->userId,
                 'foreignKey' => $equalAuth->foreignKey,

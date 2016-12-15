@@ -10,10 +10,9 @@
 namespace Application\Users;
 
 /**
- * Table
+ * Users Table
  *
- * @category Application
- * @package  Users
+ * @package  Application\Users
  *
  * @method   static Row findRow($primaryKey)
  * @method   static Row findRowWhere($whereList)
@@ -49,7 +48,7 @@ class Table extends \Bluz\Db\Table
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $name = 'users';
 
     /**
      * Primary key(s)

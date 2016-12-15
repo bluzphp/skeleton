@@ -58,9 +58,9 @@
 <script>
     require(['jquery', 'bluz.tools'], function($, tools) {
         $("#title").blur(function() {
-            var $alias = $("#alias");
+            let $alias = $("#alias");
             if ($alias.val() == "") {
-                var title = $(this).val();
+                let title = $(this).val();
                 title = tools.alias(title);
                 $alias.val(title);
             }

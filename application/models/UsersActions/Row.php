@@ -12,8 +12,7 @@ namespace Application\UsersActions;
 /**
  * User Actions
  *
- * @category Application
- * @package  Users
+ * @package  Application\Users
  *
  * @property integer $userId
  * @property string $code

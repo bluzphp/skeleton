@@ -13,8 +13,7 @@ use Bluz\Db\Query\Select;
 use Bluz\Grid\Source\SelectSource;
 
 /**
- * @category Application
- * @package  Users
+ * @package  Application\Users
  */
 class Grid extends \Bluz\Grid\Grid
 {

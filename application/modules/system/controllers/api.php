@@ -24,13 +24,19 @@ return function () {
 
     $paths = array(
         PATH_APPLICATION . '/configs',
-        PATH_APPLICATION . '/models',
+//        PATH_APPLICATION . '/models',
         PATH_APPLICATION . '/modules',
     );
-    $exclude = array();
+
+    $options = array(
+        'analyser' => null,
+        'analysis' => null,
+        'exclude' => null,
+        'processors' => null,
+    );
+
+    print Swagger\scan($paths, $options);
 
     // @todo: remove this `die` call
-    print Swagger\scan($paths, $exclude);
-
     die;
 };

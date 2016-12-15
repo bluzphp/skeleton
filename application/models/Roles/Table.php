@@ -33,7 +33,7 @@ class Table extends \Bluz\Db\Table
      *
      * @var string
      */
-    protected $table = 'acl_roles';
+    protected $name = 'acl_roles';
 
     /**
      * Primary key(s)
@@ -63,7 +63,7 @@ class Table extends \Bluz\Db\Table
      */
     public function getRoles()
     {
-        return $this->fetch("SELECT * FROM acl_roles ORDER BY id");
+        return self::fetch("SELECT * FROM acl_roles ORDER BY id");
     }
 
     /**
@@ -84,7 +84,7 @@ class Table extends \Bluz\Db\Table
      */
     public function getUserRoles($userId)
     {
-        $data = $this->fetch(
+        $data = self::fetch(
             "SELECT r.*
             FROM acl_roles AS r, acl_users_roles AS u2r
             WHERE r.id = u2r.roleId AND u2r.userId = ?",

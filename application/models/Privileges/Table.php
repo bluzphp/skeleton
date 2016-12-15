@@ -28,7 +28,7 @@ class Table extends \Bluz\Db\Table
      *
      * @var string
      */
-    protected $table = 'acl_privileges';
+    protected $name = 'acl_privileges';
 
     /**
      * Primary key(s)
@@ -43,7 +43,7 @@ class Table extends \Bluz\Db\Table
      */
     public function getPrivileges()
     {
-        return $this->fetch(
+        return self::fetch(
             "SELECT DISTINCT p.roleId, p.module, p.privilege
             FROM acl_privileges AS p
             ORDER BY module, privilege"
