@@ -11,7 +11,6 @@
  */
 namespace Application;
 
-use Bluz\Common\Nil;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Messages;
