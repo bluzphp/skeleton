@@ -10,6 +10,7 @@
 namespace Application\Layout\Helper;
 
 use Application\Users;
+use Bluz\Proxy\Layout;
 
 return
     /**
@@ -26,7 +27,7 @@ return
         $row = Users\Table::findRow(['email' => $email]);
 
         if (!empty($row)) {
-            return '<a href = "' . $this->url('users', 'profile', ['id' => $row->id]) . '">' . $row->login . '</a>';
+            return Layout::ahref($row->login, ['users', 'profile'], ['id' => $row->id]);
         }
         return false;
     };
