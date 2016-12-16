@@ -20,7 +20,7 @@
                     <?php endif; ?>
 
                     <?php if ($this->hasModule('contact-us')) : ?>
-                    <li <?=($this->module('contact-us')?'class="active"':'')?>><?=$this->ahref('Contact us', ['contact-us', 'add-message'])?></li>
+                    <li <?=($this->module('contact-us')?'class="active"':'')?>><?=$this->ahref('Contact us', ['contact-us', 'index'])?></li>
                     <?php endif; ?>
                 </ul>
                 <?php if ($identity = $this->user()) : ?>
