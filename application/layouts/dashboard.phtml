@@ -15,11 +15,12 @@
                         <?php if ($this->hasModule('categories')) : ?>
                         <li <?=($this->module('categories')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-folder-o fa-fw"></i> '.__('Categories'), ['categories', 'tree', [], true]) ?></li>
                         <?php endif; ?>
-                    </ul>
-                    <ul class="nav nav-tabs nav-stacked">
                         <li <?=($this->module('acl')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-lock fa-fw"></i> '.__('Permissions'), ['acl', 'index', [], true]) ?></li>
                         <?php if ($this->hasModule('options')) : ?>
                         <li <?=($this->module('options')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-th-list fa-fw"></i> '.__('Options'), ['options', 'grid', [], true]) ?></li>
+                        <?php endif; ?>
+                        <?php if ($this->hasModule('contact-us')) : ?>
+                        <li <?=($this->module('contact-us')?'class="active"':'')?>><?= $this->ahref('<i class="fa fa-envelope-o fa-fw"></i> '.__('Contact Us'), ['contact-us', 'grid', [], true]) ?></li>
                         <?php endif; ?>
                     </ul>
                     <ul class="nav nav-tabs nav-stacked">

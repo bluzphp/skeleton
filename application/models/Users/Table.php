@@ -39,9 +39,9 @@ class Table extends \Bluz\Db\Table
      */
     const STATUS_DELETED = 'deleted';
     /**
-     * system user with ID=0
+     * system user with ID=1
      */
-    const SYSTEM_USER = 0;
+    const SYSTEM_USER = 1;
 
     /**
      * Table
