@@ -23,7 +23,7 @@ use Bluz\Validator\Exception\ValidatorException;
  * @param  \Bluz\Crud\Table $crud
  * @param  mixed $primary
  * @param  array $data
- * @return void|array
+ * @return array
  * @throws BadRequestException
  * @throws NotImplementedException
  */

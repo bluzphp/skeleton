@@ -6,7 +6,7 @@
   "require": {
     "php": ">=7.0",
     "bluzphp/framework": "~7.1",
-    "hybridauth/hybridauth": "dev-master",
+    "hybridauth/hybridauth": "~2.8",
     "phpmailer/phpmailer": "~5.2",
     "zircote/swagger-php": "~2.0",
     "fortawesome/font-awesome": "~4.6",

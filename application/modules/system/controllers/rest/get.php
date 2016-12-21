@@ -9,6 +9,7 @@
  */
 namespace Application;
 
+use Bluz\Http\StatusCode;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 
@@ -38,14 +39,14 @@ return function ($crud, $primary) {
             $limit = $last - $offset;
         }
 
-        Response::setStatusCode(206);
+        Response::setStatusCode(StatusCode::PARTIAL_CONTENT);
         
         $total = 0;
         
         $result = $crud->readSet($offset, $limit, $params, $total);
 
         if (sizeof($result) < $total) {
-            Response::setStatusCode(206);
+            Response::setStatusCode(StatusCode::PARTIAL_CONTENT);
             Response::setHeader(
                 'Content-Range',
                 'items ' . $offset . '-' . ($offset + sizeof($result)) . '/' . $total
