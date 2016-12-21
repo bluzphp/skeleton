@@ -12,6 +12,7 @@ namespace Application;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotImplementedException;
 use Bluz\Controller;
+use Bluz\Http\StatusCode;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
@@ -25,7 +26,7 @@ use Bluz\Validator\Exception\ValidatorException;
  * @param  \Bluz\Crud\Table $crud
  * @param  mixed $primary
  * @param  array $data
- * @return void|array
+ * @return array
  * @throws BadRequestException
  * @throws NotImplementedException
  */
@@ -46,13 +47,14 @@ return function ($crud, $primary, $data) {
             $result = join('-', array_values($result));
         }
     } catch (ValidatorException $e) {
-        Response::setStatusCode(400);
+        Response::setStatusCode(StatusCode::BAD_REQUEST);
         return ['errors' => $e->getErrors()];
     }
 
-    Response::setStatusCode(201);
+    Response::setStatusCode(StatusCode::CREATED);
     Response::setHeader(
         'Location',
         Router::getUrl(Request::getModule(), Request::getController()).'/'.$result
     );
+    return [];
 };

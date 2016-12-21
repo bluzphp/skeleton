@@ -12,6 +12,7 @@ namespace Application;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotImplementedException;
 use Bluz\Controller;
+use Bluz\Http\StatusCode;
 use Bluz\Proxy\Response;
 use Bluz\Validator\Exception\ValidatorException;
 
@@ -24,7 +25,7 @@ use Bluz\Validator\Exception\ValidatorException;
  * @param  \Bluz\Crud\Table $crud
  * @param  mixed $primary
  * @param  array $data
- * @return void|array
+ * @return array
  * @throws BadRequestException
  * @throws NotImplementedException
  */
@@ -45,10 +46,11 @@ return function ($crud, $primary, $data) {
         // if $result === 0 it's means a update is not apply
         // or records not found
         if (0 === $result) {
-            Response::setStatusCode(304);
+            Response::setStatusCode(StatusCode::NOT_MODIFIED);
         }
+        return [];
     } catch (ValidatorException $e) {
-        Response::setStatusCode(400);
+        Response::setStatusCode(StatusCode::BAD_REQUEST);
         return ['errors' => $e->getErrors()];
     }
 };

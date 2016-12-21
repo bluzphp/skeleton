@@ -10,6 +10,7 @@
 namespace Application;
 
 use Bluz\Controller;
+use Bluz\Http\StatusCode;
 use Bluz\Proxy\Response;
 
 /**
@@ -23,6 +24,6 @@ use Bluz\Proxy\Response;
  * @return void
  */
 return function ($crud, $primary, $data) {
-    Response::setStatusCode(204);
+    Response::setStatusCode(StatusCode::NO_CONTENT);
     Response::setHeader('Allow', join(',', $data));
 };

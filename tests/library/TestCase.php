@@ -49,7 +49,7 @@ class TestCase extends BluzTest
      * @param bool $ajax
      * @return void
      */
-    protected function dispatch($path, array $params = null, $method = Request::METHOD_GET, $ajax = false)
+    protected function dispatch($path, array $params = [], $method = Request::METHOD_GET, $ajax = false)
     {
         $query = [];
 

@@ -10,7 +10,10 @@
 namespace Application;
 
 use Bluz\Application\Exception\BadRequestException;
+use Bluz\Application\Exception\NotFoundException;
+use Bluz\Application\Exception\NotImplementedException;
 use Bluz\Controller;
+use Bluz\Http\StatusCode;
 use Bluz\Proxy\Response;
 
 /**
@@ -23,8 +26,8 @@ use Bluz\Proxy\Response;
  * @param  array $data
  * @return void
  * @throws BadRequestException
- * @throws \Bluz\Application\Exception\NotFoundException
- * @throws \Bluz\Application\Exception\NotImplementedException
+ * @throws NotFoundException
+ * @throws NotImplementedException
  */
 return function ($crud, $primary, $data) {
     if (!empty($primary)) {
@@ -40,5 +43,5 @@ return function ($crud, $primary, $data) {
         }
         $crud->deleteSet($data);
     }
-    Response::setStatusCode(204);
+    Response::setStatusCode(StatusCode::NO_CONTENT);
 };
