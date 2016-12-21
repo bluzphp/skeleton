@@ -9,7 +9,7 @@
  */
 namespace Application;
 
-use Bluz\Proxy\Request;
+use Bluz\Http\RequestMethod;
 
 /**
  * @accept HTML
@@ -23,6 +23,6 @@ use Bluz\Proxy\Request;
 return function ($crud, $primary) {
     return [
         'row' => $crud->readOne($primary),
-        'method' => empty($primary)?Request::METHOD_POST:Request::METHOD_PUT
+        'method' => empty($primary)?RequestMethod::POST:RequestMethod::PUT
     ];
 };

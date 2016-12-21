@@ -9,6 +9,7 @@
  */
 namespace Application;
 
+use Bluz\Http\RequestMethod;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 use Bluz\Validator\Exception\ValidatorException;
@@ -32,7 +33,7 @@ return function ($crud, $primary, $data) {
         
         return [
             'row'    => $crud->readOne($result),
-            'method' => Request::METHOD_PUT
+            'method' => RequestMethod::PUT
         ];
     } catch (ValidatorException $e) {
         $row = $crud->readOne(null);

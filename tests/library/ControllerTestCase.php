@@ -10,6 +10,7 @@
 namespace Application\Tests;
 
 use Bluz\Application\Exception\RedirectException;
+use Bluz\Http\StatusCode;
 use Bluz\Messages\Messages as MessagesInstance;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Messages;
@@ -72,7 +73,7 @@ class ControllerTestCase extends TestCase
      */
     protected static function assertOk()
     {
-        self::assertResponseCode(200);
+        self::assertResponseCode(StatusCode::OK);
     }
 
     /**
@@ -153,7 +154,7 @@ class ControllerTestCase extends TestCase
         $exception = self::getApp()->getException();
 
         self::assertInstanceOf('\Bluz\Application\Exception\ForbiddenException', $exception);
-        self::assertEquals(403, Response::getStatusCode());
+        self::assertEquals(StatusCode::FORBIDDEN, Response::getStatusCode());
         self::assertModule(Router::getErrorModule());
         self::assertController(Router::getErrorController());
     }

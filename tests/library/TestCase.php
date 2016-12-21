@@ -9,7 +9,7 @@
  */
 namespace Application\Tests;
 
-use Bluz\Proxy\Request;
+use Bluz\Http\RequestMethod;
 use Bluz\Tests\TestCase as BluzTest;
 
 /**
@@ -49,14 +49,14 @@ class TestCase extends BluzTest
      * @param bool $ajax
      * @return void
      */
-    protected function dispatch($path, array $params = [], $method = Request::METHOD_GET, $ajax = false)
+    protected function dispatch($path, array $params = [], $method = RequestMethod::GET, $ajax = false)
     {
         $query = [];
 
         // this is magic for short signature of function
         // for GET request use $params as `query params`
         // for other requests use $params as `parsed body params`
-        if ($method == Request::METHOD_GET) {
+        if ($method == RequestMethod::GET) {
             $query = $params;
             $params = [];
         }
@@ -72,7 +72,7 @@ class TestCase extends BluzTest
             ];
         }
 
-        $this->setRequestParams($path, $query, $params, $method, $headers);
+        self::setRequestParams($path, $query, $params, $method, $headers);
         self::getApp()->process();
     }
 }

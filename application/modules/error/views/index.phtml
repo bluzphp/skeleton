@@ -8,8 +8,10 @@ use Bluz\Application\Application;
 <div class="modal-body">
     <p><?=esc($description)?></p>
     <?php if (Application::getInstance()->isDebug()) : ?>
-        <h3>Debug:</h3>
+    <div class="alert alert-warning">
+        <strong>Exception</strong>
         <p><?=esc($message)?></p>
+    </div>
     <?php endif; ?>
 </div>
 
