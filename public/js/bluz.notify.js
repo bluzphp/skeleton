@@ -109,7 +109,7 @@ define(['jquery'], function($) {
             let $el;
             $el = $(prepareNotify(type, content));
             $el.animate({opacity:"show"}, 300)
-                .delay(3000)
+                .delay(5000)
                 .animate({opacity:"hide"}, 300, function() {
                     hideNotify($el);
                 });

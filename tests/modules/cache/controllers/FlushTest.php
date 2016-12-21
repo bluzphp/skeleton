@@ -10,7 +10,7 @@
 namespace Application\Tests\Cache;
 
 use Application\Tests\ControllerTestCase;
-use Bluz\Proxy\Request;
+use Bluz\Http\RequestMethod;
 
 /**
  * @package  Application\Tests\Cache
@@ -28,7 +28,7 @@ class FlushTest extends ControllerTestCase
     {
         self::setupSuperUserIdentity();
 
-        $this->dispatch('/cache/flush/', [], Request::METHOD_GET, true);
+        $this->dispatch('/cache/flush/', [], RequestMethod::GET, true);
         self::assertOk();
         self::assertNoticeMessage();
     }
