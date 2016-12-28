@@ -24,6 +24,7 @@ use Bluz\Validator\Validator as v;
  *
  * @package  Application\Users
  *
+ * @property integer $id
  * @property string $login
  * @property string $email
  * @property string $created
@@ -130,9 +131,9 @@ class Row extends AbstractRowEntity
     }
 
     /**
-     * Get user privileges
+     * {@inheritdoc}
      */
-    public function getPrivileges()
+    public function getPrivileges() : array
     {
         if (!$this->privileges) {
             $this->privileges = Privileges\Table::getInstance()->getUserPrivileges($this->id);

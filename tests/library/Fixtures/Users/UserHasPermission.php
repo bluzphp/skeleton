@@ -34,7 +34,7 @@ class UserHasPermission extends Row
      * @param string $privilege
      * @return boolean
      */
-    public function hasPrivilege($module, $privilege)
+    public function hasPrivilege($module, $privilege) : bool
     {
         return true;
     }
