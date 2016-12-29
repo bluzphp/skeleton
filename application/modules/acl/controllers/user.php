@@ -42,11 +42,13 @@ return function ($id) {
             ->where('userId = ?', $user->id)
             ->execute();
 
-        foreach ($roles as $role) {
-            Db::insert('acl_users_roles')
-                ->set('userId', $user->id)
-                ->set('roleId', $role)
-                ->execute();
+        if (is_array($roles)) {
+            foreach ($roles as $role) {
+                Db::insert('acl_users_roles')
+                    ->set('userId', $user->id)
+                    ->set('roleId', $role)
+                    ->execute();
+            }
         }
 
         // clean cache

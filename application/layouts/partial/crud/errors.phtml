@@ -1,5 +1,5 @@
 <?php
 $data = json_encode(['errors'=>$errors]);
-$this->headScript('require(["bluz.form"], function(form) {
+$this->scriptBlock('require(["bluz.form"], function(form) {
     form.notices($("#'.$uid.'"), '.$data.');
 });');
