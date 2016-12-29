@@ -5,7 +5,7 @@
   "type": "library",
   "require": {
     "php": ">=7.0",
-    "bluzphp/framework": "~7.2",
+    "bluzphp/framework": "~7.3",
     "hybridauth/hybridauth": "~2.8",
     "phpmailer/phpmailer": "~5.2",
     "zircote/swagger-php": "~2.0",
