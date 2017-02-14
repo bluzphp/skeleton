@@ -20,7 +20,7 @@ modules:
             password: ''
             dump: tests/_data/dump.sql
         PhpBrowser:
-            url: http://127.0.0.1:8000
+            url: http://127.0.0.1:8000/
         REST:
             url: http://127.0.0.1:8000/
             depends: PhpBrowser
