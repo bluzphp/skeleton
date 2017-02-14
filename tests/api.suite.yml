@@ -1,0 +1,5 @@
+class_name: ApiTester
+modules:
+    enabled:
+        - REST
+        - \Helper\Api

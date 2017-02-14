@@ -15,14 +15,18 @@ install:
 before_script:
   # Migrations
   - vendor/bin/phinx migrate -e default
+  # Codeception
+  - wget http://codeception.com/codecept.phar
 script:
   - mkdir .reports
   # Code style
   - php vendor/bin/phpcs ./application --standard=PSR1,PSR2 --encoding=utf-8 --ignore=./application/_loader.php
   # PHPUnit tests
-  - php vendor/bin/phpunit --configuration ./phpunit.xml.dist --coverage-clover=.reports/clover.xml
+  #- php vendor/bin/phpunit --configuration ./phpunit.xml.dist --coverage-clover=.reports/clover.xml
   # WebServer run
   - nohup bash -c "php -S 127.0.0.1:8000 -t ./public/ ./public/routing.php 2>&1 &" && sleep 1; cat nohup.out
+  # CodeCeption
+  - php codecept.phar --coverage-xml .reports/clover.xml
   # Newman run
   - newman -k -c tests/postman/collection.json -e tests/postman/environment.json -x -t .reports/newman.xml -O .reports/newman.log
 after_script:
