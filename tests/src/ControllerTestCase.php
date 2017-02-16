@@ -18,6 +18,7 @@ use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
 use Application\Users;
 use Application\Tests\Fixtures\Users\UserHasPermission;
+use PHPUnit\Framework\ExpectationFailedException;
 use Zend\Dom\Document;
 
 /**
@@ -264,13 +265,13 @@ class ControllerTestCase extends TestCase
      * Assert against DOM/XPath selection
      *
      * @param string $path
-     * @throws \PHPUnit_Framework_ExpectationFailedException
+     * @throws ExpectationFailedException
      */
     public static function assertQuery($path)
     {
         $match = self::queryCount($path);
         if (!$match > 0) {
-            throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s EXISTS',
                     $path
                 ));
@@ -282,13 +283,13 @@ class ControllerTestCase extends TestCase
      * Assert against DOM/XPath selection
      *
      * @param string $path CSS selector path
-     * @throws \PHPUnit_Framework_ExpectationFailedException
+     * @throws ExpectationFailedException
      */
     public static function assertNotQuery($path)
     {
         $match  = self::queryCount($path);
         if ($match != 0) {
-            throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s DOES NOT EXIST',
                     $path
                 ));
@@ -301,13 +302,13 @@ class ControllerTestCase extends TestCase
      *
      * @param string $path CSS selector path
      * @param string $count Number of nodes that should match
-     * @throws \PHPUnit_Framework_ExpectationFailedException
+     * @throws ExpectationFailedException
      */
     public static function assertQueryCount($path, $count)
     {
         $match = self::queryCount($path);
         if ($match != $count) {
-            throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s OCCURS EXACTLY %d times, actually occurs %d times',
                     $path,
                     $count,
@@ -322,13 +323,13 @@ class ControllerTestCase extends TestCase
      *
      * @param  string $path CSS selector path
      * @param  string $count Number of nodes that should NOT match
-     * @throws \PHPUnit_Framework_ExpectationFailedException
+     * @throws ExpectationFailedException
      */
     public static function assertNotQueryCount($path, $count)
     {
         $match = self::queryCount($path);
         if ($match == $count) {
-            throw new\ PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s DOES NOT OCCUR EXACTLY %d times',
                     $path,
                     $count
@@ -342,13 +343,13 @@ class ControllerTestCase extends TestCase
      *
      * @param  string $path CSS selector path
      * @param  string $match content that should be contained in matched nodes
-     * @throws \PHPUnit_Framework_ExpectationFailedException
+     * @throws ExpectationFailedException
      */
     public static function assertQueryContentContains($path, $match)
     {
         $result = self::query($path);
         if ($result->count() == 0) {
-            throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s EXISTS',
                     $path
                 ));
@@ -359,7 +360,7 @@ class ControllerTestCase extends TestCase
                 return;
             }
         }
-        throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
+        throw new ExpectationFailedException(sprintf(
                 'Failed asserting node denoted by %s CONTAINS content "%s"',
                 $path,
                 $match
@@ -372,20 +373,20 @@ class ControllerTestCase extends TestCase
      *
      * @param  string $path CSS selector path
      * @param  string $pattern Pattern that should be contained in matched nodes
-     * @throws \PHPUnit_Framework_ExpectationFailedException
+     * @throws ExpectationFailedException
      */
     public static function assertQueryContentRegex($path, $pattern)
     {
         $result = self::query($path);
 
         if ($result->count() == 0) {
-            throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s EXISTS',
                     $path
                 ));
         }
         if (!preg_match($pattern, $result->current()->nodeValue)) {
-            throw new \PHPUnit_Framework_ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                     'Failed asserting node denoted by %s CONTAINS content MATCHING "%s", actual content is "%s"',
                     $path,
                     $pattern,

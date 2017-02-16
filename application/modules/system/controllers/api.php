@@ -24,16 +24,11 @@ return function () {
 
     $paths = array(
         PATH_APPLICATION . '/configs',
-//        PATH_APPLICATION . '/models',
+        PATH_APPLICATION . '/models',
         PATH_APPLICATION . '/modules',
     );
 
-    $options = array(
-        'analyser' => null,
-        'analysis' => null,
-        'exclude' => null,
-        'processors' => null,
-    );
+    $options = array();
 
     print Swagger\scan($paths, $options);
 
