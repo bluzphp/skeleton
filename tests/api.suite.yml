@@ -1,3 +1,7 @@
+# Codeception Test Suite Configuration
+#
+# Suite for tests of REST API.
+
 class_name: ApiTester
 modules:
     enabled:

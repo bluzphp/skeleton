@@ -329,7 +329,7 @@ class ControllerTestCase extends TestCase
     {
         $match = self::queryCount($path);
         if ($match == $count) {
-            throw new\ PHPUnit\Framework\ExpectationFailedException(sprintf(
+            throw new ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s DOES NOT OCCUR EXACTLY %d times',
                     $path,
                     $count

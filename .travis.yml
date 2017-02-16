@@ -3,11 +3,9 @@ php:
   - 7.0
   - 7.1
 before_install:
-  - nvm install stable # or 5, 6, or whatever
-  - npm update -g npm # if necessary
+  - nvm install stable
+  - npm update -g npm
 install:
-  # ImageMagick
-  #- printf "\n" | pecl install imagick
   # Composer
   - composer self-update
   - COMPOSER_ROOT_VERSION=dev-master composer install
@@ -20,22 +18,21 @@ before_script:
   - vendor/bin/phinx migrate -e default
   # Codeception
   - wget http://codeception.com/codecept.phar
+  # Scrutinizer
+  - wget https://scrutinizer-ci.com/ocular.phar
 script:
   - mkdir .reports
   # Code style
   - php vendor/bin/phpcs ./application --standard=PSR1,PSR2 --encoding=utf-8 --ignore=./application/_loader.php
-  # PHPUnit tests
-  #- php vendor/bin/phpunit --configuration ./phpunit.xml.dist --coverage-clover=.reports/clover.xml
   # WebServer run
   - nohup bash -c "php -S 127.0.0.1:8000 -t ./public/ ./public/routing.php 2>&1 &" && sleep 1; cat nohup.out
   # CodeCeption
-  - php codecept.phar run --coverage-xml ".reports/clover.xml"
+  - php codecept.phar run --coverage --coverage-xml
   # Newman run
   - newman run tests/postman/collection.json -e tests/postman/environment.json
 after_script:
   - php vendor/bin/coveralls -v
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover .reports/clover.xml
+  - php ocular.phar code-coverage:upload --format=php-clover tests/_output/coverage.xml
 notifications:
   email: false
   webhooks:

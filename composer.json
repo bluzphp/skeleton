@@ -20,7 +20,6 @@
     "js/require": "dev-master"
   },
   "require-dev": {
-    "phpunit/phpunit": "~6.0",
     "satooshi/php-coveralls": "~1.0",
     "squizlabs/php_codesniffer": "~2.3",
     "zendframework/zend-dom": "~2.3"
@@ -103,12 +102,10 @@
     "vendor-dir": "vendor"
   },
   "autoload": {
-    "psr-0": {
-      "": "application/library"
-    },
     "psr-4": {
+      "": "application/library",
       "Application\\": "application/models",
-      "Application\\Tests\\": "tests/library"
+      "Application\\Tests\\": "tests/src"
     },
     "files": [
       "application/_functions.php",
