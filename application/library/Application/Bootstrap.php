@@ -115,6 +115,7 @@ class Bootstrap extends Application
     public function render()
     {
         Logger::info('app:render');
+        Logger::info('app:files:' . sizeof(get_included_files()));
 
         if ($this->debugFlag && !headers_sent()) {
             $debugString = sprintf(

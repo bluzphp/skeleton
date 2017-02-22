@@ -1,12 +1,6 @@
 .idea
-nbproject
-/application/configs/dev/*.php
-/data/
-!data/migrations
-!/data/locale
-/public/.htaccess
-!.stub
+/vendor/*
 composer.lock
 composer.phar
-/vendor/*
-phpunit.xml
+codecept.phar
+codeception.yml
