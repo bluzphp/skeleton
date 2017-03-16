@@ -13,8 +13,6 @@
     "twbs/bootstrap": "~3.3",
     "robmorgan/phinx": "~0.6",
     "public/swagger-ui": "dev-master",
-    "js/html5shiv": "dev-master",
-    "js/html5shiv-printshiv": "dev-master",
     "js/jquery": "dev-master",
     "js/dropzone": "dev-master",
     "js/require": "dev-master"
@@ -44,7 +42,7 @@
         "version": "dev-master",
         "license": "MIT",
         "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js",
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.min.js",
           "type": "file"
         }
       }
@@ -56,7 +54,7 @@
         "version": "dev-master",
         "license": "MIT",
         "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js",
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js",
           "type": "file"
         }
       }
@@ -68,31 +66,7 @@
         "version": "dev-master",
         "license": "MIT",
         "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone-amd-module.js",
-          "type": "file"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "js/html5shiv",
-        "version": "dev-master",
-        "license": "MIT",
-        "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js",
-          "type": "file"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "js/html5shiv-printshiv",
-        "version": "dev-master",
-        "license": "MIT",
-        "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.js",
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone-amd-module.min.js",
           "type": "file"
         }
       }

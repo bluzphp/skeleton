@@ -34,12 +34,12 @@ return function ($alias) {
     } else {
         // setup HTML layout data
         Layout::title(esc($page->title), View::POS_PREPEND);
-        Layout::meta('keywords', esc($page->keywords));
-        Layout::meta('description', esc($page->description));
+        Layout::meta('keywords', esc($page->keywords, ENT_QUOTES));
+        Layout::meta('description', esc($page->description, ENT_QUOTES));
 
         // setup HTTP cache
         HttpCacheControl::setPublic();
-        HttpCacheControl::setLastModified($page->updated);
+        HttpCacheControl::setLastModified($page->updated ?: $page->created);
 
         // assign page to view
         $this->assign('page', $page);

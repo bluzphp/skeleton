@@ -20,13 +20,21 @@
             <div class="panel-body">
                 <ol>
                     <li>
-                        Setup database structure from <code>structure.ddl</code>
+                        Setup environment <code>export BLUZ_ENV=<strong>dev</strong></code>
                     </li>
                     <li>
-                        Restore database dump from <code>dump.sql</code>
+                        Setup configuration in <code>application/configs/<strong>dev</strong>/db.php</code> file
                     </li>
                     <li>
-                        Setup configuration at <code>application/configs/dev/</code> directory
+                        Run phinx migration <code>/path/to/vendor/bin/phinx migrate -e default</code>
+                    </li>
+                    <li>
+                        Run phinx seeds <code>/path/to/vendor/bin/phinx seed:run -s UsersSeeder -s AclSeeder</code> for create
+                        default users and permissions
+                    </li>
+                    <li>
+                        Run phinx seeds <code>/path/to/vendor/bin/phinx seed:run -s PagesSeeder</code> for create
+                        default example of pages
                     </li>
                 </ol>
             </div>

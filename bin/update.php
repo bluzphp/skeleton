@@ -26,7 +26,7 @@ function copyVendor($mask, $target) {
             copyVendor($newMask, $target .'/'.$script);
         } else {
             $newFile = $root .'/public/'. $target .'/'. $script .'.'. $ext;
-            echo '  '. $file .' >> '. $newFile .PHP_EOL;
+            echo "\t". $newFile .PHP_EOL;
             copy($file, $newFile);
         }
     }
