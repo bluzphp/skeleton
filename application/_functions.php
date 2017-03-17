@@ -29,7 +29,7 @@ function errorHandler($severity, $message, $file = null, $line = null)
  * Write Exception to log file
  *
  * @param \Throwable $exception
- * @return bool
+ * @return void
  */
 function errorLog($exception)
 {
@@ -49,6 +49,4 @@ function errorLog($exception)
             FILE_APPEND | LOCK_EX
         );
     }
-
-    return false;
 }
