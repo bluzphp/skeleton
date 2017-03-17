@@ -6,7 +6,7 @@
  * @return array
  */
 return [
-    "enabled" => !getenv('BLUZ_DEBUG'),
+    "enabled" => true,
     "adapter" => "filesystem",
     "pools" => [
         /**

@@ -9,7 +9,7 @@ while (ob_get_level()) {
     ob_end_clean();
 }
 
-$debug = $_COOKIE['BLUZ_DEBUG']?:getenv('BLUZ_DEBUG');
+$debug = getenv('BLUZ_DEBUG') && isset($_COOKIE['BLUZ_DEBUG']);
 ?>
 <!DOCTYPE html>
 <html>
