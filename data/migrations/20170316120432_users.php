@@ -66,13 +66,7 @@ class Users extends AbstractMigration
                 'update' => 'CASCADE'
             ])
             ->create();
-    }
 
-    /**
-     * Migrate Up.
-     */
-    public function up()
-    {
         $data = [
             [
                 'id' => 1,
@@ -106,14 +100,5 @@ class Users extends AbstractMigration
         $auth = $this->table('auth');
         $auth->insert($data)
             ->save();
-    }
-
-    /**
-     * Migrate Down.
-     */
-    public function down()
-    {
-        // clear `users` table
-        $this->execute('DELETE FROM users');
     }
 }

@@ -58,13 +58,8 @@ class Acl extends AbstractMigration
                 'update' => 'CASCADE'
             ])
             ->create();
-    }
 
-    /**
-     * Migrate Up.
-     */
-    public function up()
-    {
+
         $roles = [
             [
                 'id' => 1,
@@ -170,16 +165,5 @@ class Acl extends AbstractMigration
             ],
         ];
         $this->table('acl_users_roles')->insert($usersRoles)->save();
-    }
-
-    /**
-     * Migrate Down.
-     */
-    public function down()
-    {
-        // clear tables
-        $this->execute('DELETE FROM acl_roles');
-        $this->execute('DELETE FROM acl_privileges');
-        $this->execute('DELETE FROM acl_users_roles');
     }
 }
