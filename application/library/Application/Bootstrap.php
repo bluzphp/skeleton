@@ -143,7 +143,6 @@ class Bootstrap extends Application
      */
     public function end()
     {
-        debug(get_included_files());
         if ($messages = Logger::get('error')) {
             foreach ($messages as $message) {
                 errorLog(new \ErrorException($message, 0, E_USER_ERROR));
