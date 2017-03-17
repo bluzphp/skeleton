@@ -16,6 +16,7 @@ install:
 before_script:
   # Migrations
   - vendor/bin/phinx migrate -e default
+  - vendor/bin/phinx seed:run
   # Codeception
   - wget http://codeception.com/codecept.phar
   # Scrutinizer
