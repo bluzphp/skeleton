@@ -8,6 +8,8 @@ if (!headers_sent()) {
 while (ob_get_level()) {
     ob_end_clean();
 }
+
+$debug = getenv('BLUZ_DEBUG') && isset($_COOKIE['BLUZ_DEBUG']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,7 +55,7 @@ while (ob_get_level()) {
 <section>
     <h1>Error 503</h1>
     <h2>Server Temporarily Unavailable</h2>
-    <?php if (getenv('BLUZ_DEBUG') && isset($e)) : ?>
+    <?php if ($debug && isset($e)) : ?>
         <p><?=$e->getMessage()?></p>
         <pre><?=$e->getTraceAsString()?></pre>
     <?php endif;?>

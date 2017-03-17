@@ -5,10 +5,10 @@
  * @link https://github.com/bluzphp/framework/wiki/Cache
  * @return array
  */
-return array(
-    "enabled" => false,
-    "adapter" => "memcached",
-    "pools" => array(
+return [
+    "enabled" => true,
+    "adapter" => "filesystem",
+    "pools" => [
         /**
          * @link https://github.com/php-cache/apc-adapter
          */
@@ -49,5 +49,5 @@ return array(
             $client = new \Predis\Client('tcp:/127.0.0.1:6379');
             return new \Cache\Adapter\Predis\PredisCachePool($client);
         }
-    )
-);
+    ]
+];

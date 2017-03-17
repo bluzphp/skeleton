@@ -61,6 +61,9 @@ return function () {
 
         foreach ($filesIterator as $filePath => $fileInfo) {
             /* @var \SplFileInfo $fileInfo */
+            if ($fileInfo->getExtension() != 'php') {
+                continue;
+            }
             $controller = $fileInfo->getBasename('.php');
             if ($prefix = substr($fileInfo->getPath(), $controllerPathLength)) {
                 $controller = $prefix .'/'. $controller;

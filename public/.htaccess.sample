@@ -1,5 +1,4 @@
 SetEnv BLUZ_ENV production
-SetEnv BLUZ_DEBUG_KEY BLUZ_DEBUG
 
 AddDefaultCharset UTF-8
 

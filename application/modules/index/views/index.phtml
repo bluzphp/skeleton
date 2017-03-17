@@ -18,22 +18,36 @@
         </div>
         <div id="collapseFour" class="panel-collapse collapse">
             <div class="panel-body">
+                <p>Just two step for setup database</p>
                 <ol>
                     <li>
-                        Setup database structure from <code>structure.ddl</code>
+                        Setup DB configuration in <code>./application/configs/production/db.php</code> file
                     </li>
                     <li>
-                        Restore database dump from <code>dump.sql</code>
-                    </li>
-                    <li>
-                        Setup configuration at <code>application/configs/dev/</code> directory
+                        Run phinx migration <code>./vendor/bin/phinx migrate</code>
                     </li>
                 </ol>
+                <div class="text-muted">
+                    <p>Also you can setup configuration for development environment</p>
+                    <ol>
+                        <li>
+                            setup environment <code>export BLUZ_ENV=<strong>dev</strong></code>
+                        </li>
+                        <li>
+                            setup configuration in <code>application/configs/<strong>dev</strong>/db.php</code> file
+                        </li>
+                        <li>
+                            run phinx migration <code>/path/to/vendor/bin/phinx migrate</code>
+                        </li>
+                    </ol>
+                </div>
+                <p>
+                    Than you can run phinx seeds <code>/path/to/vendor/bin/phinx seed:run</code> for create
+                    default example of pages and other stuff
+                </p>
             </div>
         </div>
     </div>
-
-
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title">
@@ -45,12 +59,11 @@
         <div id="collapseFive" class="panel-collapse collapse">
             <div class="panel-body">
                 <p>
-                    Try to login with credentials <code>admin</code> / <code>admin</code>
+                    Try to login with login <code>admin</code> and password <code>admin</code>
                 </p>
             </div>
         </div>
     </div>
-
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -63,9 +76,9 @@
         <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body">
                 <ol>
-                    <li>create new folder <code>application/modules/my</code>, where <code>my</code> it's module name </li>
-                    <li>create new subfolder <code>application/modules/my/controllers</code></li>
-                    <li>create file <code>application/modules/my/controllers/index.php</code></li>
+                    <li>create new folder <code>./application/modules/my</code>, where <code>my</code> it's module name </li>
+                    <li>create new subfolder <code>./application/modules/my/controllers</code></li>
+                    <li>create file <code>./application/modules/my/controllers/index.php</code></li>
                 </ol>
 <pre><code><strong>&lt;?php</strong>
 return
@@ -73,10 +86,9 @@ return
     * @param string $question
     * @return \closure
     */</em>
-    function(<var>$question</var> = null) use (<var>$view</var>) {
+    function(<var>$question</var> = null) {
         <em>/**
-        * @var Application $this
-        * @var View $view
+        * @var Controller $this
         */</em>
         switch ($question) {
             case <span>'2+2'</span>:
@@ -89,8 +101,10 @@ return
             default:
                 <var>$answer</var> = 42;
         }
-        $view->question = <var>$question</var>;
-        $view->answer = <var>$answer</var>;
+        return [
+            <span>"question"</span> => <var>$question</var>,
+            <span>"answer"</span> = <var>$answer</var>
+        ];
     };</code></pre>
 
             </div>
@@ -107,8 +121,8 @@ return
         <div id="collapseTwo" class="panel-collapse collapse">
             <div class="panel-body">
                 <ol>
-                    <li>create new subfolder <code>application/modules/my/views</code></li>
-                    <li>create file <code>application/modules/my/views/index.phtml</code></li>
+                    <li>create new subfolder <code>./application/modules/my/views</code></li>
+                    <li>create file <code>./application/modules/my/views/index.phtml</code></li>
                 </ol>
 <pre><code>&lt;p&gt;
 <strong>&lt;?php</strong> if (<var>$question</var>) : <strong>?&gt;</strong>

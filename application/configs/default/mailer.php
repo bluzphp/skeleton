@@ -6,7 +6,7 @@
  * @link https://github.com/Synchro/PHPMailer
  * @return array
  */
-return array(
+return [
     "subjectTemplate" => "Bluz - %s",
     "from" => [
         "email" => "no-reply@example.com",
@@ -15,4 +15,4 @@ return array(
     "settings" => [
         "CharSet" => "UTF-8"
     ],
-);
+];

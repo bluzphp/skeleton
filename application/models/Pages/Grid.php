@@ -30,14 +30,15 @@ class Grid extends \Bluz\Grid\Grid
      */
     public function init()
     {
-         // Setup source
-         $adapter = new SqlSource();
-         $adapter->setSource('SELECT * FROM pages');
+        // Setup source
+        $adapter = new SqlSource();
+        $adapter->setSource('SELECT * FROM pages');
 
-         $this->setAdapter($adapter);
-         $this->setDefaultLimit(25);
-         $this->setAllowOrders(['title', 'id', 'created', 'updated']);
-         $this->setAllowFilters(['title', 'alias', 'description', 'content', 'id']);
-         return $this;
+        $this->setAdapter($adapter);
+        $this->setDefaultLimit(25);
+        $this->setAllowOrders(['title', 'id', 'created', 'updated']);
+        $this->setAllowFilters(['title', 'alias', 'description', 'content', 'id']);
+        $this->processSource();
+        return $this;
     }
 }

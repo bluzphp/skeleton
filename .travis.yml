@@ -16,6 +16,7 @@ install:
 before_script:
   # Migrations
   - vendor/bin/phinx migrate -e default
+  - vendor/bin/phinx seed:run -e default
   # Codeception
   - wget http://codeception.com/codecept.phar
   # Scrutinizer
@@ -27,7 +28,7 @@ script:
   # WebServer run
   - nohup bash -c "php -S 127.0.0.1:8000 -t ./public/ ./public/routing.php 2>&1 &" && sleep 1; cat nohup.out
   # CodeCeption
-  - php codecept.phar run --coverage --coverage-xml
+  - php codecept.phar run --coverage --coverage-xml -v
   # Newman run
   - newman run tests/postman/collection.json -e tests/postman/environment.json
 after_script:

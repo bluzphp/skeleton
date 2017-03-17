@@ -2,6 +2,7 @@
 /**
  * @var \Bluz\Grid\Grid $grid
  */
+if (!$grid) return;
 ?>
 <?php if ($grid->pages() > 1 && sizeof($grid->getData()) < $grid->getLimit()) :
     $emptyRows = $grid->getLimit() - sizeof($grid->getData()); ?>
