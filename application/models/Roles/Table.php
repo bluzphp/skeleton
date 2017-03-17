@@ -17,7 +17,6 @@ use Bluz\Proxy\Db;
  *
  * @package  Application\Roles
  *
- *
  * @method   static Row findRow($primaryKey)
  * @method   static Row findRowWhere($whereList)
  */

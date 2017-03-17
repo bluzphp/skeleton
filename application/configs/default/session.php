@@ -5,15 +5,15 @@
  * @link https://github.com/bluzphp/framework/wiki/Session
  * @return array
  */
-return array(
+return [
     "adapter" => "files",
-    "settings" => array(
-        "cache" => array(),
-        "files" => array(
+    "settings" => [
+        "cache" => [],
+        "files" => [
             "save_path" => PATH_DATA . '/sessions'
-        ),
-        "redis" => array(
+        ],
+        "redis" =>[
             "host" => 'localhost'
-        )
-    )
-);
+        ]
+    ]
+];

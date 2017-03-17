@@ -16,17 +16,6 @@ if (PHP_SAPI === 'cli') {
     exit;
 }
 
-// Setup environment
-/**
- * Debug mode for development environment only,
- * use bookmarklets for enable it
- * @link https://github.com/bluzphp/skeleton/wiki/Module-System
- */
-$debugKey = getenv('BLUZ_DEBUG_KEY') ?: 'BLUZ_DEBUG';
-if (isset($_COOKIE[$debugKey])) {
-    putenv('BLUZ_DEBUG=1');
-}
-
 /**
  * Block iframe embedding for prevent security issues
  * @link https://developer.mozilla.org/en-US/docs/HTTP/X-Frame-Options

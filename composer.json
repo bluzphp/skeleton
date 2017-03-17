@@ -18,6 +18,7 @@
     "js/require": "dev-master"
   },
   "require-dev": {
+    "bluzphp/bluzman": "dev-master",
     "satooshi/php-coveralls": "~1.0",
     "squizlabs/php_codesniffer": "~2.3",
     "zendframework/zend-dom": "~2.3"

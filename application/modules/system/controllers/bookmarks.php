@@ -28,7 +28,4 @@ return function () {
             __('Bookmarklets'),
         ]
     );
-
-    $key = getenv('BLUZ_DEBUG_KEY') ?: 'BLUZ_DEBUG';
-    return ['key' => $key];
 };

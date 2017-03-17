@@ -6,8 +6,8 @@ use Bluz\Application\Application;
 <?php
     // for IDE syntax highlighter
     /** @var $key */
-    $on = "javascript:(function(){document.cookie='$key=1;path=/;';window.location.reload();})()";
-    $off = "javascript:(function(){document.cookie='$key=;expires=Mon,%2005%20Jul%202000%2000:00:00%20GMT;path=/;';window.location.reload();})()";
+    $on = "javascript:(function(){document.cookie='BLUZ_DEBUG=1;path=/;';window.location.reload();})()";
+    $off = "javascript:(function(){document.cookie='BLUZ_DEBUG=;expires=Mon,%2005%20Jul%202000%2000:00:00%20GMT;path=/;';window.location.reload();})()";
 
     $profilerOn = "javascript:(function(){document.cookie='XDEBUG_PROFILE=1;path=/;';window.location.reload();})()";
     $profilerOff = "javascript:(function(){document.cookie='XDEBUG_PROFILE=;expires=Mon,%2005%20Jul%202000%2000:00:00%20GMT;path=/;';window.location.reload();})()";
