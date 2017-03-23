@@ -70,6 +70,6 @@
 <?php
 // need for plain request
 if (isset($errors)) :
-    $this->partial('crud/errors.phtml', ['uid' => $uid, 'errors' => $errors]);
+    echo $this->partial('crud/errors.phtml', ['uid' => $uid, 'errors' => $errors]);
 endif;
 ?>
