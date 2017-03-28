@@ -12,6 +12,8 @@ namespace Application\Tests\Cache;
 use Application\Tests\ControllerTestCase;
 
 /**
+ * @group    cache
+ *
  * @package  Application\Tests\Cache
  * @author   Anton Shevchuk
  * @created  15.05.14 12:24

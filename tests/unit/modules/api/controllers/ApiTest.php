@@ -13,6 +13,8 @@ use Application\Tests\ControllerTestCase;
 use Bluz\Proxy\Response;
 
 /**
+ * @group    api
+ *
  * @author   Dmitriy Rassadkin
  * @created  29.09.14 10:37
  */

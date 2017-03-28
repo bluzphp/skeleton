@@ -13,7 +13,9 @@ use Application\Tests\ControllerTestCase;
 use Bluz\Proxy\Response;
 
 /**
- * @package Application\Tests\Dashboard
+ * @group    dashboard
+ *
+ * @package  Application\Tests\Dashboard
  * @author   Anton Shevchuk
  * @created  28.03.14 17:08
  */

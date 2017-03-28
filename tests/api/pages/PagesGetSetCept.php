@@ -1,5 +1,6 @@
 <?php
-// @group test
+// @group pages
+// @group api
 $I = new ApiTester($scenario);
 $I->wantTo('get all pages over REST API');
 $I->haveHttpHeader('Accept', 'application/json');

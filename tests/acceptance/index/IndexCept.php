@@ -1,5 +1,5 @@
 <?php
-// @group test
+// @group index
 $I = new AcceptanceTester($scenario);
 $I->wantTo('open homepage');
 $I->setHeader("Accept", "text/html");

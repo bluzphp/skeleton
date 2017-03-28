@@ -1,5 +1,6 @@
 <?php
-// @group test
+// @group pages
+// @group api
 $I = new ApiTester($scenario);
 $I->wantTo('get page by ID over REST API');
 $I->haveHttpHeader('Accept', 'application/json');

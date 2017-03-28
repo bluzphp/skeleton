@@ -12,6 +12,9 @@ namespace Application\Tests\Users;
 use Application\Tests\ControllerTestCase;
 
 /**
+ * @group    users
+ * @group    grid
+ *
  * @package  Application\Tests\Users
  * @author   Anton Shevchuk
  * @created  27.05.2014 14:26
