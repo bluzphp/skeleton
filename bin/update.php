@@ -8,7 +8,6 @@
 // Root path, one level up
 $root = dirname(__DIR__);
 
-
 function copyVendor($mask, $target) {
     global $root;
 
@@ -26,7 +25,7 @@ function copyVendor($mask, $target) {
             copyVendor($newMask, $target .'/'.$script);
         } else {
             $newFile = $root .'/public/'. $target .'/'. $script .'.'. $ext;
-            echo "\t". $newFile .PHP_EOL;
+            // echo "\t". $newFile .PHP_EOL;
             copy($file, $newFile);
         }
     }
