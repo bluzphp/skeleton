@@ -18,7 +18,7 @@ use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
 use Application\Users;
 use Application\Tests\Fixtures\Users\UserHasPermission;
-use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit_Framework_ExpectationFailedException as ExpectationFailedException;
 use Zend\Dom\Document;
 
 /**
@@ -265,7 +265,7 @@ class ControllerTestCase extends TestCase
      * Assert against DOM/XPath selection
      *
      * @param string $path
-     * @throws ExpectationFailedException
+     * @throws PHPUnit_Framework_ExpectationFailedException
      */
     public static function assertQuery($path)
     {

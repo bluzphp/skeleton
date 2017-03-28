@@ -13,6 +13,8 @@ use Application\Tests\ControllerTestCase;
 use Bluz\Http\RequestMethod;
 
 /**
+ * @group    cache
+ *
  * @package  Application\Tests\Cache
  * @author   Anton Shevchuk
  * @created  15.05.14 12:24

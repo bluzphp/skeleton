@@ -9,9 +9,9 @@ require.config({
     // if you need disable JS cache
     urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
-        "bootstrap": './vendor/bootstrap',
-        "jquery": './vendor/jquery',
-        "dropzone": './vendor/dropzone-amd-module',
+        "bootstrap": './vendor/bootstrap.min',
+        "jquery": './vendor/jquery.min',
+        "dropzone": './vendor/dropzone-amd-module.min',
         "redactor": './../redactor/redactor',
         "redactor.imagemanager": './../redactor/plugins/imagemanager',
         "text": "./vendor/text",

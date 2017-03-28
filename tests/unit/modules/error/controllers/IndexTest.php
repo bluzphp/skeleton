@@ -13,7 +13,9 @@ use Application\Tests\ControllerTestCase;
 use Bluz\Proxy\Response;
 
 /**
- * @package Application\Tests\Error
+ * @group    error
+ *
+ * @package  Application\Tests\Error
  * @author   Anton Shevchuk
  * @created  04.08.11 19:52
  */

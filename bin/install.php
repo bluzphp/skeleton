@@ -18,19 +18,21 @@ $folders = [
 ];
 
 foreach ($folders as $folder) {
-    if (!is_dir($root . $folder)
-        && mkdir($root . $folder, 0750, true)
-    ) {
-        echo 'Created folder ' . $folder . PHP_EOL;
+    if (is_dir($root . $folder)) {
+        chmod($root . $folder, 0777);
+        echo '  - Updated folder permissions ' . $folder . PHP_EOL;
+    } elseif (mkdir($root . $folder, 0777, true)) {
+        echo '  - Created folder ' . $folder . PHP_EOL;
     }
 }
-
-echo shell_exec("setup_permissions 2>&1");
-
 unset($folder);
-echo 'Copy .htaccess file' . PHP_EOL;
+
+
 if (copy($root . '/public/.htaccess.dev.sample', $root . '/public/.htaccess')) {
-    echo ' ./public/.htaccess' . PHP_EOL;
+    echo '  - Copied `.htaccess.dev.sample` to `.htaccess`' . PHP_EOL;
 }
 
 require_once 'update.php';
+
+// Docker container
+echo shell_exec("setup_permissions 2>&1");

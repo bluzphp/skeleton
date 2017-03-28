@@ -14,7 +14,9 @@ use Application\Users\Row;
 use Bluz\Proxy\Auth;
 
 /**
- * @package Application\Tests\Users
+ * @group    users
+ *
+ * @package  Application\Tests\Users
  * @author   Anton Shevchuk
  * @created  04.08.11 19:40
  */

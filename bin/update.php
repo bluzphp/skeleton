@@ -8,11 +8,10 @@
 // Root path, one level up
 $root = dirname(__DIR__);
 
-
 function copyVendor($mask, $target) {
     global $root;
 
-    foreach (glob($root .'/vendor/'. $mask) as $file) {
+    foreach (glob($root .'/vendor/'. $mask) as $i => $file) {
         $script = pathinfo($file, PATHINFO_FILENAME);
         $ext = pathinfo($file, PATHINFO_EXTENSION);
 
@@ -26,10 +25,12 @@ function copyVendor($mask, $target) {
             copyVendor($newMask, $target .'/'.$script);
         } else {
             $newFile = $root .'/public/'. $target .'/'. $script .'.'. $ext;
-            echo "\t". $newFile .PHP_EOL;
+            // echo "\t". $newFile .PHP_EOL;
             copy($file, $newFile);
         }
     }
+
+    echo "  - Copied $i files to `$target` directory\n";
 }
 
 // Copy Swagger-UI to public

@@ -13,7 +13,9 @@ use Application\Tests\ControllerTestCase;
 use Bluz\Router\Router;
 
 /**
- * @package Application\Tests\Pages
+ * @group    index
+ *
+ * @package  Application\Tests\Pages
  * @author   Anton Shevchuk
  * @created  04.08.11 19:52
  */

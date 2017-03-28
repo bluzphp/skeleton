@@ -12,6 +12,9 @@ namespace Application\Tests\Pages;
 use Application\Tests\ControllerTestCase;
 
 /**
+ * @group    pages
+ * @group    grid
+ *
  * @package  Application\Tests\Pages
  * @author   Anton Shevchuk
  * @created  27.05.2014 14:26

@@ -1,4 +1,5 @@
-<?php 
+<?php
+// @group users
 $I = new AcceptanceTester($scenario);
 $I->wantTo('login as admin');
 $I->setHeader("Accept", "text/html");

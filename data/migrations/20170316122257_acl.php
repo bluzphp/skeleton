@@ -34,7 +34,13 @@ class Acl extends AbstractMigration
             ->addIndex(['name'], ['unique' => true])
             ->create();
 
-        $privileges = $this->table('acl_privileges', ['primary_key' => ['roleId', 'module', 'privilege']]);
+        $privileges = $this->table(
+            'acl_privileges',
+            [
+                'id' => false,
+                'primary_key' => ['roleId', 'module', 'privilege']
+            ]
+        );
         $privileges
             ->addColumn('roleId', 'integer')
             ->addColumn('module', 'string', ['length'=>32])

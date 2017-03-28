@@ -12,6 +12,8 @@ namespace Application\Tests\Acl;
 use Application\Tests\ControllerTestCase;
 
 /**
+ * @group    acl
+ *
  * @package  Application\Tests\Acl
  * @author   Anton Shevchuk
  * @created  04.08.11 19:52
