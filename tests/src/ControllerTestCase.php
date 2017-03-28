@@ -265,7 +265,7 @@ class ControllerTestCase extends TestCase
      * Assert against DOM/XPath selection
      *
      * @param string $path
-     * @throws ExpectationFailedException
+     * @throws PHPUnit_Framework_ExpectationFailedException
      */
     public static function assertQuery($path)
     {
