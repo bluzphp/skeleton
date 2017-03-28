@@ -43,7 +43,7 @@ class Table extends \Bluz\Db\Table
     /**
      * @var array
      */
-    protected $basicRoles = ['admin', 'guest', 'member', 'system'];
+    protected $basicRoles = [self::BASIC_ADMIN, self::BASIC_GUEST, self::BASIC_MEMBER, self::BASIC_SYSTEM];
 
     /**
      * Init table relations
