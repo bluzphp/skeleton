@@ -79,8 +79,7 @@
   "autoload": {
     "psr-4": {
       "": "application/library",
-      "Application\\": "application/models",
-      "Application\\Tests\\": "tests/src"
+      "Application\\": "application/models"
     },
     "files": [
       "application/_functions.php",
