@@ -11,8 +11,8 @@ if (version_compare(phpversion(), '7.0.0', '<')) {
     exit(1);
 }
 
-// Root path, double level up
-$root = realpath(dirname(dirname(__FILE__)));
+// Root path - level up
+$root = realpath(dirname(__DIR__));
 
 defined('PATH_ROOT') ? : define('PATH_ROOT', $root);
 defined('PATH_APPLICATION') ? : define('PATH_APPLICATION', $root . '/application');
