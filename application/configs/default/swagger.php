@@ -9,7 +9,6 @@
 
 /**
  * @SWG\Swagger(
- *     basePath="/",
  *     schemes={"http"},
  *     produces={"application/json"},
  *     consumes={"application/x-www-form-urlencoded"},
@@ -26,11 +25,13 @@
  *         @SWG\Property(
  *             property="code",
  *             type="integer",
- *             format="int32"
+ *             format="int32",
+ *             example=404
  *         ),
  *         @SWG\Property(
  *             property="message",
- *             type="string"
+ *             type="string",
+ *             example="Not found"
  *         )
  *     ),
  *     @SWG\Parameter(

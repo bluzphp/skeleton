@@ -103,7 +103,10 @@ return function ($code, $message = '') {
         if (Request::getAccept(['application/json'])) {
             $this->useJson();
             Messages::addError($description);
-            return null;
+            return [
+                'code' => $code,
+                'error' => $message ?? $title
+            ];
         }
         // dialog AJAX call, accept HTML
         if (!Request::isXmlHttpRequest()) {

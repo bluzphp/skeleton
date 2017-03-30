@@ -29,16 +29,21 @@ use Bluz\Validator\Validator as v;
  * @property string $updated
  * @property integer $userId
  *
- * @SWG\Definition(definition="pages", title="Pages", required={"id", "title", "alias", "content"})
- * @SWG\Property(property="id", type="integer")
- * @SWG\Property(property="title", type="string", description="Page title")
- * @SWG\Property(property="alias", type="string", description="SEO URL")
- * @SWG\Property(property="content", type="string", description="Text")
- * @SWG\Property(property="keywords", type="string", description="Meta keywords")
- * @SWG\Property(property="description", type="string", description="Meta description")
- * @SWG\Property(property="created", type="string", format="date-time")
- * @SWG\Property(property="updated", type="string", format="date-time")
- * @SWG\Property(property="userId", type="integer", description="Author")
+ * @SWG\Definition(definition="pages", title="page", required={"id", "title", "alias", "content"})
+ * @SWG\Property(property="id", type="integer", description="Page UID", example=42)
+ * @SWG\Property(property="title", type="string", description="Page title",
+ *     example="The Ultimate Question of Life")
+ * @SWG\Property(property="alias", type="string", description="SEO URL",
+ *     example="the-ultimate-question")
+ * @SWG\Property(property="content", type="string", description="Text",
+ *     example="The Ultimate Question of Life, the Universe, and Everything")
+ * @SWG\Property(property="keywords", type="string", description="Meta keywords",
+ *     example="42, life, universe, everything")
+ * @SWG\Property(property="description", type="string", description="Meta description",
+ *     example="The Hitchhiker's Guide to the Galaxy")
+ * @SWG\Property(property="created", type="string", format="date-time", example="2017-03-17 19:06:28")
+ * @SWG\Property(property="updated", type="string", format="date-time", example="2017-03-17 19:06:28")
+ * @SWG\Property(property="userId", type="integer", description="Author", example=2)
  */
 class Row extends \Bluz\Db\Row
 {
