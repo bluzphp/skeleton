@@ -105,7 +105,7 @@ return function ($code, $message = '') {
             Messages::addError($description);
             return [
                 'code' => $code,
-                'error' => $message ?? $title
+                'error' => !empty($message) ? $message : $title
             ];
         }
         // dialog AJAX call, accept HTML
