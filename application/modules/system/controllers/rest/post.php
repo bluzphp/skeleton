@@ -31,7 +31,7 @@ use Bluz\Validator\Exception\ValidatorException;
  * @throws NotImplementedException
  */
 return function ($crud, $primary, $data) {
-    if (!empty($primary)) {
+    if (!empty(array_filter($primary))) {
         // POST + ID is incorrect behaviour
         throw new NotImplementedException();
     }
