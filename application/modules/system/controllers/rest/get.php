@@ -39,10 +39,7 @@ return function ($crud, $primary) {
             $limit = $last - $offset;
         }
 
-        Response::setStatusCode(StatusCode::PARTIAL_CONTENT);
-        
         $total = 0;
-        
         $result = $crud->readSet($offset, $limit, $params, $total);
 
         if (sizeof($result) < $total) {

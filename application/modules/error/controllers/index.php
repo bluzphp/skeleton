@@ -54,45 +54,45 @@ return function ($code, $message = '') {
 
     switch ($code) {
         case 400:
-            $title = __("Bad Request");
+            $error = __("Bad Request");
             $description = __("The server didn't understand the syntax of the request");
             break;
         case 401:
-            $title = __("Unauthorized");
+            $error = __("Unauthorized");
             $description = __("You are not authorized to view this page, please sign in");
             break;
         case 403:
-            $title = __("Forbidden");
+            $error = __("Forbidden");
             $description = __("You don't have permissions to access this page");
             break;
         case 404:
-            $title = __("Not Found");
+            $error = __("Not Found");
             $description = __("The page you requested was not found");
             break;
         case 405:
-            $title = __("Method Not Allowed");
+            $error = __("Method Not Allowed");
             $description = __("The server is not support method `%s`", Request::getMethod());
             Response::setHeader('Allow', $message);
             break;
         case 406:
-            $title = __("Not Acceptable");
+            $error = __("Not Acceptable");
             $description = __("The server is not acceptable generating content type described at `Accept` header");
             break;
         case 500:
-            $title = __("Internal Server Error");
+            $error = __("Internal Server Error");
             $description = __("The server encountered an unexpected condition");
             break;
         case 501:
-            $title = __("Not Implemented");
+            $error = __("Not Implemented");
             $description = __("The server does not understand or does not support the HTTP method");
             break;
         case 503:
-            $title = __("Service Unavailable");
+            $error = __("Service Unavailable");
             $description = __("The server is currently unable to handle the request due to a temporary overloading");
             Response::setHeader('Retry-After', '600');
             break;
         default:
-            $title = __("Internal Server Error");
+            $error = __("Internal Server Error");
             $description = __("An unexpected error occurred with your request. Please try again later");
             break;
     }
@@ -105,7 +105,7 @@ return function ($code, $message = '') {
             Messages::addError($description);
             return [
                 'code' => $code,
-                'error' => !empty($message) ? $message : $title
+                'error' => !empty($message) ? $message : $error
             ];
         }
         // dialog AJAX call, accept HTML
@@ -114,11 +114,11 @@ return function ($code, $message = '') {
         }
     }
 
-    Layout::title($title);
+    Layout::title($error);
 
     return [
         'code' => $code,
-        'error' => $title,
+        'error' => $error,
         'description' => $description,
         'message' => $message
     ];
