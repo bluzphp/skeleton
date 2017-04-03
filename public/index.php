@@ -45,5 +45,5 @@ try {
     // try to write log "warning"
     errorLog($e);
     // display error page
-    require_once 'error.php';
+    require_once __DIR__ .'/error.php';
 }

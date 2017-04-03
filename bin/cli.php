@@ -2,6 +2,8 @@
 /**
  * CLI file
  *
+ * @todo Rewrite it to Symfony Console http://symfony.com/doc/current/components/console.html
+ *
  * @author   C.O.
  * @created  14.11.12 13:20
  */
@@ -18,11 +20,9 @@ if (PHP_SAPI !== 'cli') {
 
 // Get CLI arguments
 $arguments = getopt(
-    "u:e::dlh",
+    "u:h",
     [
         "uri:",  // required
-        "env::", // optional
-        "debug", // just flag
         "help"   // display help
     ]
 );
@@ -30,14 +30,13 @@ $arguments = getopt(
 // Check help
 if (array_key_exists('h', $arguments) || array_key_exists('help', $arguments)) {
     echo "Option `--uri` is required, it's similar to browser query\n";
-    echo "Use `--env` option for setup application environment\n";
-    echo "Use `--debug` flag for receive more information\n";
+    echo "Use `export BLUZ_ENV=dev` option for setup application environment\n";
+    echo "Use `export BLUZ_DEBUG=1` flag for enable debug output\n";
     echo "Example:\n";
     echo "\tphp ./bin/cli.php --uri '/index/index/?foo=bar'\n";
-    echo "\tphp ./bin/cli.php --uri '/index/index/?foo=bar' --env='dev' --debug\n";
+    echo "\texport BLUZ_ENV=dev && php ./bin/cli.php --uri '/index/index/?foo=bar'\n";
     echo "Example of short syntax:\n";
     echo "\tphp ./bin/cli.php -u '/index/index/?foo=bar'\n";
-    echo "\tphp ./bin/cli.php -u '/index/index/?foo=bar' -e='dev' -d\n";
     exit();
 }
 
@@ -46,21 +45,6 @@ if (!array_key_exists('u', $arguments) && !array_key_exists('uri', $arguments)) 
     echo "Option `--uri` is required\n";
     echo "Use `--help` flag for show help notices\n";
     exit();
-}
-
-// Check and setup environment
-if (array_key_exists('e', $arguments) || array_key_exists('env', $arguments)) {
-    putenv('BLUZ_ENV='. (isset($arguments['e'])?$arguments['e']:$arguments['env']));
-}
-
-// Check and setup log save
-if (array_key_exists('l', $arguments) || array_key_exists('log', $arguments)) {
-    putenv('BLUZ_LOG=1');
-}
-
-// Debug mode for development environment only
-if (array_key_exists('d', $arguments) || array_key_exists('debug', $arguments)) {
-    putenv('BLUZ_DEBUG=1');
 }
 
 // Try to run application
