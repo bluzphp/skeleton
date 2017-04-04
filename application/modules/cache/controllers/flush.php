@@ -16,7 +16,7 @@ use Bluz\Proxy\Cache;
 use Bluz\Proxy\Messages;
 
 /**
- * Flush cache servers
+ * Clear all pool
  *
  * @accept JSON
  * @privilege Management
@@ -28,7 +28,7 @@ return function () {
      */
     if (Cache::getInstance()) {
         Cache::clear();
-        Messages::addSuccess("Cache is flushed");
+        Messages::addSuccess("Cache cleared");
     } else {
         Messages::addNotice("Cache is disabled");
     }
