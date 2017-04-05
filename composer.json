@@ -11,14 +11,14 @@
     "zircote/swagger-php": "~2.0",
     "fortawesome/font-awesome": "~4.6",
     "twbs/bootstrap": "~3.3",
-    "robmorgan/phinx": "~0.6",
+    "robmorgan/phinx": "~0.8",
     "public/swagger-ui": "dev-master",
     "js/jquery": "dev-master",
     "js/dropzone": "dev-master",
     "js/require": "dev-master"
   },
   "require-dev": {
-    "bluzphp/bluzman": "dev-master",
+    "bluzphp/bluzman": "~2.1",
     "satooshi/php-coveralls": "~1.0",
     "squizlabs/php_codesniffer": "~2.3",
     "zendframework/zend-dom": "~2.3"

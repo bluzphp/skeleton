@@ -1,17 +1,21 @@
 <?php
 /**
- * @namespace
+ * Phinx configuration
+ *
+ *   Please, don't move this file inside `default` folder
+ *   It should be placed here for avoid `Config` call in recursion
+ *
+ * @link https://github.com/robmorgan/phinx/blob/master/docs/configuration.rst
+ * @return array
  */
-namespace Application;
-
 return [
     'paths' => [
-        'migrations' => '%%PHINX_CONFIG_DIR%%/data/migrations',
-        'seeds' => '%%PHINX_CONFIG_DIR%%/data/seeds'
+        'migrations' => PATH_DATA . '/migrations',
+        'seeds' => PATH_DATA . '/seeds'
     ],
     'environments' => [
         'default_migration_table' => 'migrations',
-        'default' => call_user_func(function () {
+        'default' => (function () {
             $config = new \Bluz\Config\Config();
 
             $config ->setPath(PATH_APPLICATION);
@@ -22,6 +26,6 @@ return [
             $data['adapter'] = $data['type'];
 
             return $data;
-        })
+        })()
     ]
 ];
