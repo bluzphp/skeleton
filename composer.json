@@ -19,6 +19,7 @@
   },
   "require-dev": {
     "bluzphp/bluzman": "~2.1",
+    "codeception/codeception": "~2.2",
     "satooshi/php-coveralls": "~1.0",
     "squizlabs/php_codesniffer": "~2.3",
     "zendframework/zend-dom": "~2.3"
