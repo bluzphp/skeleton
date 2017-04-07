@@ -50,7 +50,11 @@ return function ($crud, $primary, $data) {
         }
         return [];
     } catch (ValidatorException $e) {
-        Response::setStatusCode(StatusCode::BAD_REQUEST);
-        return ['errors' => $e->getErrors()];
+        Response::setStatusCode($e->getCode());
+        return [
+            'code' => $e->getCode(),
+            'error' => $e->getMessage(),
+            'errors' => $e->getErrors()
+        ];
     }
 };

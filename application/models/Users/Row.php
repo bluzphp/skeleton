@@ -31,8 +31,13 @@ use Bluz\Validator\Validator as v;
  * @property string $updated
  * @property string $status
  *
- * @author   Anton Shevchuk
- * @created  08.07.11 17:13
+ * @SWG\Definition(definition="users", title="user", required={"id", "login", "status"})
+ * @SWG\Property(property="id", type="integer", description="User UID", example=2)
+ * @SWG\Property(property="login", type="string", description="Login", example="admin")
+ * @SWG\Property(property="email", type="string", description="Email", example="admin@domain.com")
+ * @SWG\Property(property="created", type="string", format="date-time", example="2017-01-01 20:17:01")
+ * @SWG\Property(property="updated", type="string", format="date-time", example="2017-01-01 20:17:01")
+ * @SWG\Property(property="status", type="string", enum={"pending", "active", "disabled", "deleted"})
  */
 class Row extends AbstractRowEntity
 {

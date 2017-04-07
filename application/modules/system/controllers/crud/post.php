@@ -38,6 +38,7 @@ return function ($crud, $primary, $data) {
     } catch (ValidatorException $e) {
         $row = $crud->readOne(null);
         $row->setFromArray($data);
+
         return [
             'row'    => $row,
             'errors' => $e->getErrors(),

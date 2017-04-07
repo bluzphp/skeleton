@@ -7,7 +7,7 @@
 
 <h3 class="page-header">
     <?= __('Profile') ?>
-    <?php if ($this->user()->id == $user->id) : ?>
+    <?php if ($this->user() && $this->user()->id == $user->id) : ?>
         <?= $this->ahref(__('Change email'), ['users', 'change-email'], ['class' => 'btn btn-mini pull-right']) ?>
         <?= $this->ahref(__('Change password'), ['users', 'change-password'], ['class' => 'btn btn-mini pull-right']) ?>
     <?php endif; ?>
@@ -21,6 +21,10 @@
         <div class=" col-md-10 col-lg-10 ">
             <table class="table table-user-information">
                 <tbody>
+                <tr>
+                    <td><?= __('Login') ?></td>
+                    <td><?= $user->login ?></td>
+                </tr>
                 <tr>
                     <td><?= __('Email') ?></td>
                     <td><a href="mailto:<?= $user->email ?>"><?= $user->email ?></a></td>

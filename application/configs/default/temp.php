@@ -1,6 +1,9 @@
 <?php
 /**
- * Temporary files for tests
+ * Temporary files for tests, used by:
+ *  - module-media
+ *
+ * @todo rename to `test`
  *
  * @return array
  */

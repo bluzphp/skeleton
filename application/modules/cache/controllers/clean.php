@@ -16,7 +16,7 @@ use Bluz\Proxy\Cache;
 use Bluz\Proxy\Messages;
 
 /**
- * Clean data
+ * Clean system data
  *
  * @accept JSON
  * @privilege Management
@@ -28,8 +28,7 @@ return function () {
      */
     if (Cache::getInstance()) {
         Cache::clearTags(['system']);
-
-        Messages::addSuccess("Cache is cleaned");
+        Messages::addSuccess("Cache with tag `system` cleaned");
     } else {
         Messages::addNotice("Cache is disabled");
     }

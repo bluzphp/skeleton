@@ -31,7 +31,7 @@ use Bluz\Validator\Exception\ValidatorException;
  * @throws NotImplementedException
  */
 return function ($crud, $primary, $data) {
-    if (!empty($primary)) {
+    if (!empty(array_filter($primary))) {
         // POST + ID is incorrect behaviour
         throw new NotImplementedException();
     }
@@ -47,8 +47,12 @@ return function ($crud, $primary, $data) {
             $result = join('-', array_values($result));
         }
     } catch (ValidatorException $e) {
-        Response::setStatusCode(StatusCode::BAD_REQUEST);
-        return ['errors' => $e->getErrors()];
+        Response::setStatusCode($e->getCode());
+        return [
+            'code' => $e->getCode(),
+            'error' => $e->getMessage(),
+            'errors' => $e->getErrors()
+        ];
     }
 
     Response::setStatusCode(StatusCode::CREATED);

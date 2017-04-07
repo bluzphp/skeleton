@@ -147,7 +147,7 @@
 			"data": [],
 			"dataMode": "params",
 			"version": 2,
-			"tests": "tests[\"Status code is 206\"] = responseCode.code === 206;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
 			"time": 1465827611857,

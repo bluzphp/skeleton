@@ -22,13 +22,13 @@ return function () {
      */
     $this->useJson();
 
-    $paths = array(
+    $paths = [
         PATH_APPLICATION . '/configs',
         PATH_APPLICATION . '/models',
         PATH_APPLICATION . '/modules',
-    );
+    ];
 
-    $options = array();
+    $options = [];
 
     print Swagger\scan($paths, $options);
 
