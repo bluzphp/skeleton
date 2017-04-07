@@ -24,7 +24,7 @@
                         Setup DB configuration in <code>./application/configs/production/db.php</code> file
                     </li>
                     <li>
-                        Run phinx migration <code>./vendor/bin/phinx migrate</code>
+                        Run phinx migration <code>./vendor/bin/bluzman db:migrate</code>
                     </li>
                 </ol>
                 <div class="text-muted">
@@ -42,7 +42,7 @@
                     </ol>
                 </div>
                 <p>
-                    Than you can run phinx seeds <code>./vendor/bin//phinx seed:run</code> for create
+                    Than you can run phinx seeds <code>./vendor/bin/bluzman db:seed:run</code> for create
                     default example of pages and other stuff
                 </p>
             </div>
@@ -81,12 +81,11 @@
                     <li>create file <code>./application/modules/my/controllers/index.php</code></li>
                 </ol>
 <pre><code><strong>&lt;?php</strong>
-return
-    <em>/**
-    * @param string $question
-    * @return \closure
-    */</em>
-    function(<var>$question</var> = null) {
+<em>/**
+ * @param string $question
+ * @return array
+ */</em>
+return function(<var>$question</var> = null) {
         <em>/**
         * @var Controller $this
         */</em>
