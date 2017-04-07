@@ -18,41 +18,37 @@ Easy to setup, easy to use. Example application
 [![License](https://poser.pugx.org/bluzphp/skeleton/license.svg)](https://packagist.org/packages/bluzphp/skeleton)
 
 ## Installation
+Bluz works with PHP 7.0 or later and MySQL 5.4 or later (please check [requirements](https://github.com/bluzphp/skeleton/wiki/Requirements))
 
-Bluz works with PHP 5.6 or later and MySQL 5.4 or later (please check [requirements](https://github.com/bluzphp/skeleton/wiki/Requirements))
-
-### From composer
-
+### I.a. From composer
 Download `composer.phar`, it's easy:
-```
+```bash
 curl -s https://getcomposer.org/installer | php
 ```
 
 Run `create-project` command (replace `%path%` ;):
-```
+```bash
 php composer.phar create-project bluzphp/skeleton %path% --stability=dev
 ```
 
-### From repository
-
+### I.b. From repository
 Get Bluz skeleton source files from GitHub repository:
-```
+```bash
 git clone git://github.com/bluzphp/skeleton.git %path%
 ```
 
 Download `composer.phar` to the project folder:
-```
+```bash
 cd %path%
 curl -s https://getcomposer.org/installer | php
 ```
 
 Install composer dependencies with the following command:
-```
+```bash
 php composer.phar install
 ```
 
-### With PhpStorm
-
+### I.c. With PhpStorm
 For install you need any web-server (for Windows) and PhpStorm. dows) и PhpStorm.
 
 Create project in PhpStorm:
@@ -63,72 +59,54 @@ Create project in PhpStorm:
 4. Check that radiobutton is set opposite "Download composer.phar from getcomposer.org", type in a search field "bluzphp/skeleton", select this package in Available packages window and click OK.
 5. After that file composer.phar and all dependencies will be loaded. 
 
-### Last step
-
+### II. Configuration
 Edit your configuration's files `/path/to/application/configs/dev/*.php` (configuration for development environment).
-Edit your configuration file `phinx.yml` (configuration for phinx migration)
+> I think you need to change only `db.php` for first run
 
+### III. Setup database
 To run the migrations, execute the command:
-(for default environment)
-
-```
-/path/to/vendor/bin/phinx migrate -e default
+```bash
+/path/to/vendor/bin/bluzman db:migrate
 ```
 
-Run internal PHP web-server with simple console tool (for Linux):
-
+To fill database with data example, execute the command:
+```bash
+/path/to/vendor/bin/bluzman db:seed:run
 ```
-/path/to/bin/server.sh -e dev
+
+### IV.a. Run built-in web-server
+You can run internal PHP web-server with simple console tool:
+```bash
+/path/to/vendor/bin/bluzman server:start --host[="..."] --port[="..."]
 ```
 
+### IV.b. Use Apache
 Or create symlink to Apache document root (required FollowSymlinks option):
-* Linux
-```
+
+```bash
+# for Linux
 ln -s /path/to/public /path/to/web
 ```
-* Win
-```
+
+```bash
+# for Windows
 mklink /D /path/to/web path/to/public
 ```
 
-
 ## Usage
 
-Controller:
+You can create models, controllers and views with [Bluzman](https://github.com/bluzphp/bluzman) console tool, 
+or following *old school style*:
 
-```php
-<?php
-return
-/**
- * @privilege View-User-Profile
- * @cache 5 minutes
- * @param integer $id
- * @return \closure
- */
-function($id) use ($view) {
-    /**
-     * @var Application $this
-     * @var View $view
-     */
-     $view->user = Users\Table::findRow($id);
-};
-```
-
-View:
-
-```php
-<h2><?=$user->login?></h2>
-```
-
-Model:
-
+### Model
+Model consists from two classes `Table` and `Row`:
 ```php
 <?php
 namespace Application\Users;
 class Table extends \Bluz\Db\Table
 {
     protected $table = 'users';
-    protected $primary = array('id');
+    protected $primary = ['id'];
 }
 ```
 
@@ -144,26 +122,46 @@ class Row extends \Bluz\Db\Row {
 }
 ```
 
-## Documentation
+### Controller
+Controller is file with anonymous function:
+```php
+<?php
+namespace Application;
 
+/**
+ * @privilege View-User-Profile
+ * @cache 5 minutes
+ * @param integer $id
+ * @return array
+ */
+return function($id) {
+    return [
+        'user' => Users\Table::findRow($id)
+    ];
+};
+```
+
+### View
+View is native:
+```php
+<h2><?=$user->login?></h2>
+```
+
+## Documentation
 * [Framework wiki](https://github.com/bluzphp/framework/wiki)
 * [Skeleton wiki](https://github.com/bluzphp/skeleton/wiki)
+* [Bluzman docs](https://github.com/bluzphp/bluzman)
 
 ## Demo
-
 * [Bluz Demo](http://bluz.demo.php.nixdev.co)
 
 ## License
-
 The project is developed by [NIX Solutions](http://nixsolutions.com) PHP team and distributed under [MIT LICENSE](https://raw.github.com/bluzphp/skeleton/master/LICENSE.md)
 
 [NIX Solutions](http://nixsolutions.com) has OEM License of [Redactor](http://imperavi.com/redactor/).
 Full text of Redactor License you can read at http://imperavi.com/redactor/license/
 
 ## Vendors
-
-* [Bluz](https://github.com/bluzphp/framework/)
 * [jQuery](https://github.com/jquery/jquery/)
 * [RequireJS](http://requirejs.org/)
 * [Twitter Bootstrap](http://getbootstrap.com/)
-* [Font Awesome](http://fontawesome.io/)
