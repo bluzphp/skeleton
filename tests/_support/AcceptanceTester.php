@@ -20,7 +20,28 @@ class AcceptanceTester extends \Codeception\Actor
 {
     use _generated\AcceptanceTesterActions;
 
-   /**
-    * Define custom actions here
-    */
+    /**
+     * @param string $name
+     * @param string $password
+     */
+    public function login($name, $password)
+    {
+        $I = $this;
+        // logging in
+        $I->setHeader("Accept", "text/html");
+        $I->amOnPage('/users/signin');
+        $I->fillField('login', $name);
+        $I->fillField('password', $password);
+        $I->click('signin');
+    }
+
+    /**
+     * I'm admin
+     *
+     * @return void
+     */
+    public function amAdmin()
+    {
+        $this->login('admin', 'admin');
+    }
 }
