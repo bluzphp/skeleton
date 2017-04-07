@@ -16,7 +16,7 @@ install:
 before_script:
   # Migrations
   - php vendor/bin/bluzman db:migrate
-  - php vendor/bin/bluzman seed:run
+  - php vendor/bin/bluzman db:seed:run
   # Scrutinizer
   - wget https://scrutinizer-ci.com/ocular.phar
 script:
