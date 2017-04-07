@@ -8,6 +8,7 @@
 namespace Application;
 
 use Application\Users;
+use Bluz\Application\Exception\NotFoundException;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Layout;
 
@@ -15,7 +16,7 @@ use Bluz\Proxy\Layout;
  * @privilege ViewProfile
  *
  * @param int $id
- * @throws Exception
+ * @throws NotFoundException
  */
 return function ($id = null) {
     /**
@@ -34,8 +35,7 @@ return function ($id = null) {
     $user = Users\Table::findRow($id);
 
     if (!$user) {
-        throw new Exception('User not found', 404);
-    } else {
-        $this->assign('user', $user);
+        throw new NotFoundException('User not found');
     }
+    $this->assign('user', $user);
 };
