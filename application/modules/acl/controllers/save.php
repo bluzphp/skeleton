@@ -46,7 +46,9 @@ return function ($acl) {
     if (empty($acl)) {
         Messages::addError('Privileges set is empty. You can\'t remove all of them');
     } elseif (Db::transaction($callback)) {
-        Cache::clearTags(['privileges']);
+        if (!Cache::clearTags(['privileges'])) {
+            Cache::clear();
+        }
         Messages::addSuccess('All data was saved');
     } else {
         Messages::addError('Internal Server Error');
