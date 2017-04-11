@@ -161,7 +161,6 @@ class CliBootstrap extends Application
         $io->title('Bluz CLI');
 
         if ($params = Request::getParams()) {
-
             foreach ($params as $key => $value) {
                 $io->writeln("<info>$key</info>: $value");
             }
