@@ -69,19 +69,19 @@ return function () {
                 $controller = $prefix .'/'. $controller;
             }
             $controllerInstance = new Controller($module, $controller);
-            $reflection = $controllerInstance->getReflection();
+            $meta = $controllerInstance->getMeta();
 
             if (!isset($set[$module])) {
                 $set[$module] = array();
             }
 
-            if ($privilege = $reflection->getPrivilege()) {
+            if ($privilege = $meta->getPrivilege()) {
                 if (!in_array($privilege, $set[$module])) {
                     $set[$module][] = $privilege;
                 }
             }
 
-            if ($acl = $reflection->getAcl()) {
+            if ($acl = $meta->getAcl()) {
                 $set[$module] += $acl;
             }
         }

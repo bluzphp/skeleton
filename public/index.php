@@ -12,7 +12,7 @@ namespace Application;
 
 // Check CLI
 if (PHP_SAPI === 'cli') {
-    echo "Use `bin/cli.php` instead of `index.php`\n";
+    echo "Use `php ./vendor/bin/bluzman` instead of `index.php`\n";
     exit;
 }
 

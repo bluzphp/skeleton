@@ -9,7 +9,7 @@
         <h3 class="panel-title"><?=__('Please sign in')?></h3>
     </div>
     <div class="panel-body">
-        <form action="<?=$this->url('users', 'signin')?>" method="post">
+        <form action="<?=$this->url('users', 'signin')?>" method="post" class="ajax">
             <div class="form-group input-group">
                 <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
                 <label class="control-label sr-only" for="login"><?=__('Login')?></label>

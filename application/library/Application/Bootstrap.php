@@ -60,7 +60,6 @@ class Bootstrap extends Application
                 }
             }
         }
-
         parent::preDispatch($module, $controller, $params);
     }
 
@@ -84,12 +83,6 @@ class Bootstrap extends Application
      */
     public function forbidden(ForbiddenException $exception)
     {
-        if (AuthProxy::getIdentity()) {
-            $message = Translator::translate("You don't have permissions to access this page");
-        } else {
-            $message = Translator::translate("You don't have permissions, please sign in");
-        }
-
         // for AJAX and API calls (over JSON)
         $jsonOrApi = Request::isXmlHttpRequest()
             || (Request::getAccept([Request::TYPE_HTML, Request::TYPE_JSON]) == Request::TYPE_JSON);
@@ -99,13 +92,12 @@ class Bootstrap extends Application
             // save URL to session and redirect make sense if presentation is null
             Session::set('rollback', Request::getUri()->__toString());
             // add error notice
-            Messages::addError($message);
+            Messages::addError('You don\'t have permissions, please sign in');
             // redirect to Sign In page
             $url = Router::getUrl('users', 'signin');
             return $this->redirect($url);
-        } else {
-            return $this->error(new ForbiddenException($message, 403, $exception));
         }
+        return $this->error($exception);
     }
 
     /**
@@ -119,7 +111,7 @@ class Bootstrap extends Application
 
         if ($this->debugFlag && !headers_sent()) {
             $debugString = sprintf(
-                "%fsec; %skb",
+                '%fsec; %skb',
                 microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
                 ceil((memory_get_usage()/1024))
             );
