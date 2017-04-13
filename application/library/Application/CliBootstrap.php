@@ -21,7 +21,6 @@ use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
 use Bluz\Request\RequestFactory;
-use function GuzzleHttp\Psr7\parse_query;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -94,9 +93,7 @@ class CliBootstrap extends Application
     {
         $uri = $this->getInput()->getArgument('uri');
 
-        if (!$parsedQuery = parse_url($uri, PHP_URL_QUERY)) {
-            $this->getOutput()->writeln('<error>ERROR: unvalid URI format</error>');
-        }
+        $parsedQuery = parse_url($uri, PHP_URL_QUERY);
 
         parse_str($parsedQuery, $query);
 
@@ -121,7 +118,6 @@ class CliBootstrap extends Application
 
         parent::initConfig();
     }
-
 
     /**
      * Pre process
@@ -162,7 +158,8 @@ class CliBootstrap extends Application
 
         if ($params = Request::getParams()) {
             foreach ($params as $key => $value) {
-                $io->writeln("<info>$key</info>: $value");
+                $key = is_int($key) ? "<comment>$key</comment>" : "<info>$key</info>";
+                $io->writeln("$key: $value");
             }
         }
 

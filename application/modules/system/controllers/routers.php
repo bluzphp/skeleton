@@ -34,14 +34,14 @@ return function () {
         $controller = pathinfo($file->getPathname(), PATHINFO_FILENAME);
 
         $controllerInstance = new Controller($module, $controller);
-        $reflection = $controllerInstance->getReflection();
+        $meta = $controllerInstance->getMeta();
         
-        if ($route = $reflection->getRoute()) {
+        if ($route = $meta->getRoute()) {
             if (!isset($routers[$module])) {
                 $routers[$module] = array();
             }
 
-            $routers[$module][$controller] = ['route' => $route, 'params' => $reflection->getParams()];
+            $routers[$module][$controller] = ['route' => $route, 'params' => $meta->getParams()];
         }
     }
     $this->assign('routers', $routers);

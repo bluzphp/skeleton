@@ -13,6 +13,8 @@
 namespace Application;
 
 use Bluz\Controller\Controller;
+use Bluz\Http\StatusCode;
+use Bluz\Proxy\Auth;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Logger;
 use Bluz\Proxy\Messages;
@@ -26,20 +28,27 @@ use Bluz\Proxy\Response;
  * @route  /error/{$code}
  *
  * @param  int $code
- * @param  string $message
+ * @param  \Exception $exception
  * @return array
  */
-return function ($code, $message = '') {
+return function ($code, $exception = null) {
     /**
      * @var Controller $this
      */
-    Logger::error($message);
+    // cast to valid HTTP error code
+    // 500 - Internal Server Error
+    $code = (StatusCode::CONTINUE <= $code && $code < 600) ? $code : StatusCode::INTERNAL_SERVER_ERROR;
+    // use exception
+    Response::setStatusCode($code);
+
+    $exceptionMessage = $exception ? $exception->getMessage() : '';
+    Logger::error($exceptionMessage);
 
     // for debug mode you can use whoops
     /*
     if ($this->isDebug() && ($e = $this->getException())) {
         $whoops = new \Whoops\Run();
-        if (PHP_SAPI == 'cli') {
+        if (PHP_SAPI === 'cli') {
             $whoops->pushHandler(new \Whoops\Handler\PlainTextHandler());
         } elseif (Request::getAccept(['application/json'])) {
             $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler());
@@ -54,46 +63,50 @@ return function ($code, $message = '') {
 
     switch ($code) {
         case 400:
-            $error = __("Bad Request");
-            $description = __("The server didn't understand the syntax of the request");
+            $error = __('Bad Request');
+            $message = __('The server didn\'t understand the syntax of the request');
             break;
         case 401:
-            $error = __("Unauthorized");
-            $description = __("You are not authorized to view this page, please sign in");
+            $error = __('Unauthorized');
+            $message = __('You are not authorized to view this page, please sign in');
             break;
         case 403:
-            $error = __("Forbidden");
-            $description = __("You don't have permissions to access this page");
+            $error = __('Forbidden');
+            if (Auth::getIdentity()) {
+                $message = __('You don\'t have permissions to access this page');
+            } else {
+                $message = __('You don\'t have permissions, please sign in');
+            }
             break;
         case 404:
-            $error = __("Not Found");
-            $description = __("The page you requested was not found");
+            $error = __('Not Found');
+            $message = __('The page you requested was not found');
             break;
         case 405:
-            $error = __("Method Not Allowed");
-            $description = __("The server is not support method `%s`", Request::getMethod());
-            Response::setHeader('Allow', $message);
+            $error = __('Method Not Allowed');
+            $message = __('The server is not support method `%s`', Request::getMethod());
+            Response::setHeader('Allow', $exceptionMessage);
             break;
         case 406:
-            $error = __("Not Acceptable");
-            $description = __("The server is not acceptable generating content type described at `Accept` header");
+            $error = __('Not Acceptable');
+            $message = __('The server is not acceptable generating content type described at `Accept` header');
             break;
         case 500:
-            $error = __("Internal Server Error");
-            $description = __("The server encountered an unexpected condition");
+            $error = __('Internal Server Error');
+            $message = __('The server encountered an unexpected condition');
             break;
         case 501:
-            $error = __("Not Implemented");
-            $description = __("The server does not understand or does not support the HTTP method");
+            $error = __('Not Implemented');
+            $message = __('The server does not understand or does not support the HTTP method');
             break;
         case 503:
-            $error = __("Service Unavailable");
-            $description = __("The server is currently unable to handle the request due to a temporary overloading");
+            $error = __('Service Unavailable');
+            $message = __('The server is currently unable to handle the request due to a temporary overloading');
             Response::setHeader('Retry-After', '600');
             break;
         default:
-            $error = __("Internal Server Error");
-            $description = __("An unexpected error occurred with your request. Please try again later");
+            $error = __('Internal Server Error');
+            $message = __('An unexpected error occurred with your request. Please try again later');
             break;
     }
 
@@ -102,10 +115,10 @@ return function ($code, $message = '') {
         // simple AJAX call, accept JSON
         if (Request::getAccept(['application/json'])) {
             $this->useJson();
-            Messages::addError($description);
+            Messages::addError($message);
             return [
                 'code' => $code,
-                'error' => !empty($message) ? $message : $error
+                'error' => $message
             ];
         }
         // dialog AJAX call, accept HTML
@@ -119,7 +132,7 @@ return function ($code, $message = '') {
     return [
         'code' => $code,
         'error' => $error,
-        'description' => $description,
-        'message' => $message
+        'message' => $message,
+        'exception' => $exception
     ];
 };

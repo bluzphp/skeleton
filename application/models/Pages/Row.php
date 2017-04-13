@@ -78,15 +78,15 @@ class Row extends \Bluz\Db\Row
         );
 
         // content validator
-            $this->addValidator(
-                'content',
-                v::callback(function ($input) {
-                    if (empty($input) or trim(strip_tags($input, '<img>')) == '') {
-                        return false;
-                    }
-                    return true;
-                })->setError('Content can\'t be empty')
-            );
+        $this->addValidator(
+            'content',
+            v::callback(function ($input) {
+                if (empty($input) or trim(strip_tags($input, '<img>')) == '') {
+                    return false;
+                }
+                return true;
+            })->setError('Content can\'t be empty')
+        );
     }
 
     /**
