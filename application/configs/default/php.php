@@ -7,5 +7,5 @@
  * @return array
  */
 return [
-    "session.cache_expire" => "180", // 180 is default value
+    'session.cache_expire' => '180', // 180 is default value
 ];

@@ -23,7 +23,7 @@
     <tbody>
     <?php foreach ($set as $module => $modulePrivileges) : sort($modulePrivileges); ?>
         <tr>
-            <th colspan="<?=sizeof($roles) + 1?>"><?=ucfirst($module)?></th>
+            <th colspan="<?=count($roles) + 1?>"><?=ucfirst($module)?></th>
         </tr>
     <?php foreach ($modulePrivileges as $privilege) : ?>
         <tr>

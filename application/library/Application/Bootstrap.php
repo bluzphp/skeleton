@@ -107,23 +107,10 @@ class Bootstrap extends Application
     public function render()
     {
         Logger::info('app:render');
-        Logger::info('app:files:' . sizeof(get_included_files()));
+        Logger::info('app:files:' . count(get_included_files()));
 
-        if ($this->debugFlag && !headers_sent()) {
-            $debugString = sprintf(
-                '%fsec; %skb',
-                microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
-                ceil((memory_get_usage()/1024))
-            );
-            $debugString .= '; '. Request::getModule() .'/'. Request::getController();
-
-            Response::setHeader('Bluz-Debug', $debugString);
-
-            if ($info = Logger::get('info')) {
-                Response::setHeader('Bluz-Bar', json_encode($info));
-            } else {
-                Response::setHeader('Bluz-Bar', '{"!":"Logger is disabled"}');
-            }
+        if ($this->isDebug() && !headers_sent()) {
+            $this->sendInfoHeaders();
         }
 
         parent::render();
@@ -135,9 +122,45 @@ class Bootstrap extends Application
      */
     public function end()
     {
-        if ($messages = Logger::get('error')) {
-            foreach ($messages as $message) {
-                errorLog(new \ErrorException($message, 0, E_USER_ERROR));
+        if ($errors = Logger::get('error')) {
+            $this->sendErrors($errors);
+        }
+    }
+
+    /**
+     * Send information headers
+     *
+     * @return void
+     */
+    protected function sendInfoHeaders()
+    {
+        $debugString = sprintf(
+            '%fsec; %skb',
+            microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
+            ceil((memory_get_usage()/1024))
+        );
+        $debugString .= '; '. Request::getModule() .'/'. Request::getController();
+
+        Response::setHeader('Bluz-Debug', $debugString);
+
+        if ($info = Logger::get('info')) {
+            Response::setHeader('Bluz-Bar', json_encode($info));
+        } else {
+            Response::setHeader('Bluz-Bar', '{"!":"Logger is disabled"}');
+        }
+    }
+
+    /**
+     * sendErrorBody
+     *
+     * @return void
+     */
+    protected function sendErrors($errors)
+    {
+        foreach ($errors as $message) {
+            errorLog(new \ErrorException($message, 0, E_USER_ERROR));
+            if ($this->isDebug()) {
+                echo "<div class='container alert alert-danger' role='alert'>$message</div>";
             }
         }
     }

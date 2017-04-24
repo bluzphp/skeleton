@@ -1,16 +1,8 @@
-<?php
-use Bluz\Application\Application;
-?>
 <div class="modal-header">
     <h3 class="modal-title"><?=esc($error)?></h3>
 </div>
 <div class="modal-body">
     <p><?=esc($message)?></p>
-    <?php if (Application::getInstance()->isDebug() && $exception) : ?>
-    <div class="alert alert-warning">
-        <strong>Exception</strong>
-        <p><?=esc($exception->getMessage())?></p>
-    </div>
-    <?php endif; ?>
+    <?=$this->exception($exception)?>
 </div>
 

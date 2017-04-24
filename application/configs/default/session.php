@@ -6,14 +6,14 @@
  * @return array
  */
 return [
-    "adapter" => "files",
-    "settings" => [
-        "cache" => [],
-        "files" => [
-            "save_path" => PATH_DATA . '/sessions'
+    'adapter' => 'files',
+    'settings' => [
+        'cache' => [],
+        'files' => [
+            'save_path' => PATH_DATA . '/sessions'
         ],
-        "redis" =>[
-            "host" => 'localhost'
+        'redis' =>[
+            'host' => 'localhost'
         ]
     ]
 ];

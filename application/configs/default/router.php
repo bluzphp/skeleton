@@ -6,5 +6,5 @@
  * @return array
  */
 return [
-    "baseUrl" => '/',
+    'baseUrl' => '/',
 ];

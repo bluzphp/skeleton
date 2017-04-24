@@ -6,5 +6,5 @@
  * @return array
  */
 return [
-    "enabled" => false
+    'enabled' => false
 ];

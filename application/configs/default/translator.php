@@ -6,7 +6,7 @@
  * @return array
  */
 return [
-    "domain" => "messages",
-    "locale" => "en_US",
-    "path" => PATH_DATA . '/locale'
+    'domain' => 'messages',
+    'locale' => 'en_US',
+    'path' => PATH_DATA . '/locale'
 ];

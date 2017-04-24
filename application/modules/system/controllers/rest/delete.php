@@ -37,7 +37,7 @@ return function ($crud, $primary, $data) {
     } else {
         // delete collection
         // @throws NotFoundException
-        if (!sizeof($data)) {
+        if (!count($data)) {
             // data not exist
             throw new BadRequestException();
         }
