@@ -6,11 +6,11 @@
  * @return array
  */
 return [
-    "equals" => [
-        "hash" => function ($password) {
+    'equals' => [
+        'hash' => function ($password) {
             return password_hash($password, PASSWORD_DEFAULT);
         },
-        "verify" => function ($password, $hash) {
+        'verify' => function ($password, $hash) {
             return password_verify($password, $hash);
         }
     ]

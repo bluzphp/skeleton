@@ -7,12 +7,12 @@
  * @return array
  */
 return [
-    "subjectTemplate" => "Bluz - %s",
-    "from" => [
-        "email" => "no-reply@example.com",
-        "name" => "Bluz"
+    'subjectTemplate' => 'Bluz - %s',
+    'from' => [
+        'email' => 'no-reply@example.com',
+        'name' => 'Bluz'
     ],
-    "settings" => [
-        "CharSet" => "UTF-8"
+    'settings' => [
+        'CharSet' => 'UTF-8'
     ],
 ];
