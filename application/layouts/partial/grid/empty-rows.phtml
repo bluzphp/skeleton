@@ -4,8 +4,8 @@
  */
 if (!$grid) return;
 ?>
-<?php if ($grid->pages() > 1 && sizeof($grid->getData()) < $grid->getLimit()) :
-    $emptyRows = $grid->getLimit() - sizeof($grid->getData()); ?>
+<?php if ($grid->pages() > 1 && count($grid->getData()) < $grid->getLimit()) :
+    $emptyRows = $grid->getLimit() - count($grid->getData()); ?>
     <table class="table">
         <?php for ($i = 0; $i < $emptyRows; $i++): ?>
             <tr>

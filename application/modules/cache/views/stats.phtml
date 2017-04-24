@@ -31,7 +31,7 @@
                     <td class="text-right">
                         <?php
                         if (is_array($value)) :
-                            echo '"'.sizeof($value).'" elements in array';
+                            echo '"'.count($value).'" elements in array';
                         else:
                             echo $value;
                         endif;

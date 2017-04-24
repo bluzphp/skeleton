@@ -30,7 +30,7 @@ return function () {
     );
     $routers = array();
     foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {
-        $module = pathinfo(dirname(dirname($file->getPathname())), PATHINFO_FILENAME);
+        $module = pathinfo(dirname($file->getPathname(), 2), PATHINFO_FILENAME);
         $controller = pathinfo($file->getPathname(), PATHINFO_FILENAME);
 
         $controllerInstance = new Controller($module, $controller);

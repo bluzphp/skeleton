@@ -30,7 +30,7 @@ use Bluz\Validator\Exception\ValidatorException;
  * @throws NotImplementedException
  */
 return function ($crud, $primary, $data) {
-    if (!sizeof($data)) {
+    if (!count($data)) {
         // data not found
         throw new BadRequestException();
     }

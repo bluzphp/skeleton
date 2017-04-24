@@ -42,11 +42,11 @@ return function ($crud, $primary) {
         $total = 0;
         $result = $crud->readSet($offset, $limit, $params, $total);
 
-        if (sizeof($result) < $total) {
+        if (count($result) < $total) {
             Response::setStatusCode(StatusCode::PARTIAL_CONTENT);
             Response::setHeader(
                 'Content-Range',
-                'items ' . $offset . '-' . ($offset + sizeof($result)) . '/' . $total
+                'items ' . $offset . '-' . ($offset + count($result)) . '/' . $total
             );
         }
         
