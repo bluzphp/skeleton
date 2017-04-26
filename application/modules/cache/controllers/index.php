@@ -38,6 +38,6 @@ return function () {
         $this->assign('adapter', get_class($cacheAdapter));
     } else {
         $this->assign('adapter', $cacheAdapter);
-        Messages::addNotice("Cache is disabled");
+        Messages::addNotice('Cache is disabled');
     }
 };

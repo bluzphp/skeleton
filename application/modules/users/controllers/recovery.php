@@ -49,7 +49,7 @@ return function ($email = null) {
                 throw new Exception('Email not found');
             }
             // check status, only for active users
-            if ($user->status != Users\Table::STATUS_ACTIVE) {
+            if ($user->status !== Users\Table::STATUS_ACTIVE) {
                 throw new Exception('User is inactive');
             }
 
@@ -65,7 +65,7 @@ return function ($email = null) {
                 ['code' => $actionRow->code, 'id' => $user->id]
             );
 
-            $subject = "Password Recovery";
+            $subject = __('Password Recovery');
 
             $body = $this->dispatch(
                 'users',
@@ -95,7 +95,7 @@ return function ($email = null) {
 
             // show notification and redirect
             Messages::addSuccess(
-                "Reset password instructions has been sent to your email address"
+                'Reset password instructions has been sent to your email address'
             );
             Response::redirectTo('index', 'index');
         } catch (Exception $e) {
