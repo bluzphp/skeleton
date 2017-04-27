@@ -85,7 +85,7 @@ class Bootstrap extends Application
     {
         // for AJAX and API calls (over JSON)
         $jsonOrApi = Request::isXmlHttpRequest()
-            || (Request::getAccept([Request::TYPE_HTML, Request::TYPE_JSON]) == Request::TYPE_JSON);
+            || (Request::checkAccept([Request::TYPE_HTML, Request::TYPE_JSON]) === Request::TYPE_JSON);
 
         // for guest, for requests
         if (!AuthProxy::getIdentity() && !$jsonOrApi) {
