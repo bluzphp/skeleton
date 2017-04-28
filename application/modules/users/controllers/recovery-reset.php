@@ -54,7 +54,7 @@ return function ($id, $code, $password = null, $password2 = null) {
                     throw new Exception('Please enter your new password');
                 }
 
-                if ($password != $password2) {
+                if ($password !== $password2) {
                     throw new Exception('Please repeat your new password');
                 }
 
@@ -68,7 +68,7 @@ return function ($id, $code, $password = null, $password2 = null) {
 
                 // show notification and redirect
                 Messages::addSuccess(
-                    "Your password has been updated"
+                    'Your password has been updated'
                 );
                 Response::redirectTo('users', 'signin');
             } catch (Exception $e) {

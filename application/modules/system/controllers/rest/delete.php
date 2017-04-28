@@ -12,7 +12,6 @@ namespace Application;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotFoundException;
 use Bluz\Application\Exception\NotImplementedException;
-use Bluz\Controller;
 use Bluz\Http\StatusCode;
 use Bluz\Proxy\Response;
 

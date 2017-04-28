@@ -65,7 +65,7 @@ return function ($password, $new_password, $new_password2) {
             // create new Auth record
             $authTable->generateEquals($user, $new_password);
 
-            Messages::addSuccess("The password was updated successfully");
+            Messages::addSuccess('The password was updated successfully');
 
             // try back to index
             Response::redirectTo('users', 'profile');

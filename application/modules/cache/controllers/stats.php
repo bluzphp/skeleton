@@ -39,7 +39,7 @@ return function () {
     if ($cacheAdapter = Cache::getInstance()) {
         $this->assign('adapter', $cacheAdapter);
     } else {
-        Messages::addNotice("Cache is disabled");
+        Messages::addNotice('Cache is disabled');
         Response::redirectTo('cache', 'index');
     }
 };

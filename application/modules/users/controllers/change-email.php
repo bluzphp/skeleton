@@ -80,7 +80,7 @@ return function ($email = null, $password = null, $token = null) {
                 ['token' => $actionRow->code]
             );
 
-            $subject = __("Change email");
+            $subject = __('Change email');
 
             $body = $this->dispatch(
                 'users',

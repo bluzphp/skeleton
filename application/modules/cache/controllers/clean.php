@@ -28,8 +28,8 @@ return function () {
      */
     if (Cache::getInstance()) {
         Cache::clearTags(['system']);
-        Messages::addSuccess("Cache with tag `system` cleaned");
+        Messages::addSuccess('Cache with tag `system` cleaned');
     } else {
-        Messages::addNotice("Cache is disabled");
+        Messages::addNotice('Cache is disabled');
     }
 };

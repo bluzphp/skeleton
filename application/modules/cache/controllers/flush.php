@@ -28,8 +28,8 @@ return function () {
      */
     if (Cache::getInstance()) {
         Cache::clear();
-        Messages::addSuccess("Cache cleared");
+        Messages::addSuccess('Cache cleared');
     } else {
-        Messages::addNotice("Cache is disabled");
+        Messages::addNotice('Cache is disabled');
     }
 };

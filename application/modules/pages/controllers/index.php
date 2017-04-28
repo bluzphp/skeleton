@@ -11,7 +11,6 @@ use Bluz\Application\Exception\NotFoundException;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\HttpCacheControl;
 use Bluz\Proxy\Layout;
-use Bluz\View\View;
 
 /**
  * @route /{$alias}.html
@@ -31,17 +30,17 @@ return function ($alias) {
         // all logic of error scenario you can found in default error controller
         // see /application/modules/error/controllers/index.php
         throw new NotFoundException();
-    } else {
-        // setup HTML layout data
-        Layout::title(esc($page->title), View::POS_PREPEND);
-        Layout::meta('keywords', esc($page->keywords, ENT_QUOTES));
-        Layout::meta('description', esc($page->description, ENT_QUOTES));
-
-        // setup HTTP cache
-        HttpCacheControl::setPublic();
-        HttpCacheControl::setLastModified($page->updated ?: $page->created);
-
-        // assign page to view
-        $this->assign('page', $page);
     }
+
+    // setup HTML layout data
+    Layout::title(esc($page->title), Layout::POS_PREPEND);
+    Layout::meta('keywords', esc($page->keywords, ENT_QUOTES));
+    Layout::meta('description', esc($page->description, ENT_QUOTES));
+
+    // setup HTTP cache
+    HttpCacheControl::setPublic();
+    HttpCacheControl::setLastModified($page->updated ?: $page->created);
+
+    // assign page to view
+    $this->assign('page', $page);
 };

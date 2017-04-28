@@ -61,7 +61,7 @@ return function () {
 
         foreach ($filesIterator as $filePath => $fileInfo) {
             /* @var \SplFileInfo $fileInfo */
-            if ($fileInfo->getExtension() != 'php') {
+            if ($fileInfo->getExtension() !== 'php') {
                 continue;
             }
             $controller = $fileInfo->getBasename('.php');
@@ -92,13 +92,7 @@ return function () {
     $privileges = array();
 
     foreach ($privilegesRowset as $privilege) {
-        if (!isset($privileges[$privilege->roleId])) {
-            $privileges[$privilege->roleId] = array();
-        }
-        if (!isset($privileges[$privilege->roleId][$privilege->module])) {
-            $privileges[$privilege->roleId][$privilege->module] = array();
-        }
-        $privileges[$privilege->roleId][$privilege->module][] = $privilege->privilege;
+        array_add($privileges, $privilege->roleId, $privilege->module, $privilege->privilege);
     }
     
     $this->assign('privileges', $privileges);

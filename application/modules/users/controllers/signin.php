@@ -35,11 +35,11 @@ return function ($login, $password, $rememberMe = false) {
     } elseif (Request::isPost()) {
         try {
             if (empty($login)) {
-                throw new Exception("Login is empty");
+                throw new Exception('Login is empty');
             }
 
             if (empty($password)) {
-                throw new Exception("Password is empty");
+                throw new Exception('Password is empty');
             }
 
             // login/password

@@ -61,7 +61,6 @@ return function () {
         $tokenRow = Auth\Table::getInstance()->generateToken($equalsRow);
 
         return ['token' => $tokenRow->token];
-    } else {
-        throw new NotImplementedException();
     }
+    throw new NotImplementedException();
 };
