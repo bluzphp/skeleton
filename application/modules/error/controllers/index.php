@@ -50,7 +50,7 @@ return function ($code, $exception = null) {
         $whoops = new \Whoops\Run();
         if (PHP_SAPI === 'cli') {
             $whoops->pushHandler(new \Whoops\Handler\PlainTextHandler());
-        } elseif (Request::getAccept(['application/json'])) {
+        } elseif (Request::checkAccept(['application/json'])) {
             $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler());
         } else {
             $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
