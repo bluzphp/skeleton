@@ -7,7 +7,7 @@ require.config({
     // why not simple "js"? Because IE eating our minds!
     baseUrl: "/js",
     // if you need disable JS cache
-    urlArgs: "bust=" + (new Date()).getTime(),
+    urlArgs: "bust=" + Date.now(),
     paths: {
         "bootstrap": "./vendor/bootstrap.min",
         "jquery": "./vendor/jquery.min",

@@ -1,7 +1,7 @@
 <?php
 // try to send 503 error
 if (!headers_sent()) {
-    header("HTTP/1.1 503 Service Unavailable");
+    header('HTTP/1.1 503 Service Unavailable');
     header('Retry-After: 600');
 }
 // clean all buffers

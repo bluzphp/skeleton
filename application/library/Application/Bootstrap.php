@@ -153,13 +153,14 @@ class Bootstrap extends Application
     /**
      * sendErrorBody
      *
+     * @param  array $errors
      * @return void
      */
     protected function sendErrors($errors)
     {
         foreach ($errors as $message) {
             errorLog(new \ErrorException($message, 0, E_USER_ERROR));
-            if ($this->isDebug()) {
+            if ($this->isDebug() && $message) {
                 echo "<div class='container alert alert-danger' role='alert'>$message</div>";
             }
         }
