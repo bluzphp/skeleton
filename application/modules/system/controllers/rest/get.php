@@ -7,6 +7,7 @@
  * @author   Anton Shevchuk
  * @created  19.02.15 16:27
  */
+
 namespace Application;
 
 use Bluz\Http\StatusCode;
@@ -19,7 +20,8 @@ use Bluz\Proxy\Response;
  * @method GET
  *
  * @param  \Bluz\Crud\Table $crud
- * @param  mixed $primary
+ * @param  mixed            $primary
+ *
  * @return array
  */
 return function ($crud, $primary) {
@@ -49,7 +51,7 @@ return function ($crud, $primary) {
                 'items ' . $offset . '-' . ($offset + count($result)) . '/' . $total
             );
         }
-        
+
         return $result;
     }
 };

@@ -12,7 +12,7 @@ return [
         'files' => [
             'save_path' => PATH_DATA . '/sessions'
         ],
-        'redis' =>[
+        'redis' => [
             'host' => 'localhost'
         ]
     ]

@@ -1,41 +1,56 @@
 <?php /** @var \Bluz\Layout\Layout $this */ ?>
 <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/"><?=__('Bluz')?></a>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="fa fa-bar"></span>
-                    <span class="fa fa-bar"></span>
-                    <span class="fa fa-bar"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li <?=($this->module('index')?'class="active"':'')?>><?=$this->ahref('Home', ['index', 'index'])?></li>
-                    <li <?=($this->module('dashboard')?'class="active"':'')?>><?=$this->ahref('Dashboard', ['dashboard', 'index'])?></li>
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/"><?= __('Bluz') ?></a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="fa fa-bar"></span>
+          <span class="fa fa-bar"></span>
+          <span class="fa fa-bar"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li <?= ($this->module('index') ? 'class="active"' : '') ?>><?= $this->ahref(
+                  'Home',
+                  ['index', 'index']
+              ) ?></li>
+          <li <?= ($this->module('dashboard') ? 'class="active"' : '') ?>><?= $this->ahref(
+                  'Dashboard',
+                  ['dashboard', 'index']
+              ) ?></li>
 
-                    <?php if ($this->hasModule('test')) : ?>
-                    <li <?=($this->module('test')?'class="active"':'')?>><?=$this->ahref('Test', ['test', 'index'])?></li>
-                    <?php endif; ?>
+            <?php if ($this->hasModule('test')) : ?>
+              <li <?= ($this->module('test') ? 'class="active"' : '') ?>><?= $this->ahref(
+                      'Test',
+                      ['test', 'index']
+                  ) ?></li>
+            <?php endif; ?>
 
-                    <?php if ($this->hasModule('contact-us')) : ?>
-                    <li <?=($this->module('contact-us')?'class="active"':'')?>><?=$this->ahref('Contact us', ['contact-us', 'index'])?></li>
-                    <?php endif; ?>
-                </ul>
-                <?php if ($identity = $this->user()) : ?>
-                    <p class="navbar-text navbar-right">
-                        <?=__('Logged in as %s', $this->ahref($identity->login, ['users', 'profile', array('id' => $identity->id)]))?>
-                        (<?= $this->ahref(__('Sign Out'), ['users', 'signout'])?>)
-                    </p>
-                <?php else: ?>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><?=$this->ahref(__('Sign In'), ['users', 'signin'])?></li>
-                </ul>
-                <?php endif; ?>
-                <div id="loading"></div>
-            </div>
-        </div>
+            <?php if ($this->hasModule('contact-us')) : ?>
+              <li <?= ($this->module('contact-us') ? 'class="active"' : '') ?>><?= $this->ahref(
+                      'Contact us',
+                      ['contact-us', 'index']
+                  ) ?></li>
+            <?php endif; ?>
+        </ul>
+          <?php if ($identity = $this->user()) : ?>
+            <p class="navbar-text navbar-right">
+                <?= __(
+                    'Logged in as %s',
+                    $this->ahref($identity->login, ['users', 'profile', array('id' => $identity->id)])
+                ) ?>
+              (<?= $this->ahref(__('Sign Out'), ['users', 'signout']) ?>)
+            </p>
+          <?php else: ?>
+            <ul class="nav navbar-nav navbar-right">
+              <li><?= $this->ahref(__('Sign In'), ['users', 'signin']) ?></li>
+            </ul>
+          <?php endif; ?>
+        <div id="loading"></div>
+      </div>
     </div>
+  </div>
 </div>
 

@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Image;
 
 /**
@@ -42,6 +43,7 @@ class Gd
 
     /**
      * Compression quality for JPEG
+     *
      * @var integer
      */
     protected $quality = 86;
@@ -50,6 +52,7 @@ class Gd
      * Constructor of Gd
      *
      * @param string $file
+     *
      * @throws Exception
      */
     public function __construct($file)
@@ -77,6 +80,7 @@ class Gd
 
     /**
      * @param integer $quality
+     *
      * @return bool
      */
     public function setImageCompressionQuality($quality)
@@ -91,13 +95,15 @@ class Gd
      *
      * @param integer $width
      * @param integer $height
+     *
      * @return bool
      */
     public function cropThumbnailImage($width, $height)
     {
         // Compare image size with required thumbnail size
         if (($this->width < $width) &&
-            ($this->height < $height)) {
+            ($this->height < $height)
+        ) {
             return true;
         }
 
@@ -108,14 +114,14 @@ class Gd
             // Crop width
             $cropWidth = $heightScale * $width;
             $cropHeight = $this->height;
-            $srcX = round(($this->width - $cropWidth)/2);
+            $srcX = round(($this->width - $cropWidth) / 2);
             $srcY = 0;
         } else {
             // Crop height
             $cropWidth = $this->width;
             $cropHeight = $widthScale * $height;
             $srcX = 0;
-            $srcY = round(($this->height - $cropHeight)/2);
+            $srcY = round(($this->height - $cropHeight) / 2);
         }
 
         $thumb = imagecreatetruecolor($width, $height);
@@ -139,6 +145,7 @@ class Gd
      * Save the image to a file. Type is determined from the extension
      *
      * @param string $fileName
+     *
      * @return bool
      */
     public function writeImage($fileName)
@@ -152,17 +159,17 @@ class Gd
         switch ($ext) {
             case '.gif':
                 return imagegif($this->image, $fileName);
-                // break
+            // break
             case '.jpg':
             case '.jpeg':
                 return imagejpeg($this->image, $fileName, $this->quality);
-                // break
+            // break
             case '.png':
                 return imagepng($this->image, $fileName);
-                // break
+            // break
             case '.bmp':
                 return imagewbmp($this->image, $fileName);
-                // break
+            // break
             default:
                 return false;
         }

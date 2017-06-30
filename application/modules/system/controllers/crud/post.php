@@ -7,6 +7,7 @@
  * @author   Anton Shevchuk
  * @created  19.02.15 16:27
  */
+
 namespace Application;
 
 use Bluz\Http\RequestMethod;
@@ -20,8 +21,9 @@ use Bluz\Validator\Exception\ValidatorException;
  * @method POST
  *
  * @param  \Bluz\Crud\Table $crud
- * @param  mixed $primary
- * @param  array $data
+ * @param  mixed            $primary
+ * @param  array            $data
+ *
  * @return array
  */
 return function ($crud, $primary, $data) {
@@ -30,9 +32,9 @@ return function ($crud, $primary, $data) {
         $result = $crud->createOne($data);
 
         Messages::addSuccess("Record was created");
-        
+
         return [
-            'row'    => $crud->readOne($result),
+            'row' => $crud->readOne($result),
             'method' => RequestMethod::PUT
         ];
     } catch (ValidatorException $e) {
@@ -40,7 +42,7 @@ return function ($crud, $primary, $data) {
         $row->setFromArray($data);
 
         return [
-            'row'    => $row,
+            'row' => $row,
             'errors' => $e->getErrors(),
             'method' => Request::getMethod()
         ];

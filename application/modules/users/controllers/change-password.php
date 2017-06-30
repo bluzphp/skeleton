@@ -5,6 +5,7 @@
  * @author  Sergey Volkov
  * @created 29.05.2013 17:20
  */
+
 namespace Application;
 
 use Application\Users;
@@ -22,6 +23,7 @@ use Bluz\Proxy\Response;
  * @param $password
  * @param $new_password
  * @param $new_password2
+ *
  * @return void
  * @throws NotFoundException
  */

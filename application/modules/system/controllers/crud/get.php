@@ -7,6 +7,7 @@
  * @author   Anton Shevchuk
  * @created  19.02.15 16:27
  */
+
 namespace Application;
 
 use Bluz\Http\RequestMethod;
@@ -17,12 +18,13 @@ use Bluz\Http\RequestMethod;
  * @method GET
  *
  * @param  \Bluz\Crud\Table $crud
- * @param  mixed $primary
+ * @param  mixed            $primary
+ *
  * @return array
  */
 return function ($crud, $primary) {
     return [
         'row' => $crud->readOne($primary),
-        'method' => empty($primary)?RequestMethod::POST:RequestMethod::PUT
+        'method' => empty($primary) ? RequestMethod::POST : RequestMethod::PUT
     ];
 };

@@ -7,6 +7,7 @@
 /**
  * @namespace
  */
+
 namespace Application;
 
 use Application\Roles;
@@ -14,8 +15,8 @@ use Bluz\Controller\Controller;
 use Bluz\Controller\Mapper\Crud;
 
 /**
- * @accept HTML
- * @accept JSON
+ * @accept    HTML
+ * @accept    JSON
  * @privilege Management
  *
  * @return mixed

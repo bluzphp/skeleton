@@ -7,13 +7,15 @@
  * @author   Anton Shevchuk
  * @created  06.12.12 12:43
  */
+
 namespace Application;
 
 use Bluz\Controller\Controller;
 
 /**
  * @param  string $template
- * @param  array $vars
+ * @param  array  $vars
+ *
  * @return array
  */
 return function ($template, $vars = []) {

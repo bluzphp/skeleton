@@ -1,55 +1,63 @@
 <nav class="navbar navbar-default" role="navigation">
-    <div class="navbar-collapse">
-        <a href="<?=$this->url('acl', 'roles')?>" id="create-role" class="btn btn-primary navbar-btn dialog" data-ajax-method="get"><?=__('Create role')?></a>
-    </div>
+  <div class="navbar-collapse">
+    <a href="<?= $this->url('acl', 'roles') ?>" id="create-role" class="btn btn-primary navbar-btn dialog"
+       data-ajax-method="get"><?= __('Create role') ?></a>
+  </div>
 </nav>
-<form action="<?=$this->url('acl', 'save')?>" method="POST">
-<table class="table table-hover table-bordered table-condensed ">
+<form action="<?= $this->url('acl', 'save') ?>" method="POST">
+  <table class="table table-hover table-bordered table-condensed ">
     <thead>
-        <tr>
-            <th width="180px"><?=__('Privilege/Role')?></th>
-            <?php foreach ($roles as $role) : ?>
-            <th width="180px">
-                <?=$role->name?>
-                <?php if (!$role->isBasic()) : ?>
-                <a href="<?=$this->url('acl', 'roles', ['id' => $role->id]);?>" class="confirm btn btn-xs btn-danger ajax pull-right" data-ajax-method="delete"><i class="fa fa-times"></i></a>
+    <tr>
+      <th width="180px"><?= __('Privilege/Role') ?></th>
+        <?php foreach ($roles as $role) : ?>
+          <th width="180px">
+              <?= $role->name ?>
+              <?php if (!$role->isBasic()) : ?>
+                <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
+                   class="confirm btn btn-xs btn-danger ajax pull-right" data-ajax-method="delete"><i
+                      class="fa fa-times"></i></a>
                 <span class="pull-right">&nbsp;</span>
-                <a href="<?=$this->url('acl', 'roles', ['id' => $role->id]);?>" class="btn btn-xs btn-default dialog pull-right" data-ajax-method="get" title="<?=__("Edit role")?>"><i class="fa fa-edit"></i></a>
-                <?php endif; ?>
-            </th>
-            <?php endforeach; ?>
-        </tr>
+                <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
+                   class="btn btn-xs btn-default dialog pull-right" data-ajax-method="get"
+                   title="<?= __("Edit role") ?>"><i class="fa fa-edit"></i></a>
+              <?php endif; ?>
+          </th>
+        <?php endforeach; ?>
+    </tr>
     </thead>
     <tbody>
     <?php foreach ($set as $module => $modulePrivileges) : sort($modulePrivileges); ?>
+      <tr>
+        <th colspan="<?= count($roles) + 1 ?>"><?= ucfirst($module) ?></th>
+      </tr>
+        <?php foreach ($modulePrivileges as $privilege) : ?>
         <tr>
-            <th colspan="<?=count($roles) + 1?>"><?=ucfirst($module)?></th>
-        </tr>
-    <?php foreach ($modulePrivileges as $privilege) : ?>
-        <tr>
-            <td><?=$privilege?></td>
+          <td><?= $privilege ?></td>
             <?php foreach ($roles as $role) : ?>
-            <td>
-                <input type="checkbox" name="acl[<?=$role->id?>][<?=$module?>][<?=$privilege?>]" value="1"
-                <?=((isset($privileges[$role->id], $privileges[$role->id][$module]) && in_array($privilege, $privileges[$role->id][$module]))?"checked":"")?>
-                <?=($role->name === \Application\Roles\Table::BASIC_GUEST ? 'disabled' : '')?>
+              <td>
+                <input type="checkbox" name="acl[<?= $role->id ?>][<?= $module ?>][<?= $privilege ?>]" value="1"
+                    <?= ((isset($privileges[$role->id], $privileges[$role->id][$module]) && in_array(
+                            $privilege,
+                            $privileges[$role->id][$module]
+                        )) ? "checked" : "") ?>
+                    <?= ($role->name === \Application\Roles\Table::BASIC_GUEST ? 'disabled' : '') ?>
                 /></td>
             <?php endforeach; ?>
         </tr>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
     <?php endforeach; ?>
     </tbody>
-</table>
-    <input type="submit" value="<?=__('Save')?>" class="btn btn-primary"/>
+  </table>
+  <input type="submit" value="<?= __('Save') ?>" class="btn btn-primary"/>
 </form>
 <script>
-    require(['jquery'], function($) {
-        $(function(){
-            $('#create-role, table a.dialog').on('complete.ajax.bluz', function(){
+    require(['jquery'], function ($) {
+        $(function () {
+            $('#create-role, table a.dialog').on('complete.ajax.bluz', function () {
                 // reload current page on create/edit
                 window.location.reload();
             });
-            $('table a.confirm').on('success.ajax.bluz', function(){
+            $('table a.confirm').on('success.ajax.bluz', function () {
                 // reload current page on delete
                 window.location.reload();
             });

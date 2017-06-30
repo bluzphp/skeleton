@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Application\Privileges;
 
 use Application\Roles;
@@ -32,6 +33,7 @@ class Table extends \Bluz\Db\Table
 
     /**
      * Primary key(s)
+     *
      * @var array
      */
     protected $primary = array('roleId', 'module', 'privilege');
@@ -54,6 +56,7 @@ class Table extends \Bluz\Db\Table
      * Get user privileges
      *
      * @param integer $userId
+     *
      * @return array
      */
     public function getUserPrivileges($userId)
@@ -92,11 +95,12 @@ class Table extends \Bluz\Db\Table
      * Get user privileges
      *
      * @param integer $roleId
+     *
      * @return array
      */
     public function getRolePrivileges($roleId)
     {
-        $cacheKey = 'roles.privileges.'.$roleId;
+        $cacheKey = 'roles.privileges.' . $roleId;
 
         if (!$data = Cache::get($cacheKey)) {
             $data = Db::fetchColumn(
@@ -104,7 +108,7 @@ class Table extends \Bluz\Db\Table
                 FROM acl_privileges AS p, acl_roles AS r
                 WHERE p.roleId = r.id AND r.id = ?
                 ORDER BY CONCAT(p.module, ':', p.privilege)",
-                array((int) $roleId)
+                array((int)$roleId)
             );
 
             Cache::set($cacheKey, $data, Cache::TTL_NO_EXPIRY, ['system', 'roles', 'privileges']);

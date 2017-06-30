@@ -7,6 +7,7 @@
 /**
  * @namespace
  */
+
 namespace Application;
 
 use Application\Auth\Table;
@@ -19,22 +20,26 @@ use Bluz\Proxy\Response;
  * @accept JSON
  * @accept HTML
  *
- * @route /api/{$resource}/{$id}/{$relation}/{$relationId}
+ * @route  /api/{$resource}/{$id}/{$relation}/{$relationId}
+ *
  * @param string $resource
  * @param string $id
  * @param string $relation
  * @param string $relationId
  *
- * @route /api/{$resource}/{$id}/{$relation}
+ * @route  /api/{$resource}/{$id}/{$relation}
+ *
  * @param string $resource
  * @param string $id
  * @param string $relation
  *
- * @route /api/{$resource}/{$id}
+ * @route  /api/{$resource}/{$id}
+ *
  * @param string $resource
  * @param string $id
  *
- * @route /api/{$resource}
+ * @route  /api/{$resource}
+ *
  * @param string $resource
  *
  * @return mixed

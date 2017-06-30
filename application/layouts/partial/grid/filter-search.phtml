@@ -1,9 +1,11 @@
 <?php
 /**
  * @var \Bluz\Grid\Grid $grid
- * @var array $filters
+ * @var array           $filters
  */
-if (!$grid) return;
+if (!$grid) {
+    return;
+}
 
 $field = key($filters);
 $value = ''; // filter value
@@ -19,12 +21,14 @@ foreach ($filters as $filterName => $filterTitle) {
 }
 ?>
 <div class="input-group-btn grid-filter-search">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><?=$filters[$field]?> <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-        <?php foreach($filters as $fieldName => $fieldTitle) :?>
-        <li><a href="#" data-filter="<?=$grid->getUid() .'-filter-'. $fieldName ?>"><?=$fieldTitle?></a></li>
-        <?php endforeach; ?>
-    </ul>
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><?= $filters[$field] ?> <span
+        class="caret"></span></button>
+  <ul class="dropdown-menu">
+      <?php foreach ($filters as $fieldName => $fieldTitle) : ?>
+        <li><a href="#" data-filter="<?= $grid->getUid() . '-filter-' . $fieldName ?>"><?= $fieldTitle ?></a></li>
+      <?php endforeach; ?>
+  </ul>
 </div><!-- /btn-group -->
-<input name="<?=$grid->getUid() .'-filter-'. $field ?>" class="grid-filter-search-input" value="<?=$grid::FILTER_LIKE.'-'.esc($value)?>" type="hidden"/>
-<input name="search-like" type="search" class="form-control" value="<?=esc($value)?>" required />
+<input name="<?= $grid->getUid() . '-filter-' . $field ?>" class="grid-filter-search-input"
+       value="<?= $grid::FILTER_LIKE . '-' . esc($value) ?>" type="hidden"/>
+<input name="search-like" type="search" class="form-control" value="<?= esc($value) ?>" required/>

@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Application\Auth;
 
 use Application\Exception;
@@ -41,6 +42,7 @@ class Table extends AbstractTable
      *
      * @param string $username
      * @param string $password
+     *
      * @throws AuthException
      * @throws Exception
      */
@@ -62,6 +64,7 @@ class Table extends AbstractTable
      *
      * @param string $username
      * @param string $password
+     *
      * @throws AuthException
      * @return Row
      */
@@ -86,7 +89,8 @@ class Table extends AbstractTable
      * Authenticate user by login/pass
      *
      * @param Users\Row $user
-     * @param string $password
+     * @param string    $password
+     *
      * @throws AuthException
      * @return Row
      */
@@ -159,6 +163,7 @@ class Table extends AbstractTable
      *
      * @param $userId
      * @param $token
+     *
      * @throws AuthException
      * @throws Exception
      */
@@ -178,6 +183,7 @@ class Table extends AbstractTable
      *
      * @param $userId
      * @param $token
+     *
      * @return Row
      * @throws AuthException
      */
@@ -203,6 +209,7 @@ class Table extends AbstractTable
      * Removes a cookie-token from database
      *
      * @param $userId
+     *
      * @throws \Bluz\Db\Exception\DbException
      */
     public function removeCookieToken($userId)
@@ -219,6 +226,7 @@ class Table extends AbstractTable
      * Call Hash Function
      *
      * @param string $password
+     *
      * @throws \Application\Exception
      * @return string
      */
@@ -243,6 +251,7 @@ class Table extends AbstractTable
      *
      * @param string $password
      * @param string $hash
+     *
      * @throws \Application\Exception
      * @return string
      */
@@ -266,6 +275,7 @@ class Table extends AbstractTable
      * authenticate user by token
      *
      * @param string $token
+     *
      * @throws \Bluz\Auth\AuthException
      * @return void
      */
@@ -284,12 +294,13 @@ class Table extends AbstractTable
      * authenticate user by token
      *
      * @param string $token
+     *
      * @throws \Bluz\Auth\AuthException
      * @return Row
      */
     public function checkToken($token)
     {
-        if (!$authRow = $this->findRowWhere(['token' =>  $token, 'provider' => self::PROVIDER_TOKEN])) {
+        if (!$authRow = $this->findRowWhere(['token' => $token, 'provider' => self::PROVIDER_TOKEN])) {
             throw new AuthException('Invalid token');
         }
 
@@ -302,6 +313,7 @@ class Table extends AbstractTable
 
     /**
      * @param $equalAuth
+     *
      * @return Row
      * @throws Exception
      * @throws \Bluz\Db\Exception\DbException

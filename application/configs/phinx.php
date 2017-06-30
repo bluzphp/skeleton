@@ -18,9 +18,9 @@ return [
         'default' => (function () {
             $config = new \Bluz\Config\Config();
 
-            $config ->setPath(PATH_APPLICATION);
-            $config ->setEnvironment(getenv('BLUZ_ENV') ?: 'production');
-            $config ->init();
+            $config->setPath(PATH_APPLICATION);
+            $config->setEnvironment(getenv('BLUZ_ENV') ?: 'production');
+            $config->init();
 
             $data = $config->getData('db', 'connect');
             $data['adapter'] = $data['type'];

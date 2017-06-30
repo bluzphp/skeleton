@@ -7,6 +7,7 @@
  * @author   Anton Shevchuk
  * @created  19.02.15 16:27
  */
+
 namespace Application;
 
 use Bluz\Application\Exception\BadRequestException;
@@ -21,8 +22,9 @@ use Bluz\Proxy\Response;
  * @method DELETE
  *
  * @param  \Bluz\Crud\Table $crud
- * @param  mixed $primary
- * @param  array $data
+ * @param  mixed            $primary
+ * @param  array            $data
+ *
  * @return void
  * @throws BadRequestException
  * @throws NotFoundException

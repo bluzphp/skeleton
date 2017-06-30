@@ -1,24 +1,25 @@
 <?php $uid = uniqid('form_'); ?>
-<form id="<?=$uid?>" action="<?=$this->url('acl', 'roles')?>" class="form-horizontal ajax" method="<?=$method?>">
-    <input type="hidden" name="id" value="<?=$row->id?>"/>
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3 class="modal-title">
-            <?=(strtoupper($method)==='POST'?__('Create role'):__('Edit role'))?>
-        </h3>
+<form id="<?= $uid ?>" action="<?= $this->url('acl', 'roles') ?>" class="form-horizontal ajax" method="<?= $method ?>">
+  <input type="hidden" name="id" value="<?= $row->id ?>"/>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h3 class="modal-title">
+        <?= (strtoupper($method) === 'POST' ? __('Create role') : __('Edit role')) ?>
+    </h3>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="control-label col-lg-2" for="name"><?= __('Name') ?></label>
+      <div class="col-lg-10">
+        <input type="text" class="form-control" id="name" name="name" value="<?= ($row->name) ?>"
+               pattern="[a-zA-Z0-9-_ ]+" required/>
+      </div>
     </div>
-    <div class="modal-body">
-        <div class="form-group">
-            <label class="control-label col-lg-2" for="name"><?=__('Name')?></label>
-            <div class="col-lg-10">
-                <input type="text" class="form-control" id="name" name="name" value="<?=($row->name)?>" pattern="[a-zA-Z0-9-_ ]+" required/>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-primary"><?=__('Save')?></button>
-        <a href="#" class="btn btn-default" data-dismiss="modal"><?=__('Close')?></a>
-    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary"><?= __('Save') ?></button>
+    <a href="#" class="btn btn-default" data-dismiss="modal"><?= __('Close') ?></a>
+  </div>
 </form>
 <?php
 // need for plain request

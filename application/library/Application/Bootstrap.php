@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Application;
 
 use Bluz\Application\Application;
@@ -38,7 +39,8 @@ class Bootstrap extends Application
      *
      * @param string $module
      * @param string $controller
-     * @param array $params
+     * @param array  $params
+     *
      * @return void
      */
     protected function preDispatch($module, $controller, $params = array())
@@ -68,7 +70,8 @@ class Bootstrap extends Application
      *
      * @param string $module
      * @param string $controller
-     * @param array $params
+     * @param array  $params
+     *
      * @return void
      */
     protected function postDispatch($module, $controller, $params = array())
@@ -78,7 +81,9 @@ class Bootstrap extends Application
 
     /**
      * Denied access
+     *
      * @param ForbiddenException $exception
+     *
      * @return \Bluz\Controller\Controller|null
      */
     public function forbidden(ForbiddenException $exception)
@@ -102,6 +107,7 @@ class Bootstrap extends Application
 
     /**
      * Render with debug headers
+     *
      * @return void
      */
     public function render()
@@ -118,6 +124,7 @@ class Bootstrap extends Application
 
     /**
      * Finish it
+     *
      * @return void
      */
     public function end()
@@ -137,9 +144,9 @@ class Bootstrap extends Application
         $debugString = sprintf(
             '%fsec; %skb',
             microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
-            ceil((memory_get_usage()/1024))
+            ceil((memory_get_usage() / 1024))
         );
-        $debugString .= '; '. Request::getModule() .'/'. Request::getController();
+        $debugString .= '; ' . Request::getModule() . '/' . Request::getController();
 
         Response::setHeader('Bluz-Debug', $debugString);
 
@@ -154,6 +161,7 @@ class Bootstrap extends Application
      * sendErrorBody
      *
      * @param  array $errors
+     *
      * @return void
      */
     protected function sendErrors($errors)

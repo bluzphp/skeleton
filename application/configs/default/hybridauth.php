@@ -19,9 +19,9 @@ return [
                 'id' => '%%client_id%%',
                 'secret' => '%%client_secret%%'
             ],
-            'scope'   => 'https://www.googleapis.com/auth/userinfo.profile '. // optional
-                'https://www.googleapis.com/auth/userinfo.email'   , // optional
-            'access_type'     => 'offline',   // optional
+            'scope' => 'https://www.googleapis.com/auth/userinfo.profile ' . // optional
+                'https://www.googleapis.com/auth/userinfo.email', // optional
+            'access_type' => 'offline',   // optional
             'approval_prompt' => 'force',     // optional
         ],
         'Facebook' => [
@@ -30,7 +30,7 @@ return [
                 'path' => 'Providers/Facebook.php',
                 'class' => 'Hybrid_Providers_Facebook'
             ],
-            'keys'  => [ // 'id' is your facebook application id
+            'keys' => [ // 'id' is your facebook application id
                 'id' => '%%appId%%',
                 'secret' => '%%secret%%'
             ],
@@ -50,5 +50,5 @@ return [
     ],
     // to enable logging, set 'debug_mode' to true, then provide here a path of a writable file
     'debug_mode' => false,
-    'debug_file' =>''
+    'debug_file' => ''
 ];

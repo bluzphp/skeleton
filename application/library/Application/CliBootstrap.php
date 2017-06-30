@@ -3,12 +3,13 @@
  * Bluz Framework Component
  *
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/framework
+ * @link      https://github.com/bluzphp/framework
  */
 
 /**
  * @namespace
  */
+
 namespace Application;
 
 use Application\Users\Table;
@@ -38,6 +39,7 @@ class CliBootstrap extends Application
 {
     /**
      * Layout flag
+     *
      * @var boolean
      */
     protected $layoutFlag = false;
@@ -86,6 +88,7 @@ class CliBootstrap extends Application
 
     /**
      * get CLI Request
+     *
      * @return void
      * @throws ApplicationException
      */
@@ -121,6 +124,7 @@ class CliBootstrap extends Application
 
     /**
      * Pre process
+     *
      * @return void
      */
     protected function preProcess()
@@ -134,7 +138,8 @@ class CliBootstrap extends Application
      *
      * @param string $module
      * @param string $controller
-     * @param array $params
+     * @param array  $params
+     *
      * @return void
      */
     protected function preDispatch($module, $controller, $params = array())

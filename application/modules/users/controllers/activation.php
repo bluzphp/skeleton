@@ -7,6 +7,7 @@
  * @author   Anton Shevchuk
  * @created  05.12.12 15:17
  */
+
 namespace Application;
 
 use Application\Roles;
@@ -19,8 +20,9 @@ use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 
 /**
- * @param int $id User UID
+ * @param int    $id User UID
  * @param string $code
+ *
  * @return bool
  */
 return function ($id, $code) {
@@ -47,8 +49,8 @@ return function ($id, $code) {
     } else {
         // change user status
         $userRow = Users\Table::findRow($id);
-        $userRow -> status = Users\Table::STATUS_ACTIVE;
-        $userRow -> save();
+        $userRow->status = Users\Table::STATUS_ACTIVE;
+        $userRow->save();
 
         // create user role
         // get member role
@@ -62,7 +64,7 @@ return function ($id, $code) {
         // remove old code
         $actionRow->delete();
         Messages::addSuccess(
-            'Your Account has been successfully activated. <br/>'.
+            'Your Account has been successfully activated. <br/>' .
             'You can now log in using the username and password you chose during the registration.'
         );
         Response::redirectTo('users', 'signin');

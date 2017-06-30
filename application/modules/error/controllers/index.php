@@ -10,6 +10,7 @@
 /**
  * @namespace
  */
+
 namespace Application;
 
 use Bluz\Controller\Controller;
@@ -27,8 +28,9 @@ use Bluz\Proxy\Response;
  * @accept JSON
  * @route  /error/{$code}
  *
- * @param  int $code
+ * @param  int        $code
  * @param  \Exception $exception
+ *
  * @return array
  */
 return function ($code, $exception = null) {

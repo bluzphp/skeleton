@@ -5,6 +5,7 @@
  * @author  Sergey Volkov
  * @created 29.05.2013 17:20
  */
+
 namespace Application;
 
 use Application\Users;
@@ -26,6 +27,7 @@ use Bluz\Proxy\Router;
  * @param $email
  * @param $password
  * @param $token
+ *
  * @return void
  * @throws Exception
  * @throws NotFoundException
@@ -63,7 +65,7 @@ return function ($email = null, $password = null, $token = null) {
             // check email for unique
             $emailUnique = Users\Table::findRowWhere(['email' => $email]);
             if ($emailUnique && $emailUnique->id != $userId) {
-                throw new Exception('User with email "'.htmlentities($email).'" already exists');
+                throw new Exception('User with email "' . htmlentities($email) . '" already exists');
             }
 
             // generate change mail token and get full url

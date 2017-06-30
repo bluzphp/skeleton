@@ -7,6 +7,7 @@
  * @author   Anton Shevchuk
  * @created  09.11.12 13:19
  */
+
 namespace Application;
 
 use Application\Users;

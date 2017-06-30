@@ -2,44 +2,45 @@
 use Bluz\Application\Application;
 
 ?>
-<h2><?=__('Bookmarklets for debug site')?></h2>
+<h2><?= __('Bookmarklets for debug site') ?></h2>
 <?php
-    // for IDE syntax highlighter
-    /** @var $key */
-    $on = "javascript:(function(){document.cookie='BLUZ_DEBUG=1;path=/;';window.location.reload();})()";
-    $off = "javascript:(function(){document.cookie='BLUZ_DEBUG=;expires=Mon,%2005%20Jul%202000%2000:00:00%20GMT;path=/;';window.location.reload();})()";
+// for IDE syntax highlighter
+/** @var $key */
+$on = "javascript:(function(){document.cookie='BLUZ_DEBUG=1;path=/;';window.location.reload();})()";
+$off = "javascript:(function(){document.cookie='BLUZ_DEBUG=;expires=Mon,%2005%20Jul%202000%2000:00:00%20GMT;path=/;';window.location.reload();})()";
 
-    $profilerOn = "javascript:(function(){document.cookie='XDEBUG_PROFILE=1;path=/;';window.location.reload();})()";
-    $profilerOff = "javascript:(function(){document.cookie='XDEBUG_PROFILE=;expires=Mon,%2005%20Jul%202000%2000:00:00%20GMT;path=/;';window.location.reload();})()";
+$profilerOn = "javascript:(function(){document.cookie='XDEBUG_PROFILE=1;path=/;';window.location.reload();})()";
+$profilerOff = "javascript:(function(){document.cookie='XDEBUG_PROFILE=;expires=Mon,%2005%20Jul%202000%2000:00:00%20GMT;path=/;';window.location.reload();})()";
 ?>
 <div class="well">
-    <h3>Debug is &laquo;<span class="text-<?=Application::getInstance()->isDebug()?'danger':'success'?>"><?=Application::getInstance()->isDebug()?'ON':'OFF'?></span>&raquo;</h3>
-    <p class="alert alert-info">
-        Bookmark these links to your browser bar for future use (drag'n'drop it)
-    </p>
-    <div class="navbar">
-        <a href="<?= $on ?>" class="btn btn-danger navbar-btn span2">Bluz Debug [ON]</a>
-        <a href="<?= $off ?>" class="btn btn-success navbar-btn span2">Bluz Debug [OFF]</a>
-    </div>
-    <div class="row">&nbsp;</div>
-    <p class="alert alert-info">
-        Bookmarklets for XDebug Profiler
-    </p>
-    <div class="navbar">
-        <a href="<?= $profilerOn ?>" class="btn btn-danger navbar-btn span2">Profiler [ON]</a>
-        <a href="<?= $profilerOff ?>" class="btn btn-success navbar-btn span2">Profiler [OFF]</a>
-    </div>
+  <h3>Debug is &laquo;<span
+        class="text-<?= Application::getInstance()->isDebug() ? 'danger' : 'success' ?>"><?= Application::getInstance(
+          )->isDebug() ? 'ON' : 'OFF' ?></span>&raquo;</h3>
+  <p class="alert alert-info">
+    Bookmark these links to your browser bar for future use (drag'n'drop it)
+  </p>
+  <div class="navbar">
+    <a href="<?= $on ?>" class="btn btn-danger navbar-btn span2">Bluz Debug [ON]</a>
+    <a href="<?= $off ?>" class="btn btn-success navbar-btn span2">Bluz Debug [OFF]</a>
+  </div>
+  <div class="row">&nbsp;</div>
+  <p class="alert alert-info">
+    Bookmarklets for XDebug Profiler
+  </p>
+  <div class="navbar">
+    <a href="<?= $profilerOn ?>" class="btn btn-danger navbar-btn span2">Profiler [ON]</a>
+    <a href="<?= $profilerOff ?>" class="btn btn-success navbar-btn span2">Profiler [OFF]</a>
+  </div>
 </div>
 
 
-
-<h3><?=__('Example')?></h3>
+<h3><?= __('Example') ?></h3>
 <pre>
 debug(['key'=>'value'], 123, new \stdClass());
 </pre>
-<h3><?=__('Result')?></h3>
+<h3><?= __('Result') ?></h3>
 <div class="well">
     <?php
-        debug(['key'=>'value'], 123, new \stdClass());
+    debug(['key' => 'value'], 123, new \stdClass());
     ?>
 </div>

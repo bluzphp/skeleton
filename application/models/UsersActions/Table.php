@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Application\UsersActions;
 
 use Bluz\Proxy\Db;
@@ -38,6 +39,7 @@ class Table extends \Bluz\Db\Table
 
     /**
      * Primary key(s)
+     *
      * @var array
      */
     protected $primary = array('userId', 'code');
@@ -45,10 +47,11 @@ class Table extends \Bluz\Db\Table
     /**
      * generate action with token
      *
-     * @param int $userId
+     * @param int    $userId
      * @param string $action
-     * @param int $expired in days
-     * @param array $params
+     * @param int    $expired in days
+     * @param array  $params
+     *
      * @return Row
      */
     public function generate($userId, $action, $expired = 5, $params = [])

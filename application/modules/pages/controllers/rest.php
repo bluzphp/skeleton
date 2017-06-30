@@ -5,6 +5,7 @@
  * @author   Anton Shevchuk
  * @created  30.10.12 09:29
  */
+
 namespace Application;
 
 use Application\Pages;
