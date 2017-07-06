@@ -8,11 +8,13 @@ Options +FollowSymlinks
 Options -Indexes
 
 # PHP settings
-<ifModule mod_php5.c>
+<ifModule mod_php7.c>
 	php_flag magic_quotes_gpc 0
 
 	php_flag xdebug.show_local_vars 0
 	php_flag xdebug.profiler_enable 0
+	php_flag xdebug.profiler_enable_trigger 0
+	php_value xdebug.profiler_output_dir ~/tmp/
 
 	php_value xdebug.var_display_max_children 128
 	php_value xdebug.var_display_max_depth 5

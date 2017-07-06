@@ -13,6 +13,7 @@ namespace Application;
 use Bluz\Application\Application;
 use Bluz\Application\Exception\ForbiddenException;
 use Bluz\Auth\AuthException;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Auth as AuthProxy;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Logger;
@@ -37,16 +38,16 @@ class Bootstrap extends Application
     /**
      * {@inheritdoc}
      *
-     * @param string $module
-     * @param string $controller
-     * @param array  $params
+     * @param Controller $controller
      *
      * @return void
+     * @throws \Application\Exception
+     * @throws \Bluz\Auth\AuthException
      */
-    protected function preDispatch($module, $controller, $params = array())
+    protected function preDispatch($controller)
     {
         // example of setup default title
-        Layout::title("Bluz Skeleton");
+        Layout::title('Bluz Skeleton');
 
         // apply "remember me" function
         if (!AuthProxy::getIdentity()) {
@@ -62,21 +63,7 @@ class Bootstrap extends Application
                 }
             }
         }
-        parent::preDispatch($module, $controller, $params);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param string $module
-     * @param string $controller
-     * @param array  $params
-     *
-     * @return void
-     */
-    protected function postDispatch($module, $controller, $params = array())
-    {
-        parent::postDispatch($module, $controller, $params);
+        parent::preDispatch($controller);
     }
 
     /**
@@ -93,7 +80,7 @@ class Bootstrap extends Application
             || (Request::checkAccept([Request::TYPE_HTML, Request::TYPE_JSON]) === Request::TYPE_JSON);
 
         // for guest, for requests
-        if (!AuthProxy::getIdentity() && !$jsonOrApi) {
+        if (!$jsonOrApi && !AuthProxy::getIdentity()) {
             // save URL to session and redirect make sense if presentation is null
             Session::set('rollback', Request::getUri()->__toString());
             // add error notice
@@ -144,7 +131,7 @@ class Bootstrap extends Application
         $debugString = sprintf(
             '%fsec; %skb',
             microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
-            ceil((memory_get_usage() / 1024))
+            ceil(memory_get_usage() / 1024)
         );
         $debugString .= '; ' . Request::getModule() . '/' . Request::getController();
 

@@ -1,4 +1,6 @@
 SetEnv BLUZ_ENV production
+SetEnv BLUZ_LOG true
+SetEnv BLUZ_DEBUG false
 
 AddDefaultCharset UTF-8
 
@@ -6,7 +8,7 @@ Options +FollowSymlinks
 Options -Indexes
 
 # PHP Settings
-<ifModule mod_php5.c>
+<ifModule mod_php7.c>
     php_flag magic_quotes_gpc 0
 </ifModule>
 
