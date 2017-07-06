@@ -7,6 +7,7 @@
 /**
  * @namespace
  */
+
 namespace Application;
 
 use Bluz\Controller\Controller;
@@ -19,6 +20,7 @@ use Bluz\Proxy\Response;
  * @privilege Management
  *
  * @param array $acl
+ *
  * @return void
  */
 return function ($acl) {

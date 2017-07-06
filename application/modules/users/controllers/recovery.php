@@ -7,6 +7,7 @@
  * @author   Anton Shevchuk
  * @created  11.12.12 13:03
  */
+
 namespace Application;
 
 use Application\Users;
@@ -20,6 +21,7 @@ use Bluz\Proxy\Router;
 
 /**
  * @param string $email
+ *
  * @return void
  */
 return function ($email = null) {

@@ -5,6 +5,7 @@
  * @author   Anton Shevchuk
  * @created  20.07.11 18:39
  */
+
 namespace Application;
 
 use Application\Auth;
@@ -18,7 +19,8 @@ use Bluz\Proxy\Session;
 /**
  * @param string $login
  * @param string $password
- * @param bool $rememberMe
+ * @param bool   $rememberMe
+ *
  * @return array
  */
 return function ($login, $password, $rememberMe = false) {

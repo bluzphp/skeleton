@@ -3,17 +3,19 @@
  * Bluz Framework Component
  *
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/framework
+ * @link      https://github.com/bluzphp/framework
  */
 
 /**
  * @namespace
  */
+
 namespace Application;
 
 use Application\Users\Table;
 use Bluz\Application\Application;
 use Bluz\Application\Exception\ApplicationException;
+use Bluz\Controller\Controller;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Config;
 use Bluz\Proxy\Logger;
@@ -38,6 +40,7 @@ class CliBootstrap extends Application
 {
     /**
      * Layout flag
+     *
      * @var boolean
      */
     protected $layoutFlag = false;
@@ -86,7 +89,9 @@ class CliBootstrap extends Application
 
     /**
      * get CLI Request
+     *
      * @return void
+     * @throws \InvalidArgumentException
      * @throws ApplicationException
      */
     public function initRequest()
@@ -106,6 +111,7 @@ class CliBootstrap extends Application
      * initConfig
      *
      * @return void
+     * @throws \Bluz\Config\ConfigException
      */
     public function initConfig()
     {
@@ -121,6 +127,7 @@ class CliBootstrap extends Application
 
     /**
      * Pre process
+     *
      * @return void
      */
     protected function preProcess()
@@ -132,18 +139,17 @@ class CliBootstrap extends Application
     /**
      * {@inheritdoc}
      *
-     * @param string $module
-     * @param string $controller
-     * @param array $params
+     * @param Controller $controller
+     *
      * @return void
      */
-    protected function preDispatch($module, $controller, $params = array())
+    protected function preDispatch($controller)
     {
         // auth as CLI user
         $cliUser = Table::findRowWhere(['login' => 'system']);
         Auth::setIdentity($cliUser);
 
-        parent::preDispatch($module, $controller, $params);
+        parent::preDispatch($controller);
     }
 
     /**

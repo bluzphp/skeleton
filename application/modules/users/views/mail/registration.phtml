@@ -1,19 +1,19 @@
 <?php
 /**
  * @var \Application\Users\Row $user
- * @var \Bluz\View\View $this
+ * @var \Bluz\View\View        $this
  */
 ?>
-Hello <?=$user->login?>,
+Hello <?= $user->login ?>,
 Thank you for registering at our site. Your account is created and must be activated before you can use it.
 To activate the account click on the following link or copy-paste it in your browser:
- <a href="<?=$activationUrl?>"><?=$activationUrl?></a>
+<a href="<?= $activationUrl ?>"><?= $activationUrl ?></a>
 
 After activation you may login to site using the following username and password:
 
- Username: <?=$user->login?>
+Username: <?= $user->login ?>
 
- Password: <?=$password?>
+Password: <?= $password ?>
 
 
 WBR, site team

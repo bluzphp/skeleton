@@ -7,6 +7,7 @@
  * @author   Anton Shevchuk
  * @created  19.02.15 16:27
  */
+
 namespace Application;
 
 use Bluz\Application\Exception\BadRequestException;
@@ -24,8 +25,9 @@ use Bluz\Validator\Exception\ValidatorException;
  * @method POST
  *
  * @param  \Bluz\Crud\Table $crud
- * @param  mixed $primary
- * @param  array $data
+ * @param  mixed            $primary
+ * @param  array            $data
+ *
  * @return array
  * @throws BadRequestException
  * @throws NotImplementedException
@@ -58,7 +60,7 @@ return function ($crud, $primary, $data) {
     Response::setStatusCode(StatusCode::CREATED);
     Response::setHeader(
         'Location',
-        Router::getUrl(Request::getModule(), Request::getController()).'/'.$result
+        Router::getUrl(Request::getModule(), Request::getController()) . '/' . $result
     );
     return [];
 };

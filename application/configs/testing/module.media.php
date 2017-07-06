@@ -8,5 +8,5 @@
  * @return   array
  */
 return [
-    'upload_path' => PATH_PUBLIC.'/tests/uploads'
+    'upload_path' => PATH_PUBLIC . '/tests/uploads'
 ];

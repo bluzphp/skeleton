@@ -6,7 +6,7 @@
  * @created  02.08.13 10:52
  */
 /*global define,require*/
-define(['jquery'], function($) {
+define(["jquery"], function($) {
     "use strict";
 
     let notify, classes, container, counter, deferred;
@@ -19,9 +19,9 @@ define(['jquery'], function($) {
      * @type {{error: string, notice: string, success: string}}
      */
     classes = {
-        'error':'alert alert-danger',
-        'notice':'alert alert-info',
-        'success':'alert alert-success'
+        "error":"alert alert-danger",
+        "notice":"alert alert-info",
+        "success":"alert alert-success"
     };
 
     /**
@@ -29,11 +29,11 @@ define(['jquery'], function($) {
      * @returns {HTMLElement}
      */
     function prepareContainer () {
-        container = document.getElementById('notify');
+        container = document.getElementById("notify");
         if (!container) {
-            container = document.createElement('div');
-            container.id = 'notify';
-            $('body').append(container);
+            container = document.createElement("div");
+            container.id = "notify";
+            $("body").append(container);
         }
 
         return container;
@@ -46,17 +46,16 @@ define(['jquery'], function($) {
      * @returns {HTMLElement}
      */
     function prepareNotify (type, content) {
-        let div = document.createElement('div');
+        let div = document.createElement("div");
             div.className = classes[type];
             div.innerHTML = content;
-            div.style.display = 'none';
+            div.style.display = "none";
             div.onclick = function() {
                 div.parentNode.removeChild(div);
             };
 
         // add notification to container
-        let container = prepareContainer();
-        container.appendChild(div);
+        prepareContainer().appendChild(div);
 
         // increase notifications counter
         counter++;
@@ -85,9 +84,9 @@ define(['jquery'], function($) {
          * Set notifications from hash:
          *
          * {
-         *      'error': ['error message', 'another message']
-         *      'notice': ['info message', 'messages']
-         *      'success': ['message', 'messages']
+         *      "error": ["error message", "another message"]
+         *      "notice": ["info message", "messages"]
+         *      "success": ["message", "messages"]
          * }
          *
          * @param notifications
@@ -115,13 +114,13 @@ define(['jquery'], function($) {
                 });
         },
         addError: function (content) {
-            notify.add('error', content);
+            notify.add("error", content);
         },
         addNotice: function (content) {
-            notify.add('notice', content);
+            notify.add("notice", content);
         },
         addSuccess: function (content) {
-            notify.add('success', content);
+            notify.add("success", content);
         },
         /**
          * @param callback

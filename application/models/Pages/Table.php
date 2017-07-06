@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Application\Pages;
 
 use Application\Users;
@@ -23,28 +24,33 @@ class Table extends \Bluz\Db\Table
 {
     /**
      * Table
+     *
      * @var string
      */
     protected $name = 'pages';
 
     /**
      * Primary key(s)
+     *
      * @var array
      */
     protected $primary = array('id');
 
     /**
      * Get page by Alias
+     *
      * @param $alias
+     *
      * @return Row
      */
     public function getByAlias($alias)
     {
-        return self::findRowWhere(['alias'=>$alias]);
+        return self::findRowWhere(['alias' => $alias]);
     }
 
     /**
      * Init table relations
+     *
      * @return void
      */
     public function init()

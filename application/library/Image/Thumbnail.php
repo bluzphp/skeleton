@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Image;
 
 /**
@@ -36,12 +37,14 @@ class Thumbnail
 
     /**
      * Width of thumbnail, zero means leave original size
+     *
      * @var int
      */
     protected $width = 0;
 
     /**
      * Height of thumbnail, zero means leave original size
+     *
      * @var int
      */
     protected $height = 0;
@@ -50,18 +53,20 @@ class Thumbnail
      * Constructor of Image Tool
      *
      * @access  public
+     *
      * @param string $file
      */
     public function __construct($file)
     {
         $this->path = dirname($file);
-        $this->file = substr($file, strlen($this->path)+1);
+        $this->file = substr($file, strlen($this->path) + 1);
     }
 
     /**
      * Setup width
      *
      * @param int $width
+     *
      * @return self
      */
     public function setWidth($width)
@@ -74,6 +79,7 @@ class Thumbnail
      * Setup height
      *
      * @param int $height
+     *
      * @return self
      */
     public function setHeight($height)
@@ -90,7 +96,7 @@ class Thumbnail
      */
     public function generate()
     {
-        $dir = $this->path .'/.thumb/'.$this->width.'x'.$this->height;
+        $dir = $this->path . '/.thumb/' . $this->width . 'x' . $this->height;
 
         if (!is_dir($dir) && !mkdir($dir, 0755, true)) {
             throw new Exception("Thumbnail image can't be save. Parent directory is not writable");
@@ -98,22 +104,22 @@ class Thumbnail
 
         // Thumbnail already exists
         // then remove it and regenerate
-        if (file_exists($dir.'/'.$this->file)) {
-            unlink($dir.'/'.$this->file);
+        if (file_exists($dir . '/' . $this->file)) {
+            unlink($dir . '/' . $this->file);
         }
 
         if (class_exists('\\Imagick')) {
-            $image = new \Imagick($this->path.'/'.$this->file);
+            $image = new \Imagick($this->path . '/' . $this->file);
         } elseif (function_exists('gd_info')) {
-            $image = new Gd($this->path.'/'.$this->file);
+            $image = new Gd($this->path . '/' . $this->file);
         } else {
             // return original file
-            return $this->path .'/'. $this->file;
+            return $this->path . '/' . $this->file;
         }
 
         $image->cropThumbnailImage($this->width, $this->height);
-        $image->writeimage($dir.'/'.$this->file);
+        $image->writeimage($dir . '/' . $this->file);
 
-        return $dir .'/'. $this->file;
+        return $dir . '/' . $this->file;
     }
 }

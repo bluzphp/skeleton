@@ -3,6 +3,7 @@
  * @author   Anton Shevchuk
  * @created  21.08.12 12:39
  */
+
 namespace Application;
 
 use Bluz\Proxy\Layout;

@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Application\UsersRoles;
 
 /**
@@ -28,6 +29,7 @@ class Table extends \Bluz\Db\Table
 
     /**
      * Primary key(s)
+     *
      * @var array
      */
     protected $primary = array('userId', 'roleId');

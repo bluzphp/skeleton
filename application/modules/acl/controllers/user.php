@@ -7,6 +7,7 @@
 /**
  * @namespace
  */
+
 namespace Application;
 
 use Bluz\Controller\Controller;
@@ -16,11 +17,12 @@ use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 
 /**
- * @accept HTML
- * @accept JSON
+ * @accept    HTML
+ * @accept    JSON
  * @privilege Management
  *
  * @param int $id
+ *
  * @return bool
  * @throws Exception
  */
@@ -52,7 +54,7 @@ return function ($id) {
         }
 
         // clean cache
-        Cache::delete('users.roles.'. $user->id);
+        Cache::delete('users.roles.' . $user->id);
         Messages::addSuccess('User roles was updated');
         return false;
     }

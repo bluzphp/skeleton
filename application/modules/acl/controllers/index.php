@@ -7,6 +7,7 @@
 /**
  * @namespace
  */
+
 namespace Application;
 
 use Bluz\Controller\Controller;
@@ -44,7 +45,7 @@ return function () {
     sort($modules);
 
     foreach ($modules as $module) {
-        $controllerPath = $path .'/'. $module .'/controllers/';
+        $controllerPath = $path . '/' . $module . '/controllers/';
         $controllerPathLength = strlen($controllerPath);
 
         if (!is_dir($controllerPath)) {
@@ -66,7 +67,7 @@ return function () {
             }
             $controller = $fileInfo->getBasename('.php');
             if ($prefix = substr($fileInfo->getPath(), $controllerPathLength)) {
-                $controller = $prefix .'/'. $controller;
+                $controller = $prefix . '/' . $controller;
             }
             $controllerInstance = new Controller($module, $controller);
             $meta = $controllerInstance->getMeta();
@@ -87,14 +88,14 @@ return function () {
         }
     }
     $this->assign('set', $set);
-    
+
     $privilegesRowset = Privileges\Table::getInstance()->getPrivileges();
     $privileges = array();
 
     foreach ($privilegesRowset as $privilege) {
         array_add($privileges, $privilege->roleId, $privilege->module, $privilege->privilege);
     }
-    
+
     $this->assign('privileges', $privileges);
     $this->assign('roles', Roles\Table::getInstance()->getRoles());
 };

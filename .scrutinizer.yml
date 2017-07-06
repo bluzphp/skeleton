@@ -4,8 +4,17 @@ filter:
   excluded_paths:
     - tests/
 tools:
+  php_analyzer: true
   php_code_sniffer:
     config:
       standard: PSR2
+  php_cpd:
+      enabled: true
+      excluded_dirs: [vendor, tests]
+  php_loc:
+      enabled: true
+      excluded_dirs: [vendor, tests]
+  php_mess_detector: true
+  php_pdepend: true
   external_code_coverage:
     timeout: 600    # Timeout in seconds.

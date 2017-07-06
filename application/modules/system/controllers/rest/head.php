@@ -7,6 +7,7 @@
  * @author   Anton Shevchuk
  * @created  19.02.15 16:27
  */
+
 namespace Application;
 
 use Bluz\Proxy\Request;
@@ -17,7 +18,8 @@ use Bluz\Proxy\Response;
  * @method HEAD
  *
  * @param  \Bluz\Crud\Table $crud
- * @param  mixed $primary
+ * @param  mixed            $primary
+ *
  * @return void
  */
 return function ($crud, $primary) {

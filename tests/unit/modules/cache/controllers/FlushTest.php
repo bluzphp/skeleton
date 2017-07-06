@@ -31,7 +31,11 @@ class FlushTest extends ControllerTestCase
         self::setupSuperUserIdentity();
 
         $this->dispatch('/cache/flush/', [], RequestMethod::GET, true);
+
         self::assertOk();
+
+        // for disabled cache - notice
+        // for enabled - success
         self::assertNoticeMessage();
     }
 }

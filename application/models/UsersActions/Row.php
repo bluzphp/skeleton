@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Application\UsersActions;
 
 /**
@@ -15,11 +16,11 @@ namespace Application\UsersActions;
  * @package  Application\Users
  *
  * @property integer $userId
- * @property string $code
- * @property string $action
- * @property string $params
- * @property string $created
- * @property string $expired
+ * @property string  $code
+ * @property string  $action
+ * @property string  $params
+ * @property string  $created
+ * @property string  $expired
  *
  * @author   Anton Shevchuk
  * @created  05.12.12 10:32

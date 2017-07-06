@@ -5,6 +5,7 @@
  * @author   Anton Shevchuk
  * @created  27.08.12 10:08
  */
+
 namespace Application;
 
 use Bluz\Controller\Controller;

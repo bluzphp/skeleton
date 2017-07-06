@@ -1,7 +1,7 @@
 <?php
 /**
  * @var \Application\Users\Row $user
- * @var \Bluz\View\View $this
+ * @var \Bluz\View\View        $this
  */
 ?>
 
@@ -14,58 +14,58 @@
 </h3>
 
 <div class="panel-body">
-    <div class="row">
-        <div class="col-md-2 col-lg-2 " align="center">
-            <img id="avatar" src="<?=$this->gravatar($user->email, 128)?>" alt="<?=$user->email?>">
-        </div>
-        <div class=" col-md-10 col-lg-10 ">
-            <table class="table table-user-information">
-                <tbody>
-                <tr>
-                    <td><?= __('Login') ?></td>
-                    <td><?= $user->login ?></td>
-                </tr>
-                <tr>
-                    <td><?= __('Email') ?></td>
-                    <td><a href="mailto:<?= $user->email ?>"><?= $user->email ?></a></td>
-                </tr>
-                <tr>
-                    <td><?= __('Status') ?></td>
-                    <td><?= $user->status ?></td>
-                </tr>
-                <tr>
-                    <td><?= __('Linking to social networks') ?></td>
-                    <td>
-                        <?php if ($this->hasModule('google')) : ?>
-                        <a href="<?= \Bluz\Proxy\Router::getUrl('auth', 'auth', ['provider'=> 'google']) ?>"
-                           class="provider btn fa fa-google-plus-square fa-2x"></a>
-                        <?php endif; ?>
-                        <?php if ($this->hasModule('facebook')) : ?>
-                        <a href="<?= \Bluz\Proxy\Router::getUrl('auth', 'auth', ['provider'=> 'facebook']) ?>"
-                           class="provider btn fa fa-facebook-square fa-2x"></a>
-                        <?php endif; ?>
-                        <?php if ($this->hasModule('twitter')) : ?>
-                        <a href="<?= \Bluz\Proxy\Router::getUrl('auth', 'auth', ['provider'=> 'twitter']) ?>"
-                           class="provider btn fa fa-twitter-square fa-2x"></a>
-                        <?php endif; ?>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+  <div class="row">
+    <div class="col-md-2 col-lg-2 " align="center">
+      <img id="avatar" src="<?= $this->gravatar($user->email, 128) ?>" alt="<?= $user->email ?>">
     </div>
+    <div class=" col-md-10 col-lg-10 ">
+      <table class="table table-user-information">
+        <tbody>
+        <tr>
+          <td><?= __('Login') ?></td>
+          <td><?= $user->login ?></td>
+        </tr>
+        <tr>
+          <td><?= __('Email') ?></td>
+          <td><a href="mailto:<?= $user->email ?>"><?= $user->email ?></a></td>
+        </tr>
+        <tr>
+          <td><?= __('Status') ?></td>
+          <td><?= $user->status ?></td>
+        </tr>
+        <tr>
+          <td><?= __('Linking to social networks') ?></td>
+          <td>
+              <?php if ($this->hasModule('google')) : ?>
+                <a href="<?= \Bluz\Proxy\Router::getUrl('auth', 'auth', ['provider' => 'google']) ?>"
+                   class="provider btn fa fa-google-plus-square fa-2x"></a>
+              <?php endif; ?>
+              <?php if ($this->hasModule('facebook')) : ?>
+                <a href="<?= \Bluz\Proxy\Router::getUrl('auth', 'auth', ['provider' => 'facebook']) ?>"
+                   class="provider btn fa fa-facebook-square fa-2x"></a>
+              <?php endif; ?>
+              <?php if ($this->hasModule('twitter')) : ?>
+                <a href="<?= \Bluz\Proxy\Router::getUrl('auth', 'auth', ['provider' => 'twitter']) ?>"
+                   class="provider btn fa fa-twitter-square fa-2x"></a>
+              <?php endif; ?>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
 <script>
-    /*
-    require(['jquery'], function($) {
-        $('a.thumbnail').on('push.data.bluz', function(event, data) {
-            // send to server for update avatar
-            // all information about image inside data
-            console.log(data);
-            // hide modal dialog
-            $(this).data('modal').modal('hide');
-        });
-    });
-    */
+  /*
+   require(['jquery'], function($) {
+   $('a.thumbnail').on('push.data.bluz', function(event, data) {
+   // send to server for update avatar
+   // all information about image inside data
+   console.log(data);
+   // hide modal dialog
+   $(this).data('modal').modal('hide');
+   });
+   });
+   */
 </script>

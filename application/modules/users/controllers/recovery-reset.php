@@ -7,6 +7,7 @@
  * @author   Anton Shevchuk
  * @created  11.12.12 15:25
  */
+
 namespace Application;
 
 use Application\Auth;
@@ -17,7 +18,7 @@ use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 
 /**
- * @param int $id User UID
+ * @param int    $id User UID
  * @param string $code
  * @param string $password
  * @param string $password2
@@ -44,7 +45,7 @@ return function ($id, $code, $password = null, $password2 = null) {
         Response::redirectTo('index', 'index');
     } else {
         $user = Users\Table::findRow($id);
-        
+
         $this->assign('user', $user);
         $this->assign('code', $code);
 
@@ -60,7 +61,7 @@ return function ($id, $code, $password = null, $password2 = null) {
 
                 // remove old auth record
                 if ($oldAuth = Auth\Table::getInstance()->getAuthRow(Auth\Table::PROVIDER_EQUALS, $user->login)) {
-                    $oldAuth -> delete();
+                    $oldAuth->delete();
                 }
 
                 // create new auth record

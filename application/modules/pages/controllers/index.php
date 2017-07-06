@@ -5,6 +5,7 @@
  * @author   Anton Shevchuk
  * @created  06.08.12 10:08
  */
+
 namespace Application;
 
 use Bluz\Application\Exception\NotFoundException;
@@ -16,12 +17,13 @@ use Bluz\Proxy\Layout;
  * @route /{$alias}.html
  *
  * @param string $alias
+ *
  * @throws NotFoundException
  */
 return function ($alias) {
     /**
      * @var Controller $this
-     * @var Pages\Row $page
+     * @var Pages\Row  $page
      */
     $page = Pages\Table::getInstance()->getByAlias($alias);
 

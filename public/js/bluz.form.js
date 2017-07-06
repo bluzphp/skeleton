@@ -13,11 +13,11 @@ define(["jquery", "bootstrap"], function ($) {
 
     // static validator
     let form, defaults, settings;
-    defaults =  {
-        container: '.form-group', // default for Twitter Bootstrap layout
-        errorClass: 'has-error',
+    defaults = {
+        container: ".form-group", // default for Twitter Bootstrap layout
+        errorClass: "has-error",
         inputCollection: false,   // uses "data[field-name]" or "field-name"
-        tooltipPosition: 'top'    // can be bottom
+        tooltipPosition: "top"    // can be bottom
     };
 
     settings = $.extend({}, defaults);
@@ -41,37 +41,37 @@ define(["jquery", "bootstrap"], function ($) {
             let $group = $field.parents(settings.container);
 
             if (messages instanceof Array) {
-                messages = messages.join('<br/>');
+                messages = messages.join("<br/>");
             }
 
             $group.addClass(settings.errorClass);
 
             // field can be hidden, e.g. by WYSIWYG editor
-            if ($field.is(':hidden')) {
-                $field = $group.find('label');
+            if ($field.is(":hidden")) {
+                $field = $group.find("label");
             }
 
             // remove previously generated tooltips
-            $field.tooltip('destroy');
+            $field.tooltip("destroy");
 
             // generate new
             $field.tooltip({
                 html: true,
                 title: messages,
-                trigger: 'manual',
+                trigger: "manual",
                 // change position for long messages, and for hidden fields
-                placement: ($field.width() < 220) || (messages.length > 82) || $field.is('label') ? 'right' : 'top'
+                placement: ($field.width() < 220) || (messages.length > 82) || $field.is("label") ? "right" : "top"
             });
 
-            $field.tooltip('show');
+            $field.tooltip("show");
 
-            if ($field.is('input')) {
+            if ($field.is("input")) {
                 form.icon($form, $field);
             }
 
             $field.click(function () {
-                $group.removeClass('has-error');
-                $field.tooltip('destroy');
+                $group.removeClass("has-error");
+                $field.tooltip("destroy");
             });
         },
         /**
@@ -84,16 +84,16 @@ define(["jquery", "bootstrap"], function ($) {
             let $field = $(field);
             let $group = $field.parents(settings.container);
 
-            $group.addClass('has-feedback');
+            $group.addClass("has-feedback");
 
-            let $icon = $('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
-            let $sr = $('<span class="sr-only">(error)</span>');
+            let $icon = $("<span class=\"glyphicon glyphicon-remove form-control-feedback\" aria-hidden=\"true\"></span>");
+            let $sr = $("<span class=\"sr-only\">(error)</span>");
 
             $field.after($sr);
             $field.after($icon);
 
             $field.click(function () {
-                $group.removeClass('has-feedback');
+                $group.removeClass("has-feedback");
                 $icon.remove();
                 $sr.remove();
             });
@@ -121,11 +121,11 @@ define(["jquery", "bootstrap"], function ($) {
             $form.find(settings.container).removeClass(settings.errorClass);
 
             if (data !== undefined && data.errors !== undefined) {
-                $.each(data.errors, function(field, notices) {
+                $.each(data.errors, function (field, notices) {
                     if (settings.inputCollection) {
-                        form.notice($form, '[name^="data['+field+']"]:first', notices);
+                        form.notice($form, "[name^='data[" + field + "]']:first", notices);
                     } else {
-                        form.notice($form, '[name^="'+field+'"]:first', notices);
+                        form.notice($form, "[name^='" + field + "']:first", notices);
                     }
                 });
             }

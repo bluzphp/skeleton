@@ -33,6 +33,7 @@ class CleanTest extends ControllerTestCase
         $this->dispatch('/cache/clean/', [], RequestMethod::GET, true);
 
         self::assertOk();
+
         // for disabled cache - notice
         // for enabled - success
         self::assertNoticeMessage();

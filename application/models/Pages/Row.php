@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Application\Pages;
 
 use Application\Users;
@@ -20,13 +21,13 @@ use Bluz\Validator\Validator as v;
  * @package  Application\Pages
  *
  * @property integer $id
- * @property string $title
- * @property string $alias
- * @property string $content
- * @property string $keywords
- * @property string $description
- * @property string $created
- * @property string $updated
+ * @property string  $title
+ * @property string  $alias
+ * @property string  $content
+ * @property string  $keywords
+ * @property string  $description
+ * @property string  $created
+ * @property string  $updated
  * @property integer $userId
  *
  * @SWG\Definition(definition="pages", title="page", required={"id", "title", "alias", "content"})
@@ -67,25 +68,29 @@ class Row extends \Bluz\Db\Row
             'alias',
             v::required(),
             v::slug(),
-            v::callback(function ($input) {
-                if ($row = $this->getTable()->findRowWhere(['alias' => $input])) {
-                    if ($row->id != $this->id) {
-                        return false;
+            v::callback(
+                function ($input) {
+                    if ($row = $this->getTable()->findRowWhere(['alias' => $input])) {
+                        if ($row->id != $this->id) {
+                            return false;
+                        }
                     }
+                    return true;
                 }
-                return true;
-            })->setError('Alias "{{input}}" already exists')
+            )->setError('Alias "{{input}}" already exists')
         );
 
         // content validator
         $this->addValidator(
             'content',
-            v::callback(function ($input) {
-                if (empty($input) or trim(strip_tags($input, '<img>')) == '') {
-                    return false;
+            v::callback(
+                function ($input) {
+                    if (empty($input) or trim(strip_tags($input, '<img>')) == '') {
+                        return false;
+                    }
+                    return true;
                 }
-                return true;
-            })->setError('Content can\'t be empty')
+            )->setError('Content can\'t be empty')
         );
     }
 

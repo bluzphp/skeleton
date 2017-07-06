@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Application\Roles;
 
 use Bluz\Proxy\Cache;
@@ -36,6 +37,7 @@ class Table extends \Bluz\Db\Table
 
     /**
      * Primary key(s)
+     *
      * @var array
      */
     protected $primary = array('id');
@@ -47,6 +49,7 @@ class Table extends \Bluz\Db\Table
 
     /**
      * Init table relations
+     *
      * @return void
      */
     public function init()
@@ -79,6 +82,7 @@ class Table extends \Bluz\Db\Table
      * Get all user roles in system
      *
      * @param integer $userId
+     *
      * @return array of rows
      */
     public function getUserRoles($userId)
@@ -96,11 +100,12 @@ class Table extends \Bluz\Db\Table
      * Get all user roles in system
      *
      * @param integer $userId
+     *
      * @return array of identity
      */
     public function getUserRolesIdentity($userId)
     {
-        $cacheKey = 'users.roles.'.$userId;
+        $cacheKey = 'users.roles.' . $userId;
         if (!$data = Cache::get($cacheKey)) {
             $data = Db::fetchColumn(
                 "SELECT r.id

@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Application\Users;
 
 /**
@@ -52,12 +53,14 @@ class Table extends \Bluz\Db\Table
 
     /**
      * Primary key(s)
+     *
      * @var array
      */
     protected $primary = array('id');
 
     /**
      * Init table relations
+     *
      * @return void
      */
     public function init()

@@ -5,6 +5,7 @@
  * @author   Anton Shevchuk
  * @created  01.09.11 13:15
  */
+
 namespace Application;
 
 use Application\Users;
@@ -16,6 +17,7 @@ use Bluz\Proxy\Layout;
  * @privilege ViewProfile
  *
  * @param int $id
+ *
  * @throws NotFoundException
  */
 return function ($id = null) {

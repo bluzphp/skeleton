@@ -9,6 +9,7 @@
 /**
  * @namespace
  */
+
 namespace Application;
 
 use Bluz\Controller\Controller;
@@ -18,7 +19,7 @@ use Bluz\Proxy\Messages;
 /**
  * Clean system data
  *
- * @accept JSON
+ * @accept    JSON
  * @privilege Management
  * @return void
  */

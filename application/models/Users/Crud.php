@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Application\Users;
 
 use Application\Auth;
@@ -33,6 +34,7 @@ class Crud extends \Bluz\Crud\Table
 {
     /**
      * @param array $data
+     *
      * @throws Exception
      * @throws ValidatorException
      * @return integer

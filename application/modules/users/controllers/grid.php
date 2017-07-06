@@ -6,6 +6,7 @@
  * @created  02.08.12 18:39
  * @return closure
  */
+
 namespace Application;
 
 use Application\Users;
@@ -32,7 +33,7 @@ return function () {
     $grid = new Users\Grid();
     $grid->setModule($this->module);
     $grid->setController($this->controller);
-    
+
     $this->assign('roles', Db::fetchAll('SELECT * FROM acl_roles'));
     $this->assign('grid', $grid);
 };

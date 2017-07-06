@@ -5,6 +5,7 @@
  * @author   Anton Shevchuk
  * @created  12.06.12 12:27
  */
+
 namespace Application;
 
 use Bluz\Controller\Controller;
@@ -35,7 +36,7 @@ return function () {
 
         $controllerInstance = new Controller($module, $controller);
         $meta = $controllerInstance->getMeta();
-        
+
         if ($route = $meta->getRoute()) {
             array_set($routers, $module, $controller, ['route' => $route, 'params' => $meta->getParams()]);
         }

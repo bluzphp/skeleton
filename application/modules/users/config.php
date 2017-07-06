@@ -14,5 +14,5 @@
  * @return   array
  */
 return array(
-    'rememberMe' => 3600*24*31 // remember me for 31 day
+    'rememberMe' => 3600 * 24 * 31 // remember me for 31 day
 );

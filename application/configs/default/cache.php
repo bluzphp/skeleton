@@ -19,8 +19,8 @@ return [
          * @link https://github.com/php-cache/filesystem-adapter
          */
         'filesystem' => function () {
-            $filesystemAdapter = new \League\Flysystem\Adapter\Local(PATH_DATA .'/cache');
-            $filesystem        = new \League\Flysystem\Filesystem($filesystemAdapter);
+            $filesystemAdapter = new \League\Flysystem\Adapter\Local(PATH_DATA . '/cache');
+            $filesystem = new \League\Flysystem\Filesystem($filesystemAdapter);
 
             return new \Cache\Adapter\Filesystem\FilesystemCachePool($filesystem);
         },

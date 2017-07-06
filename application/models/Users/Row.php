@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Application\Users;
 
 use Application\Exception;
@@ -25,11 +26,11 @@ use Bluz\Validator\Validator as v;
  * @package  Application\Users
  *
  * @property integer $id
- * @property string $login
- * @property string $email
- * @property string $created
- * @property string $updated
- * @property string $status
+ * @property string  $login
+ * @property string  $email
+ * @property string  $created
+ * @property string  $updated
+ * @property string  $status
  *
  * @SWG\Definition(definition="users", title="user", required={"id", "login", "status"})
  * @SWG\Property(property="id", type="integer", description="User UID", example=2)
@@ -45,6 +46,7 @@ class Row extends AbstractRowEntity
 
     /**
      * Small cache of user privileges
+     *
      * @var array
      */
     protected $privileges;
@@ -59,28 +61,32 @@ class Row extends AbstractRowEntity
         $this->addValidator(
             'login',
             v::required()->latin()->length(3, 255),
-            v::callback(function ($login) {
-                $user = $this->getTable()
-                    ->select()
-                    ->where('login = ?', $login)
-                    ->andWhere('id != ?', $this->id)
-                    ->execute();
-                return !$user;
-            })->setError('User with login "{{input}}" already exists')
+            v::callback(
+                function ($login) {
+                    $user = $this->getTable()
+                        ->select()
+                        ->where('login = ?', $login)
+                        ->andWhere('id != ?', $this->id)
+                        ->execute();
+                    return !$user;
+                }
+            )->setError('User with login "{{input}}" already exists')
         );
 
-            $this->addValidator(
-                'email',
-                v::required()->email(true),
-                v::callback(function ($email) {
+        $this->addValidator(
+            'email',
+            v::required()->email(true),
+            v::callback(
+                function ($email) {
                     $user = $this->getTable()
-                    ->select()
-                    ->where('email = ?', $email)
-                    ->andWhere('id != ?', $this->id)
-                    ->execute();
+                        ->select()
+                        ->where('email = ?', $email)
+                        ->andWhere('id != ?', $this->id)
+                        ->execute();
                     return !$user;
-                })->setError('User with email "{{input}}" already exists')
-            );
+                }
+            )->setError('User with email "{{input}}" already exists')
+        );
     }
 
     /**
@@ -110,9 +116,9 @@ class Row extends AbstractRowEntity
     {
         switch ($this->status) {
             case (Table::STATUS_PENDING):
-                throw new AuthException("Your account is pending activation", 403);
+                throw new AuthException('Your account is pending activation', 403);
             case (Table::STATUS_DISABLED):
-                throw new AuthException("Your account is disabled by administrator", 403);
+                throw new AuthException('Your account is disabled by administrator', 403);
             case (Table::STATUS_ACTIVE):
                 // all ok
                 // regenerate session
@@ -123,7 +129,7 @@ class Row extends AbstractRowEntity
                 Auth::setIdentity($this);
                 break;
             default:
-                throw new Exception("User status is undefined in system");
+                throw new Exception('User status is undefined in system');
         }
     }
 
@@ -138,7 +144,7 @@ class Row extends AbstractRowEntity
     /**
      * {@inheritdoc}
      */
-    public function getPrivileges() : array
+    public function getPrivileges(): array
     {
         if (!$this->privileges) {
             $this->privileges = Privileges\Table::getInstance()->getUserPrivileges($this->id);
@@ -150,6 +156,7 @@ class Row extends AbstractRowEntity
      * Check user role
      *
      * @param integer $roleId
+     *
      * @return boolean
      */
     public function hasRole($roleId)

@@ -10,6 +10,7 @@
 /**
  * @namespace
  */
+
 namespace Application;
 
 use Bluz\Controller\Controller;
@@ -27,8 +28,9 @@ use Bluz\Proxy\Response;
  * @accept JSON
  * @route  /error/{$code}
  *
- * @param  int $code
+ * @param  int        $code
  * @param  \Exception $exception
+ *
  * @return array
  */
 return function ($code, $exception = null) {
@@ -50,7 +52,7 @@ return function ($code, $exception = null) {
         $whoops = new \Whoops\Run();
         if (PHP_SAPI === 'cli') {
             $whoops->pushHandler(new \Whoops\Handler\PlainTextHandler());
-        } elseif (Request::getAccept(['application/json'])) {
+        } elseif (Request::checkAccept(['application/json'])) {
             $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler());
         } else {
             $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());

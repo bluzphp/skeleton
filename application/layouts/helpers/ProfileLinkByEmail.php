@@ -1,12 +1,13 @@
 <?php
 /**
  * @copyright Bluz PHP Team
- * @link https://github.com/bluzphp/skeleton
+ * @link      https://github.com/bluzphp/skeleton
  */
 
 /**
  * @namespace
  */
+
 namespace Application\Layout\Helper;
 
 use Application\Users;
@@ -16,7 +17,8 @@ return
      * Get profile link by email user
      *
      * @param string $email
-     * @param array $attributes
+     * @param array  $attributes
+     *
      * @return string
      */
     function ($email, array $attributes = []) {
