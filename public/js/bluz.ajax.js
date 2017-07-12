@@ -58,21 +58,21 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
             .ajaxError(function (event, jqXHR, options, thrownError) {
                 bluz.log(thrownError, jqXHR.responseText);
 
-                // show error messages
+                // try to get messages from headers
                 if (jqXHR.getResponseHeader("Bluz-Notify")) {
                     let notifications = $.parseJSON(jqXHR.getResponseHeader("Bluz-Notify"));
                     notify.set(notifications);
                 }
 
                 // try to get error message from JSON response
-                if (!(options.dataType === "json" ||
-                        jqXHR.getResponseHeader("Content-Type") === "application/json")) {
-                    modal.create($(document), jqXHR.responseText, "width: 800px").modal("show");
-                } else {
+                if (options.dataType === "json" ||
+                        jqXHR.getResponseHeader("Content-Type") === "application/json") {
                     let response = $.parseJSON(jqXHR.responseText);
                     if (response.hasOwnProperty("error") && response.error.hasOwnProperty("message")) {
                         notify.addError(response.error.message);
                     }
+                } else {
+                    modal.create($(document), jqXHR.responseText, "width: 800px").modal("show");
                 }
             })
             .ajaxComplete(function () {
