@@ -24,7 +24,7 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
     "use strict";
 
     /**
-     * Get only plain data
+     * Get all `data-*` from element
      * @param el
      * @returns {{}}
      */
@@ -73,22 +73,18 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
                     let $element = $(options.context);
                     $element.trigger("success.ajax.bluz", arguments);
 
-                    // redirect and reload page
-                    let callback = null;
-                    if (jqXHR.getResponseHeader("Bluz-Redirect")) {
-                        callback = function () {
-                            // redirect to another page
-                            window.location = jqXHR.getResponseHeader("Bluz-Redirect");
-                        };
-                    }
-
-                    // show messages and run callback after
+                    // set messages if it exists
                     if (jqXHR.getResponseHeader("Bluz-Notify")) {
                         let notifications = $.parseJSON(jqXHR.getResponseHeader("Bluz-Notify"));
-                        notify.addCallback(callback);
                         notify.set(notifications);
-                    } else if (callback) {
-                        callback();
+                    }
+
+                    // redirect and reload page
+                    if (jqXHR.getResponseHeader("Bluz-Redirect")) {
+                        notify.done(function () {
+                            // redirect to another page
+                            window.location = jqXHR.getResponseHeader("Bluz-Redirect");
+                        });
                     }
                 } catch (err) {
                     bluz.error(err.name, err.message);
