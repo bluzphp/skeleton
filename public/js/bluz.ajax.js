@@ -57,7 +57,7 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
          * @link http://api.jquery.com/ajaxStop/
          */
         $(document)
-            .ajaxStart(function (event) {
+            .ajaxStart(function () {
                 $("#loading").show();
             })
             .ajaxSend(function (event, jqXHR, options) {
@@ -73,7 +73,7 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
                     let $element = $(options.context);
                     $element.trigger("success.ajax.bluz", arguments);
 
-                    // set messages if it exists
+                    // try to get messages from headers
                     if (jqXHR.getResponseHeader("Bluz-Notify")) {
                         let notifications = $.parseJSON(jqXHR.getResponseHeader("Bluz-Notify"));
                         notify.set(notifications);
@@ -120,7 +120,7 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
                 let $element = $(options.context);
                 $element.removeClass("disabled");
             })
-            .ajaxStop(function (event) {
+            .ajaxStop(function () {
                 $("#loading").hide();
             });
 
