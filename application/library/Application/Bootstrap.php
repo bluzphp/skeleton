@@ -43,6 +43,7 @@ class Bootstrap extends Application
      * @return void
      * @throws \Application\Exception
      * @throws \Bluz\Auth\AuthException
+     * @throws \InvalidArgumentException
      */
     protected function preDispatch($controller)
     {
@@ -155,9 +156,6 @@ class Bootstrap extends Application
     {
         foreach ($errors as $message) {
             errorLog(new \ErrorException($message, 0, E_USER_ERROR));
-            if ($this->isDebug() && $message) {
-                echo "<div class='container alert alert-danger' role='alert'>$message</div>";
-            }
         }
     }
 }

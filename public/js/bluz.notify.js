@@ -10,9 +10,9 @@ define(["jquery"], function($) {
     "use strict";
 
     let notify, classes, container, counter, deferred;
+    let promises = [];
 
     counter = 0;
-    deferred = $.Deferred();
 
     /**
      * Notifications types matched to Twitter Bootstrap CSS classes
@@ -28,12 +28,12 @@ define(["jquery"], function($) {
      * Return messages container
      * @returns {HTMLElement}
      */
-    function prepareContainer () {
+    function getContainer () {
         container = document.getElementById("notify");
         if (!container) {
             container = document.createElement("div");
             container.id = "notify";
-            $("body").append(container);
+            document.body.appendChild(container);
         }
 
         return container;
@@ -45,7 +45,7 @@ define(["jquery"], function($) {
      * @param {string} content
      * @returns {HTMLElement}
      */
-    function prepareNotify (type, content) {
+    function getNotify (type, content) {
         let div = document.createElement("div");
             div.className = classes[type];
             div.innerHTML = content;
@@ -53,31 +53,10 @@ define(["jquery"], function($) {
             div.onclick = function() {
                 div.parentNode.removeChild(div);
             };
-
-        // add notification to container
-        prepareContainer().appendChild(div);
-
-        // increase notifications counter
-        counter++;
+        getContainer().appendChild(div);
         return div;
     }
 
-    /**
-     *
-     * @param {jQuery} $el
-     */
-    function hideNotify ($el) {
-        // decrease
-        if (counter) {
-            counter--;
-        }
-        // mark deferred object as resolved
-        if (counter === 0) {
-            deferred.resolve();
-        }
-        // remove DOM element
-        $el.remove();
-    }
 
     notify = {
         /**
@@ -99,34 +78,42 @@ define(["jquery"], function($) {
                     }
                 }
             }
+            return $.when.apply($, promises);
         },
         /**
          * @param {string} type
          * @param {string} content
          */
         add: function (type, content) {
-            let $el;
-            $el = $(prepareNotify(type, content));
+            let $el, $def, promise;
+            $def = new $.Deferred();
+
+            $el = $(getNotify(type, content));
             $el.animate({opacity:"show"}, 300)
                 .delay(5000)
                 .animate({opacity:"hide"}, 300, function() {
-                    hideNotify($el);
+                    // remove DOM element
+                    $el.remove();
+                    $def.resolve();
                 });
+            promise = $def.promise();
+            promises.push(promise);
+            return promise;
         },
         addError: function (content) {
-            notify.add("error", content);
+            return notify.add("error", content);
         },
         addNotice: function (content) {
-            notify.add("notice", content);
+            return notify.add("notice", content);
         },
         addSuccess: function (content) {
-            notify.add("success", content);
+            return notify.add("success", content);
         },
         /**
          * @param callback
          */
-        addCallback: function (callback) {
-            deferred.done(callback);
+        done: function (callback) {
+            $.when.apply($, promises).done(callback);
         }
     };
 
