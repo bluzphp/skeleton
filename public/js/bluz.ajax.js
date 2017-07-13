@@ -23,90 +23,117 @@
 define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal, notify) {
     "use strict";
 
+    /**
+     * Get only plain data
+     * @param el
+     * @returns {{}}
+     */
+    let processData = function (el) {
+        let data = el.data();
+        let plain = {};
+
+        $.each(data, function (key, value) {
+            if (!(typeof value === "function" ||
+                typeof value === "object" ||
+                key === "ajaxMethod" ||
+                key === "ajaxSource" ||
+                key === "ajaxTarget" ||
+                key === "ajaxType")) {
+                plain[key] = value;
+            }
+        });
+        return plain;
+    };
+
     // on DOM ready state
     $(function () {
         /**
          * Ajax global events
          * @link http://api.jquery.com/ajaxStart/
+         * @link http://api.jquery.com/ajaxSend/
          * @link http://api.jquery.com/ajaxSuccess/
          * @link http://api.jquery.com/ajaxError/
          * @link http://api.jquery.com/ajaxComplete/
+         * @link http://api.jquery.com/ajaxStop/
          */
         $(document)
-            .ajaxStart(function () {
+            .ajaxStart(function (event) {
                 $("#loading").show();
             })
-            .ajaxSuccess(function (event, jqXHR) {
-                // redirect and reload page
-                let callback = null;
-                if (jqXHR.getResponseHeader("Bluz-Redirect")) {
-                    callback = function () {
-                        // redirect to another page
-                        window.location = jqXHR.getResponseHeader("Bluz-Redirect");
-                    };
+            .ajaxSend(function (event, jqXHR, options) {
+                let $element = $(options.context);
+                if ($element.hasClass("disabled")) {
+                    return false;
+                } else {
+                    $element.addClass("disabled");
                 }
+            })
+            .ajaxSuccess(function (event, jqXHR, options) {
+                try {
+                    let $element = $(options.context);
+                    $element.trigger("success.ajax.bluz", arguments);
 
-                // show messages and run callback after
-                if (jqXHR.getResponseHeader("Bluz-Notify")) {
-                    let notifications = $.parseJSON(jqXHR.getResponseHeader("Bluz-Notify"));
-                    notify.addCallback(callback);
-                    notify.set(notifications);
-                } else if (callback) {
-                    callback();
+                    // redirect and reload page
+                    let callback = null;
+                    if (jqXHR.getResponseHeader("Bluz-Redirect")) {
+                        callback = function () {
+                            // redirect to another page
+                            window.location = jqXHR.getResponseHeader("Bluz-Redirect");
+                        };
+                    }
+
+                    // show messages and run callback after
+                    if (jqXHR.getResponseHeader("Bluz-Notify")) {
+                        let notifications = $.parseJSON(jqXHR.getResponseHeader("Bluz-Notify"));
+                        notify.addCallback(callback);
+                        notify.set(notifications);
+                    } else if (callback) {
+                        callback();
+                    }
+                } catch (err) {
+                    bluz.error(err.name, err.message);
                 }
             })
             .ajaxError(function (event, jqXHR, options, thrownError) {
-                bluz.log(thrownError, jqXHR.responseText);
+                try {
+                    let $element = $(options.context);
+                    $element.trigger("error.ajax.bluz", arguments);
 
-                // try to get messages from headers
-                if (jqXHR.getResponseHeader("Bluz-Notify")) {
-                    let notifications = $.parseJSON(jqXHR.getResponseHeader("Bluz-Notify"));
-                    notify.set(notifications);
-                }
-
-                // try to get error message from JSON response
-                if (options.dataType === "json" ||
-                        jqXHR.getResponseHeader("Content-Type") === "application/json") {
-                    let response = $.parseJSON(jqXHR.responseText);
-                    if (response.hasOwnProperty("error") && response.error.hasOwnProperty("message")) {
-                        notify.addError(response.error.message);
+                    // try to get messages from headers
+                    if (jqXHR.getResponseHeader("Bluz-Notify")) {
+                        let notifications = $.parseJSON(jqXHR.getResponseHeader("Bluz-Notify"));
+                        notify.set(notifications);
                     }
-                } else {
-                    modal.create($(document), jqXHR.responseText, "width: 800px").modal("show");
+
+                    // try to get error message from JSON response
+                    if (options.dataType === "json" ||
+                        jqXHR.getResponseHeader("Content-Type") === "application/json") {
+                        let response = $.parseJSON(jqXHR.responseText);
+                        if (response.hasOwnProperty("error") && response.error.hasOwnProperty("message")) {
+                            notify.addError(response.error.message);
+                        }
+                    } else {
+                        modal.create($(document), jqXHR.responseText, "width: 800px").modal("show");
+                    }
+                    bluz.log(thrownError, jqXHR.responseText);
+                } catch (err) {
+                    bluz.error(err.name, err.message);
                 }
             })
-            .ajaxComplete(function () {
+            .ajaxComplete(function (event, jqXHR, options) {
+                let $element = $(options.context);
+                $element.removeClass("disabled");
+            })
+            .ajaxStop(function (event) {
                 $("#loading").hide();
             });
 
-        /**
-         * Get only plain data
-         * @param el
-         * @returns {{}}
-         */
-        let processData = function (el) {
-            let data = el.data();
-            let plain = {};
-
-            $.each(data, function (key, value) {
-                if (!(typeof value === "function" ||
-                        typeof value === "object" ||
-                        key === "ajaxMethod" ||
-                        key === "ajaxSource" ||
-                        key === "ajaxTarget" ||
-                        key === "ajaxType")) {
-                    plain[key] = value;
-                }
-            });
-            return plain;
-        };
-
         // live event handlers
         $("body")
-        /**
-         * Confirmation dialog
-         * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#confirm-dialog
-         */
+            /**
+             * Confirmation dialog
+             * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#confirm-dialog
+             */
             .on("click.bluz.confirm", ".confirm", function (event) {
                 event.preventDefault();
 
@@ -125,33 +152,13 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
                 event.preventDefault();
 
                 let $this = $(this);
-                if ($this.hasClass("disabled")) {
-                    // request in progress
-                    return false;
-                }
 
-                let method = $this.data("ajax-method");
-                let type = $this.data("ajax-type");
-                type = (type || "json");
-
-                let data = processData($this);
                 $.ajax({
                     url: $this.attr("href"),
-                    type: (method || "post"),
-                    data: data,
-                    dataType: type,
-                    beforeSend: function () {
-                        $this.addClass("disabled");
-                    },
-                    success: function () {
-                        $this.trigger("success.ajax.bluz", arguments);
-                    },
-                    error: function () {
-                        $this.trigger("error.ajax.bluz", arguments);
-                    },
-                    complete: function () {
-                        $this.removeClass("disabled");
-                    }
+                    type: $this.data("ajax-method") || "post",
+                    data: processData($this),
+                    dataType: $this.data("ajax-type") || "json",
+                    context: this
                 });
             })
             /**
@@ -162,26 +169,14 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
                 event.preventDefault();
 
                 let $this = $(this);
-                if ($this.hasClass("disabled")) {
-                    // request in progress
-                    return false;
-                }
-
-                let method = $this.attr("method");
-                let type = $this.data("ajax-type");
-                let data = $this.serializeArray();
 
                 $.ajax({
                     url: $this.attr("action"),
-                    type: (method || "post"),
-                    data: data,
-                    dataType: (type || "json"),
-                    beforeSend: function () {
-                        $this.addClass("disabled");
-                    },
+                    type: $this.attr("method") || "post",
+                    data: $this.serializeArray(),
+                    dataType: $this.data("ajax-type") || "json",
+                    context: this,
                     success: function (data) {
-                        $this.trigger("success.ajax.bluz", arguments);
-
                         // data can be "undefined" if server return
                         // 204 header without content
                         if (data !== undefined && data.errors !== undefined) {
@@ -193,12 +188,6 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
                             $this.trigger("success.form.bluz", arguments);
                         }
                     },
-                    error: function () {
-                        $this.trigger("error.ajax.bluz", arguments);
-                    },
-                    complete: function () {
-                        $this.removeClass("disabled");
-                    }
                 });
             })
             /**
@@ -210,14 +199,10 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
 
                 let data;
                 let $this = $(this);
-                if ($this.hasClass("disabled")) {
-                    // request in progress
-                    return false;
-                }
 
                 let method = $this.data("ajax-method");
                 let target = $this.data("ajax-target");
-                let source = $this.attr("href") || $this.data("ajax-source");
+                let source = $this.data("ajax-source") || $this.attr("href");
 
                 if (!target) {
                     throw "Undefined `data-ajax-target` attribute";
@@ -225,6 +210,12 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
 
                 if (!source) {
                     throw "Undefined `data-ajax-source` attribute (and href is missing)";
+                }
+
+                let $target = $(target);
+
+                if ($target.length === 0) {
+                    throw "Element defined by `data-ajax-target` not found";
                 }
 
                 if ($this.is("select")) {
@@ -244,22 +235,8 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
                     type: (method || "post"),
                     data: data,
                     dataType: "html",
-                    beforeSend: function () {
-                        $this.addClass("disabled");
-                    },
                     success: function (data) {
-                        $this.trigger("success.ajax.bluz", arguments);
-                        let $target = $(target);
-                        if ($target.length === 0) {
-                            throw "Element defined by `data-ajax-target` not found";
-                        }
                         $target.html(data);
-                    },
-                    error: function () {
-                        $this.trigger("error.ajax.bluz", arguments);
-                    },
-                    complete: function () {
-                        $this.removeClass("disabled");
                     }
                 });
                 return false;
@@ -272,36 +249,19 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
                 event.preventDefault();
 
                 let $this = $(this);
-                if ($this.hasClass("disabled")) {
-                    // request in progress
-                    return false;
-                }
-                let method = $this.data("ajax-method");
-                let style = $this.data("modal-style");
 
                 $.ajax({
                     url: $this.attr("href"),
-                    type: (method || "post"),
+                    type: $this.data("ajax-method") || "post",
                     data: processData($this),
                     dataType: "html",
-                    beforeSend: function () {
-                        $this.addClass("disabled");
-                    },
                     success: function (content) {
-                        $this.trigger("success.ajax.bluz", arguments);
-
-                        let $div = modal.create($this, content, style);
+                        let $div = modal.create($this, content, $this.data("modal-style"));
                         $div.on("success.form.bluz", function () {
                             $this.trigger("complete.ajax.bluz", arguments);
                             $div.modal("hide");
                         });
                         $div.modal("show");
-                    },
-                    error: function () {
-                        $this.trigger("error.ajax.bluz", arguments);
-                    },
-                    complete: function () {
-                        $this.removeClass("disabled");
                     }
                 });
             })

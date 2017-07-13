@@ -8,7 +8,12 @@ define(["jquery", "bootstrap"], function ($) {
     "use strict";
 
     let bluz = {
-        log: function (error, text) {
+        log: function (message, text) {
+            if (window.console !== undefined) {
+                window.console.log(message, text);
+            }
+        },
+        error: function (error, text) {
             if (window.console !== undefined) {
                 window.console.error(error, text);
             }
