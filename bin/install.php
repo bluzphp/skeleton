@@ -21,8 +21,10 @@ foreach ($folders as $folder) {
     if (is_dir($root . $folder)) {
         chmod($root . $folder, 0777);
         echo '  - Updated folder permissions ' . $folder . PHP_EOL;
-    } elseif (mkdir($root . $folder, 0777, true)) {
+    } elseif (@mkdir($root . $folder, 0777, true)) {
         echo '  - Created folder ' . $folder . PHP_EOL;
+    } else {
+        echo '  - ! Can\'t create folder ' . $folder . PHP_EOL;
     }
 }
 unset($folder);
@@ -35,4 +37,4 @@ if (copy($root . '/public/.htaccess.dev.sample', $root . '/public/.htaccess')) {
 require_once 'update.php';
 
 // Docker container
-echo shell_exec("setup_permissions 2>&1");
+echo shell_exec('setup_permissions 2>&1');
