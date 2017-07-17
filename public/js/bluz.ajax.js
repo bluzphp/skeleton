@@ -25,11 +25,25 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
 
     /**
      * Get all `data-*` from element
-     * @param el
+     * @param {jQuery} $element
      * @returns {{}}
      */
-    let processData = function (el) {
-        let data = el.data();
+    function processData($element) {
+        let data = repackData($element.data());
+
+        if ($element.is("select")) {
+            data[$element.attr("name")] = $element.val();
+        }
+
+        return data;
+    }
+
+    /**
+     * Repack data to simple hash
+     * @param {{}} data
+     * @returns {{}}
+     */
+    function repackData(data) {
         let plain = {};
 
         $.each(data, function (key, value) {
@@ -43,7 +57,31 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
             }
         });
         return plain;
-    };
+    }
+
+    /**
+     * Try to extract `Bluz-Notify` header and setup notification
+     * @param jqXHR
+     */
+    function extractNotifyHeader (jqXHR) {
+        if (jqXHR.getResponseHeader("Bluz-Notify")) {
+            let notifications = $.parseJSON(jqXHR.getResponseHeader("Bluz-Notify"));
+            notify.set(notifications);
+        }
+    }
+
+    /**
+     * Try to extract `Bluz-Redirect` header and redirect
+     * @param jqXHR
+     */
+    function extractRedirectHeader (jqXHR) {
+        if (jqXHR.getResponseHeader("Bluz-Redirect")) {
+            notify.done(function () {
+                // redirect to another page
+                window.location = jqXHR.getResponseHeader("Bluz-Redirect");
+            });
+        }
+    }
 
     // on DOM ready state
     $(function () {
@@ -64,9 +102,8 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
                 let $element = $(options.context);
                 if ($element.hasClass("disabled")) {
                     return false;
-                } else {
-                    $element.addClass("disabled");
                 }
+                $element.addClass("disabled");
             })
             .ajaxSuccess(function (event, jqXHR, options) {
                 try {
@@ -74,18 +111,10 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
                     $element.trigger("success.ajax.bluz", arguments);
 
                     // try to get messages from headers
-                    if (jqXHR.getResponseHeader("Bluz-Notify")) {
-                        let notifications = $.parseJSON(jqXHR.getResponseHeader("Bluz-Notify"));
-                        notify.set(notifications);
-                    }
+                    extractNotifyHeader(jqXHR);
 
                     // redirect and reload page
-                    if (jqXHR.getResponseHeader("Bluz-Redirect")) {
-                        notify.done(function () {
-                            // redirect to another page
-                            window.location = jqXHR.getResponseHeader("Bluz-Redirect");
-                        });
-                    }
+                    extractRedirectHeader(jqXHR);
                 } catch (err) {
                     bluz.error(err.name, err.message);
                 }
@@ -96,10 +125,7 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
                     $element.trigger("error.ajax.bluz", arguments);
 
                     // try to get messages from headers
-                    if (jqXHR.getResponseHeader("Bluz-Notify")) {
-                        let notifications = $.parseJSON(jqXHR.getResponseHeader("Bluz-Notify"));
-                        notify.set(notifications);
-                    }
+                    extractNotifyHeader(jqXHR);
 
                     // try to get error message from JSON response
                     if (options.dataType === "json" ||
@@ -190,22 +216,19 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
              * Load HTML content by XMLHTTPRequest
              * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#ajax-load
              */
-            .on("click.bluz.ajax change.bluz.ajax", ".load", function (event) {
+            .on("change.bluz.ajax", ".load", function (event) {
                 event.preventDefault();
 
-                let data;
                 let $this = $(this);
 
-                let method = $this.data("ajax-method");
-                let target = $this.data("ajax-target");
                 let source = $this.data("ajax-source") || $this.attr("href");
-
-                if (!target) {
-                    throw "Undefined `data-ajax-target` attribute";
-                }
-
                 if (!source) {
                     throw "Undefined `data-ajax-source` attribute (and href is missing)";
+                }
+
+                let target = $this.data("ajax-target");
+                if (!target) {
+                    throw "Undefined `data-ajax-target` attribute";
                 }
 
                 let $target = $(target);
@@ -214,22 +237,10 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
                     throw "Element defined by `data-ajax-target` not found";
                 }
 
-                if ($this.is("select")) {
-                    let dataArray = [];
-                    let dataOption = $this.find("option:selected");
-                    let key = $this.attr("name");
-                    dataArray[key] = dataOption.val();
-
-                    data = processData(dataOption);
-                    $.extend(data, dataArray);
-                } else {
-                    data = processData($this);
-                }
-
                 $.ajax({
                     url: source,
-                    type: (method || "post"),
-                    data: data,
+                    type: $this.data("ajax-method") || "post",
+                    data: processData($this),
                     dataType: "html",
                     success: function (data) {
                         $target.html(data);
@@ -268,18 +279,13 @@ define(["jquery", "bluz", "bluz.modal", "bluz.notify"], function ($, bluz, modal
             .on("click.bluz.preview", ".bluz-preview", function (event) {
                 event.preventDefault();
 
-                let url;
                 let $this = $(this);
-                // get image source
-                if ($this.is("a")) {
-                    url = $this.attr("href");
-                } else {
-                    url = $this.data("preview");
-                }
 
+                let url = $this.is("a") ? $this.attr("href") : $this.data("preview");
                 if (!url) {
                     return false;
                 }
+
                 let $img = $("<img>", {"src": url, "class": "img-polaroid"});
                 $img.css({
                     width: "100%",

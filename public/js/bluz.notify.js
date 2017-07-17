@@ -9,10 +9,8 @@
 define(["jquery"], function($) {
     "use strict";
 
-    let notify, classes, container, counter, deferred;
+    let notify, classes, container;
     let promises = [];
-
-    counter = 0;
 
     /**
      * Notifications types matched to Twitter Bootstrap CSS classes

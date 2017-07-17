@@ -18,9 +18,8 @@ function copyVendor($mask, $target) {
         if (is_dir($file)) {
             $newMask = substr($mask, 0, -2) .'/'. $script .'/*';
             $newDir = $root .'/public/'. $target .'/'. $script;
-            if (!is_dir($newDir)) {
+            if (!is_dir($newDir) && @mkdir($newDir)) {
                 echo 'Make directory '. $target .'/'. $script .PHP_EOL;
-                mkdir($root .'/public/'. $target .'/'. $script);
             }
             copyVendor($newMask, $target .'/'.$script);
         } else {
@@ -30,7 +29,7 @@ function copyVendor($mask, $target) {
         }
     }
 
-    echo "  - Copied $i files to `$target` directory\n";
+    echo "  - Copied $i dir/files to `$target` directory\n";
 }
 
 // Copy Swagger-UI to public

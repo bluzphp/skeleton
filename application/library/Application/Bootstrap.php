@@ -22,7 +22,6 @@ use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
 use Bluz\Proxy\Session;
-use Bluz\Proxy\Translator;
 
 /**
  * Bootstrap
