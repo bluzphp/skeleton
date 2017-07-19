@@ -22,9 +22,7 @@ return function () {
     /**
      * @var Controller $this
      */
-    $rest = new Rest();
-
-    $rest->setCrud(Pages\Crud::getInstance());
+    $rest = new Rest(Pages\Crud::getInstance());
 
     $rest->head('system', 'rest/head');
     $rest->get('system', 'rest/get');
