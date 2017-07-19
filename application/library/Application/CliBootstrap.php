@@ -133,7 +133,7 @@ class CliBootstrap extends Application
     protected function preProcess()
     {
         Router::process();
-        Response::switchType('CLI');
+        Response::setType('CLI');
     }
 
     /**
