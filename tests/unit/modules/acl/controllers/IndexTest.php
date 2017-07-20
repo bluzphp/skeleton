@@ -24,8 +24,15 @@ class IndexTest extends ControllerTestCase
 {
     public function testOpenAclIndexPageAsGuestShouldRedirectToLoginPage()
     {
+        self::markTestIncomplete('Required new structure of Bootstraps');
+    }
+
+    public function testOpenAclIndexPageAsGuestIsForbidden()
+    {
+        Auth::clearIdentity();
+
         $this->dispatch('/acl/');
-        self::assertRedirectToLogin();
+        self::assertForbidden();
     }
 
     public function testOpenAclIndexPageAsMemberIsForbidden()

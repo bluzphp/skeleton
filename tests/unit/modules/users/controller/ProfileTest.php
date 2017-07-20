@@ -25,9 +25,16 @@ class ProfileTest extends ControllerTestCase
 {
     public function testOpenProfileAsGuestShouldRedirectToLoginPage()
     {
+        self::markTestIncomplete('Required new structure of Bootstraps');
+    }
+
+    public function testOpenProfileAsGuestIsForbidden()
+    {
+        Auth::clearIdentity();
+
         $this->dispatch('users/profile/id/2');
 
-        self::assertRedirectToLogin();
+        self::assertForbidden();
     }
 
     public function testOpenForeignProfileAsMemberIsForbidden()
