@@ -56,7 +56,7 @@ class SkeletonTestCase extends FrameworkTestCase
         // this is magic for short signature of function
         // for GET request use $params as `query params`
         // for other requests use $params as `parsed body params`
-        if ($method == RequestMethod::GET) {
+        if ($method === RequestMethod::GET) {
             $query = $params;
             $params = [];
         }
@@ -74,5 +74,9 @@ class SkeletonTestCase extends FrameworkTestCase
 
         self::setRequestParams($path, $query, $params, $method, $headers);
         self::getApp()->process();
+
+        if ($exception = self::getApp()->getException()) {
+            codecept_debug('#'. $exception->getCode() .'# '. $exception->getMessage());
+        }
     }
 }
