@@ -12,7 +12,6 @@ namespace Application\Tests\Users;
 use Application\Tests\ControllerTestCase;
 use Application\Users\Row;
 use Application\Users\Table;
-use Bluz\Http\StatusCode;
 use Bluz\Proxy\Auth;
 
 /**
@@ -26,11 +25,16 @@ class ProfileTest extends ControllerTestCase
 {
     public function testOpenProfileAsGuestShouldRedirectToLoginPage()
     {
+        self::markTestIncomplete('Required new structure of Bootstraps');
+    }
+
+    public function testOpenProfileAsGuestIsForbidden()
+    {
+        Auth::clearIdentity();
+
         $this->dispatch('users/profile/id/2');
 
-        self::assertModule('users');
-        self::assertController('profile');
-        self::assertResponseCode(StatusCode::FOUND);
+        self::assertForbidden();
     }
 
     public function testOpenForeignProfileAsMemberIsForbidden()
@@ -39,9 +43,7 @@ class ProfileTest extends ControllerTestCase
 
         $this->dispatch('users/profile/id/2');
 
-        self::assertModule('error');
-        self::assertController('index');
-        self::assertResponseCode(StatusCode::FORBIDDEN);
+        self::assertForbidden();
     }
 
     public function testOpenOwnProfileAsMember()

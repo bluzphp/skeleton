@@ -42,8 +42,8 @@ try {
     $app->init($env);
     $app->run();
 } catch (\Throwable $e) {
-    // try to write log "warning"
-    errorLog($e);
     // display error page
     require_once __DIR__ .'/error.php';
+    // try to write log "warning"
+    errorLog($e);
 }

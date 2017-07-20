@@ -10,6 +10,8 @@
 namespace Application\Tests\Acl;
 
 use Application\Tests\ControllerTestCase;
+use Application\Users\Row;
+use Bluz\Proxy\Auth;
 
 /**
  * @group    acl
@@ -20,12 +22,28 @@ use Application\Tests\ControllerTestCase;
  */
 class IndexTest extends ControllerTestCase
 {
-    /**
-     * Dispatch module/controller
-     *
-     * @todo test functionality
-     */
-    public function testControllerPage()
+    public function testOpenAclIndexPageAsGuestShouldRedirectToLoginPage()
+    {
+        self::markTestIncomplete('Required new structure of Bootstraps');
+    }
+
+    public function testOpenAclIndexPageAsGuestIsForbidden()
+    {
+        Auth::clearIdentity();
+
+        $this->dispatch('/acl/');
+        self::assertForbidden();
+    }
+
+    public function testOpenAclIndexPageAsMemberIsForbidden()
+    {
+        Auth::setIdentity(new Row());
+
+        $this->dispatch('/acl/');
+        self::assertForbidden();
+    }
+
+    public function testOpenAclIndexPageAsAdministrator()
     {
         self::setupSuperUserIdentity();
 

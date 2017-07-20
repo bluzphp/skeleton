@@ -30,9 +30,7 @@ return function () {
         $this->useLayout('small.phtml');
     }
 
-    $crud = new Crud();
-
-    $crud->setCrud(Users\Crud::getInstance());
+    $crud = new Crud(Users\Crud::getInstance());
 
     $crud->addMap('GET', 'system', 'crud/get');
     $crud->addMap('POST', 'system', 'crud/post');

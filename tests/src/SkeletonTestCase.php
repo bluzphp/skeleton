@@ -10,7 +10,7 @@
 namespace Application\Tests;
 
 use Bluz\Http\RequestMethod;
-use Bluz\Tests\TestCase as BluzTest;
+use Bluz\Tests\FrameworkTestCase;
 
 /**
  * Skeleton TestCase
@@ -21,7 +21,7 @@ use Bluz\Tests\TestCase as BluzTest;
  * @created  04.08.11 20:01
  */
 
-class TestCase extends BluzTest
+class SkeletonTestCase extends FrameworkTestCase
 {
     /**
      * Setup TestCase

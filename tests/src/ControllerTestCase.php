@@ -9,6 +9,9 @@
  */
 namespace Application\Tests;
 
+use Application\Users;
+use Application\Tests\Fixtures\Users\UserHasPermission;
+use Bluz\Application\Exception\ForbiddenException;
 use Bluz\Application\Exception\RedirectException;
 use Bluz\Http\StatusCode;
 use Bluz\Messages\Messages as MessagesInstance;
@@ -16,8 +19,6 @@ use Bluz\Proxy\Auth;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
-use Application\Users;
-use Application\Tests\Fixtures\Users\UserHasPermission;
 use PHPUnit_Framework_ExpectationFailedException as ExpectationFailedException;
 use Zend\Dom\Document;
 
@@ -29,7 +30,7 @@ use Zend\Dom\Document;
  * @author   Anton Shevchuk
  * @created  06.05.2014 10:28
  */
-class ControllerTestCase extends TestCase
+class ControllerTestCase extends SkeletonTestCase
 {
     /**
      * @var Document
@@ -119,7 +120,7 @@ class ControllerTestCase extends TestCase
      * @param int $code
      * @return void
      */
-    protected static function assertRedirect($module, $controller, $params = array(), $code = 302)
+    protected static function assertRedirect($module, $controller, $params = array(), $code = StatusCode::FOUND)
     {
         $url = Router::getUrl($module, $controller, $params);
 
@@ -128,8 +129,27 @@ class ControllerTestCase extends TestCase
          */
         $exception = self::getApp()->getException();
 
-        self::assertInstanceOf('\Bluz\Application\Exception\RedirectException', $exception);
+        self::assertInstanceOf(RedirectException::class, $exception);
         self::assertEquals($exception->getCode(), $code);
+        self::assertEquals($exception->getUrl(), $url);
+    }
+
+    /**
+     * Assert redirect to login page
+     *
+     * @return void
+     */
+    protected static function assertRedirectToLogin()
+    {
+        $url = Router::getUrl('users', 'signin');
+
+        /**
+         * @var RedirectException $exception
+         */
+        $exception = self::getApp()->getException();
+
+        self::assertInstanceOf(RedirectException::class, $exception);
+        self::assertEquals($exception->getCode(), StatusCode::FOUND);
         self::assertEquals($exception->getUrl(), $url);
     }
 
@@ -142,7 +162,7 @@ class ControllerTestCase extends TestCase
     {
         $exception = self::getApp()->getException();
 
-        self::assertInstanceOf('\Bluz\Application\Exception\ReloadException', $exception);
+        self::assertInstanceOf(RedirectException::class, $exception);
     }
 
     /**
@@ -154,7 +174,7 @@ class ControllerTestCase extends TestCase
     {
         $exception = self::getApp()->getException();
 
-        self::assertInstanceOf('\Bluz\Application\Exception\ForbiddenException', $exception);
+        self::assertInstanceOf(ForbiddenException::class, $exception);
         self::assertEquals(StatusCode::FORBIDDEN, Response::getStatusCode());
         self::assertModule(Router::getErrorModule());
         self::assertController(Router::getErrorController());
@@ -170,7 +190,7 @@ class ControllerTestCase extends TestCase
     protected static function assertResponseVariable($key, $value)
     {
         if (self::getApp()->useLayout()) {
-            self::fail("Method `assertResponseVariable` required to disable Layout, please update test");
+            self::fail('Method `assertResponseVariable` required to disable Layout, please update test');
         }
 
         $variable = Response::getBody()->getData()->__get($key);
