@@ -4,13 +4,9 @@
  * @link      https://github.com/bluzphp/skeleton
  */
 
-/**
- * @namespace
- */
+declare(strict_types=1);
 
 namespace Application\Pages;
-
-use Application\Users;
 
 /**
  * Pages Table

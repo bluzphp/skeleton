@@ -57,7 +57,7 @@ return function ($email = null) {
 
             // create activation token
             // valid for 5 days
-            $actionRow = UsersActions\Table::getInstance()->generate($user->id, UsersActions\Table::ACTION_RECOVERY, 5);
+            $actionRow = UsersActions\Table::getInstance()->generate($user->id, UsersActions\Table::ACTION_RECOVERY);
 
             // send activation email
             // generate restore URL

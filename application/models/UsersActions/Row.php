@@ -4,9 +4,7 @@
  * @link      https://github.com/bluzphp/skeleton
  */
 
-/**
- * @namespace
- */
+declare(strict_types=1);
 
 namespace Application\UsersActions;
 
@@ -44,10 +42,6 @@ class Row extends \Bluz\Db\Row
      */
     public function getParams()
     {
-        if ($this->params) {
-            return unserialize($this->params);
-        } else {
-            return array();
-        }
+        return $this->params ? unserialize($this->params) : [];
     }
 }

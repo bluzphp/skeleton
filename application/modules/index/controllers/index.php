@@ -13,6 +13,9 @@
 namespace Application;
 
 use Bluz\Controller\Controller;
+use Bluz\Validator\Exception\ValidatorFormException;
+use Bluz\Validator\Validator;
+use Bluz\Validator\ValidatorChain;
 
 /**
  * @return void

@@ -59,8 +59,8 @@ return function ($email = null, $password = null, $token = null) {
                 throw new Exception('Password is empty');
             }
 
-            // login/password
-            Auth\Table::getInstance()->checkEquals($user->login, $password);
+            // password check
+            Auth\EqualsProvider::verify($user->login, $password);
 
             // check email for unique
             $emailUnique = Users\Table::findRowWhere(['email' => $email]);
@@ -72,7 +72,7 @@ return function ($email = null, $password = null, $token = null) {
             $actionRow = UsersActions\Table::getInstance()->generate(
                 $userId,
                 Table::ACTION_CHANGE_EMAIL,
-                5,
+                5, // ttl in days
                 ['email' => $email]
             );
 

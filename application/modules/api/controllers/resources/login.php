@@ -10,6 +10,7 @@
 
 namespace Application;
 
+use Application\Auth;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotImplementedException;
 use Bluz\Controller\Controller;
@@ -56,10 +57,13 @@ return function () {
         }
 
         // try to authenticate
-        $equalsRow = Auth\Table::getInstance()->checkEquals($params['login'], $params['password']);
+        $authRow = Auth\EqualsProvider::verify($params['login'], $params['password']);
 
-        // create auth row with token
-        $tokenRow = Auth\Table::getInstance()->generateToken($equalsRow);
+        // get user
+        $user = Users\Table::findRow($authRow->userId);
+
+        // create auth token row
+        $tokenRow = Auth\TokenProvider::create($user);
 
         return ['token' => $tokenRow->token];
     }

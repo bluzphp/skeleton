@@ -4,9 +4,7 @@
  * @link      https://github.com/bluzphp/skeleton
  */
 
-/**
- * @namespace
- */
+declare(strict_types=1);
 
 namespace Application\Roles;
 
@@ -88,9 +86,9 @@ class Table extends \Bluz\Db\Table
     public function getUserRoles($userId)
     {
         $data = self::fetch(
-            "SELECT r.*
+            'SELECT r.*
             FROM acl_roles AS r, acl_users_roles AS u2r
-            WHERE r.id = u2r.roleId AND u2r.userId = ?",
+            WHERE r.id = u2r.roleId AND u2r.userId = ?',
             array($userId)
         );
         return $data;
@@ -108,10 +106,10 @@ class Table extends \Bluz\Db\Table
         $cacheKey = 'users.roles.' . $userId;
         if (!$data = Cache::get($cacheKey)) {
             $data = Db::fetchColumn(
-                "SELECT r.id
+                'SELECT r.id
                 FROM acl_roles AS r, acl_users_roles AS u2r
                 WHERE r.id = u2r.roleId AND u2r.userId = ?
-                ORDER BY r.id ASC",
+                ORDER BY r.id ASC',
                 array($userId)
             );
             Cache::set($cacheKey, $data, Cache::TTL_NO_EXPIRY, ['system', 'users', 'roles']);

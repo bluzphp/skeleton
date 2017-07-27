@@ -10,6 +10,7 @@
 
 namespace Application;
 
+use Application\Auth;
 use Bluz\Application\Application;
 use Bluz\Application\Exception\ForbiddenException;
 use Bluz\Auth\AuthException;
@@ -49,18 +50,17 @@ class Bootstrap extends Application
         // example of setup default title
         Layout::title('Bluz Skeleton');
 
-        // apply "remember me" function
         if (!AuthProxy::getIdentity()) {
-            if ($token = Request::getHeader('Bluz-Token')) {
-                Auth\Table::getInstance()->authenticateToken($token);
-            } elseif (!empty($_COOKIE['rToken']) && !empty($_COOKIE['rId'])) {
-                // try to login
+            if ($token = Request::getCookie('aToken')) {
+                // try to login by token from cookies
                 try {
-                    Auth\Table::getInstance()->authenticateCookie($_COOKIE['rId'], $_COOKIE['rToken']);
+                    Auth\CookieProvider::authenticate($token);
                 } catch (AuthException $e) {
-                    $this->getResponse()->setCookie('rId', '', 1, '/');
-                    $this->getResponse()->setCookie('rToken', '', 1, '/');
+                    $this->getResponse()->setCookie('aToken', '', 1, '/');
                 }
+            } elseif ($token = Request::getHeader('bToken')) {
+                // try to login by token from headers
+                Auth\TokenProvider::authenticate($token);
             }
         }
         parent::preDispatch($controller);

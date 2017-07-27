@@ -18,8 +18,6 @@ use Bluz\Proxy\Request;
 /**
  * @accept JSON
  * @accept HTML
- *
- * @return array
  */
 return function () {
     /**

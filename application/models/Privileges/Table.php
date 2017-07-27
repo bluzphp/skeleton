@@ -4,9 +4,7 @@
  * @link      https://github.com/bluzphp/skeleton
  */
 
-/**
- * @namespace
- */
+declare(strict_types=1);
 
 namespace Application\Privileges;
 

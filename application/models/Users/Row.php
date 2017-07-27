@@ -4,9 +4,7 @@
  * @link      https://github.com/bluzphp/skeleton
  */
 
-/**
- * @namespace
- */
+declare(strict_types=1);
 
 namespace Application\Users;
 
@@ -18,7 +16,6 @@ use Bluz\Auth\AuthException;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Session;
 use Bluz\Validator\Traits\Validator;
-use Bluz\Validator\Validator as v;
 
 /**
  * User
@@ -58,10 +55,11 @@ class Row extends AbstractRowEntity
     {
         $this->email = strtolower($this->email);
 
-        $this->addValidator(
-            'login',
-            v::required()->latin()->length(3, 255),
-            v::callback(
+        $this->addValidator('login')
+            ->required()
+            ->latin()
+            ->length(3, 255)
+            ->callback(
                 function ($login) {
                     $user = $this->getTable()
                         ->select()
@@ -69,14 +67,14 @@ class Row extends AbstractRowEntity
                         ->andWhere('id != ?', $this->id)
                         ->execute();
                     return !$user;
-                }
-            )->setError('User with login "{{input}}" already exists')
-        );
+                },
+                'User with this login is already exists'
+            );
 
-        $this->addValidator(
-            'email',
-            v::required()->email(true),
-            v::callback(
+        $this->addValidator('email')
+            ->required()
+            ->email(true)
+            ->callback(
                 function ($email) {
                     $user = $this->getTable()
                         ->select()
@@ -84,9 +82,9 @@ class Row extends AbstractRowEntity
                         ->andWhere('id != ?', $this->id)
                         ->execute();
                     return !$user;
-                }
-            )->setError('User with email "{{input}}" already exists')
-        );
+                },
+                'User with this email is already exists'
+            );
     }
 
     /**

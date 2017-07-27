@@ -63,6 +63,7 @@ return function ($id, $code) {
 
         // remove old code
         $actionRow->delete();
+
         Messages::addSuccess(
             'Your Account has been successfully activated. <br/>' .
             'You can now log in using the username and password you chose during the registration.'

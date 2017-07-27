@@ -44,12 +44,12 @@ return function ($login, $password, $rememberMe = false) {
                 throw new Exception('Password is empty');
             }
 
-            // login/password
-            // throw AuthException
-            Auth\Table::getInstance()->authenticateEquals($login, $password);
+            // try to login/password
+            Auth\EqualsProvider::authenticate($login, $password);
 
             if ($rememberMe) {
-                Auth\Table::getInstance()->generateCookie();
+                $user = \Bluz\Proxy\Auth::getIdentity();
+                Auth\CookieProvider::create($user);
             }
 
             Messages::addNotice('You are signed');

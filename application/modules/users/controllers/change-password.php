@@ -8,6 +8,7 @@
 
 namespace Application;
 
+use Application\Auth\EqualsProvider;
 use Application\Users;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotFoundException;
@@ -60,12 +61,15 @@ return function ($password, $new_password, $new_password2) {
                 throw new BadRequestException('Please repeat new password');
             }
 
-            $authTable = Auth\Table::getInstance();
+            if ($new_password !== $new_password2) {
+                throw new BadRequestException('Please repeat correct new password');
+            }
 
             // password check
-            $authTable->checkEquals($user->login, $password);
+            EqualsProvider::verify($user->login, $password);
+
             // create new Auth record
-            $authTable->generateEquals($user, $new_password);
+            EqualsProvider::create($user, $new_password);
 
             Messages::addSuccess('The password was updated successfully');
 
