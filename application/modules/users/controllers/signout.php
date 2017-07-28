@@ -23,7 +23,7 @@ return function () {
      * @var Controller $this
      */
     if ($this->user()) {
-        AppAuth\CookieProvider::remove($this->user()->id);
+        AppAuth\Provider\Cookie::remove($this->user()->id);
         Auth::clearIdentity();
     }
 

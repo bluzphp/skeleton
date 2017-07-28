@@ -6,31 +6,24 @@
 
 declare(strict_types=1);
 
-namespace Application\Auth;
+namespace Application\Auth\Provider;
 
-use Application\Exception;
-use Application\Users\Row as UsersRow;
+use Application\Auth\Row;
+use Application\Auth\Table;
 use Application\Users\Table as UsersTable;
 use Bluz\Auth\AuthException;
 
 /**
- * EqualsProvider
+ * Equals Provider
  *
  * @package  Application\Auth
  * @author   Anton Shevchuk
  */
-class EqualsProvider
+class Equals extends AbstractProvider
 {
-    /**
-     * Authenticate user by login/pass
-     *
-     * @param string $username
-     * @param string $password
-     *
-     * @throws AuthException
-     * @throws Exception
-     */
-    public static function authenticate($username, $password)
+    const PROVIDER = Table::PROVIDER_EQUALS;
+
+    public static function authenticate($username, $password = '')
     {
         $authRow = self::verify($username, $password);
         $user = UsersTable::findRow($authRow->userId);
@@ -39,17 +32,7 @@ class EqualsProvider
         Table::tryLogin($user);
     }
 
-    /**
-     * Get Auth record by login/pass
-     *
-     * @param string $username
-     * @param string $password
-     *
-     * @return Row
-     * @throws AuthException
-     * @throws Exception
-     */
-    public static function verify($username, $password) : Row
+    public static function verify($username, $password = '') : Row
     {
         /* @var Row $authRow */
         $authRow = Table::findRowWhere(['foreignKey' => $username, 'provider' => Table::PROVIDER_EQUALS]);
@@ -66,17 +49,7 @@ class EqualsProvider
         return $authRow;
     }
 
-    /**
-     * Create new Auth record for user
-     *
-     * @param UsersRow $user
-     * @param string   $password
-     *
-     * @return Row
-     * @throws AuthException
-     * @throws Exception
-     */
-    public static function create($user, $password)
+    public static function create($user, $password = '') : Row
     {
         // remove old Auth record
         self::remove($user->id);
@@ -94,25 +67,5 @@ class EqualsProvider
         $row->save();
 
         return $row;
-    }
-
-    /**
-     * Remove Auth record
-     *
-     * @param integer $id
-     *
-     * @return void
-     */
-    public static function remove($id)
-    {
-        // clear previous generated Auth record
-        // works with change password
-        Table::delete(
-            [
-                'userId' => $id,
-                'provider' => Table::PROVIDER_EQUALS,
-                'tokenType' => Table::TYPE_ACCESS
-            ]
-        );
     }
 }

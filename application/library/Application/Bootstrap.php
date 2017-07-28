@@ -54,13 +54,13 @@ class Bootstrap extends Application
             if ($token = Request::getCookie('aToken')) {
                 // try to login by token from cookies
                 try {
-                    Auth\CookieProvider::authenticate($token);
+                    Auth\Provider\Cookie::authenticate($token);
                 } catch (AuthException $e) {
                     $this->getResponse()->setCookie('aToken', '', 1, '/');
                 }
             } elseif ($token = Request::getHeader('bToken')) {
                 // try to login by token from headers
-                Auth\TokenProvider::authenticate($token);
+                Auth\Provider\Token::authenticate($token);
             }
         }
         parent::preDispatch($controller);

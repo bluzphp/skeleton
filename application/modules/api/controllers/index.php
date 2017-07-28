@@ -10,7 +10,7 @@
 
 namespace Application;
 
-use Application\Auth\Table;
+use Application\Auth\Provider;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Request;
@@ -55,7 +55,7 @@ return function ($resource, $id, $relation, $relationId) {
     try {
         // authentication by api token
         if ($token = Request::getParam('token')) {
-            Table::getInstance()->authenticateToken($token);
+            Provider\Token::authenticate($token);
         }
 
         $params = [];

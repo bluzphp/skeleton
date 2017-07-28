@@ -6,30 +6,24 @@
 
 declare(strict_types=1);
 
-namespace Application\Auth;
+namespace Application\Auth\Provider;
 
-use Application\Exception;
-use Application\Users\Row as UsersRow;
+use Application\Auth\Row;
+use Application\Auth\Table;
 use Application\Users\Table as UsersTable;
 use Bluz\Auth\AuthException;
 use Bluz\Proxy\Auth;
 
 /**
- * TokenProvider
+ * Token Provider
  *
  * @package  Application\Auth
  * @author   Anton Shevchuk
  */
-class TokenProvider
+class Token extends AbstractProvider
 {
-    /**
-     * authenticate user by token
-     *
-     * @param string $token
-     *
-     * @throws \Bluz\Auth\AuthException
-     * @throws \Application\Exception
-     */
+    const PROVIDER = Table::PROVIDER_TOKEN;
+
     public static function authenticate($token)
     {
         $authRow = self::verify($token);
@@ -39,15 +33,7 @@ class TokenProvider
         $user->tryLogin();
     }
 
-    /**
-     * authenticate user by token
-     *
-     * @param string $token
-     *
-     * @throws \Bluz\Auth\AuthException
-     * @return Row
-     */
-    public static function verify($token)
+    public static function verify($token) : Row
     {
         if (!$authRow = Table::findRowWhere(['token' => $token, 'provider' => Table::PROVIDER_TOKEN])) {
             throw new AuthException('Invalid token');
@@ -60,15 +46,7 @@ class TokenProvider
         return $authRow;
     }
 
-    /**
-     * Create new Auth record for user
-     *
-     * @param UsersRow $user
-     *
-     * @return Row
-     * @throws Exception
-     */
-    public static function create($user)
+    public static function create($user) : Row
     {
         // clear previous generated Auth record
         self::remove($user->id);
@@ -87,25 +65,5 @@ class TokenProvider
         $row->save();
 
         return $row;
-    }
-
-    /**
-     * Remove Auth record
-     *
-     * @param integer $id
-     *
-     * @return void
-     */
-    public static function remove($id)
-    {
-        // clear previous generated Auth record
-        // works with change password
-        Table::delete(
-            [
-                'userId' => $id,
-                'provider' => Table::PROVIDER_TOKEN,
-                'tokenType' => Table::TYPE_ACCESS
-            ]
-        );
     }
 }

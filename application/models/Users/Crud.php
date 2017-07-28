@@ -68,7 +68,7 @@ class Crud extends \Bluz\Crud\Table
         $userId = $row->id;
 
         // create auth
-        Auth\EqualsProvider::create($row, $password);
+        Auth\Provider\Equals::create($row, $password);
 
         // create activation token
         // valid for 5 days

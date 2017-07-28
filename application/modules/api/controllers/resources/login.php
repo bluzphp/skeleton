@@ -57,13 +57,13 @@ return function () {
         }
 
         // try to authenticate
-        $authRow = Auth\EqualsProvider::verify($params['login'], $params['password']);
+        $authRow = Auth\Provider\Equals::verify($params['login'], $params['password']);
 
         // get user
         $user = Users\Table::findRow($authRow->userId);
 
         // create auth token row
-        $tokenRow = Auth\TokenProvider::create($user);
+        $tokenRow = Auth\Provider\Token::create($user);
 
         return ['token' => $tokenRow->token];
     }

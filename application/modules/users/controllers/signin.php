@@ -45,11 +45,11 @@ return function ($login, $password, $rememberMe = false) {
             }
 
             // try to login/password
-            Auth\EqualsProvider::authenticate($login, $password);
+            Auth\Provider\Equals::authenticate($login, $password);
 
             if ($rememberMe) {
                 $user = \Bluz\Proxy\Auth::getIdentity();
-                Auth\CookieProvider::create($user);
+                Auth\Provider\Cookie::create($user);
             }
 
             Messages::addNotice('You are signed');

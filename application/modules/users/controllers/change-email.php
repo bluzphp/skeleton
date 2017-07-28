@@ -60,7 +60,7 @@ return function ($email = null, $password = null, $token = null) {
             }
 
             // password check
-            Auth\EqualsProvider::verify($user->login, $password);
+            Auth\Provider\Equals::verify($user->login, $password);
 
             // check email for unique
             $emailUnique = Users\Table::findRowWhere(['email' => $email]);

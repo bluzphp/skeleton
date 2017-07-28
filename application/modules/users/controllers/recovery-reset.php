@@ -60,7 +60,7 @@ return function ($id, $code, $password = null, $password2 = null) {
                 }
 
                 // create new auth record
-                Auth\EqualsProvider::create($user, $password);
+                Auth\Provider\Equals::create($user, $password);
 
                 // show notification and redirect
                 Messages::addSuccess(

@@ -8,7 +8,7 @@
 
 namespace Application;
 
-use Application\Auth\EqualsProvider;
+use Application\Auth\Provider;
 use Application\Users;
 use Bluz\Application\Exception\BadRequestException;
 use Bluz\Application\Exception\NotFoundException;
@@ -66,10 +66,10 @@ return function ($password, $new_password, $new_password2) {
             }
 
             // password check
-            EqualsProvider::verify($user->login, $password);
+            Provider\Equals::verify($user->login, $password);
 
             // create new Auth record
-            EqualsProvider::create($user, $new_password);
+            Provider\Equals::create($user, $new_password);
 
             Messages::addSuccess('The password was updated successfully');
 
