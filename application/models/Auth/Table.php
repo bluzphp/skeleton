@@ -41,7 +41,7 @@ class Table extends AbstractTable
     {
         $hash = Auth::getInstance()->getOption('hash');
 
-        if (!$hash or !is_callable($hash)) {
+        if (!$hash || !is_callable($hash)) {
             throw new Exception('Hash function for `Auth` package is not callable');
         }
 
@@ -62,7 +62,7 @@ class Table extends AbstractTable
     {
         $verify = Auth::getInstance()->getOption('verify');
 
-        if (!$verify or !is_callable($verify)) {
+        if (!$verify || !is_callable($verify)) {
             throw new Exception('Verify function for `Auth` package is not callable');
         }
 
