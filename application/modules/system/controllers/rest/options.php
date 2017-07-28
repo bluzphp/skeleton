@@ -27,5 +27,5 @@ use Bluz\Proxy\Response;
  */
 return function ($crud, $primary, $data) {
     Response::setStatusCode(StatusCode::NO_CONTENT);
-    Response::setHeader('Allow', join(',', $data));
+    Response::setHeader('Allow', implode(',', $data));
 };

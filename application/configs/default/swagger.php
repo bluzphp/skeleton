@@ -9,44 +9,44 @@
 
 /**
  * @SWG\Swagger(
- *     schemes={'http'},
- *     produces={'application/json'},
- *     consumes={'application/x-www-form-urlencoded'},
+ *     schemes={"http"},
+ *     produces={"application/json"},
+ *     consumes={"application/x-www-form-urlencoded"},
  *     @SWG\Info(
- *         version='1.0.0',
- *         title='Swagger documented API',
- *         description='Sample of Bluz API',
- *         @SWG\Contact(name='Bluz PHP Team'),
- *         @SWG\License(name='MIT')
+ *         version="1.0.0",
+ *         title="Swagger documented API",
+ *         description="Sample of Bluz API",
+ *         @SWG\Contact(name="Bluz PHP Team"),
+ *         @SWG\License(name="MIT")
  *     ),
  *     @SWG\Definition(
- *         definition='errorModel',
- *         required={'code', 'message'},
+ *         definition="errorModel",
+ *         required={"code", "message"},
  *         @SWG\Property(
- *             property='code',
- *             type='integer',
- *             format='int32',
+ *             property="code",
+ *             type="integer",
+ *             format="int32",
  *             example=404
  *         ),
  *         @SWG\Property(
- *             property='message',
- *             type='string',
- *             example='Not found'
+ *             property="error",
+ *             type="string",
+ *             example="Not found"
  *         )
  *     ),
  *     @SWG\Parameter(
- *         name='offset',
- *         in='query',
- *         description='Query offset',
+ *         name="offset",
+ *         in="query",
+ *         description="Query offset",
  *         required=false,
- *         type='integer'
+ *         type="integer"
  *     ),
  *     @SWG\Parameter(
- *         name='limit',
- *         in='query',
- *         description='Query limit',
+ *         name="limit",
+ *         in="query",
+ *         description="Query limit",
  *         required=false,
- *         type='integer'
+ *         type="integer"
  *     )
  * )
  */

@@ -4,14 +4,11 @@
  * @link      https://github.com/bluzphp/skeleton
  */
 
-/**
- * @namespace
- */
+declare(strict_types=1);
 
 namespace Application\Roles;
 
 use Bluz\Validator\Traits\Validator;
-use Bluz\Validator\Validator as v;
 
 /**
  * User Role
@@ -32,15 +29,15 @@ class Row extends \Bluz\Db\Row
      */
     protected function beforeInsert()
     {
-        $this->addValidator(
-            'name',
-            v::required()->latin(),
-            v::callback(
+        $this->addValidator('name')
+            ->required()
+            ->latin()
+            ->callback(
                 function ($name) {
-                    return !Table::getInstance()->findRowWhere(['name' => $name]);
+                    return !Table::findRowWhere(['name' => $name]);
                 }
-            )->setError('Role name "{{input}}" already exists')
-        );
+            )
+            ->setDescription('Role already exists');
     }
 
     /**
@@ -50,25 +47,27 @@ class Row extends \Bluz\Db\Row
      */
     protected function beforeUpdate()
     {
-        $this->addValidator(
-            'name',
-            v::required()->latin(),
-            v::callback(
+        $this->addValidator('name')
+            ->required()
+            ->latin()
+            ->callback(
                 function ($name) {
-                    return !in_array(strtolower($name), Table::getInstance()->getBasicRoles());
-                }
-            )->setError('Role "{{input}}" is basic and can\'t be editable'),
-            v::callback(
+                    return !in_array(strtolower($name), Table::getInstance()->getBasicRoles(), false);
+                },
+                'Role is basic and can\'t be editable'
+            )
+            ->callback(
                 function ($name) {
                     return $this->clean['name'] != $name;
-                }
-            )->setError('Role name "{{input}}" the same as original'),
-            v::callback(
+                },
+                'Role name is the same as original'
+            )
+            ->callback(
                 function ($name) {
-                    return !Table::getInstance()->findRowWhere(['name' => $name]);
-                }
-            )->setError('Role name "{{input}}" already exists')
-        );
+                    return !Table::findRowWhere(['name' => $name]);
+                },
+                'Role already exists'
+            );
     }
 
     /**
@@ -76,8 +75,8 @@ class Row extends \Bluz\Db\Row
      *
      * @return boolean
      */
-    public function isBasic()
+    public function isBasic() : bool
     {
-        return in_array(strtolower($this->name), Table::getInstance()->getBasicRoles());
+        return in_array(strtolower($this->name), Table::getInstance()->getBasicRoles(), false);
     }
 }

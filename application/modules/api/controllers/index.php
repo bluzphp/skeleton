@@ -10,7 +10,7 @@
 
 namespace Application;
 
-use Application\Auth\Table;
+use Application\Auth\Provider;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Request;
@@ -55,7 +55,7 @@ return function ($resource, $id, $relation, $relationId) {
     try {
         // authentication by api token
         if ($token = Request::getParam('token')) {
-            Table::getInstance()->authenticateToken($token);
+            Provider\Token::authenticate($token);
         }
 
         $params = [];
@@ -67,8 +67,12 @@ return function ($resource, $id, $relation, $relationId) {
 
         return $this->dispatch('api', 'resources/' . $resource, $params);
     } catch (\Exception $e) {
+        $code = $e->getCode() ?: \Bluz\Http\StatusCode::INTERNAL_SERVER_ERROR;
         // process exceptions here
-        Response::setStatusCode($e->getCode());
-        return ['error' => $e->getMessage()];
+        Response::setStatusCode($code);
+        return [
+            'code' => $e->getCode(),
+            'error' => $e->getMessage()
+        ];
     }
 };

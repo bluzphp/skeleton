@@ -6,12 +6,16 @@
  * @return array
  */
 return [
-    'equals' => [
-        'hash' => function ($password) {
-            return password_hash($password, PASSWORD_DEFAULT);
-        },
-        'verify' => function ($password, $hash) {
-            return password_verify($password, $hash);
-        }
+    'hash' => function ($password) {
+        return password_hash($password, PASSWORD_DEFAULT);
+    },
+    'verify' => function ($password, $hash) {
+        return password_verify($password, $hash);
+    },
+    'cookie' => [
+        'ttl' => 86400
+    ],
+    'token' => [
+        'ttl' => 3600
     ]
 ];

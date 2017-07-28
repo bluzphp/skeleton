@@ -35,7 +35,7 @@ return function ($crud, $primary, $data) {
         // Result is numbers of affected rows
         $crud->updateOne($primary, $data);
 
-        Messages::addSuccess("Record was updated");
+        Messages::addSuccess('Record was updated');
 
         return [
             'row' => $crud->readOne($primary),

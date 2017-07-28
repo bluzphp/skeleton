@@ -4,9 +4,7 @@
  * @link      https://github.com/bluzphp/skeleton
  */
 
-/**
- * @namespace
- */
+declare(strict_types=1);
 
 namespace Application\Users;
 
@@ -46,11 +44,15 @@ class Crud extends \Bluz\Crud\Table
         $password2 = $data['password2'] ?? null;
 
         if (empty($password)) {
-            throw ValidatorException::exception('password', __('Password can\'t be empty'));
+            $exception = new ValidatorException();
+            $exception->setErrors(['password' => __('Password can\'t be empty')]);
+            throw $exception;
         }
 
         if ($password !== $password2) {
-            throw ValidatorException::exception('password2', __('Password is not equal'));
+            $exception = new ValidatorException();
+            $exception->setErrors(['password2' => __('Password is not equal')]);
+            throw $exception;
         }
 
         if ($data['id'] == '') {
@@ -66,7 +68,7 @@ class Crud extends \Bluz\Crud\Table
         $userId = $row->id;
 
         // create auth
-        Auth\Table::getInstance()->generateEquals($row, $password);
+        Auth\Provider\Equals::create($row, $password);
 
         // create activation token
         // valid for 5 days

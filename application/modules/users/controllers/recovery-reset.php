@@ -59,13 +59,8 @@ return function ($id, $code, $password = null, $password2 = null) {
                     throw new Exception('Please repeat your new password');
                 }
 
-                // remove old auth record
-                if ($oldAuth = Auth\Table::getInstance()->getAuthRow(Auth\Table::PROVIDER_EQUALS, $user->login)) {
-                    $oldAuth->delete();
-                }
-
                 // create new auth record
-                Auth\Table::getInstance()->generateEquals($user, $password);
+                Auth\Provider\Equals::create($user, $password);
 
                 // show notification and redirect
                 Messages::addSuccess(

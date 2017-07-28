@@ -4,9 +4,7 @@
  * @link      https://github.com/bluzphp/skeleton
  */
 
-/**
- * @namespace
- */
+declare(strict_types=1);
 
 namespace Application\UsersActions;
 
@@ -66,10 +64,8 @@ class Table extends \Bluz\Db\Table
         $actionRow = new Row();
         $actionRow->userId = $userId;
         $actionRow->action = $action;
-        $random = range('a', 'z', rand(1, 5));
-        shuffle($random);
-        $actionRow->code = md5($userId . $action . join('', $random) . time());
-        $actionRow->expired = date('Y-m-d H:i:s', strtotime("+$expired day"));
+        $actionRow->code = bin2hex(random_bytes(32));
+        $actionRow->expired = gmdate('Y-m-d H:i:s', strtotime("+$expired day"));
         $actionRow->params = $params;
         $actionRow->save();
 

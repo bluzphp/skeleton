@@ -4,16 +4,13 @@
  * @link      https://github.com/bluzphp/skeleton
  */
 
-/**
- * @namespace
- */
+declare(strict_types=1);
 
 namespace Application\Pages;
 
 use Application\Users;
 use Bluz\Proxy\Auth;
 use Bluz\Validator\Traits\Validator;
-use Bluz\Validator\Validator as v;
 
 /**
  * Pages Row
@@ -58,40 +55,36 @@ class Row extends \Bluz\Db\Row
     public function beforeSave()
     {
         // title validator
-        $this->addValidator(
-            'title',
-            v::required()
-        );
+        $this->addValidator('title')
+            ->required()
+        ;
 
         // alias validator
-        $this->addValidator(
-            'alias',
-            v::required(),
-            v::slug(),
-            v::callback(
+        $this->addValidator('alias')
+            ->required()
+            ->slug()
+            ->callback(
                 function ($input) {
-                    if ($row = $this->getTable()->findRowWhere(['alias' => $input])) {
+                    if ($row = $this->getTable()::findRowWhere(['alias' => $input])) {
                         if ($row->id != $this->id) {
                             return false;
                         }
                     }
                     return true;
                 }
-            )->setError('Alias "{{input}}" already exists')
-        );
+            )
+            ->setDescription('This alias already exists')
+        ;
 
         // content validator
-        $this->addValidator(
-            'content',
-            v::callback(
+        $this->addValidator('content')
+            ->callback(
                 function ($input) {
-                    if (empty($input) or trim(strip_tags($input, '<img>')) == '') {
-                        return false;
-                    }
-                    return true;
+                    return !(empty($input) or trim(strip_tags($input, '<img>')) === '');
                 }
-            )->setError('Content can\'t be empty')
-        );
+            )
+            ->setDescription('Content can\'t be empty')
+        ;
     }
 
     /**
