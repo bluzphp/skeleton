@@ -46,7 +46,7 @@ return function ($crud, $primary, $data) {
         }
 
         if (is_array($result)) {
-            $result = join('-', array_values($result));
+            $result = implode('-', array_values($result));
         }
     } catch (ValidatorException $e) {
         Response::setStatusCode($e->getCode());

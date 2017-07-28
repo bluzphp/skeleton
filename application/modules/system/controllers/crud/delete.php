@@ -33,5 +33,5 @@ return function ($crud, $primary, $data) {
     // @throws NotFoundException
     $crud->deleteOne($primary);
 
-    Messages::addSuccess("Record was deleted");
+    Messages::addSuccess('Record was deleted');
 };

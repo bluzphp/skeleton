@@ -10,6 +10,7 @@
 namespace Application\Tests\Api;
 
 use Application\Tests\ControllerTestCase;
+use Bluz\Http\StatusCode;
 use Bluz\Proxy\Response;
 
 /**
@@ -24,28 +25,28 @@ class ApiTest extends ControllerTestCase
     {
         $this->dispatch('api/not-exists');
         // resource not-exists not exists => not found
-        self::assertResponseCode(404);
+        self::assertResponseCode(StatusCode::NOT_FOUND);
     }
 
     public function testWrongMethod()
     {
         $this->dispatch('api/login', [], 'GET');
         // get is not allowed => not implemented
-        self::assertResponseCode(501);
+        self::assertResponseCode(StatusCode::METHOD_NOT_ALLOWED);
     }
 
     public function testMissingParam()
     {
         $this->dispatch('api/login', ['login' => 'admin'], 'POST');
         // missed password => bad request
-        self::assertResponseCode(400);
+        self::assertResponseCode(StatusCode::BAD_REQUEST);
     }
 
     public function testLoginWrongPassword()
     {
         $this->dispatch('api/login', ['login' => 'admin', 'password' => 'password'], 'POST');
         // wrong password => authorization failed
-        self::assertResponseCode(401);
+        self::assertResponseCode(StatusCode::UNAUTHORIZED);
     }
 
     public function testLoginSuccess()

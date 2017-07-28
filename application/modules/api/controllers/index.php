@@ -67,8 +67,12 @@ return function ($resource, $id, $relation, $relationId) {
 
         return $this->dispatch('api', 'resources/' . $resource, $params);
     } catch (\Exception $e) {
+        $code = $e->getCode() ?: \Bluz\Http\StatusCode::INTERNAL_SERVER_ERROR;
         // process exceptions here
-        Response::setStatusCode($e->getCode());
-        return ['error' => $e->getMessage()];
+        Response::setStatusCode($code);
+        return [
+            'code' => $e->getCode(),
+            'error' => $e->getMessage()
+        ];
     }
 };

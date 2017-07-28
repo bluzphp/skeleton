@@ -29,7 +29,7 @@
  *             example=404
  *         ),
  *         @SWG\Property(
- *             property="message",
+ *             property="error",
  *             type="string",
  *             example="Not found"
  *         )

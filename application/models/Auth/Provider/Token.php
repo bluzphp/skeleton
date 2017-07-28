@@ -35,7 +35,7 @@ class Token extends AbstractProvider
 
     public static function verify($token) : Row
     {
-        if (!$authRow = Table::findRowWhere(['token' => $token, 'provider' => Table::PROVIDER_TOKEN])) {
+        if (!$authRow = Table::findRowWhere(['token' => $token, 'provider' => self::PROVIDER])) {
             throw new AuthException('Invalid token');
         }
 
