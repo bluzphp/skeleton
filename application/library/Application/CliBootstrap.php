@@ -6,15 +6,12 @@
  * @link      https://github.com/bluzphp/framework
  */
 
-/**
- * @namespace
- */
+declare(strict_types=1);
 
 namespace Application;
 
 use Application\Users\Table;
 use Bluz\Application\Application;
-use Bluz\Application\Exception\ApplicationException;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Config;
@@ -91,16 +88,19 @@ class CliBootstrap extends Application
      * get CLI Request
      *
      * @return void
+     * @throws \Application\Exception
      * @throws \InvalidArgumentException
-     * @throws ApplicationException
      */
     public function initRequest()
     {
         $uri = $this->getInput()->getArgument('uri');
 
         $parsedQuery = parse_url($uri, PHP_URL_QUERY);
-
-        parse_str($parsedQuery, $query);
+        if ($parsedQuery) {
+            parse_str($parsedQuery, $query);
+        } else {
+            $query = [];
+        }
 
         $request = RequestFactory::fromGlobals(['REQUEST_URI' => $uri, 'REQUEST_METHOD' => 'CLI'], $query);
 
@@ -183,21 +183,34 @@ class CliBootstrap extends Application
     }
 
     /**
+     * Finish it
+     *
      * @return void
      */
     public function end()
     {
-        if ($messages = Logger::get('error')) {
-            foreach ($messages as $message) {
-                errorLog(new \ErrorException($message, 0, E_USER_ERROR));
-            }
+        if ($errors = Logger::get('error')) {
+            $this->sendErrors($errors);
         }
-
         // return code 1 for invalid behaviour of application
 //        if ($exception = $this->getException()) {
 //            echo $exception->getMessage();
 //            exit(1);
 //        }
         exit;
+    }
+
+    /**
+     * sendErrorBody
+     *
+     * @param  array $errors
+     *
+     * @return void
+     */
+    protected function sendErrors($errors)
+    {
+        foreach ($errors as $message) {
+            errorLog(new \ErrorException($message, 0, E_USER_ERROR));
+        }
     }
 }

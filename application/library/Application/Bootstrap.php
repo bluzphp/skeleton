@@ -4,9 +4,7 @@
  * @link      https://github.com/bluzphp/skeleton
  */
 
-/**
- * @namespace
- */
+declare(strict_types=1);
 
 namespace Application;
 
@@ -51,14 +49,14 @@ class Bootstrap extends Application
         Layout::title('Bluz Skeleton');
 
         if (!AuthProxy::getIdentity()) {
-            if ($token = Request::getCookie('aToken')) {
+            if ($token = Request::getCookie('Auth-Token')) {
                 // try to login by token from cookies
                 try {
                     Auth\Provider\Cookie::authenticate($token);
                 } catch (AuthException $e) {
-                    $this->getResponse()->setCookie('aToken', '', 1, '/');
+                    $this->getResponse()->setCookie('Auth-Token', '', 1, '/');
                 }
-            } elseif ($token = Request::getHeader('bToken')) {
+            } elseif ($token = Request::getHeader('Auth-Token')) {
                 // try to login by token from headers
                 Auth\Provider\Token::authenticate($token);
             }
