@@ -96,7 +96,7 @@ class CliBootstrap extends Application
         $uri = $this->getInput()->getArgument('uri');
 
         $parsedQuery = parse_url($uri, PHP_URL_QUERY);
-        if ($parsedQuery) {
+        if (false !== $parsedQuery) {
             parse_str($parsedQuery, $query);
         } else {
             $query = [];
