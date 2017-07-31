@@ -75,7 +75,7 @@ class Cookie extends AbstractProvider
         $authRow->token = bin2hex(random_bytes(32));
         $authRow->save();
 
-        Response::setCookie('aToken', $authRow->token, time() + $ttl);
+        Response::setCookie('Auth-Token', $authRow->token, time() + $ttl);
 
         return $authRow;
     }
