@@ -53,7 +53,7 @@ class Row extends AbstractRowEntity
      */
     public function beforeSave()
     {
-        $this->email = strtolower($this->email);
+        $this->email = strtolower($this->email ?? '');
 
         $this->addValidator('login')
             ->required()
@@ -61,11 +61,15 @@ class Row extends AbstractRowEntity
             ->length(3, 255)
             ->callback(
                 function ($login) {
-                    $user = $this->getTable()
-                        ->select()
-                        ->where('login = ?', $login)
-                        ->andWhere('id != ?', $this->id)
-                        ->execute();
+                    $selector = static::getTable()
+                        ::select()
+                        ->where('login = ?', $login);
+
+                    if ($this->id) {
+                        $selector->andWhere('id != ?', $this->id);
+                    }
+
+                    $user = $selector->execute();
                     return !$user;
                 },
                 'User with this login is already exists'
@@ -76,11 +80,15 @@ class Row extends AbstractRowEntity
             ->email(true)
             ->callback(
                 function ($email) {
-                    $user = $this->getTable()
-                        ->select()
-                        ->where('email = ?', $email)
-                        ->andWhere('id != ?', $this->id)
-                        ->execute();
+                    $selector = static::getTable()
+                        ::select()
+                        ->where('email = ?', $email);
+
+                    if ($this->id) {
+                        $selector->andWhere('id != ?', $this->id);
+                    }
+
+                    $user = $selector->execute();
                     return !$user;
                 },
                 'User with this email is already exists'
