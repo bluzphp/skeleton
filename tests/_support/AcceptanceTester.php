@@ -44,4 +44,14 @@ class AcceptanceTester extends \Codeception\Actor
     {
         $this->login('admin', 'admin');
     }
+
+    /**
+     * I'm admin
+     *
+     * @return void
+     */
+    public function amMember()
+    {
+        $this->login('member', 'member');
+    }
 }
