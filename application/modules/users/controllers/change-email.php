@@ -10,16 +10,12 @@ namespace Application;
 
 use Application\Users;
 use Application\UsersActions;
-use Application\UsersActions\Table;
 use Bluz\Application\Exception\NotFoundException;
 use Bluz\Auth\AuthException;
 use Bluz\Controller\Controller;
-use Bluz\Proxy\Logger;
-use Bluz\Proxy\Mailer;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
-use Bluz\Proxy\Router;
 
 /**
  * @privilege EditEmail

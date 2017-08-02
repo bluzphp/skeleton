@@ -12,12 +12,9 @@ namespace Application;
 
 use Application\Users;
 use Bluz\Controller\Controller;
-use Bluz\Proxy\Logger;
-use Bluz\Proxy\Mailer;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
-use Bluz\Proxy\Router;
 
 /**
  * @param string $email
