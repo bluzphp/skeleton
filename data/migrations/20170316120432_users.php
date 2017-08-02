@@ -71,18 +71,21 @@ class Users extends AbstractMigration
             [
                 'id' => 1,
                 'login' => 'system',
+                'email' => 'system@localhost',
                 'created' => date('Y-m-d H:i:s'),
                 'status' => 'disabled'
             ],
             [
                 'id' => 2,
                 'login' => 'admin',
+                'email' => 'admin@localhost',
                 'created' => date('Y-m-d H:i:s'),
                 'status' => 'active'
             ],
             [
                 'id' => 3,
                 'login' => 'member',
+                'email' => 'member@localhost',
                 'created' => date('Y-m-d H:i:s'),
                 'status' => 'active'
             ],

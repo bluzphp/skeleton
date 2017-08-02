@@ -1,6 +1,6 @@
 <?php
 // @group users
 $I = new AcceptanceTester($scenario);
-$I->wantTo('login as admin');
+$I->wantTo('sign in as administrator');
 $I->amAdmin();
 $I->see('You are signed');
