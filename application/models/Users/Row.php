@@ -112,34 +112,6 @@ class Row extends AbstractRowEntity
     }
 
     /**
-     * Can entity login
-     *
-     * @throws Exception
-     * @throws AuthException
-     * @return void
-     */
-    public function tryLogin()
-    {
-        switch ($this->status) {
-            case (Table::STATUS_PENDING):
-                throw new AuthException('Your account is pending activation', 403);
-            case (Table::STATUS_DISABLED):
-                throw new AuthException('Your account is disabled by administrator', 403);
-            case (Table::STATUS_ACTIVE):
-                // all ok
-                // regenerate session
-                if (PHP_SAPI !== 'cli') {
-                    Session::regenerateId();
-                }
-                // save user to new session
-                Auth::setIdentity($this);
-                break;
-            default:
-                throw new Exception('User status is undefined in system');
-        }
-    }
-
-    /**
      * Get user roles
      */
     public function getRoles()
