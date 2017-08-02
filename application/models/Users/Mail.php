@@ -68,6 +68,7 @@ class Mail
             $mail->Subject = $subject;
             $mail->msgHTML(nl2br($body));
             $mail->addAddress($user->email);
+
             return Mailer::send($mail);
         } catch (\Exception $e) {
             Logger::log(
@@ -163,7 +164,6 @@ class Mail
             ['token' => $actionRow->code]
         );
 
-
         $body = Application::getInstance()->dispatch(
             'users',
             'mail/template',
@@ -183,8 +183,8 @@ class Mail
             $mail->Subject = $subject;
             $mail->msgHTML(nl2br($body));
             $mail->addAddress($email);
-            return Mailer::send($mail);
 
+            return Mailer::send($mail);
         } catch (\Exception $e) {
             Logger::log(
                 'error',
