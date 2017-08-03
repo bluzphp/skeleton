@@ -26,11 +26,9 @@ return function () {
 
     $rest
         ->head('system', 'rest/head')
-//        ->filter(['title', 'content', 'keywords', 'description'])
     ;
     $rest
         ->get('system', 'rest/get')
-//        ->filter(['title', 'content', 'keywords', 'description'])
     ;
 
     return $rest->run();
