@@ -8,13 +8,9 @@ declare(strict_types=1);
 
 namespace Application\Users;
 
-use Application\Exception;
 use Application\Privileges;
 use Application\Roles;
 use Bluz\Auth\AbstractRowEntity;
-use Bluz\Auth\AuthException;
-use Bluz\Proxy\Auth;
-use Bluz\Proxy\Session;
 use Bluz\Validator\Traits\Validator;
 
 /**

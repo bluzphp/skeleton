@@ -24,8 +24,14 @@ return function () {
      */
     $rest = new Rest(Pages\Crud::getInstance());
 
-    $rest->head('system', 'rest/head');
-    $rest->get('system', 'rest/get');
+    $rest
+        ->head('system', 'rest/head')
+//        ->filter(['title', 'content', 'keywords', 'description'])
+    ;
+    $rest
+        ->get('system', 'rest/get')
+//        ->filter(['title', 'content', 'keywords', 'description'])
+    ;
 
     return $rest->run();
 };

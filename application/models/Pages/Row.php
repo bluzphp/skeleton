@@ -71,9 +71,9 @@ class Row extends \Bluz\Db\Row
                         }
                     }
                     return true;
-                }
+                },
+                __('This alias already exists')
             )
-            ->setDescription('This alias already exists')
         ;
 
         // content validator
@@ -81,9 +81,17 @@ class Row extends \Bluz\Db\Row
             ->callback(
                 function ($input) {
                     return !(empty($input) or trim(strip_tags($input, '<img>')) === '');
-                }
+                },
+                __('Content can\'t be empty')
             )
-            ->setDescription('Content can\'t be empty')
+        ;
+
+        $this->addValidator('keywords')
+            ->alphaNumeric(', ')
+        ;
+
+        $this->addValidator('description')
+            ->alphaNumeric(', ')
         ;
     }
 
