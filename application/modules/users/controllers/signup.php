@@ -30,8 +30,8 @@ return function () {
 
     $crud = new Crud(Users\Crud::getInstance());
 
-    $crud->addMap('GET', 'system', 'crud/get');
-    $crud->addMap('POST', 'system', 'crud/post');
+    $crud->get('system', 'crud/get');
+    $crud->post('users', 'crud/post');
 
     return $crud->run();
 };

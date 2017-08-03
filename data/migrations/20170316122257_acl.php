@@ -169,6 +169,10 @@ class Acl extends AbstractMigration
                 'userId' => 2,
                 'roleId' => 2
             ],
+            [
+                'userId' => 3,
+                'roleId' => 3
+            ],
         ];
         $this->table('acl_users_roles')->insert($usersRoles)->save();
     }

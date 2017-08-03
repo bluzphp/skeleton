@@ -28,30 +28,29 @@ return function ($crud, $primary) {
     if (!empty($primary)) {
         // @throws NotFoundException
         return [$crud->readOne($primary)];
-    } else {
-        $params = Request::getParams();
-
-        // setup default offset and limit - safe way
-        $offset = Request::getParam('offset', 0);
-        $limit = Request::getParam('limit', 10);
-
-        if ($range = Request::getHeader('Range')) {
-            list(, $offset, $last) = preg_split('/[-=]/', $range);
-            // for better compatibility
-            $limit = $last - $offset;
-        }
-
-        $total = 0;
-        $result = $crud->readSet($offset, $limit, $params, $total);
-
-        if (count($result) < $total) {
-            Response::setStatusCode(StatusCode::PARTIAL_CONTENT);
-            Response::setHeader(
-                'Content-Range',
-                'items ' . $offset . '-' . ($offset + count($result)) . '/' . $total
-            );
-        }
-
-        return $result;
     }
+    $params = Request::getParams();
+
+    // setup default offset and limit - safe way
+    $offset = Request::getParam('offset', 0);
+    $limit = Request::getParam('limit', 10);
+
+    if ($range = Request::getHeader('Range')) {
+        list(, $offset, $last) = preg_split('/[-=]/', $range);
+        // for better compatibility
+        $limit = $last - $offset;
+    }
+
+    $total = 0;
+    $result = $crud->readSet($offset, $limit, $params, $total);
+
+    if (count($result) < $total) {
+        Response::setStatusCode(StatusCode::PARTIAL_CONTENT);
+        Response::setHeader(
+            'Content-Range',
+            'items ' . $offset . '-' . ($offset + count($result)) . '/' . $total
+        );
+    }
+
+    return $result;
 };

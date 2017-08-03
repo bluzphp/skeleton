@@ -3,7 +3,7 @@
  * @var \Bluz\View\View $this
  */
 ?>
-<?php $uid = uniqid('form_'); ?>
+<?php $uid = uniqid('form_', false); ?>
   <form id="<?= $uid ?>" action="<?= $this->url('pages', 'crud') ?>" class="form-horizontal ajax"
         method="<?= $method ?>">
     <input type="hidden" name="id" value="<?= $row->id ?>"/>

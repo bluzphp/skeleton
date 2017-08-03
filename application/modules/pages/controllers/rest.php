@@ -24,8 +24,12 @@ return function () {
      */
     $rest = new Rest(Pages\Crud::getInstance());
 
-    $rest->head('system', 'rest/head');
-    $rest->get('system', 'rest/get');
+    $rest
+        ->head('system', 'rest/head')
+    ;
+    $rest
+        ->get('system', 'rest/get')
+    ;
 
     return $rest->run();
 };

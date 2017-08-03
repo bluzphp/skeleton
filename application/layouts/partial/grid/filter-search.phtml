@@ -25,7 +25,15 @@ foreach ($filters as $filterName => $filterTitle) {
         class="caret"></span></button>
   <ul class="dropdown-menu">
       <?php foreach ($filters as $fieldName => $fieldTitle) : ?>
-        <li><a href="#" data-filter="<?= $grid->getUid() . '-filter-' . $fieldName ?>"><?= $fieldTitle ?></a></li>
+        <li>
+          <a
+              href="#"
+              data-filter="<?= $grid->getUid() . '-filter-' . $fieldName ?>"
+              data-filter-type="<?= $grid::FILTER_LIKE ?>"
+          >
+              <?= $fieldTitle ?>
+          </a>
+        </li>
       <?php endforeach; ?>
   </ul>
 </div><!-- /btn-group -->

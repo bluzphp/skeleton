@@ -15,14 +15,13 @@ if (!$grid) {
 <div class="clearfix" data-spy="grid" data-grid="<?= $grid->getUid() ?>">
   <nav class="navbar navbar-default" role="navigation">
     <div class="col-lg-6">
-      <a href="<?= $grid->filter('roleId', 'eq', '', true) ?>" class="btn btn-default <?= (is_null(
-          $grid->getFilter('roleId', 'eq')
-      ) ? 'btn-info' : '') ?> navbar-btn ajax"><?= __('all') ?></a>
+      <a href="<?= $grid->filter('roleId', 'eq', '', true) ?>"
+         class="btn btn-default navbar-btn ajax <?= (is_null($grid->getFilter('roleId', 'eq')) ? 'btn-info' : '') ?>">
+          <?= __('all') ?>
+      </a>
         <?php foreach ($roles as $role) : ?>
-          <a href="<?= $grid->filter('roleId', 'eq', $role['id']) ?>" class="btn btn-default <?= ($grid->getFilter(
-              'roleId',
-              'eq'
-          ) == $role['id'] ? 'btn-info' : '') ?> navbar-btn ajax">
+          <a href="<?= $grid->filter('roleId', 'eq', $role['id']) ?>"
+             class="btn btn-default navbar-btn ajax <?= ($grid->getFilter('roleId', 'eq') == $role['id'] ? 'btn-info' : '') ?>">
               <?= $role['name'] ?>
           </a>
         <?php endforeach; ?>
@@ -43,8 +42,8 @@ if (!$grid) {
             )
             ?>
           <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><?= __("Search") ?></button>
-                    </span>
+            <button class="btn btn-default" type="submit"><?= __("Search") ?></button>
+          </span>
         </div>
       </form>
     </div>

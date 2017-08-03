@@ -10,16 +10,12 @@ namespace Application;
 
 use Application\Users;
 use Application\UsersActions;
-use Application\UsersActions\Table;
 use Bluz\Application\Exception\NotFoundException;
 use Bluz\Auth\AuthException;
 use Bluz\Controller\Controller;
-use Bluz\Proxy\Logger;
-use Bluz\Proxy\Mailer;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
-use Bluz\Proxy\Router;
 
 /**
  * @privilege EditEmail
@@ -62,60 +58,24 @@ return function ($email = null, $password = null, $token = null) {
             // password check
             Auth\Provider\Equals::verify($user->login, $password);
 
-            // check email for unique
-            $emailUnique = Users\Table::findRowWhere(['email' => $email]);
-            if ($emailUnique && $emailUnique->id != $userId) {
+            // is current email?
+            if ($user->email === $email) {
+                throw new Exception('Email address is equal to current');
+            }
+
+            // is unique email?
+            if (Users\Table::findRowWhere(['email' => $email])) {
                 throw new Exception('User with email "' . htmlentities($email) . '" already exists');
             }
 
             // generate change mail token and get full url
-            $actionRow = UsersActions\Table::getInstance()->generate(
-                $userId,
-                Table::ACTION_CHANGE_EMAIL,
-                5, // ttl in days
-                ['email' => $email]
-            );
-
-            $changeUrl = Router::getFullUrl(
-                'users',
-                'change-email',
-                ['token' => $actionRow->code]
-            );
-
-            $subject = __('Change email');
-
-            $body = $this->dispatch(
-                'users',
-                'mail/template',
-                [
-                    'template' => 'change-email',
-                    'vars' => [
-                        'user' => $user,
-                        'email' => $email,
-                        'changeUrl' => $changeUrl,
-                        'profileUrl' => Router::getFullUrl('users', 'profile')
-                    ]
-                ]
-            )->render();
-
-            try {
-                $mail = Mailer::create();
-                $mail->Subject = $subject;
-                $mail->msgHTML(nl2br($body));
-                $mail->addAddress($email);
-                Mailer::send($mail);
-
-                Messages::addNotice('Check your email and follow instructions in letter.');
-            } catch (\Exception $e) {
-                Logger::log(
-                    'error',
-                    $e->getMessage(),
-                    ['module' => 'users', 'controller' => 'change-email', 'userId' => $userId]
-                );
-                throw new Exception('Unable to send email. Please contact administrator.');
+            if (Users\Mail::changeEmail($user, $email)) {
+                Messages::addNotice('Check your email and follow instructions in letter');
+            } else {
+                Messages::addError('Unable to send email. Please contact administrator');
             }
 
-            // try back to index
+            // send email
             Response::redirectTo('users', 'profile');
         } catch (Exception $e) {
             Messages::addError($e->getMessage());

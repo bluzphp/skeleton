@@ -28,7 +28,7 @@ class AcceptanceTester extends \Codeception\Actor
     {
         $I = $this;
         // logging in
-        $I->setHeader("Accept", "text/html");
+        $I->setHeader('Accept', 'text/html');
         $I->amOnPage('/users/signin');
         $I->fillField('login', $name);
         $I->fillField('password', $password);
@@ -43,5 +43,15 @@ class AcceptanceTester extends \Codeception\Actor
     public function amAdmin()
     {
         $this->login('admin', 'admin');
+    }
+
+    /**
+     * I'm admin
+     *
+     * @return void
+     */
+    public function amMember()
+    {
+        $this->login('member', 'member');
     }
 }

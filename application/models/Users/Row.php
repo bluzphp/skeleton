@@ -8,13 +8,9 @@ declare(strict_types=1);
 
 namespace Application\Users;
 
-use Application\Exception;
 use Application\Privileges;
 use Application\Roles;
 use Bluz\Auth\AbstractRowEntity;
-use Bluz\Auth\AuthException;
-use Bluz\Proxy\Auth;
-use Bluz\Proxy\Session;
 use Bluz\Validator\Traits\Validator;
 
 /**
@@ -53,7 +49,7 @@ class Row extends AbstractRowEntity
      */
     public function beforeSave()
     {
-        $this->email = strtolower($this->email);
+        $this->email = strtolower($this->email ?? '');
 
         $this->addValidator('login')
             ->required()
@@ -61,11 +57,15 @@ class Row extends AbstractRowEntity
             ->length(3, 255)
             ->callback(
                 function ($login) {
-                    $user = $this->getTable()
-                        ->select()
-                        ->where('login = ?', $login)
-                        ->andWhere('id != ?', $this->id)
-                        ->execute();
+                    $selector = static::getTable()
+                        ::select()
+                        ->where('login = ?', $login);
+
+                    if ($this->id) {
+                        $selector->andWhere('id != ?', $this->id);
+                    }
+
+                    $user = $selector->execute();
                     return !$user;
                 },
                 'User with this login is already exists'
@@ -76,11 +76,15 @@ class Row extends AbstractRowEntity
             ->email(true)
             ->callback(
                 function ($email) {
-                    $user = $this->getTable()
-                        ->select()
-                        ->where('email = ?', $email)
-                        ->andWhere('id != ?', $this->id)
-                        ->execute();
+                    $selector = static::getTable()
+                        ::select()
+                        ->where('email = ?', $email);
+
+                    if ($this->id) {
+                        $selector->andWhere('id != ?', $this->id);
+                    }
+
+                    $user = $selector->execute();
                     return !$user;
                 },
                 'User with this email is already exists'
@@ -101,34 +105,6 @@ class Row extends AbstractRowEntity
     public function beforeUpdate()
     {
         $this->updated = gmdate('Y-m-d H:i:s');
-    }
-
-    /**
-     * Can entity login
-     *
-     * @throws Exception
-     * @throws AuthException
-     * @return void
-     */
-    public function tryLogin()
-    {
-        switch ($this->status) {
-            case (Table::STATUS_PENDING):
-                throw new AuthException('Your account is pending activation', 403);
-            case (Table::STATUS_DISABLED):
-                throw new AuthException('Your account is disabled by administrator', 403);
-            case (Table::STATUS_ACTIVE):
-                // all ok
-                // regenerate session
-                if (PHP_SAPI !== 'cli') {
-                    Session::regenerateId();
-                }
-                // save user to new session
-                Auth::setIdentity($this);
-                break;
-            default:
-                throw new Exception('User status is undefined in system');
-        }
     }
 
     /**
