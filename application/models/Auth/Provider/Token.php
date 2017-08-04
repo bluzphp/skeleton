@@ -30,7 +30,7 @@ class Token extends AbstractProvider
         $user = UsersTable::findRow($authRow->userId);
 
         // try to login
-        $user->tryLogin();
+        Table::tryLogin($user);
     }
 
     public static function verify($token) : Row
