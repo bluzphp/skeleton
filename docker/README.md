@@ -4,6 +4,7 @@ All environment configuration located in _docker_ folder.
 ```
 $ docker-compose -p bluz -f docker/docker-compose.yml build
 ```
+
 3. Run containers
 ```
 $ docker-compose -p bluz -f docker/docker-compose.yml up

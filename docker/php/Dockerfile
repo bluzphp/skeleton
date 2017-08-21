@@ -7,6 +7,8 @@ git
 RUN docker-php-ext-install pdo_mysql && docker-php-ext-enable pdo_mysql \
 && docker-php-ext-install zip && docker-php-ext-enable zip
 
+ENV PATH=$PATH:/var/www/docker/bin:/var/www/vendor/bin
+
 #===Install Composer===#
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 && php composer-setup.php \
@@ -23,8 +25,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 #COPY xdebug.ini /usr/local/etc/php/conf.d/
 #RUN docker-php-ext-enable xdebug
-
-ENV PATH=$PATH:/var/www/docker/bin:/var/www/vendor/bin
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /var/www
