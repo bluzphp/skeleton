@@ -1,4 +1,4 @@
-FROM php:7.0-fpm
+FROM php:7.1-fpm
 
 RUN apt-get update && apt-get install -y apt-utils re2c g++ \
 zlib1g zlib1g-dbg zlib1g-dev zlibc \
@@ -13,16 +13,16 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 && php -r "unlink('composer-setup.php');"
 
 #===Xdebug===#
-ADD http://xdebug.org/files/xdebug-2.4.0rc4.tgz /
-RUN tar -xvzf /xdebug-2.4.0rc4.tgz \
-    && cd xdebug-2.4.0RC4 \
-    && phpize && \
-    ./configure \
-    && make \
-    && cp modules/xdebug.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012/
+#ADD https://xdebug.org/files/xdebug-2.5.5.tgz /xdebug.tgz
+#RUN tar -xvzf /xdebug.tgz \
+#    && cd xdebug \
+#    && phpize && \
+#    ./configure \
+#    && make \
+#    && cp modules/xdebug.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012/
 
-COPY xdebug.ini /usr/local/etc/php/conf.d/
-RUN docker-php-ext-enable xdebug
+#COPY xdebug.ini /usr/local/etc/php/conf.d/
+#RUN docker-php-ext-enable xdebug
 
 ENV PATH=$PATH:/var/www/docker/bin:/var/www/vendor/bin
 
