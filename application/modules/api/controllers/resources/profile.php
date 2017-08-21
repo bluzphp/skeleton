@@ -31,13 +31,18 @@ use Bluz\Controller\Controller;
  *     @SWG\Schema(ref="#/definitions/users")
  *   ),
  *   @SWG\Response(
+ *     response=403,
+ *     description="Forbidden",
+ *     @SWG\Schema(ref="#/definitions/errorModel")
+ *   ),
+ *   @SWG\Response(
  *     response=404,
  *     description="User not found",
  *     @SWG\Schema(ref="#/definitions/errorModel")
  *   )
  * )
  *
- * @method POST
+ * @method GET
  * @privilege UserProfile
  *
  * @throws NotFoundException
