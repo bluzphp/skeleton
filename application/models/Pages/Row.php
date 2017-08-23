@@ -28,7 +28,8 @@ use Bluz\Validator\Traits\Validator;
  * @property integer $userId
  *
  * @SWG\Definition(definition="pages", title="page", required={"id", "title", "alias", "content"})
- * @SWG\Property(property="id", type="integer", description="Page UID", example=42)
+ * @SWG\Property(property="id", type="integer", description="Page UID",
+ *     example=42)
  * @SWG\Property(property="title", type="string", description="Page title",
  *     example="The Ultimate Question of Life")
  * @SWG\Property(property="alias", type="string", description="SEO URL",
@@ -39,9 +40,12 @@ use Bluz\Validator\Traits\Validator;
  *     example="42, life, universe, everything")
  * @SWG\Property(property="description", type="string", description="Meta description",
  *     example="The Hitchhiker's Guide to the Galaxy")
- * @SWG\Property(property="created", type="string", format="date-time", example="2017-03-17 19:06:28")
- * @SWG\Property(property="updated", type="string", format="date-time", example="2017-03-17 19:06:28")
- * @SWG\Property(property="userId", type="integer", description="Author", example=2)
+ * @SWG\Property(property="created", type="string", format="date-time", description="Created date",
+ *     example="2017-03-17 19:06:28")
+ * @SWG\Property(property="updated", type="string", format="date-time", description="Last updated date",
+ *     example="2017-03-17 19:06:28")
+ * @SWG\Property(property="userId", type="integer", description="Author ID",
+ *     example=2)
  */
 class Row extends \Bluz\Db\Row
 {

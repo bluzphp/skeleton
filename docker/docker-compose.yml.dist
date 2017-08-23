@@ -25,9 +25,9 @@ services:
     environment:
       - USER=dev
     env_file:
-     - mysql/db.env
-     - php/xdebug.env
-     - php/bluz.env
+      - mysql/db.env
+      - php/xdebug.env
+      - php/bluz.env
 
   mysql:
     build: mysql

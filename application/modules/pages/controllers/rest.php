@@ -29,6 +29,13 @@ return function () {
     ;
     $rest
         ->get('system', 'rest/get')
+        ->fields([
+            'id',
+            'title',
+            'content',
+            'keywords',
+            'description'
+        ])
     ;
 
     return $rest->run();
