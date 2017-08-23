@@ -37,8 +37,8 @@ return function ($email = null) {
 
             // check domain
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                list(, $domain) = explode("@", $email, 2);
-                if (!checkdnsrr($domain, "MX") && !checkdnsrr($domain, "A")) {
+                list(, $domain) = explode('@', $email, 2);
+                if (!checkdnsrr($domain, 'MX') && !checkdnsrr($domain, 'A')) {
                     throw new Exception('Email has invalid domain name');
                 }
             } else {

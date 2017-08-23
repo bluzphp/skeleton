@@ -21,7 +21,7 @@
  *     ),
  *     @SWG\Definition(
  *         definition="errorModel",
- *         required={"code", "message"},
+ *         required={"code", "error"},
  *         @SWG\Property(
  *             property="code",
  *             type="integer",
