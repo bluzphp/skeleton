@@ -56,7 +56,7 @@
         "version": "dev-master",
         "license": "MIT",
         "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.2/jquery.min.js",
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js",
           "type": "file"
         }
       }
