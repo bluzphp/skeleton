@@ -28,7 +28,7 @@ return function () {
      * @var Controller $this
      */
     if (Cache::getInstance()) {
-        Cache::clearTags(['system']);
+        Cache::clearTag('system');
         Messages::addSuccess('Cache with tag `system` cleaned');
     } else {
         Messages::addNotice('Cache is disabled');
