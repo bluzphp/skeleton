@@ -31,7 +31,7 @@ return function ($alias) {
         // throw NOT FOUND exception
         // all logic of error scenario you can found in default error controller
         // see /application/modules/error/controllers/index.php
-        throw new NotFoundException();
+        throw new NotFoundException;
     }
 
     // setup HTML layout data

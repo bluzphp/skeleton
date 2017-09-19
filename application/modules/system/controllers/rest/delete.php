@@ -40,7 +40,7 @@ return function ($crud, $primary, $data) {
         // @throws NotFoundException
         if (!count($data)) {
             // data not exist
-            throw new BadRequestException();
+            throw new BadRequestException;
         }
         $crud->deleteSet($data);
     }

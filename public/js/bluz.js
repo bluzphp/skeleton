@@ -7,19 +7,6 @@
 define(['jquery', 'bootstrap'], function ($) {
   'use strict';
 
-  let bluz = {
-    log: function (message, text) {
-      if (window.console !== undefined) {
-        window.console.log(message, text);
-      }
-    },
-    error: function (error, text) {
-      if (window.console !== undefined) {
-        window.console.error(error, text);
-      }
-    }
-  };
-
   $(function () {
     // TODO: require other modules if needed
     if ($.fn.tooltip) {
@@ -37,5 +24,22 @@ define(['jquery', 'bootstrap'], function ($) {
     }
   });
 
-  return bluz;
+  return {
+    showLoading: () => {
+      $('#loading').show();
+    },
+    hideLoading: () => {
+      $('#loading').hide();
+    },
+    log: (message, text) => {
+      if (window.console !== undefined) {
+        window.console.log(message, text);
+      }
+    },
+    error: (error, text) => {
+      if (window.console !== undefined) {
+        window.console.error(error, text);
+      }
+    }
+  };
 });

@@ -1,151 +1,162 @@
 /*!
  * Based CSS
  */
-/*Main*/
+
+/* Main */
 .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.center:after {
-    clear: both
+.center::after {
+  clear: both;
 }
-/*/Main*/
-/*Theme*/
+
+/* Theme */
 body {
-    padding-top: 70px;
-    position: relative;
+  padding-top: 70px;
+  position: relative;
 }
+
 footer {
-    padding-top: 40px;
-    padding-bottom: 30px;
-    margin-top: 100px;
-    text-align: center;
-    border-top: 1px solid #e5e5e5;
+  padding-top: 40px;
+  padding-bottom: 30px;
+  margin-top: 100px;
+  text-align: center;
+  border-top: 1px solid #e5e5e5;
 }
-/*/Theme*/
-/*Code*/
-code span { color: #006400 }
-code em { color: #999 }
-code var { color: #ff7f50 }
-code strong { color: #b22222 }
-/*/Code*/
-/*Buttons*/
-.btn.icon-twitter, .btn.icon-facebook {
-    color: #fff;
-    display: block;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    padding: 8px;
-    border-radius: 50%;
-    margin: 0 2px
+
+/* Code */
+code span {
+  color: #006400;
+}
+
+code em {
+  color: #999;
+}
+
+code var {
+  color: #ff7f50;
+}
+
+code strong {
+  color: #b22222;
+}
+
+/* Buttons */
+.btn.icon-twitter,
+.btn.icon-facebook {
+  color: #fff;
+  display: block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 8px;
+  border-radius: 50%;
+  margin: 0 2px;
 }
 
 .btn.icon-twitter {
-    background: #0088CC;
+  background: #08c;
 }
 
 .btn.icon-facebook {
-    background: #1155cc;
+  background: #15c;
 }
 
-/*/Buttons*/
-/*Notify*/
+/* Notify */
 #notify {
-    z-index: 1100;
-    position: fixed;
-    left: 10px;
-    top: 55px;
+  z-index: 1100;
+  position: fixed;
+  left: 10px;
+  top: 55px;
 }
 
 /* Notification BS Element */
 #notify > div {
-    position: relative;
-    z-index: 9999;
-    margin: 5px 0;
-    min-width: 640px;
+  position: relative;
+  z-index: 9999;
+  margin: 5px 0;
+  min-width: 640px;
 }
 
-/*/Notify*/
-/*Loading*/
+/* Loading */
 #loading {
-    z-index: 1100;
-    width: 180px;
-    height: 50px;
-    float: right;
-    background: url("../img/loading.gif") 50% 50% no-repeat;
-    display: none;
+  z-index: 1100;
+  width: 180px;
+  height: 50px;
+  float: right;
+  background: url("../img/loading.gif") 50% 50% no-repeat;
+  display: none;
 }
 
-/*/Loading*/
-/*Small Layout*/
+/* Small Layout */
 .layout-small .container {
-    width: 360px;
+  width: 360px;
 }
 
-/*/Small Layout*/
-/*Bootstrap fix*/
+/* Bootstrap fix */
 .modal form {
-    margin: 0;
+  margin: 0;
 }
+
 .modal-content > .thumbnail {
-    margin: 0;
+  margin: 0;
 }
 
 .tooltip-inner {
-    min-width: 160px;
+  min-width: 160px;
 }
 
-.table.grid+.table {
-    margin-top: -20px;
+.table.grid + .table {
+  margin-top: -20px;
 }
 
 .table.grid .controls {
-    padding: 2px 8px;
+  padding: 2px 8px;
 }
+
 .text-overflow {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
 .breadcrumb a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .nav-dashboard {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-shadow: 0 1px 0 #fff;
-    background-color: #f7f5fa;
-    border-radius: 5px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-shadow: 0 1px 0 #fff;
+  background-color: #f7f5fa;
+  border-radius: 5px;
 }
 
 .nav-tabs.nav-stacked > .active > a,
 .nav-tabs.nav-stacked > .active > a:hover {
-    color: white;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-    background-color: #08C;
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+  background-color: #08c;
 }
 
 @media (max-width: 979px) {
-    body {
-        padding-top: 0;
-    }
+  body {
+    padding-top: 0;
+  }
 }
 
 @media screen and (min-width: 1200px) {
-    /* Widen the fixed sidebar again */
-    .nav-dashboard.affix {
-        width: 263px;
-    }
+  /* Widen the fixed sidebar again */
+  .nav-dashboard.affix {
+    width: 263px;
+  }
 }
 
 .root-category-list {
-    margin-top: 7px;
+  margin-top: 7px;
 }
-
-/*/Bootstrap fix*/
