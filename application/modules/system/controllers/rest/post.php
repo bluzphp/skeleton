@@ -35,14 +35,14 @@ use Bluz\Validator\Exception\ValidatorException;
 return function ($crud, $primary, $data) {
     if (!empty(array_filter($primary))) {
         // POST + ID is incorrect behaviour
-        throw new NotImplementedException();
+        throw new NotImplementedException;
     }
 
     try {
         $result = $crud->createOne($data);
         if (!$result) {
             // system can't create record with this data
-            throw new BadRequestException();
+            throw new BadRequestException;
         }
 
         if (is_array($result)) {

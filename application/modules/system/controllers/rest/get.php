@@ -41,16 +41,15 @@ return function ($crud, $primary) {
         $limit = $last - $offset;
     }
 
-    $total = 0;
-    $result = $crud->readSet($offset, $limit, $params, $total);
+    list($data, $total) = $crud->readSet($offset, $limit, $params);
 
-    if (count($result) < $total) {
+    if (count($data) < $total) {
         Response::setStatusCode(StatusCode::PARTIAL_CONTENT);
         Response::setHeader(
             'Content-Range',
-            'items ' . $offset . '-' . ($offset + count($result)) . '/' . $total
+            'items ' . $offset . '-' . ($offset + count($data)) . '/' . $total
         );
     }
 
-    return $result;
+    return $data;
 };

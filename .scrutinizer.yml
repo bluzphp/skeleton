@@ -1,5 +1,10 @@
 checks:
-  php: true
+  php:
+    psr2_switch_declaration: true
+    psr2_class_declaration: true
+    no_short_open_tag: true
+    deprecated_code_usage: true
+    code_rating: true
 filter:
   excluded_paths:
     - tests/

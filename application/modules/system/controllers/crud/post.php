@@ -31,7 +31,7 @@ return function ($crud, $primary, $data) {
         // Result is Primary Key(s)
         $result = $crud->createOne($data);
 
-        Messages::addSuccess('Record was created');
+        Messages::addSuccess('The record was successfully created');
 
         return [
             'row' => $crud->readOne($result),

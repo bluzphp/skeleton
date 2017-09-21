@@ -8,15 +8,23 @@
 <h3 class="page-header">
     <?= __('Profile') ?>
     <?php if ($this->user() && $this->user()->id == $user->id) : ?>
+        <?php if ($this->hasModule('media')) : ?>
+            <?= $this->ahref(
+                __('Change avatar'),
+                ['media', 'manager'],
+                ['id' => 'avatar-button', 'class' => 'btn btn-mini pull-right dialog']
+            ) ?>
+        <?php endif; ?>
         <?= $this->ahref(__('Change email'), ['users', 'change-email'], ['class' => 'btn btn-mini pull-right']) ?>
         <?= $this->ahref(__('Change password'), ['users', 'change-password'], ['class' => 'btn btn-mini pull-right']) ?>
+
     <?php endif; ?>
 </h3>
 
 <div class="panel-body">
   <div class="row">
     <div class="col-md-2 col-lg-2 " align="center">
-      <img id="avatar" src="<?= $this->gravatar($user->email, 128) ?>" alt="<?= $user->email ?>">
+      <img id="avatar" width="128" height="128" src="<?= $this->gravatar($user->email, 128) ?>" alt="<?= $user->email ?>">
     </div>
     <div class=" col-md-10 col-lg-10 ">
       <table class="table table-user-information">
@@ -55,17 +63,16 @@
     </div>
   </div>
 </div>
-
+<?php if ($this->hasModule('media')) : ?>
 <script>
-  /*
-   require(['jquery'], function($) {
-   $('a.thumbnail').on('push.data.bluz', function(event, data) {
-   // send to server for update avatar
-   // all information about image inside data
-   console.log(data);
-   // hide modal dialog
-   $(this).data('modal').modal('hide');
-   });
-   });
-   */
+  require(['jquery'], function($) {
+    $('#avatar-button').on('push.data.bluz', function(event, data) {
+      // send to server for update avatar
+      // all information about image inside data
+      $('#avatar').attr('src', data.thumb);
+      // hide modal dialog
+      $(this).data('modal').modal('hide');
+    });
+  });
 </script>
+<?php endif; ?>

@@ -6,6 +6,7 @@
   "require": {
     "php": ">=7.0",
     "bluzphp/framework": "~7.7",
+    "bluzphp/composer-plugin": "~2.1",
     "hybridauth/hybridauth": "~2.8",
     "phpmailer/phpmailer": "~5.2",
     "zircote/swagger-php": "~2.0",
@@ -13,9 +14,8 @@
     "twbs/bootstrap": "~3.3",
     "robmorgan/phinx": "~0.8",
     "public/swagger-ui": "dev-master",
-    "js/jquery": "dev-master",
-    "js/dropzone": "dev-master",
-    "js/require": "dev-master"
+    "public/jquery": "dev-master",
+    "public/require": "dev-master"
   },
   "require-dev": {
     "bluzphp/bluzman": "~2.2",
@@ -32,15 +32,18 @@
         "version": "dev-master",
         "license": "Apache-2.0",
         "dist":{
-          "url":"https://github.com/swagger-api/swagger-ui/archive/v3.1.5.zip",
+          "url":"https://github.com/swagger-api/swagger-ui/archive/v3.2.1.zip",
           "type":"zip"
+        },
+        "extra": {
+          "any":"value"
         }
       }
     },
     {
       "type": "package",
       "package": {
-        "name": "js/require",
+        "name": "public/require",
         "version": "dev-master",
         "license": "MIT",
         "dist": {
@@ -52,23 +55,11 @@
     {
       "type": "package",
       "package": {
-        "name": "js/jquery",
+        "name": "public/jquery",
         "version": "dev-master",
         "license": "MIT",
         "dist": {
           "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js",
-          "type": "file"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "js/dropzone",
-        "version": "dev-master",
-        "license": "MIT",
-        "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.0/min/dropzone-amd-module.min.js",
           "type": "file"
         }
       }
@@ -89,8 +80,19 @@
   },
   "scripts": {
     "post-install-cmd": "php bin/install.php",
-    "post-update-cmd": "php bin/update.php",
     "serve": "php -S 0.0.0.0:8080 -t ./public ./public/routing.php"
+  },
+  "extra": {
+    "copy-files": {
+      "public/swagger-ui/dist/": "public/api-reference/",
+      "twbs/bootstrap/dist/js/": "public/js/vendor/",
+      "twbs/bootstrap/dist/css/": "public/css/",
+      "twbs/bootstrap/dist/fonts/": "public/fonts/",
+      "fortawesome/font-awesome/css/": "public/css/",
+      "fortawesome/font-awesome/fonts/": "public/fonts/",
+      "js/jquery/jquery.min.js": "public/js/vendor/jquery.min.js",
+      "js/require/require.min.js": "public/js/vendor/require.min.js"
+    }
   },
   "authors": [
     {

@@ -66,7 +66,7 @@ return function ($code, $exception = null) {
     switch ($code) {
         case 400:
             $error = __('Bad Request');
-            $message = __('The server didn\'t understand the syntax of the request');
+            $message = $exceptionMessage ?? __('The server didn\'t understand the syntax of the request');
             break;
         case 401:
             $error = __('Unauthorized');

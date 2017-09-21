@@ -97,9 +97,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
      * @link http://api.jquery.com/ajaxStop/
      */
     $(document)
-      .ajaxStart(() => {
-        $('#loading').show();
-      })
+      .ajaxStart(bluz.showLoading)
       .ajaxSend((event, jqXHR, options) => {
         let $element = $(options.context);
         if ($element.hasClass('disabled')) {
@@ -149,9 +147,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
         let $element = $(options.context);
         $element.removeClass('disabled');
       })
-      .ajaxStop(() => {
-        $('#loading').hide();
-      });
+      .ajaxStop(bluz.hideLoading);
 
     // live event handlers
     $('body')

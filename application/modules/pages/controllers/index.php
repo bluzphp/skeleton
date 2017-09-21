@@ -31,11 +31,11 @@ return function ($alias) {
         // throw NOT FOUND exception
         // all logic of error scenario you can found in default error controller
         // see /application/modules/error/controllers/index.php
-        throw new NotFoundException();
+        throw new NotFoundException;
     }
 
     // setup HTML layout data
-    Layout::title(esc($page->title), Layout::POS_PREPEND);
+    Layout::titlePrepend(esc($page->title));
     Layout::meta('keywords', esc($page->keywords, ENT_QUOTES));
     Layout::meta('description', esc($page->description, ENT_QUOTES));
 

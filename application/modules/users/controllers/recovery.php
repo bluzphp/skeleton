@@ -15,6 +15,7 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
+use Bluz\Validator\Validator;
 
 /**
  * @param string $email
@@ -31,19 +32,10 @@ return function ($email = null) {
     if (Request::isPost()) {
         try {
             // check email
-            if (empty($email)) {
-                throw new Exception('Email can\'t be empty');
-            }
-
-            // check domain
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                list(, $domain) = explode('@', $email, 2);
-                if (!checkdnsrr($domain, 'MX') && !checkdnsrr($domain, 'A')) {
-                    throw new Exception('Email has invalid domain name');
-                }
-            } else {
-                throw new Exception('Email is invalid');
-            }
+            Validator::create()
+                ->notEmpty()
+                ->email(true)
+                ->assert($email);
 
             // check exists
             $user = Users\Table::findRowWhere(['email' => $email]);
