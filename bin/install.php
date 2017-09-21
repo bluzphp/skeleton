@@ -33,5 +33,3 @@ unset($folder);
 if (copy($root . '/public/.htaccess.dev.sample', $root . '/public/.htaccess')) {
     echo '  - Copied `.htaccess.dev.sample` to `.htaccess`' . PHP_EOL;
 }
-
-require_once __DIR__ .'/update.php';
