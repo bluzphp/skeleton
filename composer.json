@@ -79,7 +79,7 @@
     ]
   },
   "scripts": {
-    "post-install-cmd": "php bin/install.php",
+    "post-create-project-cmd": "php bin/install.php",
     "serve": "php -S 0.0.0.0:8080 -t ./public ./public/routing.php"
   },
   "extra": {
