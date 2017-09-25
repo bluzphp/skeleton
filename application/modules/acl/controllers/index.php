@@ -83,7 +83,7 @@ return function () {
             }
 
             if ($acl = $meta->getAcl()) {
-                $set[$module] += $acl;
+                array_push($set[$module], ...$acl);
             }
         }
     }

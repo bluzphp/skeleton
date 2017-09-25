@@ -48,7 +48,7 @@ class Bootstrap extends Application
         // example of setup default title
         Layout::title('Bluz Skeleton');
 
-        if (!AuthProxy::getIdentity()) {
+        if (!AuthProxy::getIdentity() && $controller->getModule() !== Router::getErrorModule()) {
             if ($token = Request::getCookie('Auth-Token')) {
                 // try to login by token from cookies
                 try {
