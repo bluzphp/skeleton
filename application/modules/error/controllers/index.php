@@ -43,6 +43,7 @@ return function ($code, $exception = null) {
     // use exception
     Response::setStatusCode($code);
     $exceptionMessage = $exception ? $exception->getMessage() : '';
+
     Logger::error($exceptionMessage);
     // for debug mode you can use whoops
     /*

@@ -20,7 +20,7 @@
  *         @SWG\License(name="MIT")
  *     ),
  *     @SWG\Definition(
- *         definition="errorModel",
+ *         definition="error",
  *         required={"code", "error"},
  *         @SWG\Property(
  *             property="code",
@@ -33,6 +33,13 @@
  *             type="string",
  *             example="Not found"
  *         )
+ *     ),
+ *     @SWG\Parameter(
+ *         name="Auth-Token",
+ *         in="header",
+ *         description="token",
+ *         required=true,
+ *         type="string"
  *     ),
  *     @SWG\Parameter(
  *         name="offset",
