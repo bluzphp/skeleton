@@ -7,7 +7,6 @@
     "php": ">=7.0",
     "bluzphp/framework": "~7.7",
     "bluzphp/composer-plugin": "~2.1",
-    "hybridauth/hybridauth": "~2.8",
     "phpmailer/phpmailer": "~5.2",
     "zircote/swagger-php": "~2.0",
     "fortawesome/font-awesome": "~4.6",
