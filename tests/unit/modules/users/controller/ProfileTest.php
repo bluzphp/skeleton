@@ -23,11 +23,6 @@ use Bluz\Proxy\Auth;
  */
 class ProfileTest extends ControllerTestCase
 {
-    public function testOpenProfileAsGuestShouldRedirectToLoginPage()
-    {
-        self::markTestIncomplete('Required new structure of Bootstraps');
-    }
-
     public function testOpenProfileAsGuestIsForbidden()
     {
         Auth::clearIdentity();

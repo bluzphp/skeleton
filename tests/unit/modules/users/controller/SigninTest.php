@@ -48,8 +48,7 @@ class SigninTest extends ControllerTestCase
             'POST'
         );
 
-        self::assertModule('users');
-        self::assertController('signin');
+        self::assertRedirect('index', 'index');
         self::assertNotNull(Auth::getIdentity());
     }
 }
