@@ -28,7 +28,7 @@
 		{
 			"id": "00930d6b-c2b4-b5f1-fd9a-0014da4a3c0f",
 			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/pages/rest/",
+			"url": "{{URL}}/api/pages/",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "HEAD",
@@ -47,7 +47,7 @@
 		{
 			"id": "28fcaccd-601a-d008-25d3-13f446008b90",
 			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/pages/rest/1",
+			"url": "{{URL}}/api/pages/1",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -64,7 +64,7 @@
 		{
 			"id": "2fc8aba3-4b15-75d0-68bf-ca38446c194e",
 			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/pages/rest/1",
+			"url": "{{URL}}/api/pages/1",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
@@ -83,7 +83,7 @@
 		{
 			"id": "31d1ea31-6174-5a40-0d6c-23166914665c",
 			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/pages/rest/1",
+			"url": "{{URL}}/api/pages/1",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "PUT",
@@ -102,7 +102,7 @@
 		{
 			"id": "6a286db2-0c0b-bbc1-ae7c-b55578dbba8a",
 			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/pages/rest/1",
+			"url": "{{URL}}/api/pages/1",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "PATCH",
@@ -121,7 +121,7 @@
 		{
 			"id": "855ed426-1195-379c-5b03-60a433843bf6",
 			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/pages/rest/1",
+			"url": "{{URL}}/api/pages/1",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "HEAD",
@@ -140,7 +140,7 @@
 		{
 			"id": "94b6fb0b-55a1-5f00-16e0-e55db99d1f70",
 			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/pages/rest/",
+			"url": "{{URL}}/api/pages/",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "GET",
@@ -159,7 +159,7 @@
 		{
 			"id": "9ecfa74e-32d5-845b-71a7-862eb91e9bc7",
 			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/pages/rest/1",
+			"url": "{{URL}}/api/pages/1",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "DELETE",

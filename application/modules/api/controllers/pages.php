@@ -45,7 +45,6 @@ use Bluz\Controller\Mapper\Rest;
  * )
  *
  * @accept JSON
- * @method GET
  * @return mixed
  */
 return function () {
@@ -54,6 +53,16 @@ return function () {
      */
     $rest = new Rest(Pages\Crud::getInstance());
 
+    $rest
+        ->head('system', 'rest/head')
+        ->fields([
+            'id',
+            'title',
+            'content',
+            'keywords',
+            'description'
+        ])
+    ;
     $rest
         ->get('system', 'rest/get')
         ->fields([
