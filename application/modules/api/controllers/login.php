@@ -13,9 +13,11 @@ use Bluz\Application\Exception\BadRequestException;
 use Bluz\Controller\Controller;
 
 /**
+ * Authorization by login and password
+ *
  * @SWG\Post(
  *   path="/api/login",
- *   tags={"api", "authorization"},
+ *   tags={"authorization"},
  *   operationId="login",
  *   summary="Get access token",
  *   @SWG\Parameter(
@@ -36,20 +38,12 @@ use Bluz\Controller\Controller;
  *     response=200,
  *     description="Token"
  *   ),
- *   @SWG\Response(
- *     response=400,
- *     description="Login and password are required",
- *     @SWG\Schema(ref="#/definitions/errorModel")
- *   ),
- *   @SWG\Response(
- *     response=404,
- *     description="User not found",
- *     @SWG\Schema(ref="#/definitions/errorModel")
- *   )
+ *   @SWG\Response(@SWG\Schema(ref="#/definitions/error"), response=400, description="Login and password are required"),
+ *   @SWG\Response(@SWG\Schema(ref="#/definitions/error"), response=401, description="Invalid credentials")
  * )
  *
+ * @accept JSON
  * @method POST
- * @route  /api/login
  *
  * @param string $login
  * @param string $password

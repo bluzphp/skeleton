@@ -7,7 +7,6 @@
 /**
  * @namespace
  */
-
 namespace Application;
 
 use Bluz\Controller\Controller;
@@ -83,7 +82,7 @@ return function () {
             }
 
             if ($acl = $meta->getAcl()) {
-                $set[$module] += $acl;
+                array_push($set[$module], ...$acl);
             }
         }
     }

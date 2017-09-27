@@ -42,10 +42,9 @@ return function ($code, $exception = null) {
     $code = (StatusCode::CONTINUE <= $code && $code < 600) ? $code : StatusCode::INTERNAL_SERVER_ERROR;
     // use exception
     Response::setStatusCode($code);
-
     $exceptionMessage = $exception ? $exception->getMessage() : '';
-    Logger::error($exceptionMessage);
 
+    Logger::error($exceptionMessage);
     // for debug mode you can use whoops
     /*
     if ($this->isDebug() && ($e = $this->getException())) {

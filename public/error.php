@@ -9,6 +9,14 @@ while (ob_get_level()) {
     ob_end_clean();
 }
 
+// check AJAX request
+if ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest')
+  || (isset($_SERVER['HTTP_ACCEPT']) && false !== strpos($_SERVER['HTTP_ACCEPT'], 'application/json'))
+) {
+  echo json_encode(['code' => 503, 'message' => 'Service Unavailable']);
+  return;
+}
+
 $debug = getenv('BLUZ_DEBUG') && isset($_COOKIE['BLUZ_DEBUG']);
 ?>
 <!DOCTYPE html>

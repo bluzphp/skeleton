@@ -7,7 +7,6 @@
 /**
  * @namespace
  */
-
 namespace Application;
 
 use Bluz\Controller\Controller;

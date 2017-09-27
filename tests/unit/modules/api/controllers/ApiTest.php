@@ -37,21 +37,21 @@ class ApiTest extends ControllerTestCase
 
     public function testMissingParam()
     {
-        $this->dispatch('api/login', ['login' => 'admin'], 'POST');
+        $this->dispatch('api/login', ['login' => 'admin'], 'POST', true);
         // missed password => bad request
         self::assertResponseCode(StatusCode::BAD_REQUEST);
     }
 
     public function testLoginWrongPassword()
     {
-        $this->dispatch('api/login', ['login' => 'admin', 'password' => 'password'], 'POST');
+        $this->dispatch('api/login', ['login' => 'admin', 'password' => 'password'], 'POST', true);
         // wrong password => authorization failed
         self::assertResponseCode(StatusCode::UNAUTHORIZED);
     }
 
     public function testLoginSuccess()
     {
-        $this->dispatch('api/login', ['login' => 'admin', 'password' => 'admin'], 'POST');
+        $this->dispatch('api/login', ['login' => 'admin', 'password' => 'admin'], 'POST', true);
 
         self::assertOk();
         self::assertArrayHasKey('token', Response::getBody()->getData()->toArray());

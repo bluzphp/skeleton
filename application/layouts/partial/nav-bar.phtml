@@ -39,7 +39,7 @@
             <p class="navbar-text navbar-right">
                 <?= __(
                     'Logged in as %s',
-                    $this->ahref($identity->login, ['users', 'profile', array('id' => $identity->id)])
+                    $this->ahref($identity->login, ['users', 'profile'])
                 ) ?>
               (<?= $this->ahref(__('Sign Out'), ['users', 'signout']) ?>)
             </p>

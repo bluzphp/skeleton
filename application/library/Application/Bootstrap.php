@@ -48,7 +48,7 @@ class Bootstrap extends Application
         // example of setup default title
         Layout::title('Bluz Skeleton');
 
-        if (!AuthProxy::getIdentity()) {
+        if (!AuthProxy::getIdentity() && $controller->getModule() !== Router::getErrorModule()) {
             if ($token = Request::getCookie('Auth-Token')) {
                 // try to login by token from cookies
                 try {
@@ -100,10 +100,15 @@ class Bootstrap extends Application
         Logger::info('app:render');
         Logger::info('app:files:' . count(get_included_files()));
 
-        if ($this->isDebug() && !headers_sent()) {
-            $this->sendInfoHeaders();
+        if ($this->isDebug()) {
+            if (!headers_sent()) {
+                $this->sendInfoHeaders();
+            }
+            if (ob_get_level() > 0 && ob_get_length() > 0) {
+                Logger::error('Output has been sent previously');
+                return;
+            }
         }
-
         parent::render();
     }
 

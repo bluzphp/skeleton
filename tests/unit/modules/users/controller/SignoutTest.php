@@ -43,8 +43,7 @@ class SignoutTest extends ControllerTestCase
 
         $this->dispatch('users/signout');
 
-        self::assertModule('users');
-        self::assertController('signout');
+        self::assertRedirect('index', 'index');
         self::assertNull(Auth::getIdentity());
     }
 }

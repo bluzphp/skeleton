@@ -61,22 +61,18 @@ class SkeletonTestCase extends FrameworkTestCase
             $params = [];
         }
 
+        $headers = [
+            'Accept' => 'text/html',
+        ];
+
         if ($ajax) {
             $headers = [
                 'Accept' => 'application/json',
                 'X-Requested-With' => 'XMLHttpRequest',
             ];
-        } else {
-            $headers = [
-                'Accept' => 'text/html',
-            ];
         }
 
         self::setRequestParams($path, $query, $params, $method, $headers);
         self::getApp()->process();
-
-        if ($exception = self::getApp()->getException()) {
-            codecept_debug('#'. $exception->getCode() .'# '. $exception->getMessage());
-        }
     }
 }
