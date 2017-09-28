@@ -59,6 +59,10 @@ return function () {
             )
         );
 
+        if (!isset($set[$module])) {
+            $set[$module] = [];
+        }
+
         foreach ($filesIterator as $filePath => $fileInfo) {
             /* @var \SplFileInfo $fileInfo */
             if ($fileInfo->getExtension() !== 'php') {
@@ -71,9 +75,6 @@ return function () {
             $controllerInstance = new Controller($module, $controller);
             $meta = $controllerInstance->getMeta();
 
-            if (!isset($set[$module])) {
-                $set[$module] = array();
-            }
 
             if ($privilege = $meta->getPrivilege()) {
                 if (!in_array($privilege, $set[$module])) {
@@ -85,6 +86,8 @@ return function () {
                 array_push($set[$module], ...$acl);
             }
         }
+
+        $set[$module] = array_unique($set[$module]);
     }
     $this->assign('set', $set);
 

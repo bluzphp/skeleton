@@ -13,9 +13,9 @@
  *     produces={"application/json"},
  *     consumes={"application/x-www-form-urlencoded"},
  *     @SWG\Info(
- *         version="1.0.0",
- *         title="Swagger documented API",
- *         description="Sample of Bluz API",
+ *         version="1.1.0",
+ *         title="Bluz PHP API",
+ *         description="API of Bluz Skeleton application",
  *         @SWG\Contact(name="Bluz PHP Team"),
  *         @SWG\License(name="MIT")
  *     ),

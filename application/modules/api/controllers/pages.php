@@ -16,9 +16,9 @@ use Bluz\Controller\Mapper\Rest;
  * Get all pages or just one by ID
  * For everyone
  *
- * @SWG\Get(
+ * @SWG\Head(
  *   path="/api/pages/{pageId}",
- *   tags={"page"},
+ *   tags={"pages"},
  *   operationId="getPageById",
  *   summary="Find page by ID",
  *   @SWG\Parameter(
@@ -28,13 +28,29 @@ use Bluz\Controller\Mapper\Rest;
  *      required=true,
  *      description="ID of page that needs to be fetched"
  *    ),
- *    @SWG\Response(response=200, description="Given page found", @SWG\Schema(ref="#/definitions/pages")),
- *    @SWG\Response(response=404, description="Page not found", @SWG\Schema(ref="#/definitions/error"))
+ *    @SWG\Response(response=200, description="Given page found"),
+ *    @SWG\Response(@SWG\Schema(ref="#/definitions/error"), response=404, description="Page not found")
+ * )
+ *
+ * @SWG\Get(
+ *   path="/api/pages/{pageId}",
+ *   tags={"pages"},
+ *   operationId="getPageById",
+ *   summary="Find page by ID",
+ *   @SWG\Parameter(
+ *      name="pageId",
+ *      in="path",
+ *      type="integer",
+ *      required=true,
+ *      description="ID of page that needs to be fetched"
+ *    ),
+ *    @SWG\Response(@SWG\Schema(ref="#/definitions/pages"), response=200, description="Given page found"),
+ *    @SWG\Response(@SWG\Schema(ref="#/definitions/error"), response=404, description="Page not found")
  * )
  *
  * @SWG\Get(
  *     path="/api/pages/",
- *     tags={"page"},
+ *     tags={"pages"},
  *     method="GET",
  *     operationId="getPageCollection",
  *     summary="Collection of items",
