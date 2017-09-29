@@ -21,4 +21,5 @@ return function () {
     /**
      * @var Controller $this
      */
+    $this->useLayout('welcome.phtml');
 };

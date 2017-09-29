@@ -37,23 +37,17 @@ foreach ($filters as $filterTitle => $filter) {
 }
 ?>
 <div class="input-group-btn grid-filter-search">
-  <button type="button"
-          class="btn btn-default dropdown-toggle"
-          data-toggle="dropdown">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <?= $field ?>
-    <span class="caret"></span>
   </button>
-  <ul class="dropdown-menu">
+  <div class="dropdown-menu">
       <?php foreach ($filters as $fieldTitle => $filter) : ?>
-        <li>
-          <a href="#"
-             data-filter="<?= $grid->getUid() . '-filter-' . current($filter) ?>"
-             data-filter-type="<?= key($filter) ?>"><?= $fieldTitle ?></a>
-        </li>
+        <a href="#" class="dropdown-item"
+           data-filter="<?= $grid->getUid() . '-filter-' . current($filter) ?>"
+           data-filter-type="<?= key($filter) ?>"><?= $fieldTitle ?></a>
       <?php endforeach; ?>
-  </ul>
+  </div>
 </div>
-
 <input name="<?= $grid->getUid() . '-filter-' . current($filters[$field]) ?>"
        class="grid-filter-search-input"
        value="<?= $type . '-' . esc($value) ?>" type="hidden"/>

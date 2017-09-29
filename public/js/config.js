@@ -11,13 +11,14 @@ require.config({
   paths: {
     bootstrap: './vendor/bootstrap.min',
     jquery: './vendor/jquery.min',
+    popper: './vendor/popper.min',
     dropzone: './vendor/dropzone-amd-module.min',
     redactor: './../redactor/redactor',
     'redactor.imagemanager': './../redactor/plugins/imagemanager'
   },
   shim: {
     bootstrap: {
-      deps: ['jquery'],
+      deps: ['jquery', 'popper'],
       exports: '$.fn.popover'
     },
     redactor: {
@@ -32,4 +33,4 @@ require.config({
   enforceDefine: true
 });
 
-require(['bluz', 'bluz.ajax', 'bootstrap']);
+require(['bluz', 'bluz.ajax']);

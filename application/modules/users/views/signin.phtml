@@ -4,51 +4,40 @@
  * @var \Bluz\View\View        $this
  */
 ?>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><?= __('Please sign in') ?></h3>
-  </div>
-  <div class="panel-body">
-    <form action="<?= $this->url('users', 'signin') ?>" method="post" class="ajax">
-      <div class="form-group input-group">
-        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-        <label class="control-label sr-only" for="login"><?= __('Login') ?></label>
-        <input type="text" id="login" name="login" class="form-control" value="<?= isset($login) ? $login : '' ?>"
-               placeholder="<?= __('login') ?>" maxlength="255" required/>
-      </div>
-
-      <div class="form-group input-group">
-        <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-        <label class="control-label sr-only" for="password"><?= __('Password') ?></label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="<?= __('password') ?>"
-               required/>
-      </div>
-
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" name="rememberMe" value="1" checked/> <?= __('Remember me') ?>
-        </label>
-      </div>
-
-      <input name="signin" type="submit" value="<?= __('Sign In') ?>" class="btn btn-primary"/>
-
-      <a href="<?= $this->url('users', 'signup') ?>" title="Sign Up" class="btn btn-default pull-right"><?= __(
-              'Sign Up'
-          ) ?></a>
-
-    </form>
-  </div>
-  <div class="panel-footer clearfix">
-    <div class="pull-left">
-        <?php $this->hasModule('facebook') && $this->dispatch('facebook', 'widgets/auth'); ?>
+<div class="modal-header">
+  <h3 class="modal-title"><?= __('Please sign in') ?></h3>
+</div>
+<div class="modal-body">
+  <form action="<?= $this->url('users', 'signin') ?>" method="post" class="ajax">
+    <div class="form-group input-group">
+      <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+      <label class="control-label sr-only" for="login"><?= __('Login') ?></label>
+      <input type="text" id="login" name="login" class="form-control" value="<?= $login ?? '' ?>"
+             placeholder="<?= __('login') ?>" maxlength="255" required/>
     </div>
-    <div class="pull-left">
-        <?php $this->hasModule('google') && $this->dispatch('google', 'widgets/auth'); ?>
-    </div>
-    <div class="pull-left">
-        <?php $this->hasModule('twitter') && $this->dispatch('twitter', 'widgets/auth'); ?>
-    </div>
-    <a href="<?= $this->url('users', 'recovery') ?>" class="pull-right"><?= __('Forgot your password?') ?></a>
-  </div>
 
+    <div class="form-group input-group">
+      <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+      <label class="control-label sr-only" for="password"><?= __('Password') ?></label>
+      <input type="password" id="password" name="password" class="form-control" placeholder="<?= __('password') ?>"
+             required/>
+    </div>
+
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="rememberMe" value="1" checked/> <?= __('Remember me') ?>
+      </label>
+    </div>
+
+    <input name="signin" type="submit" value="<?= __('Sign In') ?>" class="btn btn-primary"/>
+    <a href="<?= $this->url('users', 'signup') ?>" title="Sign Up" class="btn btn-light pull-right">
+        <?= __('Sign Up') ?>
+    </a>
+  </form>
+</div>
+<div class="modal-footer clearfix">
+  <?php $this->hasModule('facebook') && $this->dispatch('facebook', 'widgets/auth'); ?>
+  <?php $this->hasModule('google') && $this->dispatch('google', 'widgets/auth'); ?>
+  <?php $this->hasModule('twitter') && $this->dispatch('twitter', 'widgets/auth'); ?>
+  <a href="<?= $this->url('users', 'recovery') ?>" class="pull-right"><?= __('Forgot your password?') ?></a>
 </div>

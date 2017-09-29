@@ -10,6 +10,7 @@
     <h3 class="modal-title"><?= __('Choose roles for %s', $user->login) ?></h3>
   </div>
   <div class="modal-body">
+    <div>
       <?php foreach ($roles as $i => $role): ?>
         <div class="form-group input-group">
             <span class="input-group-addon">
@@ -20,9 +21,10 @@
           <label for="i-<?= $i ?>" class="form-control"><?= $role->name ?></label>
         </div>
       <?php endforeach; ?>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="submit" class="btn btn-primary"><?= __('Save changes') ?></button>
-    <a href="#" class="btn btn-default" data-dismiss="modal"><?= __('Close') ?></a>
+    <a href="#" class="btn btn-light" data-dismiss="modal"><?= __('Close') ?></a>
   </div>
 </form>

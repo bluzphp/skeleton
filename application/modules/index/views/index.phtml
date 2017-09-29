@@ -1,25 +1,16 @@
-<div class="jumbotron">
-  <div class="container">
-    <h1>Congratulations!</h1>
-    <p>You have successfully installed the Skeleton application for <a href="https://github.com/bluzphp">Bluz
-        Framework</a></p>
-  </div>
-</div>
-
 <h2>What next?</h2>
-
-
-<div class="panel-group" id="accordion">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="panel-title">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+<hr/>
+<div id="setup" role="tablist">
+  <div class="card">
+    <div class="card-header" role="tab" id="setup-db">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" href="#setup-db-body" aria-expanded="false" aria-controls="setup-db-body">
           Database setup &rarr;
         </a>
-      </div>
+      </h5>
     </div>
-    <div id="collapseFour" class="panel-collapse collapse">
-      <div class="panel-body">
+    <div id="setup-db-body" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#setup">
+      <div class="card-body">
         <p>Just two step for setup database</p>
         <ol>
           <li>
@@ -53,33 +44,43 @@
       </div>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="panel-title">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
+  <div class="card">
+    <div class="card-header" role="tab" id="setup-login">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" href="#setup-login-card" aria-expanded="false" aria-controls="setup-login-card">
           Login as administrator &rarr;
         </a>
-      </div>
+      </h5>
     </div>
-    <div id="collapseFive" class="panel-collapse collapse">
-      <div class="panel-body">
+    <div id="setup-login-card" class="collapse" role="tabpanel" aria-labelledby="setup-login" data-parent="#setup">
+      <div class="card-body">
         <p>
-          Try to login with login <code>admin</code> and password <code>admin</code>
+          Now you can
+            <?= $this->ahref(__('sign in'), ['users', 'signin'], ['class' => 'dialog', 'data-ajax-method' => 'get']) ?>
+          to system with login <code>admin</code> and password <code>admin</code>
+        </p>
+        <p>
+          Don't forget to change your password at profile page <?=$this->ahref('Profile page', ['users', 'change-password'])?>
         </p>
       </div>
     </div>
   </div>
+</div>
+<br/>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="panel-title">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+<h2>Are you developer?</h2>
+<hr/>
+<div id="develop" role="tablist">
+  <div class="card">
+    <div class="card-header" role="tab" id="develop-controller">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" href="#develop-controller-card" aria-expanded="false" aria-controls="develop-controller-card">
           Create your first controller &rarr;
         </a>
-      </div>
+      </h5>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse">
-      <div class="panel-body">
+    <div id="develop-controller-card" class="collapse" role="tabpanel" aria-labelledby="develop-controller" data-parent="#develop">
+      <div class="card-body">
         <ol>
           <li>create new folder <code>./application/modules/my</code>, where <code>my</code> it's module name</li>
           <li>create new subfolder <code>./application/modules/my/controllers</code></li>
@@ -110,20 +111,19 @@ return function(<var>$question</var> = null) {
             <span>"answer"</span> = <var>$answer</var>
         ];
     };</code></pre>
-
       </div>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="panel-title">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+  <div class="card">
+    <div class="card-header" role="tab" id="develop-view">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" href="#develop-view-card" aria-expanded="false" aria-controls="develop-view-card">
           Create view &rarr;
         </a>
-      </div>
+      </h5>
     </div>
-    <div id="collapseTwo" class="panel-collapse collapse">
-      <div class="panel-body">
+    <div id="develop-view-card" class="collapse" role="tabpanel" aria-labelledby="develop-view" data-parent="#develop">
+      <div class="card-body">
         <ol>
           <li>create new subfolder <code>./application/modules/my/views</code></li>
           <li>create file <code>./application/modules/my/views/index.phtml</code></li>
@@ -138,17 +138,17 @@ A: <strong>&lt;?=</strong>esc(<var>$answer</var>)<strong>?&gt;</strong>
       </div>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="panel-title">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+  <div class="card">
+    <div class="card-header" role="tab" id="develop-run">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" href="#develop-run-card" aria-expanded="false" aria-controls="develop-run-card">
           Run &rarr;
         </a>
-      </div>
+      </h5>
     </div>
-    <div id="collapseThree" class="panel-collapse collapse">
-      <div class="panel-body">
-        Try to run:
+    <div id="develop-run-card" class="collapse" role="tabpanel" aria-labelledby="develop-run" data-parent="#develop">
+      <div class="card-body">
+        Check the result:
         <ul>
           <li><a href="<?= $this->baseUrl('/my/'); ?>"><?= $this->baseUrl('/my/'); ?></a></li>
           <li><a href="<?= $this->baseUrl('/my/index/question/2+2'); ?>"><?= $this->baseUrl(

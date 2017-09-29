@@ -23,7 +23,7 @@
         <tr>
           <td>&mdash;</td>
           <td><?= $controller ?></td>
-          <td><code><?= join("<br/>", $data['route']) ?></code></td>
+          <td><code><?= implode('<br/>', $data['route']) ?></code></td>
         </tr>
         <?php endforeach; ?>
     <?php endforeach; ?>

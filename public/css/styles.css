@@ -15,7 +15,6 @@
 
 /* Theme */
 body {
-  padding-top: 70px;
   position: relative;
 }
 
@@ -121,20 +120,6 @@ code strong {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.breadcrumb a:hover {
-  text-decoration: none;
-}
-
-.nav-dashboard {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  text-shadow: 0 1px 0 #fff;
-  background-color: #f7f5fa;
-  border-radius: 5px;
 }
 
 .nav-tabs.nav-stacked > .active > a,

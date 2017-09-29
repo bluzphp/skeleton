@@ -4,53 +4,58 @@
  * @var \Bluz\View\View        $this
  */
 ?>
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="#"><?= __('Profile') ?></a>
+      </li>
+      <?php if ($this->user() && $this->user()->id == $user->id) : ?>
+      <?php if ($this->hasModule('media')) : ?>
+      <li class="nav-item">
+          <?= $this->ahref(
+              __('Change avatar'),
+              ['media', 'manager'],
+              ['id' => 'avatar-button', 'class' => 'nav-link dialog']
+          ) ?>
+      </li>
+      <?php endif; ?>
 
-<h3 class="page-header">
-    <?= __('Profile') ?>
-    <?php if ($this->user() && $this->user()->id == $user->id) : ?>
-        <?php if ($this->hasModule('media')) : ?>
-            <?= $this->ahref(
-                __('Change avatar'),
-                ['media', 'manager'],
-                ['id' => 'avatar-button', 'class' => 'btn btn-mini pull-right dialog']
-            ) ?>
-        <?php endif; ?>
-        <?= $this->ahref(__('Change email'), ['users', 'change-email'], ['class' => 'btn btn-mini pull-right']) ?>
-        <?= $this->ahref(__('Change password'), ['users', 'change-password'], ['class' => 'btn btn-mini pull-right']) ?>
+      <li class="nav-item">
+          <?= $this->ahref(__('Change email'), ['users', 'change-email'], ['class' => 'nav-link']) ?>
+      </li>
+      <li class="nav-item">
+          <?= $this->ahref(__('Change password'), ['users', 'change-password'], ['class' => 'nav-link']) ?>
+      </li>
 
-    <?php endif; ?>
-</h3>
-
-<div class="panel-body">
-  <div class="row">
-    <div class="col-md-2 col-lg-2 " align="center">
-      <img id="avatar" width="128" height="128" src="<?= $this->gravatar($user->email, 128) ?>" alt="<?= $user->email ?>">
-    </div>
-    <div class=" col-md-10 col-lg-10 ">
-      <table class="table table-user-information">
-        <tbody>
-        <tr>
-          <td><?= __('Login') ?></td>
-          <td><?= $user->login ?></td>
-        </tr>
-        <tr>
-          <td><?= __('Email') ?></td>
-          <td><a href="mailto:<?= $user->email ?>"><?= $user->email ?></a></td>
-        </tr>
-        <tr>
-          <td><?= __('Status') ?></td>
-          <td><?= $user->status ?></td>
-        </tr>
-        <tr>
-          <td><?= __('Linking to social networks') ?></td>
-          <td>
-              <?php $this->hasModule('facebook') && $this->dispatch('facebook', 'widgets/auth'); ?>
-              <?php $this->hasModule('google') && $this->dispatch('google', 'widgets/auth'); ?>
-              <?php $this->hasModule('twitter') && $this->dispatch('twitter', 'widgets/auth'); ?>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <?php endif; ?>
+    </ul>
+  </div>
+  <div class="card-body">
+    <div class="card-group">
+      <div class="card">
+        <img id="avatar" src="<?= $this->gravatar($user->email, 360) ?>" alt="<?= $user->email ?>">
+      </div>
+      <div class="card">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <h4 class="card-title"><?= $user->login ?></h4></li>
+          <li class="list-group-item"><a href="mailto:<?= $user->email ?>"><?= $user->email ?></a></li>
+          <li class="list-group-item"><?= __('Account status') ?>: <?= $user->status ?></li>
+          <?php if ($this->user() && $this->user()->id == $user->id) : ?>
+            <li class="list-group-item"><?= __('Linking to social networks') ?></li>
+            <li class="list-group-item">
+                <?php $this->hasModule('google') && $this->dispatch('google', 'widgets/auth'); ?>
+                <?php $this->hasModule('facebook') && $this->dispatch('facebook', 'widgets/auth'); ?>
+                <?php $this->hasModule('twitter') && $this->dispatch('twitter', 'widgets/auth'); ?>
+            </li>
+          <?php endif; ?>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-body">
+        </div>
+      </div>
     </div>
   </div>
 </div>

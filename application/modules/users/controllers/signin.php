@@ -29,7 +29,9 @@ return function ($login, $password, $rememberMe = false) {
      */
 
     // change layout
-    $this->useLayout('small.phtml');
+    if (!Request::isXmlHttpRequest()) {
+        $this->useLayout('small.phtml');
+    }
 
     if ($this->user()) {
         Messages::addNotice('Already signed');

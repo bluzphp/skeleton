@@ -1,0 +1,38 @@
+<?php
+$one = $load[0] ?? 0;
+$five = $load[1] ?? 0;
+$fifteen = $load[2] ?? 0;
+
+$max = max($one, $five, $fifteen);
+
+switch (true) {
+    case $max >= 0.8:
+        $class = 'bg-danger';
+        break;
+    case $max >= 0.5:
+        $class = 'bg-warning';
+        break;
+    default:
+        $class = 'bg-info';
+        break;
+}
+?>
+<div class="card text-white mb-3 <?=$class?>" style="max-width: 20rem;">
+  <div class="card-header"><?= __('Load average') ?></div>
+  <div class="card-body text-dark">
+    <ul class="list-group">
+      <li class="list-group-item d-flex w-100 justify-content-between">
+        <h5 class="mb-1"><?= _n('%d minute', '%d minutes', 1, 1) ?></h5>
+        <strong><?= $one ?></strong>
+      </li>
+      <li class="list-group-item d-flex w-100 justify-content-between">
+        <h5 class="mb-1"><?= _n('%d minute', '%d minutes', 5, 5) ?></h5>
+        <strong><?= $five ?></strong>
+      </li>
+      <li class="list-group-item d-flex w-100 justify-content-between">
+        <h5 class="mb-1"><?= _n('%d minute', '%d minutes', 15, 15) ?></h5>
+        <strong><?= $fifteen ?></strong>
+      </li>
+    </ul>
+  </div>
+</div>

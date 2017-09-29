@@ -13,15 +13,15 @@ define(['jquery'], function ($) {
      * Create modal element {@link http://getbootstrap.com/javascript/#modals}
      * @param {jQuery} $this is jQuery object of interactive element (like a button)
      * @param {String} content HTML
-     * @param {String} style for inline
+     * @param {String} className for inline
      * @return {jQuery} HTML Element
      */
-    create: function ($this, content, style) {
+    create: function ($this, content, className) {
       let $div = $('div.modal.fade');
       if (!$div.length) {
         $div = $('<div>', {'class': 'modal fade'});
       }
-      let $divDialog = $('<div>', {'class': 'modal-dialog', 'style': style});
+      let $divDialog = $('<div>', {'class': 'modal-dialog ' + className});
       let $divContent = $('<div>', {'class': 'modal-content'});
 
       $divContent.html(content);

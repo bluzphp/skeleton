@@ -1,50 +1,52 @@
-<nav class="navbar navbar-default" role="navigation">
-  <div class="navbar-collapse">
-    <a href="<?= $this->url('acl', 'roles') ?>" id="create-role" class="btn btn-primary navbar-btn dialog"
+<nav class="navbar navbar-light bg-light">
+  <a href="<?= $this->url('acl', 'roles') ?>" id="create-role" class="btn btn-primary dialog"
        data-ajax-method="get"><?= __('Create role') ?></a>
-  </div>
 </nav>
+<hr/>
 <form action="<?= $this->url('acl', 'save') ?>" method="POST">
-  <table class="table table-hover table-bordered table-condensed ">
+  <table class="table table-fixed table-hover table-bordered table-condensed ">
     <thead>
-    <tr>
-      <th width="180px"><?= __('Privilege/Role') ?></th>
+      <tr>
+        <th width="180px"><?= __('Privilege/Role') ?></th>
         <?php foreach ($roles as $role) : ?>
-          <th width="180px">
-              <?= $role->name ?>
-              <?php if (!$role->isBasic()) : ?>
-                <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
-                   class="confirm btn btn-xs btn-danger ajax pull-right" data-ajax-method="delete"><i
-                      class="fa fa-times"></i></a>
-                <span class="pull-right">&nbsp;</span>
-                <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
-                   class="btn btn-xs btn-default dialog pull-right" data-ajax-method="get"
-                   title="<?= __("Edit role") ?>"><i class="fa fa-edit"></i></a>
-              <?php endif; ?>
-          </th>
+        <th width="180px" class="text-center">
+          <?= $role->name ?>
+          <?php if (!$role->isBasic()) : ?>
+            <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
+               class="confirm btn btn-xs btn-danger ajax pull-right" data-ajax-method="delete"><i
+                  class="fa fa-times"></i></a>
+            <span class="pull-right">&nbsp;</span>
+            <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
+               class="btn btn-xs btn-light dialog pull-right" data-ajax-method="get"
+               title="<?= __("Edit role") ?>"><i class="fa fa-edit"></i></a>
+          <?php endif; ?>
+        </th>
         <?php endforeach; ?>
-    </tr>
+      </tr>
     </thead>
     <tbody>
     <?php foreach ($set as $module => $modulePrivileges) : sort($modulePrivileges); ?>
       <tr>
         <th colspan="<?= count($roles) + 1 ?>"><?= ucfirst($module) ?></th>
       </tr>
-        <?php foreach ($modulePrivileges as $privilege) : ?>
-        <tr>
-          <td><?= $privilege ?></td>
-            <?php foreach ($roles as $role) : ?>
-              <td>
-                <input type="checkbox" name="acl[<?= $role->id ?>][<?= $module ?>][<?= $privilege ?>]" value="1"
-                    <?= ((isset($privileges[$role->id], $privileges[$role->id][$module]) && in_array(
-                            $privilege,
-                            $privileges[$role->id][$module]
-                        )) ? "checked" : "") ?>
-                    <?= ($role->name === \Application\Roles\Table::BASIC_GUEST ? 'disabled' : '') ?>
-                /></td>
-            <?php endforeach; ?>
-        </tr>
+      <?php foreach ($modulePrivileges as $privilege) : ?>
+      <tr>
+        <td><?= $privilege ?></td>
+        <?php foreach ($roles as $role) : ?>
+        <td>
+          <label class="form-check-label d-block text-center">
+            <input class="form-check-input" type="checkbox" name="acl[<?= $role->id ?>][<?= $module ?>][<?= $privilege ?>]" value="1"
+                <?= ((isset($privileges[$role->id], $privileges[$role->id][$module]) && in_array(
+                        $privilege,
+                        $privileges[$role->id][$module]
+                    )) ? "checked" : "") ?>
+                <?= ($role->name === \Application\Roles\Table::BASIC_GUEST ? 'disabled' : '') ?>
+            />
+          </label>
+        </td>
         <?php endforeach; ?>
+      </tr>
+      <?php endforeach; ?>
     <?php endforeach; ?>
     </tbody>
   </table>

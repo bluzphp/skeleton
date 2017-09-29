@@ -20,15 +20,5 @@ return function () {
     /**
      * @var Controller $this
      */
-    Layout::title('Load Average');
-    Layout::setTemplate('dashboard.phtml');
-    Layout::breadCrumbs(
-        [
-            Layout::ahref('Dashboard', ['dashboard', 'index']),
-            Layout::ahref('System', ['system', 'index']),
-            __('Load Average'),
-        ]
-    );
-
     $this->assign('load', sys_getloadavg());
 };

@@ -21,21 +21,19 @@ foreach ($filters as $filterName => $filterTitle) {
 }
 ?>
 <div class="input-group-btn grid-filter-search">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><?= $filters[$field] ?> <span
-        class="caret"></span></button>
-  <ul class="dropdown-menu">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <?= $filters[$field] ?>
+  </button>
+  <div class="dropdown-menu">
       <?php foreach ($filters as $fieldName => $fieldTitle) : ?>
-        <li>
-          <a
-              href="#"
+          <a href="#" class="dropdown-item"
               data-filter="<?= $grid->getUid() . '-filter-' . $fieldName ?>"
               data-filter-type="<?= $grid::FILTER_LIKE ?>"
           >
               <?= $fieldTitle ?>
           </a>
-        </li>
       <?php endforeach; ?>
-  </ul>
+  </div>
 </div><!-- /btn-group -->
 <input name="<?= $grid->getUid() . '-filter-' . $field ?>" class="grid-filter-search-input"
        value="<?= $grid::FILTER_LIKE . '-' . esc($value) ?>" type="hidden"/>

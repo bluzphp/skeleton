@@ -2,81 +2,101 @@
 <?php $this->headStyle($this->baseUrl('css/dashboard.css')); ?>
 <?php require __DIR__ . '/partial/header.phtml'; ?>
 <?php require __DIR__ . '/partial/nav-bar.phtml'; ?>
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-lg-3">
-      <div class="nav-dashboard" data-spy="affix" data-offset-top="60">
-        <ul class="nav nav-tabs nav-stacked">
-          <li <?= ($this->module('pages') ? 'class="active"' : '') ?>><?= $this->ahref(
+    <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item <?= ($this->module('pages') ? 'class="active"' : '') ?>">
+          <?= $this->ahref(
                   '<i class="fa fa-edit fa-fw"></i> ' . __('Pages'),
-                  ['pages', 'grid', [], true]
-              ) ?></li>
-          <li <?= ($this->module('users') ? 'class="active"' : '') ?>><?= $this->ahref(
-                  '<i class="fa fa-user fa-fw"></i> ' . __('Users'),
-                  ['users', 'grid', [], true]
-              ) ?></li>
-            <?php if ($this->hasModule('media')) : ?>
-              <li <?= ($this->module('media') ? 'class="active"' : '') ?>><?= $this->ahref(
-                      '<i class="fa fa-picture-o fa-fw"></i> ' . __('Media'),
-                      ['media', 'grid', [], true]
-                  ) ?></li>
-            <?php endif; ?>
-            <?php if ($this->hasModule('categories')) : ?>
-              <li <?= ($this->module('categories') ? 'class="active"' : '') ?>><?= $this->ahref(
-                      '<i class="fa fa-folder-o fa-fw"></i> ' . __('Categories'),
-                      ['categories', 'tree', [], true]
-                  ) ?></li>
-            <?php endif; ?>
-          <li <?= ($this->module('acl') ? 'class="active"' : '') ?>><?= $this->ahref(
-                  '<i class="fa fa-lock fa-fw"></i> ' . __('Permissions'),
-                  ['acl', 'index', [], true]
-              ) ?></li>
-            <?php if ($this->hasModule('options')) : ?>
-              <li <?= ($this->module('options') ? 'class="active"' : '') ?>><?= $this->ahref(
-                      '<i class="fa fa-th-list fa-fw"></i> ' . __('Options'),
-                      ['options', 'grid', [], true]
-                  ) ?></li>
-            <?php endif; ?>
-            <?php if ($this->hasModule('contact-us')) : ?>
-              <li <?= ($this->module('contact-us') ? 'class="active"' : '') ?>><?= $this->ahref(
-                      '<i class="fa fa-envelope-o fa-fw"></i> ' . __('Contact Us'),
-                      ['contact-us', 'grid', [], true]
-                  ) ?></li>
-            <?php endif; ?>
-        </ul>
-        <ul class="nav nav-tabs nav-stacked">
-          <li <?= ($this->module('cache') ? 'class="active"' : '') ?>><?= $this->ahref(
-                  '<i class="fa fa-hdd-o fa-fw"></i> ' . __('Cache'),
-                  ['cache', 'index', [], true]
-              ) ?></li>
-          <li <?= ($this->module('system') ? 'class="active"' : '') ?>><?= $this->ahref(
-                  '<i class="fa fa-wrench fa-fw"></i> ' . __('System'),
-                  ['system', 'index', [], true]
-              ) ?></li>
-        </ul>
-      </div>
-    </div>
-    <div class="col-lg-9">
-      <ul class="breadcrumb">
-        <li>
-          <a href="/" class="bluz-tooltip" data-placement="bottom" data-original-title="<?= __('Back to homepage') ?>">
+                  ['pages', 'grid', [], true],
+                  ['class' => 'nav-link']
+              ) ?>
+        </li>
+        <li class="nav-item <?= ($this->module('users') ? 'class="active"' : '') ?>">
+          <?= $this->ahref(
+                '<i class="fa fa-user fa-fw"></i> ' . __('Users'),
+                ['users', 'grid', [], true],
+                ['class' => 'nav-link']
+              ) ?>
+        </li>
+        <?php if ($this->hasModule('media')) : ?>
+        <li class="nav-item <?= ($this->module('media') ? 'class="active"' : '') ?>">
+          <?= $this->ahref(
+                '<i class="fa fa-picture-o fa-fw"></i> ' . __('Media'),
+                ['media', 'grid', [], true],
+                ['class' => 'nav-link']
+            ) ?>
+        </li>
+        <?php endif; ?>
+        <?php if ($this->hasModule('categories')) : ?>
+        <li class="nav-item <?= ($this->module('categories') ? 'class="active"' : '') ?>">
+          <?= $this->ahref(
+              '<i class="fa fa-folder-o fa-fw"></i> ' . __('Categories'),
+              ['categories', 'tree', [], true],
+              ['class' => 'nav-link']
+          ) ?>
+        </li>
+        <?php endif; ?>
+        <li class="nav-item <?= ($this->module('acl') ? 'class="active"' : '') ?>">
+          <?= $this->ahref(
+              '<i class="fa fa-lock fa-fw"></i> ' . __('Permissions'),
+              ['acl', 'index', [], true],
+              ['class' => 'nav-link']
+          ) ?>
+        </li>
+        <?php if ($this->hasModule('options')) : ?>
+        <li class="nav-item <?= ($this->module('options') ? 'class="active"' : '') ?>">
+          <?= $this->ahref(
+              '<i class="fa fa-th-list fa-fw"></i> ' . __('Options'),
+              ['options', 'grid', [], true],
+              ['class' => 'nav-link']
+          ) ?>
+        </li>
+        <?php endif; ?>
+        <?php if ($this->hasModule('contact-us')) : ?>
+        <li class="nav-item <?= ($this->module('contact-us') ? 'class="active"' : '') ?>">
+          <?= $this->ahref(
+              '<i class="fa fa-envelope-o fa-fw"></i> ' . __('Contact Us'),
+              ['contact-us', 'grid', [], true],
+              ['class' => 'nav-link']
+          ) ?>
+        </li>
+        <?php endif; ?>
+      </ul>
+      <hr/>
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item <?= ($this->module('system') ? 'class="active"' : '') ?>">
+            <?= $this->ahref(
+                '<i class="fa fa-wrench fa-fw"></i> ' . __('System'),
+                ['system', 'index', [], true],
+                ['class' => 'nav-link']
+            ) ?>
+        </li>
+      </ul>
+    </nav>
+    <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="/" class="bluz-tooltip" data-placement="bottom" title="<?= __('Back to homepage') ?>">
             <i class="fa fa-home fa-fw"></i>
               <?= __('Home') ?>
           </a>
         </li>
           <?php if ($this->breadCrumbs()) {
               foreach ($this->breadCrumbs() as $crump): ?>
-                <li>
+                <li class="breadcrumb-item">
                     <?php echo $crump ?>
                 </li>
               <?php endforeach;
           } ?>
-      </ul>
-        <?php
-        /* @var closure $content */
-        echo $this->getContent();
-        ?>
-    </div>
+      </ol>
+      <?php
+      /* @var closure $content */
+      echo $this->getContent();
+      ?>
+      <?php require __DIR__.'/partial/footer-bar.phtml'; ?>
+    </main>
   </div>
 </div>
-<?php require __DIR__ .'/partial/footer.phtml'; ?>
+<?php require __DIR__.'/partial/footer.phtml'; ?>

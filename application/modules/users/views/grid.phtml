@@ -11,46 +11,44 @@ if (!$grid) {
     // use data-spy="grid" for use AJAX for reload grid
     require(['bluz.grid']);
 </script>
-
 <div class="clearfix" data-spy="grid" data-grid="<?= $grid->getUid() ?>">
-  <nav class="navbar navbar-default" role="navigation">
-    <div class="col-lg-6">
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <div>
       <a href="<?= $grid->filter('roleId', 'eq', '', true) ?>"
-         class="btn btn-default navbar-btn ajax <?= (is_null($grid->getFilter('roleId', 'eq')) ? 'btn-info' : '') ?>">
+         class="btn btn-secondary ajax <?= (is_null($grid->getFilter('roleId', 'eq')) ? 'btn-info' : '') ?>">
           <?= __('all') ?>
       </a>
-        <?php foreach ($roles as $role) : ?>
-          <a href="<?= $grid->filter('roleId', 'eq', $role['id']) ?>"
-             class="btn btn-default navbar-btn ajax <?= ($grid->getFilter('roleId', 'eq') == $role['id'] ? 'btn-info' : '') ?>">
-              <?= $role['name'] ?>
-          </a>
-        <?php endforeach; ?>
+      <?php foreach ($roles as $role) : ?>
+      <a href="<?= $grid->filter('roleId', 'eq', $role['id']) ?>"
+         class="btn btn-secondary ajax <?= ($grid->getFilter('roleId', 'eq') == $role['id'] ? 'btn-info' : '') ?>">
+          <?= $role['name'] ?>
+      </a>
+      <?php endforeach; ?>
     </div>
-    <div class="col-lg-6">
-      <form action="<?= $this->url('users', 'grid') ?>" class="navbar-form filter-form pull-right">
-        <div class="input-group">
-            <?php echo
-            $this->partial(
-                'grid/filter-search-advanced.phtml',
-                [
-                    'grid' => $grid,
-                    'filters' => [
-                        __('Login') => [$grid::FILTER_EQ => 'login'],
-                        __('Email') => [$grid::FILTER_EQ => 'email'],
-                    ]
-                ]
-            )
-            ?>
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="submit"><?= __("Search") ?></button>
-          </span>
-        </div>
-      </form>
-    </div>
+    <form action="<?= $this->url('users', 'grid') ?>" class="form-inline filter-form">
+      <div class="input-group">
+          <?php echo
+          $this->partial(
+              'grid/filter-search-advanced.phtml',
+              [
+                  'grid' => $grid,
+                  'filters' => [
+                      __('Login') => [$grid::FILTER_EQ => 'login'],
+                      __('Email') => [$grid::FILTER_LIKE => 'email'],
+                  ]
+              ]
+          )
+          ?>
+        <span class="input-group-btn">
+          <button class="btn btn-secondary"><?= __('Search') ?></button>
+        </span>
+      </div>
+    </form>
   </nav>
+  <hr/>
 
-    <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
-    <?= $this->partial('grid/limit.phtml', ['grid' => $grid]) ?>
+  <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
+  <?= $this->partial('grid/limit.phtml', ['grid' => $grid]) ?>
 
   <table class="table table-hover table-striped grid">
     <thead>
@@ -60,7 +58,7 @@ if (!$grid) {
       <th><a href="<?= $grid->order('email') ?: '#' ?>"><?= __('Email') ?></a></th>
       <th><?= __('Roles') ?></th>
       <th><a href="<?= $grid->order('status') ?: '#' ?>"><?= __('Status') ?></a></th>
-      <th width="96px"></th>
+      <th width="160px"></th>
     </tr>
     </thead>
     <tbody>
@@ -76,7 +74,7 @@ if (!$grid) {
              data-ajax-method="get">
             <i class="fa fa-pencil"></i>
           </a>
-          <a href="<?= $this->url('acl', 'user', ['id' => $row['id']]); ?>" class="btn btn-default btn-xs dialog"
+          <a href="<?= $this->url('acl', 'user', ['id' => $row['id']]); ?>" class="btn btn-secondary btn-xs dialog"
              data-ajax-method="get">
             <i class="fa fa-lock"></i>
           </a>
@@ -90,8 +88,7 @@ if (!$grid) {
     </tbody>
   </table>
 
-    <?= $this->partial('grid/empty-rows.phtml', ['grid' => $grid]) ?>
-    <?= $this->partial('grid/pagination.phtml', ['grid' => $grid]) ?>
-    <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
-
+  <?= $this->partial('grid/empty-rows.phtml', ['grid' => $grid]) ?>
+  <?= $this->partial('grid/pagination.phtml', ['grid' => $grid]) ?>
+  <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
 </div>
