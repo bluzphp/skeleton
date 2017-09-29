@@ -1,0 +1,15 @@
+<?php if ($this->breadCrumbs()) : ?>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="/" class="bluz-tooltip" data-placement="bottom" title="<?= __('Back to homepage') ?>">
+            <i class="fa fa-home fa-fw"></i>
+            <?= __('Home') ?>
+        </a>
+    </li>
+    <?php foreach ($this->breadCrumbs() as $crump): ?>
+    <li class="breadcrumb-item">
+        <?php echo $crump ?>
+    </li>
+    <?php endforeach; ?>
+</ol>
+<?php endif; ?>

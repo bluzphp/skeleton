@@ -1,28 +1,9 @@
 <?php /** @var \Bluz\Layout\Layout $this */ ?>
 <?php require __DIR__.'/partial/header.phtml'; ?>
 <?php require __DIR__.'/partial/nav-bar.phtml'; ?>
-<div class="container">
-  <div class="row">
-    <?php if ($this->breadCrumbs()) : ?>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="/" class="bluz-tooltip" data-placement="bottom" title="<?= __('Back to homepage') ?>">
-            <i class="fa fa-home"></i>
-              <?= __('Home') ?>
-          </a>
-        </li>
-        <?php foreach ($this->breadCrumbs() as $crump): ?>
-        <li class="breadcrumb-item">
-            <?php echo $crump ?>
-        </li>
-        <?php endforeach; ?>
-      </ol>
-    <?php endif; ?>
-  </div>
-    <?php
-    /* @var closure $content */
-    echo $this->getContent();
-    ?>
+<div class="container mt-3">
+    <?php require __DIR__.'/partial/breadcrumbs.phtml'; ?>
+    <?= $this->getContent(); ?>
 </div>
 <?php require __DIR__.'/partial/footer-bar.phtml'; ?>
 <?php require __DIR__.'/partial/footer.phtml'; ?>
