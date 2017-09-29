@@ -25,10 +25,14 @@
     </div>
   </div>
 <?php else: ?>
-  <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+  <div class="card bg-light mb-3" style="max-width: 20rem;">
     <div class="card-header"><?= __('Cache') ?></div>
     <div class="card-body">
       <h4 class="card-title"><?= __('Cache is disabled') ?></h4>
+      <p class="card-text">
+        <?= __('Read manual for more information') ?><br/>
+        <a href="https://github.com/bluzphp/framework/wiki/Cache">wiki/Cache</a>
+      </p>
     </div>
   </div>
 <?php endif; ?>

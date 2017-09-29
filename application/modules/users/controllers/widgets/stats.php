@@ -20,8 +20,8 @@ return function () {
     /**
      * @var Controller $this
      */
-    $this->assign('total', Db::fetchOne('SELECT COUNT(*) FROM users'));
-    $this->assign('active', Db::fetchOne('SELECT COUNT(*) FROM users WHERE status = ?', [Table::STATUS_ACTIVE]));
+    $this->assign('total', (int) Db::fetchOne('SELECT COUNT(*) FROM users'));
+    $this->assign('active', (int) Db::fetchOne('SELECT COUNT(*) FROM users WHERE status = ?', [Table::STATUS_ACTIVE]));
     $this->assign('last', Db::fetchRow('SELECT id, login FROM users ORDER BY id DESC LIMIT 1'));
     return 'widgets/stats.phtml';
 };
