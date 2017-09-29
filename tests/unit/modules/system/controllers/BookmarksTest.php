@@ -32,6 +32,5 @@ class BookmarksTest extends ControllerTestCase
         self::assertController('bookmarks');
         self::assertOk();
         self::assertQueryContentContains('title', __('Bookmarklets'));
-        self::assertQueryContentContains('h2', __('Bookmarklets for debug site'));
     }
 }
