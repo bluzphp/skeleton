@@ -73,7 +73,7 @@ code strong {
 #loading {
   z-index: 1100;
   width: 180px;
-  height: 50px;
+  height: 42px;
   float: right;
   background: url("../img/loading.gif") 50% 50% no-repeat;
   display: none;

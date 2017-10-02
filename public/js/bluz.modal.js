@@ -17,15 +17,13 @@ define(['jquery'], function ($) {
      * @return {jQuery} HTML Element
      */
     create: function ($this, content, className) {
-      let $div = $('div.modal.fade');
-      if (!$div.length) {
-        $div = $('<div>', {'class': 'modal fade'});
-      }
+      let $div = $('<div>', {'class': 'modal fade'});
+      $('body').append($div);
+
       let $divDialog = $('<div>', {'class': 'modal-dialog ' + className});
       let $divContent = $('<div>', {'class': 'modal-content'});
-
-      $divContent.html(content);
       $divDialog.append($divContent);
+      $divContent.html(content);
       $div.append($divDialog);
       $div.modal();
 
