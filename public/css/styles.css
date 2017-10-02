@@ -3,17 +3,6 @@
  */
 
 /* Main */
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.center::after {
-  clear: both;
-}
-
-/* Theme */
 body {
   position: relative;
 }
@@ -90,16 +79,23 @@ code strong {
   display: none;
 }
 
+/* Addons */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center::after {
+  clear: both;
+}
+
 /* Small Layout */
 .layout-small .container {
   width: 360px;
 }
 
 /* Bootstrap fix */
-.modal form {
-  margin: 0;
-}
-
 .modal-content > .thumbnail {
   margin: 0;
 }
@@ -114,34 +110,4 @@ code strong {
 
 .table.grid .controls {
   padding: 2px 8px;
-}
-
-.text-overflow {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.nav-tabs.nav-stacked > .active > a,
-.nav-tabs.nav-stacked > .active > a:hover {
-  color: white;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-  background-color: #08c;
-}
-
-@media (max-width: 979px) {
-  body {
-    padding-top: 0;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  /* Widen the fixed sidebar again */
-  .nav-dashboard.affix {
-    width: 263px;
-  }
-}
-
-.root-category-list {
-  margin-top: 7px;
 }

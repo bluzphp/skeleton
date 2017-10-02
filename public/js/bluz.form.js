@@ -16,7 +16,7 @@ define(['jquery', 'bootstrap'], function ($) {
   let settings;
   let defaults = {
     container: '.form-group', // default for Twitter Bootstrap layout
-    errorClass: 'has-error',
+    errorClass: 'is-invalid',
     inputCollection: false,   // uses 'data[field-name]' or 'field-name'
     tooltipPosition: 'top'  // can be bottom
   };
@@ -47,7 +47,7 @@ define(['jquery', 'bootstrap'], function ($) {
         messages = messages.join('<br/>');
       }
 
-      $group.addClass(settings.errorClass);
+      $field.addClass(settings.errorClass);
 
       // field can be hidden, e.g. by WYSIWYG editor
       if ($field.is(':hidden')) {
@@ -55,7 +55,7 @@ define(['jquery', 'bootstrap'], function ($) {
       }
 
       // remove previously generated tooltips
-      $field.tooltip('destroy');
+      $field.tooltip('dispose');
 
       // generate new
       $field.tooltip({
@@ -73,8 +73,8 @@ define(['jquery', 'bootstrap'], function ($) {
       }
 
       $field.click(function () {
-        $group.removeClass('has-error');
-        $field.tooltip('destroy');
+        $field.removeClass(settings.errorClass);
+        $field.tooltip('dispose');
       });
     },
     /**
