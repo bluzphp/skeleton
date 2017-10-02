@@ -1,0 +1,19 @@
+<div class="card mb-3">
+    <div class="card-header"><?= __('User profile') ?></div>
+    <img class="card-img-top" src="<?=$this->gravatar($user->email, 320)?>" alt="Card image cap">
+    <div class="card-body">
+        <h4 class="card-title"><?=$user->login?></h4>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <a href="mailto:<?=$user->email?>"><?=$user->email?></a>
+        </li>
+        <li class="list-group-item">
+          <?=$user->created?>
+        </li>
+    </ul>
+    <div class="card-body">
+        <a href="<?=$this->url('users', 'profile', ['id' => $user->id]) ?>" class="card-link"><?=__('Profile')?></a>
+        <a href="<?=$this->url('acl', 'user', ['id' => $user->id]) ?>" class="card-link dialog" data-ajax-method="get"><?=__('Roles')?></a>
+    </div>
+</div>

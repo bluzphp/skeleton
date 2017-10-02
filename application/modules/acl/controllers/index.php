@@ -25,7 +25,7 @@ return function () {
     Layout::breadCrumbs(
         [
             Layout::ahref('Dashboard', ['dashboard', 'index']),
-            __('ACL')
+            __('Permissions')
         ]
     );
 

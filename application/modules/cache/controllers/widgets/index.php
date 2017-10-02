@@ -21,24 +21,16 @@ use Bluz\Proxy\Messages;
  * List of cache servers
  *
  * @privilege Management
- * @return void
+ * @return string
  */
 return function () {
     /**
      * @var Controller $this
      */
-    Layout::setTemplate('dashboard.phtml');
-    Layout::breadCrumbs(
-        [
-            Layout::ahref('Dashboard', ['dashboard', 'index']),
-            __('Cache')
-        ]
-    );
-
     if ($cacheAdapter = Cache::getInstance()) {
         $this->assign('adapter', get_class($cacheAdapter));
     } else {
         $this->assign('adapter', $cacheAdapter);
-        Messages::addNotice('Cache is disabled');
     }
+    return 'widgets/index.phtml';
 };

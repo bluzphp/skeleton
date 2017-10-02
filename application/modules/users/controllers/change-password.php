@@ -32,20 +32,10 @@ return function ($password, $new_password, $new_password2) {
     /**
      * @var Controller $this
      */
-    // change layout
-    $this->useLayout('small.phtml');
-
-    $userId = $this->user()->id;
-
     /**
      * @var Users\Row $user
      */
-    $user = Users\Table::findRow($userId);
-
-    if (!$user) {
-        throw new NotFoundException('User not found');
-    }
-
+    $user = $this->user();
     if (Request::isPost()) {
         // process form
         try {

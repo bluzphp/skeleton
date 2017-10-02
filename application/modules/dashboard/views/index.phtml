@@ -1,4 +1,6 @@
-<h2><?= __('Dashboard') ?></h2>
-<div class="row">
-    <?= $this->dispatch('users', 'widgets/stats') ?>
+<div class="card-columns">
+  <?= $this->dispatch('system', 'widgets/load') ?>
+  <?= $this->dispatch('cache', 'widgets/index') ?>
+  <?= $this->dispatch('users', 'widgets/stats') ?>
+  <?= $this->dispatch('users', 'widgets/card') ?>
 </div>

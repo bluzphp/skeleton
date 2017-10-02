@@ -4,24 +4,32 @@
  * @created  11.09.12 10:02
  */
 /* global define,require,window,document,history*/
-define(['jquery', 'bootstrap'], function ($) {
+define(['jquery', 'popper'], function ($, popper) {
   'use strict';
 
-  $(function () {
-    // TODO: require other modules if needed
-    if ($.fn.tooltip) {
-      $('.bluz-tooltip').tooltip();
-    }
+  // set popper as required by Bootstrap
+  window.Popper = popper;
 
-    if ($.fn.affix) {
-      $('.bluz-affix').affix();
-    }
+  // TODO: fix this after release new version of boostrap
+  // @link https://github.com/twbs/bootstrap/issues/23381#issuecomment-330850892
+  require(['bootstrap'], function() {
+    // do nothing - just let Bootstrap initialise itself
+    $(function () {
+      // TODO: require other modules if needed
+      if ($.fn.tooltip) {
+        $('.bluz-tooltip').tooltip();
+      }
 
-    // remove FB API's anchor #_=_
-    if (window.location.hash === '#_=_') {
-      window.location.hash = '';
-      history.pushState('', document.title, window.location.pathname);
-    }
+      if ($.fn.affix) {
+        $('.bluz-affix').affix();
+      }
+
+      // remove FB API's anchor #_=_
+      if (window.location.hash === '#_=_') {
+        window.location.hash = '';
+        history.pushState('', document.title, window.location.pathname);
+      }
+    });
   });
 
   return {

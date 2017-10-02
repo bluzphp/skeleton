@@ -6,10 +6,12 @@ if (!$grid) {
     return;
 }
 ?>
-<ul class="pager pull-left">
-  <li>
-    <a href="<?= $grid->reset() ?>"><?= __('Total') ?>:
-      <strong><?= $grid->total() ?></strong> <?= _n('record', 'records', $grid->total()) ?>
-        <?= _n('on %s page', 'on %s pages', $grid->pages(), '<strong>' . $grid->pages() . '</strong>') ?></a>
-  </li>
-</ul>
+<nav aria-label="<?= __('Total') ?>">
+  <ul class="pagination pull-left">
+    <li class="page-item">
+      <a href="<?= $grid->reset() ?>" class="page-link"><?= __('Total') ?>:
+        <strong><?= $grid->total() ?></strong> <?= _n('record', 'records', $grid->total()) ?>
+          <?= _n('on %s page', 'on %s pages', $grid->pages(), '<strong>' . $grid->pages() . '</strong>') ?></a>
+    </li>
+  </ul>
+</nav>

@@ -11,39 +11,39 @@ if (!$grid) {
     require(['bluz.grid']);
 </script>
 
-<div class="clearfix" data-spy="grid" data-grid="<?= $grid->getUid() ?>">
-  <nav class="navbar navbar-default" role="navigation">
-    <div class="col-lg-6">
-      <a href="<?= $this->url('pages', 'crud') ?>" class="btn btn-primary navbar-btn dialog" data-ajax-method="get"
-         data-modal-style="width:800px"><?= __('Create') ?></a>
-    </div>
-    <div class="col-lg-6">
-      <form action="<?= $this->url('pages', 'grid') ?>" class="navbar-form filter-form pull-right">
-        <div class="input-group">
-            <?php echo
-            $this->partial(
-                'grid/filter-search.phtml',
-                [
-                    'grid' => $grid,
-                    'filters' => [
-                        'title' => __('Title'),
-                        'alias' => __('Alias'),
-                        'description' => __('Description'),
-                        'content' => __('Content'),
-                    ]
-                ]
-            )
-            ?>
-          <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><?= __("Search") ?></button>
-                    </span>
-        </div>
-      </form>
-    </div>
+<div class="clearfix table-responsive" data-spy="grid" data-grid="<?= $grid->getUid() ?>">
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <a href="<?= $this->url('pages', 'crud') ?>" class="btn btn-primary dialog"
+       data-ajax-method="get" data-modal-style="modal-lg">
+        <?= __('Create') ?>
+    </a>
+    <form action="<?= $this->url('pages', 'grid') ?>" class="form-inline filter-form">
+      <div class="input-group">
+          <?php echo
+          $this->partial(
+              'grid/filter-search.phtml',
+              [
+                  'grid' => $grid,
+                  'filters' => [
+                      'title' => __('Title'),
+                      'alias' => __('Alias'),
+                      'description' => __('Description'),
+                      'content' => __('Content'),
+                  ]
+              ]
+          )
+          ?>
+        <span class="input-group-btn">
+          <button class="btn btn-secondary"><?= __('Search') ?></button>
+        </span>
+      </div>
+    </form>
   </nav>
 
-    <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
-    <?= $this->partial('grid/limit.phtml', ['grid' => $grid]) ?>
+  <hr/>
+
+  <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
+  <?= $this->partial('grid/limit.phtml', ['grid' => $grid]) ?>
 
   <table class="table table-hover table-striped grid">
     <thead>
@@ -51,9 +51,9 @@ if (!$grid) {
       <th width="40px"><?= __('Id') ?></th>
       <th><a href="<?= $grid->order('title') ?: '#' ?>"><?= __('Title') ?></a></th>
       <th><?= __('Description') ?></th>
-      <th width="160px"><a href="<?= $grid->order('created') ?>"><?= __('Created') ?></a></th>
-      <th width="160px"><a href="<?= $grid->order('updated') ?>"><?= __('Updated') ?></a></th>
-      <th width="72px"></th>
+      <th width="180px"><a href="<?= $grid->order('created') ?>"><?= __('Created') ?></a></th>
+      <th width="180px"><a href="<?= $grid->order('updated') ?>"><?= __('Updated') ?></a></th>
+      <th width="120px"></th>
     </tr>
     </thead>
     <tbody>
@@ -66,7 +66,7 @@ if (!$grid) {
         <td><?= $row['updated'] ?></td>
         <td class="controls">
           <a href="<?= $this->url('pages', 'crud', ['id' => $row['id']]) ?>" class="btn btn-primary btn-xs dialog"
-             data-ajax-method="get" data-modal-style="width:800px">
+             data-ajax-method="get" data-modal-style="modal-lg">
             <i class="fa fa-pencil"></i>
           </a>
           <a href="<?= $this->url('pages', 'crud', ['id' => $row['id']]) ?>" class="confirm btn btn-xs btn-danger ajax"

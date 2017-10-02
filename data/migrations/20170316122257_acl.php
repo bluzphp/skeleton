@@ -99,6 +99,16 @@ class Acl extends AbstractMigration
             ],
             [
                 'roleId' => 2,
+                'module' => 'api',
+                'privilege' => 'Users/Id'
+            ],
+            [
+                'roleId' => 2,
+                'module' => 'api',
+                'privilege' => 'Users/Profile'
+            ],
+            [
+                'roleId' => 2,
                 'module' => 'cache',
                 'privilege' => 'Management'
             ],
@@ -136,6 +146,11 @@ class Acl extends AbstractMigration
                 'roleId' => 2,
                 'module' => 'users',
                 'privilege' => 'ViewProfile'
+            ],
+            [
+                'roleId' => 3,
+                'module' => 'api',
+                'privilege' => 'Users/Profile'
             ],
             [
                 'roleId' => 3,

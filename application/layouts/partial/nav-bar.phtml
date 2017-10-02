@@ -1,56 +1,59 @@
 <?php /** @var \Bluz\Layout\Layout $this */ ?>
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/"><?= __('Bluz') ?></a>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="fa fa-bar"></span>
-          <span class="fa fa-bar"></span>
-          <span class="fa fa-bar"></span>
-        </button>
-      </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li <?= ($this->module('index') ? 'class="active"' : '') ?>><?= $this->ahref(
-                  'Home',
-                  ['index', 'index']
-              ) ?></li>
-          <li <?= ($this->module('dashboard') ? 'class="active"' : '') ?>><?= $this->ahref(
-                  'Dashboard',
-                  ['dashboard', 'index']
-              ) ?></li>
-
-            <?php if ($this->hasModule('test')) : ?>
-              <li <?= ($this->module('test') ? 'class="active"' : '') ?>><?= $this->ahref(
-                      'Test',
-                      ['test', 'index']
-                  ) ?></li>
-            <?php endif; ?>
-
-            <?php if ($this->hasModule('contact-us')) : ?>
-              <li <?= ($this->module('contact-us') ? 'class="active"' : '') ?>><?= $this->ahref(
-                      'Contact us',
-                      ['contact-us', 'index']
-                  ) ?></li>
-            <?php endif; ?>
-        </ul>
-          <?php if ($identity = $this->user()) : ?>
-            <p class="navbar-text navbar-right">
-                <?= __(
-                    'Logged in as %s',
-                    $this->ahref($identity->login, ['users', 'profile'])
-                ) ?>
-              (<?= $this->ahref(__('Sign Out'), ['users', 'signout']) ?>)
-            </p>
-          <?php else: ?>
-            <ul class="nav navbar-nav navbar-right">
-              <li><?= $this->ahref(__('Sign In'), ['users', 'signin']) ?></li>
-            </ul>
-          <?php endif; ?>
-        <div id="loading"></div>
-      </div>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <a class="navbar-brand" href="/">
+    <img src="/img/favicon-32x32.png" width="32" height="32" class="d-inline-block align-top" alt="">
+    <?= __('Bluz') ?>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item <?= ($this->module('index') ? 'active' : '') ?>">
+          <?= $this->ahref(
+              'Home',
+              ['index', 'index'],
+              ['class' => 'nav-link']
+          ) ?>
+      </li>
+      <li class="nav-item <?= ($this->module('dashboard') ? 'active' : '') ?>">
+          <?= $this->ahref(
+              'Dashboard',
+              ['dashboard', 'index', [], true],
+              ['class' => 'nav-link']
+          ) ?>
+      </li>
+      <?php if ($this->hasModule('contact-us')) : ?>
+      <li class="nav-item <?= ($this->module('contact-us') ? 'active' : '') ?>">
+          <?= $this->ahref(
+              'Contact us',
+              ['contact-us', 'index'],
+              ['class' => 'nav-link']
+          ) ?>
+      </li>
+      <?php endif; ?>
+      <?php if ($this->hasModule('test')) : ?>
+      <li class="nav-item <?= ($this->module('test') ? 'active' : '') ?>">
+          <?= $this->ahref(
+              'Test',
+              ['test', 'index'],
+              ['class' => 'nav-link']
+          ) ?>
+      </li>
+      <?php endif; ?>
+    </ul>
+    <div id="loading"></div>
+    <span class="navbar-text">
+      <?php if ($identity = $this->user()) : ?>
+        <?= __(
+            'Logged in as %s',
+            $this->ahref($identity->login, ['users', 'profile'])
+        ) ?>
+        (<?= $this->ahref(__('Sign Out'), ['users', 'signout']) ?>)
+      <?php else: ?>
+        <?= $this->ahref(__('Sign In'), ['users', 'signin'], ['class' => 'dialog', 'data-ajax-method' => 'get']) ?>
+      <?php endif; ?>
+    </span>
   </div>
-</div>
-
+</nav>

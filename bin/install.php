@@ -29,6 +29,6 @@ foreach ($folders as $folder) {
 }
 unset($folder);
 
-if (copy($root . '/public/.htaccess.dev.sample', $root . '/public/.htaccess')) {
+if (copy($root . '/public/.htaccess.sample', $root . '/public/.htaccess')) {
     echo '  - Copied `.htaccess.sample` to `.htaccess`' . PHP_EOL;
 }

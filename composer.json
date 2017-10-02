@@ -9,11 +9,12 @@
     "bluzphp/composer-plugin": "~2.1",
     "phpmailer/phpmailer": "~5.2",
     "zircote/swagger-php": "~2.0",
-    "fortawesome/font-awesome": "~4.6",
-    "twbs/bootstrap": "~3.3",
+    "fortawesome/font-awesome": "~4.7",
+    "twbs/bootstrap": "~4.0",
     "robmorgan/phinx": "~0.8",
     "public/swagger-ui": "dev-master",
     "public/jquery": "dev-master",
+    "public/popper": "dev-master",
     "public/require": "dev-master"
   },
   "require-dev": {
@@ -62,6 +63,18 @@
           "type": "file"
         }
       }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "public/popper",
+        "version": "dev-master",
+        "license": "MIT",
+        "dist": {
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.5/umd/popper.min.js",
+          "type": "file"
+        }
+      }
     }
   ],
   "config": {
@@ -85,6 +98,7 @@
     "copy-files": {
       "public/swagger-ui/dist/": "public/api-reference/",
       "public/jquery/jquery.min.js": "public/js/vendor/jquery.min.js",
+      "public/popper/popper.min.js": "public/js/vendor/popper.min.js",
       "public/require/require.min.js": "public/js/vendor/require.min.js",
       "twbs/bootstrap/dist/js/": "public/js/vendor/",
       "twbs/bootstrap/dist/css/": "public/css/",

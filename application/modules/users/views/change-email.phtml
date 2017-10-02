@@ -1,22 +1,43 @@
-<?php $uid = uniqid('form_'); ?>
-<h3 class="page-header"><?= __('Change email') ?></h3>
-<p><?= __('Email will be changed after confirmation') ?></p>
-<form id="<?= $uid ?>" action="<?= $this->url('users', 'change-email') ?>" class="ajax form-horizontal" method="POST">
-  <div class="form-group">
-    <label class="sr-only" for="email"><?= __('Email') ?></label>
-    <div class="input-group">
-      <div class="input-group-addon"><i class="fa fa-fw fa-envelope" aria-hidden="true"></i></div>
-      <input id="email" type="email" class="form-control" name="email" value="<?= ($email) ?>" maxlength="255"
-             required/>
+<?php $uid = uniqid('form_', false); ?>
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+          <?= $this->ahref(__('Profile'), ['users', 'profile'], ['class' => 'nav-link']) ?>
+      </li>
+      <li class="nav-item">
+          <?= $this->ahref(__('Change email'), ['users', 'change-email'], ['class' => 'nav-link active']) ?>
+      </li>
+      <li class="nav-item">
+          <?= $this->ahref(__('Change password'), ['users', 'change-password'], ['class' => 'nav-link']) ?>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h4 class="card-title"><?= __('Change email') ?></h4>
+    <p class="card-text"><?= __('Email will be changed after confirmation') ?></p>
+    <div class="card w-50 center">
+      <div class="card-body">
+        <form id="<?= $uid ?>" action="<?= $this->url('users', 'change-email') ?>" class="ajax form-horizontal" method="POST">
+          <div class="form-group">
+            <label class="sr-only" for="email"><?= __('Email') ?></label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></div>
+              <input id="email" type="email" class="form-control" name="email" value="<?= ($this->user()->email) ?>"
+                     maxlength="255" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="password"><?= __('Password') ?></label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-fw fa-lock"></i></div>
+              <input id="password" type="password" class="form-control" name="password"
+                     placeholder="<?= __('current password') ?>" required/>
+            </div>
+          </div>
+          <button class="btn btn-primary"><?= __('Save') ?></button>
+        </form>
+      </div>
     </div>
   </div>
-  <div class="form-group">
-    <label class="sr-only" for="password"><?= __('Password') ?></label>
-    <div class="input-group">
-      <div class="input-group-addon"><i class="fa fa-fw fa-lock" aria-hidden="true"></i></div>
-      <input id="password" type="password" class="form-control" name="password"
-             placeholder="<?= __('current password') ?>" required/>
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary"><?= __('Save') ?></button>
-</form>
+</div>

@@ -7,23 +7,26 @@ if (!$grid) {
 }
 ?>
 <?php if ($grid->pages() > 1) : ?>
+<nav aria-label="<?=__('Pagination')?>">
   <ul class="pagination pull-right">
       <?php if ($prev = $grid->prev()) : ?>
-        <li><a rel="prev" href="<?= $prev ?>">&laquo;</a></li>
+        <li class="page-item"><a rel="prev" class="page-link" href="<?= $prev ?>">&laquo;</a></li>
       <?php else : ?>
-        <li class="disabled"><a href="#" onclick="javascript:return false;">&laquo;</a></li>
+        <li class="page-item disabled"><a href="#" class="page-link" onclick="javascript:return false;">&laquo;</a></li>
       <?php endif; ?>
 
 
       <?php for ($page = 1; $page <= $grid->pages(); $page++) : ?>
-        <li <?= ($page == $grid->getPage() ? 'class="active"' : '') ?>><a
-              href="<?= $grid->page($page) ?>"><?= $page ?></a></li>
+        <li class="page-item <?= ($page === $grid->getPage() ? 'active' : '') ?>">
+          <a href="<?= $grid->page($page) ?>" class="page-link"><?= $page ?></a>
+        </li>
       <?php endfor; ?>
 
       <?php if ($next = $grid->next()) : ?>
-        <li><a rel="next" href="<?= $next ?>">&raquo;</a></li>
+        <li class="page-item"><a rel="next" class="page-link" href="<?= $next ?>">&raquo;</a></li>
       <?php else : ?>
-        <li class="disabled"><a href="#" onclick="javascript:return false;">&raquo;</a></li>
+        <li class="page-item disabled"><a href="#" class="page-link" onclick="javascript:return false;">&raquo;</a></li>
       <?php endif; ?>
   </ul>
+</nav>
 <?php endif; ?>

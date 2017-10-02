@@ -3,19 +3,7 @@
  */
 
 /* Main */
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.center::after {
-  clear: both;
-}
-
-/* Theme */
 body {
-  padding-top: 70px;
   position: relative;
 }
 
@@ -85,10 +73,21 @@ code strong {
 #loading {
   z-index: 1100;
   width: 180px;
-  height: 50px;
+  height: 42px;
   float: right;
   background: url("../img/loading.gif") 50% 50% no-repeat;
   display: none;
+}
+
+/* Addons */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center::after {
+  clear: both;
 }
 
 /* Small Layout */
@@ -96,11 +95,7 @@ code strong {
   width: 360px;
 }
 
-/* Bootstrap fix */
-.modal form {
-  margin: 0;
-}
-
+/* Bootstrap fix? */
 .modal-content > .thumbnail {
   margin: 0;
 }
@@ -115,48 +110,4 @@ code strong {
 
 .table.grid .controls {
   padding: 2px 8px;
-}
-
-.text-overflow {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.breadcrumb a:hover {
-  text-decoration: none;
-}
-
-.nav-dashboard {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  text-shadow: 0 1px 0 #fff;
-  background-color: #f7f5fa;
-  border-radius: 5px;
-}
-
-.nav-tabs.nav-stacked > .active > a,
-.nav-tabs.nav-stacked > .active > a:hover {
-  color: white;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-  background-color: #08c;
-}
-
-@media (max-width: 979px) {
-  body {
-    padding-top: 0;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  /* Widen the fixed sidebar again */
-  .nav-dashboard.affix {
-    width: 263px;
-  }
-}
-
-.root-category-list {
-  margin-top: 7px;
 }

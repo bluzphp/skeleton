@@ -32,21 +32,10 @@ return function ($email = null, $password = null, $token = null) {
     /**
      * @var Controller $this
      */
-    // change layout
-    $this->useLayout('small.phtml');
-
-    $userId = $this->user() ? $this->user()->id : null;
-
     /**
      * @var Users\Row $user
      */
-    $user = Users\Table::findRow($userId);
-
-    if (!$user) {
-        throw new NotFoundException('User not found');
-    }
-
-    $this->assign('email', $user->email);
+    $user = $this->user();
 
     if (Request::isPost()) {
         // process form
@@ -86,7 +75,7 @@ return function ($email = null, $password = null, $token = null) {
         }
     } elseif ($token) {
         // process activation
-        $actionRow = UsersActions\Table::findRowWhere(['code' => $token, 'userId' => $userId]);
+        $actionRow = UsersActions\Table::findRowWhere(['code' => $token, 'userId' => $user->id]);
 
         if (!$actionRow) {
             throw new Exception('Invalid token');
