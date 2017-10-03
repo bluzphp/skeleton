@@ -10,24 +10,22 @@
       <li class="nav-item">
         <a class="nav-link active" href="#"><?= __('Profile') ?></a>
       </li>
-      <?php if ($this->user() && $this->user()->id == $user->id) : ?>
-      <?php if ($this->hasModule('media')) : ?>
+      <?php if ($this->user() && $this->user()->id == $user->id) : // only for user ?>
+      <?php if ($this->hasModule('media') && false) : // TODO: make possible to change avatar from media library ?>
       <li class="nav-item">
           <?= $this->ahref(
               __('Change avatar'),
               ['media', 'manager'],
-              ['id' => 'avatar-button', 'class' => 'nav-link dialog']
+              ['id' => 'avatar-button', 'class' => 'nav-link dialog', 'data-modal-style' => 'modal-lg']
           ) ?>
       </li>
       <?php endif; ?>
-
       <li class="nav-item">
           <?= $this->ahref(__('Change email'), ['users', 'change-email'], ['class' => 'nav-link']) ?>
       </li>
       <li class="nav-item">
           <?= $this->ahref(__('Change password'), ['users', 'change-password'], ['class' => 'nav-link']) ?>
       </li>
-
       <?php endif; ?>
     </ul>
   </div>
