@@ -39,9 +39,9 @@ define(['jquery'], function ($) {
         $this.trigger('hidden.bluz.modal');
       });
 
-      // you can handle event 'push.bluz' on button
-      $div.on('push.data.bluz', function (event, data) {
-        $this.trigger('push.data.bluz', data);
+      // you can handle event 'push.bluz.data' on button
+      $div.on('push.bluz.data', function (event, data) {
+        $this.trigger('push.bluz.data', data);
       });
 
       $this.data('modal', $div);

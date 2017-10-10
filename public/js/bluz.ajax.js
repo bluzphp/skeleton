@@ -11,9 +11,9 @@
  *  </form>
  *  <source>
  *    // disable event handlers
- *    $("li a").off(".bluz");
+ *    $('li a').off('.bluz');
  *    // or
- *    $("li a").off(".ajax");
+ *    $('li a').off('.ajax');
  *  </source>
  * </code>
  * @link   https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes
@@ -109,7 +109,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
       .ajaxSuccess((event, jqXHR, options) => {
         try {
           let $element = $(options.context);
-          $element.trigger('success.ajax.bluz', arguments);
+          $element.trigger('success.bluz.ajax', arguments);
 
           // try to get messages from headers
           extractNotifyHeader(jqXHR);
@@ -123,7 +123,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
       .ajaxError((event, jqXHR, options, thrownError) => {
         try {
           let $element = $(options.context);
-          $element.trigger('error.ajax.bluz', arguments);
+          $element.trigger('error.bluz.ajax', arguments);
 
           // try to get messages from headers
           extractNotifyHeader(jqXHR);
@@ -185,7 +185,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
 
     function ajaxDialog(event) {
       event.preventDefault();
-
+      // button
       let $this = $(this);
 
       $.ajax({
@@ -195,8 +195,9 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
         dataType: 'html',
         success: function (content) {
           let $div = modal.create($this, content, $this.data('modal-style'));
-          $div.on('success.form.bluz', function () {
-            $this.trigger('complete.ajax.bluz', arguments);
+          $div.on('success.bluz.form', () => {
+            // throw event on button
+            $this.trigger('success.bluz.dialog');
             $div.modal('hide');
           });
           $div.modal('show');
@@ -252,12 +253,12 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
           // data can be 'undefined' if server return
           // 204 header without content
           if (data !== undefined && data.errors !== undefined) {
-            $this.trigger('error.form.bluz', arguments);
+            $this.trigger('error.bluz.form', arguments);
             require(['bluz.form'], function (form) {
               form.notices($this, data);
             });
           } else {
-            $this.trigger('success.form.bluz', arguments);
+            $this.trigger('success.bluz.form', arguments);
           }
         }
       });
