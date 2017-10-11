@@ -19,7 +19,7 @@ use Bluz\Proxy\Auth;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
-use PHPUnit_Framework_ExpectationFailedException as ExpectationFailedException;
+use PHPUnit\Framework\ExpectationFailedException;
 use Zend\Dom\Document;
 
 /**
@@ -285,7 +285,7 @@ class ControllerTestCase extends SkeletonTestCase
      * Assert against DOM/XPath selection
      *
      * @param string $path
-     * @throws PHPUnit_Framework_ExpectationFailedException
+     * @throws ExpectationFailedException
      */
     public static function assertQuery($path)
     {
@@ -308,7 +308,7 @@ class ControllerTestCase extends SkeletonTestCase
     public static function assertNotQuery($path)
     {
         $match  = self::queryCount($path);
-        if ($match != 0) {
+        if ($match !== 0) {
             throw new ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s DOES NOT EXIST',
                     $path
@@ -327,7 +327,7 @@ class ControllerTestCase extends SkeletonTestCase
     public static function assertQueryCount($path, $count)
     {
         $match = self::queryCount($path);
-        if ($match != $count) {
+        if ($match !== $count) {
             throw new ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s OCCURS EXACTLY %d times, actually occurs %d times',
                     $path,
@@ -348,7 +348,7 @@ class ControllerTestCase extends SkeletonTestCase
     public static function assertNotQueryCount($path, $count)
     {
         $match = self::queryCount($path);
-        if ($match == $count) {
+        if ($match === $count) {
             throw new ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s DOES NOT OCCUR EXACTLY %d times',
                     $path,
@@ -368,7 +368,7 @@ class ControllerTestCase extends SkeletonTestCase
     public static function assertQueryContentContains($path, $match)
     {
         $result = self::query($path);
-        if ($result->count() == 0) {
+        if ($result->count() === 0) {
             throw new ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s EXISTS',
                     $path
@@ -399,7 +399,7 @@ class ControllerTestCase extends SkeletonTestCase
     {
         $result = self::query($path);
 
-        if ($result->count() == 0) {
+        if ($result->count() === 0) {
             throw new ExpectationFailedException(sprintf(
                     'Failed asserting node DENOTED BY %s EXISTS',
                     $path
