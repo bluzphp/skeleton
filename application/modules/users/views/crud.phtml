@@ -13,20 +13,20 @@ $uid = uniqid('form_', false); ?>
   </div>
   <div class="modal-body">
     <div class="form-group row">
-      <label class="control-label col-lg-2" for="login"><?= __('Login') ?></label>
+      <label class="col-form-label col-lg-2" for="login"><?= __('Login') ?></label>
       <div class="col-lg-10">
         <input class="form-control" id="login" name="login" value="<?= ($row->login) ?>" maxlength="255" required/>
       </div>
     </div>
     <div class="form-group row">
-      <label class="control-label col-lg-2" for="email"><?= __('Email') ?></label>
+      <label class="col-form-label col-lg-2" for="email"><?= __('Email') ?></label>
       <div class="col-lg-10">
         <input type="email" class="form-control" id="email" name="email" value="<?= ($row->email) ?>" maxlength="255"
                required/>
       </div>
     </div>
     <div class="form-group row">
-      <label class="control-label col-lg-2" for="status"><?= __('Status') ?></label>
+      <label class="col-form-label col-lg-2" for="status"><?= __('Status') ?></label>
       <div class="col-lg-10">
         <select id="status" name="status" class="form-control">
           <option <?= $row->status == Table::STATUS_ACTIVE ? 'selected' : '' ?>>active</option>
