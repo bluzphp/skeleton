@@ -98,7 +98,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
      */
     $(document)
       .ajaxStart(bluz.showLoading)
-      .ajaxSend((event, jqXHR, options) => {
+      .ajaxSend(function (event, jqXHR, options) {
         let $element = $(options.context);
         if ($element.hasClass('disabled')) {
           return false;
@@ -106,8 +106,9 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
         $element.addClass('disabled');
         return true;
       })
-      .ajaxSuccess((event, jqXHR, options) => {
+      .ajaxSuccess(function (event, jqXHR, options) {
         try {
+          console.log(arguments);
           let $element = $(options.context);
           $element.trigger('success.bluz.ajax', arguments);
 
@@ -120,7 +121,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
           bluz.error(err.name, err.message);
         }
       })
-      .ajaxError((event, jqXHR, options, thrownError) => {
+      .ajaxError(function (event, jqXHR, options, thrownError) {
         try {
           let $element = $(options.context);
           $element.trigger('error.bluz.ajax', arguments);
@@ -143,7 +144,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
           bluz.error(err.name, err.message);
         }
       })
-      .ajaxComplete((event, jqXHR, options) => {
+      .ajaxComplete(function (event, jqXHR, options) {
         let $element = $(options.context);
         $element.removeClass('disabled');
       })
@@ -171,6 +172,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
        * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#ajax-load
        */
       .on('change.bluz.ajax', '.load', ajaxLoad)
+      .on('click.bluz.ajax', '.load', ajaxLoad)
       /**
        * Load HTML content by XMLHTTPRequest into modal dialog
        * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#modal-dialog
