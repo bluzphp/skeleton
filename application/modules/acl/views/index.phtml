@@ -55,11 +55,11 @@
 <script>
     require(['jquery'], function ($) {
         $(function () {
-            $('#create-role, table a.dialog').on('complete.ajax.bluz', function () {
+            $('#create-role, table a.dialog').on('success.bluz.dialog', function () {
                 // reload current page on create/edit
                 window.location.reload();
             });
-            $('table a.confirm').on('success.ajax.bluz', function () {
+            $('table a.confirm').on('success.bluz.ajax', function () {
                 // reload current page on delete
                 window.location.reload();
             });

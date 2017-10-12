@@ -11,9 +11,9 @@
  *  </form>
  *  <source>
  *    // disable event handlers
- *    $("li a").off(".bluz");
+ *    $('li a').off('.bluz');
  *    // or
- *    $("li a").off(".ajax");
+ *    $('li a').off('.ajax');
  *  </source>
  * </code>
  * @link   https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes
@@ -98,7 +98,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
      */
     $(document)
       .ajaxStart(bluz.showLoading)
-      .ajaxSend((event, jqXHR, options) => {
+      .ajaxSend(function (event, jqXHR, options) {
         let $element = $(options.context);
         if ($element.hasClass('disabled')) {
           return false;
@@ -106,10 +106,11 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
         $element.addClass('disabled');
         return true;
       })
-      .ajaxSuccess((event, jqXHR, options) => {
+      .ajaxSuccess(function (event, jqXHR, options) {
         try {
+          console.log(arguments);
           let $element = $(options.context);
-          $element.trigger('success.ajax.bluz', arguments);
+          $element.trigger('success.bluz.ajax', arguments);
 
           // try to get messages from headers
           extractNotifyHeader(jqXHR);
@@ -120,10 +121,10 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
           bluz.error(err.name, err.message);
         }
       })
-      .ajaxError((event, jqXHR, options, thrownError) => {
+      .ajaxError(function (event, jqXHR, options, thrownError) {
         try {
           let $element = $(options.context);
-          $element.trigger('error.ajax.bluz', arguments);
+          $element.trigger('error.bluz.ajax', arguments);
 
           // try to get messages from headers
           extractNotifyHeader(jqXHR);
@@ -143,7 +144,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
           bluz.error(err.name, err.message);
         }
       })
-      .ajaxComplete((event, jqXHR, options) => {
+      .ajaxComplete(function (event, jqXHR, options) {
         let $element = $(options.context);
         $element.removeClass('disabled');
       })
@@ -171,6 +172,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
        * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#ajax-load
        */
       .on('change.bluz.ajax', '.load', ajaxLoad)
+      .on('click.bluz.ajax', '.load', ajaxLoad)
       /**
        * Load HTML content by XMLHTTPRequest into modal dialog
        * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#modal-dialog
@@ -185,7 +187,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
 
     function ajaxDialog(event) {
       event.preventDefault();
-
+      // button
       let $this = $(this);
 
       $.ajax({
@@ -195,8 +197,9 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
         dataType: 'html',
         success: function (content) {
           let $div = modal.create($this, content, $this.data('modal-style'));
-          $div.on('success.form.bluz', function () {
-            $this.trigger('complete.ajax.bluz', arguments);
+          $div.on('success.bluz.form', () => {
+            // throw event on button
+            $this.trigger('success.bluz.dialog');
             $div.modal('hide');
           });
           $div.modal('show');
@@ -252,12 +255,12 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
           // data can be 'undefined' if server return
           // 204 header without content
           if (data !== undefined && data.errors !== undefined) {
-            $this.trigger('error.form.bluz', arguments);
+            $this.trigger('error.bluz.form', arguments);
             require(['bluz.form'], function (form) {
               form.notices($this, data);
             });
           } else {
-            $this.trigger('success.form.bluz', arguments);
+            $this.trigger('success.bluz.form', arguments);
           }
         }
       });

@@ -11,6 +11,7 @@ namespace Application;
 use Application\Pages;
 use Bluz\Controller\Controller;
 use Bluz\Controller\Mapper\Crud;
+use Bluz\Proxy\Request;
 
 /**
  * @accept    HTML
@@ -23,6 +24,10 @@ return function () {
     /**
      * @var Controller $this
      */
+    if (!Request::isXmlHttpRequest()) {
+        $this->useLayout('dashboard.phtml');
+    }
+
     $crud = new Crud(Pages\Crud::getInstance());
 
     $crud->get('system', 'crud/get');
