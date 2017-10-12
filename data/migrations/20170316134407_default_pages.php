@@ -1,18 +1,13 @@
 <?php
 
-use Phinx\Seed\AbstractSeed;
+use Phinx\Migration\AbstractMigration;
 
-class PagesSeeder extends AbstractSeed
+class DefaultPages extends AbstractMigration
 {
     /**
-     * Run Method.
-     *
-     * Write your database seeder using this method.
-     *
-     * More information on writing seeders is available here:
-     * http://docs.phinx.org/en/latest/seeding.html
+     * Migrate Up.
      */
-    public function run()
+    public function up()
     {
         $data = [
             [
@@ -29,5 +24,13 @@ class PagesSeeder extends AbstractSeed
         $pages = $this->table('pages');
         $pages->insert($data)
             ->save();
+    }
+
+    /**
+     * Migrate Down.
+     */
+    public function down()
+    {
+        $this->execute('DELETE FROM pages');
     }
 }
