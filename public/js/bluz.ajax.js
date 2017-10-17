@@ -108,7 +108,6 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
       })
       .ajaxSuccess(function (event, jqXHR, options) {
         try {
-          console.log(arguments);
           let $element = $(options.context);
           $element.trigger('success.bluz.ajax', arguments);
 

@@ -1,25 +1,19 @@
-version: '2'
+version: '3'
 services:
-  code:
-    image: debian:jessie
-    volumes:
-      - ../:/var/www
-
   nginx:
     build: nginx
     container_name: bluz_nginx
-    volumes_from:
-      - code
+    volumes:
+      - ..:/var/www
     ports:
       - "81:80"
     depends_on:
       - php
-
   php:
     build: php
     container_name: bluz_php
-    volumes_from:
-      - code
+    volumes:
+      - ..:/var/www
     depends_on:
       - mysql
     environment:
@@ -28,18 +22,14 @@ services:
       - mysql/db.env
       - php/xdebug.env
       - php/bluz.env
-
   mysql:
     build: mysql
     container_name: bluz_mysql
-    volumes_from:
-      - mysqldata
+    volumes:
+       - db:/var/lib/mysql
     ports:
       - "3307:3306"
     env_file:
       - mysql/db.env
-
-  mysqldata:
-    image: debian:jessie
-    volumes:
-      - /var/lib/mysql
+volumes:
+  db:

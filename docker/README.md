@@ -1,4 +1,7 @@
-## Docker
+Docker
+======
+
+## Setup containers
 
 All environment configuration located in `docker` folder.
 1. Create `docker-compose.yml` from `docker-compose.yml.dist` and configure up to you
@@ -28,39 +31,39 @@ $ docker exec -ti bluz_php bluzman db:migrate
 $ docker exec -ti bluz_php bluzman db:seed:run
 ```
 
-### Frequently Asked Question(s)
+## Frequently Asked Question(s)
  
-remove bluz containers
-```
-$ docker-compose -p bluz -f docker/docker-compose.yml rm
-```
-
-stop bluz containers 
-```
-$ docker-compose -p bluz -f docker/docker-compose.yml stop
-```
-
-show containers for bluz
+Show containers for bluz
 ```
 $ docker-compose -p bluz -f docker/docker-compose.yml ps
 ```
 
-run command inside container
+Stop bluz containers 
+```
+$ docker-compose -p bluz -f docker/docker-compose.yml stop
+```
+
+Remove bluz containers
+```
+$ docker-compose -p bluz -f docker/docker-compose.yml rm
+```
+
+Run command inside container
 ```
 $ docker exec -ti %container_name% %bash_command%
 ```
 
-run database migration
+Run database migration
 ```
 $ docker exec -ti bluz_php bluzman db:migrate
 ```
 
-run database seed
+Run database seed
 ```
 $ docker exec -ti bluz_php bluzman db:seed:run
 ```
 
-run tests
+Run tests
 ```
 $ docker exec -ti bluz_php bluzman test
 ```
