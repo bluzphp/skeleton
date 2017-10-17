@@ -31,4 +31,3 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 RUN apt-get clean \
  && rm -rf /var/lib/apt/lists/*
-
