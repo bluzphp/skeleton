@@ -122,10 +122,6 @@ return function ($code, $exception = null) {
                 'error' => $message
             ];
         }
-        // dialog AJAX call, accept HTML
-        if (!Request::isXmlHttpRequest()) {
-            $this->useLayout('small.phtml');
-        }
     }
 
     Layout::title($error);

@@ -1,0 +1,46 @@
+<div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+            <?= $this->ahref(
+                __('Profile'),
+                ['users', 'profile'],
+                [ 'class' => 'nav-link' . ($this->module('users') && $this->controller('profile') ? ' active' : '')]
+            ) ?>
+        </li>
+        <?php if ($this->user() && $this->user()->id === $user->id) : // only for user ?>
+
+            <?php if ($this->hasModule('profile')) : ?>
+                <li class="nav-item">
+                    <?= $this->ahref(
+                        __('Change profile'),
+                        ['users', 'change-profile'],
+                        [ 'class' => 'nav-link' . ($this->module('users') && $this->controller('change-profile') ? ' active' : '')]
+                    ) ?>
+                </li>
+            <?php endif; ?>
+            <?php if ($this->hasModule('media') && $this->hasModule('profile') && false) : // TODO: make possible to change avatar from media library ?>
+            <li class="nav-item">
+                <?= $this->ahref(
+                    __('Change avatar'),
+                    ['media', 'manager'],
+                    ['id' => 'avatar-button', 'class' => 'nav-link dialog', 'data-modal-style' => 'modal-lg']
+                ) ?>
+            </li>
+            <?php endif; ?>
+            <li class="nav-item">
+                <?= $this->ahref(
+                    __('Change email'),
+                    ['users', 'change-email'],
+                    ['class' => 'nav-link' . ($this->module('users') && $this->controller('change-email') ? ' active' : '')]
+                ) ?>
+            </li>
+            <li class="nav-item">
+                <?= $this->ahref(
+                    __('Change password'),
+                    ['users', 'change-password'],
+                    ['class' => 'nav-link' . ($this->module('users') && $this->controller('change-password') ? ' active' : '')]
+                ) ?>
+            </li>
+        <?php endif; ?>
+    </ul>
+</div>

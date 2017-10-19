@@ -14,7 +14,7 @@
     </ul>
     <div class="card-body d-flex justify-content-around">
       <a href="<?= $this->url('users', 'profile', ['id' => $user->id]); ?>" class="btn btn-info dialog col-3"
-         data-ajax-method="get">
+         data-ajax-method="get" data-modal-style="modal-lg">
         <i class="fa fa-id-card"></i> <?=__('Profile')?>
       </a>
       <a href="<?= $this->url('users', 'crud', ['id' => $user->id]) ?>" class="btn btn-primary dialog col-3"

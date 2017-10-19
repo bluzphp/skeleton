@@ -1,18 +1,6 @@
 <?php $uid = uniqid('form_', false); ?>
 <div class="card text-center">
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-          <?= $this->ahref(__('Profile'), ['users', 'profile'], ['class' => 'nav-link']) ?>
-      </li>
-      <li class="nav-item">
-          <?= $this->ahref(__('Change email'), ['users', 'change-email'], ['class' => 'nav-link active']) ?>
-      </li>
-      <li class="nav-item">
-          <?= $this->ahref(__('Change password'), ['users', 'change-password'], ['class' => 'nav-link']) ?>
-      </li>
-    </ul>
-  </div>
+  <?php require_once __DIR__ .'/partial/card-header.phtml' ?>
   <div class="card-body">
     <h4 class="card-title"><?= __('Change email') ?></h4>
     <p class="card-text"><?= __('Email will be changed after confirmation') ?></p>

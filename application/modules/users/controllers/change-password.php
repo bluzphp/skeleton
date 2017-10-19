@@ -36,6 +36,8 @@ return function ($password, $new_password, $new_password2) {
      * @var Users\Row $user
      */
     $user = $this->user();
+    $this->assign('user', $user);
+
     if (Request::isPost()) {
         // process form
         try {
