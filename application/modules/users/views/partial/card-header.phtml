@@ -45,7 +45,7 @@
           <li class="nav-item">
               <?= $this->ahref(
                   __('Wallet'),
-                  ['wallet', 'index'],
+                  ['wallet', 'index', ['id' => $user->id]],
                   ['class' => 'nav-link dialog']
               ) ?>
           </li>
