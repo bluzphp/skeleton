@@ -35,7 +35,7 @@ class ModuleUsers extends AbstractMigration
             ->addColumn('login', 'string', ['length' => 255])
             ->addColumn('email', 'string', ['length' => 255, 'null' => true])
             ->addTimestamps('created', 'updated')
-            ->addColumn('status', 'string', ['length' => 32, 'default' => 'disabled'])
+            ->addColumn('status', 'enum', ['values' => ['disabled', 'pending', 'active', 'deleted']])
             ->addIndex(['login'], ['unique' => true])
             ->addIndex(['email'], ['unique' => true])
             ->create();
