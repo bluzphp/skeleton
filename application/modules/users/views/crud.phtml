@@ -29,9 +29,10 @@ $uid = uniqid('form_', false); ?>
       <label class="col-form-label col-lg-2" for="status"><?= __('Status') ?></label>
       <div class="col-lg-10">
         <select id="status" name="status" class="form-control">
-          <option <?= $row->status == Table::STATUS_ACTIVE ? 'selected' : '' ?>>active</option>
-          <option <?= $row->status == Table::STATUS_DISABLED ? 'selected' : '' ?>>disabled</option>
-          <option <?= $row->status == Table::STATUS_PENDING ? 'selected' : '' ?>>pending</option>
+          <option <?= $row->status === Table::STATUS_PENDING ? 'selected' : '' ?>>pending</option>
+          <option <?= $row->status === Table::STATUS_ACTIVE ? 'selected' : '' ?>>active</option>
+          <option <?= $row->status === Table::STATUS_DISABLED ? 'selected' : '' ?>>disabled</option>
+          <option <?= $row->status === Table::STATUS_DELETED ? 'selected' : '' ?>>deleted</option>
         </select>
       </div>
     </div>

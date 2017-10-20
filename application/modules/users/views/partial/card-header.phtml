@@ -8,13 +8,12 @@
             ) ?>
         </li>
         <?php if ($this->user() && $this->user()->id === $user->id) : // only for user ?>
-
             <?php if ($this->hasModule('profile')) : ?>
                 <li class="nav-item">
                     <?= $this->ahref(
                         __('Change profile'),
                         ['users', 'change-profile'],
-                        [ 'class' => 'nav-link' . ($this->module('users') && $this->controller('change-profile') ? ' active' : '')]
+                        ['class' => 'nav-link' . ($this->module('users') && $this->controller('change-profile') ? ' active' : '')]
                     ) ?>
                 </li>
             <?php endif; ?>
@@ -41,6 +40,15 @@
                     ['class' => 'nav-link' . ($this->module('users') && $this->controller('change-password') ? ' active' : '')]
                 ) ?>
             </li>
+        <?php endif; ?>
+        <?php if ($this->hasModule('wallet')) : ?>
+          <li class="nav-item">
+              <?= $this->ahref(
+                  __('Wallet'),
+                  ['wallet', 'index'],
+                  ['class' => 'nav-link dialog']
+              ) ?>
+          </li>
         <?php endif; ?>
     </ul>
 </div>
