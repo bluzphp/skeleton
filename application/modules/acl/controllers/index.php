@@ -76,10 +76,8 @@ return function () {
             $meta = $controllerInstance->getMeta();
 
 
-            if ($privilege = $meta->getPrivilege()) {
-                if (!in_array($privilege, $set[$module])) {
-                    $set[$module][] = $privilege;
-                }
+            if (($privilege = $meta->getPrivilege()) && !in_array($privilege, $set[$module], true)) {
+                $set[$module][] = $privilege;
             }
 
             if ($acl = $meta->getAcl()) {

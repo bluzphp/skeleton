@@ -9,7 +9,7 @@
   <div class="card-body">
     <div class="card-group">
       <div class="card">
-        <img id="avatar" src="<?= $this->gravatar($user->email, 360) ?>" alt="<?= $user->email ?>">
+        <img class="card-img-top" id="avatar" src="<?= $this->gravatar($user->email, 360) ?>" alt="<?= $user->email ?>">
       </div>
       <div class="card">
           <?php if ($this->hasModule('profile')) : ?>
