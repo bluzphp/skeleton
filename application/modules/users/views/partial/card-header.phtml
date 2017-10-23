@@ -41,7 +41,7 @@
                 ) ?>
             </li>
         <?php endif; ?>
-        <?php if ($this->hasModule('wallet')) : ?>
+        <?php if ($this->hasModule('wallet') && $this->user()->id === $user->id) : ?>
           <li class="nav-item">
               <?= $this->ahref(
                   __('Wallet'),
