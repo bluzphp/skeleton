@@ -34,10 +34,10 @@ define(['jquery', 'popper'], function ($, popper) {
 
   return {
     showLoading: () => {
-      $('#loading').show();
+      $('[data-ajax-loading-show]').show();
     },
     hideLoading: () => {
-      $('#loading').hide();
+      $('[data-ajax-loading-hide]').hide();
     },
     log: (message, text) => {
       if (window.console !== undefined) {
