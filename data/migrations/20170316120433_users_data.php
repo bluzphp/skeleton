@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class DefaultUsers extends AbstractMigration
+class UsersData extends AbstractMigration
 {
     /**
      * Migrate Up.
