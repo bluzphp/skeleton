@@ -16,15 +16,8 @@ return [
     'environments' => [
         'default_migration_table' => 'migrations',
         'default' => (function () {
-            $config = new \Bluz\Config\Config();
-
-            $config->setPath(PATH_APPLICATION);
-            $config->setEnvironment(getenv('BLUZ_ENV') ?: 'production');
-            $config->init();
-
-            $data = $config->getData('db', 'connect');
+            $data = \Bluz\Proxy\Config::getData('db', 'connect');
             $data['adapter'] = $data['type'];
-
             return $data;
         })()
     ]

@@ -5,42 +5,24 @@
  */
 ?>
 <div class="card text-center">
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" href="#"><?= __('Profile') ?></a>
-      </li>
-      <?php if ($this->user() && $this->user()->id == $user->id) : // only for user ?>
-      <?php if ($this->hasModule('media') && false) : // TODO: make possible to change avatar from media library ?>
-      <li class="nav-item">
-          <?= $this->ahref(
-              __('Change avatar'),
-              ['media', 'manager'],
-              ['id' => 'avatar-button', 'class' => 'nav-link dialog', 'data-modal-style' => 'modal-lg']
-          ) ?>
-      </li>
-      <?php endif; ?>
-      <li class="nav-item">
-          <?= $this->ahref(__('Change email'), ['users', 'change-email'], ['class' => 'nav-link']) ?>
-      </li>
-      <li class="nav-item">
-          <?= $this->ahref(__('Change password'), ['users', 'change-password'], ['class' => 'nav-link']) ?>
-      </li>
-      <?php endif; ?>
-    </ul>
-  </div>
+  <?php require_once __DIR__ .'/partial/card-header.phtml' ?>
   <div class="card-body">
     <div class="card-group">
       <div class="card">
-        <img id="avatar" src="<?= $this->gravatar($user->email, 360) ?>" alt="<?= $user->email ?>">
+        <img class="card-img-top" id="avatar" src="<?= $this->gravatar($user->email, 360) ?>" alt="<?= $user->email ?>">
+      </div>
+      <div class="card">
+          <?php if ($this->hasModule('profile')) : ?>
+              <?= $this->dispatch('users', 'widgets/profile', ['id' => $user->id]) ?>
+          <?php endif; ?>
+        <ul class="list-group list-group-flush">
       </div>
       <div class="card">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <h4 class="card-title"><?= $user->login ?></h4></li>
+          <li class="list-group-item"><h4 class="card-title"><?= $user->login ?></h4></li>
           <li class="list-group-item"><a href="mailto:<?= $user->email ?>"><?= $user->email ?></a></li>
           <li class="list-group-item"><?= __('Account status') ?>: <?= $user->status ?></li>
-          <?php if ($this->user() && $this->user()->id == $user->id) : ?>
+          <?php if ($this->user() && $this->user()->id === $user->id) : ?>
             <li class="list-group-item"><?= __('Linking to social networks') ?></li>
             <li class="list-group-item">
                 <?php $this->hasModule('google') && $this->dispatch('google', 'widgets/auth'); ?>
@@ -49,10 +31,6 @@
             </li>
           <?php endif; ?>
         </ul>
-      </div>
-      <div class="card">
-        <div class="card-body">
-        </div>
       </div>
     </div>
   </div>

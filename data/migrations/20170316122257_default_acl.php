@@ -108,11 +108,6 @@ class DefaultAcl extends AbstractMigration
             [
                 'roleId' => 3,
                 'module' => 'users',
-                'privilege' => 'Management'
-            ],
-            [
-                'roleId' => 3,
-                'module' => 'users',
                 'privilege' => 'ViewProfile'
             ],
         ];

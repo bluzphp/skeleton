@@ -36,6 +36,7 @@ return function ($email = null, $password = null, $token = null) {
      * @var Users\Row $user
      */
     $user = $this->user();
+    $this->assign('user', $user);
 
     if (Request::isPost()) {
         // process form

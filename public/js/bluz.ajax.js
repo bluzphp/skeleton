@@ -34,6 +34,8 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
     $.each(data, (key, value) => {
       if (!(typeof value === 'function' ||
           typeof value === 'object' ||
+          key === 'ajaxLoadingShow' ||
+          key === 'ajaxLoadingHide' ||
           key === 'ajaxMethod' ||
           key === 'ajaxSource' ||
           key === 'ajaxTarget' ||
