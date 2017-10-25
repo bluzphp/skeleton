@@ -122,7 +122,7 @@ class ControllerTestCase extends SkeletonTestCase
      */
     protected static function assertRedirect($module, $controller, $params = array(), $code = StatusCode::FOUND)
     {
-        $url = Router::getUrl($module, $controller, $params);
+        $url = Router::getFullUrl($module, $controller, $params);
 
         /**
          * @var RedirectException $exception

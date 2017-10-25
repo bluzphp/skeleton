@@ -7,6 +7,6 @@
  * @return array
  */
 return [
-    'session.use_cookies' => '0',
-    'session.use_only_cookies' => '0',
+//    'session.use_cookies' => '0',
+//    'session.use_only_cookies' => '0',
 ];
