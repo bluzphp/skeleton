@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class DefaultPages extends AbstractMigration
+class PagesData extends AbstractMigration
 {
     /**
      * Migrate Up.

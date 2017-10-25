@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class DefaultAcl extends AbstractMigration
+class AclData extends AbstractMigration
 {
     /**
      * Migrate Up.

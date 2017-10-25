@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class ModulePages extends AbstractMigration
+class Pages extends AbstractMigration
 {
     /**
      * Change Method.
