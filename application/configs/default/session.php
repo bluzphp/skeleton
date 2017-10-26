@@ -13,7 +13,10 @@ return [
             'save_path' => PATH_DATA . '/sessions'
         ],
         'redis' => [
-            'host' => 'localhost'
+            'host' => 'localhost',
+            'port' => 6379,
+            'timeout' => 0,
+            'persistence' => false
         ]
     ]
 ];
