@@ -43,7 +43,7 @@
       </li>
       <?php endif; ?>
     </ul>
-    <div id="loading" data-ajax-loading-show="1" data-ajax-loading-hide="1"></div>
+    <div id="loading" data-ajax-loading-show data-ajax-loading-hide></div>
     <span class="navbar-text">
       <?php if ($identity = $this->user()) : ?>
         <?= __(
@@ -52,7 +52,7 @@
         ) ?>
         (<?= $this->ahref(__('Sign Out'), ['users', 'signout']) ?>)
       <?php else: ?>
-        <?= $this->ahref(__('Sign In'), ['users', 'signin'], ['class' => 'dialog', 'data-ajax-method' => 'get']) ?>
+        <?= $this->ahref(__('Sign In'), ['users', 'signin'], ['data-ajax-dialog', 'data-ajax-method' => 'get']) ?>
       <?php endif; ?>
     </span>
   </div>

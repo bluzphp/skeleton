@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light bg-light">
-  <a href="<?= $this->url('acl', 'roles') ?>" id="create-role" class="btn btn-primary dialog"
-       data-ajax-method="get"><?= __('Create role') ?></a>
+  <a href="<?= $this->url('acl', 'roles') ?>" id="create-role" class="btn btn-primary"
+       data-ajax-dialog data-ajax-method="get"><?= __('Create role') ?></a>
 </nav>
 <hr/>
 <form action="<?= $this->url('acl', 'save') ?>" method="POST">
@@ -13,12 +13,12 @@
           <?= $role->name ?>
           <?php if (!$role->isBasic()) : ?>
             <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
-               class="confirm btn btn-xs btn-danger ajax pull-right" data-ajax-method="delete"><i
+               class="badge badge-danger pull-right" data-confirm data-ajax data-ajax-method="delete"><i
                   class="fa fa-times"></i></a>
             <span class="pull-right">&nbsp;</span>
             <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
-               class="btn btn-xs btn-light dialog pull-right" data-ajax-method="get"
-               title="<?= __("Edit role") ?>"><i class="fa fa-edit"></i></a>
+               class="badge badge-light pull-right" data-ajax-dialog data-ajax-method="get"
+               title="<?= __('Edit role') ?>"><i class="fa fa-edit"></i> <?=__('Edit')?></a>
           <?php endif; ?>
         </th>
         <?php endforeach; ?>
@@ -38,8 +38,9 @@
             <input class="form-check-input" type="checkbox" name="acl[<?= $role->id ?>][<?= $module ?>][<?= $privilege ?>]" value="1"
                 <?= ((isset($privileges[$role->id], $privileges[$role->id][$module]) && in_array(
                         $privilege,
-                        $privileges[$role->id][$module]
-                    )) ? "checked" : "") ?>
+                        $privileges[$role->id][$module],
+                        false
+                    )) ? 'checked' : '') ?>
                 <?= ($role->name === \Application\Roles\Table::BASIC_GUEST ? 'disabled' : '') ?>
             />
           </label>
@@ -55,11 +56,11 @@
 <script>
     require(['jquery'], function ($) {
         $(function () {
-            $('#create-role, table a.dialog').on('success.bluz.dialog', function () {
+            $('#create-role, table a[data-ajax-dialog]').on('success.bluz.dialog', function () {
                 // reload current page on create/edit
                 window.location.reload();
             });
-            $('table a.confirm').on('success.bluz.ajax', function () {
+            $('table a[data-confirm]').on('success.bluz.ajax', function () {
                 // reload current page on delete
                 window.location.reload();
             });

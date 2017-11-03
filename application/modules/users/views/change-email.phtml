@@ -6,7 +6,7 @@
     <p class="card-text"><?= __('Email will be changed after confirmation') ?></p>
     <div class="card w-50 center">
       <div class="card-body">
-        <form id="<?= $uid ?>" action="<?= $this->url('users', 'change-email') ?>" class="ajax form-horizontal" method="POST">
+        <form id="<?= $uid ?>" action="<?= $this->url('users', 'change-email') ?>" class="form-horizontal" data-ajax method="POST">
           <div class="form-group">
             <label class="sr-only" for="email"><?= __('Email') ?></label>
             <div class="input-group">

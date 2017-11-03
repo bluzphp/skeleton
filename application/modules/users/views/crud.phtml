@@ -3,7 +3,7 @@ use Application\Users\Table;
 
 $uid = uniqid('form_', false); ?>
 
-<form id="<?= $uid ?>" action="<?= $this->url('users', 'crud') ?>" class="form-horizontal ajax" method="<?= $method ?>">
+<form id="<?= $uid ?>" action="<?= $this->url('users', 'crud') ?>" class="form-horizontal" data-ajax method="<?= $method ?>">
   <input type="hidden" name="id" value="<?= $row->id ?>"/>
   <div class="modal-header">
     <h4 class="modal-title"><?= __('Edit user') ?></h4>

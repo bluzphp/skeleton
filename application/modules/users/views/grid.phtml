@@ -14,13 +14,13 @@ if (!$grid) {
 <div class="clearfix" data-spy="grid" data-grid="<?= $grid->getUid() ?>">
   <nav class="navbar navbar-light bg-light justify-content-between">
     <div>
-      <a href="<?= $grid->filter('roleId', 'eq', '', true) ?>"
-         class="btn btn-secondary ajax <?= (null === $grid->getFilter('roleId', 'eq') ? 'btn-info' : '') ?>">
+      <a href="<?= $grid->filter('roleId', 'eq', '', true) ?>" data-ajax
+         class="btn btn-secondary <?= (null === $grid->getFilter('roleId', 'eq') ? 'btn-info' : '') ?>">
           <?= __('all') ?>
       </a>
       <?php foreach ($roles as $role) : ?>
-      <a href="<?= $grid->filter('roleId', 'eq', $role['id']) ?>"
-         class="btn btn-secondary ajax <?= ($role['id'] === $grid->getFilter('roleId', 'eq')? 'btn-info' : '') ?>">
+      <a href="<?= $grid->filter('roleId', 'eq', $role['id']) ?>" data-ajax
+         class="btn btn-secondary <?= ($role['id'] === $grid->getFilter('roleId', 'eq')? 'btn-info' : '') ?>">
           <?= $role['name'] ?>
       </a>
       <?php endforeach; ?>
@@ -70,16 +70,16 @@ if (!$grid) {
         <td><?= $row['rolesList'] ?></td>
         <td><?= $row['status'] ?></td>
         <td class="controls">
-          <a href="<?= $this->url('acl', 'user', ['id' => $row['id']]); ?>" class="btn btn-secondary btn-xs dialog"
-             data-ajax-method="get">
+          <a href="<?= $this->url('acl', 'user', ['id' => $row['id']]); ?>" class="btn btn-secondary"
+             data-ajax-dialog data-ajax-method="get">
             <i class="fa fa-lock"></i>
           </a>
-          <a href="<?= $this->url('users', 'crud', ['id' => $row['id']]) ?>" class="btn btn-primary btn-xs dialog"
-             data-ajax-method="get">
+          <a href="<?= $this->url('users', 'crud', ['id' => $row['id']]) ?>" class="btn btn-primary"
+             data-ajax-dialog data-ajax-method="get">
             <i class="fa fa-pencil"></i>
           </a>
-          <a href="<?= $this->url('users', 'crud', ['id' => $row['id']]) ?>" class="confirm btn btn-xs btn-danger ajax"
-             data-ajax-method="delete">
+          <a href="<?= $this->url('users', 'crud', ['id' => $row['id']]) ?>" class="btn btn-danger"
+             data-confirm data-ajax data-ajax-method="delete">
             <i class="fa fa-trash-o"></i>
           </a>
         </td>

@@ -17,11 +17,7 @@ define(['jquery', 'popper'], function ($, popper) {
     $(function () {
       // TODO: require other modules if needed
       if ($.fn.tooltip) {
-        $('.bluz-tooltip').tooltip();
-      }
-
-      if ($.fn.affix) {
-        $('.bluz-affix').affix();
+        $('[data-toggle="tooltip"]').tooltip();
       }
 
       // remove FB API's anchor #_=_

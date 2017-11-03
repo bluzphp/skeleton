@@ -8,7 +8,7 @@
   <h3 class="modal-title"><?= __('Please sign in') ?></h3>
 </div>
 <div class="modal-body">
-  <form action="<?= $this->url('users', 'signin') ?>" method="post" class="ajax">
+  <form action="<?= $this->url('users', 'signin') ?>" method="post" data-ajax>
     <div class="form-group input-group">
       <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
       <label class="col-form-label sr-only" for="login"><?= __('Login') ?></label>

@@ -34,12 +34,8 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
     $.each(data, (key, value) => {
       if (!(typeof value === 'function' ||
           typeof value === 'object' ||
-          key === 'ajaxLoadingShow' ||
-          key === 'ajaxLoadingHide' ||
-          key === 'ajaxMethod' ||
-          key === 'ajaxSource' ||
-          key === 'ajaxTarget' ||
-          key === 'ajaxType')) {
+          key.indexOf('ajax') === 0 ||
+          key === 'confirm')) {
         plain[key] = value;
       }
     });
@@ -157,33 +153,33 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
        * Confirmation dialog
        * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#confirm-dialog
        */
-      .on('click.bluz.confirm', '.confirm', confirmDialog)
+      .on('click.bluz.confirm', '[data-confirm]', confirmDialog)
       /**
        * Call link by XMLHTTPRequest
        * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#ajax-links
        */
-      .on('click.bluz.ajax', 'a.ajax', ajaxLink)
+      .on('click.bluz.ajax', 'a[data-ajax]', ajaxLink)
       /**
        * Send form by XMLHTTPRequest
        * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#ajax-form
        */
-      .on('submit.bluz.ajax', 'form.ajax', ajaxForm)
+      .on('submit.bluz.ajax', 'form[data-ajax]', ajaxForm)
       /**
        * Load HTML content by XMLHTTPRequest
        * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#ajax-load
        */
-      .on('change.bluz.ajax', '.load', ajaxLoad)
-      .on('click.bluz.ajax', '.load', ajaxLoad)
+      .on('change.bluz.ajax', '[data-ajax-load]', ajaxLoad)
+      .on('click.bluz.ajax', '[data-ajax-load]', ajaxLoad)
       /**
        * Load HTML content by XMLHTTPRequest into modal dialog
        * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#modal-dialog
        */
-      .on('click.bluz.ajax', '.dialog', ajaxDialog)
+      .on('click.bluz.ajax', '[data-ajax-dialog]', ajaxDialog)
       /**
        * Image popup preview
        * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#image-preview
        */
-      .on('click.bluz.preview', '.bluz-preview', imagePreview);
+      .on('click.bluz.preview', '[data-ajax-preview]', imagePreview);
 
 
     function ajaxDialog(event) {
@@ -213,7 +209,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
 
       let $this = $(this);
 
-      let source = $this.data('ajax-source') || $this.attr('href');
+      let source = $this.data('ajax-load') || $this.attr('href');
       if (!source) {
         throw new Error('Undefined `data-ajax-source` attribute (and href is missing)');
       }

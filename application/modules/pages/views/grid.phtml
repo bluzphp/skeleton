@@ -13,8 +13,8 @@ if (!$grid) {
 
 <div class="clearfix table-responsive" data-spy="grid" data-grid="<?= $grid->getUid() ?>">
   <nav class="navbar navbar-light bg-light justify-content-between">
-    <a href="<?= $this->url('pages', 'crud') ?>" class="btn btn-primary dialog"
-       data-ajax-method="get" data-modal-style="modal-lg">
+    <a href="<?= $this->url('pages', 'crud') ?>" class="btn btn-primary"
+       data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
         <?= __('Create') ?>
     </a>
     <form action="<?= $this->url('pages', 'grid') ?>" class="form-inline filter-form">
@@ -65,12 +65,12 @@ if (!$grid) {
         <td><?= $row['created'] ?></td>
         <td><?= $row['updated'] ?></td>
         <td class="controls">
-          <a href="<?= $this->url('pages', 'crud', ['id' => $row['id']]) ?>" class="btn btn-primary btn-xs dialog"
-             data-ajax-method="get" data-modal-style="modal-lg">
+          <a href="<?= $this->url('pages', 'crud', ['id' => $row['id']]) ?>" class="btn btn-primary"
+             data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
             <i class="fa fa-pencil"></i>
           </a>
-          <a href="<?= $this->url('pages', 'crud', ['id' => $row['id']]) ?>" class="confirm btn btn-xs btn-danger ajax"
-             data-ajax-method="delete">
+          <a href="<?= $this->url('pages', 'crud', ['id' => $row['id']]) ?>" class="btn btn-danger"
+             data-confirm data-ajax data-ajax-method="delete">
             <i class="fa fa-trash-o"></i>
           </a>
         </td>
