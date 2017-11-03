@@ -168,8 +168,8 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
        * Load HTML content by XMLHTTPRequest
        * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#ajax-load
        */
-      .on('change.bluz.ajax', '[data-ajax-load]', ajaxLoad)
-      .on('click.bluz.ajax', '[data-ajax-load]', ajaxLoad)
+      .on('change.bluz.ajax', 'select[data-ajax-load]', ajaxLoad)
+      .on('click.bluz.ajax', 'a[data-ajax-load], button[data-ajax-load]', ajaxLoad)
       /**
        * Load HTML content by XMLHTTPRequest into modal dialog
        * @link https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes#modal-dialog
@@ -209,7 +209,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
 
       let $this = $(this);
 
-      let source = $this.data('ajax-load') || $this.attr('href');
+      let source = $this.data('ajax-source') || $this.attr('href');
       if (!source) {
         throw new Error('Undefined `data-ajax-source` attribute (and href is missing)');
       }
