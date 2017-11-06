@@ -8,7 +8,7 @@
  * @created  26.11.12 12:51
  */
 /* global define,require*/
-define(['jquery', 'bootstrap'], function ($) {
+define(['jquery'], function ($) {
   'use strict';
 
   // static validator

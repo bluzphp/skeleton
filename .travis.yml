@@ -32,7 +32,7 @@ script:
   # Run built-in web-server
   - php vendor/bin/bluzman server:start --host 127.0.0.1 -b -e testing
   # Run CodeCeption tests
-  - php vendor/bin/codecept run --coverage --coverage-xml -vvv
+  - php vendor/bin/codecept run --coverage --coverage-xml -v
   # Run postman/newman tests
   - newman run tests/postman/collection.json -e tests/postman/environment.json
 after_success:

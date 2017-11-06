@@ -3,4 +3,4 @@
 $I = new AcceptanceTester($scenario);
 $I->wantTo('sign in as administrator');
 $I->amAdmin();
-$I->see('You are signed');
+$I->see('Logged in as admin');

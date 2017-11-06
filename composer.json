@@ -32,7 +32,7 @@
         "version": "dev-master",
         "license": "Apache-2.0",
         "dist":{
-          "url":"https://github.com/swagger-api/swagger-ui/archive/v3.2.1.zip",
+          "url":"https://github.com/swagger-api/swagger-ui/archive/v3.4.3.zip",
           "type":"zip"
         },
         "extra": {
