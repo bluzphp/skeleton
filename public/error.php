@@ -65,6 +65,7 @@ $debug = getenv('BLUZ_DEBUG') && isset($_COOKIE['BLUZ_DEBUG']);
     <h2>Server Temporarily Unavailable</h2>
     <?php if ($debug && isset($e)) : ?>
         <p><?=$e->getMessage()?></p>
+        <code><?=$e->getFile()?>:<?=$e->getLine()?></code>
         <pre><?=$e->getTraceAsString()?></pre>
     <?php endif;?>
 </section>

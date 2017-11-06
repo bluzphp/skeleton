@@ -22,7 +22,7 @@
                 <?= $this->ahref(
                     __('Change avatar'),
                     ['media', 'manager'],
-                    ['id' => 'avatar-button', 'class' => 'nav-link dialog', 'data-modal-style' => 'modal-lg']
+                    ['id' => 'avatar-button', 'class' => 'nav-link', 'data-ajax-dialog', 'data-modal-style' => 'modal-lg']
                 ) ?>
             </li>
             <?php endif; ?>
@@ -46,7 +46,7 @@
               <?= $this->ahref(
                   __('Wallet'),
                   ['wallet', 'index', ['id' => $user->id]],
-                  ['class' => 'nav-link dialog']
+                  ['class' => 'nav-link', 'data-ajax-dialog']
               ) ?>
           </li>
         <?php endif; ?>

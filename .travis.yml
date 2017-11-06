@@ -22,15 +22,15 @@ before_script:
   # Database
   - mysql -e 'CREATE DATABASE bluz;'
   # Migrations
-  - php vendor/bin/bluzman db:migrate
-  - php vendor/bin/bluzman db:seed:run
+  - php vendor/bin/bluzman db:migrate -e testing
+  - php vendor/bin/bluzman db:seed:run -e testing
   # Make directory for reports
   - mkdir .reports
 script:
   # Check code style
   - php vendor/bin/phpcs ./application --standard=PSR1,PSR2 --encoding=utf-8 --ignore=./application/_loader.php
   # Run built-in web-server
-  - php vendor/bin/bluzman server:start --host 127.0.0.1 -b
+  - php vendor/bin/bluzman server:start --host 127.0.0.1 -b -e testing
   # Run CodeCeption tests
   - php vendor/bin/codecept run --coverage --coverage-xml -v
   # Run postman/newman tests
