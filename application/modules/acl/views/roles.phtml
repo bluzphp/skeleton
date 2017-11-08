@@ -1,3 +1,4 @@
+<?php /** @var \Bluz\View\View $this */ ?>
 <?php $uid = uniqid('form_', false); ?>
 <form id="<?= $uid ?>" action="<?= $this->url('acl', 'roles') ?>" class="form-horizontal" data-ajax method="<?= $method ?>">
   <input type="hidden" name="id" value="<?= $row->id ?>"/>

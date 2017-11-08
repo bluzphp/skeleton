@@ -12,7 +12,7 @@ define(['jquery', 'popper'], function ($, popper) {
 
   // TODO: fix this after release new version of boostrap
   // @link https://github.com/twbs/bootstrap/issues/23381#issuecomment-330850892
-  require(['bootstrap'], function() {
+  require(['bootstrap'], function () {
     // do nothing - just let Bootstrap initialise itself
     $(function () {
       // TODO: require other modules if needed
@@ -29,12 +29,6 @@ define(['jquery', 'popper'], function ($, popper) {
   });
 
   return {
-    showLoading: () => {
-      $('[data-ajax-loading-show]').show();
-    },
-    hideLoading: () => {
-      $('[data-ajax-loading-hide]').hide();
-    },
     log: (message, text) => {
       if (window.console !== undefined) {
         window.console.log(message, text);

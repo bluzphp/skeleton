@@ -2,11 +2,11 @@
  * Declarative AJAX development
  *
  * <code>
- *  <a href="/get" class="ajax">Click Me!</a>
- *  <a href="/dialog" class="dialog">Click Me!</a>
- *  <a href="/delete" class="confirm" data-confirm="Are you sure?">Click Me!</a>
- *  <a href="/delete" class="ajax confirm" data-id="3" data-ajax-method="DELETE">Click Me!</a>
- *  <form action="/save/" class="ajax">
+ *  <a href="/get" data-ajax">Click Me!</a>
+ *  <a href="/dialog" data-ajax-dialog>Click Me!</a>
+ *  <a href="/delete" data-confirm="Are you sure?">Click Me!</a>
+ *  <a href="/delete" data-confirm data-ajax data-ajax-method="DELETE" data-id="3">Click Me!</a>
+ *  <form action="/save/" data-ajax>
  *    ...
  *  </form>
  *  <source>
@@ -22,6 +22,15 @@
 /* global define,require,window,document*/
 define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal, notify) {
   'use strict';
+
+  let ajax = {
+    showLoading: () => {
+      $('[data-ajax-loading]').show();
+    },
+    hideLoading: () => {
+      $('[data-ajax-loading]').hide();
+    }
+  };
 
   /**
    * Repack data to simple hash
@@ -95,7 +104,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
      * @link http://api.jquery.com/ajaxStop/
      */
     $(document)
-      .ajaxStart(bluz.showLoading)
+      .ajaxStart(ajax.showLoading)
       .ajaxSend(function (event, jqXHR, options) {
         let $element = $(options.context);
         if ($element.hasClass('disabled')) {
@@ -106,8 +115,8 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
       })
       .ajaxSuccess(function (event, jqXHR, options) {
         try {
-          let $element = $(options.context);
-          $element.trigger('success.bluz.ajax', arguments);
+          // trigger `success.bluz.ajax` event
+          $(options.context).trigger('success.bluz.ajax', arguments);
 
           // try to get messages from headers
           extractNotifyHeader(jqXHR);
@@ -120,8 +129,8 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
       })
       .ajaxError(function (event, jqXHR, options, thrownError) {
         try {
-          let $element = $(options.context);
-          $element.trigger('error.bluz.ajax', arguments);
+          // trigger `error.bluz.ajax` event
+          $(options.context).trigger('error.bluz.ajax', arguments);
 
           // try to get messages from headers
           extractNotifyHeader(jqXHR);
@@ -142,10 +151,9 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
         }
       })
       .ajaxComplete(function (event, jqXHR, options) {
-        let $element = $(options.context);
-        $element.removeClass('disabled');
+        $(options.context).removeClass('disabled');
       })
-      .ajaxStop(bluz.hideLoading);
+      .ajaxStop(ajax.hideLoading);
 
     // live event handlers
     $('body')
@@ -292,25 +300,22 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
       event.preventDefault();
 
       let $this = $(this);
-
       let url = $this.is('a') ? $this.attr('href') : $this.data('preview');
 
       if (!url) {
-        event.preventDefault();
         return;
       }
 
-      let $img = $('<img>', {'src': url, 'class': 'img-polaroid'});
+      let $img = $('<img>', {'src': url, 'class': 'img-thumbnail'});
       $img.css({
         width: '100%',
         margin: '0 auto',
         display: 'block'
       });
 
-      let $span = $('<span>', {'class': 'thumbnail'});
-      $span.append($img);
-
-      modal.create($this, $span, '').modal('show');
+      modal.create($this, $img, '').modal('show');
     }
   });
+
+  return ajax;
 });
