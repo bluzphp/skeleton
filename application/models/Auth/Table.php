@@ -11,10 +11,10 @@ namespace Application\Auth;
 use Application\Exception;
 use Application\Users;
 use Bluz\Application;
-use Bluz\Auth\AbstractTable;
+
 use Bluz\Auth\AuthException;
+use Bluz\Auth\Model\AbstractTable;
 use Bluz\Proxy\Auth;
-use Bluz\Proxy\Session;
 
 /**
  * Auth Table
@@ -22,9 +22,9 @@ use Bluz\Proxy\Session;
  * @package  Application\Auth
  *
  * @method   static Row findRow($primaryKey)
- * @see \Bluz\Db\Table::findRow()
+ * @see      \Bluz\Db\Table::findRow()
  * @method   static Row findRowWhere($whereList)
- * @see \Bluz\Db\Table::findRowWhere()
+ * @see      \Bluz\Db\Table::findRowWhere()
  *
  * @author   Anton Shevchuk
  * @created  12.07.11 15:28
@@ -39,7 +39,7 @@ class Table extends AbstractTable
      * @throws \Application\Exception
      * @return string
      */
-    public static function hash($password)
+    public static function hash($password) : string
     {
         $hash = Auth::getInstance()->getOption('hash');
 
@@ -58,9 +58,9 @@ class Table extends AbstractTable
      * @param string $hash
      *
      * @throws \Application\Exception
-     * @return string
+     * @return bool
      */
-    public static function verify($password, $hash)
+    public static function verify($password, $hash) : bool
     {
         $verify = Auth::getInstance()->getOption('verify');
 
@@ -79,7 +79,7 @@ class Table extends AbstractTable
      *
      * @throws AuthException
      */
-    public static function tryLogin($user)
+    public static function tryLogin($user) : void
     {
         switch ($user->status) {
             case (Users\Table::STATUS_PENDING):

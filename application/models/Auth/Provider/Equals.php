@@ -23,7 +23,7 @@ class Equals extends AbstractProvider
 {
     const PROVIDER = Table::PROVIDER_EQUALS;
 
-    public static function authenticate($username, $password = '')
+    public static function authenticate($username, $password = '') : void
     {
         $authRow = self::verify($username, $password);
         $user = UsersTable::findRow($authRow->userId);

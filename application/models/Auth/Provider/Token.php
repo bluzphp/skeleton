@@ -24,7 +24,7 @@ class Token extends AbstractProvider
 {
     const PROVIDER = Table::PROVIDER_TOKEN;
 
-    public static function authenticate($token)
+    public static function authenticate($token) : void
     {
         $authRow = self::verify($token);
         $user = UsersTable::findRow($authRow->userId);

@@ -120,7 +120,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param int $code
      * @return void
      */
-    protected static function assertRedirect($module, $controller, $params = array(), $code = StatusCode::FOUND)
+    protected static function assertRedirect($module, $controller, $params = [], $code = StatusCode::FOUND)
     {
         $url = Router::getFullUrl($module, $controller, $params);
 
@@ -225,7 +225,7 @@ class ControllerTestCase extends SkeletonTestCase
      */
     protected static function assertErrorMessage($text = null)
     {
-        self::checkMessage(MessagesInstance::TYPE_ERROR, $text);
+        self::checkMessage('error', $text);
     }
 
     /**
@@ -236,7 +236,7 @@ class ControllerTestCase extends SkeletonTestCase
      */
     protected static function assertNoticeMessage($text = null)
     {
-        self::checkMessage(MessagesInstance::TYPE_NOTICE, $text);
+        self::checkMessage('notice', $text);
     }
 
     /**
@@ -247,7 +247,7 @@ class ControllerTestCase extends SkeletonTestCase
      */
     protected static function assertSuccessMessage($text = null)
     {
-        self::checkMessage(MessagesInstance::TYPE_SUCCESS, $text);
+        self::checkMessage('success', $text);
     }
 
     /**

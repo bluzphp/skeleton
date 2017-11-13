@@ -54,9 +54,9 @@ class Row extends \Bluz\Db\Row
     /**
      * {@inheritdoc}
      *
-     * @return void
+     * @throws \Bluz\Validator\Exception\ComponentException
      */
-    public function beforeSave()
+    public function beforeSave() : void
     {
         // title validator
         $this->addValidator('title')
@@ -104,7 +104,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    public function beforeInsert()
+    public function beforeInsert() : void
     {
         $this->created = gmdate('Y-m-d H:i:s');
 
@@ -121,7 +121,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    public function beforeUpdate()
+    public function beforeUpdate() : void
     {
         $this->updated = gmdate('Y-m-d H:i:s');
     }

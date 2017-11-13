@@ -38,12 +38,17 @@ class Table extends \Bluz\Db\Table
      *
      * @var array
      */
-    protected $primary = array('id');
+    protected $primary = ['id'];
 
     /**
      * @var array
      */
-    protected $basicRoles = [self::BASIC_ADMIN, self::BASIC_GUEST, self::BASIC_MEMBER, self::BASIC_SYSTEM];
+    protected $basicRoles = [
+        self::BASIC_ADMIN,
+        self::BASIC_GUEST,
+        self::BASIC_MEMBER,
+        self::BASIC_SYSTEM
+    ];
 
     /**
      * Init table relations
@@ -89,7 +94,7 @@ class Table extends \Bluz\Db\Table
             'SELECT r.*
             FROM acl_roles AS r, acl_users_roles AS u2r
             WHERE r.id = u2r.roleId AND u2r.userId = ?',
-            array($userId)
+            [$userId]
         );
         return $data;
     }
@@ -110,7 +115,7 @@ class Table extends \Bluz\Db\Table
                 FROM acl_roles AS r, acl_users_roles AS u2r
                 WHERE r.id = u2r.roleId AND u2r.userId = ?
                 ORDER BY r.id ASC',
-                array($userId)
+                [$userId]
             );
             Cache::set($cacheKey, $data, Cache::TTL_NO_EXPIRY, ['system', 'users', 'roles']);
         }

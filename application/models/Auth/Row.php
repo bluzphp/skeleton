@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Application\Auth;
 
-use Bluz\Auth\AbstractRow;
+use Bluz\Auth\Model\AbstractRow;
 
 /**
  * Auth Row
@@ -24,21 +24,17 @@ use Bluz\Auth\AbstractRow;
 class Row extends AbstractRow
 {
     /**
-     * __insert
-     *
-     * @return void
+     * {@inheritdoc}
      */
-    public function beforeInsert()
+    public function beforeInsert() : void
     {
         $this->created = gmdate('Y-m-d H:i:s');
     }
 
     /**
-     * __update
-     *
-     * @return void
+     * {@inheritdoc}
      */
-    public function beforeUpdate()
+    public function beforeUpdate() : void
     {
         $this->updated = gmdate('Y-m-d H:i:s');
     }

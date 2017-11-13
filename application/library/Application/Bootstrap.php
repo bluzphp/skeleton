@@ -11,6 +11,7 @@ namespace Application;
 use Application\Auth;
 use Bluz\Application\Application;
 use Bluz\Application\Exception\ForbiddenException;
+use Bluz\Application\Exception\RedirectException;
 use Bluz\Auth\AuthException;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Auth as AuthProxy;
@@ -36,7 +37,7 @@ class Bootstrap extends Application
     /**
      * {@inheritdoc}
      */
-    protected function preProcess()
+    protected function preProcess() : void
     {
         parent::preProcess();
 
@@ -56,7 +57,7 @@ class Bootstrap extends Application
      * @throws \Bluz\Auth\AuthException
      * @throws \InvalidArgumentException
      */
-    protected function preDispatch($controller)
+    protected function preDispatch($controller) : void
     {
         // example of setup default title
         Layout::title('Bluz Skeleton');
@@ -84,7 +85,7 @@ class Bootstrap extends Application
      *
      * @return \Bluz\Controller\Controller|null
      */
-    public function forbidden(ForbiddenException $exception)
+    public function forbidden(ForbiddenException $exception) : ?Controller
     {
         // for AJAX and API calls (over JSON)
         $jsonOrApi = Request::isXmlHttpRequest()
@@ -97,8 +98,9 @@ class Bootstrap extends Application
             // add error notice
             Messages::addError('You don\'t have permissions, please sign in');
             // redirect to Sign In page
-            $url = Router::getUrl('users', 'signin');
-            return $this->redirect($url);
+            $redirect = new RedirectException();
+            $redirect->setUrl(Router::getUrl('users', 'signin'));
+            return $this->redirect($redirect);
         }
         return $this->error($exception);
     }
@@ -108,7 +110,7 @@ class Bootstrap extends Application
      *
      * @return void
      */
-    public function render()
+    public function render() : void
     {
         Logger::info('app:render');
         Logger::info('app:files:' . count(get_included_files()));
@@ -130,7 +132,7 @@ class Bootstrap extends Application
      *
      * @return void
      */
-    public function end()
+    public function end() : void
     {
         if ($errors = Logger::get('error')) {
             $this->sendErrors($errors);
@@ -142,7 +144,7 @@ class Bootstrap extends Application
      *
      * @return void
      */
-    protected function sendInfoHeaders()
+    protected function sendInfoHeaders() : void
     {
         $debugString = sprintf(
             '%fsec; %skb',
@@ -167,7 +169,7 @@ class Bootstrap extends Application
      *
      * @return void
      */
-    protected function sendErrors($errors)
+    protected function sendErrors($errors) : void
     {
         foreach ($errors as $message) {
             errorLog(new \ErrorException($message, 0, E_USER_ERROR));

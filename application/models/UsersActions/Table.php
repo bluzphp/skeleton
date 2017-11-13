@@ -40,7 +40,7 @@ class Table extends \Bluz\Db\Table
      *
      * @var array
      */
-    protected $primary = array('userId', 'code');
+    protected $primary = ['userId', 'code'];
 
     /**
      * generate action with token

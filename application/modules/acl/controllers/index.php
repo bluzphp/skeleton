@@ -29,10 +29,10 @@ return function () {
         ]
     );
 
-    $set = array();
+    $set = [];
     $path = PATH_APPLICATION . '/modules';
     $directoryIterator = new \DirectoryIterator($path);
-    $modules = array();
+    $modules = [];
 
     foreach ($directoryIterator as $directory) {
         if ($directory->isDot() || !$directory->isDir()) {
@@ -90,7 +90,7 @@ return function () {
     $this->assign('set', $set);
 
     $privilegesRowset = Privileges\Table::getInstance()->getPrivileges();
-    $privileges = array();
+    $privileges = [];
 
     foreach ($privilegesRowset as $privilege) {
         array_add($privileges, $privilege->roleId, $privilege->module, $privilege->privilege);

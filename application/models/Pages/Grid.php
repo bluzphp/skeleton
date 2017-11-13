@@ -23,9 +23,9 @@ class Grid extends \Bluz\Grid\Grid
     protected $uid = 'pages';
 
     /**
-     * init
+     * {@inheritdoc}
      *
-     * @return self
+     * @throws \Bluz\Grid\GridException
      */
     public function init()
     {
@@ -37,7 +37,5 @@ class Grid extends \Bluz\Grid\Grid
         $this->setDefaultLimit(25);
         $this->setAllowOrders(['title', 'id', 'created', 'updated']);
         $this->setAllowFilters(['title', 'alias', 'description', 'content', 'id']);
-
-        return $this;
     }
 }

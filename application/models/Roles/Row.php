@@ -23,11 +23,11 @@ class Row extends \Bluz\Db\Row
     use Validator;
 
     /**
-     * Before Insert/Update
+     * {@inheritdoc}
      *
-     * @return void
+     * @throws \Bluz\Validator\Exception\ComponentException
      */
-    protected function beforeInsert()
+    protected function beforeInsert() : void
     {
         $this->addValidator('name')
             ->required()
@@ -41,11 +41,11 @@ class Row extends \Bluz\Db\Row
     }
 
     /**
-     * Before Update
+     * {@inheritdoc}
      *
-     * @return void
+     * @throws \Bluz\Validator\Exception\ComponentException
      */
-    protected function beforeUpdate()
+    protected function beforeUpdate() : void
     {
         $this->addValidator('name')
             ->required()

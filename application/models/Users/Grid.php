@@ -22,9 +22,9 @@ class Grid extends \Bluz\Grid\Grid
     protected $uid = 'users';
 
     /**
-     * init
+     * {@inheritdoc}
      *
-     * @return self
+     * @throws \Bluz\Grid\GridException
      */
     public function init()
     {

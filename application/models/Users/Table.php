@@ -13,8 +13,8 @@ namespace Application\Users;
  *
  * @package  Application\Users
  *
- * @method   static Row findRow($primaryKey)
- * @method   static Row findRowWhere($whereList)
+ * @method   static ?Row findRow($primaryKey)
+ * @method   static ?Row findRowWhere($whereList)
  *
  * @author   Anton Shevchuk
  * @created  08.07.11 17:36
@@ -54,7 +54,7 @@ class Table extends \Bluz\Db\Table
      *
      * @var array
      */
-    protected $primary = array('id');
+    protected $primary = ['id'];
 
     /**
      * Init table relations

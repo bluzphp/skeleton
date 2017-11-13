@@ -10,7 +10,7 @@ namespace Application\Users;
 
 use Application\Privileges;
 use Application\Roles;
-use Bluz\Auth\AbstractRowEntity;
+use Bluz\Auth\AbstractIdentity;
 use Bluz\Validator\Traits\Validator;
 
 /**
@@ -33,7 +33,7 @@ use Bluz\Validator\Traits\Validator;
  * @SWG\Property(property="updated", type="string", format="date-time", example="2017-01-01 20:17:01")
  * @SWG\Property(property="status", type="string", enum={"pending", "active", "disabled", "deleted"})
  */
-class Row extends AbstractRowEntity
+class Row extends AbstractIdentity
 {
     use Validator;
 
@@ -45,9 +45,12 @@ class Row extends AbstractRowEntity
     protected $privileges;
 
     /**
-     * @return void
+     * {@inheritdoc}
+     *
+     * @throws \Bluz\Validator\Exception\ComponentException
+     * @throws \Bluz\Db\Exception\TableNotFoundException
      */
-    public function beforeSave()
+    public function beforeSave() : void
     {
         $this->email = strtolower($this->email ?? '');
 
@@ -94,7 +97,7 @@ class Row extends AbstractRowEntity
     /**
      * @return void
      */
-    public function beforeInsert()
+    public function beforeInsert() : void
     {
         $this->created = gmdate('Y-m-d H:i:s');
     }
@@ -102,7 +105,7 @@ class Row extends AbstractRowEntity
     /**
      * @return void
      */
-    public function beforeUpdate()
+    public function beforeUpdate() : void
     {
         $this->updated = gmdate('Y-m-d H:i:s');
     }
@@ -118,7 +121,7 @@ class Row extends AbstractRowEntity
     /**
      * {@inheritdoc}
      */
-    public function getPrivileges(): array
+    public function getPrivileges() : array
     {
         if (!$this->privileges) {
             $this->privileges = Privileges\Table::getInstance()->getUserPrivileges($this->id);
@@ -133,10 +136,10 @@ class Row extends AbstractRowEntity
      *
      * @return boolean
      */
-    public function hasRole($roleId)
+    public function hasRole($roleId) : bool
     {
         $roles = Roles\Table::getInstance()->getUserRolesIdentity($this->id);
 
-        return in_array($roleId, $roles);
+        return in_array($roleId, $roles, false);
     }
 }

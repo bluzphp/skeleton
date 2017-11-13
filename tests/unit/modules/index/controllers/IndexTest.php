@@ -10,7 +10,7 @@
 namespace Application\Tests\Index;
 
 use Application\Tests\ControllerTestCase;
-use Bluz\Router\Router;
+use Bluz\Proxy\Router;
 
 /**
  * @group    index
@@ -27,8 +27,8 @@ class IndexTest extends ControllerTestCase
     public function testIndexPage()
     {
         $this->dispatch('/');
-        self::assertModule(Router::DEFAULT_MODULE);
-        self::assertController(Router::DEFAULT_CONTROLLER);
+        self::assertModule(Router::getDefaultModule());
+        self::assertController(Router::getDefaultController());
         self::assertQueryContentContains('h1', 'Congratulations!');
     }
 }
