@@ -37,7 +37,7 @@ class Table extends \Bluz\Db\Table
      *
      * @return void
      */
-    public function init()
+    public function init() : void
     {
         $this->linkTo('userId', 'Users', 'id');
         $this->linkTo('roleId', 'Roles', 'id');

@@ -24,7 +24,6 @@ return
          */
         if ($user = Auth::getIdentity()) {
             return $user->login;
-        } else {
-            return __('Guest');
         }
+        return __('Guest');
     };

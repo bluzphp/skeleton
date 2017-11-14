@@ -22,11 +22,11 @@ class IndexTest extends ControllerTestCase
 {
     /**
      * Dispatch controller only, w/out application
-     * @expectedException \Bluz\Application\Exception\NotFoundException
+     * @expectedException \Bluz\Http\Exception\NotFoundException
      */
     public function testNotFoundPage()
     {
-        $this->getApp()->dispatch('pages', 'index', ['alias' => uniqid('random_name_', true)]);
+        self::getApp()->dispatch('pages', 'index', ['alias' => uniqid('random_name_', true)]);
     }
 
     /**

@@ -10,10 +10,10 @@ namespace Application;
 
 use Application\Auth;
 use Bluz\Application\Application;
-use Bluz\Application\Exception\ForbiddenException;
-use Bluz\Application\Exception\RedirectException;
 use Bluz\Auth\AuthException;
 use Bluz\Controller\Controller;
+use Bluz\Http\Exception\ForbiddenException;
+use Bluz\Http\Exception\RedirectException;
 use Bluz\Proxy\Auth as AuthProxy;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Logger;

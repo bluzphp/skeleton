@@ -30,12 +30,12 @@ class Mail
      * @param string $password
      *
      * @return bool
-     * @throws \Bluz\Application\Exception\NotAllowedException
-     * @throws \Bluz\Application\Exception\NotAcceptableException
-     * @throws \Bluz\Application\Exception\ForbiddenException
-     * @throws \Bluz\Controller\ControllerException
      * @throws \Bluz\Common\Exception\ComponentException
      * @throws \Bluz\Common\Exception\CommonException
+     * @throws \Bluz\Controller\ControllerException
+     * @throws \Bluz\Http\Exception\NotAllowedException
+     * @throws \Bluz\Http\Exception\NotAcceptableException
+     * @throws \Bluz\Http\Exception\ForbiddenException
      */
     public static function activation($user, $password) : ?bool
     {
@@ -92,12 +92,12 @@ class Mail
      * @param Row $user
      *
      * @return bool
-     * @throws \Bluz\Application\Exception\NotAllowedException
-     * @throws \Bluz\Application\Exception\NotAcceptableException
-     * @throws \Bluz\Application\Exception\ForbiddenException
-     * @throws \Bluz\Controller\ControllerException
      * @throws \Bluz\Common\Exception\ComponentException
      * @throws \Bluz\Common\Exception\CommonException
+     * @throws \Bluz\Controller\ControllerException
+     * @throws \Bluz\Http\Exception\NotAllowedException
+     * @throws \Bluz\Http\Exception\NotAcceptableException
+     * @throws \Bluz\Http\Exception\ForbiddenException
      */
     public static function recovery($user) : ?bool
     {
@@ -154,12 +154,12 @@ class Mail
      * @param string $email
      *
      * @return bool
-     * @throws \Bluz\Application\Exception\NotAllowedException
-     * @throws \Bluz\Application\Exception\NotAcceptableException
-     * @throws \Bluz\Application\Exception\ForbiddenException
-     * @throws \Bluz\Controller\ControllerException
      * @throws \Bluz\Common\Exception\ComponentException
      * @throws \Bluz\Common\Exception\CommonException
+     * @throws \Bluz\Controller\ControllerException
+     * @throws \Bluz\Http\Exception\NotAllowedException
+     * @throws \Bluz\Http\Exception\NotAcceptableException
+     * @throws \Bluz\Http\Exception\ForbiddenException
      */
     public static function changeEmail($user, $email) : ?bool
     {

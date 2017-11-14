@@ -27,7 +27,7 @@ class Grid extends \Bluz\Grid\Grid
      *
      * @throws \Bluz\Grid\GridException
      */
-    public function init()
+    public function init() : void
     {
         // Setup source
         $adapter = new SqlSource();

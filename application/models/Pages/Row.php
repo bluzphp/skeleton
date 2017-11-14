@@ -110,7 +110,7 @@ class Row extends \Bluz\Db\Row
 
         /* @var \Application\Users\Row $user */
         if ($user = Auth::getIdentity()) {
-            $this->userId = $user->id;
+            $this->userId = $user->getId();
         } else {
             $this->userId = Users\Table::SYSTEM_USER;
         }

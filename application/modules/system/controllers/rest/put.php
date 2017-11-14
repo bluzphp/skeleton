@@ -10,9 +10,9 @@
 
 namespace Application;
 
-use Bluz\Application\Exception\BadRequestException;
-use Bluz\Application\Exception\NotImplementedException;
 use Bluz\Controller;
+use Bluz\Http\Exception\BadRequestException;
+use Bluz\Http\Exception\NotImplementedException;
 use Bluz\Http\StatusCode;
 use Bluz\Proxy\Response;
 use Bluz\Validator\Exception\ValidatorException;
@@ -34,9 +34,8 @@ use Bluz\Validator\Exception\ValidatorException;
 return function ($crud, $primary, $data) {
     if (!count($data)) {
         // data not found
-        throw new BadRequestException();
+        throw new BadRequestException;
     }
-
     try {
         if (!empty($primary)) {
             // update one item

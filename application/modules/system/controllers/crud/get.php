@@ -23,6 +23,7 @@ use Bluz\Http\RequestMethod;
  * @return array
  */
 return function ($crud, $primary) {
+    $primary = array_filter($primary);
     return [
         'row' => $crud->readOne($primary),
         'method' => empty($primary) ? RequestMethod::POST : RequestMethod::PUT

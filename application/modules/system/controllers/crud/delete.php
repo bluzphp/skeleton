@@ -10,9 +10,9 @@
 
 namespace Application;
 
-use Bluz\Application\Exception\BadRequestException;
-use Bluz\Application\Exception\NotFoundException;
-use Bluz\Application\Exception\NotImplementedException;
+use Bluz\Http\Exception\BadRequestException;
+use Bluz\Http\Exception\NotFoundException;
+use Bluz\Http\Exception\NotImplementedException;
 use Bluz\Proxy\Messages;
 
 /**

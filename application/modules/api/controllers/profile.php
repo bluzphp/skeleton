@@ -9,8 +9,8 @@
 namespace Application;
 
 use Application\Users;
-use Bluz\Application\Exception\NotFoundException;
 use Bluz\Controller\Controller;
+use Bluz\Http\Exception\NotFoundException;
 
 /**
  * Get profile of current user

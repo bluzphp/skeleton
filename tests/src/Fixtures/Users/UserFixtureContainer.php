@@ -19,12 +19,12 @@ class UserFixtureContainer
      * User fixture for test
      * @var array
      */
-    public static $fixture = array(
+    public static $fixture = [
         'id' => 1,
         'login' => 'admin',
         'email' => null,
         'created' => '2012-11-09 07:38:41',
         'updated' => '2014-06-04 11:51:07',
         'status' => 'active'
-    );
+    ];
 }
