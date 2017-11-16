@@ -9,8 +9,8 @@
 namespace Application;
 
 use Application\Auth;
-use Bluz\Application\Exception\BadRequestException;
 use Bluz\Controller\Controller;
+use Bluz\Http\Exception\BadRequestException;
 
 /**
  * Authorization by login and password

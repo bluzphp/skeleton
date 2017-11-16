@@ -22,22 +22,6 @@ use Application\Tests\ControllerTestCase;
 class CrudTest extends ControllerTestCase
 {
     /**
-     * Setup `test` table before the first test
-     */
-    public static function setUpBeforeClass()
-    {
-
-    }
-
-    /**
-     * Drop `test` table after the last test
-     */
-    public static function tearDownAfterClass()
-    {
-
-    }
-
-    /**
      * setUp
      *
      * @return void
@@ -45,7 +29,7 @@ class CrudTest extends ControllerTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->getApp()->useLayout(false);
+        self::getApp()->useLayout(false);
         self::setupSuperUserIdentity();
     }
 
@@ -56,7 +40,6 @@ class CrudTest extends ControllerTestCase
     {
         $this->dispatch('/pages/crud/');
         self::assertOk();
-
         self::assertQueryCount('form[method="POST"]', 1);
     }
 

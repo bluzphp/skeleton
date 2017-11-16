@@ -37,7 +37,7 @@ return function ($acl) {
                 foreach ($privileges as $privilege => $flag) {
                     Db::query(
                         'INSERT INTO acl_privileges SET roleId = ?, module = ?, privilege = ?',
-                        array($roleId, $module, $privilege)
+                        [$roleId, $module, $privilege]
                     );
                 }
             }

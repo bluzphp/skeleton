@@ -5,6 +5,7 @@
 namespace Application\Tests\Fixtures\Users;
 
 use Application\Users\Row;
+use Application\Users\Table;
 
 /**
  * Row
@@ -17,12 +18,22 @@ use Application\Users\Row;
 class UserHasPermission extends Row
 {
     /**
+     * getId
+     *
+     * @return int
+     */
+    public function getId() : int
+    {
+        return Table::SYSTEM_USER;
+    }
+
+    /**
      * Check user role
      *
      * @param integer $roleId
      * @return boolean
      */
-    public function hasRole($roleId)
+    public function hasRole($roleId) : bool
     {
         return true;
     }

@@ -60,7 +60,7 @@ use Bluz\Controller\Mapper\Rest;
  *     @SWG\Response(response=206, description="Collection present")
  * )
  *
- * @accept JSON
+ * @ accept JSON
  * @return mixed
  */
 return function () {

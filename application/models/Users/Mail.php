@@ -30,9 +30,14 @@ class Mail
      * @param string $password
      *
      * @return bool
-     * @throws Exception
+     * @throws \Bluz\Common\Exception\ComponentException
+     * @throws \Bluz\Common\Exception\CommonException
+     * @throws \Bluz\Controller\ControllerException
+     * @throws \Bluz\Http\Exception\NotAllowedException
+     * @throws \Bluz\Http\Exception\NotAcceptableException
+     * @throws \Bluz\Http\Exception\ForbiddenException
      */
-    public static function activation($user, $password)
+    public static function activation($user, $password) : ?bool
     {
         // email subject
         $subject = __('Activation');
@@ -87,8 +92,14 @@ class Mail
      * @param Row $user
      *
      * @return bool
+     * @throws \Bluz\Common\Exception\ComponentException
+     * @throws \Bluz\Common\Exception\CommonException
+     * @throws \Bluz\Controller\ControllerException
+     * @throws \Bluz\Http\Exception\NotAllowedException
+     * @throws \Bluz\Http\Exception\NotAcceptableException
+     * @throws \Bluz\Http\Exception\ForbiddenException
      */
-    public static function recovery($user)
+    public static function recovery($user) : ?bool
     {
         // email subject
         $subject = __('Password Recovery');
@@ -143,9 +154,14 @@ class Mail
      * @param string $email
      *
      * @return bool
-     * @throws Exception
+     * @throws \Bluz\Common\Exception\ComponentException
+     * @throws \Bluz\Common\Exception\CommonException
+     * @throws \Bluz\Controller\ControllerException
+     * @throws \Bluz\Http\Exception\NotAllowedException
+     * @throws \Bluz\Http\Exception\NotAcceptableException
+     * @throws \Bluz\Http\Exception\ForbiddenException
      */
-    public static function changeEmail($user, $email)
+    public static function changeEmail($user, $email) : ?bool
     {
         // email subject
         $subject = __('Change email');

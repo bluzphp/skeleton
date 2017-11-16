@@ -30,14 +30,14 @@ class Table extends \Bluz\Db\Table
      *
      * @var array
      */
-    protected $primary = array('userId', 'roleId');
+    protected $primary = ['userId', 'roleId'];
 
     /**
      * init
      *
      * @return void
      */
-    public function init()
+    public function init() : void
     {
         $this->linkTo('userId', 'Users', 'id');
         $this->linkTo('roleId', 'Roles', 'id');

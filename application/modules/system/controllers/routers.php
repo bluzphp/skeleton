@@ -29,7 +29,7 @@ return function () {
             __('Routers Map'),
         ]
     );
-    $routers = array();
+    $routers = [];
     foreach (new \GlobIterator(PATH_APPLICATION . '/modules/*/controllers/*.php') as $file) {
         $module = pathinfo(dirname($file->getPathname(), 2), PATHINFO_FILENAME);
         $controller = pathinfo($file->getPathname(), PATHINFO_FILENAME);

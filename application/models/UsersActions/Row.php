@@ -30,7 +30,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    public function beforeSave()
+    public function beforeSave() : void
     {
         $this->params = serialize($this->params);
     }
@@ -42,6 +42,6 @@ class Row extends \Bluz\Db\Row
      */
     public function getParams()
     {
-        return $this->params ? unserialize($this->params) : [];
+        return $this->params ? unserialize($this->params, []) : [];
     }
 }

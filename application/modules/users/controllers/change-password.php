@@ -10,10 +10,10 @@ namespace Application;
 
 use Application\Auth\Provider;
 use Application\Users;
-use Bluz\Application\Exception\BadRequestException;
-use Bluz\Application\Exception\NotFoundException;
 use Bluz\Auth\AuthException;
 use Bluz\Controller\Controller;
+use Bluz\Http\Exception\BadRequestException;
+use Bluz\Http\Exception\NotFoundException;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;

@@ -8,8 +8,8 @@
 
 namespace Application;
 
-use Bluz\Application\Exception\NotFoundException;
 use Bluz\Controller\Controller;
+use Bluz\Http\Exception\NotFoundException;
 use Bluz\Proxy\HttpCacheControl;
 use Bluz\Proxy\Layout;
 

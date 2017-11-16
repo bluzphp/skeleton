@@ -24,7 +24,6 @@ header('X-Frame-Options: SAMEORIGIN');
 
 // Make fake header
 header('X-Powered-By: backend');
-
 // Try to run application
 try {
     /**

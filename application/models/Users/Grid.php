@@ -22,11 +22,10 @@ class Grid extends \Bluz\Grid\Grid
     protected $uid = 'users';
 
     /**
-     * init
-     *
-     * @return self
+     * {@inheritdoc}
+     * @throws \Bluz\Grid\GridException
      */
-    public function init()
+    public function init() : void
     {
         // Create Select
         $select = new Select();
@@ -45,7 +44,5 @@ class Grid extends \Bluz\Grid\Grid
         $this->setDefaultLimit(25);
         $this->setAllowOrders(['login', 'email', 'status', 'id']);
         $this->setAllowFilters(['login', 'email', 'status', 'id', 'roleId']);
-
-        return $this;
     }
 }

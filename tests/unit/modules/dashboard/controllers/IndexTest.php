@@ -25,7 +25,7 @@ class IndexTest extends ControllerTestCase
      * Dispatch controller w/out application:
      *  - as user
      *  - w/out permission
-     * @expectedException \Bluz\Application\Exception\ForbiddenException
+     * @expectedException \Bluz\Http\Exception\ForbiddenException
      */
     public function testForbidden()
     {

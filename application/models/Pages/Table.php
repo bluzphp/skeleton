@@ -30,7 +30,7 @@ class Table extends \Bluz\Db\Table
      *
      * @var array
      */
-    protected $primary = array('id');
+    protected $primary = ['id'];
 
     /**
      * Get page by Alias
@@ -41,7 +41,7 @@ class Table extends \Bluz\Db\Table
      */
     public function getByAlias($alias)
     {
-        return self::findRowWhere(['alias' => $alias]);
+        return static::findRowWhere(['alias' => $alias]);
     }
 
     /**
@@ -49,7 +49,7 @@ class Table extends \Bluz\Db\Table
      *
      * @return void
      */
-    public function init()
+    public function init() : void
     {
         $this->linkTo('userId', 'Users', 'id');
     }

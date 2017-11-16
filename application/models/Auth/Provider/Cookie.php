@@ -25,7 +25,7 @@ class Cookie extends AbstractProvider
 {
     const PROVIDER = Table::PROVIDER_COOKIE;
 
-    public static function authenticate($token)
+    public static function authenticate($token) : void
     {
         $authRow = self::verify($token);
         $user = UsersTable::findRow($authRow->userId);

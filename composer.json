@@ -4,9 +4,9 @@
   "minimum-stability": "dev",
   "type": "library",
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.1",
     "bluzphp/bluzman": "~2.2",
-    "bluzphp/framework": "~7.7",
+    "bluzphp/framework": "~7.8",
     "bluzphp/composer-plugin": "~2.1",
     "phpmailer/phpmailer": "~5.2",
     "zircote/swagger-php": "~2.0",

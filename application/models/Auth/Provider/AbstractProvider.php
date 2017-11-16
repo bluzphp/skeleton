@@ -31,7 +31,7 @@ abstract class AbstractProvider
      * @throws \Application\Exception
      * @throws \Bluz\Auth\AuthException
      */
-    abstract public static function authenticate($token);
+    abstract public static function authenticate($token) : void;
 
     /**
      * Check if supplied cookie is valid
@@ -60,9 +60,10 @@ abstract class AbstractProvider
      * @param integer $id User ID
      *
      * @return void
+     * @throws \Bluz\Common\Exception\ConfigurationException
      * @throws \Bluz\Db\Exception\DbException
      */
-    public static function remove($id)
+    public static function remove($id) : void
     {
         // clear previous generated Auth record
         // works with change password

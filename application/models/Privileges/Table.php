@@ -17,8 +17,8 @@ use Bluz\Proxy\Db;
  *
  * @package  Application\Privileges
  *
- * @method   static Row findRow($primaryKey)
- * @method   static Row findRowWhere($whereList)
+ * @method   static ?Row findRow($primaryKey)
+ * @method   static ?Row findRowWhere($whereList)
  */
 class Table extends \Bluz\Db\Table
 {
@@ -34,7 +34,7 @@ class Table extends \Bluz\Db\Table
      *
      * @var array
      */
-    protected $primary = array('roleId', 'module', 'privilege');
+    protected $primary = ['roleId', 'module', 'privilege'];
 
     /**
      * Get all privileges
@@ -80,7 +80,7 @@ class Table extends \Bluz\Db\Table
                 FROM acl_privileges AS p, acl_roles AS r, acl_users_roles AS u2r
                 WHERE p.roleId = r.id AND r.id = u2r.roleId AND u2r.userId = ?
                 ORDER BY module, privilege",
-                array((int) $userId)
+                [(int) $userId]
             );
 
             Cache::set($cacheKey, $data, Cache::TTL_NO_EXPIRY);
@@ -106,7 +106,7 @@ class Table extends \Bluz\Db\Table
                 FROM acl_privileges AS p, acl_roles AS r
                 WHERE p.roleId = r.id AND r.id = ?
                 ORDER BY CONCAT(p.module, ':', p.privilege)",
-                array((int)$roleId)
+                [(int)$roleId]
             );
 
             Cache::set($cacheKey, $data, Cache::TTL_NO_EXPIRY, ['system', 'roles', 'privileges']);
