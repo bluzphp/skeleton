@@ -4,7 +4,7 @@
  * @author   Anton Shevchuk
  * @created  23.10.12 10:02
  */
-/* global define,require,window*/
+/* global define,require,window */
 define([], function () {
   'use strict';
   // initial local storage

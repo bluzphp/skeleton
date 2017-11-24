@@ -15,6 +15,7 @@
     "robmorgan/phinx": "~0.9",
     "public/swagger-ui": "dev-master",
     "public/jquery": "dev-master",
+    "public/jquery-ui": "dev-master",
     "public/popper": "dev-master",
     "public/require": "dev-master"
   },
@@ -59,7 +60,19 @@
         "version": "dev-master",
         "license": "MIT",
         "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js",
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js",
+          "type": "file"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "public/jquery-ui",
+        "version": "dev-master",
+        "license": "MIT",
+        "dist": {
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js",
           "type": "file"
         }
       }

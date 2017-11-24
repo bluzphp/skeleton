@@ -217,9 +217,9 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
 
       let $this = $(this);
 
-      let source = $this.data('ajax-source') || $this.attr('href');
+      let source = $this.data('ajax-load') || $this.attr('href');
       if (!source) {
-        throw new Error('Undefined `data-ajax-source` attribute (and href is missing)');
+        throw new Error('Undefined `data-ajax-load` attribute (and href is missing)');
       }
 
       let target = $this.data('ajax-target');
@@ -249,6 +249,13 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
       event.preventDefault();
 
       let $this = $(this);
+      // $this.removeClass('was-validated');
+      $this.addClass('was-validated');
+
+      if (this.checkValidity() === false) {
+        event.stopPropagation();
+        return;
+      }
 
       $.ajax({
         url: $this.attr('action'),
@@ -300,7 +307,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
       event.preventDefault();
 
       let $this = $(this);
-      let url = $this.is('a') ? $this.attr('href') : $this.data('preview');
+      let url = $this.is('a') ? $this.attr('href') : $this.data('ajax-preview');
 
       if (!url) {
         return;
