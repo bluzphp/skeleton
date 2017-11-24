@@ -1,7 +1,7 @@
 <?php /** @var \Bluz\View\View $this */ ?>
 <?php $uid = uniqid('form_', false); ?>
   <form id="<?= $uid ?>" action="<?= $this->url('pages', 'crud') ?>" class="form-horizontal" data-ajax
-        method="<?= $method ?>">
+        method="<?= $method ?>" novalidate>
     <input type="hidden" name="id" value="<?= $row->id ?>"/>
     <input type="hidden" name="_method" value="<?= $method ?>"/>
     <div class="modal-content">

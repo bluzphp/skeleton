@@ -18,6 +18,15 @@
           ) ?>
       </li>
     <?php endif; ?>
+    <?php if ($this->hasModule('phones')) : ?>
+      <li class="nav-item <?= ($this->module('phones') ? 'active' : '') ?>">
+          <?= $this->ahref(
+              '<i class="fa fa-phone fa-fw"></i> ' . __('Phones'),
+              ['phones', 'grid', [], true],
+              ['class' => 'nav-link']
+          ) ?>
+      </li>
+    <?php endif; ?>
   </ul>
   <hr/>
   <ul class="nav nav-pills flex-column">

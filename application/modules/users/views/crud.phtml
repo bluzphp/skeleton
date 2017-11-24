@@ -4,7 +4,8 @@ use Application\Users\Table;
 
 $uid = uniqid('form_', false); ?>
 
-<form id="<?= $uid ?>" action="<?= $this->url('users', 'crud') ?>" class="form-horizontal" data-ajax method="<?= $method ?>">
+<form id="<?= $uid ?>" action="<?= $this->url('users', 'crud') ?>" class="form-horizontal"
+      data-ajax method="<?= $method ?>" novalidate>
   <input type="hidden" name="id" value="<?= $row->id ?>"/>
   <div class="modal-header">
     <h4 class="modal-title"><?= __('Edit user') ?></h4>
@@ -24,6 +25,7 @@ $uid = uniqid('form_', false); ?>
       <div class="col-lg-10">
         <input type="email" class="form-control" id="email" name="email" value="<?= ($row->email) ?>" maxlength="255"
                required/>
+        <div class="invalid-feedback"><?=__('email is required, and it should has valid format')?></div>
       </div>
     </div>
     <div class="form-group row">
