@@ -38,7 +38,7 @@ define(['jquery', 'jqueryui'], function ($) {
 
         $.ajax({
           url: source,
-          type: $this.data('ajax-method') || 'post',
+          type: $this.data('ajax-method') || 'get',
           dataType: 'json',
           data: requestData,
           success: responseData => {

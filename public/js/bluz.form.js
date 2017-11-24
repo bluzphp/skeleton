@@ -50,14 +50,14 @@ define(['bluz', 'jquery'], function (bluz, $) {
       $field.addClass(settings.errorClass);
       $field.get(0).setCustomValidity(messages);
 
-      // add error message with
+      // create feedback dom element
       if ($feedback.length === 0) {
         $feedback = $('<div class="' + settings.feedback + '"></div>');
         // field can be hidden, e.g. by WYSIWYG editor
         $field.after($feedback);
       }
-      $feedback.show();
       $feedback.html(messages);
+      $feedback.show();
 
       $field.click(function () {
         $field.get(0).setCustomValidity('');
