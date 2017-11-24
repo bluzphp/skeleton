@@ -29,6 +29,7 @@ define(['jquery'], function ($) {
 
       // you can handle event 'shown.bluz.modal' on button
       $div.on('shown.bs.modal', function () {
+        $divContent.find('.modal-focus').focus();
         $this.trigger('shown.bluz.modal');
       });
 

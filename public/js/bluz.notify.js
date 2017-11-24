@@ -5,7 +5,7 @@
  * @author   Anton Shevchuk
  * @created  02.08.13 10:52
  */
-/* global define,require*/
+/* global define,require */
 define(['jquery'], $ => {
   'use strict';
 
