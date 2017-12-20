@@ -30,7 +30,7 @@ class FlushTest extends ControllerTestCase
     {
         self::setupSuperUserIdentity();
 
-        $this->dispatch('/cache/flush/', [], RequestMethod::GET, true);
+        $this->dispatch('/cache/flush/', [], RequestMethod::POST, true);
 
         self::assertOk();
 

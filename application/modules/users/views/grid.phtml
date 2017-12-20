@@ -15,12 +15,12 @@ if (!$grid) {
   <nav class="navbar navbar-light bg-light justify-content-between">
     <div>
       <a href="<?= $grid->filter('roleId', 'eq', '', true) ?>" data-ajax
-         class="btn btn-secondary <?= (null === $grid->getFilter('roleId', 'eq') ? 'btn-info' : '') ?>">
+         class="btn <?= (null === $grid->getFilter('roleId', 'eq') ? 'btn-info' : 'btn-secondary') ?>">
           <?= __('all') ?>
       </a>
       <?php foreach ($roles as $role) : ?>
       <a href="<?= $grid->filter('roleId', 'eq', $role['id']) ?>" data-ajax
-         class="btn btn-secondary <?= ($role['id'] === $grid->getFilter('roleId', 'eq')? 'btn-info' : '') ?>">
+         class="btn <?= ($role['id'] === $grid->getFilter('roleId', 'eq')? 'btn-info' : 'btn-secondary') ?>">
           <?= $role['name'] ?>
       </a>
       <?php endforeach; ?>
