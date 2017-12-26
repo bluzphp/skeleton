@@ -36,16 +36,22 @@ code strong {
 #notify {
   z-index: 1100;
   position: fixed;
-  left: 10px;
-  top: 55px;
+  left: 0;
+  top: 0;
+  padding: 10px;
+  width: 100vw;
+  max-width: 800px;
 }
 
 /* Notification BS Element */
 #notify > div {
-  position: relative;
   z-index: 9999;
   margin: 5px 0;
-  min-width: 640px;
+}
+
+/* Notification under sticky menu */
+nav.sticky-top ~ #notify {
+  top: 50px;
 }
 
 /* Loading */
