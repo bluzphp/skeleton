@@ -110,14 +110,13 @@
   "extra": {
     "copy-files": {
       "public/swagger-ui/dist/": "public/api-reference/",
-      "public/jquery/jquery.min.js": "public/js/vendor/jquery.min.js",
-      "public/popper/popper.min.js": "public/js/vendor/popper.min.js",
-      "public/require/require.min.js": "public/js/vendor/require.min.js",
-      "twbs/bootstrap/dist/js/": "public/js/vendor/",
-      "twbs/bootstrap/dist/css/": "public/css/",
-      "twbs/bootstrap/dist/fonts/": "public/fonts/",
-      "fortawesome/font-awesome/css/": "public/css/",
-      "fortawesome/font-awesome/fonts/": "public/fonts/"
+      "public/jquery/": "public/vendor/jquery",
+      "public/jquery-ui/": "public/vendor/jquery-ui",
+      "public/popper/": "public/vendor/popper",
+      "public/require/": "public/vendor/require",
+      "twbs/bootstrap/dist/": "public/vendor/bootstrap",
+      "fortawesome/font-awesome/css/": "public/vendor/font-awesome/css/",
+      "fortawesome/font-awesome/fonts/": "public/vendor/font-awesome/fonts/"
     }
   },
   "authors": [
