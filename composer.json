@@ -109,7 +109,7 @@
   },
   "extra": {
     "copy-files": {
-      "public/swagger-ui/dist/": "public/api-reference/",
+      "public/swagger-ui/dist/": "public/api/",
       "public/jquery/": "public/vendor/jquery",
       "public/jquery-ui/": "public/vendor/jquery-ui",
       "public/popper/": "public/vendor/popper",
