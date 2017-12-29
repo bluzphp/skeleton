@@ -5,7 +5,7 @@
   "type": "library",
   "require": {
     "php": ">=7.1",
-    "bluzphp/bluzman": "~2.2",
+    "bluzphp/bluzman": "~2.3",
     "bluzphp/framework": "~7.8",
     "bluzphp/composer-plugin": "~2.1",
     "phpmailer/phpmailer": "~5.2",
