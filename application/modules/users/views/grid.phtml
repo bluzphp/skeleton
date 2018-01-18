@@ -69,7 +69,7 @@ if (!$grid) {
         <td><?= $row['email'] ?></td>
         <td><?= $row['rolesList'] ?></td>
         <td><?= $row['status'] ?></td>
-        <td class="controls">
+        <td class="controls d-flex justify-content-around">
           <a href="<?= $this->url('acl', 'user', ['id' => $row['id']]); ?>" class="btn btn-secondary"
              data-ajax-dialog data-ajax-method="get">
             <i class="fa fa-lock"></i>
