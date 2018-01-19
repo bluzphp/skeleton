@@ -13,6 +13,8 @@ use Bluz\Grid\Source\SqlSource;
 /**
  * Grid of Pages
  *
+ * @method   Row[] getData()
+ *
  * @package  Application\Pages
  */
 class Grid extends \Bluz\Grid\Grid

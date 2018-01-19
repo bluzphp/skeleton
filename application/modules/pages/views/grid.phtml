@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Bluz\Grid\Grid $grid
+ * @var \Application\Pages\Grid $grid
  * @var \Bluz\View\View $this
  */
 if (!$grid) {
@@ -49,7 +49,7 @@ if (!$grid) {
   <table class="table table-hover table-striped grid">
     <thead>
     <tr>
-      <th width="40px"><?= __('Id') ?></th>
+      <th width="60px" class="text-center"><?= __('Id') ?></th>
       <th><a href="<?= $grid->order('title') ?: '#' ?>"><?= __('Title') ?></a></th>
       <th><?= __('Description') ?></th>
       <th width="180px"><a href="<?= $grid->order('created') ?>"><?= __('Created') ?></a></th>
@@ -60,17 +60,21 @@ if (!$grid) {
     <tbody>
     <?php foreach ($grid->getData() as $row) : ?>
       <tr>
-        <td><?= $row['id'] ?></td>
-        <td><a href="<?= $this->url('pages', 'index', ['alias' => $row['alias']]) ?>"><?= esc($row['title']) ?></a></td>
-        <td><?= esc($row['description']) ?></td>
-        <td><?= $row['created'] ?></td>
-        <td><?= $row['updated'] ?></td>
+        <td class="text-right"><?= $row->id ?></td>
+        <td>
+          <a href="<?= $this->url('pages', 'index', ['alias' => $row->alias]) ?>">
+              <?= esc($row->title) ?>
+          </a>
+        </td>
+        <td><?= esc($row->description) ?></td>
+        <td><?= $row->created ?></td>
+        <td><?= $row->updated ?></td>
         <td class="controls d-flex justify-content-around">
-          <a href="<?= $this->url('pages', 'crud', ['id' => $row['id']]) ?>" class="btn btn-primary"
+          <a href="<?= $this->url('pages', 'crud', ['id' => $row->id]) ?>" class="btn btn-primary"
              data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
             <i class="fa fa-pencil"></i>
           </a>
-          <a href="<?= $this->url('pages', 'crud', ['id' => $row['id']]) ?>" class="btn btn-danger"
+          <a href="<?= $this->url('pages', 'crud', ['id' => $row->id]) ?>" class="btn btn-danger"
              data-confirm data-ajax data-ajax-method="delete">
             <i class="fa fa-trash-o"></i>
           </a>

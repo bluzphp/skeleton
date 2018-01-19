@@ -71,7 +71,7 @@ define(['jquery', 'bluz'], function ($) {
         if ($form.find('[type=search]').length) {
           // erase old filter and create new
           $searchInput.val(
-            $searchInput.val().replace(/-\w*/g, '') + '-' + $form.find('[type=search]').val()
+            $searchInput.val().replace(/-.*/g, '') + '-' + $form.find('[type=search]').val()
           );
         }
 

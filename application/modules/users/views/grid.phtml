@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Bluz\Grid\Grid $grid
+ * @var \Application\Users\Grid $grid
  * @var \Bluz\View\View $this
  */
 if (!$grid) {
@@ -53,7 +53,7 @@ if (!$grid) {
   <table class="table table-hover table-striped grid">
     <thead>
     <tr>
-      <th width="40px"><a href="<?= $grid->order('id') ?: '#' ?>"><?= __('Id') ?></a></th>
+      <th width="60px" class="text-center"><a href="<?= $grid->order('id') ?: '#' ?>"><?= __('Id') ?></a></th>
       <th><a href="<?= $grid->order('login') ?: '#' ?>"><?= __('Login') ?></a></th>
       <th><a href="<?= $grid->order('email') ?: '#' ?>"><?= __('Email') ?></a></th>
       <th><?= __('Roles') ?></th>
@@ -64,21 +64,25 @@ if (!$grid) {
     <tbody>
     <?php foreach ($grid->getData() as $row) : ?>
       <tr>
-        <td><?= $row['id'] ?></td>
-        <td><a href="<?= $this->url('users', 'profile', ['id' => $row['id']]) ?>"><?= $row['login'] ?></a></td>
-        <td><?= $row['email'] ?></td>
+        <td class="text-right"><?= $row->id ?></td>
+        <td>
+          <a href="<?= $this->url('users', 'profile', ['id' => $row->id]) ?>">
+            <?= $row->login ?>
+          </a>
+        </td>
+        <td><?= $row->email ?></td>
         <td><?= $row['rolesList'] ?></td>
-        <td><?= $row['status'] ?></td>
+        <td><?= $row->status ?></td>
         <td class="controls d-flex justify-content-around">
-          <a href="<?= $this->url('acl', 'user', ['id' => $row['id']]); ?>" class="btn btn-secondary"
+          <a href="<?= $this->url('acl', 'user', ['id' => $row->id]); ?>" class="btn btn-secondary"
              data-ajax-dialog data-ajax-method="get">
             <i class="fa fa-lock"></i>
           </a>
-          <a href="<?= $this->url('users', 'crud', ['id' => $row['id']]) ?>" class="btn btn-primary"
+          <a href="<?= $this->url('users', 'crud', ['id' => $row->id]) ?>" class="btn btn-primary"
              data-ajax-dialog data-ajax-method="get">
             <i class="fa fa-pencil"></i>
           </a>
-          <a href="<?= $this->url('users', 'crud', ['id' => $row['id']]) ?>" class="btn btn-danger"
+          <a href="<?= $this->url('users', 'crud', ['id' => $row->id]) ?>" class="btn btn-danger"
              data-confirm data-ajax data-ajax-method="delete">
             <i class="fa fa-trash-o"></i>
           </a>

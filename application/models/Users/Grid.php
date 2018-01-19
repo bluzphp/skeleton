@@ -12,6 +12,10 @@ use Bluz\Db\Query\Select;
 use Bluz\Grid\Source\SelectSource;
 
 /**
+ * Grid of users
+ *
+ * @method   Row[] getData()
+ *
  * @package  Application\Users
  */
 class Grid extends \Bluz\Grid\Grid
