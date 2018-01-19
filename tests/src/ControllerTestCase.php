@@ -9,6 +9,7 @@
  */
 namespace Application\Tests;
 
+use Application\Tests\Fixtures\Users\UserFixtureContainer;
 use Application\Users;
 use Application\Tests\Fixtures\Users\UserHasPermission;
 use Bluz\Http\Exception\ForbiddenException;
@@ -64,7 +65,7 @@ class ControllerTestCase extends SkeletonTestCase
      */
     protected static function setupSuperUserIdentity() : void
     {
-        Auth::setIdentity(new UserHasPermission());
+        Auth::setIdentity(new UserHasPermission(UserFixtureContainer::$fixture));
     }
 
     /**
