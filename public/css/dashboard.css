@@ -68,6 +68,7 @@
 
 .table-fixed tr {
   display: flex;
+  min-height: 42px;
 }
 
 .table-fixed td,
