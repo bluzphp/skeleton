@@ -18,6 +18,7 @@ return [
         'default' => (function () {
             $data = \Bluz\Proxy\Config::getData('db', 'connect');
             $data['adapter'] = $data['type'];
+            $data['charset'] = 'utf8';
             return $data;
         })()
     ]
