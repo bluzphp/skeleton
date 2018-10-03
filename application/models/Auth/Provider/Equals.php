@@ -23,7 +23,7 @@ class Equals extends AbstractProvider
 {
     const PROVIDER = Table::PROVIDER_EQUALS;
 
-    public static function authenticate($username, $password = '') : void
+    public static function authenticate($username, $password = ''): void
     {
         $authRow = self::verify($username, $password);
         $user = UsersTable::findRow($authRow->userId);
@@ -32,7 +32,7 @@ class Equals extends AbstractProvider
         Table::tryLogin($user);
     }
 
-    public static function verify($username, $password = '') : Row
+    public static function verify($username, $password = ''): Row
     {
         /* @var Row $authRow */
         $authRow = Table::findRowWhere(['foreignKey' => $username, 'provider' => Table::PROVIDER_EQUALS]);
@@ -49,7 +49,7 @@ class Equals extends AbstractProvider
         return $authRow;
     }
 
-    public static function create($user, $password = '') : Row
+    public static function create($user, $password = ''): Row
     {
         // remove old Auth record
         self::remove($user->id);

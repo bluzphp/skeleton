@@ -15,31 +15,43 @@ use Bluz\Http\Exception\BadRequestException;
 /**
  * Authorization by login and password
  *
- * @SWG\Post(
+ * @OA\Post(
  *   path="/api/login",
  *   tags={"authorization"},
  *   operationId="login",
  *   summary="Get access token",
- *   @SWG\Parameter(
- *       name="login",
- *       in="formData",
- *       description="Login",
- *       required=true,
- *       type="string"
+ *   @OA\Parameter(
+ *     name="login",
+ *     description="Login",
+ *     in="query",
+ *     required=true,
+ *     @OA\Schema(type="string")
  *   ),
- *   @SWG\Parameter(
- *       name="password",
- *       in="formData",
- *       description="Password",
- *       required=true,
- *       type="string"
+ *   @OA\Parameter(
+ *     name="password",
+ *     description="Password",
+ *     in="query",
+ *     required=true,
+ *     @OA\Schema(type="string")
  *   ),
- *   @SWG\Response(
+ *   @OA\Response(
+ *     @OA\JsonContent(
+ *       type="object",
+ *       @OA\Property(property="token", type="string", description="Token")
+ *     ),
  *     response=200,
  *     description="Token"
  *   ),
- *   @SWG\Response(@SWG\Schema(ref="#/definitions/error"), response=400, description="Login and password are required"),
- *   @SWG\Response(@SWG\Schema(ref="#/definitions/error"), response=401, description="Invalid credentials")
+ *   @OA\Response(
+ *     @OA\JsonContent(ref="#/components/schemas/error"),
+ *     response=400,
+ *     description="Login and password are required"
+ *   ),
+ *   @OA\Response(
+ *     @OA\JsonContent(ref="#/components/schemas/error"),
+ *     response=401,
+ *     description="Invalid credentials"
+ *   )
  * )
  *
  * @accept JSON
@@ -48,7 +60,6 @@ use Bluz\Http\Exception\BadRequestException;
  * @param string $login
  * @param string $password
  * @return array
- * @throws BadRequestException
  */
 return function ($login, $password) {
     /**

@@ -39,7 +39,7 @@ class Table extends AbstractTable
      * @throws \Application\Exception
      * @return string
      */
-    public static function hash($password) : string
+    public static function hash($password): string
     {
         $hash = Auth::getInstance()->getOption('hash');
 
@@ -60,7 +60,7 @@ class Table extends AbstractTable
      * @throws \Application\Exception
      * @return bool
      */
-    public static function verify($password, $hash) : bool
+    public static function verify($password, $hash): bool
     {
         $verify = Auth::getInstance()->getOption('verify');
 
@@ -79,7 +79,7 @@ class Table extends AbstractTable
      *
      * @throws AuthException
      */
-    public static function tryLogin($user) : void
+    public static function tryLogin($user): void
     {
         switch ($user->status) {
             case (Users\Table::STATUS_PENDING):

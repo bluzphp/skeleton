@@ -27,24 +27,24 @@ use Bluz\Validator\Traits\Validator;
  * @property string  $updated
  * @property integer $userId
  *
- * @SWG\Definition(definition="pages", title="page", required={"id", "title", "alias", "content"})
- * @SWG\Property(property="id", type="integer", description="Page UID",
+ * @OA\Schema(schema="page", title="page", required={"id", "title", "alias", "content"})
+ * @OA\Property(property="id", type="integer", description="Page UID",
  *     example=42)
- * @SWG\Property(property="title", type="string", description="Page title",
+ * @OA\Property(property="title", type="string", description="Page title",
  *     example="The Ultimate Question of Life")
- * @SWG\Property(property="alias", type="string", description="SEO URL",
+ * @OA\Property(property="alias", type="string", description="SEO URL",
  *     example="the-ultimate-question")
- * @SWG\Property(property="content", type="string", description="Text",
+ * @OA\Property(property="content", type="string", description="Text",
  *     example="The Ultimate Question of Life, the Universe, and Everything")
- * @SWG\Property(property="keywords", type="string", description="Meta keywords",
+ * @OA\Property(property="keywords", type="string", description="Meta keywords",
  *     example="42, life, universe, everything")
- * @SWG\Property(property="description", type="string", description="Meta description",
+ * @OA\Property(property="description", type="string", description="Meta description",
  *     example="The Hitchhiker's Guide to the Galaxy")
- * @SWG\Property(property="created", type="string", format="date-time", description="Created date",
+ * @OA\Property(property="created", type="string", format="date-time", description="Created date",
  *     example="2017-03-17 19:06:28")
- * @SWG\Property(property="updated", type="string", format="date-time", description="Last updated date",
+ * @OA\Property(property="updated", type="string", format="date-time", description="Last updated date",
  *     example="2017-03-17 19:06:28")
- * @SWG\Property(property="userId", type="integer", description="Author ID",
+ * @OA\Property(property="userId", type="integer", description="Author ID",
  *     example=2)
  */
 class Row extends \Bluz\Db\Row
@@ -56,7 +56,7 @@ class Row extends \Bluz\Db\Row
      *
      * @throws \Bluz\Validator\Exception\ComponentException
      */
-    public function beforeSave() : void
+    public function beforeSave(): void
     {
         // title validator
         $this->addValidator('title')
@@ -104,7 +104,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    public function beforeInsert() : void
+    public function beforeInsert(): void
     {
         $this->created = gmdate('Y-m-d H:i:s');
 
@@ -121,7 +121,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return void
      */
-    public function beforeUpdate() : void
+    public function beforeUpdate(): void
     {
         $this->updated = gmdate('Y-m-d H:i:s');
     }

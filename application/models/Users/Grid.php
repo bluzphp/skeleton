@@ -29,10 +29,10 @@ class Grid extends \Bluz\Grid\Grid
      * {@inheritdoc}
      * @throws \Bluz\Grid\GridException
      */
-    public function init() : void
+    public function init(): void
     {
         // Create Select
-        $select = new Select();
+        $select = Table::select();
         $select->select('u.*, GROUP_CONCAT( ar.`name` SEPARATOR ", " ) AS rolesList')
             ->from('users', 'u')
             ->leftJoin('u', 'acl_users_roles', 'aur', 'u.`id` = aur.`userId`')

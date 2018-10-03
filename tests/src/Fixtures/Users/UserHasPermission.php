@@ -22,7 +22,7 @@ class UserHasPermission extends Row
      *
      * @return int
      */
-    public function getId() : int
+    public function getId(): int
     {
         return Table::SYSTEM_USER;
     }
@@ -33,7 +33,7 @@ class UserHasPermission extends Row
      * @param integer $roleId
      * @return boolean
      */
-    public function hasRole($roleId) : bool
+    public function hasRole($roleId): bool
     {
         return true;
     }
@@ -45,7 +45,7 @@ class UserHasPermission extends Row
      * @param string $privilege
      * @return boolean
      */
-    public function hasPrivilege($module, $privilege) : bool
+    public function hasPrivilege($module, $privilege): bool
     {
         return true;
     }

@@ -8,52 +8,56 @@
  */
 
 /**
- * @SWG\Swagger(
- *     schemes={"http"},
- *     produces={"application/json"},
- *     consumes={"application/x-www-form-urlencoded"},
- *     @SWG\Info(
- *         version="1.1.0",
- *         title="Bluz PHP API",
- *         description="API of Bluz Skeleton application",
- *         @SWG\Contact(name="Bluz PHP Team"),
- *         @SWG\License(name="MIT")
- *     ),
- *     @SWG\Definition(
- *         definition="error",
- *         required={"code", "error"},
- *         @SWG\Property(
- *             property="code",
- *             type="integer",
- *             format="int32",
- *             example=404
- *         ),
- *         @SWG\Property(
- *             property="error",
- *             type="string",
- *             example="Not found"
- *         )
- *     ),
- *     @SWG\Parameter(
- *         name="Auth-Token",
- *         in="header",
- *         description="token",
- *         required=true,
- *         type="string"
- *     ),
- *     @SWG\Parameter(
- *         name="offset",
- *         in="query",
- *         description="Query offset",
- *         required=false,
- *         type="integer"
- *     ),
- *     @SWG\Parameter(
- *         name="limit",
- *         in="query",
- *         description="Query limit",
- *         required=false,
- *         type="integer"
- *     )
+ * @OA\Info(
+ *   version="2.0.0",
+ *   title="Bluz PHP API",
+ *   description="API of Bluz Skeleton application",
+ *   @OA\Contact(name="Bluz PHP Team"),
+ *   @OA\License(name="MIT")
+ * )
+ *
+ * @OA\SecurityScheme(
+ *   type="apiKey",
+ *   in="header",
+ *   securityScheme="api_key",
+ *   name="Auth-Token"
+ * )
+ *
+ * @OA\Schema(
+ *   schema="error",
+ *   required={"code", "message"},
+ *   @OA\Property(
+ *     property="code",
+ *     type="integer",
+ *     format="int32"
+ *   ),
+ *   @OA\Property(
+ *     property="message",
+ *     type="string"
+ *   )
+ * ),
+ *
+ * @OA\Parameter(
+ *   parameter="offset_in_query",
+ *   name="offset",
+ *   description="Query offset",
+ *   @OA\Schema(
+ *     type="integer",
+ *     format="int64",
+ *   ),
+ *   in="query",
+ *   required=false
+ * )
+ *
+ * @OA\Parameter(
+ *   parameter="limit_in_query",
+ *   name="limit",
+ *   description="Query limit",
+ *   @OA\Schema(
+ *     type="integer",
+ *     format="int64",
+ *   ),
+ *   in="query",
+ *   required=false
  * )
  */

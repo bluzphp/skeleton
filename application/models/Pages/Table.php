@@ -38,6 +38,7 @@ class Table extends \Bluz\Db\Table
      * @param $alias
      *
      * @return Row
+     * @throws \Bluz\Db\Exception\DbException
      */
     public function getByAlias($alias)
     {
@@ -49,7 +50,7 @@ class Table extends \Bluz\Db\Table
      *
      * @return void
      */
-    public function init() : void
+    public function init(): void
     {
         $this->linkTo('userId', 'Users', 'id');
     }

@@ -24,7 +24,7 @@ class Token extends AbstractProvider
 {
     const PROVIDER = Table::PROVIDER_TOKEN;
 
-    public static function authenticate($token) : void
+    public static function authenticate($token): void
     {
         $authRow = self::verify($token);
         $user = UsersTable::findRow($authRow->userId);
@@ -33,7 +33,7 @@ class Token extends AbstractProvider
         Table::tryLogin($user);
     }
 
-    public static function verify($token) : Row
+    public static function verify($token): Row
     {
         if (!$authRow = Table::findRowWhere(['token' => $token, 'provider' => self::PROVIDER])) {
             throw new AuthException('Invalid token');
@@ -46,7 +46,7 @@ class Token extends AbstractProvider
         return $authRow;
     }
 
-    public static function create($user) : Row
+    public static function create($user): Row
     {
         // clear previous generated Auth record
         self::remove($user->id);

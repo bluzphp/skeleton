@@ -6,13 +6,13 @@
   "require": {
     "php": ">=7.1",
     "bluzphp/bluzman": "~2.3",
-    "bluzphp/framework": "~7.8",
+    "bluzphp/framework": "~7.10",
     "bluzphp/composer-plugin": "~2.1",
-    "phpmailer/phpmailer": "~5.2",
-    "zircote/swagger-php": "~2.0",
+    "phpmailer/phpmailer": "~6.0",
+    "zircote/swagger-php": "~3.0",
     "fortawesome/font-awesome": "~4.7",
-    "twbs/bootstrap": "~4.0",
-    "robmorgan/phinx": "~0.9",
+    "twbs/bootstrap": "~4.1",
+    "robmorgan/phinx": "~0.10",
     "public/swagger-ui": "dev-master",
     "public/jquery": "dev-master",
     "public/jquery-ui": "dev-master",
@@ -20,10 +20,10 @@
     "public/require": "dev-master"
   },
   "require-dev": {
-    "codeception/codeception": "~2.3",
-    "satooshi/php-coveralls": "~1.0",
-    "squizlabs/php_codesniffer": "~3.0",
-    "zendframework/zend-dom": "~2.6"
+    "codeception/codeception": "~2.5",
+    "php-coveralls/php-coveralls": "~2.1",
+    "squizlabs/php_codesniffer": "~3.3",
+    "zendframework/zend-dom": "~2.7"
   },
   "repositories": [
     {
@@ -33,7 +33,7 @@
         "version": "dev-master",
         "license": "Apache-2.0",
         "dist":{
-          "url":"https://github.com/swagger-api/swagger-ui/archive/v3.4.3.zip",
+          "url":"https://github.com/swagger-api/swagger-ui/archive/v3.19.2.zip",
           "type":"zip"
         },
         "extra": {
