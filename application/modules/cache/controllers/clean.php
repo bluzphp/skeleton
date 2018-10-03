@@ -20,6 +20,7 @@ use Bluz\Proxy\Messages;
  * Clean system data
  *
  * @accept    JSON
+ * @method    POST
  * @privilege Management
  * @return void
  */

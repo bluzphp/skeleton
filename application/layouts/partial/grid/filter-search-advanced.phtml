@@ -43,12 +43,12 @@ foreach ($filters as $filterTitle => $filter) {
   <div class="dropdown-menu">
       <?php foreach ($filters as $fieldTitle => $filter) : ?>
         <a href="#" class="dropdown-item"
-           data-filter="<?= $grid->getUid() . '-filter-' . current($filter) ?>"
+           data-filter="<?= $grid->getUid() . '-filter-' . $grid->applyAlias(current($filter)) ?>"
            data-filter-type="<?= key($filter) ?>"><?= $fieldTitle ?></a>
       <?php endforeach; ?>
   </div>
 </div>
-<input name="<?= $grid->getUid() . '-filter-' . current($filters[$field]) ?>"
+<input name="<?= $grid->getUid() . '-filter-' . $grid->applyAlias(current($filters[$field])) ?>"
        class="grid-filter-search-input"
        value="<?= $type . '-' . esc($value) ?>" type="hidden"/>
 <input name="search" type="search" class="form-control" value="<?= esc($value) ?>" required/>

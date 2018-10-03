@@ -132,10 +132,10 @@ Controller is file with anonymous function:
 namespace Application;
 
 /**
- * @privilege View-User-Profile
- * @cache 5 minutes
- * @param integer $id
- * @return array
+ * @privilege ViewProfile
+ * @cache     5 minutes
+ * @param     integer $id
+ * @return    array
  */
 return function($id) {
     return [

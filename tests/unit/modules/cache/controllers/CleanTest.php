@@ -30,7 +30,7 @@ class CleanTest extends ControllerTestCase
     {
         self::setupSuperUserIdentity();
 
-        $this->dispatch('/cache/clean/', [], RequestMethod::GET, true);
+        $this->dispatch('/cache/clean/', [], RequestMethod::POST, true);
 
         self::assertOk();
 

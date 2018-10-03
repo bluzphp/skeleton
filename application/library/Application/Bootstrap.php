@@ -37,7 +37,7 @@ class Bootstrap extends Application
     /**
      * {@inheritdoc}
      */
-    protected function preProcess() : void
+    protected function preProcess(): void
     {
         parent::preProcess();
 
@@ -57,7 +57,7 @@ class Bootstrap extends Application
      * @throws \Bluz\Auth\AuthException
      * @throws \InvalidArgumentException
      */
-    protected function preDispatch($controller) : void
+    protected function preDispatch($controller): void
     {
         // example of setup default title
         Layout::title('Bluz Skeleton');
@@ -85,7 +85,7 @@ class Bootstrap extends Application
      *
      * @return \Bluz\Controller\Controller|null
      */
-    public function forbidden(ForbiddenException $exception) : ?Controller
+    public function forbidden(ForbiddenException $exception): ?Controller
     {
         // for AJAX and API calls (over JSON)
         $jsonOrApi = Request::isXmlHttpRequest()
@@ -110,7 +110,7 @@ class Bootstrap extends Application
      *
      * @return void
      */
-    public function render() : void
+    public function render(): void
     {
         Logger::info('app:render');
         Logger::info('app:files:' . count(get_included_files()));
@@ -132,7 +132,7 @@ class Bootstrap extends Application
      *
      * @return void
      */
-    public function end() : void
+    public function end(): void
     {
         if ($errors = Logger::get('error')) {
             $this->sendErrors($errors);
@@ -144,7 +144,7 @@ class Bootstrap extends Application
      *
      * @return void
      */
-    protected function sendInfoHeaders() : void
+    protected function sendInfoHeaders(): void
     {
         $debugString = sprintf(
             '%fsec; %skb',
@@ -169,7 +169,7 @@ class Bootstrap extends Application
      *
      * @return void
      */
-    protected function sendErrors($errors) : void
+    protected function sendErrors($errors): void
     {
         foreach ($errors as $message) {
             errorLog(new \ErrorException($message, 0, E_USER_ERROR));

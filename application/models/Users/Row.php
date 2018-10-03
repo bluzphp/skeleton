@@ -25,13 +25,13 @@ use Bluz\Validator\Traits\Validator;
  * @property string  $updated
  * @property string  $status
  *
- * @SWG\Definition(definition="users", title="user", required={"id", "login", "status"})
- * @SWG\Property(property="id", type="integer", description="User UID", example=2)
- * @SWG\Property(property="login", type="string", description="Login", example="admin")
- * @SWG\Property(property="email", type="string", description="Email", example="admin@domain.com")
- * @SWG\Property(property="created", type="string", format="date-time", example="2017-01-01 20:17:01")
- * @SWG\Property(property="updated", type="string", format="date-time", example="2017-01-01 20:17:01")
- * @SWG\Property(property="status", type="string", enum={"pending", "active", "disabled", "deleted"})
+ * @OA\Schema(schema="user", title="user", required={"id", "login", "status"})
+ * @OA\Property(property="id", type="integer", description="User UID", example=2)
+ * @OA\Property(property="login", type="string", description="Login", example="admin")
+ * @OA\Property(property="email", type="string", description="Email", example="admin@domain.com")
+ * @OA\Property(property="created", type="string", format="date-time", example="2017-01-01 20:17:01")
+ * @OA\Property(property="updated", type="string", format="date-time", example="2017-01-01 20:17:01")
+ * @OA\Property(property="status", type="string", enum={"pending", "active", "disabled", "deleted"})
  */
 class Row extends AbstractIdentity
 {
@@ -50,7 +50,7 @@ class Row extends AbstractIdentity
      * @throws \Bluz\Validator\Exception\ComponentException
      * @throws \Bluz\Db\Exception\TableNotFoundException
      */
-    public function beforeSave() : void
+    public function beforeSave(): void
     {
         $this->email = strtolower($this->email ?? '');
 
@@ -97,7 +97,7 @@ class Row extends AbstractIdentity
     /**
      * @return void
      */
-    public function beforeInsert() : void
+    public function beforeInsert(): void
     {
         $this->created = gmdate('Y-m-d H:i:s');
     }
@@ -105,7 +105,7 @@ class Row extends AbstractIdentity
     /**
      * @return void
      */
-    public function beforeUpdate() : void
+    public function beforeUpdate(): void
     {
         $this->updated = gmdate('Y-m-d H:i:s');
     }
@@ -121,7 +121,7 @@ class Row extends AbstractIdentity
     /**
      * {@inheritdoc}
      */
-    public function getPrivileges() : array
+    public function getPrivileges(): array
     {
         if (!$this->privileges) {
             $this->privileges = Privileges\Table::getInstance()->getUserPrivileges($this->id);
@@ -136,7 +136,7 @@ class Row extends AbstractIdentity
      *
      * @return boolean
      */
-    public function hasRole($roleId) : bool
+    public function hasRole($roleId): bool
     {
         $roles = Roles\Table::getInstance()->getUserRolesIdentity($this->id);
 

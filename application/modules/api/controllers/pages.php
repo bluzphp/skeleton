@@ -16,51 +16,63 @@ use Bluz\Controller\Mapper\Rest;
  * Get all pages or just one by ID
  * For everyone
  *
- * @SWG\Head(
+ * @OA\Head(
  *   path="/api/pages/{pageId}",
  *   tags={"pages"},
  *   operationId="getPageById",
  *   summary="Find page by ID",
- *   @SWG\Parameter(
+ *   @OA\Parameter(
  *      name="pageId",
  *      in="path",
- *      type="integer",
  *      required=true,
- *      description="ID of page that needs to be fetched"
+ *      description="ID of page that needs to be fetched",
+ *      @OA\Schema(type="integer")
  *    ),
- *    @SWG\Response(response=200, description="Given page found"),
- *    @SWG\Response(@SWG\Schema(ref="#/definitions/error"), response=404, description="Page not found")
+ *    @OA\Response(response=200, description="Given page found"),
+ *    @OA\Response(@OA\JsonContent(ref="#/components/schemas/error"), response=404, description="Page not found")
  * )
  *
- * @SWG\Get(
+ * @OA\Get(
  *   path="/api/pages/{pageId}",
  *   tags={"pages"},
  *   operationId="getPageById",
  *   summary="Find page by ID",
- *   @SWG\Parameter(
+ *   @OA\Parameter(
  *      name="pageId",
  *      in="path",
- *      type="integer",
  *      required=true,
- *      description="ID of page that needs to be fetched"
+ *      description="ID of page that needs to be fetched",
+ *      @OA\Schema(type="integer")
  *    ),
- *    @SWG\Response(@SWG\Schema(ref="#/definitions/pages"), response=200, description="Given page found"),
- *    @SWG\Response(@SWG\Schema(ref="#/definitions/error"), response=404, description="Page not found")
+ *    @OA\Response(
+ *      @OA\JsonContent(ref="#/components/schemas/page"),
+ *      response=200,
+ *      description="Given page found"
+ *   ),
+ *   @OA\Response(@OA\JsonContent(ref="#/components/schemas/error"), response=404, description="Page not found")
  * )
  *
- * @SWG\Get(
+ * @OA\Get(
  *     path="/api/pages/",
  *     tags={"pages"},
  *     method="GET",
  *     operationId="getPageCollection",
  *     summary="Collection of items",
- *     @SWG\Parameter(ref="#/parameters/offset"),
- *     @SWG\Parameter(ref="#/parameters/limit"),
- *     @SWG\Response(response=200, description="Collection present"),
- *     @SWG\Response(response=206, description="Collection present")
+ *     @OA\Parameter(ref="#/components/parameters/offset_in_query"),
+ *     @OA\Parameter(ref="#/components/parameters/limit_in_query"),
+ *     @OA\Response(
+ *          @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/page")),
+ *          response=200,
+ *          description="Collection"
+ *     ),
+ *     @OA\Response(
+ *          @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/page")),
+ *          response=206,
+ *          description="Collection (partial)"
+ *     )
  * )
  *
- * @ accept JSON
+ * @accept JSON
  * @return mixed
  */
 return function () {

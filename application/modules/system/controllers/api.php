@@ -9,7 +9,7 @@
 namespace Application;
 
 use Bluz\Controller\Controller;
-use Swagger;
+use OpenApi;
 
 /**
  * @accept HTML
@@ -31,7 +31,8 @@ return function () {
 
     $options = [];
 
-    print Swagger\scan($paths, $options);
+    $openApi = OpenApi\scan($paths, $options);
+    print $openApi->toJson();
 
     // @todo: remove this `die` call
     die;

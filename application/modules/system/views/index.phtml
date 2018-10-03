@@ -2,7 +2,7 @@
 <ul>
   <li><?= $this->ahref(
           __('Swagger documented API'),
-          $this->baseUrl('api-reference') . '/index.html?url=' . Bluz\Proxy\Router::getFullUrl('system', 'api')
+          $this->baseUrl('api') . '/index.html?url=' . Bluz\Proxy\Router::getFullUrl('system', 'api')
       ); ?></li>
   <li><?= $this->ahref(__('Bookmarklets generator'), ['system', 'bookmarks']) ?></li>
   <li><?= $this->ahref(__('Routers Map'), ['system', 'routers']); ?></li>

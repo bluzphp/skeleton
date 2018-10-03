@@ -9,6 +9,7 @@
  */
 namespace Application\Tests;
 
+use Application\Tests\Fixtures\Users\UserFixtureContainer;
 use Application\Users;
 use Application\Tests\Fixtures\Users\UserHasPermission;
 use Bluz\Http\Exception\ForbiddenException;
@@ -52,7 +53,7 @@ class ControllerTestCase extends SkeletonTestCase
      *
      * @return void
      */
-    protected static function setupGuestIdentity() : void
+    protected static function setupGuestIdentity(): void
     {
         Auth::setIdentity(new Users\Row());
     }
@@ -62,9 +63,9 @@ class ControllerTestCase extends SkeletonTestCase
      *
      * @return void
      */
-    protected static function setupSuperUserIdentity() : void
+    protected static function setupSuperUserIdentity(): void
     {
-        Auth::setIdentity(new UserHasPermission());
+        Auth::setIdentity(new UserHasPermission(UserFixtureContainer::$fixture));
     }
 
     /**
@@ -72,7 +73,7 @@ class ControllerTestCase extends SkeletonTestCase
      *
      * @return void
      */
-    protected static function assertOk() : void
+    protected static function assertOk(): void
     {
         self::assertResponseCode(StatusCode::OK);
     }
@@ -83,7 +84,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param int $code
      * @return void
      */
-    protected static function assertResponseCode($code) : void
+    protected static function assertResponseCode($code): void
     {
         self::assertEquals($code, Response::getStatusCode());
     }
@@ -94,7 +95,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param string $module
      * @return void
      */
-    protected static function assertModule($module) : void
+    protected static function assertModule($module): void
     {
         self::assertEquals($module, self::getApp()->getModule());
     }
@@ -105,7 +106,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param string $controller
      * @return void
      */
-    protected static function assertController($controller) : void
+    protected static function assertController($controller): void
     {
         self::assertEquals($controller, self::getApp()->getController());
     }
@@ -119,7 +120,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param int $code
      * @return void
      */
-    protected static function assertRedirect($module, $controller, $params = [], $code = StatusCode::FOUND) : void
+    protected static function assertRedirect($module, $controller, $params = [], $code = StatusCode::FOUND): void
     {
         $url = Router::getFullUrl($module, $controller, $params);
 
@@ -138,7 +139,7 @@ class ControllerTestCase extends SkeletonTestCase
      *
      * @return void
      */
-    protected static function assertRedirectToLogin() : void
+    protected static function assertRedirectToLogin(): void
     {
         $url = Router::getUrl('users', 'signin');
 
@@ -157,7 +158,7 @@ class ControllerTestCase extends SkeletonTestCase
      *
      * @return void
      */
-    protected static function assertReload() : void
+    protected static function assertReload(): void
     {
         $exception = self::getApp()->getException();
 
@@ -169,7 +170,7 @@ class ControllerTestCase extends SkeletonTestCase
      *
      * @return void
      */
-    protected static function assertForbidden() : void
+    protected static function assertForbidden(): void
     {
         $exception = self::getApp()->getException();
 
@@ -186,7 +187,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param mixed $value
      * @return void
      */
-    protected static function assertResponseVariable($key, $value) : void
+    protected static function assertResponseVariable($key, $value): void
     {
         if (self::getApp()->useLayout()) {
             self::fail('Method `assertResponseVariable` required to disable Layout, please update test');
@@ -203,7 +204,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param string $text
      * @return void
      */
-    private static function checkMessage($type, $text = null) : void
+    private static function checkMessage($type, $text = null): void
     {
         $message = Messages::pop($type);
 
@@ -222,7 +223,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param string $text
      * @return void
      */
-    protected static function assertErrorMessage($text = null) : void
+    protected static function assertErrorMessage($text = null): void
     {
         self::checkMessage('error', $text);
     }
@@ -233,7 +234,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param string $text
      * @return void
      */
-    protected static function assertNoticeMessage($text = null) : void
+    protected static function assertNoticeMessage($text = null): void
     {
         self::checkMessage('notice', $text);
     }
@@ -244,7 +245,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param string $text
      * @return void
      */
-    protected static function assertSuccessMessage($text = null) : void
+    protected static function assertSuccessMessage($text = null): void
     {
         self::checkMessage('success', $text);
     }
@@ -286,7 +287,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param string $path
      * @throws ExpectationFailedException
      */
-    public static function assertQuery($path) : void
+    public static function assertQuery($path): void
     {
         $match = self::queryCount($path);
         if (!($match > 0)) {
@@ -304,7 +305,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param string $path CSS selector path
      * @throws ExpectationFailedException
      */
-    public static function assertNotQuery($path) : void
+    public static function assertNotQuery($path): void
     {
         $match  = self::queryCount($path);
         if ($match !== 0) {
@@ -323,7 +324,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param string $count Number of nodes that should match
      * @throws ExpectationFailedException
      */
-    public static function assertQueryCount($path, $count) : void
+    public static function assertQueryCount($path, $count): void
     {
         $match = self::queryCount($path);
         if ($match !== $count) {
@@ -344,7 +345,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param  string $count Number of nodes that should NOT match
      * @throws ExpectationFailedException
      */
-    public static function assertNotQueryCount($path, $count) : void
+    public static function assertNotQueryCount($path, $count): void
     {
         $match = self::queryCount($path);
         if ($match === $count) {
@@ -364,7 +365,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param  string $match content that should be contained in matched nodes
      * @throws ExpectationFailedException
      */
-    public static function assertQueryContentContains($path, $match) : void
+    public static function assertQueryContentContains($path, $match): void
     {
         $result = self::query($path);
         if ($result->count() === 0) {
@@ -394,7 +395,7 @@ class ControllerTestCase extends SkeletonTestCase
      * @param  string $pattern Pattern that should be contained in matched nodes
      * @throws ExpectationFailedException
      */
-    public static function assertQueryContentRegex($path, $pattern) : void
+    public static function assertQueryContentRegex($path, $pattern): void
     {
         $result = self::query($path);
 

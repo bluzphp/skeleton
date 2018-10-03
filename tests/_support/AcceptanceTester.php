@@ -54,4 +54,52 @@ class AcceptanceTester extends \Codeception\Actor
     {
         $this->login('member', 'member');
     }
+
+    /**
+     * See Notice Message in the header `Bluz-Notify`
+     * 
+     * @return void
+     */
+    public function seeNoticeHeader($message)
+    {
+        $messages = [
+            'error' => [],
+            'success' => [],
+            'notice' => [$message]
+        ];
+
+        $this->haveHttpHeader('Bluz-Notify', json_encode($messages));
+    }
+
+    /**
+     * See Notice Message in the header `Bluz-Notify`
+     *
+     * @return void
+     */
+    public function seeSuccessHeader($message)
+    {
+        $messages = [
+            'error' => [],
+            'success' => [$message],
+            'notice' => []
+        ];
+
+        $this->haveHttpHeader('Bluz-Notify', json_encode($messages));
+    }
+
+    /**
+     * See Notice Message in the header `Bluz-Notify`
+     *
+     * @return void
+     */
+    public function seeErrorHeader($message)
+    {
+        $messages = [
+            'error' => [$message],
+            'success' => [],
+            'notice' => []
+        ];
+
+        $this->haveHttpHeader('Bluz-Notify', json_encode($messages));
+    }
 }

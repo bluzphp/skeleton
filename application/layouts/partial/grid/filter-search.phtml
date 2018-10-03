@@ -27,7 +27,7 @@ foreach ($filters as $filterName => $filterTitle) {
   <div class="dropdown-menu">
       <?php foreach ($filters as $fieldName => $fieldTitle) : ?>
           <a href="#" class="dropdown-item"
-              data-filter="<?= $grid->getUid() . '-filter-' . $fieldName ?>"
+              data-filter="<?= $grid->getUid() . '-filter-' . $grid->applyAlias($fieldName) ?>"
               data-filter-type="<?= $grid::FILTER_LIKE ?>"
           >
               <?= $fieldTitle ?>
@@ -35,6 +35,6 @@ foreach ($filters as $filterName => $filterTitle) {
       <?php endforeach; ?>
   </div>
 </div><!-- /btn-group -->
-<input name="<?= $grid->getUid() . '-filter-' . $field ?>" class="grid-filter-search-input"
+<input name="<?= $grid->getUid() . '-filter-' . $grid->applyAlias($field) ?>" class="grid-filter-search-input"
        value="<?= $grid::FILTER_LIKE . '-' . esc($value) ?>" type="hidden"/>
 <input name="search-like" type="search" class="form-control" value="<?= esc($value) ?>" required/>

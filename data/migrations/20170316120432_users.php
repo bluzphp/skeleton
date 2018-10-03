@@ -48,7 +48,7 @@ class Users extends AbstractMigration
             ->addColumn('params', 'text')
             ->addColumn('created', 'timestamp', ['default' => 'CURRENT_TIMESTAMP', 'update' => ''])
             ->addColumn('expired', 'timestamp', ['null' => true])
-            ->addForeignKey('userId', $users, 'id', [
+            ->addForeignKey('userId', $users->getTable(), 'id', [
                 'delete' => 'CASCADE',
                 'update' => 'CASCADE'
             ])
@@ -64,7 +64,7 @@ class Users extends AbstractMigration
             ->addColumn('tokenType', 'string', ['length' => 64])
             ->addTimestamps('created', 'updated')
             ->addColumn('expired', 'timestamp', ['null' => true])
-            ->addForeignKey('userId', $users, 'id', [
+            ->addForeignKey('userId', $users->getTable(), 'id', [
                 'delete' => 'CASCADE',
                 'update' => 'CASCADE'
             ])

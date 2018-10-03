@@ -37,7 +37,7 @@ class Mail
      * @throws \Bluz\Http\Exception\NotAcceptableException
      * @throws \Bluz\Http\Exception\ForbiddenException
      */
-    public static function activation($user, $password) : ?bool
+    public static function activation($user, $password): ?bool
     {
         // email subject
         $subject = __('Activation');
@@ -99,7 +99,7 @@ class Mail
      * @throws \Bluz\Http\Exception\NotAcceptableException
      * @throws \Bluz\Http\Exception\ForbiddenException
      */
-    public static function recovery($user) : ?bool
+    public static function recovery($user): ?bool
     {
         // email subject
         $subject = __('Password Recovery');
@@ -161,7 +161,7 @@ class Mail
      * @throws \Bluz\Http\Exception\NotAcceptableException
      * @throws \Bluz\Http\Exception\ForbiddenException
      */
-    public static function changeEmail($user, $email) : ?bool
+    public static function changeEmail($user, $email): ?bool
     {
         // email subject
         $subject = __('Change email');

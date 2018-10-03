@@ -1,11 +1,11 @@
 <?php /** @var \Bluz\Layout\Layout $this */ ?>
 <?php $this->headStyle($this->baseUrl('css/dashboard.css')); ?>
 <?php require __DIR__ . '/partial/header.phtml'; ?>
-<?php require __DIR__ . '/partial/nav-bar.phtml'; ?>
+<?php require __DIR__ . '/partial/navbar.phtml'; ?>
 <div class="container-fluid">
   <div class="row">
-    <?php require __DIR__ . '/partial/nav-menu.phtml'; ?>
-    <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+    <?php require __DIR__ . '/partial/sidebar.phtml'; ?>
+    <main class="col-md-10 pt-3" role="main">
       <?php require __DIR__.'/partial/breadcrumbs.phtml'; ?>
       <?php
       /* @var closure $content */

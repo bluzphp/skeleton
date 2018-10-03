@@ -25,7 +25,7 @@ class Cookie extends AbstractProvider
 {
     const PROVIDER = Table::PROVIDER_COOKIE;
 
-    public static function authenticate($token) : void
+    public static function authenticate($token): void
     {
         $authRow = self::verify($token);
         $user = UsersTable::findRow($authRow->userId);
@@ -34,7 +34,7 @@ class Cookie extends AbstractProvider
         Table::tryLogin($user);
     }
 
-    public static function verify($token) : Row
+    public static function verify($token): Row
     {
         /* @var Row $authRow */
         $authRow = Table::findRowWhere(['token' => $token, 'provider' => Table::PROVIDER_COOKIE]);
@@ -55,7 +55,7 @@ class Cookie extends AbstractProvider
         return $authRow;
     }
 
-    public static function create($user) : Row
+    public static function create($user): Row
     {
         // remove old Auth record
         self::remove($user->id);

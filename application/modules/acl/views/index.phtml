@@ -5,12 +5,12 @@
 </nav>
 <hr/>
 <form action="<?= $this->url('acl', 'save') ?>" method="POST">
-  <table class="table table-fixed table-hover table-bordered table-condensed ">
+  <table class="table table-fixed table-hover table-condensed ">
     <thead>
       <tr>
-        <th width="180px"><?= __('Privilege/Role') ?></th>
+        <th class="col-xs-2"><?= __('Privilege/Role') ?></th>
         <?php foreach ($roles as $role) : ?>
-        <th width="180px" class="text-center">
+        <th class="col-xs-3 text-center">
           <?= $role->name ?>
           <?php if (!$role->isBasic()) : ?>
             <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
@@ -35,8 +35,8 @@
         <td><?= $privilege ?></td>
         <?php foreach ($roles as $role) : ?>
         <td>
-          <label class="form-check-label d-block text-center">
-            <input class="form-check-input" type="checkbox" name="acl[<?= $role->id ?>][<?= $module ?>][<?= $privilege ?>]" value="1"
+          <label class="form-check-label">
+            <input type="checkbox" name="acl[<?= $role->id ?>][<?= $module ?>][<?= $privilege ?>]" value="1"
                 <?= ((isset($privileges[$role->id], $privileges[$role->id][$module]) && in_array(
                         $privilege,
                         $privileges[$role->id][$module],

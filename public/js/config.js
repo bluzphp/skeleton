@@ -1,5 +1,5 @@
 /**
- * Configuration example
+ * Configuration
  * @author Anton Shevchuk
  */
 /* global define,require*/
@@ -9,13 +9,13 @@ require.config({
   // if you need disable JS cache
   urlArgs: 'bust=' + Date.now(),
   paths: {
-    bootstrap: './vendor/bootstrap.min',
-    jquery: './vendor/jquery.min',
-    jqueryui: './vendor/jquery-ui.min',
-    popper: './vendor/popper.min',
-    dropzone: './vendor/dropzone-amd-module.min',
+    bootstrap: './../vendor/bootstrap/js/bootstrap.min',
+    jquery: './../vendor/jquery/jquery.min',
+    jqueryui: './../vendor/jquery-ui/jquery-ui.min',
+    popper: './../vendor/popper/popper.min',
     redactor: './../redactor/redactor',
-    'redactor.imagemanager': './../redactor/plugins/imagemanager'
+    'redactor.imagemanager': './../redactor/plugins/imagemanager',
+    dropzone: './../vendor/dropzone-amd-module/dropzone-amd-module.min',
   },
   shim: {
     bootstrap: {

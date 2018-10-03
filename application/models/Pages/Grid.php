@@ -8,10 +8,12 @@ declare(strict_types=1);
 
 namespace Application\Pages;
 
-use Bluz\Grid\Source\SqlSource;
+use Bluz\Grid\Source\SelectSource;
 
 /**
  * Grid of Pages
+ *
+ * @method   Row[] getData()
  *
  * @package  Application\Pages
  */
@@ -27,11 +29,11 @@ class Grid extends \Bluz\Grid\Grid
      *
      * @throws \Bluz\Grid\GridException
      */
-    public function init() : void
+    public function init(): void
     {
         // Setup source
-        $adapter = new SqlSource();
-        $adapter->setSource('SELECT * FROM pages');
+        $adapter = new SelectSource();
+        $adapter->setSource(Table::select());
 
         $this->setAdapter($adapter);
         $this->setDefaultLimit(25);

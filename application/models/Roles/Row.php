@@ -27,7 +27,7 @@ class Row extends \Bluz\Db\Row
      *
      * @throws \Bluz\Validator\Exception\ComponentException
      */
-    protected function beforeInsert() : void
+    protected function beforeInsert(): void
     {
         $this->addValidator('name')
             ->required()
@@ -45,7 +45,7 @@ class Row extends \Bluz\Db\Row
      *
      * @throws \Bluz\Validator\Exception\ComponentException
      */
-    protected function beforeUpdate() : void
+    protected function beforeUpdate(): void
     {
         $this->addValidator('name')
             ->required()
@@ -75,7 +75,7 @@ class Row extends \Bluz\Db\Row
      *
      * @return boolean
      */
-    public function isBasic() : bool
+    public function isBasic(): bool
     {
         return in_array(strtolower($this->name), Table::getInstance()->getBasicRoles(), false);
     }

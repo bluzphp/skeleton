@@ -8,14 +8,14 @@
       <div class="card-body text-dark">
         <div class="list-group">
           <a href="<?= $this->url('cache', 'clean') ?>"
-             class="list-group-item list-group-item-warning" data-confirm data-ajax>
+             class="list-group-item list-group-item-warning" data-confirm data-ajax data-ajax-method="post">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1"><?= __('Clean system data') ?></h5>
               <small><i class="fa fa-fire fa-fw"></i></small>
             </div>
           </a>
           <a href="<?= $this->url('cache', 'flush') ?>"
-             class="list-group-item list-group-item-danger" data-ajax data-confirm>
+             class="list-group-item list-group-item-danger" data-ajax data-confirm data-ajax-method="post">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1"><?= __('Clean all data') ?></h5>
               <small><i class="fa fa-fire fa-fw"></i></small>

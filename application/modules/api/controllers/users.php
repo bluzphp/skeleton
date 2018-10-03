@@ -13,22 +13,24 @@ use Bluz\Controller\Controller;
 use Bluz\Http\Exception\NotFoundException;
 
 /**
- * @SWG\Get(
+ * @OA\Get(
  *   path="/api/users/{id}",
  *   tags={"users"},
  *   operationId="profileById",
  *   summary="Get profile by user id",
- *   @SWG\Parameter(ref="#/parameters/Auth-Token"),
- *   @SWG\Parameter(
+ *   security={
+ *     {"api_key": {}}
+ *   },
+ *   @OA\Parameter(
  *     name="id",
  *     in="path",
- *     type="integer",
  *     required=true,
- *     description="User UID"
+ *     description="User UID",
+ *     @OA\Schema(type="integer")
  *   ),
- *   @SWG\Response(@SWG\Schema(ref="#/definitions/users"), response=200, description="Given user found"),
- *   @SWG\Response(@SWG\Schema(ref="#/definitions/error"), response=403, description="Forbidden"),
- *   @SWG\Response(@SWG\Schema(ref="#/definitions/error"), response=404, description="User not found")
+ *   @OA\Response(@OA\JsonContent(ref="#/components/schemas/user"), response=200, description="Given user found"),
+ *   @OA\Response(@OA\JsonContent(ref="#/components/schemas/error"), response=403, description="Forbidden"),
+ *   @OA\Response(@OA\JsonContent(ref="#/components/schemas/error"), response=404, description="User not found")
  * )
  *
  * @accept JSON
@@ -36,7 +38,6 @@ use Bluz\Http\Exception\NotFoundException;
  * @privilege Users/Id
  * @route  /api/users/{$id}
  * @param  integer $id
- * @throws NotFoundException
  */
 return function ($id) {
     /**
