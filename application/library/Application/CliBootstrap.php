@@ -14,7 +14,6 @@ use Application\Users\Table;
 use Bluz\Application\Application;
 use Bluz\Controller\Controller;
 use Bluz\Proxy\Auth;
-use Bluz\Proxy\Config;
 use Bluz\Proxy\Logger;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
@@ -88,15 +87,14 @@ class CliBootstrap extends Application
      * get CLI Request
      *
      * @return void
-     * @throws \Application\Exception
      * @throws \InvalidArgumentException
      */
-    public function initRequest()
+    public function initRequest() : void
     {
         $uri = $this->getInput()->getArgument('uri');
 
         $parsedQuery = parse_url($uri, PHP_URL_QUERY);
-        if (false !== $parsedQuery) {
+        if (false !== $parsedQuery && null !== $parsedQuery) {
             parse_str($parsedQuery, $query);
         } else {
             $query = [];
@@ -108,29 +106,11 @@ class CliBootstrap extends Application
     }
 
     /**
-     * initConfig
-     *
-     * @return void
-     * @throws \Bluz\Config\ConfigException
-     */
-    public function initConfig()
-    {
-        $config = new \Bluz\Config\Config();
-        $config->setPath(self::getInstance()->getPath());
-        $config->setEnvironment(self::getInstance()->getEnvironment());
-        $config->init();
-
-        Config::setInstance($config);
-
-        parent::initConfig();
-    }
-
-    /**
      * Pre process
      *
      * @return void
      */
-    protected function preProcess()
+    protected function preProcess() : void
     {
         Router::process();
         Response::setType('CLI');
@@ -142,8 +122,9 @@ class CliBootstrap extends Application
      * @param Controller $controller
      *
      * @return void
+     * @throws \Bluz\Db\Exception\DbException
      */
-    protected function preDispatch($controller)
+    protected function preDispatch($controller) : void
     {
         // auth as CLI user
         $cliUser = Table::findRowWhere(['login' => 'system']);
@@ -157,14 +138,14 @@ class CliBootstrap extends Application
      *
      * @return void
      */
-    public function render()
+    public function render() : void
     {
         $io = new SymfonyStyle($this->getInput(), $this->getOutput());
         $io->title('Bluz CLI');
 
         if ($params = Request::getParams()) {
             foreach ($params as $key => $value) {
-                $key = is_int($key) ? "<comment>$key</comment>" : "<info>$key</info>";
+                $key = \is_int($key) ? "<comment>$key</comment>" : "<info>$key</info>";
                 $io->writeln("$key: $value");
             }
         }
@@ -172,13 +153,7 @@ class CliBootstrap extends Application
         $io->writeln('');
         $io->writeln('========');
         $io->writeln('');
-
-        $data = Response::getBody()->getData()->toArray();
-
-        foreach ($data as $key => $value) {
-            $io->writeln("<info>$key</info>: $value");
-        }
-
+        $io->writeln(json_encode(Response::getBody()));
         $io->writeln('');
     }
 
@@ -187,7 +162,7 @@ class CliBootstrap extends Application
      *
      * @return void
      */
-    public function end()
+    public function end() : void
     {
         if ($errors = Logger::get('error')) {
             $this->sendErrors($errors);
@@ -207,7 +182,7 @@ class CliBootstrap extends Application
      *
      * @return void
      */
-    protected function sendErrors($errors)
+    protected function sendErrors($errors) : void
     {
         foreach ($errors as $message) {
             errorLog(new \ErrorException($message, 0, E_USER_ERROR));
