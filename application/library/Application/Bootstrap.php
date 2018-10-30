@@ -36,19 +36,6 @@ class Bootstrap extends Application
 {
     /**
      * {@inheritdoc}
-     */
-    protected function preProcess(): void
-    {
-        parent::preProcess();
-
-        $path = $this->getPath() . '/modules';
-        foreach (glob($path .'/*/init.php') as $initial) {
-            (include $initial)($this);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
      *
      * @param Controller $controller
      *
