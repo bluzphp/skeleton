@@ -54,7 +54,7 @@ class CliBootstrap extends Application
     /**
      * @param InputInterface $input
      */
-    public function setInput(InputInterface $input)
+    public function setInput(InputInterface $input): void
     {
         $this->input = $input;
     }
@@ -70,7 +70,7 @@ class CliBootstrap extends Application
     /**
      * @param OutputInterface $output
      */
-    public function setOutput(OutputInterface $output)
+    public function setOutput(OutputInterface $output): void
     {
         $this->output = $output;
     }
@@ -89,7 +89,7 @@ class CliBootstrap extends Application
      * @return void
      * @throws \InvalidArgumentException
      */
-    public function initRequest() : void
+    public function initRequest(): void
     {
         $uri = $this->getInput()->getArgument('uri');
 
@@ -110,7 +110,7 @@ class CliBootstrap extends Application
      *
      * @return void
      */
-    protected function preProcess() : void
+    protected function preProcess(): void
     {
         Router::process();
         Response::setType('CLI');
@@ -124,11 +124,12 @@ class CliBootstrap extends Application
      * @return void
      * @throws \Bluz\Db\Exception\DbException
      */
-    protected function preDispatch($controller) : void
+    protected function preDispatch($controller): void
     {
         // auth as CLI user
-        $cliUser = Table::findRowWhere(['login' => 'system']);
-        Auth::setIdentity($cliUser);
+        if ($cliUser = Table::findRowWhere(['login' => 'system'])) {
+            Auth::setIdentity($cliUser);
+        }
 
         parent::preDispatch($controller);
     }
@@ -138,7 +139,7 @@ class CliBootstrap extends Application
      *
      * @return void
      */
-    public function render() : void
+    public function render(): void
     {
         $io = new SymfonyStyle($this->getInput(), $this->getOutput());
         $io->title('Bluz CLI');
@@ -162,7 +163,7 @@ class CliBootstrap extends Application
      *
      * @return void
      */
-    public function end() : void
+    public function end(): void
     {
         if ($errors = Logger::get('error')) {
             $this->sendErrors($errors);
@@ -182,7 +183,7 @@ class CliBootstrap extends Application
      *
      * @return void
      */
-    protected function sendErrors($errors) : void
+    protected function sendErrors($errors): void
     {
         foreach ($errors as $message) {
             errorLog(new \ErrorException($message, 0, E_USER_ERROR));
