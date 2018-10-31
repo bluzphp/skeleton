@@ -5,6 +5,7 @@
   "type": "library",
   "require": {
     "php": ">=7.1",
+    "ext-json": "*",
     "bluzphp/bluzman": "~2.4",
     "bluzphp/framework": "~7.10",
     "bluzphp/composer-plugin": "~2.1",
