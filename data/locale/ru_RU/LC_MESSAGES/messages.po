@@ -1,336 +1,406 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluz\n"
-"POT-Creation-Date: 2014-06-03 14:30+0200\n"
-"PO-Revision-Date: 2014-06-03 14:32+0200\n"
+"POT-Creation-Date: 2018-11-01 16:40+0200\n"
+"PO-Revision-Date: 2018-11-01 17:02+0200\n"
 "Last-Translator: Anton Shevchuk <Anton.Shevchuk@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 2.2\n"
 "X-Poedit-KeywordsList: __;_n:1,2;addError;addNotice;addSuccess\n"
-"X-Poedit-Basepath: ./../../\n"
+"X-Poedit-Basepath: ./../..\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: application\n"
 
-#: ../framework/src/Controller/Crud.php:132
-msgid "Record was created"
-msgstr "Запись создана"
+#: ../framework/src/Validator/Rule/AlphaNumericRule.php:40
+msgid "must contain only letters and digits"
+msgstr "должно содержать только буквы и цифры"
 
-#: ../framework/src/Controller/Crud.php:150
-msgid "Record was updated"
-msgstr "Запись обновлена"
+#: ../framework/src/Validator/Rule/AlphaNumericRule.php:42
+#, php-format
+msgid "must contain only letters, digits and \"%s\""
+msgstr "только буквы, цифры и \" %s\""
 
-#: ../framework/src/Controller/Crud.php:167
-msgid "Record was deleted"
-msgstr "Запись удалена"
+#: ../framework/src/Validator/Rule/AlphaRule.php:40
+msgid "must contain only letters"
+msgstr "только буквы латинского алфавита"
 
-#: application/Bootstrap.php:90
-msgid "You don't have permissions, please sign in"
-msgstr "У вас нет прав доступа, пожалуйста авторизируйтесь"
+#: ../framework/src/Validator/Rule/AlphaRule.php:42
+#, php-format
+msgid "must contain only letters and \"%s\""
+msgstr "должно содержать только буквы и \" %s\""
 
-#: application/layouts/helpers/Username.php:23
+#: ../framework/src/Validator/Rule/BetweenInclusiveRule.php:32
+#: ../framework/src/_translator.php:46
+msgid "must be inclusive between \"%1\" and \"%2\""
+msgstr "должно быть включительно между \"% 1\" и \"% 2\""
+
+#: ../framework/src/Validator/Rule/BetweenRule.php:74
+#: ../framework/src/_translator.php:40
+msgid "must be between \"%1\" and \"%2\""
+msgstr "должно быть между \"% 1\" и \"% 2\""
+
+#: ../framework/src/Validator/Rule/ContainsRule.php:63
+#: ../framework/src/_translator.php:52
+#, php-format
+msgid "must contain the value \"%s\""
+msgstr "должно содержать значение \" %s\""
+
+#: ../framework/src/Validator/Rule/DateRule.php:72
+#: ../framework/src/_translator.php:30
+#, php-format
+msgid "must be a valid date. Sample format: \"%s\""
+msgstr "должна быть допустимой датой. Пример формата: \"%s\""
+
+#: ../framework/src/Validator/Rule/DateRule.php:74
+#: ../framework/src/_translator.php:29
+msgid "must be a valid date"
+msgstr "должна быть допустимой датой"
+
+#: ../framework/src/Validator/Rule/EqualsRule.php:54
+#: ../framework/src/_translator.php:41
+#, php-format
+msgid "must be equals \"%s\""
+msgstr "должно быть равно \" %s\""
+
+#: ../framework/src/Validator/Rule/EqualsStrictRule.php:54
+#: ../framework/src/_translator.php:44
+#, php-format
+msgid "must be identical as \"%s\""
+msgstr "должно быть идентичным \"%s\""
+
+#: ../framework/src/Validator/Rule/InRule.php:73
+#: ../framework/src/_translator.php:45
+#, php-format
+msgid "must be in \"%s\""
+msgstr "должно быть в \"%s\""
+
+#: ../framework/src/Validator/Rule/IpRule.php:75
+#: ../framework/src/_translator.php:39
+#, php-format
+msgid "must be an IP address in the \"%s\" range"
+msgstr "должен быть IP-адресом в диапазоне \"%s\""
+
+#: ../framework/src/Validator/Rule/IpRule.php:77
+#: ../framework/src/_translator.php:38
+msgid "must be an IP address"
+msgstr "должен быть IP-адресом"
+
+#: ../framework/src/Validator/Rule/LatinNumericRule.php:40
+#: ../framework/src/_translator.php:55
+msgid "must contain only Latin letters and digits"
+msgstr "только латинские буквы и цифры"
+
+#: ../framework/src/Validator/Rule/LatinNumericRule.php:42
+#: ../framework/src/_translator.php:56
+#, php-format
+msgid "must contain only Latin letters, digits and \"%s\""
+msgstr "только латинские буквы, цифры и \" %s\""
+
+#: ../framework/src/Validator/Rule/LatinRule.php:40
+#: ../framework/src/_translator.php:53
+msgid "must contain only Latin letters"
+msgstr "только буквы латинского алфавита"
+
+#: ../framework/src/Validator/Rule/LatinRule.php:42
+#: ../framework/src/_translator.php:54
+#, php-format
+msgid "must contain only Latin letters and \"%s\""
+msgstr "должны содержать только латинские буквы и \" %s\""
+
+#: ../framework/src/Validator/Rule/LengthRule.php:53
+#: ../framework/src/Validator/Rule/LengthRule.php:59
+#: ../framework/src/_translator.php:23 ../framework/src/_translator.php:24
+#, php-format
+msgid "\"%s\" is not a valid numeric length"
+msgstr "\"%s\" не является допустимой числовой длиной"
+
+#: ../framework/src/Validator/Rule/LengthRule.php:65
+#, php-format
+msgid "\"%s\" cannot be less than \"%s\" for validation"
+msgstr "\"%s\" не может быть меньше \"%s\" для проверки"
+
+#: ../framework/src/Validator/Rule/LengthRule.php:118
+#: ../framework/src/_translator.php:58
+#, php-format
+msgid "must have a length lower than \"%d\""
+msgstr "длина должна быть меньше \"%d\""
+
+#: ../framework/src/Validator/Rule/LengthRule.php:121
+#: ../framework/src/_translator.php:57
+#, php-format
+msgid "must have a length greater than \"%d\""
+msgstr "длина должна быть больше \"%d\""
+
+#: ../framework/src/Validator/Rule/LengthRule.php:124
+#, php-format
+msgid "must have a length \"%d\""
+msgstr "должна иметь длину \"%d\""
+
+#: ../framework/src/Validator/Rule/LengthRule.php:126
+#: ../framework/src/_translator.php:59
+#, php-format
+msgid "must have a length between \"%d\" and \"%d\""
+msgstr "должна иметь длину между \"%d\" и \"%d\""
+
+#: ../framework/src/Validator/Rule/LessOrEqualRule.php:32
+#: ../framework/src/_translator.php:47
+#, php-format
+msgid "must be lower than or equals \"%s\""
+msgstr "должно быть меньше или равно \"%s\""
+
+#: ../framework/src/Validator/Rule/LessRule.php:54
+#: ../framework/src/_translator.php:48
+#, php-format
+msgid "must be lower than \"%s\""
+msgstr "должно быть меньше \"%s\""
+
+#: ../framework/src/Validator/Rule/MoreOrEqualRule.php:32
+#: ../framework/src/_translator.php:42
+#, php-format
+msgid "must be greater than or equals \"%s\""
+msgstr "должно быть больше или равно \"%s\""
+
+#: ../framework/src/Validator/Rule/MoreRule.php:54
+#: ../framework/src/_translator.php:43
+#, php-format
+msgid "must be greater than \"%s\""
+msgstr "должно быть больше \" %s\""
+
+#: ../framework/src/_translator.php:21
+msgid "is invalid"
+msgstr "неверно"
+
+#: ../framework/src/_translator.php:22
+msgid "is required"
+msgstr "обязательно"
+
+#: ../framework/src/_translator.php:25
+msgid "must be a float number"
+msgstr "должно быть число с плавающей запятой"
+
+#: ../framework/src/_translator.php:26
+msgid "must be a string"
+msgstr "должна быть строка"
+
+#: ../framework/src/_translator.php:27
+msgid "must be a valid country code"
+msgstr "должен быть допустимым кодом страны"
+
+#: ../framework/src/_translator.php:28
+msgid "must be a valid Credit Card number"
+msgstr "должен быть действительный номер кредитной карты"
+
+#: ../framework/src/_translator.php:31
+msgid "must be a valid domain"
+msgstr "должен быть допустимым доменом"
+
+#: ../framework/src/_translator.php:32
+msgid "must be a valid email address"
+msgstr "адрес эл. почты должен быть допустимым"
+
+#: ../framework/src/_translator.php:33
+msgid "must be a valid JSON string"
+msgstr "должна быть допустимой строкой JSON"
+
+#: ../framework/src/_translator.php:34
+msgid "must be a valid slug"
+msgstr "должна быть допустимой slug"
+
+#: ../framework/src/_translator.php:35
+msgid "must be a valid version number"
+msgstr "должен быть допустимым номером версии"
+
+#: ../framework/src/_translator.php:36
+msgid "must be an array"
+msgstr "должен быть массивом"
+
+#: ../framework/src/_translator.php:37
+msgid "must be an integer number"
+msgstr "должно быть целым числом"
+
+#: ../framework/src/_translator.php:49
+msgid "must be negative"
+msgstr "должен быть отрицательным"
+
+#: ../framework/src/_translator.php:50
+msgid "must be numeric"
+msgstr "должен быть числовым"
+
+#: ../framework/src/_translator.php:51
+msgid "must be positive"
+msgstr "должно быть положительным"
+
+#: ../framework/src/_translator.php:60
+msgid "must not be empty"
+msgstr "не может быть пустым"
+
+#: ../framework/src/_translator.php:61
+msgid "must not contain whitespace"
+msgstr "не должно содержать пробелов"
+
+#: ../framework/src/_translator.php:62
+msgid "must validate with regular expression rule"
+msgstr "должен проверяться с помощью правила регулярного выражения"
+
+#: application/layouts/helpers/Username.php:28
 msgid "Guest"
 msgstr "Гость"
 
-#: application/models/Categories/Crud.php:34
-#: application/models/Categories/Crud.php:50
-msgid "Category with alias "
-msgstr "Категория с псевдонимом"
+#: application/library/Application/Bootstrap.php:86
+#: application/modules/error/controllers/index.php:83
+msgid "You don't have permissions, please sign in"
+msgstr "У вас нет прав доступа, пожалуйста авторизируйтесь"
 
-#: application/models/Categories/Crud.php:65
-#: application/models/Options/Crud.php:36 application/models/Test/Crud.php:110
-msgid "Name can't be empty"
-msgstr "Имя не может быть пустым"
+#: application/models/Pages/Row.php:79
+msgid "This alias already exists"
+msgstr "Этот псевдоним уже существует"
 
-#: application/models/Categories/Crud.php:68
-msgid "Name can't be bigger than 128 symbols"
-msgstr "Имя не может быть больше 128 символов"
+#: application/models/Pages/Row.php:89
+msgid "Content can't be empty"
+msgstr "Содержимое не может быть пустым"
 
-#: application/models/Categories/Crud.php:79
-msgid "Alias can't be empty"
-msgstr "Псевдоним для короткой ссылки не может быть пустым"
+#: application/models/Users/Mail.php:43
+msgid "Activation"
+msgstr "Активация"
 
-#: application/models/Categories/Crud.php:82
-msgid "Alias can't be bigger than 64 symbols"
-msgstr "Псевдоним не может быть больше 64 символов"
+#: application/models/Users/Mail.php:105
+msgid "Password Recovery"
+msgstr "Восстановление пароля"
 
-#: application/models/Categories/Crud.php:85
-msgid "Alias should contains only Latin characters, dots and dashes"
-msgstr ""
-"Псевдоним для короткой ссылки должно содержать только буквы латинского "
-"алфавита, точку и дефис"
+#: application/models/Users/Mail.php:167
+#: application/modules/users/views/change-email.phtml:6
+#: application/modules/users/views/partial/card-header.phtml:31
+msgid "Change email"
+msgstr "Изменить email"
 
-#: application/models/Media/Crud.php:130
-msgid "Sorry, I can't receive file"
-msgstr "Файл не получен"
-
-#: application/models/Media/Crud.php:135
-msgid "Please choose file for upload"
-msgstr "Выберите файл для загрузки"
-
-#: application/models/Media/Crud.php:162
-msgid "Title can't be empty"
-msgstr "Заголовок не может быть пустым"
-
-#: application/models/Media/Crud.php:164
-msgid "Title should contains only Latin characters"
-msgstr "Заголовок должен содержать только буквы латинского алфавита"
-
-#: application/models/Options/Crud.php:28
-msgid "Key name can't be empty"
-msgstr "Имя ключа не может быть пустым"
-
-#: application/models/Options/Crud.php:30
-msgid "Key name should contains only Latin characters"
-msgstr "Имя ключа должно содержать только буквы латинского алфавита"
-
-#: application/models/Options/Crud.php:38 application/models/Roles/Crud.php:36
-#: application/models/Test/Crud.php:112
-msgid "Name should contains only Latin characters"
-msgstr "Имя должно содержать только буквы латинского алфавита"
-
-#: application/models/Options/Crud.php:52
-#, php-format
-msgid "Key name \"%s\" already exists in namespace \"%s\""
-msgstr "Ключ \"%s\" уже существует в области \"%s\""
-
-#: application/models/Roles/Crud.php:33
-msgid "Role name can't be empty"
-msgstr "Название роли не может быть пустым"
-
-#: application/models/Roles/Crud.php:51 application/models/Roles/Crud.php:74
-#, php-format
-msgid "Role name \"%s\" already exists"
-msgstr "Роль \"%s\" уже существует"
-
-#: application/models/Roles/Crud.php:66
-#, php-format
-msgid "Role name \"%s\" is basic and can't be editable"
-msgstr "Роль \"%s\" является основной, и не может быть изменена"
-
-#: application/models/Roles/Crud.php:72
-#, php-format
-msgid "Role name \"%s\" the same as original"
-msgstr "Имя роли \"%s\" не было изменено"
-
-#: application/models/Test/Crud.php:125 application/models/Users/Crud.php:190
-msgid "Email can't be empty"
-msgstr "Email не может быть пустым"
-
-#: application/models/Test/Crud.php:127
-msgid "Email has invalid format"
-msgstr "Email указан в неправильном формате"
-
-#: application/models/Users/Crud.php:98
-msgid ""
-"Your account has been created and an activation link hasbeen sent to the e-"
-"mail address you entered.<br/>Note that you must activate the account by "
-"clicking on the activation linkwhen you get the e-mail before you can login."
-msgstr ""
-"Ваша учётная запись создана в системе. На ваш email была отправлена ссылка, "
-"пройдя по которой вы активируете учётную запись"
-
-#: application/models/Users/Crud.php:120
-#, php-format
-msgid "User with login \"%s\" already exists"
-msgstr "Пользователь с логином \"%s\" уже существует"
-
-#: application/models/Users/Crud.php:133
-#, php-format
-msgid "User with email \"%s\" already exists"
-msgstr "Пользователь с адресом \"%s\" уже существует"
-
-#: application/models/Users/Crud.php:142
-msgid "Password can't be empty"
-msgstr "Пароль пуст"
-
-#: application/models/Users/Crud.php:146
-msgid "Password is not equal"
-msgstr "Пароль не верен"
-
-#: application/models/Users/Crud.php:172
-msgid "Login can't be empty"
-msgstr "Логин не может быть пустым"
-
-#: application/models/Users/Crud.php:175
-msgid "Login can't be bigger than 255 symbols"
-msgstr "Логин не может быть больше 255 символов"
-
-#: application/models/Users/Crud.php:195
-msgid "Email can't be bigger than 255 symbols"
-msgstr "Email не может быть больше 255 символов"
-
-#: application/models/Users/Crud.php:202
-msgid "Email has invalid domain name"
-msgstr "Указана неверный домен для email "
-
-#: application/models/Users/Crud.php:206
-msgid "Email is invalid"
-msgstr "Email неверен"
-
-#: application/modules/acl/controllers/index.php:27
-msgid "ACL"
+#: application/modules/acl/controllers/index.php:28
+#: application/layouts/partial/sidebar.phtml:72
+msgid "Permissions"
 msgstr "Права доступа"
 
-#: application/modules/acl/controllers/save.php:43
+#: application/modules/acl/controllers/save.php:48
 msgid "Privileges set is empty. You can't remove all of them"
 msgstr "Вы не можете удалить все привелегии"
 
-#: application/modules/acl/controllers/save.php:46
+#: application/modules/acl/controllers/save.php:53
 msgid "All data was saved"
 msgstr "Все данные сохранены"
 
-#: application/modules/acl/controllers/save.php:48
-#: application/modules/error/controllers/index.php:54
-#: application/modules/error/controllers/index.php:67
+#: application/modules/acl/controllers/save.php:55
+#: application/modules/error/controllers/index.php:100
+#: application/modules/error/controllers/index.php:113
 msgid "Internal Server Error"
 msgstr "Внутрення ошибка сервера"
 
-#: application/modules/acl/controllers/user.php:48
+#: application/modules/acl/controllers/user.php:57
 msgid "User roles was updated"
 msgstr "Роли пользователя были обновлены"
 
-#: application/modules/cache/controllers/clean.php:39
-msgid "Cache is cleaned"
+#: application/modules/cache/controllers/clean.php:33
+msgid "Cache with tag `system` cleaned"
+msgstr "Очистка кэша с меткой «system»"
+
+#: application/modules/cache/controllers/clean.php:35
+#: application/modules/cache/controllers/flush.php:35
+#: application/modules/cache/views/widgets/index.phtml:32
+msgid "Cache is disabled"
+msgstr "Кеш отключен"
+
+#: application/modules/cache/controllers/flush.php:33
+msgid "Cache cleared"
 msgstr "Кеш очищен"
 
-#: application/modules/cache/controllers/clean.php:41
-#: application/modules/cache/controllers/flush.php:32
-#: application/modules/cache/controllers/flush2.php:24
-#: application/modules/cache/controllers/index.php:40
-#: application/modules/cache/controllers/stats.php:41
-#: application/modules/cache/views/index.phtml:22
-msgid "Cache is disabled"
-msgstr "Кеш отключён"
-
-#: application/modules/cache/controllers/flush.php:30
-#: application/modules/cache/controllers/flush2.php:22
-msgid "Cache is flushed"
-msgstr "Кеш сброшен"
-
-#: application/modules/cache/controllers/index.php:32
-#: application/layouts/dashboard.phtml:17
-msgid "Cache"
-msgstr "Кеш"
-
-#: application/modules/cache/controllers/stats.php:33
-#: application/modules/cache/views/index.phtml:6
-msgid "Statistics"
-msgstr "Статистика"
-
-#: application/modules/categories/controllers/order.php:45
-msgid "Tree has been saved"
-msgstr "Дерево сохранено"
-
-#: application/modules/categories/controllers/tree.php:31
-#: application/layouts/dashboard.phtml:13
-msgid "Categories"
-msgstr "Категории"
-
-#: application/modules/categories/controllers/tree.php:39
-msgid "There are no categories"
-msgstr "Категории не заданы"
-
-#: application/modules/dashboard/controllers/index.php:27
-#: application/modules/dashboard/views/index.phtml:1
+#: application/modules/dashboard/controllers/index.php:30
 msgid "Dashboard"
 msgstr "Панель управления"
 
-#: application/modules/error/controllers/index.php:33
+#: application/modules/error/controllers/index.php:71
 msgid "Bad Request"
 msgstr "Плохой запрос"
 
-#: application/modules/error/controllers/index.php:34
+#: application/modules/error/controllers/index.php:72
 msgid "The server didn't understand the syntax of the request"
 msgstr "Сервер не смог понять синтакс запроса"
 
-#: application/modules/error/controllers/index.php:37
+#: application/modules/error/controllers/index.php:75
 msgid "Unauthorized"
 msgstr "Неавторизован"
 
-#: application/modules/error/controllers/index.php:38
+#: application/modules/error/controllers/index.php:76
 msgid "You are not authorized to view this page, please sign in"
-msgstr "Вы не авторизованы, пожалуйста "
+msgstr ""
+"Вы не авторизованы для просмотра этой страницы, пожалуйста, авторизируйтесь"
 
-#: application/modules/error/controllers/index.php:41
+#: application/modules/error/controllers/index.php:79
 msgid "Forbidden"
 msgstr "Запрещено"
 
-#: application/modules/error/controllers/index.php:42
+#: application/modules/error/controllers/index.php:81
 msgid "You don't have permissions to access this page"
 msgstr "У вас нет прав доступа для отображения данной страницы"
 
-#: application/modules/error/controllers/index.php:45
+#: application/modules/error/controllers/index.php:87
 msgid "Not Found"
 msgstr "Страница не найдена"
 
-#: application/modules/error/controllers/index.php:46
+#: application/modules/error/controllers/index.php:88
 msgid "The page you requested was not found"
 msgstr "Запрашиваемая страница не найдена"
 
-#: application/modules/error/controllers/index.php:49
+#: application/modules/error/controllers/index.php:91
 msgid "Method Not Allowed"
 msgstr "Метод не поддерживается"
 
-#: application/modules/error/controllers/index.php:50
-msgid "The server is not support method"
-msgstr "Сервер не поддерживает данный метод"
+#: application/modules/error/controllers/index.php:92
+#, php-format
+msgid "The server is not support method `%s`"
+msgstr "Сервер не поддерживает метод \" %s\""
 
-#: application/modules/error/controllers/index.php:55
+#: application/modules/error/controllers/index.php:96
+msgid "Not Acceptable"
+msgstr "Not Acceptable"
+
+#: application/modules/error/controllers/index.php:97
+msgid ""
+"The server is not acceptable generating content type described at `Accept` "
+"header"
+msgstr "Сервер не принимает контент, описанный в заголовке \"Accept\""
+
+#: application/modules/error/controllers/index.php:101
 msgid "The server encountered an unexpected condition"
 msgstr "Сервер столкнулся с непредвиденным условием"
 
-#: application/modules/error/controllers/index.php:58
+#: application/modules/error/controllers/index.php:104
 msgid "Not Implemented"
 msgstr "Не реализовано"
 
-#: application/modules/error/controllers/index.php:59
+#: application/modules/error/controllers/index.php:105
 msgid "The server does not understand or does not support the HTTP method"
 msgstr "Сервер не может обработать данный HTTP запрос"
 
-#: application/modules/error/controllers/index.php:62
+#: application/modules/error/controllers/index.php:108
 msgid "Service Unavailable"
 msgstr "Сервис не доступен"
 
-#: application/modules/error/controllers/index.php:63
+#: application/modules/error/controllers/index.php:109
 msgid ""
 "The server is currently unable to handle the request due to a temporary "
 "overloading"
 msgstr ""
 "Сервер не может обработать ваш запрос, так как работы хватает и без него"
 
-#: application/modules/error/controllers/index.php:68
+#: application/modules/error/controllers/index.php:114
 msgid "An unexpected error occurred with your request. Please try again later"
 msgstr "При обработке вашего запроса произошла ошибка. Поробуйте ещё раз"
 
-#: application/modules/facebook/controllers/auth.php:60
-#: application/modules/twitter/controllers/callback.php:75
-msgid "User is not active"
-msgstr "Пользователь не активен"
-
-#: application/modules/media/controllers/crud.php:28
-msgid "Upload"
-msgstr "Загрузка"
-
-#: application/modules/media/controllers/grid.php:21
-#: application/layouts/dashboard.phtml:12
-#: application/modules/media/views/crud.phtml:11
-msgid "Media"
-msgstr "Медиа"
-
-#: application/modules/options/controllers/grid.php:25
-#: application/layouts/dashboard.phtml:14
-#: application/modules/options/views/crud.phtml:6
-msgid "Options"
-msgstr "Настройки"
-
-#: application/modules/pages/controllers/grid.php:24
-#: application/layouts/dashboard.phtml:10
+#: application/modules/pages/controllers/grid.php:27
+#: application/layouts/partial/sidebar.phtml:35
 msgid "Pages"
 msgstr "Страницы"
 
@@ -338,167 +408,147 @@ msgstr "Страницы"
 msgid "Bookmarklets"
 msgstr "Генератор закладок"
 
-#: application/modules/system/controllers/index.php:26
-#: application/layouts/dashboard.phtml:19
+#: application/modules/system/controllers/crud/delete.php:36
+msgid "The record was successfully destroyed"
+msgstr "Запись была успешно уничтожена"
+
+#: application/modules/system/controllers/crud/post.php:34
+msgid "The record was successfully created"
+msgstr "Запись успешно создана"
+
+#: application/modules/system/controllers/crud/put.php:38
+msgid "The record was successfully updated"
+msgstr "Запись успешно обновлена"
+
+#: application/modules/system/controllers/index.php:22
+#: application/layouts/partial/sidebar.phtml:88
 msgid "System"
 msgstr "Система"
 
 #: application/modules/system/controllers/info.php:29
-#: application/modules/system/views/index.phtml:4
+#: application/modules/system/views/index.phtml:9
 msgid "PHP Info"
 msgstr "PHP info"
 
-#: application/modules/system/controllers/routers.php:32
-#: application/modules/system/views/index.phtml:3
+#: application/modules/system/controllers/routers.php:29
+#: application/modules/system/views/index.phtml:8
 msgid "Routers Map"
 msgstr "Карта маршрутов ЧПУ"
 
-#: application/modules/test/controllers/ajax.php:24
-msgid "Notice for AJAX call"
-msgstr ""
-
-#: application/modules/test/controllers/ajax.php:25
-msgid "Success for AJAX call"
-msgstr ""
-
-#: application/modules/test/controllers/ajax.php:26
-msgid "Error for AJAX call"
-msgstr ""
-
-#: application/modules/test/controllers/ajax.php:30
-msgid "Method "
-msgstr "Метод"
-
-#: application/modules/test/controllers/cli.php:23
-msgid "Notice Text"
-msgstr "Текст оповещения"
-
-#: application/modules/test/controllers/cli.php:24
-msgid "Success Text"
-msgstr "Текст уведомления"
-
-#: application/modules/test/controllers/cli.php:25
-msgid "Error Text"
-msgstr "Текст ошибки"
-
-#: application/modules/test/controllers/cli.php:26
-msgid "Another Error Text"
-msgstr "Другой текст ошибки"
-
-#: application/modules/test/controllers/crud-delete.php:25
-msgid "Row was removed"
-msgstr "Запись удалена"
-
-#: application/modules/test/controllers/mailer.php:33
-msgid "Email was send"
-msgstr "Email отправлен"
-
-#: application/modules/twitter/controllers/callback.php:137
-#: application/modules/users/controllers/signin.php:41
-msgid "You are signed"
-msgstr "Вы вошли в систему"
-
-#: application/modules/users/controllers/activation.php:33
-#: application/modules/users/controllers/activation.php:43
+#: application/modules/users/controllers/activation.php:35
+#: application/modules/users/controllers/activation.php:45
 msgid "Invalid activation code"
 msgstr "Неверный активационный код"
 
-#: application/modules/users/controllers/activation.php:45
-#: application/modules/users/controllers/recovery-reset.php:42
+#: application/modules/users/controllers/activation.php:47
+#: application/modules/users/controllers/recovery-reset.php:43
 msgid "The activation code has expired"
 msgstr "Активационный код просрочен"
 
-#: application/modules/users/controllers/activation.php:65
+#: application/modules/users/controllers/activation.php:68
 msgid ""
 "Your Account has been successfully activated. <br/>You can now log in using "
 "the username and password you chose during the registration."
 msgstr ""
 "Ваш акаунт активирован. Теперь вы можете войти в систему используя ваш логин "
-"и пароль"
+"и пароль."
 
-#: application/modules/users/controllers/change-email.php:69
-#: application/modules/users/views/change-email.phtml:2
-#: application/modules/users/views/profile.phtml:10
-msgid "Change email"
-msgstr "Изменить email"
+#: application/modules/users/controllers/change-email.php:63
+msgid "Check your email and follow instructions in letter"
+msgstr "Проверьте свою электронную почту и следуйте инструкциям в письме"
 
-#: application/modules/users/controllers/change-email.php:96
-msgid "Check your email and follow instructions in letter."
-msgstr "Проверьте ваш почтовый ящик, и проследуйте инструкциям из письма"
+#: application/modules/users/controllers/change-email.php:65
+#: application/modules/users/controllers/crud/post.php:74
+#: application/modules/users/controllers/recovery.php:55
+msgid "Unable to send email. Please contact administrator"
+msgstr ""
+"Не удается отправить сообщение электронной почты. Обратитесь к администратору"
 
-#: application/modules/users/controllers/change-email.php:131
+#: application/modules/users/controllers/change-email.php:92
 msgid "Email was updated"
 msgstr "Email обновлён"
 
-#: application/modules/users/controllers/change-password.php:59
+#: application/modules/users/controllers/change-password.php:66
 msgid "The password was updated successfully"
 msgstr "Пароль был обновлён"
 
+#: application/modules/users/controllers/crud/post.php:42
+msgid "Password can't be empty"
+msgstr "Пароль пуст"
+
+#: application/modules/users/controllers/crud/post.php:48
+msgid "Password is not equal"
+msgstr "Пароль не верен"
+
+#: application/modules/users/controllers/crud/post.php:68
+msgid ""
+"Your account has been created and an activation link hasbeen sent to the e-"
+"mail address you entered.<br/>Note that you must activate the account by "
+"clicking on the activation linkwhen you get the e-mail before you can login."
+msgstr ""
+"Ваша учётная запись создана в системе. На ваш email была отправлена ссылка, "
+"пройдя по которой вы активируете учётную запись."
+
 #: application/modules/users/controllers/grid.php:29
-#: application/layouts/dashboard.phtml:11
+#: application/layouts/partial/sidebar.phtml:7
+#: application/modules/users/views/widgets/stats.phtml:5
 msgid "Users"
 msgstr "Пользователи"
 
-#: application/modules/users/controllers/recovery-reset.php:39
+#: application/modules/users/controllers/recovery-reset.php:40
 msgid "Invalid code"
 msgstr "Неверный код"
 
-#: application/modules/users/controllers/recovery-reset.php:72
+#: application/modules/users/controllers/recovery-reset.php:67
 msgid "Your password has been updated"
 msgstr "Ваш пароль был обновлён"
 
-#: application/modules/users/controllers/recovery.php:97
+#: application/modules/users/controllers/recovery.php:53
 msgid "Reset password instructions has been sent to your email address"
 msgstr "Инструкция по восстановлению пароля отправлены на ваш email адрес"
 
-#: application/modules/users/controllers/signin.php:26
+#: application/modules/users/controllers/signin.php:37
 msgid "Already signed"
 msgstr "Вы уже авторизированы"
 
-#: application/modules/users/controllers/signout.php:23
+#: application/modules/users/controllers/signin.php:57
+msgid "You are signed"
+msgstr "Вы вошли в систему"
+
+#: application/modules/users/controllers/signout.php:30
 msgid "You are signout"
 msgstr "Вы вышли из системы"
 
-#: application/modules/users/widgets/stats.php:39
-msgid "Total Users"
-msgstr "Всего пользователей"
-
-#: application/modules/users/widgets/stats.php:47
-msgid "Active Users"
-msgstr "Активных"
-
-#: application/modules/users/widgets/stats.php:55
-msgid "Last Registers"
-msgstr "Последний"
-
-#: application/layouts/dashboard.phtml:18
-msgid "Permissions"
-msgstr "Права доступа"
-
-#: application/layouts/dashboard.phtml:26 application/layouts/index.phtml:9
+#: application/layouts/partial/breadcrumbs.phtml:4
 msgid "Back to homepage"
 msgstr "Вернуться на главную"
 
-#: application/layouts/dashboard.phtml:28 application/layouts/index.phtml:11
+#: application/layouts/partial/breadcrumbs.phtml:6
 msgid "Home"
 msgstr "Главная"
 
-#: application/layouts/partial/grid/limit.phtml:7
+#: application/layouts/partial/grid/limit.phtml:9
+#: application/layouts/partial/grid/limit.phtml:11
 msgid "Limit"
 msgstr "Лимит"
 
-#: application/layouts/partial/grid/total.phtml:8
+#: application/layouts/partial/grid/pagination.phtml:10
+msgid "Pagination"
+msgstr "Пагинация"
+
+#: application/layouts/partial/grid/total.phtml:9
+#: application/layouts/partial/grid/total.phtml:12
 msgid "Total"
 msgstr "Итого"
 
-#: application/layouts/partial/grid/total.phtml:9
+#: application/layouts/partial/grid/total.phtml:13
 msgid "record"
 msgid_plural "records"
 msgstr[0] "запись"
 msgstr[1] "записи"
 msgstr[2] "записей"
 
-#: application/layouts/partial/grid/total.phtml:10
+#: application/layouts/partial/grid/total.phtml:14
 #, php-format
 msgid "on %s page"
 msgid_plural "on %s pages"
@@ -506,404 +556,582 @@ msgstr[0] "на %s странице"
 msgstr[1] "на %s страницах"
 msgstr[2] "на %s страницах"
 
-#: application/layouts/partial/nav-bar.phtml:6
+#: application/layouts/partial/navbar.phtml:9
 msgid "Bluz"
 msgstr "Bluz"
 
-#: application/layouts/partial/nav-bar.phtml:21
+#: application/layouts/partial/navbar.phtml:53
 #, php-format
 msgid "Logged in as %s"
 msgstr "Вы вошли как %s"
 
-#: application/layouts/partial/nav-bar.phtml:22
+#: application/layouts/partial/navbar.phtml:54
 msgid "Sign Out"
 msgstr "Выход"
 
-#: application/layouts/partial/nav-bar.phtml:26
-#: application/modules/users/views/signin.phtml:23
+#: application/layouts/partial/navbar.phtml:56
+#: application/modules/users/views/signin.phtml:32
 msgid "Sign In"
 msgstr "Вход"
 
-#: application/modules/acl/views/index.phtml:3
-#: application/modules/acl/views/roles.phtml:7
+#: application/layouts/partial/sidebar.phtml:15
+msgid "Wallets"
+msgstr "Бумажники"
+
+#: application/layouts/partial/sidebar.phtml:24
+msgid "Phones"
+msgstr "Телефоны"
+
+#: application/layouts/partial/sidebar.phtml:43
+msgid "Media"
+msgstr "Медиа"
+
+#: application/layouts/partial/sidebar.phtml:52
+msgid "Categories"
+msgstr "Категории"
+
+#: application/layouts/partial/sidebar.phtml:61
+msgid "Contact Us"
+msgstr "Свяжитесь с нами"
+
+#: application/layouts/partial/sidebar.phtml:80
+msgid "Options"
+msgstr "Настройки"
+
+#: application/modules/acl/views/index.phtml:4
+#: application/modules/acl/views/roles.phtml:8
 msgid "Create role"
 msgstr "Создать роль"
 
-#: application/modules/acl/views/index.phtml:10
+#: application/modules/acl/views/index.phtml:11
 msgid "Privilege/Role"
 msgstr "Привелегия/Роль"
 
-#: application/modules/acl/views/index.phtml:17
-#: application/modules/acl/views/roles.phtml:7
+#: application/modules/acl/views/index.phtml:22
+#: application/modules/acl/views/roles.phtml:8
 msgid "Edit role"
 msgstr "Редактирование роли"
 
-#: application/modules/acl/views/index.phtml:41
-#: application/modules/acl/views/roles.phtml:19
-#: application/modules/categories/views/crud.phtml:36
-#: application/modules/categories/views/tree.phtml:65
-#: application/modules/media/views/crud.phtml:64
-#: application/modules/options/views/crud.phtml:40
-#: application/modules/pages/views/crud.phtml:50
-#: application/modules/test/views/crud-create.phtml:35
-#: application/modules/test/views/crud.phtml:33
-#: application/modules/users/views/change-email.phtml:14
-#: application/modules/users/views/change-password.phtml:21
-#: application/modules/users/views/crud.phtml:37
+#: application/modules/acl/views/index.phtml:22
+#: application/modules/users/views/widgets/card.phtml:22
+msgid "Edit"
+msgstr "Редактировать"
+
+#: application/modules/acl/views/index.phtml:55
+#: application/modules/acl/views/roles.phtml:24
+#: application/modules/pages/views/crud.phtml:54
+#: application/modules/users/views/change-email.phtml:27
+#: application/modules/users/views/change-password.phtml:27
+#: application/modules/users/views/crud.phtml:44
 msgid "Save"
 msgstr "Сохранить"
 
-#: application/modules/acl/views/roles.phtml:12
-#: application/modules/categories/views/crud.phtml:20
-#: application/modules/test/views/crud.phtml:10
-msgid "Name"
-msgstr "Имя"
-
-#: application/modules/acl/views/roles.phtml:20
-#: application/modules/acl/views/user.phtml:23
-#: application/modules/categories/views/crud.phtml:37
-#: application/modules/options/views/crud.phtml:41
-#: application/modules/pages/views/crud.phtml:51
-#: application/modules/test/views/crud.phtml:34
-#: application/modules/users/views/crud.phtml:38
+#: application/modules/acl/views/roles.phtml:10
+#: application/modules/acl/views/roles.phtml:25
+#: application/modules/acl/views/user.phtml:11
+#: application/modules/acl/views/user.phtml:31
+#: application/modules/pages/views/crud.phtml:10
+#: application/modules/pages/views/crud.phtml:55
+#: application/modules/users/views/crud.phtml:12
+#: application/modules/users/views/crud.phtml:45
 msgid "Close"
 msgstr "Закрыть"
 
-#: application/modules/acl/views/user.phtml:9
+#: application/modules/acl/views/roles.phtml:16
+msgid "Name"
+msgstr "Имя"
+
+#: application/modules/acl/views/user.phtml:10
 #, php-format
 msgid "Choose roles for %s"
 msgstr "Изменить роль для %s"
 
-#: application/modules/acl/views/user.phtml:22
+#: application/modules/acl/views/user.phtml:30
 msgid "Save changes"
 msgstr "Сохранить изменения"
 
-#: application/modules/cache/views/index.phtml:11
-msgid "Clean"
-msgstr "Очистка"
+#: application/modules/cache/views/widgets/index.phtml:4
+#: application/modules/cache/views/widgets/index.phtml:30
+msgid "Cache"
+msgstr "Кеш"
 
-#: application/modules/cache/views/index.phtml:16
-msgid "Flush"
-msgstr "Сброс"
+#: application/modules/cache/views/widgets/index.phtml:6
+msgid "Cache is enabled"
+msgstr "Кеш включен"
 
-#: application/modules/cache/views/index.phtml:20
+#: application/modules/cache/views/widgets/index.phtml:7
 #, php-format
-msgid "Current cache adapter is \"%s\""
+msgid "Current cache adapter is %s"
 msgstr "Текущий кеширующий адаптер - \"%s\""
 
-#: application/modules/cache/views/index.phtml:29
-msgid "Server"
-msgstr "Сервер"
+#: application/modules/cache/views/widgets/index.phtml:13
+msgid "Clean system data"
+msgstr "Очистка системных данных"
 
-#: application/modules/cache/views/index.phtml:30
-msgid "Weight"
-msgstr "Приоритет"
+#: application/modules/cache/views/widgets/index.phtml:20
+msgid "Clean all data"
+msgstr "Очистка всех данных"
 
-#: application/modules/cache/views/stats.phtml:2
-msgid "Cache statistics"
-msgstr "Статистика кеша"
+#: application/modules/cache/views/widgets/index.phtml:34
+msgid "Read manual for more information"
+msgstr "Читайте руководство для получения дополнительной информации"
 
-#: application/modules/categories/views/crud.phtml:16
-msgid "Category"
-msgstr "Категория"
+#: application/modules/index/views/index.phtml:60
+msgid "sign in"
+msgstr "вход"
 
-#: application/modules/categories/views/crud.phtml:27
-#: application/modules/pages/views/crud.phtml:23
-#: application/modules/pages/views/grid.phtml:26
-msgid "Alias"
-msgstr "Псевдоним"
-
-#: application/modules/categories/views/tree.phtml:16
-#: application/modules/media/views/grid.phtml:14
-#: application/modules/options/views/grid.phtml:14
-#: application/modules/pages/views/grid.phtml:14
-msgid "Create"
-msgstr "Создать"
-
-#: application/modules/categories/views/tree.phtml:21
-msgid "Add child"
-msgstr "Добавить элемент"
-
-#: application/modules/media/views/crud.phtml:16
-#: application/modules/media/views/grid.phtml:25
-#: application/modules/pages/views/crud.phtml:17
-#: application/modules/pages/views/grid.phtml:25
-#: application/modules/pages/views/grid.phtml:48
-msgid "Title"
-msgstr "Заголовок"
-
-#: application/modules/media/views/crud.phtml:23
-#: application/modules/media/views/crud.phtml:30
-#: application/modules/media/views/grid.phtml:26
-msgid "File"
-msgstr "Файл"
-
-#: application/modules/media/views/crud.phtml:36
-msgid "Type"
-msgstr "Тип"
-
-#: application/modules/media/views/crud.phtml:42
-msgid "Link"
-msgstr "Ссылка"
-
-#: application/modules/media/views/grid.phtml:32
-#: application/modules/pages/views/grid.phtml:34
-#: application/modules/test/views/grid-with-filter.phtml:35
-#: application/modules/users/views/grid.phtml:35
-msgid "Search"
-msgstr "Поиск"
-
-#: application/modules/media/views/grid.phtml:43
-msgid "Image quantity"
-msgstr "Количество изображений"
-
-#: application/modules/options/views/crud.phtml:10
-msgid "Namespace"
-msgstr "Раздел"
-
-#: application/modules/options/views/crud.phtml:16
-msgid "Key name"
-msgstr "Ключ"
-
-#: application/modules/options/views/crud.phtml:22
-msgid "Key value"
-msgstr "Значение"
-
-#: application/modules/options/views/crud.phtml:26
-#: application/modules/options/views/grid.phtml:44
-#, php-format
-msgid "Array (length=%d)"
-msgstr "Массив (длина=%d)"
-
-#: application/modules/options/views/crud.phtml:28
-#: application/modules/options/views/grid.phtml:46
-#, php-format
-msgid "Object of `%s` class"
-msgstr "Объект класса `%s`"
-
-#: application/modules/options/views/crud.phtml:35
-#: application/modules/pages/views/crud.phtml:43
-#: application/modules/pages/views/grid.phtml:27
-#: application/modules/pages/views/grid.phtml:49
-msgid "Description"
-msgstr "Описание"
-
-#: application/modules/options/views/grid.phtml:27
-msgid "Space"
-msgstr "Раздел"
-
-#: application/modules/options/views/grid.phtml:28
-msgid "Key"
-msgstr "Ключ"
-
-#: application/modules/options/views/grid.phtml:29
-msgid "Value"
-msgstr "Значение"
-
-#: application/modules/options/views/grid.phtml:30
-#: application/modules/pages/views/grid.phtml:50
-msgid "Created"
-msgstr "Дата создания"
-
-#: application/modules/options/views/grid.phtml:31
-#: application/modules/pages/views/grid.phtml:51
-msgid "Updated"
-msgstr "Дата изменения"
-
-#: application/modules/pages/views/crud.phtml:13
+#: application/modules/pages/views/crud.phtml:9
 msgid "Edit page"
 msgstr "Редактирование страницы"
 
-#: application/modules/pages/views/crud.phtml:26
+#: application/modules/pages/views/crud.phtml:16
+#: application/modules/pages/views/grid.phtml:29
+#: application/modules/pages/views/grid.phtml:53
+msgid "Title"
+msgstr "Заголовок"
+
+#: application/modules/pages/views/crud.phtml:22
+#: application/modules/pages/views/grid.phtml:30
+msgid "Alias"
+msgstr "Псевдоним"
+
+#: application/modules/pages/views/crud.phtml:25
 msgid "Alias for build permalink to this page"
 msgstr "Псевдоним постоянной ссылки для построения URL"
 
 #: application/modules/pages/views/crud.phtml:30
-#: application/modules/pages/views/grid.phtml:28
+#: application/modules/pages/views/grid.phtml:32
 msgid "Content"
 msgstr "Текст"
 
-#: application/modules/pages/views/crud.phtml:35
+#: application/modules/pages/views/crud.phtml:38
 msgid "Meta information about page"
 msgstr "Мета-информация о странице"
 
-#: application/modules/pages/views/crud.phtml:37
+#: application/modules/pages/views/crud.phtml:40
 msgid "Keywords"
 msgstr "Мета-слова"
 
-#: application/modules/pages/views/grid.phtml:47
-#: application/modules/users/views/grid.phtml:48
+#: application/modules/pages/views/crud.phtml:46
+#: application/modules/pages/views/grid.phtml:31
+#: application/modules/pages/views/grid.phtml:54
+msgid "Description"
+msgstr "Описание"
+
+#: application/modules/pages/views/grid.phtml:19
+msgid "Create"
+msgstr "Создать"
+
+#: application/modules/pages/views/grid.phtml:38
+#: application/modules/users/views/grid.phtml:43
+msgid "Search"
+msgstr "Поиск"
+
+#: application/modules/pages/views/grid.phtml:52
+#: application/modules/users/views/grid.phtml:56
 msgid "Id"
 msgstr "Id"
 
-#: application/modules/system/views/bookmarks.phtml:1
-msgid "Bookmarklets for debug site"
-msgstr "Генератор закладок отладки сайта"
+#: application/modules/pages/views/grid.phtml:55
+msgid "Created"
+msgstr "Дата создания"
 
-#: application/modules/system/views/bookmarks.phtml:32
+#: application/modules/pages/views/grid.phtml:56
+msgid "Updated"
+msgstr "Дата изменения"
+
+#: application/modules/system/views/bookmarks.phtml:33
 msgid "Example"
 msgstr "Пример"
 
-#: application/modules/system/views/bookmarks.phtml:36
-msgid "Result"
-msgstr "Результат"
+#: application/modules/system/views/index.phtml:4
+msgid "Swagger documented API"
+msgstr "Документированный API"
 
-#: application/modules/system/views/index.phtml:2
+#: application/modules/system/views/index.phtml:7
 msgid "Bookmarklets generator"
 msgstr "Генератор закладок"
 
-#: application/modules/system/views/routers.phtml:5
+#: application/modules/system/views/routers.phtml:6
 msgid "Module"
 msgstr "Модуль"
 
-#: application/modules/system/views/routers.phtml:6
+#: application/modules/system/views/routers.phtml:7
 msgid "Controller"
 msgstr "Контроллер"
 
-#: application/modules/system/views/routers.phtml:7
+#: application/modules/system/views/routers.phtml:8
 msgid "Route"
 msgstr "Маршрут"
 
-#: application/modules/test/views/crud.phtml:16
-#: application/modules/users/views/crud.phtml:20
-#: application/modules/users/views/grid.phtml:29
-#: application/modules/users/views/grid.phtml:50
-#: application/modules/users/views/profile.phtml:17
-msgid "Email"
-msgstr "Email"
+#: application/modules/system/views/widgets/load.phtml:21
+msgid "Load average"
+msgstr "Средняя нагрузка"
 
-#: application/modules/test/views/crud.phtml:22
-#: application/modules/users/views/crud.phtml:26
-#: application/modules/users/views/grid.phtml:52
-#: application/modules/users/views/profile.phtml:19
-msgid "Status"
-msgstr "Статус"
+#: application/modules/system/views/widgets/load.phtml:25
+#: application/modules/system/views/widgets/load.phtml:29
+#: application/modules/system/views/widgets/load.phtml:33
+#, php-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d минута"
+msgstr[1] "%d минуты"
+msgstr[2] "%d минут"
 
-#: application/modules/test/views/grid-with-filter.phtml:25
-msgid "Name (not strict)"
-msgstr ""
-
-#: application/modules/test/views/grid-with-filter.phtml:26
-msgid "Name (strict)"
-msgstr ""
-
-#: application/modules/test/views/grid-with-filter.phtml:27
-msgid "Name (exclude)"
-msgstr ""
-
-#: application/modules/test/views/grid-with-filter.phtml:28
-msgid "Id &gt;"
-msgstr ""
-
-#: application/modules/test/views/grid-with-filter.phtml:29
-msgid "Id &lt;"
-msgstr ""
-
-#: application/modules/test/views/mailer.phtml:7
-#: application/modules/users/views/recovery.phtml:12
-#: application/modules/users/views/signup.phtml:16
-msgid "email"
-msgstr "email"
-
-#: application/modules/test/views/mailer.phtml:10
-#: application/modules/test/views/view-helpers.phtml:45
-msgid "Send"
-msgstr "Отправить"
-
-#: application/modules/users/views/change-email.phtml:3
+#: application/modules/users/views/change-email.phtml:7
 msgid "Email will be changed after confirmation"
 msgstr "Email будет изменён после подтверждения"
 
 #: application/modules/users/views/change-email.phtml:12
-#: application/modules/users/views/change-password.phtml:9
+#: application/modules/users/views/crud.phtml:24
+#: application/modules/users/views/grid.phtml:37
+#: application/modules/users/views/grid.phtml:58
+msgid "Email"
+msgstr "Email"
+
+#: application/modules/users/views/change-email.phtml:20
+#: application/modules/users/views/signin.phtml:21
+msgid "Password"
+msgstr "Пароль"
+
+#: application/modules/users/views/change-email.phtml:24
+#: application/modules/users/views/change-password.phtml:15
 msgid "current password"
 msgstr "текущий пароль"
 
-#: application/modules/users/views/change-password.phtml:2
-#: application/modules/users/views/profile.phtml:11
-#: application/modules/users/views/recovery-reset.phtml:22
+#: application/modules/users/views/change-password.phtml:6
+#: application/modules/users/views/partial/card-header.phtml:38
+#: application/modules/users/views/recovery-reset.phtml:25
 msgid "Change password"
 msgstr "Изменить пароль"
 
-#: application/modules/users/views/change-password.phtml:14
-#: application/modules/users/views/recovery-reset.phtml:15
+#: application/modules/users/views/change-password.phtml:20
+#: application/modules/users/views/recovery-reset.phtml:18
 msgid "new password"
 msgstr "новый пароль"
 
-#: application/modules/users/views/change-password.phtml:19
-#: application/modules/users/views/recovery-reset.phtml:20
-#: application/modules/users/views/signup.phtml:24
+#: application/modules/users/views/change-password.phtml:25
+#: application/modules/users/views/recovery-reset.phtml:23
+#: application/modules/users/views/signup.phtml:28
 msgid "repeat password"
 msgstr "ещё раз"
 
-#: application/modules/users/views/crud.phtml:10
+#: application/modules/users/views/crud.phtml:11
 msgid "Edit user"
 msgstr "Редактирование пользователя"
 
-#: application/modules/users/views/crud.phtml:14
-#: application/modules/users/views/grid.phtml:28
-#: application/modules/users/views/grid.phtml:49
-#: application/modules/users/views/profile.phtml:15
+#: application/modules/users/views/crud.phtml:18
+#: application/modules/users/views/grid.phtml:36
+#: application/modules/users/views/grid.phtml:57
+#: application/modules/users/views/signin.phtml:14
 msgid "Login"
 msgstr "Логин"
 
-#: application/modules/users/views/grid.phtml:51
+#: application/modules/users/views/crud.phtml:28
+msgid "email is required, and it should has valid format"
+msgstr "электронная почта обязательна, и должна иметь допустимый формат"
+
+#: application/modules/users/views/crud.phtml:32
+#: application/modules/users/views/grid.phtml:60
+msgid "Status"
+msgstr "Статус"
+
+#: application/modules/users/views/grid.phtml:19
+msgid "all"
+msgstr "все"
+
+#: application/modules/users/views/grid.phtml:59
+#: application/modules/users/views/widgets/card.phtml:26
 msgid "Roles"
 msgstr "Роли"
 
-#: application/modules/users/views/profile.phtml:8
+#: application/modules/users/views/partial/card-header.phtml:5
+#: application/modules/users/views/widgets/card.phtml:18
 msgid "Profile"
 msgstr "Профиль"
 
-#: application/modules/users/views/recovery-reset.phtml:7
+#: application/modules/users/views/partial/card-header.phtml:14
+msgid "Change profile"
+msgstr "Изменить профиль"
+
+#: application/modules/users/views/partial/card-header.phtml:23
+msgid "Change avatar"
+msgstr "Изменить аватар"
+
+#: application/modules/users/views/partial/card-header.phtml:47
+msgid "Wallet"
+msgstr "Кошелек"
+
+#: application/modules/users/views/profile.phtml:24
+msgid "Account status"
+msgstr "Статус"
+
+#: application/modules/users/views/profile.phtml:26
+msgid "Linking to social networks"
+msgstr "Связывание с социальными сетями"
+
+#: application/modules/users/views/recovery-reset.phtml:8
 msgid "Reset Password"
 msgstr "Сброс пароля"
 
-#: application/modules/users/views/recovery-reset.phtml:8
+#: application/modules/users/views/recovery-reset.phtml:11
 #, php-format
 msgid "Hi %s, enter your new password"
 msgstr "Привет %s, введите новый пароль"
 
-#: application/modules/users/views/recovery.phtml:7
+#: application/modules/users/views/recovery.phtml:8
 msgid "Recovery Password"
 msgstr "Восстановление пароля"
 
-#: application/modules/users/views/recovery.phtml:14
+#: application/modules/users/views/recovery.phtml:15
+#: application/modules/users/views/signup.phtml:18
+msgid "email"
+msgstr "email"
+
+#: application/modules/users/views/recovery.phtml:17
 msgid "Recovery"
 msgstr "Восстановить"
 
-#: application/modules/users/views/signin.phtml:9
+#: application/modules/users/views/signin.phtml:8
 msgid "Please sign in"
 msgstr "Пожалуйста авторизируйтесь"
 
-#: application/modules/users/views/signin.phtml:15
-#: application/modules/users/views/signup.phtml:12
+#: application/modules/users/views/signin.phtml:16
+#: application/modules/users/views/signup.phtml:13
 msgid "login"
 msgstr "логин"
 
-#: application/modules/users/views/signin.phtml:20
-#: application/modules/users/views/signup.phtml:20
+#: application/modules/users/views/signin.phtml:22
+#: application/modules/users/views/signup.phtml:23
 msgid "password"
 msgstr "пароль"
 
-#: application/modules/users/views/signin.phtml:25
+#: application/modules/users/views/signin.phtml:28
+msgid "Remember me"
+msgstr "Запомнить меня"
+
+#: application/modules/users/views/signin.phtml:34
 msgid "Sign Up"
 msgstr "Регистрация"
 
-#: application/modules/users/views/signin.phtml:36
+#: application/modules/users/views/signin.phtml:42
 msgid "Forgot your password?"
 msgstr "Забыли пароль?"
 
 #: application/modules/users/views/signup.phtml:6
-#: application/modules/users/views/signup.phtml:28
+#: application/modules/users/views/signup.phtml:32
 msgid "Registration"
 msgstr "Регистрация"
 
-#~ msgid "Alias \"%s\" already exists"
-#~ msgstr "Псевдоним \"%s\" уже существует"
+#: application/modules/users/views/widgets/card.phtml:2
+msgid "User profile"
+msgstr "Профиль пользователя"
 
-#~ msgid "Content can't be empty"
-#~ msgstr "Содержимое не может быть пустым"
+#: application/modules/users/views/widgets/stats.phtml:10
+#, php-format
+msgid "%d registered user"
+msgid_plural "%d registered users"
+msgstr[0] "%d зарегистрированный пользователь"
+msgstr[1] "%d зарегистрированных пользователя"
+msgstr[2] "%d зарегистрированных пользователя"
+
+#: application/modules/users/views/widgets/stats.phtml:16
+#, php-format
+msgid "%d active user"
+msgid_plural "%d active users"
+msgstr[0] "%d активный пользователь"
+msgstr[1] "%d активных пользователя"
+msgstr[2] "%d активных пользователя"
+
+#: application/modules/users/views/widgets/stats.phtml:22
+msgid "last registered"
+msgstr "последний зарегистрированный"
+
+#~ msgid "Record was created"
+#~ msgstr "Запись создана"
+
+#~ msgid "Record was updated"
+#~ msgstr "Запись обновлена"
+
+#~ msgid "Record was deleted"
+#~ msgstr "Запись удалена"
+
+#~ msgid "Category with alias "
+#~ msgstr "Категория с псевдонимом"
+
+#~ msgid "Name can't be bigger than 128 symbols"
+#~ msgstr "Имя не может быть больше 128 символов"
+
+#~ msgid "Alias can't be empty"
+#~ msgstr "Псевдоним для короткой ссылки не может быть пустым"
+
+#~ msgid "Alias can't be bigger than 64 symbols"
+#~ msgstr "Псевдоним не может быть больше 64 символов"
+
+#~ msgid "Sorry, I can't receive file"
+#~ msgstr "Файл не получен"
+
+#~ msgid "Please choose file for upload"
+#~ msgstr "Выберите файл для загрузки"
+
+#~ msgid "Title can't be empty"
+#~ msgstr "Заголовок не может быть пустым"
+
+#~ msgid "Title should contains only Latin characters"
+#~ msgstr "Заголовок должен содержать только буквы латинского алфавита"
+
+#~ msgid "Key name can't be empty"
+#~ msgstr "Имя ключа не может быть пустым"
+
+#~ msgid "Key name should contains only Latin characters"
+#~ msgstr "Имя ключа должно содержать только буквы латинского алфавита"
+
+#~ msgid "Key name \"%s\" already exists in namespace \"%s\""
+#~ msgstr "Ключ \"%s\" уже существует в области \"%s\""
+
+#~ msgid "Role name can't be empty"
+#~ msgstr "Название роли не может быть пустым"
+
+#~ msgid "Role name \"%s\" already exists"
+#~ msgstr "Роль \"%s\" уже существует"
+
+#~ msgid "Role name \"%s\" is basic and can't be editable"
+#~ msgstr "Роль \"%s\" является основной, и не может быть изменена"
+
+#~ msgid "Role name \"%s\" the same as original"
+#~ msgstr "Имя роли \"%s\" не было изменено"
+
+#~ msgid "Email can't be empty"
+#~ msgstr "Email не может быть пустым"
+
+#~ msgid "Email has invalid format"
+#~ msgstr "Email указан в неправильном формате"
+
+#~ msgid "User with login \"%s\" already exists"
+#~ msgstr "Пользователь с логином \"%s\" уже существует"
+
+#~ msgid "User with email \"%s\" already exists"
+#~ msgstr "Пользователь с адресом \"%s\" уже существует"
+
+#~ msgid "Login can't be empty"
+#~ msgstr "Логин не может быть пустым"
+
+#~ msgid "Login can't be bigger than 255 symbols"
+#~ msgstr "Логин не может быть больше 255 символов"
+
+#~ msgid "Email can't be bigger than 255 symbols"
+#~ msgstr "Email не может быть больше 255 символов"
+
+#~ msgid "ACL"
+#~ msgstr "Права доступа"
+
+#~ msgid "Cache is flushed"
+#~ msgstr "Кеш сброшен"
+
+#~ msgid "Statistics"
+#~ msgstr "Статистика"
+
+#~ msgid "Tree has been saved"
+#~ msgstr "Дерево сохранено"
+
+#~ msgid "There are no categories"
+#~ msgstr "Категории не заданы"
+
+#~ msgid "User is not active"
+#~ msgstr "Пользователь не активен"
+
+#~ msgid "Upload"
+#~ msgstr "Загрузка"
+
+#~ msgid "Method "
+#~ msgstr "Метод"
+
+#~ msgid "Notice Text"
+#~ msgstr "Текст оповещения"
+
+#~ msgid "Success Text"
+#~ msgstr "Текст уведомления"
+
+#~ msgid "Error Text"
+#~ msgstr "Текст ошибки"
+
+#~ msgid "Another Error Text"
+#~ msgstr "Другой текст ошибки"
+
+#~ msgid "Row was removed"
+#~ msgstr "Запись удалена"
+
+#~ msgid "Email was send"
+#~ msgstr "Email отправлен"
+
+#~ msgid "Total Users"
+#~ msgstr "Всего пользователей"
+
+#~ msgid "Clean"
+#~ msgstr "Очистка"
+
+#~ msgid "Flush"
+#~ msgstr "Сброс"
+
+#~ msgid "Server"
+#~ msgstr "Сервер"
+
+#~ msgid "Weight"
+#~ msgstr "Приоритет"
+
+#~ msgid "Cache statistics"
+#~ msgstr "Статистика кеша"
+
+#~ msgid "Category"
+#~ msgstr "Категория"
+
+#~ msgid "Add child"
+#~ msgstr "Добавить элемент"
+
+#~ msgid "File"
+#~ msgstr "Файл"
+
+#~ msgid "Type"
+#~ msgstr "Тип"
+
+#~ msgid "Link"
+#~ msgstr "Ссылка"
+
+#~ msgid "Image quantity"
+#~ msgstr "Количество изображений"
+
+#~ msgid "Namespace"
+#~ msgstr "Раздел"
+
+#~ msgid "Key name"
+#~ msgstr "Ключ"
+
+#~ msgid "Key value"
+#~ msgstr "Значение"
+
+#~ msgid "Array (length=%d)"
+#~ msgstr "Массив (длина=%d)"
+
+#~ msgid "Object of `%s` class"
+#~ msgstr "Объект класса `%s`"
+
+#~ msgid "Space"
+#~ msgstr "Раздел"
+
+#~ msgid "Key"
+#~ msgstr "Ключ"
+
+#~ msgid "Value"
+#~ msgstr "Значение"
+
+#~ msgid "Bookmarklets for debug site"
+#~ msgstr "Генератор закладок отладки сайта"
+
+#~ msgid "Result"
+#~ msgstr "Результат"
+
+#~ msgid "Send"
+#~ msgstr "Отправить"
 
 #~ msgid "Internal server error"
 #~ msgstr "Внутрення ошибка сервера"
@@ -934,10 +1162,6 @@ msgstr "Регистрация"
 
 #~ msgid "Upload folder is not writable"
 #~ msgstr "Папка для загрузки не имеет прав на запись"
-
-#~ msgid "Unable to send email. Please contact administrator."
-#~ msgstr ""
-#~ "Неполучилось отправить email, пожалуйста сообщите об этом администратору"
 
 #~ msgid "Password has been changed"
 #~ msgstr "Ваш пароль был изменён"
@@ -1001,9 +1225,6 @@ msgstr "Регистрация"
 
 #~ msgid "Login is empty"
 #~ msgstr "Логин пуст"
-
-#~ msgid "Users Roles"
-#~ msgstr "Роли пользователей"
 
 #~ msgid "User"
 #~ msgstr "Пользователь"
