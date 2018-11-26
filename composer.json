@@ -18,6 +18,7 @@
     "public/jquery": "dev-master",
     "public/jquery-ui": "dev-master",
     "public/popper": "dev-master",
+    "public/popper-map": "dev-master",
     "public/require": "dev-master"
   },
   "require-dev": {
@@ -49,7 +50,7 @@
         "version": "dev-master",
         "license": "MIT",
         "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js",
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js",
           "type": "file"
         }
       }
@@ -61,7 +62,7 @@
         "version": "dev-master",
         "license": "MIT",
         "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js",
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js",
           "type": "file"
         }
       }
@@ -85,7 +86,19 @@
         "version": "dev-master",
         "license": "MIT",
         "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.5/umd/popper.min.js",
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.5/umd/popper.min.js",
+          "type": "file"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "public/popper-map",
+        "version": "dev-master",
+        "license": "MIT",
+        "dist": {
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.5/umd/popper.min.js.map",
           "type": "file"
         }
       }

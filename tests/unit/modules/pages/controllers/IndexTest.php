@@ -37,6 +37,6 @@ class IndexTest extends ControllerTestCase
         $this->dispatch('/about.html');
         self::assertModule('pages');
         self::assertController('index');
-        self::assertQueryContentContains('h1', 'About Bluz Framework');
+        self::assertQueryContentContains('h1', 'About');
     }
 }
