@@ -202,9 +202,9 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
         dataType: 'html',
         success: function (content) {
           let $div = modal.create($this, content, $this.data('modal-style'));
-          $div.on('success.bluz.form', () => {
+          $div.on('success.bluz.form', function () {
             // throw event on button
-            $this.trigger('success.bluz.dialog');
+            $this.trigger('success.bluz.dialog', arguments);
             $div.modal('hide');
           });
           $div.modal('show');

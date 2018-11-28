@@ -48,6 +48,7 @@ define(['bluz', 'jquery'], function (bluz, $) {
 
       // add error class to field
       $field.addClass(settings.errorClass);
+      $field.parent('.input-group').addClass(settings.errorClass);
       $field.get(0).setCustomValidity(messages);
 
       // create feedback dom element

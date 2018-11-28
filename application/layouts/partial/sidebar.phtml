@@ -27,6 +27,15 @@
           ) ?>
       </li>
     <?php endif; ?>
+    <?php if ($this->hasModule('push')) : ?>
+      <li class="nav-item <?= ($this->module('push') ? 'active' : '') ?>">
+          <?= $this->ahref(
+              '<i class="fa fa-bell fa-fw"></i> ' . __('Push Subscriptions'),
+              ['push', 'grid', [], true],
+              ['class' => 'nav-link']
+          ) ?>
+      </li>
+    <?php endif; ?>
   </ul>
   <hr/>
   <ul class="nav nav-pills flex-column">
