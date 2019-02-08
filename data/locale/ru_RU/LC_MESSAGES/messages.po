@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluz\n"
-"POT-Creation-Date: 2019-02-07 16:55+0200\n"
-"PO-Revision-Date: 2019-02-07 16:57+0200\n"
+"POT-Creation-Date: 2019-02-08 17:09+0200\n"
+"PO-Revision-Date: 2019-02-08 17:10+0200\n"
 "Last-Translator: Anton Shevchuk <Anton.Shevchuk@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -245,11 +245,11 @@ msgstr "Гость"
 msgid "You don't have permissions, please sign in"
 msgstr "У вас нет прав доступа, пожалуйста авторизируйтесь"
 
-#: application/models/Pages/Row.php:79
+#: application/models/Pages/Row.php:74
 msgid "This alias already exists"
 msgstr "Этот псевдоним уже существует"
 
-#: application/models/Pages/Row.php:89
+#: application/models/Pages/Row.php:84
 msgid "Content can't be empty"
 msgstr "Содержимое не может быть пустым"
 
@@ -287,7 +287,7 @@ msgstr "Все данные сохранены"
 msgid "Internal Server Error"
 msgstr "Внутрення ошибка сервера"
 
-#: application/modules/acl/controllers/user.php:57
+#: application/modules/acl/controllers/user.php:56
 msgid "User roles was updated"
 msgstr "Роли пользователя были обновлены"
 
@@ -410,31 +410,14 @@ msgid "The record was successfully updated"
 msgstr "Запись успешно обновлена"
 
 #: application/modules/system/controllers/index.php:22
-#: application/layouts/partial/sidebar.phtml:97
+#: application/layouts/partial/sidebar.phtml:106
 msgid "System"
 msgstr "Система"
 
 #: application/modules/system/controllers/info.php:29
-#: application/modules/system/views/index.phtml:10
+#: application/modules/system/views/index.phtml:9
 msgid "PHP Info"
 msgstr "PHP info"
-
-#: application/modules/system/controllers/queues.php:31
-#: application/modules/system/views/index.phtml:9
-msgid "Queues"
-msgstr "Очереди"
-
-#: application/modules/system/controllers/queues.php:53
-msgid "Message was created"
-msgstr "Сообщение создано"
-
-#: application/modules/system/controllers/queues.php:64
-msgid "Message was acknowledged"
-msgstr "Сообщение было подтверждено"
-
-#: application/modules/system/controllers/queues.php:67
-msgid "Message was rejected"
-msgstr "Сообщение отклонено"
 
 #: application/modules/system/controllers/routers.php:29
 #: application/modules/system/views/index.phtml:8
@@ -608,6 +591,10 @@ msgstr "Свяжитесь с нами"
 msgid "Options"
 msgstr "Настройки"
 
+#: application/layouts/partial/sidebar.phtml:98
+msgid "Queues"
+msgstr "Очереди"
+
 #: application/modules/acl/views/index.phtml:4
 #: application/modules/acl/views/roles.phtml:8
 msgid "Create role"
@@ -758,18 +745,6 @@ msgstr "Документированный API"
 #: application/modules/system/views/index.phtml:7
 msgid "Bookmarklets generator"
 msgstr "Генератор закладок"
-
-#: application/modules/system/views/queues.phtml:6
-msgid "This is the queues test page"
-msgstr "Это тестовая страница очередей"
-
-#: application/modules/system/views/queues.phtml:7
-msgid "Produce"
-msgstr "Производить"
-
-#: application/modules/system/views/queues.phtml:8
-msgid "Consume"
-msgstr "Потреблять"
 
 #: application/modules/system/views/routers.phtml:6
 msgid "Module"
@@ -961,6 +936,24 @@ msgstr[2] "%d активных пользователя"
 #: application/modules/users/views/widgets/stats.phtml:22
 msgid "last registered"
 msgstr "последний зарегистрированный"
+
+#~ msgid "Message was created"
+#~ msgstr "Сообщение создано"
+
+#~ msgid "Message was acknowledged"
+#~ msgstr "Сообщение было подтверждено"
+
+#~ msgid "Message was rejected"
+#~ msgstr "Сообщение отклонено"
+
+#~ msgid "This is the queues test page"
+#~ msgstr "Это тестовая страница очередей"
+
+#~ msgid "Produce"
+#~ msgstr "Производить"
+
+#~ msgid "Consume"
+#~ msgstr "Потреблять"
 
 #~ msgid "must contain only letters and digits"
 #~ msgstr "должно содержать только буквы и цифры"
