@@ -20,7 +20,7 @@ use \Application\Users\Row as User;
  */
 abstract class AbstractProvider
 {
-    const PROVIDER = 'abstract';
+    public const PROVIDER = 'abstract';
 
     /**
      * Authenticate user by token
@@ -60,7 +60,6 @@ abstract class AbstractProvider
      * @param integer $id User ID
      *
      * @return void
-     * @throws \Bluz\Common\Exception\ConfigurationException
      * @throws \Bluz\Db\Exception\DbException
      */
     public static function remove($id): void

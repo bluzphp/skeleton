@@ -23,7 +23,6 @@ use Bluz\Proxy\Request;
  * @param int $id
  *
  * @return bool
- * @throws Exception
  */
 return function ($id) {
     /**

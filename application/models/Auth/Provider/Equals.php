@@ -21,8 +21,17 @@ use Bluz\Auth\AuthException;
  */
 class Equals extends AbstractProvider
 {
-    const PROVIDER = Table::PROVIDER_EQUALS;
+    public const PROVIDER = Table::PROVIDER_EQUALS;
 
+    /**
+     * @param string $username
+     * @param string $password
+     *
+     * @throws AuthException
+     * @throws \Bluz\Db\Exception\DbException
+     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
+     * @throws \Application\Exception
+     */
     public static function authenticate($username, $password = ''): void
     {
         $authRow = self::verify($username, $password);
@@ -32,6 +41,15 @@ class Equals extends AbstractProvider
         Table::tryLogin($user);
     }
 
+    /**
+     * @param string $username
+     * @param string $password
+     *
+     * @return Row
+     * @throws AuthException
+     * @throws \Application\Exception
+     * @throws \Bluz\Db\Exception\DbException
+     */
     public static function verify($username, $password = ''): Row
     {
         /* @var Row $authRow */
@@ -49,6 +67,16 @@ class Equals extends AbstractProvider
         return $authRow;
     }
 
+    /**
+     * @param         $user
+     * @param  string $password
+     *
+     * @return Row
+     * @throws \Application\Exception
+     * @throws \Bluz\Db\Exception\DbException
+     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
+     * @throws \Bluz\Db\Exception\TableNotFoundException
+     */
     public static function create($user, $password = ''): Row
     {
         // remove old Auth record

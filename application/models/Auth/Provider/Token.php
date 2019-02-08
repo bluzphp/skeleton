@@ -22,8 +22,15 @@ use Bluz\Proxy\Auth;
  */
 class Token extends AbstractProvider
 {
-    const PROVIDER = Table::PROVIDER_TOKEN;
+    public const PROVIDER = Table::PROVIDER_TOKEN;
 
+    /**
+     * {@inheritdoc}
+     *
+     * @throws AuthException
+     * @throws \Bluz\Db\Exception\DbException
+     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
+     */
     public static function authenticate($token): void
     {
         $authRow = self::verify($token);
@@ -33,6 +40,13 @@ class Token extends AbstractProvider
         Table::tryLogin($user);
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return Row
+     * @throws AuthException
+     * @throws \Bluz\Db\Exception\DbException
+     */
     public static function verify($token): Row
     {
         if (!$authRow = Table::findRowWhere(['token' => $token, 'provider' => self::PROVIDER])) {
@@ -46,6 +60,14 @@ class Token extends AbstractProvider
         return $authRow;
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return Row
+     * @throws \Bluz\Db\Exception\DbException
+     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
+     * @throws \Bluz\Db\Exception\TableNotFoundException
+     */
     public static function create($user): Row
     {
         // clear previous generated Auth record

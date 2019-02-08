@@ -23,10 +23,10 @@ use Bluz\Proxy\Db;
  */
 class Table extends \Bluz\Db\Table
 {
-    const ACTION_ACTIVATION = 'activation';
-    const ACTION_CHANGE_EMAIL = 'email';
-    const ACTION_RECOVERY = 'recovery';
-    const ACTION_REMOVE = 'remove';
+    public const ACTION_ACTIVATION = 'activation';
+    public const ACTION_CHANGE_EMAIL = 'email';
+    public const ACTION_RECOVERY = 'recovery';
+    public const ACTION_REMOVE = 'remove';
 
     /**
      * Table
@@ -51,8 +51,11 @@ class Table extends \Bluz\Db\Table
      * @param array  $params
      *
      * @return Row
+     * @throws \Bluz\Db\Exception\DbException
+     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
+     * @throws \Bluz\Db\Exception\TableNotFoundException
      */
-    public function generate($userId, $action, $expired = 5, $params = [])
+    public function generate($userId, $action, $expired = 5, $params = []): Row
     {
         // remove previously generated tokens
         Db::delete($this->name)

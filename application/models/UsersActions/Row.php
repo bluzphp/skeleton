@@ -40,8 +40,8 @@ class Row extends \Bluz\Db\Row
      *
      * @return array
      */
-    public function getParams()
+    public function getParams(): array
     {
-        return $this->params ? unserialize($this->params, []): [];
+        return $this->params ? unserialize($this->params, ['allowed_classes' => false]): [];
     }
 }

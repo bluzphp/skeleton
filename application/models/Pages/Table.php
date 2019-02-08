@@ -40,7 +40,7 @@ class Table extends \Bluz\Db\Table
      * @return Row
      * @throws \Bluz\Db\Exception\DbException
      */
-    public function getByAlias($alias)
+    public function getByAlias($alias): Row
     {
         return static::findRowWhere(['alias' => $alias]);
     }

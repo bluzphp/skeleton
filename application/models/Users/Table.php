@@ -24,23 +24,23 @@ class Table extends \Bluz\Db\Table
     /**
      * Pending email verification
      */
-    const STATUS_PENDING = 'pending';
+    public const STATUS_PENDING = 'pending';
     /**
      * Active user
      */
-    const STATUS_ACTIVE = 'active';
+    public const STATUS_ACTIVE = 'active';
     /**
      * Disabled by administrator
      */
-    const STATUS_DISABLED = 'disabled';
+    public const STATUS_DISABLED = 'disabled';
     /**
      * Removed account
      */
-    const STATUS_DELETED = 'deleted';
+    public const STATUS_DELETED = 'deleted';
     /**
      * system user with ID=1
      */
-    const SYSTEM_USER = 1;
+    public const SYSTEM_USER = 1;
 
     /**
      * Table
