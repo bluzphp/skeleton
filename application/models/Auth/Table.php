@@ -21,13 +21,10 @@ use Bluz\Proxy\Auth;
  *
  * @package  Application\Auth
  *
- * @method   static Row findRow($primaryKey)
+ * @method   static ?Row findRow($primaryKey)
  * @see      \Bluz\Db\Table::findRow()
- * @method   static Row findRowWhere($whereList)
+ * @method   static ?Row findRowWhere($whereList)
  * @see      \Bluz\Db\Table::findRowWhere()
- *
- * @author   Anton Shevchuk
- * @created  12.07.11 15:28
  */
 class Table extends AbstractTable
 {

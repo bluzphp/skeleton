@@ -2,12 +2,9 @@
 /**
  * Index file
  *
- * @author   C.O.
  * @created  06.07.11 16:20
  */
-/**
- * @namespace
- */
+
 namespace Application;
 
 // Check CLI

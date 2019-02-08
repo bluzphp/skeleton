@@ -14,7 +14,7 @@ use Bluz\Auth\AbstractIdentity;
 use Bluz\Validator\Traits\Validator;
 
 /**
- * User
+ * Row of User
  *
  * @package  Application\Users
  *
@@ -48,7 +48,6 @@ class Row extends AbstractIdentity
      * {@inheritdoc}
      *
      * @throws \Bluz\Validator\Exception\ComponentException
-     * @throws \Bluz\Db\Exception\TableNotFoundException
      */
     public function beforeSave(): void
     {

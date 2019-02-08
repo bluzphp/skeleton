@@ -49,7 +49,7 @@
     <?php if ($this->hasModule('media')) : ?>
       <li class="nav-item <?= ($this->module('media') ? 'active' : '') ?>">
           <?= $this->ahref(
-              '<i class="fa fa-picture-o fa-fw"></i> ' . __('Media'),
+              '<i class="fas fa-images fa-fw"></i> ' . __('Media'),
               ['media', 'grid', [], true],
               ['class' => 'nav-link']
           ) ?>
@@ -58,7 +58,7 @@
     <?php if ($this->hasModule('categories')) : ?>
       <li class="nav-item <?= ($this->module('categories') ? 'active' : '') ?>">
           <?= $this->ahref(
-              '<i class="fa fa-folder-o fa-fw"></i> ' . __('Categories'),
+              '<i class="fa fa-folder fa-fw"></i> ' . __('Categories'),
               ['categories', 'tree', [], true],
               ['class' => 'nav-link']
           ) ?>
@@ -67,7 +67,7 @@
     <?php if ($this->hasModule('contact-us')) : ?>
       <li class="nav-item <?= ($this->module('contact-us') ? 'active' : '') ?>">
           <?= $this->ahref(
-              '<i class="fa fa-envelope-o fa-fw"></i> ' . __('Contact Us'),
+              '<i class="fa fa-envelope fa-fw"></i> ' . __('Contact Us'),
               ['contact-us', 'grid', [], true],
               ['class' => 'nav-link']
           ) ?>
@@ -88,6 +88,15 @@
           <?= $this->ahref(
               '<i class="fa fa-th-list fa-fw"></i> ' . __('Options'),
               ['options', 'grid', [], true],
+              ['class' => 'nav-link']
+          ) ?>
+      </li>
+    <?php endif; ?>
+    <?php if ($this->hasModule('queues')) : ?>
+      <li class="nav-item <?= ($this->module('queues') ? 'active' : '') ?>">
+          <?= $this->ahref(
+              '<i class="fab fa-stack-overflow fa-fw"></i> ' . __('Queues'),
+              ['queues', 'index', [], true],
               ['class' => 'nav-link']
           ) ?>
       </li>

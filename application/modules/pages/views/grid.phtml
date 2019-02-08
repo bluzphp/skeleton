@@ -72,11 +72,11 @@ if (!$grid) {
         <td class="controls d-flex justify-content-around">
           <a href="<?= $this->url('pages', 'crud', ['id' => $row->id]) ?>" class="btn btn-primary"
              data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
-            <i class="fa fa-pencil"></i>
+            <i class="fas fa-pencil-alt"></i>
           </a>
           <a href="<?= $this->url('pages', 'crud', ['id' => $row->id]) ?>" class="btn btn-danger"
              data-confirm data-ajax data-ajax-method="delete">
-            <i class="fa fa-trash-o"></i>
+            <i class="fa fa-trash"></i>
           </a>
         </td>
       </tr>

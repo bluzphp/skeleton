@@ -9,18 +9,16 @@ require.config({
   // if you need disable JS cache
   urlArgs: 'bust=' + Date.now(),
   paths: {
-    bootstrap: './../vendor/bootstrap/js/bootstrap.min',
+    bootstrap: './../vendor/bootstrap/js/bootstrap.bundle.min',
     jquery: './../vendor/jquery/jquery.min',
     jqueryui: './../vendor/jquery-ui/jquery-ui.min',
-    popper: './../vendor/popper/popper.min',
     redactor: './../redactor/redactor',
     'redactor.imagemanager': './../redactor/plugins/imagemanager',
     dropzone: './../vendor/dropzone-amd-module/dropzone-amd-module.min',
   },
   shim: {
     bootstrap: {
-      deps: ['jquery', 'popper'],
-      exports: '$.fn.popover'
+      deps: ['jquery']
     },
     redactor: {
       deps: ['jquery'],

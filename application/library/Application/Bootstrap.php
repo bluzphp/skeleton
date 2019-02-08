@@ -15,6 +15,7 @@ use Bluz\Controller\Controller;
 use Bluz\Http\Exception\ForbiddenException;
 use Bluz\Http\Exception\RedirectException;
 use Bluz\Proxy\Auth as AuthProxy;
+use Bluz\Proxy\Config;
 use Bluz\Proxy\Layout;
 use Bluz\Proxy\Logger;
 use Bluz\Proxy\Messages;
@@ -22,27 +23,66 @@ use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
 use Bluz\Proxy\Session;
+use Bluz\Proxy\Translator;
 
 /**
  * Bootstrap
  *
  * @category Application
  * @package  Bootstrap
- *
- * @author   Anton Shevchuk
- * @created  20.07.11 17:38
  */
 class Bootstrap extends Application
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected function initTranslator(): void
+    {
+        $translator = new \Bluz\Translator\Translator();
+        $translator->setOptions(Config::get('translator'));
+
+        // supported locales
+        // en_US, ru_RU, uk_UA
+        $locales = [
+            'en' => 'en_US',
+            'ru' => 'ru_RU',
+            'uk' => 'uk_UA',
+        ];
+
+        // try to check locale from cookies
+        $locale = Request::getCookie('locale');
+
+        // try to get locale from browser
+        if (!$locale) {
+            $languages = Request::getAcceptLanguage();
+            foreach ($languages as $language => $priority) {
+                if (array_key_exists($language, $locales)) {
+                    $locale = $language;
+                    break;
+                }
+            }
+        }
+
+        // normalize locale
+        if (array_key_exists($locale, $locales)) {
+            $translator->setLocale($locales[$locale]);
+        }
+
+        $translator->init();
+
+        Translator::setInstance($translator);
+    }
+
     /**
      * {@inheritdoc}
      *
      * @param Controller $controller
      *
      * @return void
-     * @throws \Application\Exception
-     * @throws \Bluz\Auth\AuthException
-     * @throws \InvalidArgumentException
+     * @throws AuthException
+     * @throws Exception
+     * @throws \Bluz\Db\Exception\DbException
+     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
      */
     protected function preDispatch($controller): void
     {

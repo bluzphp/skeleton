@@ -17,9 +17,6 @@ use Bluz\Auth\Model\AbstractRow;
  *
  * @property string $created
  * @property string $updated
- *
- * @author   Anton Shevchuk
- * @created  24.10.12 11:57
  */
 class Row extends AbstractRow
 {

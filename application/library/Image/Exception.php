@@ -15,9 +15,6 @@ namespace Image;
  *
  * @category Library
  * @package  Image
- *
- * @author   Anton Shevchuk
- * @created  1/10/14 10:43 AM
  */
 class Exception extends \Exception
 {

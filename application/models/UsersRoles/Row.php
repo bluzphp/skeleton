@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Application\UsersRoles;
 
 /**
- * User
+ * Row of Users to Roles relations
  *
  * @package  Application\Roles
  *

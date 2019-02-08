@@ -1,5 +1,5 @@
 <?php
-// @group users
+// @group dashboard
 $I = new AcceptanceTester($scenario);
 $I->wantTo('open dashboard as guest');
 $I->amOnPage('/dashboard');

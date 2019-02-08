@@ -12,19 +12,21 @@ use Bluz\Proxy\Cache;
 use Bluz\Proxy\Db;
 
 /**
- * Class Table
+ * Table of User Roles
  *
  * @package  Application\Roles
  *
- * @method   static Row findRow($primaryKey)
- * @method   static Row findRowWhere($whereList)
+ * @method   static ?Row findRow($primaryKey)
+ * @see      \Bluz\Db\Table::findRow()
+ * @method   static ?Row findRowWhere($whereList)
+ * @see      \Bluz\Db\Table::findRowWhere()
  */
 class Table extends \Bluz\Db\Table
 {
-    const BASIC_ADMIN = 'admin';
-    const BASIC_GUEST = 'guest';
-    const BASIC_MEMBER = 'member';
-    const BASIC_SYSTEM = 'system';
+    public const BASIC_ADMIN = 'admin';
+    public const BASIC_GUEST = 'guest';
+    public const BASIC_MEMBER = 'member';
+    public const BASIC_SYSTEM = 'system';
 
     /**
      * Table
@@ -62,23 +64,23 @@ class Table extends \Bluz\Db\Table
     }
 
     /**
-     * Get all roles in system
-     *
-     * @return array
-     */
-    public function getRoles()
-    {
-        return self::fetch("SELECT * FROM acl_roles ORDER BY id");
-    }
-
-    /**
      * Get all basic roles
      *
      * @return array
      */
-    public function getBasicRoles()
+    public function getBasicRoles(): array
     {
         return $this->basicRoles;
+    }
+
+    /**
+     * Get all roles in system
+     *
+     * @return Row[]
+     */
+    public function getRoles(): array
+    {
+        return self::fetch('SELECT * FROM acl_roles ORDER BY id');
     }
 
     /**
@@ -86,9 +88,9 @@ class Table extends \Bluz\Db\Table
      *
      * @param integer $userId
      *
-     * @return array of rows
+     * @return Row[]
      */
-    public function getUserRoles($userId)
+    public function getUserRoles($userId): array
     {
         $data = self::fetch(
             'SELECT r.*
@@ -106,7 +108,7 @@ class Table extends \Bluz\Db\Table
      *
      * @return array of identity
      */
-    public function getUserRolesIdentity($userId)
+    public function getUserRolesIdentity($userId): array
     {
         $cacheKey = 'users.roles.' . $userId;
         if (!$data = Cache::get($cacheKey)) {

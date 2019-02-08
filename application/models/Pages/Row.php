@@ -13,7 +13,7 @@ use Bluz\Proxy\Auth;
 use Bluz\Validator\Traits\Validator;
 
 /**
- * Pages Row
+ * Row of Pages
  *
  * @package  Application\Pages
  *
@@ -69,12 +69,7 @@ class Row extends \Bluz\Db\Row
             ->slug()
             ->callback(
                 function ($input) {
-                    if ($row = $this->getTable()::findRowWhere(['alias' => $input])) {
-                        if ($row->id != $this->id) {
-                            return false;
-                        }
-                    }
-                    return true;
+                    return !(($row = $this->getTable()::findRowWhere(['alias' => $input])) && $row->id !== $this->id);
                 },
                 __('This alias already exists')
             )

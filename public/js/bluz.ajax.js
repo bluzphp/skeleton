@@ -199,8 +199,9 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
         url: $this.attr('href'),
         type: $this.data('ajax-method') || 'post',
         data: processData($this),
-        dataType: 'html',
-        success: function (content) {
+        dataType: 'html'
+      })
+        .done(function (content) {
           let $div = modal.create($this, content, $this.data('modal-style'));
           $div.on('success.bluz.form', function () {
             // throw event on button
@@ -208,8 +209,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
             $div.modal('hide');
           });
           $div.modal('show');
-        }
-      });
+        });
     }
 
     function ajaxLoad(event) {
@@ -237,11 +237,9 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
         url: source,
         type: $this.data('ajax-method') || 'post',
         data: processData($this),
-        dataType: 'html',
-        success: function (data) {
-          $target.html(data);
-        }
-      });
+        dataType: 'html'
+      })
+        .done(data => $target.html(data));
       return false;
     }
 
@@ -262,8 +260,9 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
         type: $this.attr('method') || 'post',
         data: $this.serializeArray(),
         dataType: $this.data('ajax-type') || 'json',
-        context: this,
-        success: function (data) {
+        context: this
+      })
+        .done(function (data) {
           // data can be 'undefined' if server return
           // 204 header without content
           if (data !== undefined && data.errors !== undefined) {
@@ -274,8 +273,7 @@ define(['jquery', 'bluz', 'bluz.modal', 'bluz.notify'], function ($, bluz, modal
           } else {
             $this.trigger('success.bluz.form', arguments);
           }
-        }
-      });
+        });
     }
 
     function ajaxLink(event) {

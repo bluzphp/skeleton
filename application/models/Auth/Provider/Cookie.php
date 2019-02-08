@@ -18,13 +18,19 @@ use Bluz\Proxy\Response;
 /**
  * Cookie Provider
  *
- * @package  Application\Auth
- * @author   Anton Shevchuk
+ * @package  Application\Auth\Provider
  */
 class Cookie extends AbstractProvider
 {
-    const PROVIDER = Table::PROVIDER_COOKIE;
+    public const PROVIDER = Table::PROVIDER_COOKIE;
 
+    /**
+     * {@inheritdoc}
+     *
+     * @throws AuthException
+     * @throws \Bluz\Db\Exception\DbException
+     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
+     */
     public static function authenticate($token): void
     {
         $authRow = self::verify($token);
@@ -34,6 +40,13 @@ class Cookie extends AbstractProvider
         Table::tryLogin($user);
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return Row
+     * @throws AuthException
+     * @throws \Bluz\Db\Exception\DbException
+     */
     public static function verify($token): Row
     {
         /* @var Row $authRow */
@@ -55,6 +68,14 @@ class Cookie extends AbstractProvider
         return $authRow;
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return Row
+     * @throws \Bluz\Db\Exception\DbException
+     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
+     * @throws \Bluz\Db\Exception\TableNotFoundException
+     */
     public static function create($user): Row
     {
         // remove old Auth record

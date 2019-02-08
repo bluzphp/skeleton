@@ -13,12 +13,14 @@ use Bluz\Proxy\Cache;
 use Bluz\Proxy\Db;
 
 /**
- * Table
+ * Table of Privileges
  *
  * @package  Application\Privileges
  *
  * @method   static ?Row findRow($primaryKey)
+ * @see      \Bluz\Db\Table::findRow()
  * @method   static ?Row findRowWhere($whereList)
+ * @see      \Bluz\Db\Table::findRowWhere()
  */
 class Table extends \Bluz\Db\Table
 {
@@ -39,14 +41,14 @@ class Table extends \Bluz\Db\Table
     /**
      * Get all privileges
      *
-     * @return array
+     * @return Row[]
      */
-    public function getPrivileges()
+    public function getPrivileges(): array
     {
         return self::fetch(
-            "SELECT DISTINCT p.roleId, p.module, p.privilege
+            'SELECT DISTINCT p.roleId, p.module, p.privilege
             FROM acl_privileges AS p
-            ORDER BY module, privilege"
+            ORDER BY module, privilege'
         );
     }
 
@@ -57,14 +59,15 @@ class Table extends \Bluz\Db\Table
      *
      * @return array
      */
-    public function getUserPrivileges($userId)
+    public function getUserPrivileges($userId): array
     {
         $roles = Roles\Table::getInstance()->getUserRolesIdentity($userId);
 
-        $stack = [];
+        $stack = [[]];
         foreach ($roles as $roleId) {
-            $stack = array_merge($stack, $this->getRolePrivileges($roleId));
+            $stack[] = $this->getRolePrivileges($roleId);
         }
+        $stack = array_merge(...$stack);
 
         // magic array_unique for multi array
         return array_unique($stack);
@@ -96,7 +99,7 @@ class Table extends \Bluz\Db\Table
      *
      * @return array
      */
-    public function getRolePrivileges($roleId)
+    public function getRolePrivileges($roleId): array
     {
         $cacheKey = 'roles.privileges.' . $roleId;
 

@@ -9,14 +9,11 @@ declare(strict_types=1);
 namespace Application\Users;
 
 /**
- * Crud
+ * Crud of Users
  *
  * @package  Application\Users
  *
  * @method   Table getTable()
- *
- * @author   Anton Shevchuk
- * @created  30.10.12 16:11
  */
 class Crud extends \Bluz\Crud\Table
 {

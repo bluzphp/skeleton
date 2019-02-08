@@ -11,7 +11,7 @@ namespace Application\Roles;
 use Bluz\Validator\Traits\Validator;
 
 /**
- * User Role
+ * Row of User Role
  *
  * @package Application\Roles
  *
@@ -58,7 +58,7 @@ class Row extends \Bluz\Db\Row
             )
             ->callback(
                 function ($name) {
-                    return $this->clean['name'] != $name;
+                    return $this->clean['name'] !== $name;
                 },
                 'Role name is the same as original'
             )

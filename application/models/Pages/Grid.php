@@ -13,9 +13,9 @@ use Bluz\Grid\Source\SelectSource;
 /**
  * Grid of Pages
  *
- * @method   Row[] getData()
- *
  * @package  Application\Pages
+ *
+ * @method   Row[] getData()
  */
 class Grid extends \Bluz\Grid\Grid
 {

@@ -2,12 +2,12 @@
 /**
  * Simple loader
  *
- * @author   C.O.
- * @created  16.11.12 14:33
+ * @author Captain Obvious
  */
+
 // Check PHP version
-if (version_compare(phpversion(), '7.0.0', '<')) {
-    printf("PHP 7.0.0 is required, you have %s\n", phpversion());
+if (PHP_VERSION_ID < 70100) {
+    printf("PHP 7.1.0 is required, you have %s\n", PHP_VERSION);
     exit(1);
 }
 

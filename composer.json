@@ -5,29 +5,39 @@
   "type": "library",
   "require": {
     "php": ">=7.1",
+    "ext-gd": "*",
     "ext-json": "*",
     "bluzphp/bluzman": "~2.4",
     "bluzphp/framework": "~7.10",
     "bluzphp/composer-plugin": "~2.1",
     "phpmailer/phpmailer": "~6.0",
     "zircote/swagger-php": "~3.0",
-    "fortawesome/font-awesome": "~4.7",
+    "fortawesome/font-awesome": "~5.5",
     "twbs/bootstrap": "~4.1",
     "robmorgan/phinx": "~0.10",
     "public/swagger-ui": "dev-master",
     "public/jquery": "dev-master",
     "public/jquery-ui": "dev-master",
-    "public/popper": "dev-master",
-    "public/popper-map": "dev-master",
     "public/require": "dev-master"
   },
   "require-dev": {
-    "codeception/codeception": "~2.5",
+    "codeception/codeception": "2.5.3",
     "php-coveralls/php-coveralls": "~2.1",
     "squizlabs/php_codesniffer": "~3.3",
     "zendframework/zend-dom": "~2.7"
   },
-  "repositories": [
+  "repositories": [    {
+      "type": "package",
+      "package": {
+        "name": "fortawesome/font-awesome",
+        "version": "5.5.0",
+        "source": {
+          "url": "https://github.com/FortAwesome/Font-Awesome.git",
+          "type": "git",
+          "reference": "5.5.0"
+        }
+      }
+    },
     {
       "type": "package",
       "package": {
@@ -35,7 +45,7 @@
         "version": "dev-master",
         "license": "Apache-2.0",
         "dist":{
-          "url":"https://github.com/swagger-api/swagger-ui/archive/v3.19.2.zip",
+          "url":"https://github.com/swagger-api/swagger-ui/archive/v3.20.1.zip",
           "type":"zip"
         },
         "extra": {
@@ -78,30 +88,6 @@
           "type": "file"
         }
       }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "public/popper",
-        "version": "dev-master",
-        "license": "MIT",
-        "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.5/umd/popper.min.js",
-          "type": "file"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "public/popper-map",
-        "version": "dev-master",
-        "license": "MIT",
-        "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.5/umd/popper.min.js.map",
-          "type": "file"
-        }
-      }
     }
   ],
   "config": {
@@ -126,11 +112,10 @@
       "public/swagger-ui/dist/": "public/api/",
       "public/jquery/": "public/vendor/jquery",
       "public/jquery-ui/": "public/vendor/jquery-ui",
-      "public/popper/": "public/vendor/popper",
       "public/require/": "public/vendor/require",
       "twbs/bootstrap/dist/": "public/vendor/bootstrap",
-      "fortawesome/font-awesome/css/": "public/vendor/font-awesome/css/",
-      "fortawesome/font-awesome/fonts/": "public/vendor/font-awesome/fonts/"
+      "fortawesome/font-awesome/web-fonts-with-css/css/": "public/vendor/font-awesome/css/",
+      "fortawesome/font-awesome/web-fonts-with-css/webfonts/": "public/vendor/font-awesome/webfonts/"
     }
   },
   "authors": [

@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluz\n"
-"POT-Creation-Date: 2018-11-01 16:40+0200\n"
-"PO-Revision-Date: 2018-11-01 17:02+0200\n"
+"POT-Creation-Date: 2019-02-08 17:09+0200\n"
+"PO-Revision-Date: 2019-02-08 17:10+0200\n"
 "Last-Translator: Anton Shevchuk <Anton.Shevchuk@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-KeywordsList: __;_n:1,2;addError;addNotice;addSuccess\n"
 "X-Poedit-Basepath: ./../..\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
@@ -18,100 +18,86 @@ msgstr ""
 "X-Poedit-SearchPath-0: application\n"
 
 #: ../framework/src/Validator/Rule/AlphaNumericRule.php:40
-msgid "must contain only letters and digits"
-msgstr "должно содержать только буквы и цифры"
+#: ../framework/src/Validator/Rule/LatinNumericRule.php:40
+#: ../framework/src/_translator.php:56
+msgid "must contain only Latin letters and digits"
+msgstr "только латинские буквы и цифры"
 
 #: ../framework/src/Validator/Rule/AlphaNumericRule.php:42
+#: ../framework/src/Validator/Rule/LatinNumericRule.php:42
+#: ../framework/src/_translator.php:57
 #, php-format
-msgid "must contain only letters, digits and \"%s\""
-msgstr "только буквы, цифры и \" %s\""
+msgid "must contain only Latin letters, digits and \"%s\""
+msgstr "только латинские буквы, цифры и \" %s\""
 
 #: ../framework/src/Validator/Rule/AlphaRule.php:40
-msgid "must contain only letters"
+#: ../framework/src/Validator/Rule/LatinRule.php:40
+#: ../framework/src/_translator.php:54
+msgid "must contain only Latin letters"
 msgstr "только буквы латинского алфавита"
 
 #: ../framework/src/Validator/Rule/AlphaRule.php:42
+#: ../framework/src/Validator/Rule/LatinRule.php:42
+#: ../framework/src/_translator.php:55
 #, php-format
-msgid "must contain only letters and \"%s\""
-msgstr "должно содержать только буквы и \" %s\""
+msgid "must contain only Latin letters and \"%s\""
+msgstr "должны содержать только латинские буквы и \" %s\""
 
 #: ../framework/src/Validator/Rule/BetweenInclusiveRule.php:32
-#: ../framework/src/_translator.php:46
+#: ../framework/src/_translator.php:47
 msgid "must be inclusive between \"%1\" and \"%2\""
 msgstr "должно быть включительно между \"% 1\" и \"% 2\""
 
 #: ../framework/src/Validator/Rule/BetweenRule.php:74
-#: ../framework/src/_translator.php:40
+#: ../framework/src/_translator.php:41
 msgid "must be between \"%1\" and \"%2\""
 msgstr "должно быть между \"% 1\" и \"% 2\""
 
 #: ../framework/src/Validator/Rule/ContainsRule.php:63
-#: ../framework/src/_translator.php:52
+#: ../framework/src/_translator.php:53
 #, php-format
 msgid "must contain the value \"%s\""
 msgstr "должно содержать значение \" %s\""
 
 #: ../framework/src/Validator/Rule/DateRule.php:72
-#: ../framework/src/_translator.php:30
+#: ../framework/src/_translator.php:31
 #, php-format
 msgid "must be a valid date. Sample format: \"%s\""
 msgstr "должна быть допустимой датой. Пример формата: \"%s\""
 
 #: ../framework/src/Validator/Rule/DateRule.php:74
-#: ../framework/src/_translator.php:29
+#: ../framework/src/_translator.php:30
 msgid "must be a valid date"
 msgstr "должна быть допустимой датой"
 
 #: ../framework/src/Validator/Rule/EqualsRule.php:54
-#: ../framework/src/_translator.php:41
+#: ../framework/src/_translator.php:42
 #, php-format
 msgid "must be equals \"%s\""
 msgstr "должно быть равно \" %s\""
 
 #: ../framework/src/Validator/Rule/EqualsStrictRule.php:54
-#: ../framework/src/_translator.php:44
+#: ../framework/src/_translator.php:45
 #, php-format
 msgid "must be identical as \"%s\""
 msgstr "должно быть идентичным \"%s\""
 
 #: ../framework/src/Validator/Rule/InRule.php:73
-#: ../framework/src/_translator.php:45
+#: ../framework/src/_translator.php:46
 #, php-format
 msgid "must be in \"%s\""
 msgstr "должно быть в \"%s\""
 
 #: ../framework/src/Validator/Rule/IpRule.php:75
-#: ../framework/src/_translator.php:39
+#: ../framework/src/_translator.php:40
 #, php-format
 msgid "must be an IP address in the \"%s\" range"
 msgstr "должен быть IP-адресом в диапазоне \"%s\""
 
 #: ../framework/src/Validator/Rule/IpRule.php:77
-#: ../framework/src/_translator.php:38
+#: ../framework/src/_translator.php:39
 msgid "must be an IP address"
 msgstr "должен быть IP-адресом"
-
-#: ../framework/src/Validator/Rule/LatinNumericRule.php:40
-#: ../framework/src/_translator.php:55
-msgid "must contain only Latin letters and digits"
-msgstr "только латинские буквы и цифры"
-
-#: ../framework/src/Validator/Rule/LatinNumericRule.php:42
-#: ../framework/src/_translator.php:56
-#, php-format
-msgid "must contain only Latin letters, digits and \"%s\""
-msgstr "только латинские буквы, цифры и \" %s\""
-
-#: ../framework/src/Validator/Rule/LatinRule.php:40
-#: ../framework/src/_translator.php:53
-msgid "must contain only Latin letters"
-msgstr "только буквы латинского алфавита"
-
-#: ../framework/src/Validator/Rule/LatinRule.php:42
-#: ../framework/src/_translator.php:54
-#, php-format
-msgid "must contain only Latin letters and \"%s\""
-msgstr "должны содержать только латинские буквы и \" %s\""
 
 #: ../framework/src/Validator/Rule/LengthRule.php:53
 #: ../framework/src/Validator/Rule/LengthRule.php:59
@@ -121,53 +107,55 @@ msgid "\"%s\" is not a valid numeric length"
 msgstr "\"%s\" не является допустимой числовой длиной"
 
 #: ../framework/src/Validator/Rule/LengthRule.php:65
+#: ../framework/src/_translator.php:25
 #, php-format
 msgid "\"%s\" cannot be less than \"%s\" for validation"
 msgstr "\"%s\" не может быть меньше \"%s\" для проверки"
 
 #: ../framework/src/Validator/Rule/LengthRule.php:118
-#: ../framework/src/_translator.php:58
+#: ../framework/src/_translator.php:60
 #, php-format
 msgid "must have a length lower than \"%d\""
 msgstr "длина должна быть меньше \"%d\""
 
 #: ../framework/src/Validator/Rule/LengthRule.php:121
-#: ../framework/src/_translator.php:57
+#: ../framework/src/_translator.php:59
 #, php-format
 msgid "must have a length greater than \"%d\""
 msgstr "длина должна быть больше \"%d\""
 
 #: ../framework/src/Validator/Rule/LengthRule.php:124
+#: ../framework/src/_translator.php:58
 #, php-format
 msgid "must have a length \"%d\""
 msgstr "должна иметь длину \"%d\""
 
 #: ../framework/src/Validator/Rule/LengthRule.php:126
-#: ../framework/src/_translator.php:59
+#: ../framework/src/_translator.php:61
 #, php-format
 msgid "must have a length between \"%d\" and \"%d\""
 msgstr "должна иметь длину между \"%d\" и \"%d\""
 
 #: ../framework/src/Validator/Rule/LessOrEqualRule.php:32
-#: ../framework/src/_translator.php:47
+#: ../framework/src/_translator.php:48
 #, php-format
 msgid "must be lower than or equals \"%s\""
 msgstr "должно быть меньше или равно \"%s\""
 
 #: ../framework/src/Validator/Rule/LessRule.php:54
-#: ../framework/src/_translator.php:48
+#: ../framework/src/_translator.php:49
 #, php-format
 msgid "must be lower than \"%s\""
 msgstr "должно быть меньше \"%s\""
 
 #: ../framework/src/Validator/Rule/MoreOrEqualRule.php:32
-#: ../framework/src/_translator.php:42
+#: ../framework/src/_translator.php:43
 #, php-format
 msgid "must be greater than or equals \"%s\""
 msgstr "должно быть больше или равно \"%s\""
 
 #: ../framework/src/Validator/Rule/MoreRule.php:54
-#: ../framework/src/_translator.php:43
+#: ../framework/src/_translator.php:44
 #, php-format
 msgid "must be greater than \"%s\""
 msgstr "должно быть больше \" %s\""
@@ -180,71 +168,71 @@ msgstr "неверно"
 msgid "is required"
 msgstr "обязательно"
 
-#: ../framework/src/_translator.php:25
+#: ../framework/src/_translator.php:26
 msgid "must be a float number"
 msgstr "должно быть число с плавающей запятой"
 
-#: ../framework/src/_translator.php:26
+#: ../framework/src/_translator.php:27
 msgid "must be a string"
 msgstr "должна быть строка"
 
-#: ../framework/src/_translator.php:27
+#: ../framework/src/_translator.php:28
 msgid "must be a valid country code"
 msgstr "должен быть допустимым кодом страны"
 
-#: ../framework/src/_translator.php:28
+#: ../framework/src/_translator.php:29
 msgid "must be a valid Credit Card number"
 msgstr "должен быть действительный номер кредитной карты"
 
-#: ../framework/src/_translator.php:31
+#: ../framework/src/_translator.php:32
 msgid "must be a valid domain"
 msgstr "должен быть допустимым доменом"
 
-#: ../framework/src/_translator.php:32
+#: ../framework/src/_translator.php:33
 msgid "must be a valid email address"
 msgstr "адрес эл. почты должен быть допустимым"
 
-#: ../framework/src/_translator.php:33
+#: ../framework/src/_translator.php:34
 msgid "must be a valid JSON string"
 msgstr "должна быть допустимой строкой JSON"
 
-#: ../framework/src/_translator.php:34
+#: ../framework/src/_translator.php:35
 msgid "must be a valid slug"
 msgstr "должна быть допустимой slug"
 
-#: ../framework/src/_translator.php:35
+#: ../framework/src/_translator.php:36
 msgid "must be a valid version number"
 msgstr "должен быть допустимым номером версии"
 
-#: ../framework/src/_translator.php:36
+#: ../framework/src/_translator.php:37
 msgid "must be an array"
 msgstr "должен быть массивом"
 
-#: ../framework/src/_translator.php:37
+#: ../framework/src/_translator.php:38
 msgid "must be an integer number"
 msgstr "должно быть целым числом"
 
-#: ../framework/src/_translator.php:49
+#: ../framework/src/_translator.php:50
 msgid "must be negative"
 msgstr "должен быть отрицательным"
 
-#: ../framework/src/_translator.php:50
+#: ../framework/src/_translator.php:51
 msgid "must be numeric"
 msgstr "должен быть числовым"
 
-#: ../framework/src/_translator.php:51
+#: ../framework/src/_translator.php:52
 msgid "must be positive"
 msgstr "должно быть положительным"
 
-#: ../framework/src/_translator.php:60
+#: ../framework/src/_translator.php:62
 msgid "must not be empty"
 msgstr "не может быть пустым"
 
-#: ../framework/src/_translator.php:61
+#: ../framework/src/_translator.php:63
 msgid "must not contain whitespace"
 msgstr "не должно содержать пробелов"
 
-#: ../framework/src/_translator.php:62
+#: ../framework/src/_translator.php:64
 msgid "must validate with regular expression rule"
 msgstr "должен проверяться с помощью правила регулярного выражения"
 
@@ -252,16 +240,16 @@ msgstr "должен проверяться с помощью правила р�
 msgid "Guest"
 msgstr "Гость"
 
-#: application/library/Application/Bootstrap.php:86
+#: application/library/Application/Bootstrap.php:128
 #: application/modules/error/controllers/index.php:83
 msgid "You don't have permissions, please sign in"
 msgstr "У вас нет прав доступа, пожалуйста авторизируйтесь"
 
-#: application/models/Pages/Row.php:79
+#: application/models/Pages/Row.php:74
 msgid "This alias already exists"
 msgstr "Этот псевдоним уже существует"
 
-#: application/models/Pages/Row.php:89
+#: application/models/Pages/Row.php:84
 msgid "Content can't be empty"
 msgstr "Содержимое не может быть пустым"
 
@@ -270,6 +258,7 @@ msgid "Activation"
 msgstr "Активация"
 
 #: application/models/Users/Mail.php:105
+#: application/modules/users/views/recovery.phtml:8
 msgid "Password Recovery"
 msgstr "Восстановление пароля"
 
@@ -280,7 +269,7 @@ msgid "Change email"
 msgstr "Изменить email"
 
 #: application/modules/acl/controllers/index.php:28
-#: application/layouts/partial/sidebar.phtml:72
+#: application/layouts/partial/sidebar.phtml:81
 msgid "Permissions"
 msgstr "Права доступа"
 
@@ -298,7 +287,7 @@ msgstr "Все данные сохранены"
 msgid "Internal Server Error"
 msgstr "Внутрення ошибка сервера"
 
-#: application/modules/acl/controllers/user.php:57
+#: application/modules/acl/controllers/user.php:56
 msgid "User roles was updated"
 msgstr "Роли пользователя были обновлены"
 
@@ -400,7 +389,7 @@ msgid "An unexpected error occurred with your request. Please try again later"
 msgstr "При обработке вашего запроса произошла ошибка. Поробуйте ещё раз"
 
 #: application/modules/pages/controllers/grid.php:27
-#: application/layouts/partial/sidebar.phtml:35
+#: application/layouts/partial/sidebar.phtml:44
 msgid "Pages"
 msgstr "Страницы"
 
@@ -421,7 +410,7 @@ msgid "The record was successfully updated"
 msgstr "Запись успешно обновлена"
 
 #: application/modules/system/controllers/index.php:22
-#: application/layouts/partial/sidebar.phtml:88
+#: application/layouts/partial/sidebar.phtml:106
 msgid "System"
 msgstr "Система"
 
@@ -482,9 +471,9 @@ msgstr "Пароль не верен"
 
 #: application/modules/users/controllers/crud/post.php:68
 msgid ""
-"Your account has been created and an activation link hasbeen sent to the e-"
+"Your account has been created and an activation link has been sent to the e-"
 "mail address you entered.<br/>Note that you must activate the account by "
-"clicking on the activation linkwhen you get the e-mail before you can login."
+"clicking on the activation link when you get the e-mail before you can login."
 msgstr ""
 "Ваша учётная запись создана в системе. На ваш email была отправлена ссылка, "
 "пройдя по которой вы активируете учётную запись."
@@ -570,7 +559,7 @@ msgid "Sign Out"
 msgstr "Выход"
 
 #: application/layouts/partial/navbar.phtml:56
-#: application/modules/users/views/signin.phtml:32
+#: application/modules/users/views/signin.phtml:36
 msgid "Sign In"
 msgstr "Вход"
 
@@ -582,21 +571,29 @@ msgstr "Бумажники"
 msgid "Phones"
 msgstr "Телефоны"
 
-#: application/layouts/partial/sidebar.phtml:43
+#: application/layouts/partial/sidebar.phtml:33
+msgid "Push Subscriptions"
+msgstr "Push-подписки"
+
+#: application/layouts/partial/sidebar.phtml:52
 msgid "Media"
 msgstr "Медиа"
 
-#: application/layouts/partial/sidebar.phtml:52
+#: application/layouts/partial/sidebar.phtml:61
 msgid "Categories"
 msgstr "Категории"
 
-#: application/layouts/partial/sidebar.phtml:61
+#: application/layouts/partial/sidebar.phtml:70
 msgid "Contact Us"
 msgstr "Свяжитесь с нами"
 
-#: application/layouts/partial/sidebar.phtml:80
+#: application/layouts/partial/sidebar.phtml:89
 msgid "Options"
 msgstr "Настройки"
+
+#: application/layouts/partial/sidebar.phtml:98
+msgid "Queues"
+msgstr "Очереди"
 
 #: application/modules/acl/views/index.phtml:4
 #: application/modules/acl/views/roles.phtml:8
@@ -619,9 +616,10 @@ msgstr "Редактировать"
 
 #: application/modules/acl/views/index.phtml:55
 #: application/modules/acl/views/roles.phtml:24
+#: application/modules/acl/views/user.phtml:32
 #: application/modules/pages/views/crud.phtml:54
-#: application/modules/users/views/change-email.phtml:27
-#: application/modules/users/views/change-password.phtml:27
+#: application/modules/users/views/change-email.phtml:31
+#: application/modules/users/views/change-password.phtml:33
 #: application/modules/users/views/crud.phtml:44
 msgid "Save"
 msgstr "Сохранить"
@@ -629,7 +627,7 @@ msgstr "Сохранить"
 #: application/modules/acl/views/roles.phtml:10
 #: application/modules/acl/views/roles.phtml:25
 #: application/modules/acl/views/user.phtml:11
-#: application/modules/acl/views/user.phtml:31
+#: application/modules/acl/views/user.phtml:33
 #: application/modules/pages/views/crud.phtml:10
 #: application/modules/pages/views/crud.phtml:55
 #: application/modules/users/views/crud.phtml:12
@@ -645,10 +643,6 @@ msgstr "Имя"
 #, php-format
 msgid "Choose roles for %s"
 msgstr "Изменить роль для %s"
-
-#: application/modules/acl/views/user.phtml:30
-msgid "Save changes"
-msgstr "Сохранить изменения"
 
 #: application/modules/cache/views/widgets/index.phtml:4
 #: application/modules/cache/views/widgets/index.phtml:30
@@ -789,30 +783,30 @@ msgstr "Email будет изменён после подтверждения"
 msgid "Email"
 msgstr "Email"
 
-#: application/modules/users/views/change-email.phtml:20
-#: application/modules/users/views/signin.phtml:21
+#: application/modules/users/views/change-email.phtml:22
+#: application/modules/users/views/signin.phtml:25
 msgid "Password"
 msgstr "Пароль"
 
-#: application/modules/users/views/change-email.phtml:24
-#: application/modules/users/views/change-password.phtml:15
+#: application/modules/users/views/change-email.phtml:28
+#: application/modules/users/views/change-password.phtml:17
 msgid "current password"
 msgstr "текущий пароль"
 
 #: application/modules/users/views/change-password.phtml:6
 #: application/modules/users/views/partial/card-header.phtml:38
-#: application/modules/users/views/recovery-reset.phtml:25
+#: application/modules/users/views/recovery-reset.phtml:29
 msgid "Change password"
 msgstr "Изменить пароль"
 
-#: application/modules/users/views/change-password.phtml:20
-#: application/modules/users/views/recovery-reset.phtml:18
+#: application/modules/users/views/change-password.phtml:24
+#: application/modules/users/views/recovery-reset.phtml:20
 msgid "new password"
 msgstr "новый пароль"
 
-#: application/modules/users/views/change-password.phtml:25
-#: application/modules/users/views/recovery-reset.phtml:23
-#: application/modules/users/views/signup.phtml:28
+#: application/modules/users/views/change-password.phtml:31
+#: application/modules/users/views/recovery-reset.phtml:27
+#: application/modules/users/views/signup.phtml:36
 msgid "repeat password"
 msgstr "ещё раз"
 
@@ -823,7 +817,7 @@ msgstr "Редактирование пользователя"
 #: application/modules/users/views/crud.phtml:18
 #: application/modules/users/views/grid.phtml:36
 #: application/modules/users/views/grid.phtml:57
-#: application/modules/users/views/signin.phtml:14
+#: application/modules/users/views/signin.phtml:16
 msgid "Login"
 msgstr "Логин"
 
@@ -879,16 +873,12 @@ msgstr "Сброс пароля"
 msgid "Hi %s, enter your new password"
 msgstr "Привет %s, введите новый пароль"
 
-#: application/modules/users/views/recovery.phtml:8
-msgid "Recovery Password"
-msgstr "Восстановление пароля"
-
-#: application/modules/users/views/recovery.phtml:15
-#: application/modules/users/views/signup.phtml:18
+#: application/modules/users/views/recovery.phtml:17
+#: application/modules/users/views/signup.phtml:22
 msgid "email"
 msgstr "email"
 
-#: application/modules/users/views/recovery.phtml:17
+#: application/modules/users/views/recovery.phtml:19
 msgid "Recovery"
 msgstr "Восстановить"
 
@@ -896,30 +886,30 @@ msgstr "Восстановить"
 msgid "Please sign in"
 msgstr "Пожалуйста авторизируйтесь"
 
-#: application/modules/users/views/signin.phtml:16
-#: application/modules/users/views/signup.phtml:13
+#: application/modules/users/views/signin.phtml:18
+#: application/modules/users/views/signup.phtml:15
 msgid "login"
 msgstr "логин"
 
-#: application/modules/users/views/signin.phtml:22
-#: application/modules/users/views/signup.phtml:23
+#: application/modules/users/views/signin.phtml:26
+#: application/modules/users/views/signup.phtml:29
 msgid "password"
 msgstr "пароль"
 
-#: application/modules/users/views/signin.phtml:28
+#: application/modules/users/views/signin.phtml:32
 msgid "Remember me"
 msgstr "Запомнить меня"
 
-#: application/modules/users/views/signin.phtml:34
+#: application/modules/users/views/signin.phtml:38
 msgid "Sign Up"
 msgstr "Регистрация"
 
-#: application/modules/users/views/signin.phtml:42
+#: application/modules/users/views/signin.phtml:46
 msgid "Forgot your password?"
 msgstr "Забыли пароль?"
 
 #: application/modules/users/views/signup.phtml:6
-#: application/modules/users/views/signup.phtml:32
+#: application/modules/users/views/signup.phtml:40
 msgid "Registration"
 msgstr "Регистрация"
 
@@ -947,8 +937,41 @@ msgstr[2] "%d активных пользователя"
 msgid "last registered"
 msgstr "последний зарегистрированный"
 
-#~ msgid "Record was created"
-#~ msgstr "Запись создана"
+#~ msgid "Message was created"
+#~ msgstr "Сообщение создано"
+
+#~ msgid "Message was acknowledged"
+#~ msgstr "Сообщение было подтверждено"
+
+#~ msgid "Message was rejected"
+#~ msgstr "Сообщение отклонено"
+
+#~ msgid "This is the queues test page"
+#~ msgstr "Это тестовая страница очередей"
+
+#~ msgid "Produce"
+#~ msgstr "Производить"
+
+#~ msgid "Consume"
+#~ msgstr "Потреблять"
+
+#~ msgid "must contain only letters and digits"
+#~ msgstr "должно содержать только буквы и цифры"
+
+#~ msgid "must contain only letters, digits and \"%s\""
+#~ msgstr "только буквы, цифры и \" %s\""
+
+#~ msgid "must contain only letters"
+#~ msgstr "только буквы латинского алфавита"
+
+#~ msgid "must contain only letters and \"%s\""
+#~ msgstr "должно содержать только буквы и \" %s\""
+
+#~ msgid "Save changes"
+#~ msgstr "Сохранить изменения"
+
+#~ msgid "Recovery Password"
+#~ msgstr "Восстановление пароля"
 
 #~ msgid "Record was updated"
 #~ msgstr "Запись обновлена"
