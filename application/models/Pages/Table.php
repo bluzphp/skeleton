@@ -13,8 +13,8 @@ namespace Application\Pages;
  *
  * @package  Application\Pages
  *
- * @method   static Row findRow($primaryKey)
- * @method   static Row findRowWhere($whereList)
+ * @method   static ?Row findRow($primaryKey)
+ * @method   static ?Row findRowWhere($whereList)
  */
 class Table extends \Bluz\Db\Table
 {
@@ -40,7 +40,7 @@ class Table extends \Bluz\Db\Table
      * @return Row
      * @throws \Bluz\Db\Exception\DbException
      */
-    public function getByAlias($alias): Row
+    public function getByAlias($alias): ?Row
     {
         return static::findRowWhere(['alias' => $alias]);
     }
