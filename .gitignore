@@ -1,8 +1,9 @@
 .DS_Store
 .idea
-/vendor
-/pibluc/vendor
 composer.lock
 composer.phar
 codecept.phar
 codeception.yml
+application/configs/dev
+/public/vendor
+/vendor
