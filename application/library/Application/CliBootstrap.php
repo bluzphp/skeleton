@@ -28,9 +28,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  *
  * @category Application
  * @package  Bootstrap
- *
- * @author   Anton Shevchuk
- * @created  17.12.12 15:24
  */
 class CliBootstrap extends Application
 {

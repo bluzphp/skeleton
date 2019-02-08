@@ -16,10 +16,9 @@ use Bluz\Proxy\Mailer;
 use Bluz\Proxy\Router;
 
 /**
- * Mail
+ * Mail for Users
  *
  * @package  Application\Users
- * @author   Anton Shevchuk
  */
 class Mail
 {

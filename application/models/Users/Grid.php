@@ -12,7 +12,7 @@ use Bluz\Db\Query\Select;
 use Bluz\Grid\Source\SelectSource;
 
 /**
- * Grid of users
+ * Grid of Users
  *
  * @method   Row[] getData()
  *

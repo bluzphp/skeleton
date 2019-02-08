@@ -9,12 +9,14 @@ declare(strict_types=1);
 namespace Application\Pages;
 
 /**
- * Pages Table
+ * Table of Pages
  *
  * @package  Application\Pages
  *
  * @method   static ?Row findRow($primaryKey)
+ * @see      \Bluz\Db\Table::findRow()
  * @method   static ?Row findRowWhere($whereList)
+ * @see      \Bluz\Db\Table::findRowWhere()
  */
 class Table extends \Bluz\Db\Table
 {

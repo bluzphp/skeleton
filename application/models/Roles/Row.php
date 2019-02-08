@@ -11,7 +11,7 @@ namespace Application\Roles;
 use Bluz\Validator\Traits\Validator;
 
 /**
- * User Role
+ * Row of User Role
  *
  * @package Application\Roles
  *

@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Application\UsersActions;
 
 /**
- * User Actions
+ * Row of User Actions
  *
  * @package  Application\Users
  *
@@ -19,9 +19,6 @@ namespace Application\UsersActions;
  * @property string  $params
  * @property string  $created
  * @property string  $expired
- *
- * @author   Anton Shevchuk
- * @created  05.12.12 10:32
  */
 class Row extends \Bluz\Db\Row
 {

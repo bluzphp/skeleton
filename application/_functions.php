@@ -2,13 +2,6 @@
 /**
  * Simple functions of Application
  * be careful with this way
- *
- * @author  Anton Shevchuk
- * @created 25.07.13 13:34
- */
-
-/**
- * @namespace
  */
 
 namespace Application;

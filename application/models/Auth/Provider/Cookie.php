@@ -18,8 +18,7 @@ use Bluz\Proxy\Response;
 /**
  * Cookie Provider
  *
- * @package  Application\Auth
- * @author   Anton Shevchuk
+ * @package  Application\Auth\Provider
  */
 class Cookie extends AbstractProvider
 {

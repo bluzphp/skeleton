@@ -13,12 +13,14 @@ use Bluz\Proxy\Cache;
 use Bluz\Proxy\Db;
 
 /**
- * Table
+ * Table of Privileges
  *
  * @package  Application\Privileges
  *
  * @method   static ?Row findRow($primaryKey)
+ * @see      \Bluz\Db\Table::findRow()
  * @method   static ?Row findRowWhere($whereList)
+ * @see      \Bluz\Db\Table::findRowWhere()
  */
 class Table extends \Bluz\Db\Table
 {

@@ -15,9 +15,6 @@ use Bluz\Application\Exception\ApplicationException;
  *
  * @category Application
  * @package  Exception
- *
- * @author   Anton Shevchuk
- * @created  06.07.11 16:46
  */
 class Exception extends ApplicationException
 {

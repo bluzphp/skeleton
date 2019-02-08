@@ -15,9 +15,6 @@ namespace Image;
  *
  * @category Application
  * @package  Library
- *
- * @author   Anton Shevchuk
- * @created  21.06.13 11:29
  */
 class Thumbnail
 {
@@ -67,12 +64,11 @@ class Thumbnail
      *
      * @param int $width
      *
-     * @return self
+     * @return void
      */
-    public function setWidth($width)
+    public function setWidth($width): void
     {
         $this->width = (int)$width;
-        return $this;
     }
 
     /**
@@ -80,26 +76,26 @@ class Thumbnail
      *
      * @param int $height
      *
-     * @return self
+     * @return void
      */
-    public function setHeight($height)
+    public function setHeight($height): void
     {
         $this->height = (int)$height;
-        return $this;
     }
 
     /**
      * Generate thumbnail
      *
-     * @throws Exception
      * @return string Path to new file
+     * @throws Exception
+     * @throws \ImagickException
      */
     public function generate()
     {
         $dir = $this->path . '/.thumb/' . $this->width . 'x' . $this->height;
 
-        if (!is_dir($dir) && !mkdir($dir, 0755, true)) {
-            throw new Exception("Thumbnail image can't be save. Parent directory is not writable");
+        if (!is_dir($dir) && !mkdir($dir, 0755, true) && !is_dir($dir)) {
+            throw new Exception('Thumbnail image can\'t be save. Parent directory is not writable');
         }
 
         // Thumbnail already exists

@@ -16,7 +16,6 @@ use \Application\Users\Row as User;
  * AbstractProvider
  *
  * @package  Application\Auth\Provider
- * @author   Anton Shevchuk
  */
 abstract class AbstractProvider
 {

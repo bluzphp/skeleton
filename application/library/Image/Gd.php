@@ -15,9 +15,6 @@ namespace Image;
  *
  * @category Application
  * @package  Library
- *
- * @author   Anton Shevchuk
- * @created  1/10/14 8:43 AM
  */
 class Gd
 {
@@ -63,7 +60,7 @@ class Gd
         $this->file = $file;
 
         // Retrieve image information
-        list($this->width, $this->height, $type) = getimagesize($file);
+        [$this->width, $this->height, $type] = getimagesize($file);
 
         // Check support of file type
         if (!(imagetypes() & $type)) {
@@ -74,19 +71,18 @@ class Gd
         $this->image = imagecreatefromstring(file_get_contents($file));
 
         if (!$this->image) {
-            throw new Exception("Could not load image");
+            throw new Exception('Could not load image');
         }
     }
 
     /**
      * @param integer $quality
      *
-     * @return bool
+     * @return void
      */
-    public function setImageCompressionQuality($quality)
+    public function setImageCompressionQuality($quality): void
     {
         $this->quality = $quality;
-        return true;
     }
 
     /**
@@ -98,7 +94,7 @@ class Gd
      *
      * @return bool
      */
-    public function cropThumbnailImage($width, $height)
+    public function cropThumbnailImage($width, $height): bool
     {
         // Compare image size with required thumbnail size
         if (($this->width < $width) &&
@@ -134,11 +130,7 @@ class Gd
         $this->height = $height;
         $this->image = $thumb;
 
-        if ($thumb) {
-            return true;
-        } else {
-            return false;
-        }
+        return $thumb ? true : false;
     }
 
     /**
@@ -148,7 +140,7 @@ class Gd
      *
      * @return bool
      */
-    public function writeImage($fileName)
+    public function writeImage($fileName): bool
     {
         if (!$this->image || file_exists($fileName)) {
             return false;

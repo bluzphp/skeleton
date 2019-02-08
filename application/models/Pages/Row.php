@@ -13,7 +13,7 @@ use Bluz\Proxy\Auth;
 use Bluz\Validator\Traits\Validator;
 
 /**
- * Pages Row
+ * Row of Pages
  *
  * @package  Application\Pages
  *

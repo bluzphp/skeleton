@@ -14,7 +14,7 @@ use Bluz\Auth\AbstractIdentity;
 use Bluz\Validator\Traits\Validator;
 
 /**
- * User
+ * Row of User
  *
  * @package  Application\Users
  *

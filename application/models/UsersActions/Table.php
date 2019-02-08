@@ -11,15 +11,14 @@ namespace Application\UsersActions;
 use Bluz\Proxy\Db;
 
 /**
- * Table
+ * Table of User Actions
  *
  * @package  Application\Users
  *
- * @method   static Row findRow($primaryKey)
- * @method   static Row findRowWhere($whereList)
- *
- * @author   Anton Shevchuk
- * @created  08.07.11 17:36
+ * @method   static ?Row findRow($primaryKey)
+ * @see      \Bluz\Db\Table::findRow()
+ * @method   static ?Row findRowWhere($whereList)
+ * @see      \Bluz\Db\Table::findRowWhere()
  */
 class Table extends \Bluz\Db\Table
 {

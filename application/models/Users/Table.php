@@ -9,15 +9,14 @@ declare(strict_types=1);
 namespace Application\Users;
 
 /**
- * Users Table
+ * Table of Users
  *
  * @package  Application\Users
  *
  * @method   static ?Row findRow($primaryKey)
+ * @see      \Bluz\Db\Table::findRow()
  * @method   static ?Row findRowWhere($whereList)
- *
- * @author   Anton Shevchuk
- * @created  08.07.11 17:36
+ * @see      \Bluz\Db\Table::findRowWhere()
  */
 class Table extends \Bluz\Db\Table
 {

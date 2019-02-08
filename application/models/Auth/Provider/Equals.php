@@ -16,8 +16,7 @@ use Bluz\Auth\AuthException;
 /**
  * Equals Provider
  *
- * @package  Application\Auth
- * @author   Anton Shevchuk
+ * @package  Application\Auth\Provider
  */
 class Equals extends AbstractProvider
 {

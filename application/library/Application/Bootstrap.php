@@ -30,9 +30,6 @@ use Bluz\Proxy\Translator;
  *
  * @category Application
  * @package  Bootstrap
- *
- * @author   Anton Shevchuk
- * @created  20.07.11 17:38
  */
 class Bootstrap extends Application
 {
@@ -82,9 +79,10 @@ class Bootstrap extends Application
      * @param Controller $controller
      *
      * @return void
-     * @throws \Application\Exception
-     * @throws \Bluz\Auth\AuthException
-     * @throws \InvalidArgumentException
+     * @throws AuthException
+     * @throws Exception
+     * @throws \Bluz\Db\Exception\DbException
+     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
      */
     protected function preDispatch($controller): void
     {

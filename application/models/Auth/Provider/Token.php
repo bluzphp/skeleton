@@ -17,8 +17,7 @@ use Bluz\Proxy\Auth;
 /**
  * Token Provider
  *
- * @package  Application\Auth
- * @author   Anton Shevchuk
+ * @package  Application\Auth\Provider
  */
 class Token extends AbstractProvider
 {
