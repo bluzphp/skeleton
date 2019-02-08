@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluz\n"
-"POT-Creation-Date: 2018-11-01 16:40+0200\n"
+"POT-Creation-Date: 2019-02-07 16:55+0200\n"
 "PO-Revision-Date: 2014-06-03 14:30+0200\n"
 "Last-Translator: Anton Shevchuk <Anton.Shevchuk@gmail.com>\n"
 "Language-Team: \n"
@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-KeywordsList: __;_n:1,2;addError;addNotice;addSuccess\n"
 "X-Poedit-Basepath: ./../..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -19,99 +19,85 @@ msgstr ""
 "X-Poedit-SearchPath-1: ../framework/src\n"
 
 #: ../framework/src/Validator/Rule/AlphaNumericRule.php:40
-msgid "must contain only letters and digits"
+#: ../framework/src/Validator/Rule/LatinNumericRule.php:40
+#: ../framework/src/_translator.php:56
+msgid "must contain only Latin letters and digits"
 msgstr ""
 
 #: ../framework/src/Validator/Rule/AlphaNumericRule.php:42
+#: ../framework/src/Validator/Rule/LatinNumericRule.php:42
+#: ../framework/src/_translator.php:57
 #, php-format
-msgid "must contain only letters, digits and \"%s\""
+msgid "must contain only Latin letters, digits and \"%s\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/AlphaRule.php:40
-msgid "must contain only letters"
+#: ../framework/src/Validator/Rule/LatinRule.php:40
+#: ../framework/src/_translator.php:54
+msgid "must contain only Latin letters"
 msgstr ""
 
 #: ../framework/src/Validator/Rule/AlphaRule.php:42
+#: ../framework/src/Validator/Rule/LatinRule.php:42
+#: ../framework/src/_translator.php:55
 #, php-format
-msgid "must contain only letters and \"%s\""
+msgid "must contain only Latin letters and \"%s\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/BetweenInclusiveRule.php:32
-#: ../framework/src/_translator.php:46
+#: ../framework/src/_translator.php:47
 msgid "must be inclusive between \"%1\" and \"%2\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/BetweenRule.php:74
-#: ../framework/src/_translator.php:40
+#: ../framework/src/_translator.php:41
 msgid "must be between \"%1\" and \"%2\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/ContainsRule.php:63
-#: ../framework/src/_translator.php:52
+#: ../framework/src/_translator.php:53
 #, php-format
 msgid "must contain the value \"%s\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/DateRule.php:72
-#: ../framework/src/_translator.php:30
+#: ../framework/src/_translator.php:31
 #, php-format
 msgid "must be a valid date. Sample format: \"%s\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/DateRule.php:74
-#: ../framework/src/_translator.php:29
+#: ../framework/src/_translator.php:30
 msgid "must be a valid date"
 msgstr ""
 
 #: ../framework/src/Validator/Rule/EqualsRule.php:54
-#: ../framework/src/_translator.php:41
+#: ../framework/src/_translator.php:42
 #, php-format
 msgid "must be equals \"%s\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/EqualsStrictRule.php:54
-#: ../framework/src/_translator.php:44
+#: ../framework/src/_translator.php:45
 #, php-format
 msgid "must be identical as \"%s\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/InRule.php:73
-#: ../framework/src/_translator.php:45
+#: ../framework/src/_translator.php:46
 #, php-format
 msgid "must be in \"%s\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/IpRule.php:75
-#: ../framework/src/_translator.php:39
+#: ../framework/src/_translator.php:40
 #, php-format
 msgid "must be an IP address in the \"%s\" range"
 msgstr ""
 
 #: ../framework/src/Validator/Rule/IpRule.php:77
-#: ../framework/src/_translator.php:38
+#: ../framework/src/_translator.php:39
 msgid "must be an IP address"
-msgstr ""
-
-#: ../framework/src/Validator/Rule/LatinNumericRule.php:40
-#: ../framework/src/_translator.php:55
-msgid "must contain only Latin letters and digits"
-msgstr ""
-
-#: ../framework/src/Validator/Rule/LatinNumericRule.php:42
-#: ../framework/src/_translator.php:56
-#, php-format
-msgid "must contain only Latin letters, digits and \"%s\""
-msgstr ""
-
-#: ../framework/src/Validator/Rule/LatinRule.php:40
-#: ../framework/src/_translator.php:53
-msgid "must contain only Latin letters"
-msgstr ""
-
-#: ../framework/src/Validator/Rule/LatinRule.php:42
-#: ../framework/src/_translator.php:54
-#, php-format
-msgid "must contain only Latin letters and \"%s\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/LengthRule.php:53
@@ -122,53 +108,55 @@ msgid "\"%s\" is not a valid numeric length"
 msgstr ""
 
 #: ../framework/src/Validator/Rule/LengthRule.php:65
+#: ../framework/src/_translator.php:25
 #, php-format
 msgid "\"%s\" cannot be less than \"%s\" for validation"
 msgstr ""
 
 #: ../framework/src/Validator/Rule/LengthRule.php:118
-#: ../framework/src/_translator.php:58
+#: ../framework/src/_translator.php:60
 #, php-format
 msgid "must have a length lower than \"%d\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/LengthRule.php:121
-#: ../framework/src/_translator.php:57
+#: ../framework/src/_translator.php:59
 #, php-format
 msgid "must have a length greater than \"%d\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/LengthRule.php:124
+#: ../framework/src/_translator.php:58
 #, php-format
 msgid "must have a length \"%d\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/LengthRule.php:126
-#: ../framework/src/_translator.php:59
+#: ../framework/src/_translator.php:61
 #, php-format
 msgid "must have a length between \"%d\" and \"%d\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/LessOrEqualRule.php:32
-#: ../framework/src/_translator.php:47
+#: ../framework/src/_translator.php:48
 #, php-format
 msgid "must be lower than or equals \"%s\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/LessRule.php:54
-#: ../framework/src/_translator.php:48
+#: ../framework/src/_translator.php:49
 #, php-format
 msgid "must be lower than \"%s\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/MoreOrEqualRule.php:32
-#: ../framework/src/_translator.php:42
+#: ../framework/src/_translator.php:43
 #, php-format
 msgid "must be greater than or equals \"%s\""
 msgstr ""
 
 #: ../framework/src/Validator/Rule/MoreRule.php:54
-#: ../framework/src/_translator.php:43
+#: ../framework/src/_translator.php:44
 #, php-format
 msgid "must be greater than \"%s\""
 msgstr ""
@@ -181,71 +169,71 @@ msgstr ""
 msgid "is required"
 msgstr ""
 
-#: ../framework/src/_translator.php:25
+#: ../framework/src/_translator.php:26
 msgid "must be a float number"
 msgstr ""
 
-#: ../framework/src/_translator.php:26
+#: ../framework/src/_translator.php:27
 msgid "must be a string"
 msgstr ""
 
-#: ../framework/src/_translator.php:27
+#: ../framework/src/_translator.php:28
 msgid "must be a valid country code"
 msgstr ""
 
-#: ../framework/src/_translator.php:28
+#: ../framework/src/_translator.php:29
 msgid "must be a valid Credit Card number"
 msgstr ""
 
-#: ../framework/src/_translator.php:31
+#: ../framework/src/_translator.php:32
 msgid "must be a valid domain"
 msgstr ""
 
-#: ../framework/src/_translator.php:32
+#: ../framework/src/_translator.php:33
 msgid "must be a valid email address"
 msgstr ""
 
-#: ../framework/src/_translator.php:33
+#: ../framework/src/_translator.php:34
 msgid "must be a valid JSON string"
 msgstr ""
 
-#: ../framework/src/_translator.php:34
+#: ../framework/src/_translator.php:35
 msgid "must be a valid slug"
 msgstr ""
 
-#: ../framework/src/_translator.php:35
+#: ../framework/src/_translator.php:36
 msgid "must be a valid version number"
 msgstr ""
 
-#: ../framework/src/_translator.php:36
+#: ../framework/src/_translator.php:37
 msgid "must be an array"
 msgstr ""
 
-#: ../framework/src/_translator.php:37
+#: ../framework/src/_translator.php:38
 msgid "must be an integer number"
 msgstr ""
 
-#: ../framework/src/_translator.php:49
+#: ../framework/src/_translator.php:50
 msgid "must be negative"
 msgstr ""
 
-#: ../framework/src/_translator.php:50
+#: ../framework/src/_translator.php:51
 msgid "must be numeric"
 msgstr ""
 
-#: ../framework/src/_translator.php:51
+#: ../framework/src/_translator.php:52
 msgid "must be positive"
 msgstr ""
 
-#: ../framework/src/_translator.php:60
+#: ../framework/src/_translator.php:62
 msgid "must not be empty"
 msgstr ""
 
-#: ../framework/src/_translator.php:61
+#: ../framework/src/_translator.php:63
 msgid "must not contain whitespace"
 msgstr ""
 
-#: ../framework/src/_translator.php:62
+#: ../framework/src/_translator.php:64
 msgid "must validate with regular expression rule"
 msgstr ""
 
@@ -253,7 +241,7 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: application/library/Application/Bootstrap.php:86
+#: application/library/Application/Bootstrap.php:128
 #: application/modules/error/controllers/index.php:83
 msgid "You don't have permissions, please sign in"
 msgstr ""
@@ -271,6 +259,7 @@ msgid "Activation"
 msgstr ""
 
 #: application/models/Users/Mail.php:105
+#: application/modules/users/views/recovery.phtml:8
 msgid "Password Recovery"
 msgstr ""
 
@@ -281,7 +270,7 @@ msgid "Change email"
 msgstr ""
 
 #: application/modules/acl/controllers/index.php:28
-#: application/layouts/partial/sidebar.phtml:72
+#: application/layouts/partial/sidebar.phtml:81
 msgid "Permissions"
 msgstr ""
 
@@ -399,7 +388,7 @@ msgid "An unexpected error occurred with your request. Please try again later"
 msgstr ""
 
 #: application/modules/pages/controllers/grid.php:27
-#: application/layouts/partial/sidebar.phtml:35
+#: application/layouts/partial/sidebar.phtml:44
 msgid "Pages"
 msgstr ""
 
@@ -420,13 +409,30 @@ msgid "The record was successfully updated"
 msgstr ""
 
 #: application/modules/system/controllers/index.php:22
-#: application/layouts/partial/sidebar.phtml:88
+#: application/layouts/partial/sidebar.phtml:97
 msgid "System"
 msgstr ""
 
 #: application/modules/system/controllers/info.php:29
-#: application/modules/system/views/index.phtml:9
+#: application/modules/system/views/index.phtml:10
 msgid "PHP Info"
+msgstr ""
+
+#: application/modules/system/controllers/queues.php:31
+#: application/modules/system/views/index.phtml:9
+msgid "Queues"
+msgstr ""
+
+#: application/modules/system/controllers/queues.php:53
+msgid "Message was created"
+msgstr ""
+
+#: application/modules/system/controllers/queues.php:64
+msgid "Message was acknowledged"
+msgstr ""
+
+#: application/modules/system/controllers/queues.php:67
+msgid "Message was rejected"
 msgstr ""
 
 #: application/modules/system/controllers/routers.php:29
@@ -478,9 +484,10 @@ msgstr ""
 
 #: application/modules/users/controllers/crud/post.php:68
 msgid ""
-"Your account has been created and an activation link hasbeen sent to the e-"
+"Your account has been created and an activation link has been sent to the e-"
 "mail address you entered.<br/>Note that you must activate the account by "
-"clicking on the activation linkwhen you get the e-mail before you can login."
+"clicking on the activation link when you get the e-mail before you can "
+"login."
 msgstr ""
 
 #: application/modules/users/controllers/grid.php:29
@@ -562,7 +569,7 @@ msgid "Sign Out"
 msgstr ""
 
 #: application/layouts/partial/navbar.phtml:56
-#: application/modules/users/views/signin.phtml:32
+#: application/modules/users/views/signin.phtml:36
 msgid "Sign In"
 msgstr ""
 
@@ -574,19 +581,23 @@ msgstr ""
 msgid "Phones"
 msgstr ""
 
-#: application/layouts/partial/sidebar.phtml:43
-msgid "Media"
+#: application/layouts/partial/sidebar.phtml:33
+msgid "Push Subscriptions"
 msgstr ""
 
 #: application/layouts/partial/sidebar.phtml:52
-msgid "Categories"
+msgid "Media"
 msgstr ""
 
 #: application/layouts/partial/sidebar.phtml:61
+msgid "Categories"
+msgstr ""
+
+#: application/layouts/partial/sidebar.phtml:70
 msgid "Contact Us"
 msgstr ""
 
-#: application/layouts/partial/sidebar.phtml:80
+#: application/layouts/partial/sidebar.phtml:89
 msgid "Options"
 msgstr ""
 
@@ -611,9 +622,10 @@ msgstr ""
 
 #: application/modules/acl/views/index.phtml:55
 #: application/modules/acl/views/roles.phtml:24
+#: application/modules/acl/views/user.phtml:32
 #: application/modules/pages/views/crud.phtml:54
-#: application/modules/users/views/change-email.phtml:27
-#: application/modules/users/views/change-password.phtml:27
+#: application/modules/users/views/change-email.phtml:31
+#: application/modules/users/views/change-password.phtml:33
 #: application/modules/users/views/crud.phtml:44
 msgid "Save"
 msgstr ""
@@ -621,7 +633,7 @@ msgstr ""
 #: application/modules/acl/views/roles.phtml:10
 #: application/modules/acl/views/roles.phtml:25
 #: application/modules/acl/views/user.phtml:11
-#: application/modules/acl/views/user.phtml:31
+#: application/modules/acl/views/user.phtml:33
 #: application/modules/pages/views/crud.phtml:10
 #: application/modules/pages/views/crud.phtml:55
 #: application/modules/users/views/crud.phtml:12
@@ -636,10 +648,6 @@ msgstr ""
 #: application/modules/acl/views/user.phtml:10
 #, php-format
 msgid "Choose roles for %s"
-msgstr ""
-
-#: application/modules/acl/views/user.phtml:30
-msgid "Save changes"
 msgstr ""
 
 #: application/modules/cache/views/widgets/index.phtml:4
@@ -744,6 +752,18 @@ msgstr ""
 msgid "Bookmarklets generator"
 msgstr ""
 
+#: application/modules/system/views/queues.phtml:6
+msgid "This is the queues test page"
+msgstr ""
+
+#: application/modules/system/views/queues.phtml:7
+msgid "Produce"
+msgstr ""
+
+#: application/modules/system/views/queues.phtml:8
+msgid "Consume"
+msgstr ""
+
 #: application/modules/system/views/routers.phtml:6
 msgid "Module"
 msgstr ""
@@ -780,30 +800,30 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: application/modules/users/views/change-email.phtml:20
-#: application/modules/users/views/signin.phtml:21
+#: application/modules/users/views/change-email.phtml:22
+#: application/modules/users/views/signin.phtml:25
 msgid "Password"
 msgstr ""
 
-#: application/modules/users/views/change-email.phtml:24
-#: application/modules/users/views/change-password.phtml:15
+#: application/modules/users/views/change-email.phtml:28
+#: application/modules/users/views/change-password.phtml:17
 msgid "current password"
 msgstr ""
 
 #: application/modules/users/views/change-password.phtml:6
 #: application/modules/users/views/partial/card-header.phtml:38
-#: application/modules/users/views/recovery-reset.phtml:25
+#: application/modules/users/views/recovery-reset.phtml:29
 msgid "Change password"
 msgstr ""
 
-#: application/modules/users/views/change-password.phtml:20
-#: application/modules/users/views/recovery-reset.phtml:18
+#: application/modules/users/views/change-password.phtml:24
+#: application/modules/users/views/recovery-reset.phtml:20
 msgid "new password"
 msgstr ""
 
-#: application/modules/users/views/change-password.phtml:25
-#: application/modules/users/views/recovery-reset.phtml:23
-#: application/modules/users/views/signup.phtml:28
+#: application/modules/users/views/change-password.phtml:31
+#: application/modules/users/views/recovery-reset.phtml:27
+#: application/modules/users/views/signup.phtml:36
 msgid "repeat password"
 msgstr ""
 
@@ -814,7 +834,7 @@ msgstr ""
 #: application/modules/users/views/crud.phtml:18
 #: application/modules/users/views/grid.phtml:36
 #: application/modules/users/views/grid.phtml:57
-#: application/modules/users/views/signin.phtml:14
+#: application/modules/users/views/signin.phtml:16
 msgid "Login"
 msgstr ""
 
@@ -870,16 +890,12 @@ msgstr ""
 msgid "Hi %s, enter your new password"
 msgstr ""
 
-#: application/modules/users/views/recovery.phtml:8
-msgid "Recovery Password"
-msgstr ""
-
-#: application/modules/users/views/recovery.phtml:15
-#: application/modules/users/views/signup.phtml:18
+#: application/modules/users/views/recovery.phtml:17
+#: application/modules/users/views/signup.phtml:22
 msgid "email"
 msgstr ""
 
-#: application/modules/users/views/recovery.phtml:17
+#: application/modules/users/views/recovery.phtml:19
 msgid "Recovery"
 msgstr ""
 
@@ -887,30 +903,30 @@ msgstr ""
 msgid "Please sign in"
 msgstr ""
 
-#: application/modules/users/views/signin.phtml:16
-#: application/modules/users/views/signup.phtml:13
+#: application/modules/users/views/signin.phtml:18
+#: application/modules/users/views/signup.phtml:15
 msgid "login"
 msgstr ""
 
-#: application/modules/users/views/signin.phtml:22
-#: application/modules/users/views/signup.phtml:23
+#: application/modules/users/views/signin.phtml:26
+#: application/modules/users/views/signup.phtml:29
 msgid "password"
 msgstr ""
 
-#: application/modules/users/views/signin.phtml:28
+#: application/modules/users/views/signin.phtml:32
 msgid "Remember me"
 msgstr ""
 
-#: application/modules/users/views/signin.phtml:34
+#: application/modules/users/views/signin.phtml:38
 msgid "Sign Up"
 msgstr ""
 
-#: application/modules/users/views/signin.phtml:42
+#: application/modules/users/views/signin.phtml:46
 msgid "Forgot your password?"
 msgstr ""
 
 #: application/modules/users/views/signup.phtml:6
-#: application/modules/users/views/signup.phtml:32
+#: application/modules/users/views/signup.phtml:40
 msgid "Registration"
 msgstr ""
 

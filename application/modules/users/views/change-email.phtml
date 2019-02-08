@@ -11,7 +11,9 @@
           <div class="form-group">
             <label class="sr-only" for="email"><?= __('Email') ?></label>
             <div class="input-group">
-              <div class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></div>
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>
+              </div>
               <input id="email" type="email" class="form-control" name="email" value="<?= ($this->user()->email) ?>"
                      maxlength="255" required/>
             </div>
@@ -19,7 +21,9 @@
           <div class="form-group">
             <label class="sr-only" for="password"><?= __('Password') ?></label>
             <div class="input-group">
-              <div class="input-group-addon"><i class="fa fa-fw fa-lock"></i></div>
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-fw fa-lock"></i></span>
+              </div>
               <input id="password" type="password" class="form-control" name="password"
                      placeholder="<?= __('current password') ?>" required/>
             </div>

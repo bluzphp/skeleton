@@ -14,12 +14,16 @@
     <input type="hidden" name="id" value="<?= $user->id ?>"/>
     <div class="form-group input-group">
 
-      <span class="input-group-addon"><i class="fa fa-fw fa-lock"></i></span>
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-fw fa-lock"></i></span>
+      </div>
       <input type="password" class="form-control" name="password" value="" placeholder="<?= __('new password') ?>"/>
 
     </div>
     <div class="form-group input-group">
-      <span class="input-group-addon"><i class="fa fa-fw fa-lock"></i></span>
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-fw fa-lock"></i></span>
+      </div>
       <input type="password" class="form-control" name="password2" value="" placeholder="<?= __('repeat password') ?>"/>
     </div>
     <input type="submit" value="<?= __('Change password') ?>" class="btn btn-primary"/>

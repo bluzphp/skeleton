@@ -38,6 +38,7 @@ return [
         'redis' => function () {
             $client = new \Redis();
             $client->connect('127.0.0.1', 6379);
+            $client->setOption(\Redis::OPT_PREFIX, 'bluz:');
             return new \Cache\Adapter\Redis\RedisCachePool($client);
         },
         /**
