@@ -2,7 +2,7 @@
 // This is global bootstrap for autoloading
 // Here you can initialize variables that will be available to your tests
 // Environment
-error_reporting(E_ALL | E_STRICT);
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Root path - level up

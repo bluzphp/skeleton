@@ -1,24 +1,22 @@
 Bluz, a lightweight PHP Framework
 =================================
-Easy to setup, easy to use. Example application
-
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bluzphp/main)
+Easy to setup, easy to use. Skeleton application
 
 ## Achievements
 
-[![PHP >= 7+](https://img.shields.io/badge/php-%3E%3D%207-8892BF.svg?style=flat)](https://php.net/)
+[![PHP >= 7.1+](https://img.shields.io/packagist/php-v/bluzphp/skeleton.svg?style=flat)](https://php.net/)
 
+[![Latest Stable Version](https://img.shields.io/packagist/v/bluzphp/skeleton.svg?label=version&style=flat)](https://packagist.org/packages/bluzphp/skeleton)
 
 [![Build Status](https://img.shields.io/travis/bluzphp/skeleton/master.svg?style=flat)](https://travis-ci.org/bluzphp/skeleton)
-[![Dependency Status](https://www.versioneye.com/php/bluzphp:skeleton/badge.png)](https://www.versioneye.com/php/bluzphp:skeleton)
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bluzphp/skeleton/badges/quality-score.png?s=5751f605c8db43a14bef3626d2c33749614d188a)](https://scrutinizer-ci.com/g/bluzphp/skeleton/)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/bluzphp/skeleton.svg?style=flat)](https://scrutinizer-ci.com/g/bluzphp/skeleton/)
+
 [![Coverage Status](https://img.shields.io/coveralls/bluzphp/skeleton/master.svg?style=flat)](https://coveralls.io/r/bluzphp/skeleton?branch=master)
 
-[![Latest Stable Version](https://poser.pugx.org/bluzphp/skeleton/v/stable.png)](https://packagist.org/packages/bluzphp/skeleton)
-[![Total Downloads](https://poser.pugx.org/bluzphp/skeleton/downloads.png)](https://packagist.org/packages/bluzphp/skeleton)
+[![Total Downloads](https://img.shields.io/packagist/dt/bluzphp/skeleton.svg?style=flat)](https://packagist.org/packages/bluzphp/skeleton)
 
-[![License](https://poser.pugx.org/bluzphp/skeleton/license.svg)](https://packagist.org/packages/bluzphp/skeleton)
+[![License](https://img.shields.io/packagist/l/bluzphp/skeleton.svg?style=flat)](https://packagist.org/packages/bluzphp/skeleton)
 
 ## Installation
 Bluz works with PHP 7.0 or later and MySQL 5.4 or later (please check [requirements](https://github.com/bluzphp/skeleton/wiki/Requirements))
