@@ -21,7 +21,7 @@
     "public/require": "dev-master"
   },
   "require-dev": {
-    "codeception/codeception": "2.5.3",
+    "codeception/codeception": "~2.5.3",
     "php-coveralls/php-coveralls": "~2.1",
     "squizlabs/php_codesniffer": "~3.3",
     "zendframework/zend-dom": "~2.7"
