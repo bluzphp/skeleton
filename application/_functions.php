@@ -14,10 +14,15 @@ namespace Application;
  * @param string  $file
  * @param integer $line
  *
+ * @return bool
  * @throws \ErrorException
  */
 function errorHandler($severity, $message, $file = null, $line = null)
 {
+    // Handles @ error suppression
+    if (error_reporting() === 0) {
+        return false;
+    }
     throw new \ErrorException($message, 0, $severity, $file, $line);
 }
 
