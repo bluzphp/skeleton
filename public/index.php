@@ -29,9 +29,6 @@ try {
      */
     require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-    // Error handler for log all errors
-    set_error_handler('\\Application\\errorHandler', E_ALL);
-
     // Environment
     $env = getenv('BLUZ_ENV') ?: 'production';
     $app = Bootstrap::getInstance();
@@ -40,6 +37,6 @@ try {
 } catch (\Throwable $e) {
     // display error page
     require_once __DIR__ .'/error.php';
-    // try to write log "warning"
+    // write logs
     errorLog($e);
 }

@@ -1,8 +1,8 @@
 <?php /** @var \Bluz\Layout\Layout $this */ ?>
 <nav id="sidebar" class="collapse show col-md-2 bg-light sidebar">
   <hr/>
-  <ul class="nav nav-pills flex-column">
-    <li class="nav-item <?= ($this->module('users') ? 'active' : '') ?>">
+  <ul role="menu" class="nav nav-pills flex-column">
+    <li role="menuitem" class="nav-item <?= ($this->module('users') ? 'active' : '') ?>">
         <?= $this->ahref(
             '<i class="fa fa-user fa-fw"></i> ' . __('Users'),
             ['users', 'grid', [], true],
@@ -10,7 +10,7 @@
         ) ?>
     </li>
     <?php if ($this->hasModule('wallet')) : ?>
-      <li class="nav-item <?= ($this->module('wallet') ? 'active' : '') ?>">
+      <li role="menuitem" class="nav-item <?= ($this->module('wallet') ? 'active' : '') ?>">
           <?= $this->ahref(
               '<i class="fa fa-credit-card fa-fw"></i> ' . __('Wallets'),
               ['wallet', 'grid', [], true],
@@ -19,7 +19,7 @@
       </li>
     <?php endif; ?>
     <?php if ($this->hasModule('phones')) : ?>
-      <li class="nav-item <?= ($this->module('phones') ? 'active' : '') ?>">
+      <li role="menuitem" class="nav-item <?= ($this->module('phones') ? 'active' : '') ?>">
           <?= $this->ahref(
               '<i class="fa fa-phone fa-fw"></i> ' . __('Phones'),
               ['phones', 'grid', [], true],
@@ -28,7 +28,7 @@
       </li>
     <?php endif; ?>
     <?php if ($this->hasModule('push')) : ?>
-      <li class="nav-item <?= ($this->module('push') ? 'active' : '') ?>">
+      <li role="menuitem" class="nav-item <?= ($this->module('push') ? 'active' : '') ?>">
           <?= $this->ahref(
               '<i class="fa fa-bell fa-fw"></i> ' . __('Push Subscriptions'),
               ['push', 'grid', [], true],
@@ -38,7 +38,7 @@
     <?php endif; ?>
   </ul>
   <hr/>
-  <ul class="nav nav-pills flex-column">
+  <ul role="menu" class="nav nav-pills flex-column">
     <li class="nav-item <?= ($this->module('pages') ? 'active' : '') ?>">
         <?= $this->ahref(
             '<i class="fa fa-edit fa-fw"></i> ' . __('Pages'),
@@ -47,7 +47,7 @@
         ) ?>
     </li>
     <?php if ($this->hasModule('media')) : ?>
-      <li class="nav-item <?= ($this->module('media') ? 'active' : '') ?>">
+      <li role="menuitem" class="nav-item <?= ($this->module('media') ? 'active' : '') ?>">
           <?= $this->ahref(
               '<i class="fas fa-images fa-fw"></i> ' . __('Media'),
               ['media', 'grid', [], true],
@@ -56,7 +56,7 @@
       </li>
     <?php endif; ?>
     <?php if ($this->hasModule('categories')) : ?>
-      <li class="nav-item <?= ($this->module('categories') ? 'active' : '') ?>">
+      <li role="menuitem" class="nav-item <?= ($this->module('categories') ? 'active' : '') ?>">
           <?= $this->ahref(
               '<i class="fa fa-folder fa-fw"></i> ' . __('Categories'),
               ['categories', 'tree', [], true],
@@ -65,7 +65,7 @@
       </li>
     <?php endif; ?>
     <?php if ($this->hasModule('contact-us')) : ?>
-      <li class="nav-item <?= ($this->module('contact-us') ? 'active' : '') ?>">
+      <li role="menuitem" class="nav-item <?= ($this->module('contact-us') ? 'active' : '') ?>">
           <?= $this->ahref(
               '<i class="fa fa-envelope fa-fw"></i> ' . __('Contact Us'),
               ['contact-us', 'grid', [], true],
@@ -75,8 +75,8 @@
     <?php endif; ?>
   </ul>
   <hr/>
-  <ul class="nav nav-pills flex-column">
-    <li class="nav-item <?= ($this->module('acl') ? 'active' : '') ?>">
+  <ul role="menu" class="nav nav-pills flex-column">
+    <li role="menuitem" class="nav-item <?= ($this->module('acl') ? 'active' : '') ?>">
         <?= $this->ahref(
             '<i class="fa fa-lock fa-fw"></i> ' . __('Permissions'),
             ['acl', 'index', [], true],
@@ -84,7 +84,7 @@
         ) ?>
     </li>
     <?php if ($this->hasModule('options')) : ?>
-      <li class="nav-item <?= ($this->module('options') ? 'active' : '') ?>">
+      <li role="menuitem" class="nav-item <?= ($this->module('options') ? 'active' : '') ?>">
           <?= $this->ahref(
               '<i class="fa fa-th-list fa-fw"></i> ' . __('Options'),
               ['options', 'grid', [], true],
@@ -93,7 +93,7 @@
       </li>
     <?php endif; ?>
     <?php if ($this->hasModule('queues')) : ?>
-      <li class="nav-item <?= ($this->module('queues') ? 'active' : '') ?>">
+      <li role="menuitem" class="nav-item <?= ($this->module('queues') ? 'active' : '') ?>">
           <?= $this->ahref(
               '<i class="fab fa-stack-overflow fa-fw"></i> ' . __('Queues'),
               ['queues', 'index', [], true],
@@ -101,7 +101,7 @@
           ) ?>
       </li>
     <?php endif; ?>
-    <li class="nav-item <?= ($this->module('system') ? 'active' : '') ?>">
+    <li role="menuitem" class="nav-item <?= ($this->module('system') ? 'active' : '') ?>">
         <?= $this->ahref(
             '<i class="fa fa-wrench fa-fw"></i> ' . __('System'),
             ['system', 'index', [], true],
