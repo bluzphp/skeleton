@@ -1,3 +1,6 @@
+<?php
+/* @var \Application\Users\Row $user */
+?>
 <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
         <li class="nav-item">
@@ -7,7 +10,7 @@
                 [ 'class' => 'nav-link' . ($this->module('users') && $this->controller('profile') ? ' active' : '')]
             ) ?>
         </li>
-        <?php if ($this->user() && $this->user()->id === $user->id) : // only for user ?>
+        <?php if ($this->user() && $this->user()->getId() === $user->getId()) : // only for user ?>
             <?php if ($this->hasModule('profile')) : ?>
                 <li class="nav-item">
                     <?= $this->ahref(
@@ -16,15 +19,6 @@
                         ['class' => 'nav-link' . ($this->module('users') && $this->controller('change-profile') ? ' active' : '')]
                     ) ?>
                 </li>
-            <?php endif; ?>
-            <?php if ($this->hasModule('media') && $this->hasModule('profile') && false) : // TODO: make possible to change avatar from media library ?>
-            <li class="nav-item">
-                <?= $this->ahref(
-                    __('Change avatar'),
-                    ['media', 'manager'],
-                    ['id' => 'avatar-button', 'class' => 'nav-link', 'data-ajax-dialog', 'data-modal-style' => 'modal-lg']
-                ) ?>
-            </li>
             <?php endif; ?>
             <li class="nav-item">
                 <?= $this->ahref(
@@ -41,12 +35,12 @@
                 ) ?>
             </li>
         <?php endif; ?>
-        <?php if ($this->hasModule('wallet') && $this->user()->id === $user->id) : ?>
+        <?php if ($this->hasModule('wallet') && $this->user()->getId() === $user->getId()) : ?>
           <li class="nav-item">
               <?= $this->ahref(
                   __('Wallet'),
-                  ['wallet', 'index', ['id' => $user->id]],
-                  ['class' => 'nav-link', 'data-ajax-dialog']
+                  ['wallet', 'index'],
+                  ['class' => 'nav-link']
               ) ?>
           </li>
         <?php endif; ?>
