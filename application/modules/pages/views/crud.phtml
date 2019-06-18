@@ -56,12 +56,12 @@
       </div>
     </div>
   </form>
-<?= $this->redactor('.redactor', ['minHeight' => 480]) ?>
+<?= $this->redactor('.redactor', ['minHeight' => '480px']) ?>
   <script>
       require(['jquery', 'bluz.tools'], function ($, tools) {
-          $("#title").blur(function () {
-              let $alias = $("#alias");
-              if ($alias.val() == "") {
+          $('#title').blur(function () {
+              let $alias = $('#alias');
+              if ($alias.val() === '') {
                   let title = $(this).val();
                   title = tools.alias(title);
                   $alias.val(title);
