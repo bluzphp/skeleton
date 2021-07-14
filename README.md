@@ -10,7 +10,7 @@ Easy to setup, easy to use. Skeleton application
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/bluzphp/skeleton.svg?label=version&style=flat)](https://packagist.org/packages/bluzphp/skeleton)
 
-[![Build Status](https://img.shields.io/travis/bluzphp/skeleton/master.svg?style=flat)](https://travis-ci.org/bluzphp/skeleton)
+[![Build Status](https://img.shields.io/travis/bluzphp/skeleton/master.svg?style=flat)](https://travis-ci.com/bluzphp/skeleton)
 
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/bluzphp/skeleton.svg?style=flat)](https://scrutinizer-ci.com/g/bluzphp/skeleton/)
 
