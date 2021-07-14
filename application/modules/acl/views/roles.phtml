@@ -7,9 +7,9 @@
     <h4 class="modal-title">
         <?= (strtoupper($method) === 'POST' ? __('Create role') : __('Edit role')) ?>
     </h4>
-    <button type="button" class="close" data-dismiss="modal" aria-label="<?=__('Close')?>">
-      <span aria-hidden="true">&times;</span>
-    </button>
+
+      <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+
   </div>
   <div class="modal-body">
     <div class="form-group row">
@@ -22,7 +22,7 @@
   </div>
   <div class="modal-footer">
     <button type="submit" class="btn btn-primary"><?= __('Save') ?></button>
-    <a href="#" class="btn btn-light" data-dismiss="modal"><?= __('Close') ?></a>
+      <button type="button" class="btn btn-light" data-bs-dismiss="modal"><?= __('Close') ?></button>
   </div>
 </form>
 <?php
