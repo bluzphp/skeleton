@@ -57,16 +57,16 @@
             </ul>
             <div id="loading" data-ajax-loading></div>
             <span class="navbar-text">
-          <?php
-          if ($identity = $this->user()) : ?>
-              <?= __('Logged in as %s', $this->ahref($identity->login, ['users', 'profile'])) ?>
-              (<?= $this->ahref(__('Sign Out'), ['users', 'signout']) ?>)
-          <?php
-          else: ?>
-              <?= $this->ahref(__('Sign In'), ['users', 'signin'], ['data-ajax-dialog', 'data-ajax-method' => 'get']) ?>
-          <?php
-          endif; ?>
-        </span>
+              <?php
+              if ($identity = $this->user()) : ?>
+                  <?= __('Logged in as %s', $this->ahref($identity->login, ['users', 'profile'])) ?>
+                  (<?= $this->ahref(__('Sign Out'), ['users', 'signout']) ?>)
+              <?php
+              else: ?>
+                  <?= $this->ahref(__('Sign In'), ['users', 'signin'], ['data-ajax-dialog', 'data-ajax-method' => 'get']) ?>
+              <?php
+              endif; ?>
+            </span>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
                 aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">

@@ -22,9 +22,9 @@ use Bluz\Validator\Exception\ValidatorException;
  * @accept JSON
  * @method POST
  *
- * @param  \Bluz\Crud\Table $crud
- * @param  mixed            $primary
- * @param  array            $data
+ * @param \Bluz\Crud\Table $crud
+ * @param mixed $primary
+ * @param array $data
  *
  * @return array
  */

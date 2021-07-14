@@ -13,8 +13,8 @@ namespace Application;
 use Bluz\Controller\Controller;
 
 /**
- * @param  string $template
- * @param  array  $vars
+ * @param string $template
+ * @param array $vars
  *
  * @return array
  */

@@ -18,7 +18,7 @@ use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
 
 /**
- * @param int    $id User UID
+ * @param int $id User UID
  * @param string $code
  * @param string $password
  * @param string $password2

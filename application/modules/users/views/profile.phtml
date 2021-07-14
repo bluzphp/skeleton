@@ -1,60 +1,80 @@
 <?php
 /**
  * @var \Application\Users\Row $user
- * @var \Bluz\View\View        $this
+ * @var \Bluz\View\View $this
  */
+
 ?>
 <div class="card text-center">
-  <?php require_once __DIR__ .'/partial/card-header.phtml' ?>
-  <div class="card-body">
-    <div class="card-group">
-      <div class="card">
-        <img class="card-img-top" id="avatar" src="<?= $this->gravatar($user->email, 360) ?>" alt="<?= $user->email ?>">
-          <?php if ($this->user()->getId() === $user->getId()
-              && $this->hasModule('media')
-              && $this->hasModule('profile')) : // TODO: make possible to change avatar from media library ?>
-            <?= $this->ahref(
-                __('Change avatar'),
-                ['media', 'manager'],
-                ['id' => 'avatar-button', 'class' => 'nav-link', 'data-ajax-dialog', 'data-modal-style' => 'modal-lg']
-            ) ?>
-          <?php endif; ?>
-      </div>
-      <div class="card">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><?= $user->login ?></li>
-          <li class="list-group-item"><a href="mailto:<?= $user->email ?>"><?= $user->email ?></a></li>
-            <?php if ($this->hasModule('profile')) : ?>
-                <?= $this->dispatch('users', 'widgets/profile', ['id' => $user->id]) ?>
-            <?php endif; ?>
-        </ul>
-      </div>
-      <div class="card">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><?= __('Status') ?>: <?= $user->status ?></li>
-          <?php if ($this->user() && $this->user()->getId() === $user->getId()) : ?>
-            <li class="list-group-item"><?= __('Linking to social networks') ?></li>
-            <li class="list-group-item">
-                <?php $this->hasModule('google') && $this->dispatch('google', 'widgets/auth'); ?>
-                <?php $this->hasModule('facebook') && $this->dispatch('facebook', 'widgets/auth'); ?>
-                <?php $this->hasModule('twitter') && $this->dispatch('twitter', 'widgets/auth'); ?>
-            </li>
-          <?php endif; ?>
-        </ul>
-      </div>
+    <?php
+    require_once __DIR__ . '/partial/card-header.phtml' ?>
+    <div class="card-body">
+        <div class="card-group">
+            <div class="card">
+                <img class="card-img-top" id="avatar" src="<?= $this->gravatar($user->email, 360) ?>"
+                     alt="<?= $user->email ?>">
+                <?php
+                if ($this->user()->getId() === $user->getId()
+                    && $this->hasModule('media')
+                    && $this->hasModule('profile')) : // TODO: make possible to change avatar from media library
+                    ?>
+                    <?= $this->ahref(
+                    __('Change avatar'),
+                    ['media', 'manager'],
+                    [
+                        'id' => 'avatar-button',
+                        'class' => 'nav-link',
+                        'data-ajax-dialog',
+                        'data-modal-style' => 'modal-lg'
+                    ]
+                ) ?>
+                <?php
+                endif; ?>
+            </div>
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><?= $user->login ?></li>
+                    <li class="list-group-item"><a href="mailto:<?= $user->email ?>"><?= $user->email ?></a></li>
+                    <?php
+                    if ($this->hasModule('profile')) : ?>
+                        <?= $this->dispatch('users', 'widgets/profile', ['id' => $user->id]) ?>
+                    <?php
+                    endif; ?>
+                </ul>
+            </div>
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><?= __('Status') ?>: <?= $user->status ?></li>
+                    <?php
+                    if ($this->user() && $this->user()->getId() === $user->getId()) : ?>
+                        <li class="list-group-item"><?= __('Linking to social networks') ?></li>
+                        <li class="list-group-item">
+                            <?php
+                            $this->hasModule('google') && $this->dispatch('google', 'widgets/auth'); ?>
+                            <?php
+                            $this->hasModule('facebook') && $this->dispatch('facebook', 'widgets/auth'); ?>
+                            <?php
+                            $this->hasModule('twitter') && $this->dispatch('twitter', 'widgets/auth'); ?>
+                        </li>
+                    <?php
+                    endif; ?>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-<?php if ($this->hasModule('media')) : ?>
-<script>
-  require(['jquery'], function($) {
-    $('#avatar-button').on('push.bluz.data', function(event, data) {
-      // send to server for update avatar
-      // all information about image inside data
-      $('#avatar').attr('src', data.thumb);
-      // hide modal dialog
-      $(this).data('modal').modal('hide');
-    });
-  });
-</script>
-<?php endif; ?>
+<?php
+if ($this->hasModule('media')) : ?>
+    <script>
+        require(['jquery'], function ($) {
+            $('#avatar-button').on('push.bluz.data', function (event, data) {
+                // send to server for update avatar
+                // all information about image inside data
+                $('#avatar').attr('src', data.thumb);
+                // hide modal dialog
+                $(this).data('modal').modal('hide');
+            });
+        });
+    </script>
+<?php
+endif; ?>

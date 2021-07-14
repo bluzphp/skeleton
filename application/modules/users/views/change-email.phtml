@@ -1,36 +1,38 @@
-<?php /** @var \Bluz\View\View $this */ ?>
-<?php $uid = uniqid('form_', false); ?>
+<?php
+/** @var \Bluz\View\View $this */ ?>
+<?php
+$uid = uniqid('form_', false); ?>
 <div class="card text-center">
-  <?php require_once __DIR__ .'/partial/card-header.phtml' ?>
-  <div class="card-body">
-    <h4 class="card-title"><?= __('Change email') ?></h4>
-    <p class="card-text"><?= __('Email will be changed after confirmation') ?></p>
-    <div class="card w-50 center">
-      <div class="card-body">
-        <form id="<?= $uid ?>" action="<?= $this->url('users', 'change-email') ?>" class="form-horizontal" data-ajax method="POST">
-          <div class="form-group">
-            <label class="sr-only" for="email"><?= __('Email') ?></label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>
-              </div>
-              <input id="email" type="email" class="form-control" name="email" value="<?= ($this->user()->email) ?>"
-                     maxlength="255" required/>
+    <?php
+    require_once __DIR__ . '/partial/card-header.phtml' ?>
+    <div class="card-body">
+        <h4 class="card-title"><?= __('Change email') ?></h4>
+        <p class="card-text"><?= __('Email will be changed after confirmation') ?></p>
+        <div class="card w-50 center">
+            <div class="card-body">
+                <form id="<?= $uid ?>" action="<?= $this->url('users', 'change-email') ?>" class="form-horizontal"
+                      data-ajax method="POST">
+                    <div class="form-group">
+                        <label class="sr-only" for="email"><?= __('Email') ?></label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>
+
+                            <input id="email" type="email" class="form-control" name="email"
+                                   value="<?= ($this->user()->email) ?>"
+                                   maxlength="255" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="password"><?= __('Password') ?></label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fa fa-fw fa-lock"></i></span>
+                            <input id="password" type="password" class="form-control" name="password"
+                                   placeholder="<?= __('current password') ?>" required/>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary"><?= __('Save') ?></button>
+                </form>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="sr-only" for="password"><?= __('Password') ?></label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-fw fa-lock"></i></span>
-              </div>
-              <input id="password" type="password" class="form-control" name="password"
-                     placeholder="<?= __('current password') ?>" required/>
-            </div>
-          </div>
-          <button class="btn btn-primary"><?= __('Save') ?></button>
-        </form>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
