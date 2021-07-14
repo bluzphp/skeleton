@@ -6,6 +6,9 @@ php:
 matrix:
   allow_failures:
     - php: 8.0
+env:
+  global:
+    - XDEBUG_MODE=coverage
 services:
   - mysql
 before_install:
