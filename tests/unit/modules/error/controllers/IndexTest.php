@@ -32,6 +32,6 @@ class IndexTest extends ControllerTestCase
 
         self::assertModule('error');
         self::assertController('index');
-        self::assertEquals(Response::getStatusCode(), 404);
+        self::assertEquals(404, Response::getStatusCode());
     }
 }

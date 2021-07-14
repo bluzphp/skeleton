@@ -10,6 +10,7 @@
 namespace Application\Tests\Dashboard;
 
 use Application\Tests\ControllerTestCase;
+use Bluz\Http\Exception\ForbiddenException;
 use Bluz\Proxy\Response;
 
 /**
@@ -25,10 +26,12 @@ class IndexTest extends ControllerTestCase
      * Dispatch controller w/out application:
      *  - as user
      *  - w/out permission
-     * @expectedException \Bluz\Http\Exception\ForbiddenException
+     *
      */
     public function testForbidden()
     {
+        $this->expectException(ForbiddenException::class);
+
         self::setupGuestIdentity();
         self::getApp()->dispatch('dashboard', 'index');
     }

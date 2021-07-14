@@ -1,211 +1,279 @@
 {
-	"id": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-	"name": "Bluz REST",
-	"description": "",
-	"order": [],
-	"folders": [
+	"info": {
+		"_postman_id": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
+		"name": "Bluz REST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
 		{
-			"id": "22d84373-7d4a-11d8-cdc7-2e606bc020ae",
 			"name": "Pages:JSON",
-			"description": "",
-			"order": [
-				"00930d6b-c2b4-b5f1-fd9a-0014da4a3c0f",
-				"855ed426-1195-379c-5b03-60a433843bf6",
-				"94b6fb0b-55a1-5f00-16e0-e55db99d1f70",
-				"28fcaccd-601a-d008-25d3-13f446008b90",
-				"2fc8aba3-4b15-75d0-68bf-ca38446c194e",
-				"31d1ea31-6174-5a40-0d6c-23166914665c",
-				"6a286db2-0c0b-bbc1-ae7c-b55578dbba8a",
-				"9ecfa74e-32d5-845b-71a7-862eb91e9bc7"
-			]
-		}
-	],
-	"timestamp": 1415355182015,
-	"owner": "22449",
-	"remoteLink": "",
-	"public": false,
-	"requests": [
-		{
-			"id": "00930d6b-c2b4-b5f1-fd9a-0014da4a3c0f",
-			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/api/pages/",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "HEAD",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";\ntests[\"Content-Length is present\"] = responseHeaders.hasOwnProperty(\"Content-Length\");\ntests[\"Content-Length is greater than zero\"] = responseHeaders[\"Content-Length\"] > 0;\ntests[\"Body is empty\"] = responseBody === \"\";",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465827630958,
-			"name": "overview collection",
-			"description": "SHOULD return **200**  \nSHOULD return `Content-Length`  \nSHOULD without body  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "28fcaccd-601a-d008-25d3-13f446008b90",
-			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/api/pages/1",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";\n\nvar data = JSON.parse(responseBody);\ntests[\"Item with ID=1 is present\"] = parseInt(data[0].id) === 1;",
-			"time": 1416234941892,
-			"name": "item",
-			"description": "SHOULD return **200**  \nSHOULD return item in JSON  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "2fc8aba3-4b15-75d0-68bf-ca38446c194e",
-			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/api/pages/1",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 501\"] = responseCode.code === 501;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465827600931,
-			"name": "create item",
-			"description": "SHOULD return **403**   ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "31d1ea31-6174-5a40-0d6c-23166914665c",
-			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/api/pages/1",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "PUT",
-			"data": [],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": "tests[\"Status code is 501\"] = responseCode.code === 501;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465827653835,
-			"name": "update item",
-			"description": "SHOULD return **403**   ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "6a286db2-0c0b-bbc1-ae7c-b55578dbba8a",
-			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/api/pages/1",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "PATCH",
-			"data": [],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": "tests[\"Status code is 501\"] = responseCode.code === 501;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465827660521,
-			"name": "update item",
-			"description": "SHOULD return **403**   ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "855ed426-1195-379c-5b03-60a433843bf6",
-			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/api/pages/1",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "HEAD",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";\ntests[\"Content-Length is present\"] = responseHeaders.hasOwnProperty(\"Content-Length\");\ntests[\"Content-Length is greater than zero\"] = responseHeaders[\"Content-Length\"] > 0;\ntests[\"Body is empty\"] = responseBody === \"\";",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1423817018878,
-			"name": "overview item",
-			"description": "SHOULD return **200**  \nSHOULD return `Content-Length`  \nSHOULD without body  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "94b6fb0b-55a1-5f00-16e0-e55db99d1f70",
-			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/api/pages/",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465827611857,
-			"name": "collection",
-			"description": "SHOULD return **206**  \nSHOULD return part of collection in JSON  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "9ecfa74e-32d5-845b-71a7-862eb91e9bc7",
-			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/api/pages/1",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "DELETE",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "tests[\"Status code is 501\"] = responseCode.code === 501;\ntests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");\ntests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465827668361,
-			"name": "item",
-			"description": "SHOULD return **403**  ",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
-		},
-		{
-			"id": "da9e0636-7e51-f089-ac75-52afd67e70ea",
-			"headers": "Accept: application/json\n",
-			"url": "{{URL}}/api/login",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
-			"data": [
+			"item": [
 				{
-					"key": "login",
-					"value": "admin",
-					"type": "text",
-					"enabled": true
+					"name": "overview collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");",
+									"tests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
+									"tests[\"Content-Length is present\"] = responseHeaders.hasOwnProperty(\"Content-Length\");",
+									"tests[\"Content-Length is greater than zero\"] = responseHeaders[\"Content-Length\"] > 0;",
+									"tests[\"Body is empty\"] = responseBody === \"\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "HEAD",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{URL}}/api/pages/",
+						"description": "SHOULD return **200**  \nSHOULD return `Content-Length`  \nSHOULD without body  "
+					},
+					"response": []
 				},
 				{
-					"key": "password",
-					"value": "admin",
-					"type": "text",
-					"enabled": true
+					"name": "overview item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");",
+									"tests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
+									"tests[\"Content-Length is present\"] = responseHeaders.hasOwnProperty(\"Content-Length\");",
+									"tests[\"Content-Length is greater than zero\"] = responseHeaders[\"Content-Length\"] > 0;",
+									"tests[\"Body is empty\"] = responseBody === \"\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "HEAD",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{URL}}/api/pages/1",
+						"description": "SHOULD return **200**  \nSHOULD return `Content-Length`  \nSHOULD without body  "
+					},
+					"response": []
+				},
+				{
+					"name": "collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");",
+									"tests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{URL}}/api/pages/",
+						"description": "SHOULD return **206**  \nSHOULD return part of collection in JSON  "
+					},
+					"response": []
+				},
+				{
+					"name": "item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");",
+									"tests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"tests[\"Item with ID=1 is present\"] = parseInt(data[0].id) === 1;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{URL}}/api/pages/1",
+						"description": "SHOULD return **200**  \nSHOULD return item in JSON  "
+					},
+					"response": []
+				},
+				{
+					"name": "create item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 501\"] = responseCode.code === 501;",
+									"tests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");",
+									"tests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{URL}}/api/pages/1",
+						"description": "SHOULD return **403**   "
+					},
+					"response": []
+				},
+				{
+					"name": "update item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 501\"] = responseCode.code === 501;",
+									"tests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");",
+									"tests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "{{URL}}/api/pages/1",
+						"description": "SHOULD return **403**   "
+					},
+					"response": []
+				},
+				{
+					"name": "update item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 501\"] = responseCode.code === 501;",
+									"tests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");",
+									"tests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "{{URL}}/api/pages/1",
+						"description": "SHOULD return **403**   "
+					},
+					"response": []
+				},
+				{
+					"name": "item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 501\"] = responseCode.code === 501;",
+									"tests[\"Content-Type is present\"] = responseHeaders.hasOwnProperty(\"Content-Type\");",
+									"tests[\"Content-Type is JSON\"] = responseHeaders[\"Content-Type\"] == \"application/json\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": "{{URL}}/api/pages/1",
+						"description": "SHOULD return **403**  "
+					},
+					"response": []
 				}
-			],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody);\n\ntests[\"Response has token\"] = data.hasOwnProperty(\"token\");\n\npostman.setEnvironmentVariable('TOKEN', data.token);",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1465905111937,
-			"name": "login",
-			"description": "SHOULD return **200**  \nSHOULD return `Token` for API",
-			"collectionId": "09f9d7a9-98d0-d2f1-eeec-363c735aba39",
-			"responses": []
+			]
 		}
 	]
 }

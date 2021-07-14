@@ -25,6 +25,7 @@ class CrudTest extends ControllerTestCase
      * setUp
      *
      * @return void
+     * @throws \Bluz\Application\Exception\ApplicationException
      */
     public function setUp(): void
     {
