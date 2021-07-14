@@ -30,7 +30,7 @@ class Acl extends AbstractMigration
      */
     public function change()
     {
-        $roles = $this->table('acl_roles', ['primary_key' => ['id', 'code']]);
+        $roles = $this->table('acl_roles');
         $roles
             ->addColumn('name', 'string', ['length'=>255])
             ->addColumn('created', 'timestamp', ['default' => 'CURRENT_TIMESTAMP', 'update' => ''])

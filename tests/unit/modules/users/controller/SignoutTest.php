@@ -27,7 +27,7 @@ class SignoutTest extends ControllerTestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

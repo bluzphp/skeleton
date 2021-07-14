@@ -26,7 +26,7 @@ class SkeletonTestCase extends FrameworkTestCase
     /**
      * Setup TestCase
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         self::getApp();
     }
@@ -34,7 +34,7 @@ class SkeletonTestCase extends FrameworkTestCase
     /**
      * Tear Down
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         self::resetApp();
         self::resetGlobals();

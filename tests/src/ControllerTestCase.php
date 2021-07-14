@@ -20,7 +20,7 @@ use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Router;
 use PHPUnit\Framework\ExpectationFailedException;
-use Zend\Dom\Document;
+use Laminas\Dom\Document;
 
 /**
  * Controller TestCase
@@ -42,7 +42,7 @@ class ControllerTestCase extends SkeletonTestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         self::$document = null;

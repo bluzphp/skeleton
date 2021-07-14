@@ -6,7 +6,7 @@ Easy to setup, easy to use. Skeleton application
 
 ## Achievements
 
-[![PHP >= 7.1+](https://img.shields.io/packagist/php-v/bluzphp/skeleton.svg?style=flat)](https://php.net/)
+[![PHP >= 7.3+](https://img.shields.io/packagist/php-v/bluzphp/skeleton.svg?style=flat)](https://php.net/)
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/bluzphp/skeleton.svg?label=version&style=flat)](https://packagist.org/packages/bluzphp/skeleton)
 
@@ -159,9 +159,9 @@ View is native:
 * [Bluz Demo](http://bluz.demo.php.nixdev.co)
 
 ## License
-The project is developed by [NIX Solutions](http://nixsolutions.com) PHP team and distributed under [MIT LICENSE](https://raw.github.com/bluzphp/skeleton/master/LICENSE.md)
+The project is developed by [NIX](http://nixsolutions.com) PHP team and distributed under [MIT LICENSE](https://raw.github.com/bluzphp/skeleton/master/LICENSE.md)
 
-[NIX Solutions](http://nixsolutions.com) has OEM License of [Redactor](http://imperavi.com/redactor/).
+[NIX](http://nixsolutions.com) has OEM License of [Redactor](http://imperavi.com/redactor/).
 Full text of Redactor License you can read at http://imperavi.com/redactor/license/
 
 ## Vendors

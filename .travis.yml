@@ -1,12 +1,11 @@
 language: php
 php:
-  - 7.1
-  - 7.2
   - 7.3
-  - master
+  - 7.4
+  - 8.0
 matrix:
   allow_failures:
-    - php: master
+    - php: 8.0
 before_install:
   - nvm install stable
   - npm update -g npm
