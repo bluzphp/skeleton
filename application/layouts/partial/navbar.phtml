@@ -13,23 +13,25 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbar">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item <?= ($this->module('index') ? 'active' : '') ?>">
+    <ul role="menu" class="navbar-nav mr-auto">
+      <li role="menuitem" class="nav-item <?= ($this->module('index') ? 'active' : '') ?>">
           <?= $this->ahref(
               'Home',
               ['index', 'index'],
               ['class' => 'nav-link']
           ) ?>
       </li>
-      <li class="nav-item <?= ($this->module('dashboard') ? 'active' : '') ?>">
+      <?php if (\Bluz\Proxy\Acl::isAllowed('dashboard', 'Dashboard')) : ?>
+      <li role="menuitem" class="nav-item <?= ($this->module('dashboard') ? 'active' : '') ?>">
           <?= $this->ahref(
               'Dashboard',
               ['dashboard', 'index', [], true],
               ['class' => 'nav-link']
           ) ?>
       </li>
+      <?php endif; ?>
       <?php if ($this->hasModule('contact-us')) : ?>
-      <li class="nav-item <?= ($this->module('contact-us') ? 'active' : '') ?>">
+      <li role="menuitem" class="nav-item <?= ($this->module('contact-us') ? 'active' : '') ?>">
           <?= $this->ahref(
               'Contact Us',
               ['contact-us', 'index'],
@@ -38,7 +40,7 @@
       </li>
       <?php endif; ?>
       <?php if ($this->hasModule('test')) : ?>
-      <li class="nav-item <?= ($this->module('test') ? 'active' : '') ?>">
+      <li role="menuitem" class="nav-item <?= ($this->module('test') ? 'active' : '') ?>">
           <?= $this->ahref(
               'Test',
               ['test', 'index'],

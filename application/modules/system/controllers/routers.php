@@ -38,7 +38,7 @@ return function () {
         $meta = $controllerInstance->getMeta();
 
         if ($route = $meta->getRoute()) {
-            array_set($routers, $module, $controller, ['route' => $route, 'params' => $meta->getParams()]);
+            $routers[$module][$controller] = ['route' => $route, 'params' => $meta->getParams()];
         }
     }
     $this->assign('routers', $routers);

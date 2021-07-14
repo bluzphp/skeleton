@@ -7,21 +7,6 @@
 namespace Application;
 
 /**
- * Write message to log file
- *
- * @param integer $severity
- * @param string  $message
- * @param string  $file
- * @param integer $line
- *
- * @throws \ErrorException
- */
-function errorHandler($severity, $message, $file = null, $line = null)
-{
-    throw new \ErrorException($message, 0, $severity, $file, $line);
-}
-
-/**
  * Write Exception to log file
  *
  * @param \Throwable $exception

@@ -13,20 +13,19 @@ require.config({
     jquery: './../vendor/jquery/jquery.min',
     jqueryui: './../vendor/jquery-ui/jquery-ui.min',
     redactor: './../redactor/redactor',
-    'redactor.imagemanager': './../redactor/plugins/imagemanager',
-    dropzone: './../vendor/dropzone-amd-module/dropzone-amd-module.min',
+    imagemanager: './../redactor/_plugins/imagemanager/imagemanager',
+    dropzone: './../vendor/dropzone-amd-module/dropzone-amd-module'
   },
   shim: {
     bootstrap: {
       deps: ['jquery']
     },
     redactor: {
-      deps: ['jquery'],
-      exports: '$.fn.redactor'
+      exports: '$R'
     },
-    'redactor.imagemanager': {
-      deps: ['redactor', 'jquery'],
-      exports: 'RedactorPlugins'
+    imagemanager: {
+      deps: ['redactor'],
+      exports: '$R'
     }
   },
   enforceDefine: true
