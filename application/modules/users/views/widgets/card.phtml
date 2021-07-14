@@ -1,10 +1,10 @@
 <div class="card mb-3">
     <div class="card-header"><?= __('User profile') ?></div>
     <img class="card-img-top" src="<?= $this->gravatar($user->email, 320) ?>" alt="Card image cap">
-    <div class="card-body">
-        <h4 class="card-title"><?= $user->login ?></h4>
-    </div>
     <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <?= $user->login ?>
+        </li>
         <li class="list-group-item">
             <a href="mailto:<?= $user->email ?>"><?= $user->email ?></a>
         </li>
