@@ -6,8 +6,8 @@
  */
 
 // Check PHP version
-if (PHP_VERSION_ID < 70100) {
-    printf("PHP 7.1.0 is required, you have %s\n", PHP_VERSION);
+if (PHP_VERSION_ID < 70300) {
+    printf("PHP 7.3.0 is required, you have %s\n", PHP_VERSION);
     exit(1);
 }
 
