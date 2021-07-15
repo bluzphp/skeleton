@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Mailer configuration for PHPMailer
  *

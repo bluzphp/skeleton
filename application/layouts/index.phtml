@@ -1,9 +1,15 @@
-<?php /** @var \Bluz\Layout\Layout $this */ ?>
-<?php require __DIR__.'/partial/header.phtml'; ?>
-<?php require __DIR__ . '/partial/navbar.phtml'; ?>
+<?php
+/** @var \Bluz\Layout\Layout $this */ ?>
+<?php
+require __DIR__ . '/partial/header.phtml'; ?>
+<?php
+require __DIR__ . '/partial/navbar.phtml'; ?>
 <div class="container mt-3">
-    <?php require __DIR__.'/partial/breadcrumbs.phtml'; ?>
+    <?php
+    require __DIR__ . '/partial/breadcrumbs.phtml'; ?>
     <?= $this->getContent(); ?>
 </div>
-<?php require __DIR__.'/partial/footer-bar.phtml'; ?>
-<?php require __DIR__.'/partial/footer.phtml'; ?>
+<?php
+require __DIR__ . '/partial/footer-bar.phtml'; ?>
+<?php
+require __DIR__ . '/partial/footer.phtml'; ?>

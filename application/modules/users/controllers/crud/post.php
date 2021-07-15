@@ -12,6 +12,16 @@ namespace Application;
 
 use Application\Users\Mail;
 use Application\Users\Table;
+use Bluz\Common\Exception\CommonException;
+use Bluz\Common\Exception\ComponentException;
+use Bluz\Controller\ControllerException;
+use Bluz\Db\Exception\DbException;
+use Bluz\Db\Exception\InvalidPrimaryKeyException;
+use Bluz\Db\Exception\TableNotFoundException;
+use Bluz\Http\Exception\ForbiddenException;
+use Bluz\Http\Exception\NotAcceptableException;
+use Bluz\Http\Exception\NotAllowedException;
+use Bluz\Http\Exception\NotFoundException;
 use Bluz\Http\RequestMethod;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
@@ -27,6 +37,17 @@ use Bluz\Validator\Exception\ValidatorException;
  * @param array $data
  *
  * @return array
+ * @throws Exception
+ * @throws CommonException
+ * @throws ComponentException
+ * @throws ControllerException
+ * @throws DbException
+ * @throws InvalidPrimaryKeyException
+ * @throws TableNotFoundException
+ * @throws ForbiddenException
+ * @throws NotAcceptableException
+ * @throws NotAllowedException
+ * @throws NotFoundException
  */
 return function ($crud, $primary, $data) {
     try {

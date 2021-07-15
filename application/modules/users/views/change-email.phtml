@@ -13,7 +13,7 @@ $uid = uniqid('form_', false); ?>
                 <form id="<?= $uid ?>" action="<?= $this->url('users', 'change-email') ?>" class="form-horizontal"
                       data-ajax method="POST">
                     <div class="form-group">
-                        <label class="sr-only" for="email"><?= __('Email') ?></label>
+                        <label class="visually-hidden" for="email"><?= __('Email') ?></label>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="bi bi-envelope"></i></span>
 
@@ -23,7 +23,7 @@ $uid = uniqid('form_', false); ?>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="sr-only" for="password"><?= __('Password') ?></label>
+                        <label class="visually-hidden" for="password"><?= __('Password') ?></label>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="bi bi-key"></i></span>
                             <input id="password" type="password" class="form-control" name="password"

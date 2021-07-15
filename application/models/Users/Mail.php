@@ -25,7 +25,7 @@ class Mail
     /**
      * Activation
      *
-     * @param Row    $user
+     * @param Row $user
      * @param string $password
      *
      * @return bool
@@ -149,7 +149,7 @@ class Mail
     /**
      * Change email
      *
-     * @param Row    $user
+     * @param Row $user
      * @param string $email
      *
      * @return bool

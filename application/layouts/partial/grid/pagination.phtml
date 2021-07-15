@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \Bluz\Grid\Grid $grid
  */
@@ -6,37 +7,52 @@ if (!$grid) {
     return;
 }
 ?>
-<?php if ($grid->pages() > 1) : ?>
-<nav aria-label="<?=__('Pagination')?>">
-  <ul class="pagination pull-right">
-      <?php if ($prev = $grid->prev()) : ?>
-        <li class="page-item"><a rel="prev" class="page-link" href="<?= $prev ?>">&laquo;</a></li>
-      <?php else : ?>
-        <li class="page-item disabled"><a href="#" class="page-link" onclick="return false;">&laquo;</a></li>
-      <?php endif; ?>
+<?php
+if ($grid->pages() > 1) : ?>
+    <nav aria-label="<?= __('Pagination') ?>">
+        <ul class="pagination float-end">
+            <?php
+            if ($prev = $grid->prev()) : ?>
+                <li class="page-item"><a rel="prev" class="page-link" href="<?= $prev ?>">&laquo;</a></li>
+            <?php
+            else : ?>
+                <li class="page-item disabled"><a href="#" class="page-link" onclick="return false;">&laquo;</a></li>
+            <?php
+            endif; ?>
 
-      <?php for ($page = 1; $page <= $grid->pages(); $page++) : ?>
-        <?php if (
-            $grid->pages() > 10                    // more than 10 pages
-              && $page !== 1                       // always show first page
-              && $page !== $grid->pages()          // always show last page
-              && abs($page - $grid->getPage()) > 3 // show 3 pages before and after current page
-          ) : ?>
-          <?php if ($grid->pages() > 10 && ($page === 2 or $page === $grid->pages() - 1)): ?>
-            <li class="page-item"><a href="#" class="page-link">...</a></li>
-          <?php endif; ?>
-          <?php continue;?>
-        <?php endif; ?>
-        <li class="page-item <?= ($page === $grid->getPage() ? 'active' : '') ?>">
-          <a href="<?= $grid->page($page) ?>" class="page-link"><?= $page ?></a>
-        </li>
-      <?php endfor; ?>
+            <?php
+            for ($page = 1; $page <= $grid->pages(); $page++) : ?>
+                <?php
+                if (
+                    $grid->pages() > 10                    // more than 10 pages
+                    && $page !== 1                       // always show first page
+                    && $page !== $grid->pages()          // always show last page
+                    && abs($page - $grid->getPage()) > 3 // show 3 pages before and after current page
+                ) : ?>
+                    <?php
+                    if ($grid->pages() > 10 && ($page === 2 or $page === $grid->pages() - 1)): ?>
+                        <li class="page-item"><a href="#" class="page-link">...</a></li>
+                    <?php
+                    endif; ?>
+                    <?php
+                    continue; ?>
+                <?php
+                endif; ?>
+                <li class="page-item <?= ($page === $grid->getPage() ? 'active' : '') ?>">
+                    <a href="<?= $grid->page($page) ?>" class="page-link"><?= $page ?></a>
+                </li>
+            <?php
+            endfor; ?>
 
-      <?php if ($next = $grid->next()) : ?>
-        <li class="page-item"><a rel="next" class="page-link" href="<?= $next ?>">&raquo;</a></li>
-      <?php else : ?>
-        <li class="page-item disabled"><a href="#" class="page-link" onclick="return false;">&raquo;</a></li>
-      <?php endif; ?>
-  </ul>
-</nav>
-<?php endif; ?>
+            <?php
+            if ($next = $grid->next()) : ?>
+                <li class="page-item"><a rel="next" class="page-link" href="<?= $next ?>">&raquo;</a></li>
+            <?php
+            else : ?>
+                <li class="page-item disabled"><a href="#" class="page-link" onclick="return false;">&raquo;</a></li>
+            <?php
+            endif; ?>
+        </ul>
+    </nav>
+<?php
+endif; ?>

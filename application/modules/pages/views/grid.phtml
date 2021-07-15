@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \Application\Pages\Grid $grid
  * @var \Bluz\View\View $this
@@ -13,76 +14,79 @@ if (!$grid) {
 </script>
 
 <div class="clearfix table-responsive" data-spy="grid" data-grid="<?= $grid->getUid() ?>">
-  <nav class="navbar navbar-light bg-light justify-content-between">
-    <a href="<?= $this->url('pages', 'crud') ?>" class="btn btn-primary"
-       data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
-        <?= __('Create') ?>
-    </a>
-    <form action="<?= $this->url('pages', 'grid') ?>" class="form-inline filter-form">
-      <div class="input-group">
-          <?php echo
-          $this->partial(
-              'grid/filter-search.phtml',
-              [
-                  'grid' => $grid,
-                  'filters' => [
-                      'title' => __('Title'),
-                      'alias' => __('Alias'),
-                      'description' => __('Description'),
-                      'content' => __('Content'),
-                  ]
-              ]
-          )
-          ?>
-        <span class="input-group-btn">
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a href="<?= $this->url('pages', 'crud') ?>" class="btn btn-primary"
+           data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
+            <?= __('Create') ?>
+        </a>
+        <form action="<?= $this->url('pages', 'grid') ?>" class="form-inline filter-form">
+            <div class="input-group">
+                <?php
+                echo
+                $this->partial(
+                    'grid/filter-search.phtml',
+                    [
+                        'grid' => $grid,
+                        'filters' => [
+                            'title' => __('Title'),
+                            'alias' => __('Alias'),
+                            'description' => __('Description'),
+                            'content' => __('Content'),
+                        ]
+                    ]
+                )
+                ?>
+                <span class="input-group-btn">
           <button class="btn btn-secondary"><?= __('Search') ?></button>
         </span>
-      </div>
-    </form>
-  </nav>
+            </div>
+        </form>
+    </nav>
 
-  <hr/>
-  
-  <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
-  <?= $this->partial('grid/limit.phtml', ['grid' => $grid]) ?>
+    <hr/>
 
-  <table class="table table-hover table-striped grid">
-    <thead>
-    <tr>
-      <th width="60px" class="text-center"><?= __('Id') ?></th>
-      <th><a href="<?= $grid->order('title') ?: '#' ?>"><?= __('Title') ?></a></th>
-      <th><?= __('Description') ?></th>
-      <th width="180px"><a href="<?= $grid->order('created') ?>"><?= __('Created') ?></a></th>
-      <th width="180px"><a href="<?= $grid->order('updated') ?>"><?= __('Updated') ?></a></th>
-      <th width="120px"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($grid->getData() as $row) : ?>
-      <tr>
-        <td class="text-right"><?= $row->id ?></td>
-        <td>
-          <a href="<?= $this->url('pages', 'index', ['alias' => $row->alias]) ?>">
-              <?= esc($row->title) ?>
-          </a>
-        </td>
-        <td><?= esc($row->description) ?></td>
-        <td><?= $row->created ?></td>
-        <td><?= $row->updated ?></td>
-        <td class="controls d-flex justify-content-around">
-          <a href="<?= $this->url('pages', 'crud', ['id' => $row->id]) ?>" class="btn btn-primary"
-             data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
-            <i class="bi bi-pencil"></i>
-          </a>
-          <a href="<?= $this->url('pages', 'crud', ['id' => $row->id]) ?>" class="btn btn-danger"
-             data-confirm data-ajax data-ajax-method="delete">
-            <i class="bi bi-trash"></i>
-          </a>
-        </td>
-      </tr>
-    <?php endforeach; ?>
-    </tbody>
-  </table>
+    <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
+    <?= $this->partial('grid/limit.phtml', ['grid' => $grid]) ?>
+
+    <table class="table table-hover table-striped grid">
+        <thead>
+        <tr>
+            <th width="60px" class="text-center"><?= __('Id') ?></th>
+            <th><a href="<?= $grid->order('title') ?: '#' ?>"><?= __('Title') ?></a></th>
+            <th><?= __('Description') ?></th>
+            <th width="180px"><a href="<?= $grid->order('created') ?>"><?= __('Created') ?></a></th>
+            <th width="180px"><a href="<?= $grid->order('updated') ?>"><?= __('Updated') ?></a></th>
+            <th width="120px"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($grid->getData() as $row) : ?>
+            <tr>
+                <td class="text-right"><?= $row->id ?></td>
+                <td>
+                    <a href="<?= $this->url('pages', 'index', ['alias' => $row->alias]) ?>">
+                        <?= esc($row->title) ?>
+                    </a>
+                </td>
+                <td><?= esc($row->description) ?></td>
+                <td><?= $row->created ?></td>
+                <td><?= $row->updated ?></td>
+                <td class="controls d-flex justify-content-around">
+                    <a href="<?= $this->url('pages', 'crud', ['id' => $row->id]) ?>" class="btn btn-primary"
+                       data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    <a href="<?= $this->url('pages', 'crud', ['id' => $row->id]) ?>" class="btn btn-danger"
+                       data-confirm data-ajax data-ajax-method="delete">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        <?php
+        endforeach; ?>
+        </tbody>
+    </table>
 
     <?= $this->partial('grid/empty-rows.phtml', ['grid' => $grid]) ?>
     <?= $this->partial('grid/pagination.phtml', ['grid' => $grid]) ?>

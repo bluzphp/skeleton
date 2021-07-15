@@ -7,13 +7,16 @@
 /**
  * @namespace
  */
+
 namespace Application;
 
 use Bluz\Controller\Controller;
+use Bluz\Http\Exception\RedirectException;
 use Bluz\Proxy\Cache;
 use Bluz\Proxy\Db;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
+use Psr\Cache\InvalidArgumentException;
 
 /**
  * @privilege Management
@@ -21,6 +24,8 @@ use Bluz\Proxy\Response;
  * @param array $acl
  *
  * @return void
+ * @throws RedirectException
+ * @throws InvalidArgumentException
  */
 return function ($acl) {
     /**

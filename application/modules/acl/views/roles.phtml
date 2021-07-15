@@ -1,29 +1,29 @@
-<?php /** @var \Bluz\View\View $this */ ?>
-<?php $uid = uniqid('form_', false); ?>
+<?php
+/** @var \Bluz\View\View $this */ ?>
+<?php
+$uid = uniqid('form_', false); ?>
 <form id="<?= $uid ?>" action="<?= $this->url('acl', 'roles') ?>" class="form-horizontal" method="<?= $method ?>"
       data-ajax novalidate>
-  <input type="hidden" name="id" value="<?= $row->id ?>"/>
-  <div class="modal-header">
-    <h4 class="modal-title">
-        <?= (strtoupper($method) === 'POST' ? __('Create role') : __('Edit role')) ?>
-    </h4>
-
-      <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
-
-  </div>
-  <div class="modal-body">
-    <div class="form-group row">
-      <label class="col-form-label col-lg-2" for="name"><?= __('Name') ?></label>
-      <div class="col-lg-10">
-        <input type="text" class="form-control" id="name" name="name" value="<?= ($row->name) ?>"
-               pattern="[a-zA-Z0-9-_ ]+" required/>
-      </div>
+    <input type="hidden" name="id" value="<?= $row->id ?>"/>
+    <div class="modal-header">
+        <h4 class="modal-title">
+            <?= (strtoupper($method) === 'POST' ? __('Create role') : __('Edit role')) ?>
+        </h4>
+        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
     </div>
-  </div>
-  <div class="modal-footer">
-    <button type="submit" class="btn btn-primary"><?= __('Save') ?></button>
-      <button type="button" class="btn btn-light" data-bs-dismiss="modal"><?= __('Close') ?></button>
-  </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <label class="col-form-label col-lg-2" for="name"><?= __('Name') ?></label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="name" name="name" value="<?= ($row->name) ?>"
+                       pattern="[a-zA-Z0-9-_ ]+" required/>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><?= __('Save') ?></button>
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal"><?= __('Close') ?></button>
+    </div>
 </form>
 <?php
 // need for plain request

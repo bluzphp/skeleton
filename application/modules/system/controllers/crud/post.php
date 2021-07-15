@@ -10,6 +10,9 @@
 
 namespace Application;
 
+use Bluz\Crud\Table;
+use Bluz\Db\Exception\TableNotFoundException;
+use Bluz\Http\Exception\NotFoundException;
 use Bluz\Http\RequestMethod;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Request;
@@ -20,14 +23,23 @@ use Bluz\Validator\Exception\ValidatorException;
  * @accept JSON
  * @method POST
  *
- * @param  \Bluz\Crud\Table $crud
- * @param  mixed            $primary
- * @param  array            $data
+ * @param Table $crud
+ * @param mixed $primary
+ * @param array $data
  *
  * @return array
+ * @throws TableNotFoundException
+ * @throws NotFoundException
  */
-return function ($crud, $primary, $data) {
+return function (Table $crud, $primary, $data) {
     try {
+        // Unset empty primary key(s)
+        foreach ($primary as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
         // Result is Primary Key(s)
         $result = $crud->createOne($data);
 

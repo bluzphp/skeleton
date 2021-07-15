@@ -20,26 +20,28 @@ $uid = uniqid('form_', false); ?>
                            required/>
                 </div>
             </div>
-            <div class="form-group row mb-2"">
-                <label class="col-form-label col-lg-2" for="email"><?= __('Email') ?></label>
-                <div class="col-lg-10">
-                    <input type="email" class="form-control" id="email" name="email" value="<?= ($row->email) ?>"
-                           maxlength="255"
-                           required/>
-                    <div class="invalid-feedback"><?= __('email is required, and it should has valid format') ?></div>
-                </div>
+            <div class="form-group row mb-2"
+            ">
+            <label class="col-form-label col-lg-2" for="email"><?= __('Email') ?></label>
+            <div class="col-lg-10">
+                <input type="email" class="form-control" id="email" name="email" value="<?= ($row->email) ?>"
+                       maxlength="255"
+                       required/>
+                <div class="invalid-feedback"><?= __('email is required, and it should has valid format') ?></div>
             </div>
-            <div class="form-group row mb-2"">
-                <label class="col-form-label col-lg-2" for="status"><?= __('Status') ?></label>
-                <div class="col-lg-10">
-                    <select id="status" name="status" class="form-control">
-                        <option <?= $row->status === Table::STATUS_PENDING ? 'selected' : '' ?>>pending</option>
-                        <option <?= $row->status === Table::STATUS_ACTIVE ? 'selected' : '' ?>>active</option>
-                        <option <?= $row->status === Table::STATUS_DISABLED ? 'selected' : '' ?>>disabled</option>
-                        <option <?= $row->status === Table::STATUS_DELETED ? 'selected' : '' ?>>deleted</option>
-                    </select>
-                </div>
-            </div>
+        </div>
+        <div class="form-group row mb-2"
+        ">
+        <label class="col-form-label col-lg-2" for="status"><?= __('Status') ?></label>
+        <div class="col-lg-10">
+            <select id="status" name="status" class="form-control">
+                <option <?= $row->status === Table::STATUS_PENDING ? 'selected' : '' ?>>pending</option>
+                <option <?= $row->status === Table::STATUS_ACTIVE ? 'selected' : '' ?>>active</option>
+                <option <?= $row->status === Table::STATUS_DISABLED ? 'selected' : '' ?>>disabled</option>
+                <option <?= $row->status === Table::STATUS_DELETED ? 'selected' : '' ?>>deleted</option>
+            </select>
+        </div>
+        </div>
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-primary"><?= __('Save') ?></button>

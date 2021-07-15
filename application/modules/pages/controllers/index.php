@@ -23,7 +23,7 @@ use Bluz\Proxy\Layout;
 return function ($alias) {
     /**
      * @var Controller $this
-     * @var Pages\Row  $page
+     * @var Pages\Row $page
      */
     $page = Pages\Table::getInstance()->getByAlias($alias);
 

@@ -18,13 +18,13 @@ use Bluz\Validator\Traits\Validator;
  * @package  Application\Pages
  *
  * @property integer $id
- * @property string  $title
- * @property string  $alias
- * @property string  $content
- * @property string  $keywords
- * @property string  $description
- * @property string  $created
- * @property string  $updated
+ * @property string $title
+ * @property string $alias
+ * @property string $content
+ * @property string $keywords
+ * @property string $description
+ * @property string $created
+ * @property string $updated
  * @property integer $userId
  *
  * @OA\Schema(schema="page", title="page", required={"id", "title", "alias", "content"})
@@ -60,8 +60,7 @@ class Row extends \Bluz\Db\Row
     {
         // title validator
         $this->addValidator('title')
-            ->required()
-        ;
+            ->required();
 
         // alias validator
         $this->addValidator('alias')
@@ -72,8 +71,7 @@ class Row extends \Bluz\Db\Row
                     return !(($row = $this->getTable()::findRowWhere(['alias' => $input])) && $row->id !== $this->id);
                 },
                 __('This alias already exists')
-            )
-        ;
+            );
 
         // content validator
         $this->addValidator('content')
@@ -82,16 +80,13 @@ class Row extends \Bluz\Db\Row
                     return !(empty($input) or trim(strip_tags($input, '<img>')) === '');
                 },
                 __('Content can\'t be empty')
-            )
-        ;
+            );
 
         $this->addValidator('keywords')
-            ->alphaNumeric(', ')
-        ;
+            ->alphaNumeric(', ');
 
         $this->addValidator('description')
-            ->alphaNumeric(', ')
-        ;
+            ->alphaNumeric(', ');
     }
 
     /**

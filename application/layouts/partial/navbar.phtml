@@ -71,7 +71,11 @@
                   (<?= $this->ahref(__('Sign Out'), ['users', 'signout']) ?>)
               <?php
               else: ?>
-                  <?= $this->ahref(__('Sign In'), ['users', 'signin'], ['data-ajax-dialog', 'data-ajax-method' => 'get']) ?>
+                  <?= $this->ahref(
+                      __('Sign In'),
+                      ['users', 'signin'],
+                      ['data-ajax-dialog', 'data-ajax-method' => 'get']
+                  ) ?>
               <?php
               endif; ?>
             </span>

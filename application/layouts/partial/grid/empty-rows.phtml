@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \Bluz\Grid\Grid $grid
  */
@@ -6,13 +7,17 @@ if (!$grid) {
     return;
 }
 ?>
-<?php if ($grid->pages() > 1 && count($grid->getData()) < $grid->getLimit()) :
+<?php
+if ($grid->pages() > 1 && count($grid->getData()) < $grid->getLimit()) :
     $emptyRows = $grid->getLimit() - count($grid->getData()); ?>
-  <table class="table">
-      <?php for ($i = 0; $i < $emptyRows; $i++): ?>
-        <tr>
-          <td>&nbsp;</td>
-        </tr>
-      <?php endfor; ?>
-  </table>
-<?php endif; ?>
+    <table class="table">
+        <?php
+        for ($i = 0; $i < $emptyRows; $i++): ?>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+        <?php
+        endfor; ?>
+    </table>
+<?php
+endif; ?>
