@@ -1,6 +1,6 @@
 <?php /** @var \Bluz\View\View $this */ ?>
 <?php if ($adapter) : ?>
-  <div class="card text-white bg-success mb-3">
+  <div class="card text-white bg-success">
     <div class="card-header"><?= __('Cache') ?></div>
     <div class="card-body">
       <h4 class="card-title"><?= __('Cache is enabled') ?></h4>
@@ -11,14 +11,14 @@
              class="list-group-item list-group-item-warning" data-confirm data-ajax data-ajax-method="post">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1"><?= __('Clean system data') ?></h5>
-              <small><i class="fa fa-fire fa-fw"></i></small>
+              <small><i class="bi bi-recycle"></i></small>
             </div>
           </a>
           <a href="<?= $this->url('cache', 'flush') ?>"
              class="list-group-item list-group-item-danger" data-ajax data-confirm data-ajax-method="post">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1"><?= __('Clean all data') ?></h5>
-              <small><i class="fa fa-fire fa-fw"></i></small>
+              <small><i class="bi bi-recycle"></i></small>
             </div>
           </a>
         </div>
@@ -26,7 +26,7 @@
     </div>
   </div>
 <?php else: ?>
-  <div class="card bg-light mb-3">
+  <div class="card bg-light">
     <div class="card-header"><?= __('Cache') ?></div>
     <div class="card-body">
       <h4 class="card-title"><?= __('Cache is disabled') ?></h4>

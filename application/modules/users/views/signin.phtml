@@ -11,14 +11,14 @@
 <div class="modal-body">
     <form action="<?= $this->url('users', 'signin') ?>" method="post" data-ajax>
         <div class="form-group input-group mb-3">
-            <span class="input-group-text"><i class="fa fa-user fa-fw"></i></span>
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
             <label class="col-form-label sr-only" for="login"><?= __('Login') ?></label>
             <input type="text" id="login" name="login" class="form-control" value="<?= $login ?? '' ?>"
                    placeholder="<?= __('login') ?>" maxlength="255" required/>
         </div>
 
         <div class="form-group input-group mb-3">
-            <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
+            <span class="input-group-text"><i class="bi bi-key"></i></span>
             <label class="col-form-label sr-only" for="password"><?= __('Password') ?></label>
             <input type="password" id="password" name="password" class="form-control"
                    placeholder="<?= __('password') ?>"

@@ -11,7 +11,7 @@
 <div class="modal-body">
     <form action="<?= $this->url('users', 'recovery') ?>" method="post" data-ajax>
         <div class="form-group input-group mb-3">
-            <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
             <input type="email" id="email" name="email" class="form-control" value="<?= $email ?? '' ?>"
                    placeholder="<?= __('email') ?>" maxlength="255" required/>
         </div>

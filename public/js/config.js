@@ -11,7 +11,7 @@ require.config({
   paths: {
     bootstrap: './../vendor/bootstrap/js/bootstrap.bundle.min',
     jquery: './../vendor/jquery/jquery.min',
-    jqueryui: './../vendor/jquery-ui/jquery-ui.min',
+    // jqueryui: './../vendor/jquery-ui/jquery-ui.min',
     redactor: './../redactor/redactor',
     imagemanager: './../redactor/_plugins/imagemanager/imagemanager',
     dropzone: './../vendor/dropzone-amd-module/dropzone-amd-module'

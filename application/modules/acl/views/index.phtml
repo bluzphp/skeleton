@@ -15,11 +15,11 @@
           <?php if (!$role->isBasic()) : ?>
             <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
                class="badge badge-danger pull-right" data-confirm data-ajax data-ajax-method="delete"><i
-                  class="fa fa-times"></i></a>
+                  class="bi bi-x"></i></a>
             <span class="pull-right">&nbsp;</span>
             <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
                class="badge badge-light pull-right" data-ajax-dialog data-ajax-method="get"
-               title="<?= __('Edit role') ?>"><i class="fa fa-edit"></i> <?=__('Edit')?></a>
+               title="<?= __('Edit role') ?>"><i class="bi bi-pencil"></i> <?=__('Edit')?></a>
           <?php endif; ?>
         </th>
         <?php endforeach; ?>

@@ -10,22 +10,22 @@ $uid = uniqid('form_', false); ?>
     <div class="modal-body">
         <input type="hidden" name="id" value="<?= $row->id ?>"/>
         <div class="form-group input-group mb-3">
-            <span class="input-group-text"><i class="fa fa-fw fa-user"></i></span>
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
             <input type="text" class="form-control" name="login" value="<?= ($row->login) ?>"
                    placeholder="<?= __('login') ?>" maxlength="255" required/>
         </div>
         <div class="form-group input-group mb-3">
-            <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
             <input type="email" class="form-control" name="email" value="<?= ($row->email) ?>"
                    placeholder="<?= __('email') ?>" maxlength="255" required/>
         </div>
         <div class="form-group input-group mb-3">
-            <span class="input-group-text"><i class="fa fa-fw fa-lock"></i></span>
+            <span class="input-group-text"><i class="bi bi-key"></i></span>
             <input type="password" class="form-control" name="password" value="<?= ($row->password) ?>"
                    placeholder="<?= __('password') ?>" required/>
         </div>
         <div class="form-group input-group mb-3">
-            <span class="input-group-text"><i class="fa fa-fw fa-lock"></i></span>
+            <span class="input-group-text"><i class="bi bi-key"></i></span>
             <input type="password" class="form-control" name="password2" value="<?= ($row->password2) ?>"
                    placeholder="<?= __('repeat password') ?>" required/>
         </div>

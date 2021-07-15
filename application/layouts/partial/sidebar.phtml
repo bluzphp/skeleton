@@ -1,112 +1,131 @@
-<?php /** @var \Bluz\Layout\Layout $this */ ?>
-<nav id="sidebar" class="collapse show col-md-2 bg-light sidebar">
-  <hr/>
-  <ul role="menu" class="nav nav-pills flex-column">
-    <li role="menuitem" class="nav-item <?= ($this->module('users') ? 'active' : '') ?>">
-        <?= $this->ahref(
-            '<i class="fa fa-user fa-fw"></i> ' . __('Users'),
-            ['users', 'grid', [], true],
-            ['class' => 'nav-link']
-        ) ?>
-    </li>
-    <?php if ($this->hasModule('wallet')) : ?>
-      <li role="menuitem" class="nav-item <?= ($this->module('wallet') ? 'active' : '') ?>">
-          <?= $this->ahref(
-              '<i class="fa fa-credit-card fa-fw"></i> ' . __('Wallets'),
-              ['wallet', 'grid', [], true],
-              ['class' => 'nav-link']
-          ) ?>
-      </li>
-    <?php endif; ?>
-    <?php if ($this->hasModule('phones')) : ?>
-      <li role="menuitem" class="nav-item <?= ($this->module('phones') ? 'active' : '') ?>">
-          <?= $this->ahref(
-              '<i class="fa fa-phone fa-fw"></i> ' . __('Phones'),
-              ['phones', 'grid', [], true],
-              ['class' => 'nav-link']
-          ) ?>
-      </li>
-    <?php endif; ?>
-    <?php if ($this->hasModule('push')) : ?>
-      <li role="menuitem" class="nav-item <?= ($this->module('push') ? 'active' : '') ?>">
-          <?= $this->ahref(
-              '<i class="fa fa-bell fa-fw"></i> ' . __('Push Subscriptions'),
-              ['push', 'grid', [], true],
-              ['class' => 'nav-link']
-          ) ?>
-      </li>
-    <?php endif; ?>
-  </ul>
-  <hr/>
-  <ul role="menu" class="nav nav-pills flex-column">
-    <li class="nav-item <?= ($this->module('pages') ? 'active' : '') ?>">
-        <?= $this->ahref(
-            '<i class="fa fa-edit fa-fw"></i> ' . __('Pages'),
-            ['pages', 'grid', [], true],
-            ['class' => 'nav-link']
-        ) ?>
-    </li>
-    <?php if ($this->hasModule('media')) : ?>
-      <li role="menuitem" class="nav-item <?= ($this->module('media') ? 'active' : '') ?>">
-          <?= $this->ahref(
-              '<i class="fas fa-images fa-fw"></i> ' . __('Media'),
-              ['media', 'grid', [], true],
-              ['class' => 'nav-link']
-          ) ?>
-      </li>
-    <?php endif; ?>
-    <?php if ($this->hasModule('categories')) : ?>
-      <li role="menuitem" class="nav-item <?= ($this->module('categories') ? 'active' : '') ?>">
-          <?= $this->ahref(
-              '<i class="fa fa-folder fa-fw"></i> ' . __('Categories'),
-              ['categories', 'tree', [], true],
-              ['class' => 'nav-link']
-          ) ?>
-      </li>
-    <?php endif; ?>
-    <?php if ($this->hasModule('contact-us')) : ?>
-      <li role="menuitem" class="nav-item <?= ($this->module('contact-us') ? 'active' : '') ?>">
-          <?= $this->ahref(
-              '<i class="fa fa-envelope fa-fw"></i> ' . __('Contact Us'),
-              ['contact-us', 'grid', [], true],
-              ['class' => 'nav-link']
-          ) ?>
-      </li>
-    <?php endif; ?>
-  </ul>
-  <hr/>
-  <ul role="menu" class="nav nav-pills flex-column">
-    <li role="menuitem" class="nav-item <?= ($this->module('acl') ? 'active' : '') ?>">
-        <?= $this->ahref(
-            '<i class="fa fa-lock fa-fw"></i> ' . __('Permissions'),
-            ['acl', 'index', [], true],
-            ['class' => 'nav-link']
-        ) ?>
-    </li>
-    <?php if ($this->hasModule('options')) : ?>
-      <li role="menuitem" class="nav-item <?= ($this->module('options') ? 'active' : '') ?>">
-          <?= $this->ahref(
-              '<i class="fa fa-th-list fa-fw"></i> ' . __('Options'),
-              ['options', 'grid', [], true],
-              ['class' => 'nav-link']
-          ) ?>
-      </li>
-    <?php endif; ?>
-    <?php if ($this->hasModule('queues')) : ?>
-      <li role="menuitem" class="nav-item <?= ($this->module('queues') ? 'active' : '') ?>">
-          <?= $this->ahref(
-              '<i class="fab fa-stack-overflow fa-fw"></i> ' . __('Queues'),
-              ['queues', 'index', [], true],
-              ['class' => 'nav-link']
-          ) ?>
-      </li>
-    <?php endif; ?>
-    <li role="menuitem" class="nav-item <?= ($this->module('system') ? 'active' : '') ?>">
-        <?= $this->ahref(
-            '<i class="fa fa-wrench fa-fw"></i> ' . __('System'),
-            ['system', 'index', [], true],
-            ['class' => 'nav-link']
-        ) ?>
-    </li>
-  </ul>
+<?php
+/** @var \Bluz\Layout\Layout $this */ ?>
+
+<nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+    <div class="position-sticky pt-3">
+        <ul role="menu" class="nav nav-pills flex-column">
+            <li role="menuitem" class="nav-item <?= ($this->module('users') ? 'active' : '') ?>">
+                <?= $this->ahref(
+                    '<i class="bi bi-people"></i> ' . __('Users'),
+                    ['users', 'grid', [], true],
+                    ['class' => 'nav-link']
+                ) ?>
+            </li>
+            <?php
+            if ($this->hasModule('wallet')) : ?>
+                <li role="menuitem" class="nav-item <?= ($this->module('wallet') ? 'active' : '') ?>">
+                    <?= $this->ahref(
+                        '<i class="bi bi-wallet2"></i> ' . __('Wallets'),
+                        ['wallet', 'grid', [], true],
+                        ['class' => 'nav-link']
+                    ) ?>
+                </li>
+            <?php
+            endif; ?>
+            <?php
+            if ($this->hasModule('phones')) : ?>
+                <li role="menuitem" class="nav-item <?= ($this->module('phones') ? 'active' : '') ?>">
+                    <?= $this->ahref(
+                        '<i class="bi bi-telephone"></i> ' . __('Phones'),
+                        ['phones', 'grid', [], true],
+                        ['class' => 'nav-link']
+                    ) ?>
+                </li>
+            <?php
+            endif; ?>
+            <?php
+            if ($this->hasModule('push')) : ?>
+                <li role="menuitem" class="nav-item <?= ($this->module('push') ? 'active' : '') ?>">
+                    <?= $this->ahref(
+                        '<i class="bi bi-bell"></i> ' . __('Push Subscriptions'),
+                        ['push', 'grid', [], true],
+                        ['class' => 'nav-link']
+                    ) ?>
+                </li>
+            <?php
+            endif; ?>
+        </ul>
+        <hr/>
+        <ul role="menu" class="nav nav-pills flex-column">
+            <li class="nav-item <?= ($this->module('pages') ? 'active' : '') ?>">
+                <?= $this->ahref(
+                    '<i class="bi bi-pen"></i> ' . __('Pages'),
+                    ['pages', 'grid', [], true],
+                    ['class' => 'nav-link']
+                ) ?>
+            </li>
+            <?php
+            if ($this->hasModule('media')) : ?>
+                <li role="menuitem" class="nav-item <?= ($this->module('media') ? 'active' : '') ?>">
+                    <?= $this->ahref(
+                        '<i class="bi bi-card-image"></i> ' . __('Media'),
+                        ['media', 'grid', [], true],
+                        ['class' => 'nav-link']
+                    ) ?>
+                </li>
+            <?php
+            endif; ?>
+            <?php
+            if ($this->hasModule('categories')) : ?>
+                <li role="menuitem" class="nav-item <?= ($this->module('categories') ? 'active' : '') ?>">
+                    <?= $this->ahref(
+                        '<i class="bi bi-folder"></i> ' . __('Categories'),
+                        ['categories', 'tree', [], true],
+                        ['class' => 'nav-link']
+                    ) ?>
+                </li>
+            <?php
+            endif; ?>
+            <?php
+            if ($this->hasModule('contact-us')) : ?>
+                <li role="menuitem" class="nav-item <?= ($this->module('contact-us') ? 'active' : '') ?>">
+                    <?= $this->ahref(
+                        '<i class="bi bi-envelope"></i> ' . __('Contact Us'),
+                        ['contact-us', 'grid', [], true],
+                        ['class' => 'nav-link']
+                    ) ?>
+                </li>
+            <?php
+            endif; ?>
+        </ul>
+        <hr/>
+        <ul role="menu" class="nav nav-pills flex-column">
+            <li role="menuitem" class="nav-item <?= ($this->module('acl') ? 'active' : '') ?>">
+                <?= $this->ahref(
+                    '<i class="bi bi-key fa-fw"></i> ' . __('Permissions'),
+                    ['acl', 'index', [], true],
+                    ['class' => 'nav-link']
+                ) ?>
+            </li>
+            <?php
+            if ($this->hasModule('options')) : ?>
+                <li role="menuitem" class="nav-item <?= ($this->module('options') ? 'active' : '') ?>">
+                    <?= $this->ahref(
+                        '<i class="bi bi-toggles"></i> ' . __('Options'),
+                        ['options', 'grid', [], true],
+                        ['class' => 'nav-link']
+                    ) ?>
+                </li>
+            <?php
+            endif; ?>
+            <?php
+            if ($this->hasModule('queues')) : ?>
+                <li role="menuitem" class="nav-item <?= ($this->module('queues') ? 'active' : '') ?>">
+                    <?= $this->ahref(
+                        '<i class="fbi bi-stack"></i> ' . __('Queues'),
+                        ['queues', 'index', [], true],
+                        ['class' => 'nav-link']
+                    ) ?>
+                </li>
+            <?php
+            endif; ?>
+            <li role="menuitem" class="nav-item <?= ($this->module('system') ? 'active' : '') ?>">
+                <?= $this->ahref(
+                    '<i class="bi bi-tools"></i> ' . __('System'),
+                    ['system', 'index', [], true],
+                    ['class' => 'nav-link']
+                ) ?>
+            </li>
+        </ul>
+    </div>
 </nav>

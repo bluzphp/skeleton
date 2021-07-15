@@ -2,27 +2,6 @@
  * Dashboard Layout CSS
  */
 /* Sidebar navigation */
-.sidebar {
-  padding-left: 0;
-  padding-right: 0;
-  min-height: 90vh;
-}
-
-.sidebar .nav {
-  margin-bottom: 20px;
-}
-
-.sidebar .nav-item {
-  width: 100%;
-}
-
-.sidebar .nav-item + .nav-item {
-  margin-left: 0;
-}
-
-.sidebar .nav-link {
-  border-radius: 0;
-}
 
 /* Grid */
 .table td {
@@ -58,7 +37,7 @@
 }
 
 .table-fixed thead {
-  margin-right: 17px;
+  /*margin-right: 17px;*/
 }
 
 .table-fixed tbody {
@@ -75,23 +54,4 @@
 .table-fixed th {
   flex: 1;
   border: 1px solid #eee;
-}
-
-/* Cards */
-@media (min-width: 576px) and (max-width: 768px) {
-  .card-columns {
-    column-count: 1;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 992px) {
-  .card-columns {
-    column-count: 2;
-  }
-}
-
-@media (min-width: 1200px) {
-  .card-columns {
-    column-count: 4;
-  }
 }

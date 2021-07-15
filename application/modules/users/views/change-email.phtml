@@ -15,7 +15,7 @@ $uid = uniqid('form_', false); ?>
                     <div class="form-group">
                         <label class="sr-only" for="email"><?= __('Email') ?></label>
                         <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="fa fa-fw fa-envelope"></i></span>
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
 
                             <input id="email" type="email" class="form-control" name="email"
                                    value="<?= ($this->user()->email) ?>"
@@ -25,7 +25,7 @@ $uid = uniqid('form_', false); ?>
                     <div class="form-group">
                         <label class="sr-only" for="password"><?= __('Password') ?></label>
                         <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="fa fa-fw fa-lock"></i></span>
+                            <span class="input-group-text"><i class="bi bi-key"></i></span>
                             <input id="password" type="password" class="form-control" name="password"
                                    placeholder="<?= __('current password') ?>" required/>
                         </div>

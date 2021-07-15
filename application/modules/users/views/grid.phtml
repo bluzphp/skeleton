@@ -81,15 +81,15 @@ if (!$grid) {
                 <td class="controls d-flex justify-content-around">
                     <a href="<?= $this->url('acl', 'user', ['id' => $row->id]); ?>" class="btn btn-secondary"
                        data-ajax-dialog data-ajax-method="get">
-                        <i class="fa fa-lock"></i>
+                        <i class="bi bi-key"></i>
                     </a>
                     <a href="<?= $this->url('users', 'crud', ['id' => $row->id]) ?>" class="btn btn-primary"
                        data-ajax-dialog data-ajax-method="get">
-                        <i class="fas fa-pencil-alt"></i>
+                        <i class="bi bi-pencil"></i>
                     </a>
                     <a href="<?= $this->url('users', 'crud', ['id' => $row->id]) ?>" class="btn btn-danger"
                        data-confirm data-ajax data-ajax-method="delete">
-                        <i class="fa fa-trash"></i>
+                        <i class="bi bi-trash"></i>
                     </a>
                 </td>
             </tr>
