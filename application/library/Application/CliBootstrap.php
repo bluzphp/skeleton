@@ -176,7 +176,7 @@ class CliBootstrap extends Application
     /**
      * Send errors to logger
      *
-     * @param  array $errors
+     * @param array $errors
      *
      * @return void
      */

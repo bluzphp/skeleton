@@ -1,26 +1,31 @@
 <?php
+
 use Application\Users;
+
 ?>
-<div class="card bg-light mb-3">
+<div class="card bg-light">
     <div class="card-header"><?= __('Users') ?></div>
     <div class="card-body">
         <div class="list-group">
-            <a href="<?= $this->url('users', 'grid') ?>" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="<?= $this->url('users', 'grid') ?>"
+               class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><?= _n('%d registered user', '%d registered users', $total, $total) ?></h5>
-                    <small><i class="fa fa-user fa-fw"></i></small>
+                    <small><i class="bi bi-person"></i></small>
                 </div>
             </a>
-            <a href="<?= $this->url('users', 'grid', ['users-filter-status' => Users\Table::STATUS_ACTIVE]) ?>" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="<?= $this->url('users', 'grid', ['users-filter-status' => Users\Table::STATUS_ACTIVE]) ?>"
+               class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><?= _n('%d active user', '%d active users', $active, $active) ?></h5>
-                    <small><i class="fa fa-eye fa-fw"></i></small>
+                    <small><i class="bi bi-eye"></i></small>
                 </div>
             </a>
-            <a href="<?= $this->url('users', 'profile', ['id' => $last['id']]) ?>" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="<?= $this->url('users', 'profile', ['id' => $last['id']]) ?>"
+               class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1"><?=__('last registered')?> - <?= $last['login'] ?></h5>
-                    <small><i class="fa fa-address-card-o fa-fw"></i></small>
+                    <h5 class="mb-1"><?= __('last registered') ?> - <?= $last['login'] ?></h5>
+                    <small><i class="bi bi-clock-history"></i></small>
                 </div>
             </a>
         </div>

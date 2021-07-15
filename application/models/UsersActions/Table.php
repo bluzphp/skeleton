@@ -44,10 +44,10 @@ class Table extends \Bluz\Db\Table
     /**
      * generate action with token
      *
-     * @param int    $userId
+     * @param int $userId
      * @param string $action
-     * @param int    $expired in days
-     * @param array  $params
+     * @param int $expired in days
+     * @param array $params
      *
      * @return Row
      * @throws \Bluz\Db\Exception\DbException

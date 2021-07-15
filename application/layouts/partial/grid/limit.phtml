@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \Bluz\Grid\Grid $grid
  */
@@ -6,11 +7,14 @@ if (!$grid) {
     return;
 }
 ?>
-<nav aria-label="<?=__('Limit')?>">
-  <ul class="pagination pull-right">
-    <li class="page-item disabled"><a href="#" class="page-link"><?= __('Limit') ?></a></li>
-    <li class="page-item <?= (($grid->getLimit() === 25) ? 'active' : '') ?>"><a href="<?= $grid->limit(25) ?>" class="page-link">25</a></li>
-    <li class="page-item <?= (($grid->getLimit() === 50) ? 'active' : '') ?>"><a href="<?= $grid->limit(50) ?>" class="page-link">50</a></li>
-    <li class="page-item <?= (($grid->getLimit() === 100) ? 'active' : '') ?>"><a href="<?= $grid->limit(100) ?>" class="page-link">100</a></li>
-  </ul>
+<nav aria-label="<?= __('Limit') ?>">
+    <ul class="pagination float-end">
+        <li class="page-item disabled"><a href="#" class="page-link"><?= __('Limit') ?></a></li>
+        <li class="page-item <?= (($grid->getLimit() === 25) ? 'active' : '') ?>"><a href="<?= $grid->limit(25) ?>"
+                                                                                     class="page-link">25</a></li>
+        <li class="page-item <?= (($grid->getLimit() === 50) ? 'active' : '') ?>"><a href="<?= $grid->limit(50) ?>"
+                                                                                     class="page-link">50</a></li>
+        <li class="page-item <?= (($grid->getLimit() === 100) ? 'active' : '') ?>"><a href="<?= $grid->limit(100) ?>"
+                                                                                      class="page-link">100</a></li>
+    </ul>
 </nav>

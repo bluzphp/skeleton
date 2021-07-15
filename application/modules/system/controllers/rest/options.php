@@ -11,6 +11,7 @@
 namespace Application;
 
 use Bluz\Controller;
+use Bluz\Crud\Table;
 use Bluz\Http\StatusCode;
 use Bluz\Proxy\Response;
 
@@ -19,13 +20,13 @@ use Bluz\Proxy\Response;
  * @accept JSON
  * @method OPTIONS
  *
- * @param  \Bluz\Crud\Table $crud
- * @param  mixed            $primary
- * @param  array            $data
+ * @param Table $crud
+ * @param mixed $primary
+ * @param array $data
  *
  * @return void
  */
-return function ($crud, $primary, $data) {
+return function (Table $crud, $primary, $data) {
     Response::setStatusCode(StatusCode::NO_CONTENT);
     Response::setHeader('Allow', implode(',', $data));
 };

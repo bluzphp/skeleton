@@ -14,11 +14,11 @@ namespace Application\UsersActions;
  * @package  Application\Users
  *
  * @property integer $userId
- * @property string  $code
- * @property string  $action
- * @property string  $params
- * @property string  $created
- * @property string  $expired
+ * @property string $code
+ * @property string $action
+ * @property string $params
+ * @property string $created
+ * @property string $expired
  */
 class Row extends \Bluz\Db\Row
 {
@@ -39,6 +39,6 @@ class Row extends \Bluz\Db\Row
      */
     public function getParams(): array
     {
-        return $this->params ? unserialize($this->params, ['allowed_classes' => false]): [];
+        return $this->params ? unserialize($this->params, ['allowed_classes' => false]) : [];
     }
 }

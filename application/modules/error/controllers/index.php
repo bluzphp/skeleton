@@ -28,8 +28,8 @@ use Bluz\Proxy\Response;
  * @accept JSON
  * @route  /error/{$code}
  *
- * @param  int        $code
- * @param  \Exception $exception
+ * @param int $code
+ * @param \Exception $exception
  *
  * @return array
  */

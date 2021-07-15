@@ -7,15 +7,24 @@
 /**
  * @namespace
  */
+
 namespace Application;
 
+use Bluz\Common\Exception\CommonException;
+use Bluz\Common\Exception\ComponentException;
 use Bluz\Controller\Controller;
+use Bluz\Controller\ControllerException;
 use Bluz\Proxy\Layout;
+use ReflectionException;
 
 /**
  * @privilege View
  *
  * @return void
+ * @throws CommonException
+ * @throws ComponentException
+ * @throws ControllerException
+ * @throws ReflectionException
  */
 return function () {
     /**

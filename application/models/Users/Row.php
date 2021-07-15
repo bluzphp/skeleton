@@ -19,11 +19,11 @@ use Bluz\Validator\Traits\Validator;
  * @package  Application\Users
  *
  * @property integer $id
- * @property string  $login
- * @property string  $email
- * @property string  $created
- * @property string  $updated
- * @property string  $status
+ * @property string $login
+ * @property string $email
+ * @property string $created
+ * @property string $updated
+ * @property string $status
  *
  * @OA\Schema(schema="user", title="user", required={"id", "login", "status"})
  * @OA\Property(property="id", type="integer", description="User UID", example=2)

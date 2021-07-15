@@ -14,8 +14,8 @@ namespace Application\Privileges;
  * @package  Application\Privileges
  *
  * @property integer $roleId
- * @property string  $module
- * @property string  $privilege
+ * @property string $module
+ * @property string $privilege
  */
 class Row extends \Bluz\Db\Row
 {

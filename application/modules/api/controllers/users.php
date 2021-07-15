@@ -37,7 +37,7 @@ use Bluz\Http\Exception\NotFoundException;
  * @method GET
  * @privilege Users/Id
  * @route  /api/users/{$id}
- * @param  integer $id
+ * @param integer $id
  */
 return function ($id) {
     /**
@@ -45,7 +45,7 @@ return function ($id) {
      */
     $user = Users\Table::findRow($id);
     if (!$user) {
-        throw new NotFoundException('User not found'.$id);
+        throw new NotFoundException('User not found' . $id);
     }
     $this->getData()->setFromArray($user->toArray());
 };

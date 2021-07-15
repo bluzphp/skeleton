@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \Application\Users\Grid $grid
  * @var \Bluz\View\View $this
@@ -12,87 +13,92 @@ if (!$grid) {
     require(['bluz.grid']);
 </script>
 <div class="clearfix" data-spy="grid" data-grid="<?= $grid->getUid() ?>">
-  <nav class="navbar navbar-light bg-light justify-content-between">
-    <div>
-      <a href="<?= $grid->filter('roleId', 'eq', '', true) ?>" data-ajax
-         class="btn <?= (null === $grid->getFilter('roleId', 'eq') ? 'btn-info' : 'btn-secondary') ?>">
-          <?= __('all') ?>
-      </a>
-      <?php foreach ($roles as $role) : ?>
-      <a href="<?= $grid->filter('roleId', 'eq', $role['id']) ?>" data-ajax
-         class="btn <?= ($role['id'] === $grid->getFilter('roleId', 'eq')? 'btn-info' : 'btn-secondary') ?>">
-          <?= $role['name'] ?>
-      </a>
-      <?php endforeach; ?>
-    </div>
-    <form action="<?= $this->url('users', 'grid') ?>" class="form-inline filter-form">
-      <div class="input-group">
-          <?php echo
-          $this->partial(
-              'grid/filter-search-advanced.phtml',
-              [
-                  'grid' => $grid,
-                  'filters' => [
-                      __('Login') => [$grid::FILTER_EQ => 'login'],
-                      __('Email') => [$grid::FILTER_LIKE => 'email'],
-                  ]
-              ]
-          )
-          ?>
-        <span class="input-group-btn">
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <div>
+            <a href="<?= $grid->filter('roleId', 'eq', '', true) ?>" data-ajax
+               class="btn <?= (null === $grid->getFilter('roleId', 'eq') ? 'btn-info' : 'btn-secondary') ?>">
+                <?= __('all') ?>
+            </a>
+            <?php
+            foreach ($roles as $role) : ?>
+                <a href="<?= $grid->filter('roleId', 'eq', $role['id']) ?>" data-ajax
+                   class="btn <?= ($role['id'] === $grid->getFilter('roleId', 'eq') ? 'btn-info' : 'btn-secondary') ?>">
+                    <?= $role['name'] ?>
+                </a>
+            <?php
+            endforeach; ?>
+        </div>
+        <form action="<?= $this->url('users', 'grid') ?>" class="form-inline filter-form">
+            <div class="input-group">
+                <?php
+                echo
+                $this->partial(
+                    'grid/filter-search-advanced.phtml',
+                    [
+                        'grid' => $grid,
+                        'filters' => [
+                            __('Login') => [$grid::FILTER_EQ => 'login'],
+                            __('Email') => [$grid::FILTER_LIKE => 'email'],
+                        ]
+                    ]
+                )
+                ?>
+                <span class="input-group-btn">
           <button class="btn btn-secondary"><?= __('Search') ?></button>
         </span>
-      </div>
-    </form>
-  </nav>
-  <hr/>
+            </div>
+        </form>
+    </nav>
+    <hr/>
 
-  <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
-  <?= $this->partial('grid/limit.phtml', ['grid' => $grid]) ?>
+    <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
+    <?= $this->partial('grid/limit.phtml', ['grid' => $grid]) ?>
 
-  <table class="table table-hover table-striped grid">
-    <thead>
-    <tr>
-      <th width="60px" class="text-center"><a href="<?= $grid->order('id') ?: '#' ?>"><?= __('Id') ?></a></th>
-      <th><a href="<?= $grid->order('login') ?: '#' ?>"><?= __('Login') ?></a></th>
-      <th><a href="<?= $grid->order('email') ?: '#' ?>"><?= __('Email') ?></a></th>
-      <th><?= __('Roles') ?></th>
-      <th><a href="<?= $grid->order('status') ?: '#' ?>"><?= __('Status') ?></a></th>
-      <th width="160px"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($grid->getData() as $row) : ?>
-      <tr>
-        <td class="text-right"><?= $row->id ?></td>
-        <td>
-          <a href="<?= $this->url('users', 'profile', ['id' => $row->id]) ?>">
-            <?= $row->login ?>
-          </a>
-        </td>
-        <td><?= $row->email ?></td>
-        <td><?= $row['rolesList'] ?></td>
-        <td><?= $row->status ?></td>
-        <td class="controls d-flex justify-content-around">
-          <a href="<?= $this->url('acl', 'user', ['id' => $row->id]); ?>" class="btn btn-secondary"
-             data-ajax-dialog data-ajax-method="get">
-            <i class="fa fa-lock"></i>
-          </a>
-          <a href="<?= $this->url('users', 'crud', ['id' => $row->id]) ?>" class="btn btn-primary"
-             data-ajax-dialog data-ajax-method="get">
-            <i class="fas fa-pencil-alt"></i>
-          </a>
-          <a href="<?= $this->url('users', 'crud', ['id' => $row->id]) ?>" class="btn btn-danger"
-             data-confirm data-ajax data-ajax-method="delete">
-            <i class="fa fa-trash"></i>
-          </a>
-        </td>
-      </tr>
-    <?php endforeach; ?>
-    </tbody>
-  </table>
+    <table class="table table-hover table-striped grid">
+        <thead>
+        <tr>
+            <th width="60px" class="text-center"><a href="<?= $grid->order('id') ?: '#' ?>"><?= __('Id') ?></a></th>
+            <th><a href="<?= $grid->order('login') ?: '#' ?>"><?= __('Login') ?></a></th>
+            <th><a href="<?= $grid->order('email') ?: '#' ?>"><?= __('Email') ?></a></th>
+            <th><?= __('Roles') ?></th>
+            <th><a href="<?= $grid->order('status') ?: '#' ?>"><?= __('Status') ?></a></th>
+            <th width="160px"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($grid->getData() as $row) : ?>
+            <tr>
+                <td class="text-right"><?= $row->id ?></td>
+                <td>
+                    <a href="<?= $this->url('users', 'profile', ['id' => $row->id]) ?>">
+                        <?= $row->login ?>
+                    </a>
+                </td>
+                <td><?= $row->email ?></td>
+                <td><?= $row['rolesList'] ?></td>
+                <td><?= $row->status ?></td>
+                <td class="controls d-flex justify-content-around">
+                    <a href="<?= $this->url('acl', 'user', ['id' => $row->id]); ?>" class="btn btn-secondary"
+                       data-ajax-dialog data-ajax-method="get">
+                        <i class="bi bi-key"></i>
+                    </a>
+                    <a href="<?= $this->url('users', 'crud', ['id' => $row->id]) ?>" class="btn btn-primary"
+                       data-ajax-dialog data-ajax-method="get">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    <a href="<?= $this->url('users', 'crud', ['id' => $row->id]) ?>" class="btn btn-danger"
+                       data-confirm data-ajax data-ajax-method="delete">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        <?php
+        endforeach; ?>
+        </tbody>
+    </table>
 
-  <?= $this->partial('grid/empty-rows.phtml', ['grid' => $grid]) ?>
-  <?= $this->partial('grid/pagination.phtml', ['grid' => $grid]) ?>
-  <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
+    <?= $this->partial('grid/empty-rows.phtml', ['grid' => $grid]) ?>
+    <?= $this->partial('grid/pagination.phtml', ['grid' => $grid]) ?>
+    <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
 </div>

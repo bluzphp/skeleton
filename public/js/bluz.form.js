@@ -13,7 +13,7 @@ define(['bluz', 'jquery'], function (bluz, $) {
   let form;
   let settings;
   let defaults = {
-    container: 'form-group',           // default for Twitter Bootstrap layout
+    container: 'form-group',           // default for layout
     feedback: 'invalid-feedback',
     errorClass: 'is-invalid',
     inputCollection: false,            // uses 'data[field-name]' or 'field-name'

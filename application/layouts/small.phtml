@@ -1,13 +1,18 @@
-<?php /** @var \Bluz\Layout\Layout $this */ ?>
-<?php require __DIR__.'/partial/header.phtml'; ?>
-<?php require __DIR__ . '/partial/navbar.phtml'; ?>
+<?php
+/** @var \Bluz\Layout\Layout $this */ ?>
+<?php
+require __DIR__ . '/partial/header.phtml'; ?>
+<?php
+require __DIR__ . '/partial/navbar.phtml'; ?>
 <div class="container layout-small">
-  <div class="container">
-      <?php
-      /* @var closure $content */
-      echo $this->getContent();
-      ?>
-  </div>
+    <div class="container">
+        <?php
+        /* @var closure $content */
+        echo $this->getContent();
+        ?>
+    </div>
 </div>
-<?php require __DIR__.'/partial/footer-bar.phtml'; ?>
-<?php require __DIR__.'/partial/footer.phtml'; ?>
+<?php
+require __DIR__ . '/partial/footer-bar.phtml'; ?>
+<?php
+require __DIR__ . '/partial/footer.phtml'; ?>

@@ -19,7 +19,7 @@ use Bluz\Proxy\Session;
 /**
  * @param string $login
  * @param string $password
- * @param bool   $rememberMe
+ * @param bool $rememberMe
  *
  * @return array
  */

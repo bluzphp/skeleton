@@ -1,12 +1,15 @@
-<?php /** @var \Bluz\Layout\Layout $this */ ?>
-<?php require __DIR__.'/partial/header.phtml'; ?>
-<?php require __DIR__ . '/partial/navbar.phtml'; ?>
+<?php
+/** @var \Bluz\Layout\Layout $this */ ?>
+<?php
+require __DIR__ . '/partial/header.phtml'; ?>
+<?php
+require __DIR__ . '/partial/navbar.phtml'; ?>
 <div class="jumbotron">
-  <div class="container">
-    <h1>Congratulations!</h1>
-    <p>You have successfully installed the Skeleton application for <a href="https://github.com/bluzphp">Bluz
-        Framework</a></p>
-  </div>
+    <div class="container">
+        <h1>Congratulations!</h1>
+        <p>You have successfully installed the Skeleton application for <a href="https://github.com/bluzphp">Bluz
+                Framework</a></p>
+    </div>
 </div>
 <div class="container">
     <?php
@@ -14,5 +17,7 @@
     echo $this->getContent();
     ?>
 </div>
-<?php require __DIR__.'/partial/footer-bar.phtml'; ?>
-<?php require __DIR__.'/partial/footer.phtml'; ?>
+<?php
+require __DIR__ . '/partial/footer-bar.phtml'; ?>
+<?php
+require __DIR__ . '/partial/footer.phtml'; ?>

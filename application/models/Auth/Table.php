@@ -33,8 +33,8 @@ class Table extends AbstractTable
      *
      * @param string $password
      *
-     * @throws \Application\Exception
      * @return string
+     * @throws \Application\Exception
      */
     public static function hash($password): string
     {
@@ -54,8 +54,8 @@ class Table extends AbstractTable
      * @param string $password
      * @param string $hash
      *
-     * @throws \Application\Exception
      * @return bool
+     * @throws \Application\Exception
      */
     public static function verify($password, $hash): bool
     {

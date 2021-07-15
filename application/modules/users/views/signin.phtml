@@ -1,47 +1,48 @@
 <?php
 /**
  * @var \Application\Users\Row $user
- * @var \Bluz\View\View        $this
+ * @var \Bluz\View\View $this
  */
+
 ?>
 <div class="modal-header">
-  <h3 class="modal-title"><?= __('Please sign in') ?></h3>
+    <h3 class="modal-title"><?= __('Please sign in') ?></h3>
 </div>
 <div class="modal-body">
-  <form action="<?= $this->url('users', 'signin') ?>" method="post" data-ajax>
-    <div class="form-group input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fa fa-user fa-fw"></i></span>
-      </div>
-      <label class="col-form-label sr-only" for="login"><?= __('Login') ?></label>
-      <input type="text" id="login" name="login" class="form-control" value="<?= $login ?? '' ?>"
-             placeholder="<?= __('login') ?>" maxlength="255" required/>
-    </div>
+    <form action="<?= $this->url('users', 'signin') ?>" method="post" data-ajax>
+        <div class="form-group input-group mb-3">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <label class="col-form-label visually-hidden" for="login"><?= __('Login') ?></label>
+            <input type="text" id="login" name="login" class="form-control" value="<?= $login ?? '' ?>"
+                   placeholder="<?= __('login') ?>" maxlength="255" required/>
+        </div>
 
-    <div class="form-group input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
-      </div>
-      <label class="col-form-label sr-only" for="password"><?= __('Password') ?></label>
-      <input type="password" id="password" name="password" class="form-control" placeholder="<?= __('password') ?>"
-             required/>
-    </div>
+        <div class="form-group input-group mb-3">
+            <span class="input-group-text"><i class="bi bi-key"></i></span>
+            <label class="col-form-label visually-hidden" for="password"><?= __('Password') ?></label>
+            <input type="password" id="password" name="password" class="form-control"
+                   placeholder="<?= __('password') ?>"
+                   required/>
+        </div>
 
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" name="rememberMe" value="1" checked/> <?= __('Remember me') ?>
-      </label>
-    </div>
-
-    <input name="signin" type="submit" value="<?= __('Sign In') ?>" class="btn btn-primary"/>
-    <a href="<?= $this->url('users', 'signup') ?>" title="Sign Up" class="btn btn-light pull-right">
-        <?= __('Sign Up') ?>
-    </a>
-  </form>
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" value="" name="rememberMe" id="rememberMe" checked>
+            <label class="form-check-label" for="rememberMe">
+                <?= __('Remember me') ?>
+            </label>
+        </div>
+        <button name="signin" type="submit" class="btn btn-primary"><?= __('Sign In') ?></button>
+        <a href="<?= $this->url('users', 'signup') ?>" title="Sign Up" class="btn btn-light float-end">
+            <?= __('Sign Up') ?>
+        </a>
+    </form>
 </div>
 <div class="modal-footer clearfix">
-  <?php $this->hasModule('facebook') && $this->dispatch('facebook', 'widgets/auth'); ?>
-  <?php $this->hasModule('google') && $this->dispatch('google', 'widgets/auth'); ?>
-  <?php $this->hasModule('twitter') && $this->dispatch('twitter', 'widgets/auth'); ?>
-  <a href="<?= $this->url('users', 'recovery') ?>" class="pull-right"><?= __('Forgot your password?') ?></a>
+    <?php
+    $this->hasModule('facebook') && $this->dispatch('facebook', 'widgets/auth'); ?>
+    <?php
+    $this->hasModule('google') && $this->dispatch('google', 'widgets/auth'); ?>
+    <?php
+    $this->hasModule('twitter') && $this->dispatch('twitter', 'widgets/auth'); ?>
+    <a href="<?= $this->url('users', 'recovery') ?>" class="float-end"><?= __('Forgot your password?') ?></a>
 </div>

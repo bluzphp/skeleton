@@ -1,15 +1,19 @@
-<?php if ($this->breadCrumbs()) : ?>
-<ol class="breadcrumb">
-    <li class="breadcrumb-item">
-        <a href="/" data-toggle="tooltip" data-placement="bottom" title="<?= __('Back to homepage') ?>">
-            <i class="fa fa-home fa-fw"></i>
-            <?= __('Home') ?>
-        </a>
-    </li>
-    <?php foreach ($this->breadCrumbs() as $crump): ?>
-    <li class="breadcrumb-item">
-        <?php echo $crump ?>
-    </li>
-    <?php endforeach; ?>
-</ol>
-<?php endif; ?>
+<?php
+if ($this->breadCrumbs()) : ?>
+    <div class="nav-scroller bg-body shadow-sm sticky-top sticky-offset">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb m-3">
+                <li><i class="bi bi-gear-wide-connected me-2"></i></li>
+                <?php
+                foreach ($this->breadCrumbs() as $crump): ?>
+                    <li class="breadcrumb-item">
+                        <?php
+                        echo $crump ?>
+                    </li>
+                <?php
+                endforeach; ?>
+            </ol>
+        </nav>
+    </div>
+<?php
+endif; ?>

@@ -1,93 +1,106 @@
-<?php /** @var \Bluz\View\View $this */ ?>
+<?php
+/** @var \Bluz\View\View $this */ ?>
 <h2>What next?</h2>
 <hr/>
-<div id="setup" role="tablist">
-  <div class="card">
-    <div class="card-header" role="tab" id="setup-db">
-      <h5 class="mb-0">
-        <a data-toggle="collapse" href="#setup-db-body" aria-expanded="false" aria-controls="setup-db-body">
-          Database setup &rarr;
-        </a>
-      </h5>
-    </div>
-    <div id="setup-db-body" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#setup">
-      <div class="card-body">
-        <p>Just two step for setup database</p>
-        <ol>
-          <li>
-            Setup DB configuration in <code>./application/configs/production/db.php</code> file
-          </li>
-          <li>
-            Run phinx migration <code>./vendor/bin/bluzman db:migrate</code>
-          </li>
-        </ol>
-        <div class="text-muted">
-          <p>Also you can setup configuration for development environment</p>
-          <ol>
-            <li>
-              setup environment <code>export BLUZ_ENV=<strong>dev</strong></code>
-            </li>
-            <li>
-              setup configuration in <code>application/configs/<strong>dev</strong>/db.php</code> file
-            </li>
-            <li>
-              run phinx migration <code>./vendor/bin/bluzman db:migrate --env <strong>dev</strong></code>
-            </li>
-            <li>
-              copy <code>./public/.htaccess.dev.sample</code> to <code>./public/.htaccess</code>
-            </li>
-          </ol>
+
+<div class="accordion" id="setup">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="setupHeadingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#setupCollapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                Database setup &rarr;
+            </button>
+        </h2>
+        <div id="setupCollapseOne" class="accordion-collapse collapse" aria-labelledby="setupHeadingOne"
+             data-bs-parent="#setup">
+            <div class="accordion-body">
+                <p>Just two step for setup database</p>
+                <ol>
+                    <li>
+                        Setup DB configuration in <code>./application/configs/production/db.php</code> file
+                    </li>
+                    <li>
+                        Run phinx migration <code>./vendor/bin/bluzman db:migrate</code>
+                    </li>
+                </ol>
+                <div class="text-muted">
+                    <p>Also you can setup configuration for development environment</p>
+                    <ol>
+                        <li>
+                            setup environment <code>export BLUZ_ENV=<strong>dev</strong></code>
+                        </li>
+                        <li>
+                            setup configuration in <code>application/configs/<strong>dev</strong>/db.php</code> file
+                        </li>
+                        <li>
+                            run phinx migration <code>./vendor/bin/bluzman db:migrate --env <strong>dev</strong></code>
+                        </li>
+                        <li>
+                            copy <code>./public/.htaccess.dev.sample</code> to <code>./public/.htaccess</code>
+                        </li>
+                    </ol>
+                </div>
+                <p>
+                    Than you can run phinx seeds <code>./vendor/bin/bluzman db:seed:run</code> for create
+                    default example of pages and other stuff
+                </p>
+            </div>
         </div>
-        <p>
-          Than you can run phinx seeds <code>./vendor/bin/bluzman db:seed:run</code> for create
-          default example of pages and other stuff
-        </p>
-      </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab" id="setup-login">
-      <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" href="#setup-login-card" aria-expanded="false" aria-controls="setup-login-card">
-          Login as administrator &rarr;
-        </a>
-      </h5>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="setupHeadingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#setupCollapseTwo" aria-expanded="false" aria-controls="setupCollapseTwo">
+                Login as administrator &rarr;
+            </button>
+        </h2>
+        <div id="setupCollapseTwo" class="accordion-collapse collapse" aria-labelledby="setupHeadingTwo"
+             data-bs-parent="#setup">
+            <div class="accordion-body">
+                <p>
+                    Now you can
+                    <?= $this->ahref(
+                        __('sign in'),
+                        ['users', 'signin'],
+                        ['data-ajax-dialog', 'data-ajax-method' => 'get']
+                    ) ?>
+                    to system with login <code>admin</code> and password <code>admin</code>
+                </p>
+                <p>
+                    Don't forget to change your password at profile page <?= $this->ahref(
+                        'Profile page',
+                        ['users', 'change-password']
+                    ) ?>
+                </p>
+            </div>
+        </div>
     </div>
-    <div id="setup-login-card" class="collapse" role="tabpanel" aria-labelledby="setup-login" data-parent="#setup">
-      <div class="card-body">
-        <p>
-          Now you can
-            <?= $this->ahref(__('sign in'), ['users', 'signin'], ['data-ajax-dialog', 'data-ajax-method' => 'get']) ?>
-          to system with login <code>admin</code> and password <code>admin</code>
-        </p>
-        <p>
-          Don't forget to change your password at profile page <?=$this->ahref('Profile page', ['users', 'change-password'])?>
-        </p>
-      </div>
-    </div>
-  </div>
 </div>
+
 <br/>
 
 <h2>Are you developer?</h2>
 <hr/>
-<div id="develop" role="tablist">
-  <div class="card">
-    <div class="card-header" role="tab" id="develop-controller">
-      <h5 class="mb-0">
-        <a data-toggle="collapse" href="#develop-controller-card" aria-expanded="false" aria-controls="develop-controller-card">
-          Create your first controller &rarr;
-        </a>
-      </h5>
-    </div>
-    <div id="develop-controller-card" class="collapse" role="tabpanel" aria-labelledby="develop-controller" data-parent="#develop">
-      <div class="card-body">
-        <ol>
-          <li>create new folder <code>./application/modules/my</code>, where <code>my</code> it's module name</li>
-          <li>create new subfolder <code>./application/modules/my/controllers</code></li>
-          <li>create file <code>./application/modules/my/controllers/index.php</code></li>
-        </ol>
-        <pre><code><strong>&lt;?php</strong>
+
+<div class="accordion" id="develop">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="developHeadingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#developCollapseOne" aria-expanded="true" aria-controls="developCollapseOne">
+                Create your first controller &rarr;
+            </button>
+        </h2>
+        <div id="developCollapseOne" class="accordion-collapse collapse" aria-labelledby="developHeadingOne"
+             data-bs-parent="#develop">
+            <div class="accordion-body">
+                <ol>
+                    <li>create new folder <code>./application/modules/my</code>, where <code>my</code> it's module name
+                    </li>
+                    <li>create new subfolder <code>./application/modules/my/controllers</code></li>
+                    <li>create file <code>./application/modules/my/controllers/index.php</code></li>
+                </ol>
+                <pre><code><strong>&lt;?php</strong>
 <em>/**
  * @param string $question
  * @return array
@@ -112,51 +125,51 @@ return function(<var>$question</var> = null) {
             <span>"answer"</span> = <var>$answer</var>
         ];
     };</code></pre>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab" id="develop-view">
-      <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" href="#develop-view-card" aria-expanded="false" aria-controls="develop-view-card">
-          Create view &rarr;
-        </a>
-      </h5>
-    </div>
-    <div id="develop-view-card" class="collapse" role="tabpanel" aria-labelledby="develop-view" data-parent="#develop">
-      <div class="card-body">
-        <ol>
-          <li>create new subfolder <code>./application/modules/my/views</code></li>
-          <li>create file <code>./application/modules/my/views/index.phtml</code></li>
-        </ol>
-        <pre><code>&lt;p&gt;
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="developHeadingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#developCollapseTwo" aria-expanded="false" aria-controls="developCollapseTwo">
+                Create view &rarr;
+            </button>
+        </h2>
+        <div id="developCollapseTwo" class="accordion-collapse collapse" aria-labelledby="developHeadingTwo"
+             data-bs-parent="#develop">
+            <div class="accordion-body">
+                <ol>
+                    <li>create new subfolder <code>./application/modules/my/views</code></li>
+                    <li>create file <code>./application/modules/my/views/index.phtml</code></li>
+                </ol>
+                <pre><code>&lt;p&gt;
 <strong>&lt;?php</strong> if (<var>$question</var>) : <strong>?&gt;</strong>
 Q: <strong>&lt;?=</strong>esc(<var>$question</var>)<strong>?&gt;</strong>
 <strong>&lt;php?</strong> endif; <strong>?&gt;</strong>
 A: <strong>&lt;?=</strong>esc(<var>$answer</var>)<strong>?&gt;</strong>
 &lt;/p&gt;
 </code></pre>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab" id="develop-run">
-      <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" href="#develop-run-card" aria-expanded="false" aria-controls="develop-run-card">
-          Run &rarr;
-        </a>
-      </h5>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="developHeadingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#developCollapseThree" aria-expanded="false" aria-controls="developCollapseThree">
+                Run &rarr;
+            </button>
+        </h2>
+        <div id="developCollapseThree" class="accordion-collapse collapse" aria-labelledby="developHeadingThree"
+             data-bs-parent="#develop">
+            <div class="accordion-body">
+                Check the result:
+                <ul>
+                    <li><a href="<?= $this->baseUrl('/my/'); ?>"><?= $this->baseUrl('/my/'); ?></a></li>
+                    <li><a href="<?= $this->baseUrl('/my/index/question/2+2'); ?>"><?= $this->baseUrl(
+                                '/my/index/question/2+2'
+                            ); ?></a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div id="develop-run-card" class="collapse" role="tabpanel" aria-labelledby="develop-run" data-parent="#develop">
-      <div class="card-body">
-        Check the result:
-        <ul>
-          <li><a href="<?= $this->baseUrl('/my/'); ?>"><?= $this->baseUrl('/my/'); ?></a></li>
-          <li><a href="<?= $this->baseUrl('/my/index/question/2+2'); ?>"><?= $this->baseUrl(
-                      '/my/index/question/2+2'
-                  ); ?></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
 </div>

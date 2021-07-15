@@ -10,6 +10,9 @@
 
 namespace Application;
 
+use Bluz\Crud\Table;
+use Bluz\Db\Exception\TableNotFoundException;
+use Bluz\Http\Exception\NotFoundException;
 use Bluz\Http\RequestMethod;
 
 /**
@@ -17,12 +20,14 @@ use Bluz\Http\RequestMethod;
  * @accept JSON
  * @method GET
  *
- * @param  \Bluz\Crud\Table $crud
- * @param  mixed            $primary
+ * @param Table $crud
+ * @param mixed $primary
  *
  * @return array
+ * @throws TableNotFoundException
+ * @throws NotFoundException
  */
-return function ($crud, $primary) {
+return function (Table $crud, $primary) {
     $primary = array_filter($primary);
     return [
         'row' => $crud->readOne($primary),

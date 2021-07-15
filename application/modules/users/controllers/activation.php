@@ -20,7 +20,7 @@ use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 
 /**
- * @param int    $id User UID
+ * @param int $id User UID
  * @param string $code
  *
  * @return bool

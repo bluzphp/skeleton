@@ -2,9 +2,9 @@
 /**
  * Grid of users
  *
+ * @return closure
  * @author   Anton Shevchuk
  * @created  02.08.12 18:39
- * @return closure
  */
 
 namespace Application;

@@ -10,6 +10,9 @@
 
 namespace Application;
 
+use Bluz\Crud\Table;
+use Bluz\Db\Exception\TableNotFoundException;
+use Bluz\Http\Exception\NotFoundException;
 use Bluz\Http\StatusCode;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Response;
@@ -19,12 +22,14 @@ use Bluz\Proxy\Response;
  * @accept JSON
  * @method GET
  *
- * @param  \Bluz\Crud\Table $crud
- * @param  mixed            $primary
+ * @param Table $crud
+ * @param mixed $primary
  *
  * @return array
+ * @throws TableNotFoundException
+ * @throws NotFoundException
  */
-return function ($crud, $primary) {
+return function (Table $crud, $primary) {
     if (!empty($primary)) {
         // @throws NotFoundException
         return [$crud->readOne($primary)];

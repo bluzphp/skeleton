@@ -1,33 +1,38 @@
-<?php /** @var \Bluz\View\View $this */ ?>
+<?php
+/** @var \Bluz\View\View $this */ ?>
 <div>
-  <table class="table table-striped table-bordered table-condensed table-hover">
-    <thead>
-    <tr>
-      <th width="120px"><?= __('Module') ?></th>
-      <th width="120px"><?= __('Controller') ?></th>
-      <th><?= __('Route') ?></th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($routers as $module => $controllers) : ?>
-      <tr>
-        <th colspan="3"><?= $module ?></th>
-      </tr>
-        <?php foreach ($controllers as $controller => $data) :
-            foreach ($data['route'] as &$route) {
-                $route = stripslashes($route);
-                $route = ltrim($route, '/^');
-                $route = rtrim($route, '/i');
-                $route = esc($route);
-            }
-            ?>
+    <table class="table table-striped table-bordered table-condensed table-hover">
+        <thead>
         <tr>
-          <td>&mdash;</td>
-          <td><?= $controller ?></td>
-          <td><code><?= implode('<br/>', $data['route']) ?></code></td>
+            <th width="120px"><?= __('Module') ?></th>
+            <th width="120px"><?= __('Controller') ?></th>
+            <th><?= __('Route') ?></th>
         </tr>
-        <?php endforeach; ?>
-    <?php endforeach; ?>
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($routers as $module => $controllers) : ?>
+            <tr>
+                <th colspan="3"><?= $module ?></th>
+            </tr>
+            <?php
+            foreach ($controllers as $controller => $data) :
+                foreach ($data['route'] as &$route) {
+                    $route = stripslashes($route);
+                    $route = ltrim($route, '/^');
+                    $route = rtrim($route, '/i');
+                    $route = esc($route);
+                }
+                ?>
+                <tr>
+                    <td>&mdash;</td>
+                    <td><?= $controller ?></td>
+                    <td><code><?= implode('<br/>', $data['route']) ?></code></td>
+                </tr>
+            <?php
+            endforeach; ?>
+        <?php
+        endforeach; ?>
+        </tbody>
+    </table>
 </div>

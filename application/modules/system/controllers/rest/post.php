@@ -11,6 +11,8 @@
 namespace Application;
 
 use Bluz\Controller;
+use Bluz\Crud\Table;
+use Bluz\Db\Exception\TableNotFoundException;
 use Bluz\Http\Exception\BadRequestException;
 use Bluz\Http\Exception\NotImplementedException;
 use Bluz\Http\StatusCode;
@@ -24,15 +26,16 @@ use Bluz\Validator\Exception\ValidatorException;
  * @accept JSON
  * @method POST
  *
- * @param  \Bluz\Crud\Table $crud
- * @param  mixed            $primary
- * @param  array            $data
+ * @param Table $crud
+ * @param mixed $primary
+ * @param array $data
  *
  * @return array
  * @throws BadRequestException
  * @throws NotImplementedException
+ * @throws TableNotFoundException
  */
-return function ($crud, $primary, $data) {
+return function (Table $crud, $primary, $data) {
     if (!empty(array_filter($primary))) {
         // POST + ID is incorrect behaviour
         throw new NotImplementedException;

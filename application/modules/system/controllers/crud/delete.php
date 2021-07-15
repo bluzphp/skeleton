@@ -10,6 +10,8 @@
 
 namespace Application;
 
+use Bluz\Crud\Table;
+use Bluz\Db\Exception\TableNotFoundException;
 use Bluz\Http\Exception\BadRequestException;
 use Bluz\Http\Exception\NotFoundException;
 use Bluz\Http\Exception\NotImplementedException;
@@ -20,16 +22,15 @@ use Bluz\Proxy\Messages;
  * @accept JSON
  * @method DELETE
  *
- * @param  \Bluz\Crud\Table $crud
- * @param  mixed            $primary
- * @param  array            $data
+ * @param Table $crud
+ * @param mixed $primary
+ * @param array $data
  *
  * @return void
- * @throws BadRequestException
  * @throws NotFoundException
- * @throws NotImplementedException
+ * @throws TableNotFoundException
  */
-return function ($crud, $primary, $data) {
+return function (Table $crud, $primary, $data) {
     // @throws NotFoundException
     $crud->deleteOne($primary);
 

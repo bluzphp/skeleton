@@ -17,7 +17,7 @@ return
      * Get profile link by email user
      *
      * @param string $email
-     * @param array  $attributes
+     * @param array $attributes
      *
      * @return string
      */

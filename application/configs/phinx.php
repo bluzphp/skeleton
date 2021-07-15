@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Phinx configuration
  *

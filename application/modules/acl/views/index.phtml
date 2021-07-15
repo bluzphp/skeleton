@@ -1,58 +1,70 @@
-<?php /** @var \Bluz\View\View $this */ ?>
+<?php
+/** @var \Bluz\View\View $this */ ?>
 <nav class="navbar navbar-light bg-light">
-  <a href="<?= $this->url('acl', 'roles') ?>" id="create-role" class="btn btn-primary"
+    <a href="<?= $this->url('acl', 'roles') ?>" id="create-role" class="btn btn-primary"
        data-ajax-dialog data-ajax-method="get"><?= __('Create role') ?></a>
 </nav>
 <hr/>
 <form action="<?= $this->url('acl', 'save') ?>" method="POST">
-  <table class="table table-fixed table-hover table-condensed ">
-    <thead>
-      <tr>
-        <th class="col-xs-2"><?= __('Privilege/Role') ?></th>
-        <?php foreach ($roles as $role) : ?>
-        <th class="col-xs-3 text-center">
-          <?= $role->name ?>
-          <?php if (!$role->isBasic()) : ?>
-            <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
-               class="badge badge-danger pull-right" data-confirm data-ajax data-ajax-method="delete"><i
-                  class="fa fa-times"></i></a>
-            <span class="pull-right">&nbsp;</span>
-            <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
-               class="badge badge-light pull-right" data-ajax-dialog data-ajax-method="get"
-               title="<?= __('Edit role') ?>"><i class="fa fa-edit"></i> <?=__('Edit')?></a>
-          <?php endif; ?>
-        </th>
-        <?php endforeach; ?>
-      </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($set as $module => $modulePrivileges) : sort($modulePrivileges); ?>
-      <tr>
-        <th colspan="<?= count($roles) + 1 ?>"><?= ucfirst($module) ?></th>
-      </tr>
-      <?php foreach ($modulePrivileges as $privilege) : ?>
-      <tr>
-        <td><?= $privilege ?></td>
-        <?php foreach ($roles as $role) : ?>
-        <td>
-          <label class="form-check-label">
-            <input type="checkbox" name="acl[<?= $role->id ?>][<?= $module ?>][<?= $privilege ?>]" value="1"
-                <?= ((isset($privileges[$role->id], $privileges[$role->id][$module]) && in_array(
-                        $privilege,
-                        $privileges[$role->id][$module],
-                        false
-                    )) ? 'checked' : '') ?>
-                <?= ($role->name === \Application\Roles\Table::BASIC_GUEST ? 'disabled' : '') ?>
-            />
-          </label>
-        </td>
-        <?php endforeach; ?>
-      </tr>
-      <?php endforeach; ?>
-    <?php endforeach; ?>
-    </tbody>
-  </table>
-  <input type="submit" value="<?= __('Save') ?>" class="btn btn-primary"/>
+    <table class="table table-fixed table-hover table-condensed ">
+        <thead>
+        <tr>
+            <th class="col-xs-2"><?= __('Privilege/Role') ?></th>
+            <?php
+            foreach ($roles as $role) : ?>
+                <th class="col-xs-3 text-center">
+                    <?= $role->name ?>
+                    <?php
+                    if (!$role->isBasic()) : ?>
+                        <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
+                           class="float-end btn btn-sm btn-danger" data-confirm data-ajax data-ajax-method="delete">
+                            <i class="bi bi-x"></i></a>
+                        <a href="<?= $this->url('acl', 'roles', ['id' => $role->id]); ?>"
+                           class="float-end me-1 btn btn-sm btn-primary" data-ajax-dialog data-ajax-method="get"
+                           title="<?= __('Edit role') ?>">
+                            <i class="bi bi-pencil"></i></a>
+                    <?php
+                    endif; ?>
+                </th>
+            <?php
+            endforeach; ?>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($set as $module => $modulePrivileges) : sort($modulePrivileges); ?>
+            <tr>
+                <th colspan="<?= count($roles) + 1 ?>"><?= ucfirst($module) ?></th>
+            </tr>
+            <?php
+            foreach ($modulePrivileges as $privilege) : ?>
+                <tr>
+                    <td><?= $privilege ?></td>
+                    <?php
+                    foreach ($roles as $role) : ?>
+                        <td>
+                            <label class="form-check-label">
+                                <input type="checkbox" name="acl[<?= $role->id ?>][<?= $module ?>][<?= $privilege ?>]"
+                                       value="1"
+                                    <?= ((isset($privileges[$role->id], $privileges[$role->id][$module]) && in_array(
+                                            $privilege,
+                                            $privileges[$role->id][$module],
+                                            false
+                                        )) ? 'checked' : '') ?>
+                                    <?= ($role->name === \Application\Roles\Table::BASIC_GUEST ? 'disabled' : '') ?>
+                                />
+                            </label>
+                        </td>
+                    <?php
+                    endforeach; ?>
+                </tr>
+            <?php
+            endforeach; ?>
+        <?php
+        endforeach; ?>
+        </tbody>
+    </table>
+    <input type="submit" value="<?= __('Save') ?>" class="btn btn-primary"/>
 </form>
 <script>
     require(['jquery'], function ($) {

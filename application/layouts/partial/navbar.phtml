@@ -1,62 +1,84 @@
-<?php /** @var \Bluz\Layout\Layout $this */ ?>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebar"
-          aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="/">
-    <img src="/img/favicon-32x32.png" width="32" height="32" class="d-inline-block align-top" alt="">
-    <?= __('Bluz') ?>
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
-          aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbar">
-    <ul role="menu" class="navbar-nav mr-auto">
-      <li role="menuitem" class="nav-item <?= ($this->module('index') ? 'active' : '') ?>">
-          <?= $this->ahref(
-              'Home',
-              ['index', 'index'],
-              ['class' => 'nav-link']
-          ) ?>
-      </li>
-      <?php if (\Bluz\Proxy\Acl::isAllowed('dashboard', 'Dashboard')) : ?>
-      <li role="menuitem" class="nav-item <?= ($this->module('dashboard') ? 'active' : '') ?>">
-          <?= $this->ahref(
-              'Dashboard',
-              ['dashboard', 'index', [], true],
-              ['class' => 'nav-link']
-          ) ?>
-      </li>
-      <?php endif; ?>
-      <?php if ($this->hasModule('contact-us')) : ?>
-      <li role="menuitem" class="nav-item <?= ($this->module('contact-us') ? 'active' : '') ?>">
-          <?= $this->ahref(
-              'Contact Us',
-              ['contact-us', 'index'],
-              ['class' => 'nav-link']
-          ) ?>
-      </li>
-      <?php endif; ?>
-      <?php if ($this->hasModule('test')) : ?>
-      <li role="menuitem" class="nav-item <?= ($this->module('test') ? 'active' : '') ?>">
-          <?= $this->ahref(
-              'Test',
-              ['test', 'index'],
-              ['class' => 'nav-link']
-          ) ?>
-      </li>
-      <?php endif; ?>
-    </ul>
-    <div id="loading" data-ajax-loading></div>
-    <span class="navbar-text">
-      <?php if ($identity = $this->user()) : ?>
-        <?= __('Logged in as %s', $this->ahref($identity->login, ['users', 'profile'])) ?>
-        (<?= $this->ahref(__('Sign Out'), ['users', 'signout']) ?>)
-      <?php else: ?>
-        <?= $this->ahref(__('Sign In'), ['users', 'signin'], ['data-ajax-dialog', 'data-ajax-method' => 'get']) ?>
-      <?php endif; ?>
-    </span>
-  </div>
+<?php
+/** @var \Bluz\Layout\Layout $this */ ?>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top" aria-label="Navbar">
+    <div class="container-fluid">
+
+        <!-- Only for dashboard! -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar"
+                aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar-brand" href="/">
+            <img src="/img/favicon-32x32.png" width="32" height="32" class="d-inline-block align-top" alt="">
+            <?= __('Bluz') ?>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+                aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul role="menu" class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li role="menuitem" class="nav-item <?= ($this->module('index') ? 'active' : '') ?>">
+                    <?= $this->ahref(
+                        'Home',
+                        ['index', 'index'],
+                        ['class' => 'nav-link']
+                    ) ?>
+                </li>
+                <?php
+                if (\Bluz\Proxy\Acl::isAllowed('dashboard', 'Dashboard')) : ?>
+                    <li role="menuitem" class="nav-item <?= ($this->module('dashboard') ? 'active' : '') ?>">
+                        <?= $this->ahref(
+                            'Dashboard',
+                            ['dashboard', 'index', [], true],
+                            ['class' => 'nav-link']
+                        ) ?>
+                    </li>
+                <?php
+                endif; ?>
+                <?php
+                if ($this->hasModule('contact-us')) : ?>
+                    <li role="menuitem" class="nav-item <?= ($this->module('contact-us') ? 'active' : '') ?>">
+                        <?= $this->ahref(
+                            'Contact Us',
+                            ['contact-us', 'index'],
+                            ['class' => 'nav-link']
+                        ) ?>
+                    </li>
+                <?php
+                endif; ?>
+                <?php
+                if ($this->hasModule('test')) : ?>
+                    <li role="menuitem" class="nav-item <?= ($this->module('test') ? 'active' : '') ?>">
+                        <?= $this->ahref(
+                            'Test',
+                            ['test', 'index'],
+                            ['class' => 'nav-link']
+                        ) ?>
+                    </li>
+                <?php
+                endif; ?>
+            </ul>
+            <div id="loading" data-ajax-loading></div>
+            <span class="navbar-text ">
+              <?php
+              if ($identity = $this->user()) : ?>
+                  <?= __('Logged in as %s', $this->ahref($identity->login, ['users', 'profile'])) ?>
+                  (<?= $this->ahref(__('Sign Out'), ['users', 'signout']) ?>)
+              <?php
+              else: ?>
+                  <?= $this->ahref(
+                      __('Sign In'),
+                      ['users', 'signin'],
+                      ['data-ajax-dialog', 'data-ajax-method' => 'get']
+                  ) ?>
+              <?php
+              endif; ?>
+            </span>
+        </div>
+    </div>
 </nav>

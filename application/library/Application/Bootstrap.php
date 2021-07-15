@@ -192,7 +192,7 @@ class Bootstrap extends Application
     /**
      * sendErrorBody
      *
-     * @param  array $errors
+     * @param array $errors
      *
      * @return void
      */

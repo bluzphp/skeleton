@@ -68,7 +68,7 @@ class Equals extends AbstractProvider
 
     /**
      * @param         $user
-     * @param  string $password
+     * @param string $password
      *
      * @return Row
      * @throws \Application\Exception

@@ -83,24 +83,26 @@ return function () {
 
     $rest
         ->head('system', 'rest/head')
-        ->fields([
-            'id',
-            'title',
-            'content',
-            'keywords',
-            'description'
-        ])
-    ;
+        ->fields(
+            [
+                'id',
+                'title',
+                'content',
+                'keywords',
+                'description'
+            ]
+        );
     $rest
         ->get('system', 'rest/get')
-        ->fields([
-            'id',
-            'title',
-            'content',
-            'keywords',
-            'description'
-        ])
-    ;
+        ->fields(
+            [
+                'id',
+                'title',
+                'content',
+                'keywords',
+                'description'
+            ]
+        );
 
     return $rest->run();
 };

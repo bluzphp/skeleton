@@ -16,7 +16,7 @@ use Bluz\Validator\Traits\Validator;
  * @package Application\Roles
  *
  * @property integer $id
- * @property string  $name
+ * @property string $name
  */
 class Row extends \Bluz\Db\Row
 {

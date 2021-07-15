@@ -1,7 +1,16 @@
-<?php /** @var \Bluz\View\View $this */ ?>
-<div class="card-columns">
-  <?= $this->dispatch('system', 'widgets/load') ?>
-  <?= $this->dispatch('cache', 'widgets/index') ?>
-  <?= $this->dispatch('users', 'widgets/stats') ?>
-  <?= $this->dispatch('users', 'widgets/card') ?>
+<?php
+/** @var \Bluz\View\View $this */ ?>
+<div class="row row-cols-4">
+    <div class="col">
+        <?= $this->dispatch('system', 'widgets/load') ?>
+    </div>
+    <div class="col">
+        <?= $this->dispatch('cache', 'widgets/index') ?>
+    </div>
+    <div class="col">
+        <?= $this->dispatch('users', 'widgets/stats') ?>
+    </div>
+    <div class="col">
+        <?= $this->dispatch('users', 'widgets/card') ?>
+    </div>
 </div>
