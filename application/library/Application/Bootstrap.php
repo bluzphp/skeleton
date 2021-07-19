@@ -141,16 +141,6 @@ class Bootstrap extends Application
     {
         Logger::info('app:render');
         Logger::info('app:files:' . count(get_included_files()));
-
-        if ($this->isDebug()) {
-            if (!headers_sent()) {
-                $this->sendInfoHeaders();
-            }
-            if (ob_get_level() > 0 && ob_get_length() > 0) {
-                Logger::error('Output has been sent previously');
-                return;
-            }
-        }
         parent::render();
     }
 
@@ -163,29 +153,6 @@ class Bootstrap extends Application
     {
         if ($errors = Logger::get('error')) {
             $this->sendErrors($errors);
-        }
-    }
-
-    /**
-     * Send information headers
-     *
-     * @return void
-     */
-    protected function sendInfoHeaders(): void
-    {
-        $debugString = sprintf(
-            '%fsec; %skb',
-            microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'],
-            ceil(memory_get_usage() / 1024)
-        );
-        $debugString .= '; ' . Request::getModule() . '/' . Request::getController();
-
-        Response::setHeader('Bluz-Debug', $debugString);
-
-        if ($info = Logger::get('info')) {
-            Response::setHeader('Bluz-Bar', json_encode($info));
-        } else {
-            Response::setHeader('Bluz-Bar', '{"!":"Logger is disabled"}');
         }
     }
 
