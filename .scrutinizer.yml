@@ -1,25 +1,31 @@
+checks:
+  php:
+    code_rating: true
+    deprecated_code_usage: true
+    duplication: true
+    no_short_open_tag: true
 build:
+  cache:
+    directories:
+      - vendor        # Cache for already installed composer package -> speed up composer install
+      - bin           # As vendor directory is cached, bin directory must be also cached (as some dependency will not installed if they are already present and so, related binary will not be linked)
+      - ~/.composer   # Composer home directory (avoid fetching already fetched packages)
   nodes:
     analysis:
       tests:
         override:
           - php-scrutinizer-run
-checks:
-  php:
-    psr2_switch_declaration: true
-    psr2_class_declaration: true
-    no_short_open_tag: true
-    deprecated_code_usage: true
-    code_rating: true
+  dependencies:
+    override:
+      - COMPOSER_ROOT_VERSION=dev-master
 filter:
-  excluded_paths: [bin, docs, docker, data, tests, vendor]
+  excluded_paths: [bin, docs, docker, data, tests]
 tools:
-  external_code_coverage:
-    timeout: 600
+  external_code_coverage: false
   php_analyzer: true
   php_code_sniffer:
     config:
-      standard: PSR2
+      standard: PSR12
   php_cpd:
     enabled: true
     excluded_dirs: [bin, docs, docker, data, tests, vendor]

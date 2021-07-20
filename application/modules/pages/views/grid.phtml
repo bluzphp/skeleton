@@ -85,6 +85,11 @@ if (!$grid) {
             </tr>
         <?php
         endforeach; ?>
+        <?php if ($grid->total() === 0) : ?>
+            <tr>
+                <td colspan="6" align="center"><?=__('No data')?></td>
+            </tr>
+        <?php endif ?>
         </tbody>
     </table>
 

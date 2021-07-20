@@ -1,0 +1,19 @@
+<?php
+if ($this->breadCrumbs()) : ?>
+    <div class="nav-scroller bg-body shadow-sm sticky-top sticky-offset">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb m-3">
+                <li><i class="bi bi-gear-wide-connected me-2"></i></li>
+                <?php
+                foreach ($this->breadCrumbs() as $crump): ?>
+                    <li class="breadcrumb-item">
+                        <?php
+                        echo $crump ?>
+                    </li>
+                <?php
+                endforeach; ?>
+            </ol>
+        </nav>
+    </div>
+<?php
+endif; ?>
