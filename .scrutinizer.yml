@@ -4,19 +4,6 @@ checks:
     deprecated_code_usage: true
     duplication: true
     no_short_open_tag: true
-build_failure_conditions:
-  - 'project.metric_change("scrutinizer.quality", < -0.10)'
-  - 'elements.rating(<= D).exists'                                # No classes/methods with a rating of D or worse
-  - 'elements.rating(<= D).new.exists'                            # No new classes/methods with a rating of D or worse allowed
-  - 'issues.label("coding-style").exists'                         # No coding style issues allowed
-  - 'issues.label("coding-style").new.exists'                     # No new coding style issues allowed
-  - 'issues.severity(>= MAJOR).new.exists'                        # New issues of major or higher severity
-  - 'issues.severity(>= MAJOR).exists'                            # New major or higher severity issues
-  - 'project.metric("scrutinizer.quality", < 9)'                  # Code Quality Rating drops below 9
-  - 'project.metric("scrutinizer.test_coverage", < 0.80)'         # Code Coverage drops below 80%
-  - 'project.metric_change("scrutinizer.test_coverage", < -0.1)'  # Code Coverage decreased from previous inspection by more than 10%
-  - 'patches.label("Doc Comments").exists'                        # No doc comments patches allowed
-  - 'patches.label("Spacing").exists'                             # No spacing patches allowed
 build:
   cache:
     directories:
@@ -34,8 +21,7 @@ build:
 filter:
   excluded_paths: [bin, docs, docker, data, tests]
 tools:
-  external_code_coverage:
-    timeout: 600
+  external_code_coverage: false
   php_analyzer: true
   php_code_sniffer:
     config:
