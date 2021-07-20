@@ -32,7 +32,7 @@ build:
     override:
       - COMPOSER_ROOT_VERSION=dev-master
 filter:
-  excluded_paths: [bin, docs, docker, data, tests, vendor]
+  excluded_paths: [bin, docs, docker, data, tests]
 tools:
   external_code_coverage:
     timeout: 600
