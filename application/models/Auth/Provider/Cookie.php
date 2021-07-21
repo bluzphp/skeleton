@@ -25,38 +25,9 @@ use Exception;
  *
  * @package  Application\Auth\Provider
  */
-class Cookie extends AbstractProvider
+class Cookie extends AbstractToken
 {
     public const PROVIDER = Table::PROVIDER_COOKIE;
-
-    /**
-     * {@inheritdoc}
-     *
-     * @throws AuthException
-     * @throws DbException
-     * @throws InvalidPrimaryKeyException
-     */
-    public static function authenticate(string $token): Row
-    {
-        $authRow = self::find($token);
-
-        self::verify($authRow);
-
-        self::login($authRow);
-
-        return $authRow;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return Row
-     * @throws DbException
-     */
-    protected static function find(string $token): ?Row
-    {
-        return Table::findRowWhere(['token' => $token, 'provider' => self::PROVIDER]);
-    }
 
     /**
      * {@inheritdoc}
