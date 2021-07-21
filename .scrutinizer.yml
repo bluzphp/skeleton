@@ -19,7 +19,9 @@ build:
     override:
       - COMPOSER_ROOT_VERSION=dev-master
 filter:
-  excluded_paths: [bin, docs, docker, data, tests]
+  paths: [application]
+  excluded_paths: [bin, data, docs, docker, public, tests, vendor]
+  dependency_paths: [vendor]
 tools:
   external_code_coverage: false
   php_analyzer: true
@@ -28,10 +30,10 @@ tools:
       standard: PSR12
   php_cpd:
     enabled: true
-    excluded_dirs: [bin, docs, docker, data, tests, vendor]
+    excluded_dirs: [bin, data, docs, docker, public, tests, vendor]
   php_loc:
     enabled: true
-    excluded_dirs: [bin, docs, docker, data, tests, vendor]
+    excluded_dirs: [bin, data, docs, docker, public, tests, vendor]
   php_mess_detector: true
   php_pdepend: true
   sensiolabs_security_checker: true
