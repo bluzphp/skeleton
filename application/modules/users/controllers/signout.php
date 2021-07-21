@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Logout proccess
  *
@@ -11,12 +12,16 @@ namespace Application;
 
 use Application\Auth as AppAuth;
 use Bluz\Controller\Controller;
+use Bluz\Db\Exception\DbException;
+use Bluz\Http\Exception\RedirectException;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 
 /**
  * @return void
+ * @throws DbException
+ * @throws RedirectException
  */
 return function () {
     /**

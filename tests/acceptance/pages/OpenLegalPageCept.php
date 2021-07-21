@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 // @group pages
 $I = new AcceptanceTester($scenario);
 $I->wantTo('open "Legal notices" page');

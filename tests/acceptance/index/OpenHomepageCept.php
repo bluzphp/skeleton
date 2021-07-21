@@ -1,4 +1,5 @@
 <?php
+
 // @group index
 $I = new AcceptanceTester($scenario);
 $I->wantTo('open "Homepage"');

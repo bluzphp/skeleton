@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP Load Average
  *

@@ -32,7 +32,7 @@ before_script:
   - mkdir .reports
 script:
   # Check code style
-  - php vendor/bin/phpcs ./application --standard=PSR1,PSR2 --encoding=utf-8 --ignore=./application/_loader.php
+  - php vendor/bin/phpcs ./application --standard=PSR12 --encoding=utf-8 --ignore=./application/_loader.php
   # Run built-in web-server
   - php vendor/bin/bluzman server:start --host 127.0.0.1 -b -e testing
   # Run CodeCeption tests

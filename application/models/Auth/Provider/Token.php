@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Bluz PHP Team
  * @link      https://github.com/bluzphp/skeleton
@@ -10,8 +11,11 @@ namespace Application\Auth\Provider;
 
 use Application\Auth\Row;
 use Application\Auth\Table;
-use Application\Users\Table as UsersTable;
+use Application\Users\Row as User;
 use Bluz\Auth\AuthException;
+use Bluz\Db\Exception\DbException;
+use Bluz\Db\Exception\InvalidPrimaryKeyException;
+use Bluz\Db\Exception\TableNotFoundException;
 use Bluz\Proxy\Auth;
 
 /**
@@ -27,34 +31,16 @@ class Token extends AbstractProvider
      * {@inheritdoc}
      *
      * @throws AuthException
-     * @throws \Bluz\Db\Exception\DbException
-     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
+     * @throws DbException
+     * @throws InvalidPrimaryKeyException
      */
-    public static function authenticate($token): void
+    public static function authenticate(string $token): Row
     {
-        $authRow = self::verify($token);
-        $user = UsersTable::findRow($authRow->userId);
+        $authRow = self::find($token);
 
-        // try to login
-        Table::tryLogin($user);
-    }
+        self::verify($authRow);
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return Row
-     * @throws AuthException
-     * @throws \Bluz\Db\Exception\DbException
-     */
-    public static function verify($token): Row
-    {
-        if (!$authRow = Table::findRowWhere(['token' => $token, 'provider' => self::PROVIDER])) {
-            throw new AuthException('Invalid token');
-        }
-
-        if ($authRow->expired < gmdate('Y-m-d H:i:s')) {
-            throw new AuthException('Token has expired');
-        }
+        self::login($authRow);
 
         return $authRow;
     }
@@ -63,22 +49,52 @@ class Token extends AbstractProvider
      * {@inheritdoc}
      *
      * @return Row
-     * @throws \Bluz\Db\Exception\DbException
-     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
-     * @throws \Bluz\Db\Exception\TableNotFoundException
+     * @throws DbException
      */
-    public static function create($user): Row
+    protected static function find(string $token): ?Row
+    {
+        return Table::findRowWhere(['token' => $token, 'provider' => self::PROVIDER]);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param Row|null $authRow
+     * @return void
+     * @throws AuthException
+     */
+    protected static function verify(?Row $authRow): void
+    {
+        if (!$authRow) {
+            throw new AuthException('Invalid token');
+        }
+
+        if ($authRow->expired < gmdate('Y-m-d H:i:s')) {
+            throw new AuthException('Token has expired');
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return Row
+     * @throws DbException
+     * @throws InvalidPrimaryKeyException
+     * @throws TableNotFoundException
+     */
+    public static function create(User $user): Row
     {
         // clear previous generated Auth record
-        self::remove($user->id);
+        self::remove((int) $user->id);
 
         $ttl = Auth::getInstance()->getOption('token', 'ttl');
 
         // new auth row
         $row = new Row();
+
         $row->userId = $user->id;
         $row->foreignKey = $user->login;
-        $row->provider = Table::PROVIDER_TOKEN;
+        $row->provider = self::PROVIDER;
         $row->tokenType = Table::TYPE_ACCESS;
         $row->expired = gmdate('Y-m-d H:i:s', time() + $ttl);
         $row->token = bin2hex(random_bytes(32));

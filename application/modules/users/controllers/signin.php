@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Login module/controller
  *
@@ -63,10 +64,7 @@ return function ($login, $password, $rememberMe = false) {
             }
             // try back to index
             Response::redirectTo('index', 'index');
-        } catch (Exception $e) {
-            Messages::addError($e->getMessage());
-            return ['login' => $login];
-        } catch (AuthException $e) {
+        } catch (Exception | AuthException $e) {
             Messages::addError($e->getMessage());
             return ['login' => $login];
         }

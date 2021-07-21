@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Bluz PHP Team
  * @link      https://github.com/bluzphp/skeleton
@@ -8,10 +9,14 @@ declare(strict_types=1);
 
 namespace Application\Auth\Provider;
 
+use Application\Auth\Model;
 use Application\Auth\Row;
 use Application\Auth\Table;
-use Application\Users\Table as UsersTable;
+use Application\Users\Row as User;
 use Bluz\Auth\AuthException;
+use Bluz\Db\Exception\DbException;
+use Bluz\Db\Exception\InvalidPrimaryKeyException;
+use Bluz\Db\Exception\TableNotFoundException;
 
 /**
  * Equals Provider
@@ -23,74 +28,79 @@ class Equals extends AbstractProvider
     public const PROVIDER = Table::PROVIDER_EQUALS;
 
     /**
-     * @param string $username
-     * @param string $password
+     * {@inheritdoc}
      *
      * @throws AuthException
-     * @throws \Bluz\Db\Exception\DbException
-     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
-     * @throws \Application\Exception
+     * @throws DbException
+     * @throws InvalidPrimaryKeyException
      */
-    public static function authenticate($username, $password = ''): void
+    public static function authenticate(string $login, string $password = null): Row
     {
-        $authRow = self::verify($username, $password);
-        $user = UsersTable::findRow($authRow->userId);
+        $authRow = self::find($login);
 
-        // try to login
-        Table::tryLogin($user);
+        self::verify($authRow, $password);
+
+        self::login($authRow);
+
+        return $authRow;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return Row
+     * @throws DbException
+     * @throws AuthException
+     */
+    public static function find(string $login): ?Row
+    {
+        return Table::findRowWhere(['foreignKey' => $login, 'provider' => self::PROVIDER]);
     }
 
     /**
-     * @param string $username
-     * @param string $password
+     * {@inheritdoc}
      *
-     * @return Row
+     * @param Row|null $authRow
+     * @return void
      * @throws AuthException
-     * @throws \Application\Exception
-     * @throws \Bluz\Db\Exception\DbException
      */
-    public static function verify($username, $password = ''): Row
+    protected static function verify(?Row $authRow, string $password = null): void
     {
-        /* @var Row $authRow */
-        $authRow = Table::findRowWhere(['foreignKey' => $username, 'provider' => Table::PROVIDER_EQUALS]);
-
         if (!$authRow) {
             throw new AuthException('User can\'t login with password');
         }
 
         // verify password
-        if (!Table::verify($password, $authRow->token)) {
+        if (!Model::verify($password, $authRow->token)) {
             throw new AuthException('Wrong password');
         }
-
-        return $authRow;
     }
 
     /**
-     * @param         $user
+     * @param User $user
      * @param string $password
-     *
      * @return Row
-     * @throws \Application\Exception
-     * @throws \Bluz\Db\Exception\DbException
-     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
-     * @throws \Bluz\Db\Exception\TableNotFoundException
+     * @throws DbException
+     * @throws InvalidPrimaryKeyException
+     * @throws TableNotFoundException
      */
-    public static function create($user, $password = ''): Row
+    public static function create(User $user, string $password = ''): Row
     {
         // remove old Auth record
         self::remove($user->id);
 
         // create new auth row
         $row = new Row();
+
         $row->userId = $user->id;
         $row->foreignKey = $user->login;
-        $row->provider = Table::PROVIDER_EQUALS;
+        $row->provider = self::PROVIDER;
         $row->tokenType = Table::TYPE_ACCESS;
-
         // generate secret part is not required
         // encrypt password and save as token
-        $row->token = Table::hash($password);
+        $row->token = Model::hash($password);
+
         $row->save();
 
         return $row;

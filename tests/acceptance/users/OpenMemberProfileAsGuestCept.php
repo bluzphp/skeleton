@@ -1,4 +1,5 @@
 <?php
+
 // @group users
 $I = new AcceptanceTester($scenario);
 $I->wantTo('see profile of "member"');

@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Inherited Methods
  * @method void wantToTest($text)
@@ -57,7 +56,7 @@ class AcceptanceTester extends \Codeception\Actor
 
     /**
      * See Notice Message in the header `Bluz-Notify`
-     * 
+     *
      * @return void
      */
     public function seeNoticeHeader($message)

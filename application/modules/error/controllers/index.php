@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Error controller
  * Send error headers and show simple page

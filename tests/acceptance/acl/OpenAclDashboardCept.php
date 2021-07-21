@@ -1,4 +1,5 @@
 <?php
+
 // @group users
 $I = new AcceptanceTester($scenario);
 $I->wantTo('open ACL dashboard as administrator');

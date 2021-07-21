@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Bluz PHP Team
  * @link https://github.com/bluzphp/skeleton
@@ -292,9 +293,9 @@ class ControllerTestCase extends SkeletonTestCase
         $match = self::queryCount($path);
         if (!($match > 0)) {
             throw new ExpectationFailedException(sprintf(
-                    'Failed asserting node DENOTED BY %s EXISTS',
-                    $path
-                ));
+                'Failed asserting node DENOTED BY %s EXISTS',
+                $path
+            ));
         }
         self::assertTrue($match > 0);
     }
@@ -310,9 +311,9 @@ class ControllerTestCase extends SkeletonTestCase
         $match  = self::queryCount($path);
         if ($match !== 0) {
             throw new ExpectationFailedException(sprintf(
-                    'Failed asserting node DENOTED BY %s DOES NOT EXIST',
-                    $path
-                ));
+                'Failed asserting node DENOTED BY %s DOES NOT EXIST',
+                $path
+            ));
         }
         self::assertEquals(0, $match);
     }
@@ -329,11 +330,11 @@ class ControllerTestCase extends SkeletonTestCase
         $match = self::queryCount($path);
         if ($match !== $count) {
             throw new ExpectationFailedException(sprintf(
-                    'Failed asserting node DENOTED BY %s OCCURS EXACTLY %d times, actually occurs %d times',
-                    $path,
-                    $count,
-                    $match
-                ));
+                'Failed asserting node DENOTED BY %s OCCURS EXACTLY %d times, actually occurs %d times',
+                $path,
+                $count,
+                $match
+            ));
         }
         self::assertEquals($match, $count);
     }
@@ -350,10 +351,10 @@ class ControllerTestCase extends SkeletonTestCase
         $match = self::queryCount($path);
         if ($match === $count) {
             throw new ExpectationFailedException(sprintf(
-                    'Failed asserting node DENOTED BY %s DOES NOT OCCUR EXACTLY %d times',
-                    $path,
-                    $count
-                ));
+                'Failed asserting node DENOTED BY %s DOES NOT OCCUR EXACTLY %d times',
+                $path,
+                $count
+            ));
         }
         self::assertNotEquals($match, $count);
     }
@@ -370,9 +371,9 @@ class ControllerTestCase extends SkeletonTestCase
         $result = self::query($path);
         if ($result->count() === 0) {
             throw new ExpectationFailedException(sprintf(
-                    'Failed asserting node DENOTED BY %s EXISTS',
-                    $path
-                ));
+                'Failed asserting node DENOTED BY %s EXISTS',
+                $path
+            ));
         }
         foreach ($result as $node) {
             if ($node->nodeValue == $match) {
@@ -381,10 +382,10 @@ class ControllerTestCase extends SkeletonTestCase
             }
         }
         throw new ExpectationFailedException(sprintf(
-                'Failed asserting node denoted by %s CONTAINS content "%s"',
-                $path,
-                $match
-            ));
+            'Failed asserting node denoted by %s CONTAINS content "%s"',
+            $path,
+            $match
+        ));
     }
 
     /**
@@ -401,17 +402,17 @@ class ControllerTestCase extends SkeletonTestCase
 
         if ($result->count() === 0) {
             throw new ExpectationFailedException(sprintf(
-                    'Failed asserting node DENOTED BY %s EXISTS',
-                    $path
-                ));
+                'Failed asserting node DENOTED BY %s EXISTS',
+                $path
+            ));
         }
         if (!preg_match($pattern, $result->current()->nodeValue)) {
             throw new ExpectationFailedException(sprintf(
-                    'Failed asserting node denoted by %s CONTAINS content MATCHING "%s", actual content is "%s"',
-                    $path,
-                    $pattern,
-                    $result->current()->nodeValue
-                ));
+                'Failed asserting node denoted by %s CONTAINS content MATCHING "%s", actual content is "%s"',
+                $path,
+                $pattern,
+                $result->current()->nodeValue
+            ));
         }
         self::assertTrue((bool) preg_match($pattern, $result->current()->nodeValue));
     }

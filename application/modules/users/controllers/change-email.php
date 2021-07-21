@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Edit profile controller.
  *

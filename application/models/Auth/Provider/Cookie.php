@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Bluz PHP Team
  * @link      https://github.com/bluzphp/skeleton
@@ -10,10 +11,14 @@ namespace Application\Auth\Provider;
 
 use Application\Auth\Row;
 use Application\Auth\Table;
-use Application\Users\Table as UsersTable;
+use Application\Users\Row as User;
 use Bluz\Auth\AuthException;
+use Bluz\Db\Exception\DbException;
+use Bluz\Db\Exception\InvalidPrimaryKeyException;
+use Bluz\Db\Exception\TableNotFoundException;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Response;
+use Exception;
 
 /**
  * Cookie Provider
@@ -28,16 +33,29 @@ class Cookie extends AbstractProvider
      * {@inheritdoc}
      *
      * @throws AuthException
-     * @throws \Bluz\Db\Exception\DbException
-     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
+     * @throws DbException
+     * @throws InvalidPrimaryKeyException
      */
-    public static function authenticate($token): void
+    public static function authenticate(string $token): Row
     {
-        $authRow = self::verify($token);
-        $user = UsersTable::findRow($authRow->userId);
+        $authRow = self::find($token);
 
-        // try to login
-        Table::tryLogin($user);
+        self::verify($authRow);
+
+        self::login($authRow);
+
+        return $authRow;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return Row
+     * @throws DbException
+     */
+    protected static function find(string $token): ?Row
+    {
+        return Table::findRowWhere(['token' => $token, 'provider' => self::PROVIDER]);
     }
 
     /**
@@ -45,13 +63,10 @@ class Cookie extends AbstractProvider
      *
      * @return Row
      * @throws AuthException
-     * @throws \Bluz\Db\Exception\DbException
+     * @throws DbException
      */
-    public static function verify($token): Row
+    protected static function verify(?Row $authRow): void
     {
-        /* @var Row $authRow */
-        $authRow = Table::findRowWhere(['token' => $token, 'provider' => Table::PROVIDER_COOKIE]);
-
         if (!$authRow) {
             throw new AuthException('User can\'t login with cookies');
         }
@@ -61,22 +76,22 @@ class Cookie extends AbstractProvider
             throw new AuthException('Token has expired');
         }
 
-        if ($authRow->token !== hash('md5', $token . $authRow->tokenSecret)) {
+        if ($authRow->token !== hash('md5', $authRow->token . $authRow->tokenSecret)) {
             throw new AuthException('Incorrect token');
         }
-
-        return $authRow;
     }
+
 
     /**
      * {@inheritdoc}
      *
      * @return Row
-     * @throws \Bluz\Db\Exception\DbException
-     * @throws \Bluz\Db\Exception\InvalidPrimaryKeyException
-     * @throws \Bluz\Db\Exception\TableNotFoundException
+     * @throws DbException
+     * @throws InvalidPrimaryKeyException
+     * @throws TableNotFoundException
+     * @throws Exception
      */
-    public static function create($user): Row
+    public static function create(User $user): Row
     {
         // remove old Auth record
         self::remove($user->id);
@@ -85,17 +100,19 @@ class Cookie extends AbstractProvider
 
         // create new auth row
         $authRow = new Row();
+
         $authRow->userId = $user->id;
         $authRow->foreignKey = $user->login;
-        $authRow->provider = Table::PROVIDER_COOKIE;
+        $authRow->provider = self::PROVIDER;
         $authRow->tokenType = Table::TYPE_ACCESS;
         $authRow->expired = gmdate('Y-m-d H:i:s', time() + $ttl);
-
         // generate secret part is not required
         // encrypt password and save as token
         $authRow->token = bin2hex(random_bytes(32));
+
         $authRow->save();
 
+        // Not great, not terrible
         Response::setCookie('Auth-Token', $authRow->token, time() + $ttl);
 
         return $authRow;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * View User Profile
  *
@@ -13,7 +14,7 @@ use Bluz\Controller\Controller;
 use Bluz\Proxy\Request;
 
 /**
- * @ accept    JSON
+ * @accept    JSON
  * @method    GET
  * @privilege Management
  */

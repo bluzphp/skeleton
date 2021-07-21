@@ -1,9 +1,10 @@
 <?php
+
 /**
  * @namespace
  */
-namespace Application\Tests\Fixtures\Users;
 
+namespace Application\Tests\Fixtures\Users;
 
 /**
  * User

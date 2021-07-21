@@ -1,4 +1,5 @@
 <?php
+
 // @group dashboard
 $I = new AcceptanceTester($scenario);
 $I->wantTo('open dashboard as guest');
