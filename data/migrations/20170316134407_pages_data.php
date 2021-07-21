@@ -20,20 +20,20 @@ class PagesData extends AbstractMigration
                 'userId' => 1
             ],
             [
-                'title' => 'Terms and conditions',
-                'alias' => 'terms-and-conditions',
-                'content' => '<p>Place your terms and conditions here!</p>',
+                'title' => 'Terms of Service',
+                'alias' => 'terms-of-service',
+                'content' => '<p>Place your Terms of Service here!</p>',
                 'keywords' => 'terms, conditions',
-                'description' => 'Terms and conditions',
+                'description' => 'Terms of Service',
                 'created' => date('Y-m-d H:i:s'),
                 'userId' => 1
             ],
             [
-                'title' => 'Legal notices',
-                'alias' => 'legal-notices',
-                'content' => '<p>Place legal notices here!</p>',
-                'keywords' => 'legal notices',
-                'description' => 'Legal notices',
+                'title' => 'Privacy Policy',
+                'alias' => 'privacy-policy',
+                'content' => '<p>Place Privacy Policy here!</p>',
+                'keywords' => 'privacy policy, legal notices',
+                'description' => 'Privacy Policy',
                 'created' => date('Y-m-d H:i:s'),
                 'userId' => 1
             ]
