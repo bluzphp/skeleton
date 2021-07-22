@@ -11,9 +11,9 @@ build_failure_conditions:
   - 'issues.label("coding-style").exists'                         # No coding style issues allowed
   - 'issues.label("coding-style").new.exists'                     # No new coding style issues allowed
   - 'issues.severity(>= MAJOR).new.exists'                        # New issues of major or higher severity
-  - 'issues.severity(>= MAJOR).exists'                            # New major or higher severity issues
+# - 'issues.severity(>= MAJOR).exists'                            # New major or higher severity issues
   - 'project.metric("scrutinizer.quality", < 9)'                  # Code Quality Rating drops below 9
-  - 'project.metric("scrutinizer.test_coverage", < 0.80)'         # Code Coverage drops below 80%
+# - 'project.metric("scrutinizer.test_coverage", < 0.80)'         # Code Coverage drops below 80%
   - 'project.metric_change("scrutinizer.test_coverage", < -0.1)'  # Code Coverage decreased from previous inspection by more than 10%
   - 'patches.label("Doc Comments").exists'                        # No doc comments patches allowed
   - 'patches.label("Spacing").exists'
@@ -32,7 +32,15 @@ build:
     override:
       - COMPOSER_ROOT_VERSION=dev-master
 filter:
-  excluded_paths: [bin, data, docs, docker, public, tests, vendor]
+  excluded_paths:
+    - "bin/"
+    - "data/"
+    - "docs/"
+    - "docker/"
+    - "public/"
+    - "tests/"
+  dependency_paths:
+    - "vendor/"
 tools:
   external_code_coverage:
     timeout: 600 # Wait 10 minutes for results

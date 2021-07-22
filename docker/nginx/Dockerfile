@@ -1,4 +1,4 @@
-FROM nginx:1.12
+FROM nginx:1.20
 COPY default.conf.template /
 
 RUN sed -i 's/user *nginx;/user www-data;/g' /etc/nginx/nginx.conf \
