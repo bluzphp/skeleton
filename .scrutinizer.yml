@@ -35,7 +35,7 @@ filter:
     - "public/"
     - "tests/"
   dependency_paths:
-    - "vendor/"
+    - "vendor/*"
 tools:
   external_code_coverage: false
   #  timeout: 600 # Wait 10 minutes for results

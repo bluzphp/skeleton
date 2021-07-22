@@ -5,14 +5,15 @@ use Bluz\Proxy\Logger;
 ?>
 
 <?php if (getenv('BLUZ_DEBUG') && $info = Logger::get('info')) : ?>
-    <nav class="navbar navbar-light shadow bg-light fixed-bottom">
+    <nav id="debug" class="navbar collapse show navbar-light shadow bg-light fixed-bottom">
         <div class="container-fluid" style="max-height: 50vh">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#debug"
-                    aria-controls="debug" aria-expanded="false" aria-label="Toggle debug">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#log"
+                    aria-controls="debug" aria-expanded="false" aria-label="Toggle debug log">
                 <i class="bi bi-exclamation-octagon"></i>
             </button>
             <div class="navbar-brand"><?=array_key_last($info)?></div>
-            <div id="debug" class="collapse navbar-collapse" style="max-height: 40vh; overflow: scroll">
+            <button type="button" class="btn-close" aria-label="Close" data-bs-toggle="collapse" data-bs-target="#debug"></button>
+            <div id="log" class="collapse navbar-collapse" style="max-height: 40vh; overflow: scroll">
                 <table class="table table-striped table-hover fs-6">
                     <thead>
                     <tr>
