@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Debug bookmarklet
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * REST controller for GET method
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * REST controller for PUT method
  *
@@ -39,7 +40,7 @@ use Bluz\Validator\Exception\ValidatorException;
 return function (Table $crud, $primary, $data) {
     if (!count($data)) {
         // data not found
-        throw new BadRequestException;
+        throw new BadRequestException();
     }
     try {
         if (!empty($primary)) {

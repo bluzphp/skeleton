@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Application\Auth\Provider;
 
-use Application\Auth\Model;
 use Application\Auth\Row;
 use Application\Auth\Table;
 use Application\Users\Row as User;
@@ -17,16 +16,15 @@ use Bluz\Auth\AuthException;
 use Bluz\Db\Exception\DbException;
 use Bluz\Db\Exception\InvalidPrimaryKeyException;
 use Bluz\Db\Exception\TableNotFoundException;
+use Bluz\Proxy\Auth;
 
 /**
- * Equals Provider
+ * Token Provider
  *
  * @package  Application\Auth\Provider
  */
-class Equals extends AbstractProvider
+abstract class AbstractToken extends AbstractProvider
 {
-    public const PROVIDER = Table::PROVIDER_EQUALS;
-
     /**
      * {@inheritdoc}
      *
@@ -34,28 +32,26 @@ class Equals extends AbstractProvider
      * @throws DbException
      * @throws InvalidPrimaryKeyException
      */
-    public static function authenticate(string $login, string $password = null): Row
+    public static function authenticate(string $token): Row
     {
-        $authRow = self::find($login);
+        $authRow = self::find($token);
 
-        self::verify($authRow, $password);
+        self::verify($authRow);
 
         self::login($authRow);
 
         return $authRow;
     }
 
-
     /**
      * {@inheritdoc}
      *
      * @return Row
      * @throws DbException
-     * @throws AuthException
      */
-    public static function find(string $login): ?Row
+    protected static function find(string $token): ?Row
     {
-        return Table::findRowWhere(['foreignKey' => $login, 'provider' => self::PROVIDER]);
+        return Table::findRowWhere(['token' => $token, 'provider' => self::PROVIDER]);
     }
 
     /**
@@ -65,41 +61,41 @@ class Equals extends AbstractProvider
      * @return void
      * @throws AuthException
      */
-    protected static function verify(?Row $authRow, string $password = null): void
+    protected static function verify(?Row $authRow): void
     {
         if (!$authRow) {
-            throw new AuthException('User can\'t login with password');
+            throw new AuthException('Invalid token');
         }
 
-        // verify password
-        if (!Model::verify($password, $authRow->token)) {
-            throw new AuthException('Wrong password');
+        if ($authRow->expired < gmdate('Y-m-d H:i:s')) {
+            throw new AuthException('Token has expired');
         }
     }
 
     /**
-     * @param User $user
-     * @param string $password
+     * {@inheritdoc}
+     *
      * @return Row
      * @throws DbException
      * @throws InvalidPrimaryKeyException
      * @throws TableNotFoundException
      */
-    public static function create(User $user, string $password = ''): Row
+    public static function create(User $user): Row
     {
-        // remove old Auth record
-        self::remove($user->id);
+        // clear previous generated Auth record
+        self::remove((int) $user->id);
 
-        // create new auth row
+        $ttl = Auth::getInstance()->getOption('token', 'ttl');
+
+        // new auth row
         $row = new Row();
 
         $row->userId = $user->id;
         $row->foreignKey = $user->login;
         $row->provider = self::PROVIDER;
         $row->tokenType = Table::TYPE_ACCESS;
-        // generate secret part is not required
-        // encrypt password and save as token
-        $row->token = Model::hash($password);
+        $row->expired = gmdate('Y-m-d H:i:s', time() + $ttl);
+        $row->token = bin2hex(random_bytes(32));
 
         $row->save();
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Login user and return token
  *
@@ -72,7 +73,7 @@ return function ($login, $password) {
     }
 
     // try to authenticate
-    $authRow = Auth\Provider\Equals::verify($login, $password);
+    $authRow = Auth\Provider\Equals::authenticate($login, $password);
 
     // get user
     $user = Users\Table::findRow($authRow->userId);

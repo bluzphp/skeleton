@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bluz Framework Component
  *
@@ -13,6 +14,7 @@ namespace Application;
 use Application\Users\Table;
 use Bluz\Application\Application;
 use Bluz\Controller\Controller;
+use Bluz\Db\Exception\DbException;
 use Bluz\Proxy\Auth;
 use Bluz\Proxy\Logger;
 use Bluz\Proxy\Request;
@@ -119,7 +121,7 @@ class CliBootstrap extends Application
      * @param Controller $controller
      *
      * @return void
-     * @throws \Bluz\Db\Exception\DbException
+     * @throws DbException
      */
     protected function preDispatch($controller): void
     {

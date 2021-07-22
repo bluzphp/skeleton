@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Initialization password recovery
  *

@@ -9,6 +9,7 @@
  * @link https://github.com/robmorgan/phinx/blob/master/docs/configuration.rst
  * @return array
  */
+
 return [
     'paths' => [
         'migrations' => PATH_DATA . '/migrations',

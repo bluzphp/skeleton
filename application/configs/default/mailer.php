@@ -7,6 +7,7 @@
  * @link https://github.com/Synchro/PHPMailer
  * @return array
  */
+
 return [
     'subjectTemplate' => 'Bluz - %s',
     'from' => [

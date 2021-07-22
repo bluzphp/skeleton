@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.4-fpm
 
 RUN apt-get update \
  && apt-get install -y apt-utils re2c g++ zlib1g zlib1g-dbg zlib1g-dev zlibc git

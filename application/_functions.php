@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple functions of Application
  * be careful with this way

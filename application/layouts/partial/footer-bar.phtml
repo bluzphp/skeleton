@@ -1,3 +1,20 @@
 <footer class="text-muted">
-    <div class="container">&copy; <?= gmdate('Y') ?> <a href="https://nixsolutions.com/">NIX</a></div>
+    <div class="container">
+        &copy; <?= gmdate('Y') ?>
+        | <?= $this->ahref(
+            __('About'),
+            ['pages', 'index', ['alias' => 'about']],
+            ['class' => '']
+        ) ?>
+        | <?= $this->ahref(
+            __('Terms of Service'),
+            ['pages', 'index', ['alias' => 'terms-of-service']],
+            ['class' => '']
+        ) ?>
+        | <?= $this->ahref(
+            __('Privacy Policy'),
+            ['pages', 'index', ['alias' => 'privacy-policy']],
+            ['class' => '']
+        ) ?>
+    </div>
 </footer>

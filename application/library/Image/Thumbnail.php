@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Bluz PHP Team
  * @link      https://github.com/bluzphp/skeleton
@@ -53,7 +54,7 @@ class Thumbnail
      *
      * @param string $file
      */
-    public function __construct($file)
+    public function __construct(string $file)
     {
         $this->path = dirname($file);
         $this->file = substr($file, strlen($this->path) + 1);
@@ -66,9 +67,9 @@ class Thumbnail
      *
      * @return void
      */
-    public function setWidth($width): void
+    public function setWidth(int $width): void
     {
-        $this->width = (int)$width;
+        $this->width = $width;
     }
 
     /**
@@ -78,9 +79,9 @@ class Thumbnail
      *
      * @return void
      */
-    public function setHeight($height): void
+    public function setHeight(int $height): void
     {
-        $this->height = (int)$height;
+        $this->height = $height;
     }
 
     /**
@@ -90,7 +91,7 @@ class Thumbnail
      * @throws Exception
      * @throws \ImagickException
      */
-    public function generate()
+    public function generate(): string
     {
         $dir = $this->path . '/.thumb/' . $this->width . 'x' . $this->height;
 

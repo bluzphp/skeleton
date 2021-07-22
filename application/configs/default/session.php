@@ -6,6 +6,7 @@
  * @link https://github.com/bluzphp/framework/wiki/Session
  * @return array
  */
+
 return [
     'adapter' => 'files',
     'settings' => [

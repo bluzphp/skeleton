@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Generate Swagger configuration
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Reset password procedure
  *

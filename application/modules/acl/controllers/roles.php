@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author   Anton Shevchuk
  * @created  04.09.12 11:21

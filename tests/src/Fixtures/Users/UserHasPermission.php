@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @namespace
  */
+
 namespace Application\Tests\Fixtures\Users;
 
 use Application\Users\Row;

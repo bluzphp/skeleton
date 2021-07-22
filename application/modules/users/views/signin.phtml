@@ -37,12 +37,14 @@
         </a>
     </form>
 </div>
-<div class="modal-footer clearfix">
-    <?php
-    $this->hasModule('facebook') && $this->dispatch('facebook', 'widgets/auth'); ?>
-    <?php
-    $this->hasModule('google') && $this->dispatch('google', 'widgets/auth'); ?>
-    <?php
-    $this->hasModule('twitter') && $this->dispatch('twitter', 'widgets/auth'); ?>
-    <a href="<?= $this->url('users', 'recovery') ?>" class="float-end"><?= __('Forgot your password?') ?></a>
+<div class="modal-footer justify-content-between">
+    <div>
+        <?php
+        $this->hasModule('facebook') && $this->dispatch('facebook', 'widgets/auth'); ?>
+        <?php
+        $this->hasModule('google') && $this->dispatch('google', 'widgets/auth'); ?>
+        <?php
+        $this->hasModule('twitter') && $this->dispatch('twitter', 'widgets/auth'); ?>
+    </div>
+    <a href="<?= $this->url('users', 'recovery') ?>"><?= __('Forgot your password?') ?></a>
 </div>

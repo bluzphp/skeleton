@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Public REST for pages
  *

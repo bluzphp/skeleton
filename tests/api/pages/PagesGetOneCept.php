@@ -1,4 +1,5 @@
 <?php
+
 // @group pages
 // @group api
 $I = new ApiTester($scenario);
@@ -7,4 +8,3 @@ $I->haveHttpHeader('Accept', 'application/json');
 $I->sendGET('api/pages/1');
 $I->seeResponseCodeIs(200);
 $I->seeResponseContainsJson(['id' => '1']);
-

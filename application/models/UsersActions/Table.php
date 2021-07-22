@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Bluz PHP Team
  * @link      https://github.com/bluzphp/skeleton
@@ -15,9 +16,9 @@ use Bluz\Proxy\Db;
  *
  * @package  Application\Users
  *
- * @method   static ?Row findRow($primaryKey)
+ * @method   static Row|null findRow($primaryKey)
  * @see      \Bluz\Db\Table::findRow()
- * @method   static ?Row findRowWhere($whereList)
+ * @method   static Row|null findRowWhere($whereList)
  * @see      \Bluz\Db\Table::findRowWhere()
  */
 class Table extends \Bluz\Db\Table

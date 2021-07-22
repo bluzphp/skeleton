@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Grid of users
  *

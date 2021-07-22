@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Bluz PHP Team
  * @link      https://github.com/bluzphp/skeleton
@@ -39,6 +40,11 @@ class Gd
     protected $height;
 
     /**
+     * @var integer
+     */
+    protected $type;
+
+    /**
      * Compression quality for JPEG
      *
      * @var integer
@@ -52,7 +58,7 @@ class Gd
      *
      * @throws Exception
      */
-    public function __construct($file)
+    public function __construct(string $file)
     {
         if (!file_exists($file)) {
             throw new Exception("Image `$file` file not found");
@@ -60,11 +66,11 @@ class Gd
         $this->file = $file;
 
         // Retrieve image information
-        [$this->width, $this->height, $type] = getimagesize($file);
+        [$this->width, $this->height, $this->type] = getimagesize($file);
 
         // Check support of file type
-        if (!(imagetypes() & $type)) {
-            throw new Exception("Server does not support `$type` image type");
+        if (!(imagetypes() & $this->type)) {
+            throw new Exception('Server does not support this image type');
         }
 
         // Using imagecreatefromstring will automatically detect the file type
@@ -80,7 +86,7 @@ class Gd
      *
      * @return void
      */
-    public function setImageCompressionQuality($quality): void
+    public function setImageCompressionQuality(int $quality): void
     {
         $this->quality = $quality;
     }
@@ -94,10 +100,11 @@ class Gd
      *
      * @return bool
      */
-    public function cropThumbnailImage($width, $height): bool
+    public function cropThumbnailImage(int $width, int $height): bool
     {
         // Compare image size with required thumbnail size
-        if (($this->width < $width) &&
+        if (
+            ($this->width < $width) &&
             ($this->height < $height)
         ) {
             return true;
@@ -130,7 +137,7 @@ class Gd
         $this->height = $height;
         $this->image = $thumb;
 
-        return $thumb ? true : false;
+        return (bool)$thumb;
     }
 
     /**
@@ -140,7 +147,7 @@ class Gd
      *
      * @return bool
      */
-    public function writeImage($fileName): bool
+    public function writeImage(string $fileName): bool
     {
         if (!$this->image || file_exists($fileName)) {
             return false;

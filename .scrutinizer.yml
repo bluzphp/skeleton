@@ -4,12 +4,20 @@ checks:
     deprecated_code_usage: true
     duplication: true
     no_short_open_tag: true
+build_failure_conditions:
+  - 'project.metric_change("scrutinizer.quality", < -0.10)'
+  - 'elements.rating(<= D).exists'                                # No classes/methods with a rating of D or worse
+  - 'elements.rating(<= D).new.exists'                            # No new classes/methods with a rating of D or worse allowed
+  - 'issues.label("coding-style").exists'                         # No coding style issues allowed
+  - 'issues.label("coding-style").new.exists'                     # No new coding style issues allowed
+  - 'issues.severity(>= MAJOR).new.exists'                        # New issues of major or higher severity
+# - 'issues.severity(>= MAJOR).exists'                            # New major or higher severity issues
+  - 'project.metric("scrutinizer.quality", < 9)'                  # Code Quality Rating drops below 9
+# - 'project.metric("scrutinizer.test_coverage", < 0.80)'         # Code Coverage drops below 80%
+  - 'project.metric_change("scrutinizer.test_coverage", < -0.1)'  # Code Coverage decreased from previous inspection by more than 10%
+  - 'patches.label("Doc Comments").exists'                        # No doc comments patches allowed
+  - 'patches.label("Spacing").exists'
 build:
-  cache:
-    directories:
-      - vendor        # Cache for already installed composer package -> speed up composer install
-      - bin           # As vendor directory is cached, bin directory must be also cached (as some dependency will not installed if they are already present and so, related binary will not be linked)
-      - ~/.composer   # Composer home directory (avoid fetching already fetched packages)
   nodes:
     analysis:
       tests:
@@ -19,19 +27,29 @@ build:
     override:
       - COMPOSER_ROOT_VERSION=dev-master
 filter:
-  excluded_paths: [bin, docs, docker, data, tests]
+  excluded_paths:
+    - "bin/"
+    - "data/"
+    - "docs/"
+    - "docker/"
+    - "public/"
+    - "tests/"
+  dependency_paths:
+    - "vendor/*"
 tools:
   external_code_coverage: false
+  #  timeout: 600 # Wait 10 minutes for results
+  #  runs: 1
   php_analyzer: true
   php_code_sniffer:
     config:
       standard: PSR12
   php_cpd:
     enabled: true
-    excluded_dirs: [bin, docs, docker, data, tests, vendor]
+    excluded_dirs: [bin, data, docs, docker, public, tests, vendor]
   php_loc:
     enabled: true
-    excluded_dirs: [bin, docs, docker, data, tests, vendor]
+    excluded_dirs: [bin, data, docs, docker, public, tests, vendor]
   php_mess_detector: true
   php_pdepend: true
   sensiolabs_security_checker: true

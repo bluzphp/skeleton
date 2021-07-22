@@ -6,6 +6,7 @@
  * @link https://github.com/bluzphp/framework/wiki/Auth
  * @return array
  */
+
 return [
     'hash' => function ($password) {
         return password_hash($password, PASSWORD_DEFAULT);
