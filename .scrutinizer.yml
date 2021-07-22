@@ -27,20 +27,17 @@ build:
     override:
       - COMPOSER_ROOT_VERSION=dev-master
 filter:
-  excluded_paths:
-    - "bin/"
-    - "data/"
-    - "docs/"
-    - "docker/"
-    - "public/"
-    - "tests/"
+  paths:
+    - application/*
   dependency_paths:
-    - "vendor/*"
+    - vendor/*
 tools:
   external_code_coverage: false
   #  timeout: 600 # Wait 10 minutes for results
   #  runs: 1
-  php_analyzer: true
+  php_analyzer:
+    dependency_paths:
+      - vendor/*
   php_code_sniffer:
     config:
       standard: PSR12
