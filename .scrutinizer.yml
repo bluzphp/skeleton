@@ -42,9 +42,9 @@ filter:
   dependency_paths:
     - "vendor/"
 tools:
-  external_code_coverage:
-    timeout: 600 # Wait 10 minutes for results
-    runs: 1
+  external_code_coverage: false
+  #  timeout: 600 # Wait 10 minutes for results
+  #  runs: 1
   php_analyzer: true
   php_code_sniffer:
     config:
