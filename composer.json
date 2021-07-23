@@ -16,8 +16,7 @@
     "robmorgan/phinx": "~0.12",
     "public/bootstrap-icons": "dev-master",
     "public/swagger-ui": "dev-master",
-    "public/jquery": "dev-master",
-    "public/require": "dev-master"
+    "public/jquery": "dev-master"
   },
   "require-dev": {
     "codeception/codeception": "~4.1",
@@ -56,18 +55,6 @@
         },
         "extra": {
           "any":"value"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "public/require",
-        "version": "dev-master",
-        "license": "MIT",
-        "dist": {
-          "url": "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js",
-          "type": "file"
         }
       }
     },

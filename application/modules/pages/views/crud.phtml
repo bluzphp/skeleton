@@ -24,10 +24,10 @@ $uid = uniqid('form_', false); ?>
                     <div class="col-lg-10">
                         <input type="text" class="form-control" id="alias" name="alias" value="<?= esc($row->alias) ?>"
                                required/>
-                        <small class="help-block controls"><?= __('Alias for build permalink to this page') ?></small>
+                        <small class="text-muted"><?= __('Alias for build permalink to this page') ?></small>
                     </div>
                 </div>
-                <div class="form-group row mb-1">
+                <div class="form-group row mb-2">
                     <div class="col-lg-12">
                         <label for="content" class="form-control-label"><?= __('Content') ?>:</label>
                         <textarea rows="24" cols="26" id="content" class="form-control redactor" name="content"><?= esc(
@@ -36,9 +36,7 @@ $uid = uniqid('form_', false); ?>
                     </div>
                 </div>
                 <div class="form-group row mb-1">
-                    <div class="col-lg-2"></div>
-                    <p class="help-block col-lg-10"><?= __('Meta information about page') ?></p>
-
+                    <div class="col-lg-10 offset-lg-2 text-muted"><?= __('Meta information about page') ?></div>
                     <label class="col-form-label col-lg-2" for="keywords"><?= __('Keywords') ?>:</label>
                     <div class="col-lg-10">
                         <input type="text" class="form-control" id="keywords" name="keywords"
@@ -59,17 +57,16 @@ $uid = uniqid('form_', false); ?>
             </div>
         </div>
     </form>
-<?= $this->redactor('.redactor', ['minHeight' => '480px']) ?>
-    <script>
-        require(['jquery', 'bluz.tools'], function ($, tools) {
-            $('#title').blur(function () {
-                let $alias = $('#alias');
-                if ($alias.val() === '') {
-                    let title = $(this).val();
-                    title = tools.alias(title);
-                    $alias.val(title);
-                }
-            });
+    <script type="module">
+        import '/vendor/jquery/jquery.js';
+        import {tools} from '/js/bluz.tools.js';
+        $('#title').blur(function () {
+            let $alias = $('#alias');
+            if ($alias.val() === '') {
+                let title = $(this).val();
+                title = tools.alias(title);
+                $alias.val(title);
+            }
         });
     </script>
 <?php
