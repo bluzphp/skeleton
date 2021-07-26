@@ -38,9 +38,7 @@ tools:
   external_code_coverage: false
   #  timeout: 600 # Wait 10 minutes for results
   #  runs: 1
-  php_analyzer:
-    dependency_paths:
-      - vendor/*
+  php_analyzer: true
   php_code_sniffer:
     config:
       standard: PSR12
