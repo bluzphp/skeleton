@@ -52,19 +52,21 @@ let modal = {
         return $div;
     },
     /**
-     * @param {jQuery} $element
+     * @param {jQuery|string} $element
      */
     show: function($element) {
+        $element = $($element);
         if ($element.length) {
-            bootstrap.Modal.getInstance($element.get(0)).show();
+            bootstrap.Modal.getOrCreateInstance($element.get(0))?.show();
         }
     },
     /**
-     * @param {jQuery} $element
+     * @param {jQuery|string} $element
      */
     hide: function($element) {
+        $element = $($element);
         if ($element.length) {
-            bootstrap.Modal.getInstance($element.get(0)).hide();
+            bootstrap.Modal.getInstance($element.get(0))?.hide();
         }
     }
 };

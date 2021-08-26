@@ -1,16 +1,23 @@
+# Local environment
 .DS_Store
 .idea
+# Don't commit lock file for skeleton
+# But commit it for any other project
 composer.lock
+# Tools
 composer.phar
 codecept.phar
 codeception.yml
+# Dev environment configuration
 /application/configs/dev
+# Artifacts
 /data/cache
 /data/logs
 /data/queues
 /data/sessions
 /data/uploads
+# Environment configuration
 /public/.htaccess
-/public/redactor
+# Vendors
 /public/vendor
 /vendor
