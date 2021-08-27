@@ -23,6 +23,17 @@
             <?php
             endif; ?>
             <?php
+            if ($this->hasModule('payments')) : ?>
+                <li role="menuitem" class="nav-item <?= ($this->module('payments') ? 'active' : '') ?>">
+                    <?= $this->ahref(
+                        '<i class="bi bi-currency-exchange"></i> ' . __('Payments'),
+                        ['payments', 'grid', [], true],
+                        ['class' => 'nav-link']
+                    ) ?>
+                </li>
+            <?php
+            endif; ?>
+            <?php
             if ($this->hasModule('phones')) : ?>
                 <li role="menuitem" class="nav-item <?= ($this->module('phones') ? 'active' : '') ?>">
                     <?= $this->ahref(
