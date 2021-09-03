@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Post Install Composer script
  *

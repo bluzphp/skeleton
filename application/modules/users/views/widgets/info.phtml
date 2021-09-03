@@ -1,0 +1,24 @@
+<?php /* @var Application\Users\Row $user */ ?>
+<div class="card mb-3 bg-info">
+  <div class="card-header d-flex justify-content-between">
+    <h4 class="card-title"><?= __('Profile') ?></h4>
+    <a href="<?= $this->url('users', 'profile'); ?>" class="btn btn-light">
+        <i class="bi bi-person-badge"></i>
+    </a>
+  </div>
+  <div class="card-body text-dark">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <?= $user->login ?>
+        </li>
+      <li class="list-group-item">
+        <a href="mailto:<?= $user->email ?>"><?= $user->email ?></a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-footer text-center">
+    <a href="<?= $this->url('users', 'profile'); ?>" class="btn btn-primary">
+        <?= __('Edit') ?>
+    </a>
+  </div>
+</div>

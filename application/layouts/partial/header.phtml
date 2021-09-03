@@ -28,8 +28,7 @@ use Bluz\Proxy\Messages;
     <meta name="msapplication-config" content="<?= $this->baseUrl('img/browserconfig.xml') ?>"/>
     <meta name="theme-color" content="#ffffff"/>
 
-    <script src="<?= $this->baseUrl('vendor/require/require.min.js') ?>"></script>
-    <script src="<?= $this->baseUrl('js/config.js') ?>"></script>
+    <script src="<?= $this->baseUrl('js/bluz.js') ?>" type="module"></script>
 
     <?= Layout::headScript(); ?>
     <?= Layout::headStyle(); ?>
@@ -41,10 +40,9 @@ use Bluz\Proxy\Messages;
 if (Messages::count()):
     // JS not allow read headers of current request, only for XMLHTTPRequests :(
     ?>
-    <script>
-        require(['bluz.notify'], function (notify) {
-            notify.set(<?=json_encode(Messages::popAll())?>);
-        });
+    <script type="module">
+        import {notify} from '/js/bluz.notify.js';
+        notify.set(<?=json_encode(Messages::popAll())?>);
     </script>
 <?php
 endif; ?>

@@ -28,14 +28,12 @@ build:
       - COMPOSER_ROOT_VERSION=dev-master
 filter:
   excluded_paths:
-    - "bin/"
-    - "data/"
-    - "docs/"
-    - "docker/"
-    - "public/"
-    - "tests/"
-  dependency_paths:
-    - "vendor/*"
+    - bin/
+    - data/
+    - docs/
+    - docker/
+    - public/
+    - tests/
 tools:
   external_code_coverage: false
   #  timeout: 600 # Wait 10 minutes for results

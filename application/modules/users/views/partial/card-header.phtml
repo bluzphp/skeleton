@@ -64,5 +64,16 @@
             </li>
         <?php
         endif; ?>
+        <?php
+        if ($this->hasModule('payments') && $this->user()->getId() === $user->getId()) : ?>
+            <li class="nav-item">
+                <?= $this->ahref(
+                    __('Payments'),
+                    ['payments', 'index'],
+                    ['class' => 'nav-link']
+                ) ?>
+            </li>
+        <?php
+        endif; ?>
     </ul>
 </div>

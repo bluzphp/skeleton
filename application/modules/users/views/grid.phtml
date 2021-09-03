@@ -8,9 +8,8 @@ if (!$grid) {
     return;
 }
 ?>
-<script>
-    // use data-spy="grid" for use AJAX for reload grid
-    require(['bluz.grid']);
+<script type="module">
+  import '<?=$this->baseUrl('/js/bluz.grid.js');?>';
 </script>
 <div class="clearfix" data-spy="grid" data-grid="<?= $grid->getUid() ?>">
     <nav class="navbar navbar-light bg-light justify-content-between">

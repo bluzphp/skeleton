@@ -5,31 +5,30 @@
  * @author Anton Shevchuk
  * @created  26.11.12 12:51
  */
-/* global define,require*/
-define(['bluz', 'jquery'], function (bluz, $) {
-  'use strict';
+import '../vendor/jquery/jquery.js';
 
-  // static validator
-  let form;
-  let settings;
-  let defaults = {
+export {form};
+
+// static validator
+let settings;
+let defaults = {
     container: 'form-group',           // default for layout
     feedback: 'invalid-feedback',
     errorClass: 'is-invalid',
     inputCollection: false,            // uses 'data[field-name]' or 'field-name'
     tooltipPosition: 'top'             // can be bottom
-  };
+};
 
-  settings = $.extend({}, defaults);
+settings = $.extend({}, defaults);
 
-  form = {
+let form = {
     /**
      * Apply new settings
      * @param {{}} options for instance
      * @return {void}
      */
     init: function (options) {
-      settings = $.extend({}, defaults, options);
+        settings = $.extend({}, defaults, options);
     },
     /**
      * Show notice message for fields
@@ -39,31 +38,31 @@ define(['bluz', 'jquery'], function (bluz, $) {
      * @return {void}
      */
     notice: function ($form, $field, messages) {
-      let $group = $field.parents('.' + settings.container);
-      let $feedback = $group.find('.' + settings.feedback);
+        let $group = $field.parents('.' + settings.container);
+        let $feedback = $group.find('.' + settings.feedback);
 
-      if (messages instanceof Array) {
-        messages = messages.join('<br/>');
-      }
+        if (messages instanceof Array) {
+            messages = messages.join('<br/>');
+        }
 
-      // add error class to field
-      $field.addClass(settings.errorClass);
-      $field.parent('.input-group').addClass(settings.errorClass);
-      $field.get(0).setCustomValidity(messages);
+        // add error class to field
+        $field.addClass(settings.errorClass);
+        $field.parent('.input-group').addClass(settings.errorClass);
+        $field.get(0).setCustomValidity(messages);
 
-      // create feedback dom element
-      if ($feedback.length === 0) {
-        $feedback = $('<div class="' + settings.feedback + '"></div>');
-        // field can be hidden, e.g. by WYSIWYG editor
-        $field.after($feedback);
-      }
-      $feedback.html(messages);
-      $feedback.show();
+        // create feedback dom element
+        if ($feedback.length === 0) {
+            $feedback = $('<div class="' + settings.feedback + '"></div>');
+            // field can be hidden, e.g. by WYSIWYG editor
+            $field.after($feedback);
+        }
+        $feedback.html(messages);
+        $feedback.show();
 
-      $field.click(function () {
-        $field.get(0).setCustomValidity('');
-        $feedback.hide();
-      });
+        $field.click(function () {
+            $field.get(0).setCustomValidity('');
+            $feedback.hide();
+        });
     },
     /**
      * Process errors stack from server side
@@ -72,26 +71,24 @@ define(['bluz', 'jquery'], function (bluz, $) {
      * @return {void}
      */
     notices: function ($form, data) {
-      // clear previously generated classes
-      $form.find(settings.container).removeClass(settings.errorClass);
+        // clear previously generated classes
+        $form.find(settings.container).removeClass(settings.errorClass);
 
-      if (data !== undefined && data.errors !== undefined) {
-        $.each(data.errors, (field, notices) => {
-          let $field = $('[name^=' + field + ']:first');
+        if (data !== undefined && data.errors !== undefined) {
+            $.each(data.errors, (field, notices) => {
+                let $field = $('[name^=' + field + ']:first');
 
-          // if field with `name` is not exists
-          // try to find `data[name]` field
-          if ($field.length === 0) {
-            $field = $('[name^=data[' + field + ']]:first');
-          }
+                // if field with `name` is not exists
+                // try to find `data[name]` field
+                if ($field.length === 0) {
+                    $field = $('[name^=data[' + field + ']]:first');
+                }
 
-          // if found field
-          if ($field.length !== 0) {
-            form.notice($form, $field, notices);
-          }
-        });
-      }
+                // if found field
+                if ($field.length !== 0) {
+                    form.notice($form, $field, notices);
+                }
+            });
+        }
     }
-  };
-  return form;
-});
+};

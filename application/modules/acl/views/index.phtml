@@ -66,17 +66,16 @@
     </table>
     <input type="submit" value="<?= __('Save') ?>" class="btn btn-primary"/>
 </form>
-<script>
-    require(['jquery'], function ($) {
-        $(function () {
-            $('#create-role, table a[data-ajax-dialog]').on('success.bluz.dialog', function () {
-                // reload current page on create/edit
-                window.location.reload();
-            });
-            $('table a[data-confirm]').on('success.bluz.ajax', function () {
-                // reload current page on delete
-                window.location.reload();
-            });
-        })
+<script type="module">
+    import '/vendor/jquery/jquery.js';
+    $(function () {
+        $('#create-role, table a[data-ajax-dialog]').on('success.bluz.dialog', function () {
+            // reload current page on create/edit
+            window.location.reload();
+        });
+        $('table a[data-confirm]').on('success.bluz.ajax', function () {
+            // reload current page on delete
+            window.location.reload();
+        });
     })
 </script>

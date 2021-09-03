@@ -3,15 +3,14 @@ if ($this->breadCrumbs()) : ?>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb m-3">
             <li class="breadcrumb-item">
-                <a href="/" data-toggle="tooltip" data-placement="bottom" title="<?= __('Back to homepage') ?>">
+                <a href="/" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= __('Back to homepage') ?>">
                     <i class="bi bi-house-door me-2"></i><?= __('Home') ?>
                 </a>
             </li>
             <?php
             foreach ($this->breadCrumbs() as $crump): ?>
                 <li class="breadcrumb-item">
-                    <?php
-                    echo $crump ?>
+                    <?=$crump?>
                 </li>
             <?php
             endforeach; ?>
