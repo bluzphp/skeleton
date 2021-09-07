@@ -19,7 +19,7 @@
  * @link   https://github.com/bluzphp/skeleton/wiki/JavaScript-Notes
  * @author Anton Shevchuk
  */
-import '../vendor/jquery/jquery.js';
+import '../vendor/jquery/jquery.min.js';
 import {console} from './bluz.console.js';
 import {notify} from './bluz.notify.js';
 import {modal} from './bluz.modal.js';
