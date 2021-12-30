@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @var \Application\Logs\Grid $grid
+ */
+if (!$grid) {
+    return;
+}
+$uid = $grid->getUid();
+?>
+<script type="module">
+  import '<?=$this->baseUrl('/js/bluz.grid.js');?>'
+</script>
+<div class="clearfix" data-spy="grid" data-grid="<?= $uid ?>">
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <div>
+            <?php
+            $today = strtotime(date('Y-m-d'));
+            $seven = strtotime(date('Y-m-d')) - 7 * 24 * 60 * 60;
+            ?>
+            <a href="<?= $grid->filter('time', 'gt', '0', true) ?>" data-ajax
+               class="btn <?= (!$grid->getFilter('time', 'gt') ? 'btn-info' : 'btn-secondary') ?>">
+                <?= __('all') ?>
+            </a>
+            <a href="<?= $grid->filter('time', 'gt', $today) ?>" data-ajax
+               class="btn <?= ($today == $grid->getFilter('time', 'gt') ? 'btn-info' : 'btn-secondary') ?>">
+                <?= __('today') ?>
+            </a>
+            <a href="<?= $grid->filter('time', 'gt', $seven) ?>" data-ajax
+               class="btn <?= ($seven == $grid->getFilter('time', 'gt') ? 'btn-info' : 'btn-secondary') ?>">
+                <?= __('7 days') ?>
+            </a>
+            <!-- Place filters here -->
+        </div>
+        <!-- Place search form here -->
+    </nav>
+
+    <hr/>
+
+    <div class="d-none d-md-block">
+        <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
+    </div>
+    <?= $this->partial('grid/limit.phtml', ['grid' => $grid]) ?>
+
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th><a href="<?= $grid->order('name') ?: '#' ?>"><?= __('Filename') ?></a></th>
+            <th width="180px" class="text-center"><a href="<?= $grid->order('size') ?: '#' ?>"><?= __('Size') ?></a>
+            </th>
+            <th width="180px"><a href="<?= $grid->order('created') ?: '#' ?>"><?= __('Created') ?></a></th>
+            <th width="60px"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($grid->getData() as $row) : ?>
+            <tr>
+                <td>
+                    <a href="<?= $this->url('logs', 'log', ['name' => $row['name']]) ?>"
+                       data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg"><?= $row['name'] ?></a>
+                </td>
+                <td class="text-end"><?= $row['size'] ?></td>
+                <td><?= $row['created'] ?></td>
+                <td>
+                    <a href="<?= $this->url('logs', 'download', ['name' => $row['name']]) ?>" class="btn btn-info">
+                        <i class="bi bi-file-earmark-arrow-down"></i>
+                    </a>
+                </td>
+            </tr>
+        <?php
+        endforeach; ?>
+        </tbody>
+    </table>
+
+    <?= $this->partial('grid/empty-rows.phtml', ['grid' => $grid]) ?>
+    <?= $this->partial('grid/pagination.phtml', ['grid' => $grid]) ?>
+    <?= $this->partial('grid/total.phtml', ['grid' => $grid]) ?>
+
+</div>

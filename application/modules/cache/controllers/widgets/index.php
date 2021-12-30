@@ -29,7 +29,8 @@ return function () {
      * @var Controller $this
      */
     if ($cacheAdapter = Cache::getInstance()) {
-        $this->assign('adapter', get_class($cacheAdapter));
+        $adapter = preg_split('/\\\\/', get_class($cacheAdapter));
+        $this->assign('adapter', array_pop($adapter));
     } else {
         $this->assign('adapter', $cacheAdapter);
     }
