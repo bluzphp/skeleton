@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Phinx\Migration\AbstractMigration;
 
-class PagesData extends AbstractMigration
+final class PagesData extends AbstractMigration
 {
     /**
      * Migrate Up.

@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Phinx\Migration\AbstractMigration;
 
-class Users extends AbstractMigration
+final class Users extends AbstractMigration
 {
     /**
      * Change Method.

@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Phinx\Migration\AbstractMigration;
 
-class Acl extends AbstractMigration
+final class Acl extends AbstractMigration
 {
     /**
      * Change Method.
