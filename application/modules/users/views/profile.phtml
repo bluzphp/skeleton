@@ -65,8 +65,10 @@
 </div>
 <?php
 if ($this->hasModule('media')) : ?>
-    <script>
-        require(['jquery'], function ($) {
+
+    <script type="module">
+        import '/vendor/jquery/jquery.min.js';
+        $(function () {
             $('#avatar-button').on('push.bluz.data', function (event, data) {
                 // send to server for update avatar
                 // all information about image inside data
