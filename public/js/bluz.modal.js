@@ -4,8 +4,8 @@
  * @author   Anton Shevchuk
  * @created  29.06.17 19:19
  */
-import '../vendor/jquery/jquery.js';
-import '../vendor/bootstrap/js/bootstrap.bundle.js';
+import '../vendor/jquery/jquery.min.js'
+import '../vendor/bootstrap/js/bootstrap.bundle.min.js';
 
 export {modal};
 

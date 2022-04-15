@@ -4,7 +4,7 @@
  * @author   Anton Shevchuk
  * @created  11.09.12 10:30
  */
-import '../vendor/jquery/jquery.js';
+import '../vendor/jquery/jquery.min.js'
 
 $(function () {
     $('[data-spy=grid]').each(function (i, el) {

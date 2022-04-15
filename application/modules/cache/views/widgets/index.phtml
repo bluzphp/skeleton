@@ -3,23 +3,22 @@
 <?php
 if ($adapter) : ?>
     <div class="card text-white bg-success">
-        <div class="card-header"><?= __('Cache') ?></div>
+        <div class="card-header"><?= __('Cache is enabled') ?></div>
         <div class="card-body">
-            <h4 class="card-title"><?= __('Cache is enabled') ?></h4>
             <p class="card-text"><?= __('Current cache adapter is %s', $adapter) ?></p>
             <div class="card-body text-dark">
                 <div class="list-group">
                     <a href="<?= $this->url('cache', 'clean') ?>"
                        class="list-group-item list-group-item-warning" data-confirm data-ajax data-ajax-method="post">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1"><?= __('Clean system data') ?></h5>
+                            <span class="mb-1"><?= __('Clean system data') ?></span>
                             <small><i class="bi bi-recycle"></i></small>
                         </div>
                     </a>
                     <a href="<?= $this->url('cache', 'flush') ?>"
                        class="list-group-item list-group-item-danger" data-ajax data-confirm data-ajax-method="post">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1"><?= __('Clean all data') ?></h5>
+                            <span class="mb-1"><?= __('Clean all data') ?></span>
                             <small><i class="bi bi-recycle"></i></small>
                         </div>
                     </a>
@@ -30,9 +29,8 @@ if ($adapter) : ?>
 <?php
 else: ?>
     <div class="card bg-light">
-        <div class="card-header"><?= __('Cache') ?></div>
+        <div class="card-header"><?= __('Cache is disabled') ?></div>
         <div class="card-body">
-            <h4 class="card-title"><?= __('Cache is disabled') ?></h4>
             <p class="card-text">
                 <?= __('Read manual for more information') ?><br/>
                 <a href="https://github.com/bluzphp/framework/wiki/Cache">wiki/Cache</a>

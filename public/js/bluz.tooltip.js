@@ -1,7 +1,7 @@
 /**
  * Boostrap Tooltips
  */
-import '../vendor/bootstrap/js/bootstrap.bundle.js';
+import '../vendor/bootstrap/js/bootstrap.bundle.min.js';
 
 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 tooltipTriggerList.map(function (tooltipTriggerEl) {

@@ -5,7 +5,7 @@
  * @author Anton Shevchuk
  * @created  26.11.12 12:51
  */
-import '../vendor/jquery/jquery.js';
+import '../vendor/jquery/jquery.min.js'
 
 export {form};
 

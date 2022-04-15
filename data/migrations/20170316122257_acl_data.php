@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Phinx\Migration\AbstractMigration;
 
-class AclData extends AbstractMigration
+final class AclData extends AbstractMigration
 {
     /**
      * Migrate Up.

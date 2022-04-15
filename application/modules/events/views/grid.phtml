@@ -1,0 +1,90 @@
+<?php
+/**
+ * @var \Application\Events\Grid $grid
+ * @var \Bluz\View\View $this
+ */
+if (!$grid) return;
+$uid = $grid->getUid();
+?>
+<script type="module">
+  import '<?=$this->baseUrl('/js/bluz.grid.js');?>';
+</script>
+<div class="clearfix" data-spy="grid" data-grid="<?=$uid?>">
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <div>
+      <a href="<?=$this->url('events', 'crud')?>" class="btn btn-primary"
+         data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
+         <?= __('Create') ?>      </a>
+      <!-- Place filters here -->
+    </div>
+    <!-- Place search form here -->
+  </nav>
+
+  <hr/>
+
+  <?=$this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
+  <?=$this->partial('grid/limit.phtml', ['grid'=>$grid]) ?>
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th width="80px" class="text-center"><a href="<?= $grid->order('id') ?: '#' ?>"><?= __('Id') ?></a></th>
+        <th width="120px"><a href="<?= $grid->order('event') ?: '#' ?>"><?= __('Event') ?></a></th>
+        <th width="120px"><a href="<?= $grid->order('target') ?: '#' ?>"><?= __('Target') ?></a></th>
+        <th width="180px" class="text-center"><a href="<?= $grid->order('created') ?: '#' ?>"><?= __('Created') ?></a></th>
+        <th></th>
+        <!-- Place your column headers here, for generate link for order use method $grid->order('column name') -->
+        <th width="160px"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach($grid->getData() as $row) : ?>
+      <tr>
+        <td class="text-end"><?= $row->id ?></td>
+        <td><?= $row->event ?></td>
+        <td><?= $row->target ?></td>
+        <td><?= $row->created ?></td>
+        <td><div class="font-monospace"><?= (strlen($row->data) < 80) ? $row->data : substr($row->data, 0, 72) . '…'?></div></td>
+        <!-- Place your content her, use $row['column name'] -->
+        <td class="controls d-flex justify-content-around">
+            <a href="<?= $this->url('api', 'events') . '/'. $row->id ?>" class="btn btn-warning btn-json"
+               data-ajax data-ajax-method="get">
+                <i class="bi bi-code-slash"></i>
+            </a>
+          <a href="<?= $this->url('events', 'crud', ['id' => $row->id]) ?>" class="btn btn-primary"
+             data-ajax-dialog data-ajax-method="get" data-modal-style="modal-lg">
+            <i class="bi bi-pencil"></i>
+          </a>
+          <a href="<?= $this->url('events', 'crud', ['id' => $row->id]) ?>" class="btn btn-danger"
+             data-confirm data-ajax data-ajax-method="delete">
+            <i class="bi bi-trash"></i>
+          </a>
+        </td>
+      </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+
+  <?=$this->partial('grid/empty-rows.phtml', ['grid'=>$grid]) ?>
+  <?=$this->partial('grid/pagination.phtml', ['grid'=>$grid]) ?>
+  <?=$this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
+
+</div>
+
+<script type="module">
+  import {modal} from '<?=$this->baseUrl('/js/bluz.modal.js');?>';
+  // show charge code
+  $('.btn-json').on('success.bluz.ajax', function(a, b, c, d, data) {
+    console.log(data);
+    let $div = $(
+      '<div class="card">' +
+        '<div class="card-header"><?= __('JSON Data') ?></div>' +
+        '<div class="card-body"><div class="font-monospace">' +
+         data[0]['data'] +
+        '</div></div>' +
+      '</div>'
+    )
+    let $modal = modal.create($(document), $div, 'width: 800px');
+    modal.show($modal);
+  });
+</script>

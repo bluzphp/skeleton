@@ -5,7 +5,7 @@
  * @author   Anton Shevchuk
  * @created  02.08.13 10:52
  */
-import '../vendor/jquery/jquery.js';
+import '../vendor/jquery/jquery.min.js'
 export {notify};
 
 let classes;

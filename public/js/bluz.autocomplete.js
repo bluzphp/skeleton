@@ -3,7 +3,7 @@
  *
  * @author Anton Shevchuk
  */
-import '../vendor/jquery/jquery.js'
+import '../vendor/jquery/jquery.min.js'
 import './bluz.ajax.js'
 
 /**

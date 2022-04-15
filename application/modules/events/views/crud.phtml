@@ -1,0 +1,64 @@
+<?php
+/**
+ * @var \Application\Events\Row $row
+ * @var \Bluz\View\View $this
+ */
+$uid = uniqid('form_', false);
+$url = $this->url('events', 'crud');
+?>
+<form id="<?=$uid?>" action="<?=$url?>" class="form-horizontal" data-ajax method="POST">
+  <input type="hidden" name="_method" value="<?=$method?>"/>
+  <div class="modal-header">
+    <h4 class="modal-title"><?=__('Events')?></h4>
+    <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+  </div>
+  <div class="modal-body">
+    <input type="hidden" id="id" name="id" value="<?= $row['id'] ?>"/>
+    <div class="form-group row mb-1">
+      <label class="col-form-label col-lg-4" for="event"><?=__('Event')?></label>
+      <div class="col-lg-8">
+        <input type="text" id="event" name="event" class="form-control" value="<?= $row['event'] ?>"/>
+        <div class="invalid-feedback"><!-- Place custom validator message here --></div>
+      </div>
+    </div>
+    <div class="form-group row mb-1">
+      <label class="col-form-label col-lg-4" for="target"><?=__('Target')?></label>
+      <div class="col-lg-8">
+        <input type="text" id="target" name="target" class="form-control" value="<?= $row['target'] ?>"/>
+        <div class="invalid-feedback"><!-- Place custom validator message here --></div>
+      </div>
+    </div>
+    <div class="form-group row mb-1">
+      <label class="col-form-label col-lg-4" for="data"><?=__('Data')?></label>
+      <div class="col-lg-8">
+        <input type="text" id="data" name="data" class="form-control" value="<?= $row['data'] ?>"/>
+        <div class="invalid-feedback"><!-- Place custom validator message here --></div>
+      </div>
+    </div>
+    <div class="form-group row mb-1">
+      <label class="col-form-label col-lg-4" for="created"><?=__('Created')?></label>
+      <div class="col-lg-8">
+        <input type="datetime-local" id="created" name="created" class="form-control" disabled value="<?= $row['created'] ?>"/>
+        <div class="invalid-feedback"><!-- Place custom validator message here --></div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-lg-4" for="updated"><?=__('Updated')?></label>
+      <div class="col-lg-8">
+        <input type="datetime-local" id="updated" name="updated" class="form-control" disabled value="<?= $row['updated'] ?>"/>
+        <div class="invalid-feedback"><!-- Place custom validator message here --></div>
+      </div>
+    </div>
+    <!-- Place additional form fields here -->
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary"><?=__('Save')?></button>
+    <button type="button" class="btn btn-light" data-bs-dismiss="modal"><?= __('Close') ?></button>
+  </div>
+</form>
+<?php
+// need for plain request
+if (isset($errors)) :
+    $this->partial('crud/errors.phtml', ['uid' => $uid, 'errors' => $errors]);
+endif;
+?>

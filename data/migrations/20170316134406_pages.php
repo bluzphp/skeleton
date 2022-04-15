@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Phinx\Migration\AbstractMigration;
 
-class Pages extends AbstractMigration
+final class Pages extends AbstractMigration
 {
     /**
      * Change Method.

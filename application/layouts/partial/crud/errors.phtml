@@ -1,8 +1,9 @@
 <?php
 
 $data = json_encode(['errors' => $errors]);
-echo $this->scriptBlock(
-    'require(["bluz.form"], function(form) {
-    form.notices($("#' . $uid . '"), ' . $data . ');
-});'
-);
+
+?>
+<script type="module">
+  import { form } from '<?=$this->baseUrl('/js/bluz.form.js');?>'
+  form.notices($("#<?=$uid?>"), <?=$data?>);
+</script>

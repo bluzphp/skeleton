@@ -119,6 +119,23 @@
                 </li>
             <?php
             endif; ?>
+        </ul>
+        <hr/>
+        <ul role="menu" class="nav nav-pills flex-column">
+            <li role="menuitem" class="nav-item <?= ($this->module('system') ? 'active' : '') ?>">
+                <?= $this->ahref(
+                    '<i class="bi bi-tools"></i> ' . __('System'),
+                    ['system', 'index', [], true],
+                    ['class' => 'nav-link']
+                ) ?>
+            </li>
+            <li class="nav-item <?= ($this->module('events') ? 'active' : '') ?>">
+                <?= $this->ahref(
+                    '<i class="bi bi-cone-striped"></i> ' . __('Events'),
+                    ['events', 'grid', [], true],
+                    ['class' => 'nav-link']
+                ) ?>
+            </li>
             <?php
             if ($this->hasModule('queues')) : ?>
                 <li role="menuitem" class="nav-item <?= ($this->module('queues') ? 'active' : '') ?>">
@@ -130,10 +147,10 @@
                 </li>
             <?php
             endif; ?>
-            <li role="menuitem" class="nav-item <?= ($this->module('system') ? 'active' : '') ?>">
+            <li class="nav-item <?= ($this->module('logs') ? 'active' : '') ?>">
                 <?= $this->ahref(
-                    '<i class="bi bi-tools"></i> ' . __('System'),
-                    ['system', 'index', [], true],
+                    '<i class="bi bi-file-earmark-text"></i> ' . __('Logs'),
+                    ['logs', 'grid', [], true],
                     ['class' => 'nav-link']
                 ) ?>
             </li>
